@@ -1,0 +1,25 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h2>Random Number Generator</h2>
+    <script type="module">
+        const messageElement = document.createElement('p')
+        messageElement.innerText = 'randomNumber:'
+        document.body.appendChild(messageElement)
+
+        const buttonElement = document.createElement('input')
+        buttonElement.type = 'button'
+        buttonElement.value = 'generate'
+        buttonElement.style.width = '100px'
+        document.body.appendChild(buttonElement)
+        buttonElement.addEventListener('click', () => {
+            messageElement.innerText = `randomNumber: ${Math.random()}`
+        })
+    </script>
+</body>
+
+</html>
