@@ -13,8 +13,8 @@ httpServer.on('request', (request, response) => {
       '</head>',
       '',
       '<body>',
-      '<h2>Random Number Generator</h2>',
-      `<p>random number is ${Math.random()}</p>`,
+      '    <h2>Random Number Generator</h2>',
+      `    <p>random number is ${Math.random()}</p>`,
       '</body>',
       '',
       '</html>'
