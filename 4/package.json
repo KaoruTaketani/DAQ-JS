@@ -1,6 +1,4 @@
 {
-  "type": "module",
-  "devDependencies": {
-    "ws": "^8.18.0"
+    "type": "module",
+    "dependencies": {}
   }
-}
