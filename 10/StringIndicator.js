@@ -1,6 +1,6 @@
-import AssignableString from './AssignableString.js'
+import ListenableString from './ListenableString.js'
 
-export default class extends AssignableString {
+export default class extends ListenableString {
     constructor(channel, webSockets, connectedWebSocket) {
         super()
         this._value
