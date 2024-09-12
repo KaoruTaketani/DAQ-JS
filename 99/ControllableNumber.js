@@ -1,6 +1,6 @@
-import ListenableString from './ListenableString.js'
+import ListenableNumber from './ListenableNumber.js'
 
-export default class extends ListenableString {
+export default class extends ListenableNumber {
     constructor(channel, message) {
         super()
         message.addListener(arg => {
