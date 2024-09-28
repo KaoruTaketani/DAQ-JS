@@ -13,15 +13,16 @@ export default class extends Operator {
         this._operation = () => {
             this._httpServer.on('upgrade', (request, socket, head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
-                    ws.on('message', data => {
-                        const msg = JSON.parse(data)
-                        // console.log(msg)
+                    variables.newWebSocket.assign(ws)
+                    // ws.on('message', data => {
+                    //     const msg = JSON.parse(data)
+                    //     console.log(msg)
 
-                        if (msg.channel === 'clickedElementValue'
-                            && msg.value === 'generate') {
-                            ws.send(JSON.stringify({ channel: 'messageInnerText', value: `random number is ${Math.random()}` }))
-                        }
-                    })
+                    //     if (msg.channel === 'clickedElementValue'
+                    //         && msg.value === 'generate') {
+                    //         ws.send(JSON.stringify({ channel: 'messageInnerText', value: `random number is ${Math.random()}` }))
+                    //     }
+                    // })
                 })
             })
         }

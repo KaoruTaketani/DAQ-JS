@@ -1,4 +1,3 @@
-import { readFile } from 'fs'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -6,60 +5,51 @@ export default class extends Operator {
         super()
         this._httpResponse
         variables.httpResponse.addListener(arg => { this._httpResponse = arg })
-        this._httpRequestUrl
         variables.httpRequestUrl.addListener(arg => {
-            this._httpRequestUrl = arg
             this._operation()
         })
         this._operation = () => {
-            // console.log(this._httpRequestUrl)
-            if (this._httpRequestUrl === '/') {
-                this._httpResponse.writeHead(200, { 'Content-Type': 'text/html' })
-                this._httpResponse.end([
-                    '<html>',
-                    '',
-                    '<head>',
-                    '    <meta charset="utf-8">',
-                    '</head>',
-                    '',
-                    '<body>',
-                    '    <p><a href="RandomNumberGeneratorClient.html">Random Number Generator</a></p>',
-                    '</body>',
-                    '',
-                    '</html>'
-                ].join('\n'))
-                return
-            }
-            if (this._httpRequestUrl === '/RandomNumberGeneratorClient.html') {
-                this._httpResponse.writeHead(200, { 'Content-Type': 'text/html' })
-                this._httpResponse.end([
-                    '<html>',
-                    '',
-                    '<head>',
-                    '    <meta charset="utf-8">',
-                    '</head>',
-                    '',
-                    '<body>',
-                    '    <h2>Random Number Generator</h2>',
-                    `    <script type="module" src="RandomNumberGeneratorClient.js">`,
-                    '    </script>',
-                    '</body>',
-                    '',
-                    '</html>'
-                ].join('\n'))
-                return
-            }
-            if (this._httpRequestUrl === '/RandomNumberGeneratorClient.js') {
-                readFile('RandomNumberGeneratorClient.js', (err, data) => {
-                    if (err) throw err
-
-                    this._httpResponse.writeHead(200, { 'Content-Type': 'text/javascript' })
-                    this._httpResponse.end(data)
-                })
-                return
-            }
-            this._httpResponse.writeHead(404)
-            this._httpResponse.end(`${this._httpRequestUrl} was not found on this server`)
+            this._httpResponse.writeHead(200, { 'Content-Type': 'text/html' })
+            this._httpResponse.end([
+                '<html>',
+                '',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '',
+                '<body>',
+                '    <h2>Random Number Generator</h2>',
+                `    <script type="module">`,
+                '        const socket = new WebSocket("ws://localhost")',
+                '        socket.onclose = () => {',
+                '            document.body.innerHTML = "the connection was closed by the server."',
+                '        }',
+                '        ',
+                '        const messageElement = document.createElement("p")',
+                '        messageElement.innerText = "random number is NaN"',
+                '        socket.onmessage = event => {',
+                '            const msg = JSON.parse(event.data)',
+                '            //console.log(msg)',
+                '            ',
+                '            if (msg.channel === "messageInnerText") {',
+                '                messageElement.innerText = msg.value',
+                '            }',
+                '        }',
+                '        document.body.appendChild(messageElement)',
+                '        ',
+                '        const buttonElement = document.createElement("input")',
+                '        buttonElement.type = "button"',
+                '        buttonElement.value = "generate"',
+                '        buttonElement.style.width = "100px"',
+                '        buttonElement.addEventListener("click", () => {',
+                '            socket.send(JSON.stringify({channel: "clickedElementValue", value: buttonElement.value}))',
+                '        })',
+                '        document.body.appendChild(buttonElement)',
+                '    </script>',
+                '</body>',
+                '',
+                '</html>'
+            ].join('\n'))
         }
     }
 }
