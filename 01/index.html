@@ -5,11 +5,9 @@
 </head>
 
 <body>
-    <h2>Random Number Generator</h2>
+    <p id="message">random number is NaN</p>
     <script type="module">
-        const messageElement = document.createElement('p')
-        messageElement.innerText = 'random number is NaN'
-        document.body.appendChild(messageElement)
+        const messageElement = document.getElementById('message')
 
         const buttonElement = document.createElement('input')
         buttonElement.type = 'button'
