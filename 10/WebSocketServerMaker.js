@@ -1,3 +1,4 @@
+import { WebSocketServer } from 'ws'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -7,9 +8,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            setInterval(() => {
-                variables.randomNumber.assign(Math.random())
-            }, 1000)
+            variables.webSocketServer.assign(new WebSocketServer({ noServer: true }))
         }
     }
 }

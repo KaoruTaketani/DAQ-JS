@@ -1,11 +1,12 @@
 export default class {
-    constructor() {
-        this._listeners = []
-    }
-    addListener(listener) {
-        this._listeners.push(listener)
+    constructor(key, webSocketServer) {
+        this._key = key
+        this._webSocketServer
+        webSocketServer.addListener(arg => { this._webSocketServer = arg })
     }
     assign(arg) {
-        this._listeners.forEach(listener => { listener(arg) })
+        this._webSocketServer.clients.forEach(ws => {
+            ws.send(JSON.stringify({ key: this._key, value: arg }))
+        })
     }
 }
