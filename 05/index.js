@@ -35,18 +35,7 @@ httpServer.on('request', (_, response) => {
     ].join('\n'))
 })
 httpServer.on('upgrade', (request, socket, head) => {
-    webSocketServer.handleUpgrade(request, socket, head, ws => {
-        // variables.newWebSocket.assign(ws)
-        // ws.on('message', data => {
-        //     const msg = JSON.parse(data)
-        //     console.log(msg)
-
-        //     if (msg.channel === 'clickedElementValue'
-        //         && msg.value === 'generate') {
-        //         ws.send(JSON.stringify({ channel: 'messageInnerText', value: `random number is ${Math.random()}` }))
-        //     }
-        // })
-    })
+    webSocketServer.handleUpgrade(request, socket, head, () => { })
 })
 httpServer.listen(80)
 
@@ -54,8 +43,8 @@ setInterval(() => {
     randomNumber = Math.random()
     webSocketServer.clients.forEach(ws => {
         ws.send(JSON.stringify({
-            key:'randomNumberInnerText',
-            value:`random number is ${randomNumber}`
+            key: 'randomNumberInnerText',
+            value: `random number is ${randomNumber}`
         }))
     })
 }, 1000)
