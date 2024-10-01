@@ -1,17 +1,47 @@
+import { readFile } from 'fs'
 import { Server } from 'http'
-import ListenableString from './ListenableString.js'
-import ListenableObject from './ListenableObject.js'
-import HTTPResponseMaker from './HTTPResponseMaker.js'
+import { WebSocketServer } from 'ws'
 
-const httpRequestUrl = new ListenableString()
-const httpResponse = new ListenableObject()
-
-new HTTPResponseMaker(httpResponse, httpRequestUrl)
-
+let randomNumber
 const httpServer = new Server()
+const webSocketServer = new WebSocketServer({ noServer: true })
 
 httpServer.on('request', (request, response) => {
-    httpResponse.assign(response)
-    httpRequestUrl.assign(request.url)
+    if (request.url === '/') {
+        response.writeHead(200, { 'Content-Type': 'text/html' })
+        response.end([
+            '<html>',
+            '<head>',
+            '    <meta charset="utf-8">',
+            '</head>',
+            '<body>',
+            `    <script type="module" src="./RandomNumberGeneratorClient.js">`,
+            `    </script>`,
+            '</body>',
+            '</html>'
+        ].join('\n'))
+        return
+    }
+    if (request.url.endsWith('.js')) {
+        readFile(`.${request.url}`, 'utf8', (err, data) => {
+            if (err) throw err
+
+            response.writeHead(200, { 'Content-Type': 'text/javascript' })
+            response.end(data)
+        })
+        return
+    }
+    this._httpResponse.writeHead(404)
+    this._httpResponse.end(`${this._httpRequestUrl} was not found on this server`)
+})
+httpServer.on('upgrade', (request, socket, head) => {
+    webSocketServer.handleUpgrade(request, socket, head, () => { })
 })
 httpServer.listen(80)
+
+setInterval(() => {
+    randomNumber = Math.random()
+    webSocketServer.clients.forEach(ws => {
+        ws.send(`random number is ${randomNumber}`)
+    })
+}, 1000)

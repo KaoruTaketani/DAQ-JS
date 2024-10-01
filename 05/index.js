@@ -22,12 +22,7 @@ httpServer.on('request', (_, response) => {
         '            document.body.innerHTML = "the connection was closed by the server."',
         '        }',
         '        socket.onmessage = event => {',
-        '            const msg = JSON.parse(event.data)',
-        '            console.log(msg)',
-        '            ',
-        '            if (msg.key === "randomNumberInnerText") {',
-        '                randomNumberElement.innerText = msg.value',
-        '            }',
+        '            randomNumberElement.innerText = event.data',
         '        }',
         `    </script>`,
         '</body>',
@@ -42,9 +37,6 @@ httpServer.listen(80)
 setInterval(() => {
     randomNumber = Math.random()
     webSocketServer.clients.forEach(ws => {
-        ws.send(JSON.stringify({
-            key: 'randomNumberInnerText',
-            value: `random number is ${randomNumber}`
-        }))
+        ws.send(`random number is ${randomNumber}`)
     })
 }, 1000)
