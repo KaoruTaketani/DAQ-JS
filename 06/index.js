@@ -31,8 +31,8 @@ httpServer.on('request', (request, response) => {
         })
         return
     }
-    this._httpResponse.writeHead(404)
-    this._httpResponse.end(`${this._httpRequestUrl} was not found on this server`)
+    response.writeHead(404)
+    response.end(`${request.url} was not found on this server`)
 })
 httpServer.on('upgrade', (request, socket, head) => {
     webSocketServer.handleUpgrade(request, socket, head, () => { })

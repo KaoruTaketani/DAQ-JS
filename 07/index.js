@@ -1,16 +1,51 @@
+import { readFile } from 'fs'
 import { Server } from 'http'
-import ListenableString from './ListenableString.js'
-import ListenableObject from './ListenableObject.js'
-import HTTPResponseMaker from './HTTPResponseMaker.js'
-import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
-import HTTPServerSetupper from './HTTPServerSetupper.js'
+import { WebSocketServer } from 'ws'
+import ListenableNumber from './ListenableNumber.js'
 
-const httpRequestUrl = new ListenableString()
-const httpResponse = new ListenableObject()
-const httpServer = new ListenableObject()
+const randomNumber = new ListenableNumber()
+const httpServer = new Server()
+const webSocketServer = new WebSocketServer({ noServer: true })
 
-new HTTPResponseMaker(httpResponse, httpRequestUrl)
-new HTTPServerRequestHandler(httpServer, httpResponse, httpRequestUrl)
-new HTTPServerSetupper(httpServer)
+randomNumber.addListener(arg => {
+    webSocketServer.clients.forEach(ws => {
+        ws.send(`random number is ${arg}`)
+    })
+})
 
-httpServer.assign(new Server())
+httpServer.on('request', (request, response) => {
+    if (request.url === '/') {
+        response.writeHead(200, { 'Content-Type': 'text/html' })
+        response.end([
+            '<html>',
+            '<head>',
+            '    <meta charset="utf-8">',
+            '</head>',
+            '<body>',
+            `    <script type="module" src="./RandomNumberGeneratorClient.js">`,
+            `    </script>`,
+            '</body>',
+            '</html>'
+        ].join('\n'))
+        return
+    }
+    if (request.url.endsWith('.js')) {
+        readFile(`.${request.url}`, 'utf8', (err, data) => {
+            if (err) throw err
+
+            response.writeHead(200, { 'Content-Type': 'text/javascript' })
+            response.end(data)
+        })
+        return
+    }
+    response.writeHead(404)
+    response.end(`${request.url} was not found on this server`)
+})
+httpServer.on('upgrade', (request, socket, head) => {
+    webSocketServer.handleUpgrade(request, socket, head, () => { })
+})
+httpServer.listen(80)
+
+setInterval(() => {
+    randomNumber.assign(Math.random())
+}, 1000)
