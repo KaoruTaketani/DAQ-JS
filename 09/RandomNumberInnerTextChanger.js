@@ -5,14 +5,14 @@ export default class extends Operator {
         super()
         this._webSocketServer
         variables.webSocketServer.addListener(arg => { this._webSocketServer = arg })
-        this._httpServer
-        variables.httpServer.addListener(arg => {
-            this._httpServer = arg
+        this._randomNumber
+        variables.randomNumber.addListener(arg => {
+            this._randomNumber = arg
             this._operation()
         })
         this._operation = () => {
-            this._httpServer.on('upgrade', (request, socket, head) => {
-                this._webSocketServer.handleUpgrade(request, socket, head, () => { })
+            this._webSocketServer.clients.forEach(ws => {
+                ws.send(`random number is ${this._randomNumber}`)
             })
         }
     }

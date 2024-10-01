@@ -1,13 +1,12 @@
-import ListenableString from './ListenableString.js'
+import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 
 export default class {
     constructor() {
-        this.httpResponse = new ListenableObject()
-        this.httpServer = new ListenableObject()
-        this.newWebSocket = new ListenableObject()
+        this.randomNumber = new ListenableNumber()
 
-        this.httpRequestUrl = new ListenableString()
+        this.httpServer = new ListenableObject()
+        this.webSocketServer = new ListenableObject()
     }
 }
 
