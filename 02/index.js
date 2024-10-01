@@ -1,1 +1,3 @@
-console.log(`random number is ${Math.random()}`)
+const randomNumber = Math.random()
+
+console.log(`random number is ${randomNumber}`)
