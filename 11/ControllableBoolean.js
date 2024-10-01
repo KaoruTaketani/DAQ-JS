@@ -4,9 +4,9 @@ export default class extends ListenableBoolean {
     constructor(key, message) {
         super()
         message.addListener(arg => {
-            if (Object.keys(arg)[0] !== key) return
+            if (arg[key] === undefined) return
 
-            super.assign(Object.values(arg)[0])
+            super.assign(arg[key])
         })
     }
 }
