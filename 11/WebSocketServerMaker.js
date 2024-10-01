@@ -1,15 +1,14 @@
+import { WebSocketServer } from 'ws'
 import Operator from './Operator.js'
 
 export default class extends Operator {
     constructor(variables) {
         super()
-        this._randomNumber
-        variables.randomNumber.addListener(arg => {
-            this._randomNumber = arg
+        variables.httpServer.addListener(_ => {
             this._operation()
         })
         this._operation = () => {
-            variables.randomNumberInnerText.assign(`random number is ${this._randomNumber}`)
+            variables.webSocketServer.assign(new WebSocketServer({ noServer: true }))
         }
     }
 }
