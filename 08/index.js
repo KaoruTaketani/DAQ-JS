@@ -1,13 +1,22 @@
 import { Server } from 'http'
-import HTTPResponseMaker from './HTTPResponseMaker.js'
+import ListenableNumber from './ListenableNumber.js'
+import ListenableObject from './ListenableObject.js'
 import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
-import Variables from './Variables.js'
+import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
+import RandomNumberGenerator from './RandomNumberGenerator.js'
+import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
+import WebSocketServerMaker from './WebSocketServerMaker.js'
 
-const variables = new Variables()
+const randomNumber = new ListenableNumber()
+const httpServer = new ListenableObject()
+const webSocketServer = new ListenableObject()
 
-new HTTPResponseMaker(variables)
-new HTTPServerRequestHandler(variables)
-new HTTPServerSetupper(variables)
+new HTTPServerRequestHandler(httpServer)
+new HTTPServerSetupper(httpServer)
+new HTTPServerUpgradeHandler(httpServer, webSocketServer)
+new RandomNumberGenerator(httpServer, randomNumber)
+new RandomNumberInnerTextChanger(randomNumber, webSocketServer)
+new WebSocketServerMaker(httpServer, webSocketServer)
 
-variables.httpServer.assign(new Server())
+httpServer.assign(new Server()) 

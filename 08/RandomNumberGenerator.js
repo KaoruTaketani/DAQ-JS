@@ -1,15 +1,15 @@
 import Operator from './Operator.js'
 
 export default class extends Operator {
-    constructor(httpServer) {
+    constructor(httpServer, randomNumber) {
         super()
-        this._httpServer
-        httpServer.addListener(arg => {
-            this._httpServer = arg
+        httpServer.addListener(_ => {
             this._operation()
         })
         this._operation = () => {
-            this._httpServer.listen(80)
+            setInterval(() => {
+                randomNumber.assign(Math.random())
+            }, 1000)
         }
     }
 }
