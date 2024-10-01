@@ -1,17 +1,17 @@
 import Operator from './Operator.js'
 
 export default class extends Operator {
-    constructor(variables) {
+    constructor(httpServer, httpResponse, httpRequestUrl) {
         super()
         this._httpServer
-        variables.httpServer.addListener(arg => {
-            this._httpServer = arg
+        httpServer.addListener(arg => {
+            this._httpserver = arg
             this._operation()
         })
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
-                variables.httpResponse.assign(response)
-                variables.httpRequestUrl.assign(request.url)
+                httpResponse.assign(response)
+                httpRequestUrl.assign(request.url)
             })
         }
     }

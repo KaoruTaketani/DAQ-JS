@@ -1,13 +1,16 @@
 import { Server } from 'http'
+import ListenableString from './ListenableString.js'
+import ListenableObject from './ListenableObject.js'
 import HTTPResponseMaker from './HTTPResponseMaker.js'
 import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
-import Variables from './Variables.js'
 
-const variables = new Variables()
+const httpRequestUrl = new ListenableString()
+const httpResponse = new ListenableObject()
+const httpServer = new ListenableObject()
 
-new HTTPResponseMaker(variables)
-new HTTPServerRequestHandler(variables)
-new HTTPServerSetupper(variables)
+new HTTPResponseMaker(httpResponse, httpRequestUrl)
+new HTTPServerRequestHandler(httpServer, httpResponse, httpRequestUrl)
+new HTTPServerSetupper(httpServer)
 
-variables.httpServer.assign(new Server())
+httpServer.assign(new Server())

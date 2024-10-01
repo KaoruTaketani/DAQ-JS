@@ -1,11 +1,11 @@
 import Operator from './Operator.js'
 
 export default class extends Operator {
-    constructor(variables) {
+    constructor(httpResponse, httpRequestUrl) {
         super()
         this._httpResponse
-        variables.httpResponse.addListener(arg => { this._httpResponse = arg })
-        variables.httpRequestUrl.addListener(arg => {
+        httpResponse.addListener(arg => { this._httpResponse = arg })
+        httpRequestUrl.addListener(arg => {
             this._operation()
         })
         this._operation = () => {
