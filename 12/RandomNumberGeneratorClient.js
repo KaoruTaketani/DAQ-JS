@@ -15,9 +15,7 @@ stopButtonElement.style.width = '130px'
 stopButtonElement.disabled = true
 document.body.appendChild(stopButtonElement)
 
-const url = new URL(import.meta.url)
-url.protocol = 'ws:'
-const socket = new WebSocket(url)
+const socket = new WebSocket('ws://localhost')
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
