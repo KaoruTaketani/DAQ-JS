@@ -32,7 +32,38 @@ svgElement.onmousemove = ev => {
     // console.log(`ratioX: ${ratioX}, ratioY: ${ratioY}, x: ${x}, y: ${y}`)
     messageElement.innerText = `x: ${x}, y: ${y}`
 }
+svgElement.ondblclick = () => {
+    dialogElement.showModal()
+}
 document.body.appendChild(svgElement)
+
+const dialogElement = document.createElement('dialog')
+document.body.appendChild(dialogElement)
+
+const svgLinkElement = document.createElement('a')
+
+const downloadButtonElement = document.createElement('input')
+downloadButtonElement.type = 'button'
+downloadButtonElement.value = 'download'
+downloadButtonElement.style.width = '130px'
+downloadButtonElement.style.display = 'block'
+downloadButtonElement.onclick = () => {
+    svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(`<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`))
+    svgLinkElement.setAttribute('download', 'histogram.svg')
+    svgLinkElement.click()
+}
+dialogElement.appendChild(downloadButtonElement)
+
+
+const closeButtonElement = document.createElement('input')
+closeButtonElement.type = 'button'
+closeButtonElement.value = 'close'
+closeButtonElement.style.width = '130px'
+closeButtonElement.style.display = 'block'
+closeButtonElement.onclick = () => {
+    dialogElement.close()
+}
+dialogElement.appendChild(closeButtonElement)
 
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
