@@ -6,6 +6,7 @@ const clearButtonElement = document.createElement('input')
 clearButtonElement.type = 'button'
 clearButtonElement.value = 'clear'
 clearButtonElement.style.width = '130px'
+clearButtonElement.style.display = 'block'
 document.body.appendChild(clearButtonElement)
 
 const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
