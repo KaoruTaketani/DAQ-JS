@@ -3,7 +3,7 @@ import Operator from './Operator.js'
 export default class extends Operator {
     constructor(variables) {
         super()
-        variables.httpServer.addListener(_ => {
+        variables.webSocketUrls.addListener(_ => {
             this._operation()
         })
         this._operation = () => {
