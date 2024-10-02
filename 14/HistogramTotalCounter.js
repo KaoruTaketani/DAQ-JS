@@ -1,0 +1,19 @@
+import Operator from './Operator.js'
+
+export default class extends Operator {
+    constructor(variables) {
+        super()
+        this._histogram
+        variables.histogram.addListener(arg => {
+            this._histogram = arg
+            this._operation()
+        })
+        this._operation = () => {
+            const total = this._histogram.value.reduce((prev, curr) => prev + curr, 0)
+
+            if (total === 0) return
+            variables.histogramTotal.assign(total)
+        }
+    }
+}
+

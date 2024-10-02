@@ -1,0 +1,7 @@
+{
+  "main": "index.js",
+  "type": "module",
+  "devDependencies": {
+    "ws": "^8.18.0"
+  }
+}
