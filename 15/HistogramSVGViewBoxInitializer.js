@@ -9,6 +9,7 @@ export default class extends Operator {
         this._operation = () => {
             variables.histogramSVGViewBoxWidth.assign(560)
             variables.histogramSVGViewBoxHeight.assign(420)
+            variables.histogramYAxisScale.assign('linear')
         }
     }
 }

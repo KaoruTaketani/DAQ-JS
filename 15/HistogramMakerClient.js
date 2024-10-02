@@ -7,6 +7,9 @@ clearButtonElement.type = 'button'
 clearButtonElement.value = 'clear'
 clearButtonElement.style.width = '130px'
 clearButtonElement.style.display = 'block'
+clearButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ histogramTotal: 0 }))
+}
 document.body.appendChild(clearButtonElement)
 
 const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
@@ -40,8 +43,19 @@ document.body.appendChild(svgElement)
 const dialogElement = document.createElement('dialog')
 document.body.appendChild(dialogElement)
 
-const svgLinkElement = document.createElement('a')
+const yAxisScaleLogElement = document.createElement('input')
+yAxisScaleLogElement.type = 'checkbox'
+yAxisScaleLogElement.onchange = () => {
+    socket.send(JSON.stringify({ histogramYAxisScale: yAxisScaleLogElement.checked ? 'log' : 'linear' }))
+}
+const labelElement = document.createElement('label')
+labelElement.style.display = 'block'
+labelElement.appendChild(yAxisScaleLogElement)
+labelElement.appendChild(document.createTextNode('y axis log scale?'))
+labelElement.style.width = '130px'
+dialogElement.appendChild(labelElement)
 
+const svgLinkElement = document.createElement('a')
 const downloadButtonElement = document.createElement('input')
 downloadButtonElement.type = 'button'
 downloadButtonElement.value = 'download'
@@ -65,6 +79,8 @@ closeButtonElement.onclick = () => {
 }
 dialogElement.appendChild(closeButtonElement)
 
+
+
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
 const socket = new WebSocket(url)
@@ -80,7 +96,6 @@ socket.onmessage = event => {
         svgElement.innerHTML = msg.value
     if (msg.key === 'svgViewBox')
         svgElement.setAttribute('viewBox', msg.value)
-}
-clearButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ histogramTotal: 0 }))
+    if (msg.key === 'yAxisScaleLogChecked')
+        yAxisScaleLogElement.checked = msg.value
 }
