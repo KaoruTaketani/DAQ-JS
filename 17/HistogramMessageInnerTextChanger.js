@@ -3,12 +3,13 @@ import Operator from './Operator.js'
 export default class extends Operator {
     constructor(variables) {
         super()
-        variables.httpServer.addListener(_ => {
+        this._histogramTotal
+        variables.histogramTotal.addListener(arg => {
+            this._histogramTotal = arg
             this._operation()
         })
         this._operation = () => {
-            variables.histogramSVGViewBoxWidth.assign(560)
-            variables.histogramSVGViewBoxHeight.assign(420)
+            variables.histogramMessageInnerText.assign(`total is ${this._histogramTotal}`)
         }
     }
 }

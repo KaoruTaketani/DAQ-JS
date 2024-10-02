@@ -5,7 +5,6 @@ import HistogramMessageInnerTextChanger from './HistogramMessageInnerTextChanger
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
 import HistogramSVGViewBoxInitializer from './HistogramSVGViewBoxInitializer.js'
 import HistogramTotalCounter from './HistogramTotalCounter.js'
-import HistogramYAxisLogScaleCheckedChanger from './HistogramYAxisLogScaleCheckedChanger.js'
 import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
 import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
@@ -21,7 +20,6 @@ new HistogramInitializer(variables)
 new HistogramMaker(variables)
 new HistogramMessageInnerTextChanger(variables)
 new HistogramTotalCounter(variables)
-new HistogramYAxisLogScaleCheckedChanger(variables)
 new HistogramSVGInnerHTMLMaker(variables)
 new HistogramSVGViewBoxInitializer(variables)
 new HTTPServerRequestHandler(variables)

@@ -1,3 +1,4 @@
+import { WebSocketServer } from 'ws'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -7,8 +8,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.histogramSVGViewBoxWidth.assign(560)
-            variables.histogramSVGViewBoxHeight.assign(420)
+            variables.webSocketServer.assign(new WebSocketServer({ noServer: true }))
         }
     }
 }

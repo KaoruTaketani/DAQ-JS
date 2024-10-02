@@ -1,13 +1,11 @@
 export default class {
-    constructor(key, url, webSocketUrls) {
+    constructor(key, webSocketServer) {
         this._key = key
-        this._url = url
-        this._webSocketUrls
-        webSocketUrls.addListener(arg => { this._webSocketUrls = arg })
+        this._webSocketServer
+        webSocketServer.addListener(arg => { this._webSocketServer = arg })
     }
     assign(arg) {
-        this._webSocketUrls.forEach((url, ws) => {
-            if (this._url !== url) return
+        this._webSocketServer.clients.forEach(ws => {
             ws.send(JSON.stringify({ key: this._key, value: arg }))
         })
     }
