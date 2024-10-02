@@ -11,8 +11,6 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (this._histogram === undefined) return
-
             const i = Math.floor(this._randomNumber * 10)
             this._histogram.value[i]++
             variables.histogram.assign(this._histogram)
