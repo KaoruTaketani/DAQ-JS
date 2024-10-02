@@ -1,0 +1,1 @@
+1. open ./index.html by your brouwser
