@@ -1,25 +1,40 @@
-const socket = new WebSocket("ws://localhost")
+const randomNumberElement = document.createElement('p')
+randomNumberElement.innerText = 'random number is NaN'
+document.body.appendChild(randomNumberElement)
+
+const clearButtonElement = document.createElement('input')
+clearButtonElement.type = 'button'
+clearButtonElement.value = 'start'
+clearButtonElement.style.width = '130px'
+document.body.appendChild(clearButtonElement)
+
+const stopButtonElement = document.createElement('input')
+stopButtonElement.type = 'button'
+stopButtonElement.value = 'stop'
+stopButtonElement.style.width = '130px'
+stopButtonElement.disabled = true
+document.body.appendChild(stopButtonElement)
+
+const url = new URL(import.meta.url)
+url.protocol = 'ws:'
+const socket = new WebSocket(url)
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
-
-const messageElement = document.createElement("p")
-messageElement.innerText = "random number is NaN"
 socket.onmessage = event => {
     const msg = JSON.parse(event.data)
-    //console.log(msg)
 
-    if (msg.channel === "messageInnerText") {
-        messageElement.innerText = msg.value
-    }
+    if (msg.key === 'randomNumberInnerText')
+        randomNumberElement.innerText = msg.value
+    if (msg.key === 'randomNumberStartDisabled')
+        clearButtonElement.disabled = msg.value
+    if (msg.key === 'randomNumberStopDisabled')
+        stopButtonElement.disabled = msg.value
 }
-document.body.appendChild(messageElement)
+clearButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
+}
+stopButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+}
 
-const buttonElement = document.createElement("input")
-buttonElement.type = "button"
-buttonElement.value = "generate"
-buttonElement.style.width = "100px"
-buttonElement.addEventListener("click", () => {
-    socket.send(JSON.stringify({ channel: "clickedElementValue", value: buttonElement.value }))
-})
-document.body.appendChild(buttonElement)
