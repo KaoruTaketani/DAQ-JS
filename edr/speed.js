@@ -6,8 +6,7 @@ console.log(`fileSize: ${statSync(filePath).size.toLocaleString()}`)
 
 const startTime = Date.now()
 
-createReadStream(filePath).on('data', chunk => {
-    // console.log(`chunk.size: ${chunk.length}`)
+createReadStream(filePath).on('data', _ => {
 }).on('end', () => {
     const elapsedTime = Date.now() - startTime
     console.log(`createReadString elapsedTime: ${elapsedTime}ms`)

@@ -6,11 +6,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        variables.httpServer.addListener(_ => {
+        this._randomNumberGeneratorIsBusy
+        variables.randomNumberGeneratorIsBusy.addListener(arg => {
+            this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
         this._operation = () => {
-            if (this._histogramTotal > 0) return
+            if (!this._randomNumberGeneratorIsBusy) return
 
             variables.histogram.assign({
                 lowerEdge: 0,
@@ -20,6 +22,7 @@ export default class extends Operator {
                 numberOfBins: 10,
                 value: new Array(10).fill(0)
             })
+            variables.startTime.assign(Date.now())
         }
     }
 }
