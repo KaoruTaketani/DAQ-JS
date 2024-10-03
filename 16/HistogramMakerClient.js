@@ -55,14 +55,16 @@ labelElement.appendChild(document.createTextNode('y axis log scale?'))
 labelElement.style.width = '130px'
 dialogElement.appendChild(labelElement)
 
-const svgLinkElement = document.createElement('a')
 const downloadButtonElement = document.createElement('input')
 downloadButtonElement.type = 'button'
 downloadButtonElement.value = 'download'
 downloadButtonElement.style.width = '130px'
 downloadButtonElement.style.display = 'block'
+const svgLinkElement = document.createElement('a')
 downloadButtonElement.onclick = () => {
-    svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(`<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`))
+    svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
+        `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
+    ))
     svgLinkElement.setAttribute('download', 'histogram.svg')
     svgLinkElement.click()
 }

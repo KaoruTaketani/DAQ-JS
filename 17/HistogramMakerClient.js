@@ -77,7 +77,6 @@ downloadHDF5ButtonElement.style.display = 'block'
 downloadHDF5ButtonElement.onclick = () => {
     const url = new URL(import.meta.url)
     hdf5LinkElement.setAttribute('href', `${url.origin}/histogram.h5`)
-    // hdf5LinkElement.setAttribute('download', 'histogram.h5')
     hdf5LinkElement.click()
 }
 dialogElement.appendChild(downloadHDF5ButtonElement)

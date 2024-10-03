@@ -32,7 +32,6 @@ export default class extends Operator {
                     return
                 }
                 if (request.url === '/histogram.h5') {
-                    // console.log('hdf5')
                     ready.then(() => {
                         const file = new File('./histogram.h5', 'w')
                         variables.histogramHDF5File.assign(file)

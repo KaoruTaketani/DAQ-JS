@@ -6,11 +6,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogramTotal
-        variables.histogramTotal.addListener(arg => {
-            this._histogramTotal = arg
-            this._operation()
-        })
         variables.httpServer.addListener(_ => {
             this._operation()
         })

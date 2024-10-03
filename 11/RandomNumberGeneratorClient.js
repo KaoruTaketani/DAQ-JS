@@ -15,6 +15,10 @@ stopButtonElement.style.width = '130px'
 stopButtonElement.disabled = true
 document.body.appendChild(stopButtonElement)
 
+const totalElement = document.createElement('p')
+totalElement.innerText = 'total is NaN'
+document.body.appendChild(totalElement)
+
 const socket = new WebSocket('ws://localhost')
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
@@ -28,6 +32,8 @@ socket.onmessage = event => {
         clearButtonElement.disabled = msg.value
     if (msg.key === 'randomNumberStopDisabled')
         stopButtonElement.disabled = msg.value
+    if (msg.key === 'totalInnerText')
+        totalElement.innerText = msg.value
 }
 clearButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))

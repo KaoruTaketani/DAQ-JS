@@ -31,11 +31,11 @@ export default class extends Operator {
                 xLim: [this._histogram.lowerEdge, this._histogram.upperEdge],
                 yLim: [0, max(this._histogram.value)]
             }
-            variables.histogramSVGViewBox.assign(`0 0 ${this._histogramSVGViewBoxWidth} ${this._histogramSVGViewBoxHeight}`)
             variables.histogramSVGInnerHTML.assign([
                 axes(gca),
                 stairs(gca, this._histogram.value)
             ].join(''))
+            variables.histogramSVGViewBox.assign(`0 0 ${this._histogramSVGViewBoxWidth} ${this._histogramSVGViewBoxHeight}`)
         }
     }
 }

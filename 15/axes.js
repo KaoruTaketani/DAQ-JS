@@ -12,7 +12,11 @@ export default (
     const ytls = axes.yTickLabels ?? axes.yLim.map(y => y.toExponential(2))
 
     return [
-        `<polyline points="${x0},${y0} ${x1},${y0} ${x1},${y1} ${x0},${y1} ${x0},${y0}" stroke="black" fill="none" />`,
+        `<polyline`,
+        ` points="${x0},${y0} ${x1},${y0} ${x1},${y1} ${x0},${y1} ${x0},${y0}"`,
+        ` stroke="black"`,
+        ` fill="none"`,
+        ` />`,
         xtls.map((xtl, idx) => {
             return `<text y="${y2}" x="${x0 + idx * (x1 - x0) / (xtls.length - 1)}"  text-anchor="middle" dominant-baseline="central" font-size="12">${xtl}</text>`
         }).join(''),
