@@ -14,9 +14,9 @@ export default class extends Operator {
             this._httpServer = arg
             this._operation()
         })
+        this._webSocketServer
         this._operation = () => {
             this._webSocketServer = new WebSocketServer({ noServer: true })
-            variables.webSocketUrls.assign(new Map())
 
             this._httpServer.on('upgrade', (request, socket, head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {

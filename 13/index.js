@@ -26,4 +26,5 @@ new RandomNumberInnerTextChanger(variables)
 new RandomNumberStartDisabledChanger(variables)
 new RandomNumberStopDisabledChanger(variables)
 
+variables.webSocketUrls.assign(new Map())
 variables.httpServer.assign(new Server()) 
