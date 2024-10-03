@@ -15,7 +15,7 @@ export default class extends Operator {
             const total = this._histogram.value.reduce((prev, curr) => prev + curr, 0)
 
             if (total === 0) return
-            variables.histogramTotal.assign(total)
+            variables.total.assign(total)
         }
     }
 }

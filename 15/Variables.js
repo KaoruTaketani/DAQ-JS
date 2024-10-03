@@ -13,13 +13,11 @@ export default class {
         this.histogram = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
+        this.total = new ListenableNumber()
         this.histogramSVGViewBoxWidth = new ListenableNumber()
         this.histogramSVGViewBoxHeight = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
-
-
-        this.histogramTotal = new ControllableNumber('histogramTotal', this.message)
 
         this.randomNumberStopDisabled = new ElementBoolean('randomNumberStopDisabled', '/RandomNumberGeneratorClient.js', this.webSocketUrls)
         this.randomNumberStartDisabled = new ElementBoolean('randomNumberStartDisabled', '/RandomNumberGeneratorClient.js', this.webSocketUrls)

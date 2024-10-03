@@ -2,12 +2,6 @@ const totalElement = document.createElement('p')
 totalElement.innerText = 'total is NaN'
 document.body.appendChild(totalElement)
 
-const clearButtonElement = document.createElement('input')
-clearButtonElement.type = 'button'
-clearButtonElement.value = 'clear'
-clearButtonElement.style.width = '130px'
-document.body.appendChild(clearButtonElement)
-
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
 const socket = new WebSocket(url)
@@ -19,7 +13,4 @@ socket.onmessage = event => {
 
     if (msg.key === 'totalInnerText')
         totalElement.innerText = msg.value
-}
-clearButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ histogramTotal: 0 }))
 }

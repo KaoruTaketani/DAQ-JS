@@ -16,12 +16,11 @@ export default class {
         this.histogram = new WritableHistogram('rand', this.histogramHDF5File)
 
         this.randomNumber = new ListenableNumber()
+        this.total = new ListenableNumber()
         this.histogramSVGViewBoxWidth = new ListenableNumber()
         this.histogramSVGViewBoxHeight = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
-
-        this.histogramTotal = new ControllableNumber('histogramTotal', this.message)
 
         this.histogramYAxisScale = new ControllableString('histogramYAxisScale', this.message)
 

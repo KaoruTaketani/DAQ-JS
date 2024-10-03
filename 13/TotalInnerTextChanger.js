@@ -8,9 +8,9 @@ export default class extends Operator {
         super()
         this._webSocketUrls
         variables.webSocketUrls.addListener(arg => { this._webSocketUrls = arg })
-        this._histogramTotal
-        variables.histogramTotal.addListener(arg => {
-            this._histogramTotal = arg
+        this._total
+        variables.total.addListener(arg => {
+            this._total = arg
             this._operation()
         })
         this._operation = () => {
@@ -19,7 +19,7 @@ export default class extends Operator {
 
                 ws.send(JSON.stringify({
                     key: 'totalInnerText',
-                    value: `total is ${this._histogramTotal}`
+                    value: `total is ${this._total}`
                 }))
             })
         }

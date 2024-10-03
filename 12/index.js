@@ -1,7 +1,7 @@
 import { Server } from 'http'
 import HistogramInitializer from './HistogramInitializer.js'
 import HistogramMaker from './HistogramMaker.js'
-import HistogramTotalCounter from './HistogramTotalCounter.js'
+import TotalCounter from './TotalCounter.js'
 import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
 import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
@@ -18,7 +18,7 @@ const variables = new Variables()
 new HistogramInitializer(variables)
 new HistogramMaker(variables)
 new TotalInnerTextChanger(variables)
-new HistogramTotalCounter(variables)
+new TotalCounter(variables)
 new HTTPServerRequestHandler(variables)
 new HTTPServerSetupper(variables)
 new HTTPServerUpgradeHandler(variables)

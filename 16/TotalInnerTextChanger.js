@@ -6,13 +6,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogramTotal
-        variables.histogramTotal.addListener(arg => {
-            this._histogramTotal = arg
+        this._total
+        variables.total.addListener(arg => {
+            this._total = arg
             this._operation()
         })
         this._operation = () => {
-            variables.totalInnerText.assign(`total is ${this._histogramTotal}`)
+            variables.totalInnerText.assign(`total is ${this._total}`)
         }
     }
 }
