@@ -56,18 +56,31 @@ labelElement.style.width = '130px'
 dialogElement.appendChild(labelElement)
 
 const svgLinkElement = document.createElement('a')
-const downloadButtonElement = document.createElement('input')
-downloadButtonElement.type = 'button'
-downloadButtonElement.value = 'download'
-downloadButtonElement.style.width = '130px'
-downloadButtonElement.style.display = 'block'
-downloadButtonElement.onclick = () => {
+const downloadSVGButtonElement = document.createElement('input')
+downloadSVGButtonElement.type = 'button'
+downloadSVGButtonElement.value = 'download svg'
+downloadSVGButtonElement.style.width = '130px'
+downloadSVGButtonElement.style.display = 'block'
+downloadSVGButtonElement.onclick = () => {
     svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(`<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`))
     svgLinkElement.setAttribute('download', 'histogram.svg')
     svgLinkElement.click()
 }
-dialogElement.appendChild(downloadButtonElement)
+dialogElement.appendChild(downloadSVGButtonElement)
 
+const hdf5LinkElement = document.createElement('a')
+const downloadHDF5ButtonElement = document.createElement('input')
+downloadHDF5ButtonElement.type = 'button'
+downloadHDF5ButtonElement.value = 'download hdf5'
+downloadHDF5ButtonElement.style.width = '130px'
+downloadHDF5ButtonElement.style.display = 'block'
+downloadHDF5ButtonElement.onclick = () => {
+    const url = new URL(import.meta.url)
+    hdf5LinkElement.setAttribute('href', `${url.origin}/histogram.h5`)
+    // hdf5LinkElement.setAttribute('download', 'histogram.h5')
+    hdf5LinkElement.click()
+}
+dialogElement.appendChild(downloadHDF5ButtonElement)
 
 const closeButtonElement = document.createElement('input')
 closeButtonElement.type = 'button'

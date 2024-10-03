@@ -1,7 +1,8 @@
 {
   "main": "index.js",
   "type": "module",
-  "devDependencies": {
+  "dependencies": {
+    "h5wasm": "^0.7.8",
     "ws": "^8.18.0"
   }
 }
