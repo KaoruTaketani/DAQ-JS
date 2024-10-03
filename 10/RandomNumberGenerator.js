@@ -6,13 +6,20 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        variables.httpServer.addListener(_ => {
+        this._randomNumberGeneratorIsBusy
+        variables.randomNumberGeneratorIsBusy.addListener(arg => {
+            this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
+        this._interval
         this._operation = () => {
-            setInterval(() => {
-                variables.randomNumber.assign(Math.random())
-            }, 1000)
+            if (this._randomNumberGeneratorIsBusy) {
+                this._interval = setInterval(() => {
+                    variables.randomNumber.assign(Math.random())
+                }, 1000)
+            } else {
+                clearInterval(this._interval)
+            }
         }
     }
 }

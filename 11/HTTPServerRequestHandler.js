@@ -1,4 +1,5 @@
 import { readFile } from 'fs'
+import { basename } from 'path'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -22,7 +23,22 @@ export default class extends Operator {
                         '    <meta charset="utf-8">',
                         '</head>',
                         '<body>',
-                        `    <script type="module" src="./RandomNumberGeneratorClient.js">`,
+                        `    <p><a href="./RandomNumberGeneratorClient.html">RandomNumberGenerator</a></p>`,
+                        `    <p><a href="./HistogramMakerClient.html">HistogramMaker</a></p>`,
+                        '</body>',
+                        '</html>'
+                    ].join('\n'))
+                    return
+                }
+                if (request.url.endsWith('.html')) {
+                    response.writeHead(200, { 'Content-Type': 'text/html' })
+                    response.end([
+                        '<html>',
+                        '<head>',
+                        '    <meta charset="utf-8">',
+                        '</head>',
+                        '<body>',
+                        `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
                         `    </script>`,
                         '</body>',
                         '</html>'

@@ -2,11 +2,11 @@ const randomNumberElement = document.createElement('p')
 randomNumberElement.innerText = 'random number is NaN'
 document.body.appendChild(randomNumberElement)
 
-const startButtonElement = document.createElement('input')
-startButtonElement.type = 'button'
-startButtonElement.value = 'start'
-startButtonElement.style.width = '130px'
-document.body.appendChild(startButtonElement)
+const clearButtonElement = document.createElement('input')
+clearButtonElement.type = 'button'
+clearButtonElement.value = 'start'
+clearButtonElement.style.width = '130px'
+document.body.appendChild(clearButtonElement)
 
 const stopButtonElement = document.createElement('input')
 stopButtonElement.type = 'button'
@@ -15,7 +15,7 @@ stopButtonElement.style.width = '130px'
 stopButtonElement.disabled = true
 document.body.appendChild(stopButtonElement)
 
-const socket = new WebSocket("ws://localhost")
+const socket = new WebSocket('ws://localhost')
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
@@ -25,13 +25,14 @@ socket.onmessage = event => {
     if (msg.key === 'randomNumberInnerText')
         randomNumberElement.innerText = msg.value
     if (msg.key === 'randomNumberStartDisabled')
-        startButtonElement.disabled = msg.value
+        clearButtonElement.disabled = msg.value
     if (msg.key === 'randomNumberStopDisabled')
         stopButtonElement.disabled = msg.value
 }
-startButtonElement.onclick = () => {
+clearButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
 }
 stopButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
 }
+

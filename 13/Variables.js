@@ -9,20 +9,22 @@ export default class {
     constructor() {
         this.httpServer = new ListenableObject()
         this.message = new ListenableObject()
-        this.webSocketServer = new ListenableObject()
+        this.webSocketUrls = new ListenableObject()
         this.histogram = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
 
-        this.randomNumberStopDisabled = new ElementBoolean('randomNumberStopDisabled', this.webSocketServer)
-        this.randomNumberStartDisabled = new ElementBoolean('randomNumberStartDisabled', this.webSocketServer)
 
         this.histogramTotal = new ControllableNumber('histogramTotal', this.message)
 
-        this.randomNumberInnerText = new ElementString('randomNumberInnerText', this.webSocketServer)
-        this.histogramMessageInnerText = new ElementString('messageInnerText', this.webSocketServer)
+        this.randomNumberStopDisabled = new ElementBoolean('randomNumberStopDisabled', '/RandomNumberGeneratorClient.js', this.webSocketUrls)
+        this.randomNumberStartDisabled = new ElementBoolean('randomNumberStartDisabled', '/RandomNumberGeneratorClient.js', this.webSocketUrls)
+
+        this.randomNumberInnerText = new ElementString('randomNumberInnerText', '/RandomNumberGeneratorClient.js', this.webSocketUrls)
+        
+        this.histogramMessageInnerText = new ElementString('messageInnerText','/HistogramMakerClient.js', this.webSocketUrls)
     }
 }
 

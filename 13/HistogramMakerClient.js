@@ -8,7 +8,9 @@ clearButtonElement.value = 'clear'
 clearButtonElement.style.width = '130px'
 document.body.appendChild(clearButtonElement)
 
-const socket = new WebSocket('ws://localhost')
+const url = new URL(import.meta.url)
+url.protocol = 'ws:'
+const socket = new WebSocket(url)
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
