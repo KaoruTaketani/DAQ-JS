@@ -2,6 +2,10 @@ const totalElement = document.createElement('p')
 totalElement.innerText = 'total is NaN'
 document.body.appendChild(totalElement)
 
+const startTimeElement = document.createElement('p')
+startTimeElement.innerText = 'start time is undefined'
+document.body.appendChild(startTimeElement)
+
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
 const socket = new WebSocket(url)
@@ -13,4 +17,6 @@ socket.onmessage = event => {
 
     if (msg.key === 'totalInnerText')
         totalElement.innerText = msg.value
+    if (msg.key === 'startTimeInnerText')
+        startTimeElement.innerText = msg.value
 }

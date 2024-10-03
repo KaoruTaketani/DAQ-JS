@@ -12,6 +12,7 @@ export default class {
 
         this.randomNumber = new ListenableNumber()
         this.total = new ListenableNumber()
+        this.startTime = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
     }

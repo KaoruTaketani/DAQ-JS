@@ -14,6 +14,7 @@ import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
 import RandomNumberStartDisabledChanger from './RandomNumberStartDisabledChanger.js'
 import RandomNumberStopDisabledChanger from './RandomNumberStopDisabledChanger.js'
 import Variables from './Variables.js'
+import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 
 const variables = new Variables()
 
@@ -31,5 +32,6 @@ new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new RandomNumberStartDisabledChanger(variables)
 new RandomNumberStopDisabledChanger(variables)
+new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server()) 

@@ -12,6 +12,7 @@ import RandomNumberStopDisabledChanger from './RandomNumberStopDisabledChanger.j
 import Variables from './Variables.js'
 import WebSocketServerMaker from './WebSocketServerMaker.js'
 import TotalInnerTextChanger from './TotalInnerTextChanger.js'
+import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 
 const variables = new Variables()
 
@@ -26,6 +27,7 @@ new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new RandomNumberStartDisabledChanger(variables)
 new RandomNumberStopDisabledChanger(variables)
+new StartTimeInnerTextChanger(variables)
 new WebSocketServerMaker(variables)
 
 variables.httpServer.assign(new Server()) 
