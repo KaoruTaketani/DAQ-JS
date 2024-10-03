@@ -1,7 +1,5 @@
 import ControllableBoolean from './ControllableBoolean.js'
 import ControllableNumber from './ControllableNumber.js'
-import ElementBoolean from './ElementBoolean.js'
-import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 
@@ -16,13 +14,7 @@ export default class {
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
 
-        this.randomNumberStopDisabled = new ElementBoolean('randomNumberStopDisabled', this.webSocketServer)
-        this.randomNumberStartDisabled = new ElementBoolean('randomNumberStartDisabled', this.webSocketServer)
-
         this.histogramTotal = new ControllableNumber('histogramTotal', this.message)
-
-        this.randomNumberInnerText = new ElementString('randomNumberInnerText', this.webSocketServer)
-        this.histogramMessageInnerText = new ElementString('messageInnerText', this.webSocketServer)
     }
 }
 
