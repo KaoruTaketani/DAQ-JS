@@ -18,7 +18,7 @@ export default class extends Operator {
                 if (url !== '/HistogramMakerClient.js') return
 
                 ws.send(JSON.stringify({
-                    key: 'messageInnerText',
+                    key: 'totalInnerText',
                     value: `total is ${this._histogramTotal}`
                 }))
             })

@@ -12,7 +12,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.histogramMessageInnerText.assign(`total is ${this._histogramTotal}`)
+            variables.totalInnerText.assign(`total is ${this._histogramTotal}`)
         }
     }
 }

@@ -26,7 +26,7 @@ export default class {
 
         this.randomNumberInnerText = new ElementString('randomNumberInnerText', '/RandomNumberGeneratorClient.js', this.webSocketUrls)
         
-        this.histogramMessageInnerText = new ElementString('messageInnerText','/HistogramMakerClient.js', this.webSocketUrls)
+        this.totalInnerText = new ElementString('totalInnerText','/HistogramMakerClient.js', this.webSocketUrls)
         this.histogramSVGInnerHTML = new ElementString('svgInnerHTML','/HistogramMakerClient.js', this.webSocketUrls)
         this.histogramSVGViewBox = new ElementString('svgViewBox','/HistogramMakerClient.js', this.webSocketUrls)
     }

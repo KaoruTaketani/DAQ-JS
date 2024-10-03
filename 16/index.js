@@ -1,7 +1,7 @@
 import { Server } from 'http'
 import HistogramInitializer from './HistogramInitializer.js'
 import HistogramMaker from './HistogramMaker.js'
-import HistogramMessageInnerTextChanger from './HistogramMessageInnerTextChanger.js'
+import TotalInnerTextChanger from './TotalInnerTextChanger.js'
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
 import HistogramSVGViewBoxInitializer from './HistogramSVGViewBoxInitializer.js'
 import HistogramTotalCounter from './HistogramTotalCounter.js'
@@ -18,7 +18,7 @@ const variables = new Variables()
 
 new HistogramInitializer(variables)
 new HistogramMaker(variables)
-new HistogramMessageInnerTextChanger(variables)
+new TotalInnerTextChanger(variables)
 new HistogramTotalCounter(variables)
 new HistogramSVGInnerHTMLMaker(variables)
 new HistogramSVGViewBoxInitializer(variables)

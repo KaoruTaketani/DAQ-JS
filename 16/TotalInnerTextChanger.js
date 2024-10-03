@@ -6,20 +6,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._webSocketServer
-        variables.webSocketServer.addListener(arg => { this._webSocketServer = arg })
         this._histogramTotal
         variables.histogramTotal.addListener(arg => {
             this._histogramTotal = arg
             this._operation()
         })
         this._operation = () => {
-            this._webSocketServer.clients.forEach(ws => {
-                ws.send(JSON.stringify({
-                    key: 'messageInnerText',
-                    value: `total is ${this._histogramTotal}`
-                }))
-            })
+            variables.totalInnerText.assign(`total is ${this._histogramTotal}`)
         }
     }
 }

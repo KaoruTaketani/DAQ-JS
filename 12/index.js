@@ -11,13 +11,13 @@ import RandomNumberStartDisabledChanger from './RandomNumberStartDisabledChanger
 import RandomNumberStopDisabledChanger from './RandomNumberStopDisabledChanger.js'
 import Variables from './Variables.js'
 import WebSocketServerMaker from './WebSocketServerMaker.js'
-import HistogramMessageInnerTextChanger from './HistogramMessageInnerTextChanger.js'
+import TotalInnerTextChanger from './TotalInnerTextChanger.js'
 
 const variables = new Variables()
 
 new HistogramInitializer(variables)
 new HistogramMaker(variables)
-new HistogramMessageInnerTextChanger(variables)
+new TotalInnerTextChanger(variables)
 new HistogramTotalCounter(variables)
 new HTTPServerRequestHandler(variables)
 new HTTPServerSetupper(variables)

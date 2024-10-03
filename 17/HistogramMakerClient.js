@@ -1,6 +1,6 @@
-const messageElement = document.createElement('p')
-messageElement.innerText = 'total is NaN'
-document.body.appendChild(messageElement)
+const totalElement = document.createElement('p')
+totalElement.innerText = 'total is NaN'
+document.body.appendChild(totalElement)
 
 const clearButtonElement = document.createElement('input')
 clearButtonElement.type = 'button'
@@ -33,7 +33,7 @@ svgElement.onmousemove = ev => {
     const x = Number(axes.dataset.xmin) + ratioX * (axes.dataset.xmax - axes.dataset.xmin)
     const y = Number(axes.dataset.ymin) + (1 - ratioY) * (axes.dataset.ymax - axes.dataset.ymin)
     // console.log(`ratioX: ${ratioX}, ratioY: ${ratioY}, x: ${x}, y: ${y}`)
-    messageElement.innerText = `x: ${x}, y: ${y}`
+    totalElement.innerText = `x: ${x}, y: ${y}`
 }
 svgElement.ondblclick = () => {
     dialogElement.showModal()
@@ -103,8 +103,8 @@ socket.onclose = () => {
 socket.onmessage = event => {
     const msg = JSON.parse(event.data)
 
-    if (msg.key === 'messageInnerText')
-        messageElement.innerText = msg.value
+    if (msg.key === 'totalInnerText')
+        totalElement.innerText = msg.value
     if (msg.key === 'svgInnerHTML')
         svgElement.innerHTML = msg.value
     if (msg.key === 'svgViewBox')

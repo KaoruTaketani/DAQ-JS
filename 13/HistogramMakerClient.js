@@ -1,6 +1,6 @@
-const messageElement = document.createElement('p')
-messageElement.innerText = 'total is NaN'
-document.body.appendChild(messageElement)
+const totalElement = document.createElement('p')
+totalElement.innerText = 'total is NaN'
+document.body.appendChild(totalElement)
 
 const clearButtonElement = document.createElement('input')
 clearButtonElement.type = 'button'
@@ -17,8 +17,8 @@ socket.onclose = () => {
 socket.onmessage = event => {
     const msg = JSON.parse(event.data)
 
-    if (msg.key === 'messageInnerText')
-        messageElement.innerText = msg.value
+    if (msg.key === 'totalInnerText')
+        totalElement.innerText = msg.value
 }
 clearButtonElement.onclick = () => {
     socket.send(JSON.stringify({ histogramTotal: 0 }))
