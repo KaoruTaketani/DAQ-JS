@@ -24,11 +24,11 @@ export default class {
         this.randomNumberStartDisabled = new ElementBoolean('randomNumberStartDisabled', '/RandomNumberGeneratorClient.js', this.webSocketUrls)
 
         this.randomNumberInnerText = new ElementString('randomNumberInnerText', '/RandomNumberGeneratorClient.js', this.webSocketUrls)
-        
-        this.totalInnerText = new ElementString('totalInnerText','/HistogramMakerClient.js', this.webSocketUrls)
-        this.startTimeInnerText = new ElementString('startTimeInnerText','/HistogramMakerClient.js', this.webSocketUrls)
-        this.histogramSVGInnerHTML = new ElementString('svgInnerHTML','/HistogramMakerClient.js', this.webSocketUrls)
-        this.histogramSVGViewBox = new ElementString('svgViewBox','/HistogramMakerClient.js', this.webSocketUrls)
+
+        this.totalInnerText = new ElementString('totalInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
+        this.startTimeInnerText = new ElementString('startTimeInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
+        this.histogramSVGInnerHTML = new ElementString('svgInnerHTML', '/HistogramMakerClient.js', this.webSocketUrls)
+        this.histogramSVGViewBox = new ElementString('svgViewBox', '/HistogramMakerClient.js', this.webSocketUrls)
     }
 }
 
