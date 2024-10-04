@@ -1,15 +1,22 @@
 import Operator from './Operator.js'
 
 export default class extends Operator {
-    constructor(httpServer, randomNumber) {
+    constructor(randomNumberGeneratorIsBusy,randomNumber) {
         super()
-        httpServer.addListener(_ => {
+        this._randomNumberGeneratorIsBusy
+        randomNumberGeneratorIsBusy.addListener(arg => {
+            this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
+        this._interval
         this._operation = () => {
-            setInterval(() => {
-                randomNumber.assign(Math.random())
-            }, 1000)
+            if (this._randomNumberGeneratorIsBusy) {
+                this._interval = setInterval(() => {
+                    randomNumber.assign(Math.random())
+                }, 1000)
+            } else {
+                clearInterval(this._interval)
+            }
         }
     }
 }

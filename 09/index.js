@@ -16,4 +16,5 @@ new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new WebSocketServerMaker(variables)
 
+variables.randomNumberGeneratorIsBusy.assign(true)
 variables.httpServer.assign(new Server()) 
