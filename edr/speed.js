@@ -2,7 +2,7 @@ import { createReadStream, readFile, statSync } from 'fs'
 
 const filePath = '../../edr/20230420/rpmt_run2.edr'
 
-console.log(`fileSize: ${statSync(filePath).size.toLocaleString()}`)
+console.log(`fileSize: ${statSync(filePath).size.toLocaleString()}bytes`)
 
 const startTime = Date.now()
 
