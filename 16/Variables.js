@@ -1,5 +1,4 @@
 import ControllableBoolean from './ControllableBoolean.js'
-import ControllableNumber from './ControllableNumber.js'
 import ElementBoolean from './ElementBoolean.js'
 import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
