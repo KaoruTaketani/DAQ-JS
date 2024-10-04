@@ -9,8 +9,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogramYAxisScale
-        variables.histogramYAxisScale.addListener(arg => { this._histogramYAxisScale = arg })
         this._histogramSVGViewBoxWidth
         variables.histogramSVGViewBoxWidth.addListener(arg => { this._histogramSVGViewBoxWidth = arg })
         this._histogramSVGViewBoxHeight
@@ -27,7 +25,6 @@ export default class extends Operator {
             const gca = {
                 parentHeight: this._histogramSVGViewBoxHeight,
                 parentWidth: this._histogramSVGViewBoxWidth,
-                yAxisScale: this._histogramYAxisScale,
                 xLim: [this._histogram.lowerEdge, this._histogram.upperEdge],
                 yLim: [0, max(this._histogram.value)]
             }

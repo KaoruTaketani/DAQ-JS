@@ -6,6 +6,10 @@ const startTimeElement = document.createElement('p')
 startTimeElement.innerText = 'start time is undefined'
 document.body.appendChild(startTimeElement)
 
+const cursorElement = document.createElement('p')
+cursorElement.innerText = 'cursor: undefined'
+document.body.appendChild(cursorElement)
+
 const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 svgElement.setAttribute('width', '400')
 svgElement.setAttribute('height', '300')
@@ -27,7 +31,7 @@ svgElement.onmousemove = ev => {
     const x = Number(axes.dataset.xmin) + ratioX * (axes.dataset.xmax - axes.dataset.xmin)
     const y = Number(axes.dataset.ymin) + (1 - ratioY) * (axes.dataset.ymax - axes.dataset.ymin)
     // console.log(`ratioX: ${ratioX}, ratioY: ${ratioY}, x: ${x}, y: ${y}`)
-    totalElement.innerText = `x: ${x}, y: ${y}`
+    cursorElement.innerText = `cursor: {x: ${x}, y: ${y}}`
 }
 svgElement.ondblclick = () => {
     dialogElement.showModal()
@@ -36,18 +40,6 @@ document.body.appendChild(svgElement)
 
 const dialogElement = document.createElement('dialog')
 document.body.appendChild(dialogElement)
-
-const yAxisScaleLogElement = document.createElement('input')
-yAxisScaleLogElement.type = 'checkbox'
-yAxisScaleLogElement.onchange = () => {
-    socket.send(JSON.stringify({ histogramYAxisScale: yAxisScaleLogElement.checked ? 'log' : 'linear' }))
-}
-const labelElement = document.createElement('label')
-labelElement.style.display = 'block'
-labelElement.appendChild(yAxisScaleLogElement)
-labelElement.appendChild(document.createTextNode('y axis log scale?'))
-labelElement.style.width = '130px'
-dialogElement.appendChild(labelElement)
 
 const svgLinkElement = document.createElement('a')
 const downloadSVGButtonElement = document.createElement('input')
@@ -104,6 +96,4 @@ socket.onmessage = event => {
         svgElement.innerHTML = msg.value
     if (msg.key === 'svgViewBox')
         svgElement.setAttribute('viewBox', msg.value)
-    if (msg.key === 'yAxisScaleLogChecked')
-        yAxisScaleLogElement.checked = msg.value
 }
