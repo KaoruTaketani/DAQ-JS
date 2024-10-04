@@ -6,7 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        variables.webSocketUrls.addListener(_ => {
+        variables.httpServer.addListener(_ => {
             this._operation()
         })
         this._operation = () => {

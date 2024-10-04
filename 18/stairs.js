@@ -30,8 +30,7 @@ export default (
         const peakX = x.reduce((a, b) => Math.max(a, b), -Infinity),
             peakY = y.reduce((a, b) => Math.max(a, b), -Infinity)
         if (peakY === 0) return ''
-        /** @type {number[]} */
-        const scaledY = y.map(v => v / peakY)
+        const scaledY =  y.map(v => v / peakY)
         const scaledX = x.map(v => (v - x[0]) / (peakX - x[0]))
 
         const points = new Array(x.length - 1).fill(0)

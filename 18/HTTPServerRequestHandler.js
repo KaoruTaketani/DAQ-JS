@@ -1,3 +1,4 @@
+import { File, ready } from 'h5wasm/node'
 import { readFile } from 'fs'
 import { basename } from 'path'
 import Operator from './Operator.js'
@@ -28,6 +29,20 @@ export default class extends Operator {
                         '</body>',
                         '</html>'
                     ].join('\n'))
+                    return
+                }
+                if (request.url === '/histogram.h5') {
+                    ready.then(() => {
+                        const file = new File('./histogram.h5', 'w')
+                        variables.histogramHDF5File.assign(file)
+                        file.close()
+
+                        readFile('./histogram.h5',(err,data)=>{
+                            if(err) throw err
+
+                            response.end(data)
+                        })
+                    })
                     return
                 }
                 if (request.url.endsWith('.html')) {
