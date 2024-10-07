@@ -3,7 +3,6 @@ import HistogramInitializer from './HistogramInitializer.js'
 import HistogramMaker from './HistogramMaker.js'
 import TotalInnerTextChanger from './TotalInnerTextChanger.js'
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
-import HistogramSVGViewBoxInitializer from './HistogramSVGViewBoxInitializer.js'
 import TotalCounter from './TotalCounter.js'
 import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
@@ -22,7 +21,6 @@ new HistogramMaker(variables)
 new TotalInnerTextChanger(variables)
 new TotalCounter(variables)
 new HistogramSVGInnerHTMLMaker(variables)
-new HistogramSVGViewBoxInitializer(variables)
 new HTTPServerRequestHandler(variables)
 new HTTPServerSetupper(variables)
 new HTTPServerUpgradeHandler(variables)

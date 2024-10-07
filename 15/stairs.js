@@ -3,10 +3,10 @@ export default (
     x
 ) => {
     // svg coordinate increases from left/top to right/bottom
-    const x0 = axes.parentWidth * (axes.innerLeft ?? 0.13),
-        x1 = x0 + axes.parentWidth * (axes.innerWidth ?? 0.775),
-        y0 = axes.parentHeight * (1 - (axes.innerBottom ?? 0.11)),
-        y1 = y0 - axes.parentHeight * (axes.innerHeight ?? 0.815)
+    const x0 = (axes.parentWidth ?? 560) * (axes.innerLeft ?? 0.13),
+        x1 = x0 + (axes.parentWidth ?? 560) * (axes.innerWidth ?? 0.775),
+        y0 = (axes.parentHeight ?? 420) * (1 - (axes.innerBottom ?? 0.11)),
+        y1 = y0 - (axes.parentHeight ?? 420) * (axes.innerHeight ?? 0.815)
     const peak = x.reduce((a, b) => Math.max(a, b), -Infinity)
     if (peak === 0) return ''
     const scaledY = Array.from(x).map(v => v / peak)
