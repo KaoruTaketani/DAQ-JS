@@ -2,30 +2,21 @@ export default (
     axes
 ) => {
     // svg coordinate increases from left/top to right/bottom
-    const x0 = axes.parentWidth * (axes.innerLeft ?? 0.13),
-        x1 = x0 + axes.parentWidth * (axes.innerWidth ?? 0.775),
+    const x0 = (axes.parentWidth ?? 560) * (axes.innerLeft ?? 0.13),
+        x1 = x0 + (axes.parentWidth ?? 560) * (axes.innerWidth ?? 0.775),
         x2 = x0 - (axes.xTickLabelGapOffset ?? 5),
-        y0 = axes.parentHeight * (1 - (axes.innerBottom ?? 0.11)),
-        y1 = y0 - axes.parentHeight * (axes.innerHeight ?? 0.815),
+        y0 = (axes.parentHeight ?? 420) * (1 - (axes.innerBottom ?? 0.11)),
+        y1 = y0 - (axes.parentHeight ?? 420) * (axes.innerHeight ?? 0.815),
         y2 = y0 + (axes.yTickLabelGapOffset ?? 15)
     const xtls = axes.xTickLabels ?? axes.xLim.map(x => `${x}`)
     const ytls = axes.yTickLabels ?? axes.yLim.map(y => y.toExponential(2))
 
     return [
         `<polyline`,
-        ` id="axes"`,
-        ` data-xmin="${axes.xLim[0]}"`,
-        ` data-xmax="${axes.xLim[1]}"`,
-        ` data-ymin="${axes.yLim[0]}"`,
-        ` data-ymax="${axes.yLim[1]}"`,
-        ` data-x0="${x0}"`,
-        ` data-x1="${x1}"`,
-        ` data-y0="${y0}"`,
-        ` data-y1="${y1}"`,
         ` points="${x0},${y0} ${x1},${y0} ${x1},${y1} ${x0},${y1} ${x0},${y0}"`,
         ` stroke="black"`,
         ` fill="none"`,
-        `/>`,
+        ` />`,
         xtls.map((xtl, idx) => {
             return `<text y="${y2}" x="${x0 + idx * (x1 - x0) / (xtls.length - 1)}"  text-anchor="middle" dominant-baseline="central" font-size="12">${xtl}</text>`
         }).join(''),

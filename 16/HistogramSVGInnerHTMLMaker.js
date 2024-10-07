@@ -9,26 +9,16 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogramSVGViewBoxWidth
-        variables.histogramSVGViewBoxWidth.addListener(arg => { this._histogramSVGViewBoxWidth = arg })
-        this._histogramSVGViewBoxHeight
-        variables.histogramSVGViewBoxHeight.addListener(arg => { this._histogramSVGViewBoxHeight = arg })
         this._histogram
         variables.histogram.addListener(arg => {
             this._histogram = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._histogramSVGViewBoxHeight) return
-            if (!this._histogramSVGViewBoxWidth) return
-
             const gca = {
-                parentHeight: this._histogramSVGViewBoxHeight,
-                parentWidth: this._histogramSVGViewBoxWidth,
                 xLim: [this._histogram.lowerEdge, this._histogram.upperEdge],
                 yLim: [0, max(this._histogram.value)]
             }
-            variables.histogramSVGViewBox.assign(`0 0 ${this._histogramSVGViewBoxWidth} ${this._histogramSVGViewBoxHeight}`)
             variables.histogramSVGInnerHTML.assign([
                 axes(gca),
                 stairs(gca, this._histogram.value)

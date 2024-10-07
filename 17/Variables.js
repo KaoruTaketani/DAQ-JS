@@ -14,8 +14,6 @@ export default class {
         this.randomNumber = new ListenableNumber()
         this.total = new ListenableNumber()
         this.startTime = new ListenableNumber()
-        this.histogramSVGViewBoxWidth = new ListenableNumber()
-        this.histogramSVGViewBoxHeight = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
 
@@ -26,7 +24,6 @@ export default class {
         this.totalInnerText = new ElementString('totalInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
         this.startTimeInnerText = new ElementString('startTimeInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
         this.histogramSVGInnerHTML = new ElementString('svgInnerHTML', '/HistogramMakerClient.js', this.webSocketUrls)
-        this.histogramSVGViewBox = new ElementString('svgViewBox', '/HistogramMakerClient.js', this.webSocketUrls)
     }
 }
 
