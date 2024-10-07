@@ -8,13 +8,13 @@ console.log(`fileSize: ${statSync(filePath).size.toLocaleString()} bytes`)
 performance.mark('start')
 createReadStream(filePath).on('data', _ => {
 }).on('end', () => {
-    performance.mark('createReadStream')
-    console.log(`createReadString elapsedTime: ${performance.measure('', 'start', 'createReadStream').duration} ms`)
+    performance.mark('stream')
+    console.log(`stream duration: ${performance.measure('', 'start', 'stream').duration} ms`)
 
     readFile(filePath, (err, data) => {
         if (err) throw err
 
-        performance.mark('readFile')
-        console.log(`readFile elapasedTime: ${performance.measure('', 'createReadStream', 'readFile').duration}ms`)
+        performance.mark('buffer')
+        console.log(`buffer duration: ${performance.measure('', 'stream', 'buffer').duration} ms`)
     })
 })
