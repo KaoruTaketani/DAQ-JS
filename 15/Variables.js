@@ -25,7 +25,6 @@ export default class {
         this.totalInnerText = new ElementString('totalInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
         this.startTimeInnerText = new ElementString('startTimeInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
         this.histogramSVGInnerHTML = new ElementString('svgInnerHTML', '/HistogramMakerClient.js', this.webSocketUrls)
-        this.histogramSVGViewBox = new ElementString('svgViewBox', '/HistogramMakerClient.js', this.webSocketUrls)
     }
 }
 

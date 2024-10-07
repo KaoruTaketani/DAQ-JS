@@ -23,7 +23,6 @@ export default class extends Operator {
                 axes(gca),
                 stairs(gca, this._histogram.value)
             ].join(''))
-            variables.histogramSVGViewBox.assign(`0 0 ${this._histogramSVGViewBoxWidth} ${this._histogramSVGViewBoxHeight}`)
         }
     }
 }
