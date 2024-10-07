@@ -18,24 +18,29 @@ svgElement.ondblclick = () => {
     dialogElement.showModal()
 }
 svgElement.onmousemove = ev => {
-    const axes = svgElement.getElementById("axes")
-    if (axes === undefined) return
-    // console.log(axes.dataset)
-    // width: 400, viewBoxWidth: 560
-    // height: 300, viewBoxHeight: 420
-    // so, horizontally scale 400/560 and vertically scale 300/420
-    const offsetX = ev.offsetX * 560 / 400
-    const ratioX = (offsetX - axes.dataset.x0) / (axes.dataset.x1 - axes.dataset.x0)
-    if (ratioX < 0 || ratioX > 1) return
+    const axes = document.getElementById("axes")
 
-    const offsetY = ev.offsetY * 420 / 300
-    const ratioY = (offsetY - axes.dataset.y1) / (axes.dataset.y0 - axes.dataset.y1)
-    if (ratioY < 0 || ratioY > 1) return
+    const xInPixels = ev.offsetX * 560 / 400
+    const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
+        / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
+    const xInData = Number(axes.dataset.xminInData)
+        + xInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
 
-    const x = Number(axes.dataset.xmin) + ratioX * (axes.dataset.xmax - axes.dataset.xmin)
-    const y = Number(axes.dataset.ymin) + (1 - ratioY) * (axes.dataset.ymax - axes.dataset.ymin)
-    // console.log(`ratioX: ${ratioX}, ratioY: ${ratioY}, x: ${x}, y: ${y}`)
-    cursorElement.innerText = `cursor: {x: ${x}, y: ${y}}`
+    const yInPixels = ev.offsetY * 420 / 300
+    const yInNormalized = (axes.dataset.yminInPixels - yInPixels)
+        / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
+    const yInData = Number(axes.dataset.yminInData)
+        + yInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
+
+    if (xInNormalized < 0 || xInNormalized > 1) {
+        cursorElement.innerText = `cursor: undefined`
+        return
+    }
+    if (yInNormalized < 0 || yInNormalized > 1) {
+        cursorElement.innerText = `cursor: undefined`
+        return
+    }
+    cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
 }
 document.body.appendChild(svgElement)
 
