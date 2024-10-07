@@ -10,8 +10,9 @@ export default class {
         this.httpServer = new ListenableObject()
         this.message = new ListenableObject()
         this.webSocketUrls = new ListenableObject()
+        this.timeSeries = new ListenableObject()
         this.histogramHDF5File = new ListenableObject()
-        this.histogram = new WritableHistogram('rand', this.histogramHDF5File)
+        this.histogram = new WritableHistogram('rand', this.histogramHDF5File)        
 
         this.randomNumber = new ListenableNumber()
         this.total = new ListenableNumber()
@@ -26,6 +27,8 @@ export default class {
         this.totalInnerText = new ElementString('totalInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
         this.startTimeInnerText = new ElementString('startTimeInnerText', '/HistogramMakerClient.js', this.webSocketUrls)
         this.histogramSVGInnerHTML = new ElementString('svgInnerHTML', '/HistogramMakerClient.js', this.webSocketUrls)
+
+        this.timeSeriesSVGInnerHTML = new ElementString('svgInnerHTML', '/TimeSeriesMakerClient.js', this.webSocketUrls)
     }
 }
 

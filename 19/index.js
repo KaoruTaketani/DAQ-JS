@@ -13,6 +13,9 @@ import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 import TotalCounter from './TotalCounter.js'
 import TotalInnerTextChanger from './TotalInnerTextChanger.js'
 import Variables from './Variables.js'
+import TimeSeriesInitializer from './TimeSeriesInitializer.js'
+import TimeSeriesMaker from './TimeSeriesMaker.js'
+import TimeSeriesSVGInnerHTMLMaker from './TimeSeriesSVGInnerHTMLMaker.js'
 
 const variables = new Variables()
 
@@ -29,5 +32,8 @@ new RandomNumberInnerTextChanger(variables)
 new RandomNumberStartDisabledChanger(variables)
 new RandomNumberStopDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
+new TimeSeriesInitializer(variables)
+new TimeSeriesMaker(variables)
+new TimeSeriesSVGInnerHTMLMaker(variables)
 
 variables.httpServer.assign(new Server()) 
