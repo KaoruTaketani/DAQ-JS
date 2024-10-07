@@ -1,12 +1,13 @@
 import { createReadStream, readFile, statSync } from 'fs'
+import { performance } from 'perf_hooks'
 
 const filePath = '../../edr/20230420/rpmt_run2.edr'
 
 console.log(`fileSize: ${statSync(filePath).size.toLocaleString()} bytes`)
 
-const startTime = Date.now()
-const events = []
+let events = []
 
+performance.mark('start')
 createReadStream(filePath).on('data', chunk => {
     for (let i = 0; i < chunk.length / 8; ++i) {
         if (chunk.readUint8(8 * i) === 0x5a) {
@@ -31,10 +32,11 @@ createReadStream(filePath).on('data', chunk => {
         }
     }
 }).on('end', () => {
-    const elapsedTime = Date.now() - startTime
-    console.log(`createReadString times.length: ${events.length.toLocaleString()}, elapsedTime: ${elapsedTime} ms`)
+    performance.mark('stream')
 
-    events.splice(0)
+    console.log(`stream events.length: ${events.length.toLocaleString()}, duration: ${performance.measure('', 'start', 'stream').duration} ms`)
+
+    events = []
 
     readFile(filePath, (err, data) => {
         if (err) throw err
@@ -61,6 +63,7 @@ createReadStream(filePath).on('data', chunk => {
                 })
             }
         }
-        console.log(`readFile times.length: ${events.length.toLocaleString()} elapasedTime: ${Date.now() - startTime - elapsedTime} ms`)
+        performance.mark('buffer')
+        console.log(`buffer events.length: ${events.length.toLocaleString()} duration: ${performance.measure('','stream','buffer').duration} ms`)
     })
 })
