@@ -13,6 +13,15 @@ export default (
 
     return [
         `<polyline`,
+        ` id="axes"`,
+        ` data-xmin="${axes.xLim[0]}"`,
+        ` data-xmax="${axes.xLim[1]}"`,
+        ` data-ymin="${axes.yLim[0]}"`,
+        ` data-ymax="${axes.yLim[1]}"`,
+        ` data-x0="${x0}"`,
+        ` data-x1="${x1}"`,
+        ` data-y0="${y0}"`,
+        ` data-y1="${y1}"`,
         ` points="${x0},${y0} ${x1},${y0} ${x1},${y1} ${x0},${y1} ${x0},${y0}"`,
         ` stroke="black"`,
         ` fill="none"`,
