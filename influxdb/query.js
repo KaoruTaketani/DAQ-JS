@@ -30,7 +30,7 @@ const req = request(
 
 req.write([
     'from(bucket: "get-started")',
-    '  |> range(start: -10m)',
+    '  |> range(start: -1h)',
     '  |> filter(fn: (r) => r._measurement == "home")',
     '  |> filter(fn: (r) => r._field== "co" or r._field == "hum" or r._field == "temp")'
 ].join('\n'))
