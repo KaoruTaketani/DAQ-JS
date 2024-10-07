@@ -4,9 +4,9 @@ const filePath = '../../edr/20230420/rpmt_run2.edr'
 
 console.log(`fileSize: ${statSync(filePath).size.toLocaleString()} bytes`)
 
-const startTime = Date.now()
-const times = []
+let count = 0
 
+performance.mark('start')
 createReadStream(filePath).on('data', chunk => {
     for (let i = 0; i < chunk.length / 8; ++i) {
         if (chunk.readUint8(8 * i) === 0x5c) {
@@ -14,15 +14,14 @@ createReadStream(filePath).on('data', chunk => {
                 i2 = chunk.readUint8(8 * i + 2),
                 i3 = chunk.readUint8(8 * i + 3),
                 i4 = chunk.readUint8(8 * i + 4),
-                second = ((i1 << 24) + (i2 << 16) + (i3 << 8) + i4) >> 2
-            times.push(second)
+                mlftime = ((i1 << 24) + (i2 << 16) + (i3 << 8) + i4) >> 2
+            count++
         }
     }
 }).on('end', () => {
-    const elapsedTime = Date.now() - startTime
-    console.log(`createReadString times.length: ${times.length.toLocaleString()}, elapsedTime: ${elapsedTime} ms`)
-
-    times.splice(0)
+    performance.mark('stream')
+    console.log(`stream count: ${count.toLocaleString()}, duration: ${performance.measure('', 'start', 'stream').duration} ms`)
+    count = 0
 
     readFile(filePath, (err, data) => {
         if (err) throw err
@@ -33,10 +32,11 @@ createReadStream(filePath).on('data', chunk => {
                     i2 = data.readUint8(8 * i + 2),
                     i3 = data.readUint8(8 * i + 3),
                     i4 = data.readUint8(8 * i + 4),
-                    second = ((i1 << 24) + (i2 << 16) + (i3 << 8) + i4) >> 2
-                times.push(second)
+                    mlftime = ((i1 << 24) + (i2 << 16) + (i3 << 8) + i4) >> 2
+                count++
             }
         }
-        console.log(`readFile times.length: ${times.length.toLocaleString()} elapasedTime: ${Date.now() - startTime - elapsedTime} ms`)
+        performance.mark('buffer')
+        console.log(`buffer count: ${count.toLocaleString()}, duration: ${performance.measure('', 'stream', 'buffer').duration} ms`)
     })
 })
