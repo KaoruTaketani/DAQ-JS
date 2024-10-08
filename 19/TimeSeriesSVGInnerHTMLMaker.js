@@ -17,12 +17,12 @@ export default class extends Operator {
         })
         this._operation = () => {
             const gca = {
-                xLim: [1, this._timeSeries.length],
-                yLim: [min(this._timeSeries), max(this._timeSeries)]
+                xLim: [min(this._timeSeries.x), max(this._timeSeries.x)],
+                yLim: [min(this._timeSeries.y), max(this._timeSeries.y)]
             }
             variables.timeSeriesSVGInnerHTML.assign([
                 axes(gca),
-                line(gca, this._timeSeries)
+                line(gca, this._timeSeries.x, this._timeSeries.y)
             ].join(''))
         }
     }

@@ -17,7 +17,10 @@ export default class extends Operator {
             if (!this._randomNumberGeneratorIsBusy) return
 
             if (this._timeSeries === undefined)
-                variables.timeSeries.assign(new Array(16).fill(Number.NaN))
+                variables.timeSeries.assign({
+                    x: new Array(16).fill(Number.NaN),
+                    y: new Array(16).fill(Number.NaN)
+                })
         }
     }
 }
