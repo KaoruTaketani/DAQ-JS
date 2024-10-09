@@ -27,27 +27,6 @@ const req = request(
         })
     }
 )
-// req.write([
-//     // 'home,room=Living\ Room temp=21.1,hum=35.9,co=0i',
-//     // 'home,room=Kitchen temp=21.0,hum=35.9,co=0i'
-//     `home,room=Kitchen temp=21.0,hum=35.9,co=${Math.floor(Math.random() * 10)}i`
-// ].join('\n'))
-// req.write([
-//     'home,room=LivingRoom temp=21.1,hum=35.9,co=0i'
-// ].join('\n'))
-
-// req.write([
-//     'home,room=Living\\ Room temp=21.1,hum=35.9,co=0i'
-// ].join('\n'))
-
-// req.write([
-//     'home,room=Living\\ Room temp=21.1,hum=35.9,co=0i',
-//     'home,room=Kitchen temp=21.0,hum=35.9,co=0i'
-// ].join('\n'))
-// req.write([
-//     'home,room=Living\\ Room temp=21.4,hum=35.9,co=0i',
-//     'home,room=Kitchen temp=23.0,hum=36.2,co=0i'
-// ].join('\n'))
 req.write([
     'home,room=Living\\ Room temp=21.8,hum=36.0,co=0i',
     'home,room=Kitchen temp=22.7,hum=36.1,co=0i'

@@ -1,7 +1,6 @@
 export default (
     axes
 ) => {
-    // svg coordinate increases from left/top to right/bottom
     const x0 = (axes.parentWidth ?? 560) * (axes.innerLeft ?? 0.13),
         x1 = x0 + (axes.parentWidth ?? 560) * (axes.innerWidth ?? 0.775),
         x2 = x0 - (axes.xTickLabelGapOffset ?? 5),
