@@ -1,13 +1,12 @@
 import { createReadStream, readFile, statSync } from 'fs'
+import filePath from './filePath.js'
 
-const filePath = '../../edr/20230420/rpmt_run2.edr'
-
-console.log(`fileSize: ${statSync(filePath).size.toLocaleString()} bytes`)
+console.log(`fileSize: ${statSync(filePath()).size.toLocaleString()} bytes`)
 
 let count = 0
 
 performance.mark('start')
-createReadStream(filePath).on('data', chunk => {
+createReadStream(filePath()).on('data', chunk => {
     for (let i = 0; i < chunk.length / 8; ++i) {
         if (chunk.readUint8(8 * i) === 0x5c) {
             const i1 = chunk.readUint8(8 * i + 1),
@@ -23,7 +22,7 @@ createReadStream(filePath).on('data', chunk => {
     console.log(`stream count: ${count.toLocaleString()}, duration: ${performance.measure('', 'start', 'stream').duration} ms`)
     count = 0
 
-    readFile(filePath, (err, data) => {
+    readFile(filePath(), (err, data) => {
         if (err) throw err
 
         for (let i = 0; i < data.length / 8; ++i) {

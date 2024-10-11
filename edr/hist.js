@@ -1,14 +1,13 @@
 import { createReadStream, readFile, statSync } from 'fs'
 import { performance } from 'perf_hooks'
+import filePath from './filePath.js'
 
-const filePath = '../../edr/20230420/rpmt_run2.edr'
-
-console.log(`fileSize: ${statSync(filePath).size.toLocaleString()} bytes`)
+console.log(`fileSize: ${statSync(filePath()).size.toLocaleString()} bytes`)
 
 let hist = new Array(10).fill(0)
 
 performance.mark('start')
-createReadStream(filePath).on('data', chunk => {
+createReadStream(filePath()).on('data', chunk => {
     for (let i = 0; i < chunk.length / 8; ++i) {
         if (chunk.readUint8(8 * i) === 0x5a) {
             const i1 = chunk.readUint8(8 * i + 1),
@@ -36,7 +35,7 @@ createReadStream(filePath).on('data', chunk => {
 
     hist = new Array(10).fill(0)
 
-    readFile(filePath, (err, data) => {
+    readFile(filePath(), (err, data) => {
         if (err) throw err
         for (let i = 0; i < data.length / 8; ++i) {
             if (data.readUint8(8 * i) == 0x5a) {
