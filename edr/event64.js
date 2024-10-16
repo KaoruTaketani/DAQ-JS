@@ -4,12 +4,13 @@ import filePath from './filePath.js'
 
 console.log(`fileSize: ${statSync(filePath()).size.toLocaleString()} bytes`)
 
-let events = []
+let events = 0
 
 performance.mark('start')
 createReadStream(filePath()).on('data', chunk => {
     for (let i = 0; i < chunk.length / 8; ++i) {
         if (chunk.readUint8(8 * i) === 0x5a) {
+            events++
             // const i1 = chunk.readUint8(8 * i + 1),
             // i2 = chunk.readUint8(8 * i + 2),
             // i3 = chunk.readUint8(8 * i + 3),
@@ -39,8 +40,8 @@ createReadStream(filePath()).on('data', chunk => {
     }
 }).on('end', () => {
     performance.mark('8bit')
-    console.log(`8bit events.length: ${events.length.toLocaleString()}, ${performance.measure('', 'start', '8bit').duration} ms`)
-
+    console.log(`8bit events: ${events.toLocaleString()}, ${performance.measure('', 'start', '8bit').duration} ms`)
+events=0
     createReadStream(filePath()).on('data', chunk => {
         const arr = new BigUint64Array(
             chunk.buffer,
@@ -52,6 +53,7 @@ createReadStream(filePath()).on('data', chunk => {
             mask12 = 0b111111111111n
         for (let i = 0; i < arr.length; ++i) {
             if ((arr[i] & 0xffn) === 0x5an) {
+                events++
                 // const
                 //     i1 = (arr[i] >> 8n) & 0xffn,
                 //     i2 = (arr[i] >> 16n) & 0xffn,
@@ -71,10 +73,9 @@ createReadStream(filePath()).on('data', chunk => {
                     right = ((arr[i] & 0x0fn) << 8n) | (arr[i] >> 56n)
             }
         }
-        // console.log(`${chunk.length.toLocaleString()}, ${arr.length.toLocaleString()}`)
     }).on('end', () => {
         performance.mark('64bit')
-        console.log(`64bit events.length: ${events.length.toLocaleString()}, ${performance.measure('', '8bit', '64bit').duration} ms`)
+        console.log(`64bit events: ${events.toLocaleString()}, ${performance.measure('', '8bit', '64bit').duration} ms`)
     })
 })
 
