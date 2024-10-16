@@ -4,7 +4,7 @@ import filePath from './filePath.js'
 
 console.log(`fileSize: ${statSync(filePath()).size.toLocaleString()} bytes`)
 
-let events = []
+let hist = new Array(10).fill(0)
 
 performance.mark('start')
 createReadStream(filePath()).on('data', chunk => {
@@ -22,24 +22,21 @@ createReadStream(filePath()).on('data', chunk => {
                 left = (i5 << 4) + (i6 >> 4),
                 right = ((i6 & 0xf) << 8) + i7
 
-            // events.push({
-            //     channel: channel,
-            //     time: time,
-            //     left: left,
-            //     right: right
-            // })
+            if (channel === 0) {
+                const id = Math.floor(left / (left + right) * 10)
+                hist[id]++
+            }
         }
     }
 }).on('end', () => {
     performance.mark('stream')
 
-    console.log(`stream events.length: ${events.length.toLocaleString()}, duration: ${performance.measure('', 'start', 'stream').duration} ms`)
+    console.log(`stream hist.total: ${hist.reduce((p, c) => p + c, 0).toLocaleString()}, duration: ${performance.measure('', 'start', 'stream').duration} ms`)
 
-    events = []
+    hist = new Array(10).fill(0)
 
     readFile(filePath(), (err, data) => {
         if (err) throw err
-
         for (let i = 0; i < data.length / 8; ++i) {
             if (data[8 * i] == 0x5a) {
                 const i1 = data[8 * i + 1],
@@ -54,15 +51,13 @@ createReadStream(filePath()).on('data', chunk => {
                     left = (i5 << 4) + (i6 >> 4),
                     right = ((i6 & 0xf) << 8) + i7
 
-                // events.push({
-                //     channel: channel,
-                //     time: time,
-                //     left: left,
-                //     right: right
-                // })
+                if (channel === 0) {
+                    const id = Math.floor(left / (left + right) * 10)
+                    hist[id]++
+                }
             }
         }
         performance.mark('buffer')
-        console.log(`buffer events.length: ${events.length.toLocaleString()}, duration: ${performance.measure('','stream','buffer').duration} ms`)
+        console.log(`buffer hist.total: ${hist.reduce((p, c) => p + c, 0).toLocaleString()}, duration: ${performance.measure('', 'stream', 'buffer').duration} ms`)
     })
 })
