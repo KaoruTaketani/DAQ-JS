@@ -66,6 +66,7 @@ createReadStream(filePath()).on('data', chunk => {
                 //     right = ((i6 & 0x0fn) << 8n) + i7
                 const
                     time = (((arr[i] << 8n) & 0xffffffn) | (arr[i] & 0xffffn) | ((arr[i] >> 8n) & 0xffn)) * 25n, /** time bin is 25 nsec */
+                    channel = (arr[i] >>24n)& 0x7n,
                     left = ((arr[i] >> 36n) & 0xfffn) | ((arr[i] >> 44n)),
                     right = ((arr[i] & 0x0fn) << 8n) | (arr[i] >> 56n)
             }
