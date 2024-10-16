@@ -30,7 +30,6 @@ batchMessages.reduce((previous, batchMessage) => previous.then(() =>
         message.assign(batchMessage)
         if (batchMessage['isBusy']) {
             isBusy.addOnceListener(() => {
-                console.log('once')
                 resolve()
             })
         } else {

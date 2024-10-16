@@ -10,12 +10,12 @@ export default class extends ListenableBoolean {
             this.assign(arg[key])
         })
     }
-    addOnceListener(listener) {
-        this._onceListeners.push(listener)
+    addOnceListener(onceListener) {
+        this._onceListeners.push(onceListener)
     }
     assign(arg) {
         super.assign(arg)
-        this._onceListeners.forEach(listener => { listener(arg) })
+        this._onceListeners.forEach(onceListener => { onceListener(arg) })
         this._onceListeners.splice(0)
     }
 }
