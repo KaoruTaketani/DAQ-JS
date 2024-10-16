@@ -52,18 +52,22 @@ createReadStream(filePath()).on('data', chunk => {
             mask12 = 0b111111111111n
         for (let i = 0; i < arr.length; ++i) {
             if ((arr[i] & 0xffn) === 0x5an) {
+                // const
+                //     i1 = (arr[i] >> 8n) & 0xffn,
+                //     i2 = (arr[i] >> 16n) & 0xffn,
+                //     i3 = (arr[i] >> 24n) & 0xffn,
+                //     i4 = (arr[i] >> 32n) & 0xffn,
+                //     i5 = (arr[i] >> 40n) & 0xffn,
+                //     i6 = (arr[i] >> 48n) & 0xffn,
+                //     i7 = (arr[i] >> 56n) & 0xffn,
+                //     time = ((i1 << 16n) + (i2 << 8n) + i3) * 25n, /** time bin is 25 nsec */
+                //     channel = i4 & 0x7n,
+                //     left = (i5 << 4n) + (i6 >> 4n),
+                //     right = ((i6 & 0x0fn) << 8n) + i7
                 const
-                    i1 = (arr[i] >> 8n) & 0xffn,
-                    i2 = (arr[i] >> 16n) & 0xffn,
-                    i3 = (arr[i] >> 24n) & 0xffn,
-                    i4 = (arr[i] >> 32n) & 0xffn,
-                    i5 = (arr[i] >> 40n) & 0xffn,
-                    i6 = (arr[i] >> 48n) & 0xffn,
-                    i7 = (arr[i] >> 56n) & 0xffn,
-                    time = ((i1 << 16n) + (i2 << 8n) + i3) * 25n, /** time bin is 25 nsec */
-                    channel = i4 & 0x7n,
-                    left = (i5 << 4n) + (i6 >> 4n),
-                    right = ((i6 & 0x0fn) << 8n) + i7
+                    time = (((arr[i] << 8n) & 0xffffffn) | (arr[i] & 0xffffn) | ((arr[i] >> 8n) & 0xffn)) * 25n, /** time bin is 25 nsec */
+                    left = ((arr[i] >> 36n) & 0xfffn) | ((arr[i] >> 44n)),
+                    right = ((arr[i] & 0x0fn) << 8n) | (arr[i] >> 56n)
             }
         }
         // console.log(`${chunk.length.toLocaleString()}, ${arr.length.toLocaleString()}`)
