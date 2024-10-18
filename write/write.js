@@ -1,11 +1,11 @@
 import { createWriteStream, statSync } from 'fs'
 
 const
-    // length = 1024,
-    totalLength = 128 * 1024,
+    // totalLength = 1024,
     // totalLength = 64 * 1024,
+    totalLength = 128 * 1024,
+    // chunkLength = 128,
     chunkLength = 1024,
-    // length = 64 * 1024,
     data = new Float64Array(totalLength)
 let offset = 0
 for (let i = 0; i < totalLength; ++i) data[i] = Math.random()
