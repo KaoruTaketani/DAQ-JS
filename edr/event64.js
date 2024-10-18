@@ -41,16 +41,16 @@ createReadStream(filePath()).on('data', chunk => {
 }).on('end', () => {
     performance.mark('8bit')
     console.log(`8bit events: ${events.toLocaleString()}, ${performance.measure('', 'start', '8bit').duration} ms`)
-events=0
+    events = 0
     createReadStream(filePath()).on('data', chunk => {
         const arr = new BigUint64Array(
             chunk.buffer,
             chunk.byteOffset,
             chunk.length / BigUint64Array.BYTES_PER_ELEMENT)
         // arr.forEach(e => { })
-        const mask24 = 0xffffffn,
-            mask8 = 0xffn,
-            mask12 = 0b111111111111n
+        const mask24 = 2 ** 24 - 1,
+            mask8 = 2 ** 8 - 1,
+            mask12 = 2 ** 12 - 1n
         for (let i = 0; i < arr.length; ++i) {
             if ((arr[i] & 0xffn) === 0x5an) {
                 events++
@@ -68,7 +68,7 @@ events=0
                 //     right = ((i6 & 0x0fn) << 8n) + i7
                 const
                     time = (((arr[i] << 8n) & 0xffffffn) | (arr[i] & 0xffffn) | ((arr[i] >> 8n) & 0xffn)) * 25n, /** time bin is 25 nsec */
-                    channel = (arr[i] >>24n)& 0x7n,
+                    channel = (arr[i] >> 24n) & 0x7n,
                     left = ((arr[i] >> 36n) & 0xfffn) | ((arr[i] >> 44n)),
                     right = ((arr[i] & 0x0fn) << 8n) | (arr[i] >> 56n)
             }
