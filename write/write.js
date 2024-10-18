@@ -38,6 +38,7 @@ const f = () => {
             console.log('write returns false')
             clearInterval(interval)
         }
+        // even when write returns false, the data seems to be written before drain event
         offset += chunkLength
     }
 }
