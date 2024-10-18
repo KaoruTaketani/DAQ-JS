@@ -1,4 +1,4 @@
-import { createReadStream } from 'fs'
+import { createReadStream, readFile } from 'fs'
 import filePath from './filePath.js'
 import { performance } from 'perf_hooks'
 
@@ -24,26 +24,31 @@ createReadStream(filePath()).on('data', chunk => {
         }
     }
 }).on('end', () => {
-    performance.mark('8bit')
-    console.log(`a: ${a.toLocaleString()}, b: ${b.toLocaleString()}, c: ${c.toLocaleString()}, d: ${d.toLocaleString()}, ${performance.measure('', 'start', '8bit').duration} ms`)
+    performance.mark('stream')
+    console.log(`a: ${a.toLocaleString()}, b: ${b.toLocaleString()}, c: ${c.toLocaleString()}, d: ${d.toLocaleString()}, ${performance.measure('', 'start', 'stream').duration} ms`)
     a = 0
     b = 0
     c = 0
     d = 0
-    createReadStream(filePath()).on('data', chunk => {
-        for (let i = 0; i < chunk.length / 8; ++i) {
-            if (chunk[8 * i] & 0b1) {
-                b++
-            } else {
-                if (chunk[8 * i] & 0b10) {
+    readFile(filePath(), (err, data) => {
+        if (err) throw err
+
+        for (let i = 0; i < data.length / 8; ++i) {
+            switch (data[8 * i]) {
+                case 0x5a:
                     a++
-                } else {
+                    break
+                case 0x5b:
+                    b++
+                    break
+                case 0x5c:
                     c++
-                }
+                    break
+                default:
+                    d++
             }
         }
-    }).on('close', () => {
-        performance.mark('64bit')
-        console.log(`a: ${a.toLocaleString()}, b: ${b.toLocaleString()}, c: ${c.toLocaleString()}, d: ${d.toLocaleString()}, ${performance.measure('', '8bit', '64bit').duration} ms`)
+        performance.mark('buffer')
+        console.log(`a: ${a.toLocaleString()}, b: ${b.toLocaleString()}, c: ${c.toLocaleString()}, d: ${d.toLocaleString()}, ${performance.measure('', 'stream', 'buffer').duration} ms`)
     })
 })
