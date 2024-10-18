@@ -31,15 +31,11 @@ createReadStream(filePath()).on('data', chunk => {
     c = 0
     d = 0
     createReadStream(filePath()).on('data', chunk => {
-        const array = new BigUint64Array(
-            chunk.buffer,
-            chunk.byteOffset,
-            chunk.length / BigUint64Array.BYTES_PER_ELEMENT)
-        for (let i = 0; i < array.length; ++i) {
-            if (array[i] & 0b1n) {
+        for (let i = 0; i < chunk.length / 8; ++i) {
+            if (chunk[8 * i] & 0b1) {
                 b++
             } else {
-                if (array[i] & 0b10n) {
+                if (chunk[8 * i] & 0b10) {
                     a++
                 } else {
                     c++
