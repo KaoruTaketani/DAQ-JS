@@ -43,7 +43,7 @@ createReadStream(filePath()).on('data', chunk => {
             }
         }
     }).on('close', () => {
-        performance.mark('64bit')
-        console.log(`a: ${a.toLocaleString()}, b: ${b.toLocaleString()}, c: ${c.toLocaleString()}, d: ${d.toLocaleString()}, ${performance.measure('', '8bit', '64bit').duration} ms`)
+        performance.mark('2bit')
+        console.log(`a: ${a.toLocaleString()}, b: ${b.toLocaleString()}, c: ${c.toLocaleString()}, d: ${d.toLocaleString()}, ${performance.measure('', '8bit', '2bit').duration} ms`)
     })
 })

@@ -5,11 +5,14 @@ import filePath from './filePath.js'
 console.log(`fileSize: ${statSync(filePath()).size.toLocaleString()} bytes`)
 
 let events = 0
+const mask24 = 2 ** 24 - 1,
+    mask8 = 2 ** 8 - 1,
+    mask12 = 2 ** 12 - 1
 
 performance.mark('start')
 createReadStream(filePath()).on('data', chunk => {
     for (let i = 0; i < chunk.length / 8; ++i) {
-        if (chunk.readUint8(8 * i) === 0x5a) {
+        if (chunk[8 * i] === 0x5a) {
             events++
             // const i1 = chunk.readUint8(8 * i + 1),
             // i2 = chunk.readUint8(8 * i + 2),
@@ -48,7 +51,7 @@ createReadStream(filePath()).on('data', chunk => {
             chunk.byteOffset,
             chunk.byteLength)
         for (let i = 0; i < chunk.length / 8; ++i) {
-            if (chunk.readUint8(8 * i) === 0x5a) {
+            if (chunk[8 * i] === 0x5a) {
                 events++
                 // const i1 = chunk.readUint8(8 * i + 1),
                 // i2 = chunk.readUint8(8 * i + 2),
@@ -59,14 +62,11 @@ createReadStream(filePath()).on('data', chunk => {
                 // i7 = chunk.readUint8(8 * i + 7)
                 const
                     i4 = chunk[8 * i + 4],
-                    i5 = chunk[8 * i + 5],
-                    i6 = chunk[8 * i + 6],
-                    i7 = chunk[8 * i + 7],
-                    time = (view.getUint32(8 * i, false) >> 8) * 25, /** time bin is 25 nsec */
+                    time = (view.getUint32(8 * i, false) & mask24) * 25, /** time bin is 25 nsec */
                     channel = i4 & 0x7,
-                    tmp = (view.getUint32(8 * i + 4, false)) & 0xffffff, // mask top 8 bit
-                    left = tmp >> 12,
-                    right = tmp & 0b111111111111 
+                    tmp = view.getUint32(8 * i + 4, false),
+                    left = (tmp >> 12) & mask12,
+                    right = tmp & mask12
 
                 //     events.push({
                 //         channel: channel,
