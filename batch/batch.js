@@ -29,10 +29,13 @@ batchMessages.reduce((previous, batchMessage) => previous.then(() =>
     new Promise(resolve => {
         message.assign(batchMessage)
         if (batchMessage['isBusy']) {
+            // console.log('add once')
             isBusy.addOnceListener(() => {
+                console.log('once')
                 resolve()
             })
         } else {
+            // console.log('not add once')
             resolve()
         }
     })
