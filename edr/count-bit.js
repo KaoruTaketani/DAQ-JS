@@ -33,7 +33,11 @@ createReadStream(filePath()).on('data', chunk => {
     createReadStream(filePath()).on('data', chunk => {
         for (let i = 0; i < chunk.length / 8; ++i) {
             if (chunk[8 * i] & 0b1) {
-                b++
+                if (chunk[8 * i] & 0b10) {
+                    b++
+                } else {
+                    d++
+                }
             } else {
                 if (chunk[8 * i] & 0b10) {
                     a++
