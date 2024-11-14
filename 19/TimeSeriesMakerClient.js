@@ -11,8 +11,8 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 socket.onmessage = event => {
-    const msg = JSON.parse(event.data)
+    const elementValue = JSON.parse(event.data)
 
-    if (msg.key === 'svgInnerHTML')
-        svgElement.innerHTML = msg.value
+    if (elementValue.hash === '#svgInnerHTML')
+        svgElement.innerHTML = elementValue.value
 }
