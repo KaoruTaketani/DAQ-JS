@@ -1,7 +1,7 @@
 export default class {
     constructor(key, elementValues, webSocketUrls) {
         this._key = key
-        this._url = new URL(`http://localhost${key}`)
+        this._url = new URL(`ws://localhost${key}`)
         this._elementValues
         elementValues.addListener(arg => { this._elementValues = arg })
         this._webSocketUrls
@@ -12,7 +12,7 @@ export default class {
         this._webSocketUrls.forEach((url, ws) => {
             if (this._url.pathname !== url) return
 
-            ws.send(`{"hash":"${this._url.hash}", "value":"${arg}"}`)
+            ws.send(JSON.stringify({ hash: this._url.hash, value: arg }))
         })
     }
 }

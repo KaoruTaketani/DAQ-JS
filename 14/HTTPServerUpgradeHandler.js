@@ -23,7 +23,7 @@ export default class extends Operator {
 
             this._httpServer.on('upgrade', (request, socket, head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
-
+                    this._webSocketUrls.set(ws, request.url)
                     ws.on('message', data => {
                         const arg = JSON.parse(data.toString())
                         variables.message.assign(arg)
@@ -32,17 +32,12 @@ export default class extends Operator {
                         ws.removeAllListeners('message')
                         this._webSocketUrls.delete(ws)
                     })
-                    this._webSocketUrls.set(ws, request.url)
 
                     this._elementValues.forEach((value, key) => {
                         const url = new URL(`ws://localhost${key}`)
                         if (url.pathname !== request.url) return
 
-                        if (typeof value === 'string') {
-                            ws.send(`{"hash":"${url.hash}", "value":"${value}"}`)
-                        } else {
-                            ws.send(`{"hash":"${url.hash}", "value":${value}}`)
-                        }
+                        ws.send(JSON.stringify({ hash: url.hash, value: value }))
                     })
                 })
             })

@@ -1,23 +1,18 @@
 export default class {
-    constructor(key, url, webSocketUrls) {
-        this._value
+    constructor(key, elementValues, webSocketUrls) {
         this._key = key
-        this._url = url
+        this._url = new URL(`ws://localhost${key}`)
+        this._elementValues
+        elementValues.addListener(arg => { this._elementValues = arg })
         this._webSocketUrls
-        webSocketUrls.addListener(arg => {
-            this._webSocketUrls = arg
-            this._send()
-        })
-    }
-    _send() {
-        if (this._value === undefined) return
-        this._webSocketUrls.forEach((url, ws) => {
-            if (this._url !== url) return
-            ws.send(JSON.stringify({ key: this._key, value: this._value }))
-        })
+        webSocketUrls.addListener(arg => { this._webSocketUrls = arg })
     }
     assign(arg) {
-        this._value = arg
-        this._send()
+        this._elementValues.set(this._key, arg)
+        this._webSocketUrls.forEach((url, ws) => {
+            if (this._url.pathname !== url) return
+
+            ws.send(JSON.stringify({ hash: this._url.hash, value: arg }))
+        })
     }
 }
