@@ -9,6 +9,8 @@ export default class extends Operator {
         super()
         this._webSocketUrls
         variables.webSocketUrls.addListener(arg => { this._webSocketUrls = arg })
+        this._elementValues
+        variables.elementValues.addListener(arg => { this._elementValues = arg })
         this._httpServer
         variables.httpServer.addListener(arg => {
             this._httpServer = arg
@@ -17,20 +19,27 @@ export default class extends Operator {
         this._operation = () => {
             this._webSocketServer = new WebSocketServer({ noServer: true })
             variables.webSocketUrls.assign(new Map())
+            variables.elementValues.assign(new Map())
 
             this._httpServer.on('upgrade', (request, socket, head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
-                    
+
                     ws.on('message', data => {
                         const arg = JSON.parse(data.toString())
                         variables.message.assign(arg)
                     })
-                    ws.on('close',()=>{
+                    ws.on('close', () => {
                         ws.removeAllListeners('message')
                         this._webSocketUrls.delete(ws)
                     })
                     this._webSocketUrls.set(ws, request.url)
-                    variables.webSocketUrls.assign(this._webSocketUrls)
+
+                    this._elementValues.forEach((value, key) => {
+                        const url = new URL(`ws://localhost${key}`)
+                        if (url.pathname !== request.url) return
+
+                        ws.send(JSON.stringify({ hash: url.hash, value: value }))
+                    })
                 })
             })
         }
