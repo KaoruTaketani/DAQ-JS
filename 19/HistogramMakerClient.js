@@ -46,13 +46,20 @@ svgElement.onmousemove = ev => {
         .filter(x => x <= xInPixels)
         .length
     const point = points.split(' ')[i]
+    const xStairInPixels = parseFloat(point.split(',')[0])
+    const xStairInNormalized = (xStairInPixels - axes.dataset.xminInPixels)
+        / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
+    const xStairInData = Number(axes.dataset.xminInData)
+        + xStairInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
+
     const yStairInPixels = parseFloat(point.split(',')[1])
     const yStairInNormalized = (axes.dataset.yminInPixels - yStairInPixels)
         / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
     const yStairInData = Number(axes.dataset.yminInData)
         + yStairInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
     // console.log(`xMax: ${yStairInPixels},  point: ${yStairInData}`)
-    cursorElement.innerText = `binCount: ${yStairInData}, cursor: {x: ${xInData}, y: ${yInData}}`
+    // cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
+    cursorElement.innerText = `upperEdge: ${xStairInData}, binCount: ${yStairInData}`
     lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
 }
 svgElement.ondblclick = () => {
