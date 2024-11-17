@@ -35,7 +35,24 @@ svgElement.onmousemove = ev => {
         cursorElement.innerText = `cursor: undefined`
         return
     }
-    cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
+    const stairs = document.getElementById('stairs')
+    const points = stairs.getAttribute('points')
+    // const xInPixelsMax = points.split(' ')
+    //     .map(point => parseFloat(point))
+    //     .filter(x => x <= xInPixels)
+    //     .at(-1)
+    const i = points.split(' ')
+        .map(point => parseFloat(point))
+        .filter(x => x <= xInPixels)
+        .length
+    const point = points.split(' ')[i]
+    const yStairInPixels = parseFloat(point.split(',')[1])
+    const yStairInNormalized = (axes.dataset.yminInPixels - yStairInPixels)
+        / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
+    const yStairInData = Number(axes.dataset.yminInData)
+        + yStairInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
+    // console.log(`xMax: ${yStairInPixels},  point: ${yStairInData}`)
+    cursorElement.innerText = `binCount: ${yStairInData}, cursor: {x: ${xInData}, y: ${yInData}}`
     lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
 }
 svgElement.ondblclick = () => {
