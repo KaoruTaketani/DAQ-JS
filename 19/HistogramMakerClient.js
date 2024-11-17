@@ -36,11 +36,34 @@ svgElement.onmousemove = ev => {
         return
     }
     cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
+    lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
 }
 svgElement.ondblclick = () => {
     dialogElement.showModal()
 }
-document.body.appendChild(svgElement)
+// document.body.appendChild(svgElement)
+const foreignElement = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
+foreignElement.setAttribute('width', '400')
+foreignElement.setAttribute('height', '300')
+foreignElement.appendChild(svgElement)
+const lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
+// lineElement.innerHTML=`<polyline points="0,0 400,30" stroke="black" fill="none" />`
+lineElement.setAttribute('points', '200,0 200,400')
+lineElement.setAttribute('stroke', 'red')
+const overlayElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+overlayElement.setAttribute('width', '400')
+overlayElement.setAttribute('height', '300')
+overlayElement.appendChild(foreignElement)
+overlayElement.appendChild(lineElement)
+// overlayElement.onmousemove = ev => {
+//     // const xInPixels = ev.offsetX * 560 / 400
+//     // const yInPixels = ev.offsetY * 420 / 300
+//     if (ev.offsetX < 120)
+//         lineElement.removeAttribute('points')
+//     else
+//         lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
+// }
+document.body.appendChild(overlayElement)
 
 const dialogElement = document.createElement('dialog')
 document.body.appendChild(dialogElement)
