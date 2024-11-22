@@ -1,19 +1,22 @@
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
-const controllerSocket = new WebSocket(url.href + '/_controller')
-controllerSocket.onclose = () => {
+url.pathname = ''
+const socket = new WebSocket(url)
+socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
 const totalElement = document.createElement('p')
-const totalInnerTextSocket = new WebSocket(url.href + '/totalInnerText')
+url.pathname = 'totalInnerText'
+const totalInnerTextSocket = new WebSocket(url)
 totalInnerTextSocket.onmessage = event => {
     totalElement.innerText = event.data
 }
 document.body.appendChild(totalElement)
 
 const startTimeElement = document.createElement('p')
-const startTimeInnerTextSocket = new WebSocket(url.href + '/startTimeInnerText')
+url.pathname = 'startTimeInnerText'
+const startTimeInnerTextSocket = new WebSocket(url)
 startTimeInnerTextSocket.onmessage = event => {
     startTimeElement.innerText = event.data
 }
