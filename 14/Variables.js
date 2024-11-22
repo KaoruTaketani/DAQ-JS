@@ -18,13 +18,13 @@ export default class {
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
 
-        this.randomNumberStopDisabled = new ElementBoolean('/RandomNumberGeneratorClient.js#randomNumberStopDisabled', this.elementValues, this.webSocketUrls)
-        this.randomNumberStartDisabled = new ElementBoolean('/RandomNumberGeneratorClient.js#randomNumberStartDisabled', this.elementValues, this.webSocketUrls)
+        this.randomNumberStopDisabled = new ElementBoolean('/RandomNumberGeneratorClient.js/stopButtonDisabled', this.elementValues, this.webSocketUrls)
+        this.randomNumberStartDisabled = new ElementBoolean('/RandomNumberGeneratorClient.js/startButtonDisabled', this.elementValues, this.webSocketUrls)
 
-        this.randomNumberInnerText = new ElementString('/RandomNumberGeneratorClient.js#randomNumberInnerText', this.elementValues, this.webSocketUrls)
+        this.randomNumberInnerText = new ElementString('/RandomNumberGeneratorClient.js/randomNumberInnerText', this.elementValues, this.webSocketUrls)
 
-        this.totalInnerText = new ElementString('/HistogramMakerClient.js#totalInnerText', this.elementValues, this.webSocketUrls)
-        this.startTimeInnerText = new ElementString('/HistogramMakerClient.js#startTimeInnerText', this.elementValues, this.webSocketUrls)
+        this.totalInnerText = new ElementString('/HistogramMakerClient.js/totalInnerText', this.elementValues, this.webSocketUrls)
+        this.startTimeInnerText = new ElementString('/HistogramMakerClient.js/startTimeInnerText', this.elementValues, this.webSocketUrls)
     }
 }
 

@@ -34,10 +34,16 @@ export default class extends Operator {
                     })
 
                     this._elementValues.forEach((value, key) => {
-                        const url = new URL(`ws://localhost${key}`)
-                        if (url.pathname !== request.url) return
+                        // const url = new URL(`ws://localhost${key}`)
+                        // if (url.pathname !== request.url) return
 
-                        ws.send(JSON.stringify({ hash: url.hash, value: value }))
+                        // ws.send(JSON.stringify({ hash: url.hash, value: value }))
+                        // console.log(key)
+                        if (request.url !== key) return
+                        if (typeof value === 'string')
+                            ws.send(value)
+                        if (typeof value === 'boolean')
+                            ws.send(value.toString())
                     })
                 })
             })
