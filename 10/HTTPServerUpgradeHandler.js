@@ -15,12 +15,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._httpServer.on('upgrade', (request, socket, head) => {
-                this._webSocketServer.handleUpgrade(request, socket, head, ws => {
-                    ws.on('message', data => {
-                        const arg = JSON.parse(data.toString())
-                        variables.message.assign(arg)
-                    })
-                })
+                this._webSocketServer.handleUpgrade(request, socket, head, () => { })
             })
         }
     }

@@ -6,19 +6,17 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._webSocketUrls
-        variables.webSocketUrls.addListener(arg => { this._webSocketUrls = arg })
+        this._webSocketServer
+        variables.webSocketServer.addListener(arg => { this._webSocketServer = arg })
         this._randomNumberGeneratorIsBusy
         variables.randomNumberGeneratorIsBusy.addListener(arg => {
             this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
         this._operation = () => {
-            this._webSocketUrls.forEach((url, ws) => {
-                if (url !== '/RandomNumberGeneratorClient.js') return
-                
-                ws.send(JSON.stringify({ 
-                    key: 'randomNumberStopDisabled', 
+            this._webSocketServer.clients.forEach(ws => {
+                ws.send(JSON.stringify({
+                    key: 'randomNumberStopDisabled',
                     value: !this._randomNumberGeneratorIsBusy
                 }))
             })

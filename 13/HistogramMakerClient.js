@@ -6,9 +6,7 @@ const startTimeElement = document.createElement('p')
 startTimeElement.innerText = 'start time is undefined'
 document.body.appendChild(startTimeElement)
 
-const url = new URL(import.meta.url)
-url.protocol = 'ws:'
-const socket = new WebSocket(url)
+const socket = new WebSocket('ws://localhost')
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }

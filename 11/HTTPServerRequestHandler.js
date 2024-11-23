@@ -1,5 +1,4 @@
 import { readFile } from 'fs'
-import { basename } from 'path'
 import Operator from './Operator.js'
 
 export default class extends Operator {

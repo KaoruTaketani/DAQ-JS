@@ -1,3 +1,4 @@
+import { WebSocketServer } from 'ws'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -6,16 +7,11 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => {
-            this._histogram = arg
+        variables.httpServer.addListener(_ => {
             this._operation()
         })
         this._operation = () => {
-            const total = this._histogram.value.reduce((prev, curr) => prev + curr, 0)
-
-            if (total === 0) return
-            variables.total.assign(total)
+            variables.webSocketServer.assign(new WebSocketServer({ noServer: true }))
         }
     }
 }

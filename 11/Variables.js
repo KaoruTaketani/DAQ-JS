@@ -7,11 +7,8 @@ export default class {
         this.httpServer = new ListenableObject()
         this.message = new ListenableObject()
         this.webSocketServer = new ListenableObject()
-        this.histogram = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
-        this.total = new ListenableNumber()
-        this.startTime = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
     }

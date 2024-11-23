@@ -6,7 +6,7 @@ export default class {
     constructor() {
         this.httpServer = new ListenableObject()
         this.message = new ListenableObject()
-        this.webSocketUrls = new ListenableObject()
+        this.webSocketServer = new ListenableObject()
         this.histogram = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()

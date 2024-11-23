@@ -15,10 +15,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._webSocketServer.clients.forEach(ws => {
-                ws.send(JSON.stringify({
-                    key: 'randomNumberInnerText',
-                    value: `random number is ${this._randomNumber}`
-                }))
+                ws.send(`random number is ${this._randomNumber}`)
             })
         }
     }

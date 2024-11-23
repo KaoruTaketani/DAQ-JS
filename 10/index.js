@@ -4,8 +4,6 @@ import HTTPServerSetupper from './HTTPServerSetupper.js'
 import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
 import RandomNumberGenerator from './RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
-import RandomNumberStartDisabledChanger from './RandomNumberStartDisabledChanger.js'
-import RandomNumberStopDisabledChanger from './RandomNumberStopDisabledChanger.js'
 import Variables from './Variables.js'
 import WebSocketServerMaker from './WebSocketServerMaker.js'
 
@@ -16,8 +14,7 @@ new HTTPServerSetupper(variables)
 new HTTPServerUpgradeHandler(variables)
 new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
-new RandomNumberStartDisabledChanger(variables)
-new RandomNumberStopDisabledChanger(variables)
 new WebSocketServerMaker(variables)
 
+variables.randomNumberGeneratorIsBusy.assign(true)
 variables.httpServer.assign(new Server()) 

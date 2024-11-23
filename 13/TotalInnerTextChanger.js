@@ -6,17 +6,15 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._webSocketUrls
-        variables.webSocketUrls.addListener(arg => { this._webSocketUrls = arg })
+        this._webSocketServer
+        variables.webSocketServer.addListener(arg => { this._webSocketServer = arg })
         this._total
         variables.total.addListener(arg => {
             this._total = arg
             this._operation()
         })
         this._operation = () => {
-            this._webSocketUrls.forEach((url, ws) => {
-                if (url !== '/HistogramMakerClient.js') return
-
+            this._webSocketServer.clients.forEach(ws => {
                 ws.send(JSON.stringify({
                     key: 'totalInnerText',
                     value: `total is ${this._total}`
