@@ -25,7 +25,7 @@ export default class {
 
         this.totalInnerText = new ElementString('/totalInnerText', this.elementValues, this.webSocketPathnames)
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)
-        this.histogramSVGInnerHTML = new ElementString('/svgInnerHTML', this.elementValues, this.webSocketPathnames)
+        this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
     }
 }
 
