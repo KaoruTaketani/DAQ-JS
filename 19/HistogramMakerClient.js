@@ -1,18 +1,41 @@
+const url = new URL(import.meta.url)
+url.protocol = 'ws:'
+url.pathname = ''
+const socket = new WebSocket(url)
+socket.onclose = () => {
+    document.body.innerHTML = "the connection was closed by the server."
+}
+
 const totalElement = document.createElement('p')
+url.pathname = 'totalInnerText'
+const totalInnerTextSocket = new WebSocket(url)
+totalInnerTextSocket.onmessage = event => {
+    totalElement.innerText = event.data
+}
 document.body.appendChild(totalElement)
 
 const startTimeElement = document.createElement('p')
+url.pathname = 'startTimeInnerText'
+const startTimeInnerTextSocket = new WebSocket(url)
+startTimeInnerTextSocket.onmessage = event => {
+    startTimeElement.innerText = event.data
+}
 document.body.appendChild(startTimeElement)
 
 const cursorElement = document.createElement('p')
 cursorElement.innerText = 'cursor: undefined'
 document.body.appendChild(cursorElement)
 
-const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-svgElement.setAttribute('width', '400')
-svgElement.setAttribute('height', '300')
-svgElement.setAttribute('viewBox', '0 0 560 420')
-svgElement.onmousemove = ev => {
+const histogramSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+histogramSVGElement.setAttribute('width', '400')
+histogramSVGElement.setAttribute('height', '300')
+histogramSVGElement.setAttribute('viewBox', '0 0 560 420')
+url.pathname = 'histogramSVGInnerHTML'
+const histogramSVGInnerHTMLSocket = new WebSocket(url)
+histogramSVGInnerHTMLSocket.onmessage = event => {
+    histogramSVGElement.innerHTML = event.data
+}
+histogramSVGElement.onmousemove = ev => {
     const axes = document.getElementById("axes")
 
     const xInPixels = ev.offsetX * 560 / 400
@@ -62,14 +85,14 @@ svgElement.onmousemove = ev => {
     cursorElement.innerText = `upperEdge: ${xStairInData}, binCount: ${yStairInData}`
     lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
 }
-svgElement.ondblclick = () => {
+histogramSVGElement.ondblclick = () => {
     dialogElement.showModal()
 }
 // document.body.appendChild(svgElement)
 const foreignElement = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
 foreignElement.setAttribute('width', '400')
 foreignElement.setAttribute('height', '300')
-foreignElement.appendChild(svgElement)
+foreignElement.appendChild(histogramSVGElement)
 const lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
 // lineElement.innerHTML=`<polyline points="0,0 400,30" stroke="black" fill="none" />`
 lineElement.setAttribute('points', '200,0 200,400')
@@ -99,7 +122,7 @@ downloadSVGButtonElement.value = 'download svg'
 downloadSVGButtonElement.style.width = '130px'
 downloadSVGButtonElement.style.display = 'block'
 downloadSVGButtonElement.onclick = () => {
-    svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(`<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`))
+    svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(`<svg xmlns="http://www.w3.org/2000/svg" >${histogramSVGElement.innerHTML}</svg>`))
     svgLinkElement.setAttribute('download', 'histogram.svg')
     svgLinkElement.click()
 }
@@ -130,19 +153,3 @@ dialogElement.appendChild(closeButtonElement)
 
 
 
-const url = new URL(import.meta.url)
-url.protocol = 'ws:'
-const socket = new WebSocket(url)
-socket.onclose = () => {
-    document.body.innerHTML = "the connection was closed by the server."
-}
-socket.onmessage = event => {
-    const elementValue = JSON.parse(event.data)
-
-    if (elementValue.hash === '#totalInnerText')
-        totalElement.innerText = elementValue.value
-    if (elementValue.hash === '#startTimeInnerText')
-        startTimeElement.innerText = elementValue.value
-    if (elementValue.hash === '#svgInnerHTML')
-        svgElement.innerHTML = elementValue.value
-}

@@ -1,9 +1,9 @@
-import WritableHistogram from '../19/WritableHistogram.js'
 import ControllableBoolean from './ControllableBoolean.js'
 import ElementBoolean from './ElementBoolean.js'
 import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
+import WritableHistogram from './WritableHistogram.js'
 
 export default class {
     constructor() {

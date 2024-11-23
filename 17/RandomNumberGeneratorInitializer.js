@@ -10,7 +10,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.randomNumberStopDisabled.assign(true)
+            variables.stopButtonDisabled.assign(true)
             variables.randomNumberInnerText.assign('random number is NaN')
         }
     }

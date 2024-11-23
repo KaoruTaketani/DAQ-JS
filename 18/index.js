@@ -13,8 +13,8 @@ import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 import TotalCounter from './TotalCounter.js'
 import TotalInnerTextChanger from './TotalInnerTextChanger.js'
 import Variables from './Variables.js'
-import HistogramMakerInitializer from '../14/HistogramMakerInitializer.js'
-import RandomNumberGeneratorInitializer from '../14/RandomNumberGeneratorInitializer.js'
+import HistogramMakerInitializer from './HistogramMakerInitializer.js'
+import RandomNumberGeneratorInitializer from './RandomNumberGeneratorInitializer.js'
 
 const variables = new Variables()
 
