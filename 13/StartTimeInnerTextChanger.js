@@ -6,19 +6,18 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._webSocketServer
-        variables.webSocketServer.addListener(arg => { this._webSocketServer = arg })
+        this._webSocketPathnames
+        variables.webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
         this._startTime
         variables.startTime.addListener(arg => {
             this._startTime = arg
             this._operation()
         })
         this._operation = () => {
-            this._webSocketServer.clients.forEach(ws => {
-                ws.send(JSON.stringify({
-                    key: 'startTimeInnerText',
-                    value: `start time is ${new Date(this._startTime).toString()}`
-                }))
+            this._webSocketPathnames.forEach((pathname, ws) => {
+                if (pathname !== '/startTimeInnerText') return
+
+                ws.send(`start time is ${new Date(this._startTime).toString()}`)
             })
         }
     }
