@@ -22,6 +22,11 @@ startButtonElement.style.width = '130px'
 startButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
 }
+url.pathname = 'startButtonDisabled'
+const startButtonDisabledSocket = new WebSocket(url)
+startButtonDisabledSocket.onmessage = event => {
+    startButtonElement.disabled = event.data === 'true'
+}
 document.body.appendChild(startButtonElement)
 
 const stopButtonElement = document.createElement('input')
@@ -32,13 +37,10 @@ stopButtonElement.disabled = true
 stopButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
 }
+url.pathname = 'stopButtonDisabled'
+const stopButtonDisabledSocket = new WebSocket(url)
+stopButtonDisabledSocket.onmessage = event => {
+    stopButtonElement.disabled = event.data === 'true'
+}
 document.body.appendChild(stopButtonElement)
 
-socket.onmessage = event => {
-    const msg = JSON.parse(event.data)
-
-    if (msg.key === 'randomNumberStartDisabled')
-        startButtonElement.disabled = msg.value
-    if (msg.key === 'randomNumberStopDisabled')
-        stopButtonElement.disabled = msg.value
-}
