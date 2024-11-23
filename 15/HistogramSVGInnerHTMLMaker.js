@@ -21,7 +21,7 @@ export default class extends Operator {
                 xTick: [this._histogram.lowerEdge, this._histogram.upperEdge],
                 yTick: [0, max(this._histogram.value)],
                 xTickLabel: [`${this._histogram.lowerEdge}`, `${this._histogram.upperEdge}`],
-                yTickLabel: ['0', `${max(this._histogram.value)}`],
+                yTickLabel: ['0', `${max(this._histogram.value)}`]
             }
             variables.histogramSVGInnerHTML.assign([
                 axes(gca),

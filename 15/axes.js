@@ -7,10 +7,10 @@ export default (
         yMinInPixels = (axes.parentHeight ?? 420) * (1 - (axes.innerBottom ?? 0.11)),
         yMaxInPixels = yMinInPixels - (axes.parentHeight ?? 420) * (axes.innerHeight ?? 0.815),
         yLabelInPixels = yMinInPixels + (axes.yTickLabelGapOffset ?? 15),
-        xmin = axes.xLim[0],
-        xmax = axes.xLim[1],
-        ymin = axes.yLim[0],
-        ymax = axes.yLim[1]
+        xMin = axes.xLim[0],
+        xMax = axes.xLim[1],
+        yMin = axes.yLim[0],
+        yMax = axes.yLim[1]
     return [
         `<polyline`,
         ` points="${xMinInPixels},${yMinInPixels} ${xMaxInPixels},${yMinInPixels} ${xMaxInPixels},${yMaxInPixels} ${xMinInPixels},${yMaxInPixels} ${xMinInPixels},${yMinInPixels}"`,
@@ -19,7 +19,7 @@ export default (
         ` />`,
         axes.xTick.map((x, i) => {
             return `<text
-             x="${xMinInPixels + (x - xmin) / (xmax - xmin) * (xMaxInPixels - xMinInPixels)}"
+             x="${xMinInPixels + (x - xMin) / (xMax - xMin) * (xMaxInPixels - xMinInPixels)}"
              y="${yLabelInPixels}"
              text-anchor="middle"
              dominant-baseline="central"
@@ -29,7 +29,7 @@ export default (
         axes.yTick.map((y, i) => {
             return `<text
              x="${xLabelInPixels}"
-             y="${yMinInPixels + (y - ymin) / (ymax - ymin) * (yMaxInPixels - yMinInPixels)}"
+             y="${yMinInPixels + (y - yMin) / (yMax - yMin) * (yMaxInPixels - yMinInPixels)}"
              text-anchor="end"
              dominant-baseline="central"
              font-size="12"
