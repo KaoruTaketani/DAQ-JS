@@ -1,35 +1,49 @@
 export default (
     axes
 ) => {
-    const x0 = (axes.parentWidth ?? 560) * (axes.innerLeft ?? 0.13),
-        x1 = x0 + (axes.parentWidth ?? 560) * (axes.innerWidth ?? 0.775),
-        x2 = x0 - (axes.xTickLabelGapOffset ?? 5),
-        y0 = (axes.parentHeight ?? 420) * (1 - (axes.innerBottom ?? 0.11)),
-        y1 = y0 - (axes.parentHeight ?? 420) * (axes.innerHeight ?? 0.815),
-        y2 = y0 + (axes.yTickLabelGapOffset ?? 15)
-    const xtls = axes.xTickLabels ?? axes.xLim.map(x => `${x}`)
-    const ytls = axes.yTickLabels ?? axes.yLim.map(y => y.toExponential(2))
+    const xMinInPixels = (axes.parentWidth ?? 560) * (axes.innerLeft ?? 0.13),
+        xMaxInPixels = xMinInPixels + (axes.parentWidth ?? 560) * (axes.innerWidth ?? 0.775),
+        xLabelInPixels = xMinInPixels - (axes.xTickLabelGapOffset ?? 5),
+        yMinInPixels = (axes.parentHeight ?? 420) * (1 - (axes.innerBottom ?? 0.11)),
+        yMaxInPixels = yMinInPixels - (axes.parentHeight ?? 420) * (axes.innerHeight ?? 0.815),
+        yLabelInPixels = yMinInPixels + (axes.yTickLabelGapOffset ?? 15),
+        xMin = axes.xLim[0],
+        xMax = axes.xLim[1],
+        yMin = axes.yLim[0],
+        yMax = axes.yLim[1]
 
     return [
         `<polyline`,
         ` id="axes"`,
-        ` data-xmin-in-data="${axes.xLim[0]}"`,
-        ` data-xmax-in-data="${axes.xLim[1]}"`,
-        ` data-ymin-in-data="${axes.yLim[0]}"`,
-        ` data-ymax-in-data="${axes.yLim[1]}"`,
-        ` data-xmin-in-pixels="${x0}"`,
-        ` data-xmax-in-pixels="${x1}"`,
-        ` data-ymin-in-pixels="${y0}"`,
-        ` data-ymax-in-pixels="${y1}"`,
-        ` points="${x0},${y0} ${x1},${y0} ${x1},${y1} ${x0},${y1} ${x0},${y0}"`,
+        ` data-xmin-in-data="${xMin}"`,
+        ` data-xmax-in-data="${xMax}"`,
+        ` data-ymin-in-data="${yMin}"`,
+        ` data-ymax-in-data="${yMax}"`,
+        ` data-xmin-in-pixels="${xMinInPixels}"`,
+        ` data-xmax-in-pixels="${xMaxInPixels}"`,
+        ` data-ymin-in-pixels="${yMinInPixels}"`,
+        ` data-ymax-in-pixels="${yMaxInPixels}"`,
+        ` points="${xMinInPixels},${yMinInPixels} ${xMaxInPixels},${yMinInPixels} ${xMaxInPixels},${yMaxInPixels} ${xMinInPixels},${yMaxInPixels} ${xMinInPixels},${yMinInPixels}"`,
         ` stroke="black"`,
         ` fill="none"`,
         ` />`,
-        xtls.map((xtl, idx) => {
-            return `<text y="${y2}" x="${x0 + idx * (x1 - x0) / (xtls.length - 1)}"  text-anchor="middle" dominant-baseline="central" font-size="12">${xtl}</text>`
+        axes.xTick.map((x, i) => {
+            return `<text
+             x="${xMinInPixels + (x - xMin) / (xMax - xMin) * (xMaxInPixels - xMinInPixels)}"
+             y="${yLabelInPixels}"
+             text-anchor="middle"
+             dominant-baseline="central"
+             font-size="12"
+            >${axes.xTickLabel[i]}</text>`
         }).join(''),
-        ytls.map((ytl, idx) => {
-            return `<text x="${x2}" y="${y0 + idx * (y1 - y0) / (ytls.length - 1)}" text-anchor="end" dominant-baseline="central" font-size="12">${ytl}</text>`
+        axes.yTick.map((y, i) => {
+            return `<text
+             x="${xLabelInPixels}"
+             y="${yMinInPixels + (y - yMin) / (yMax - yMin) * (yMaxInPixels - yMinInPixels)}"
+             text-anchor="end"
+             dominant-baseline="central"
+             font-size="12"
+            >${axes.yTickLabel[i]}</text>`
         }).join('')
     ].join('')
 }

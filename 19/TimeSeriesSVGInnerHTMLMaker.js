@@ -2,6 +2,7 @@ import axes from './axes.js'
 import max from './max.js'
 import min from './min.js'
 import line from './line.js'
+import linspace from './linspace.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -18,7 +19,11 @@ export default class extends Operator {
         this._operation = () => {
             const gca = {
                 xLim: [min(this._timeSeries.x), max(this._timeSeries.x)],
-                yLim: [min(this._timeSeries.y), max(this._timeSeries.y)]
+                yLim: [0, 1],
+                xTick: [min(this._timeSeries.x), max(this._timeSeries.x)],
+                yTick: linspace(0,1,11),
+                xTickLabel: [`${min(this._timeSeries.x)}`,`${max(this._timeSeries.x)}`],
+                yTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1))
             }
             variables.timeSeriesSVGInnerHTML.assign([
                 axes(gca),
