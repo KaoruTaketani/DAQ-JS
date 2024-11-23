@@ -12,7 +12,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.randomNumberStopDisabled.assign(!this._randomNumberGeneratorIsBusy)
+            variables.stopButtonDisabled.assign(!this._randomNumberGeneratorIsBusy)
         }
     }
 }
