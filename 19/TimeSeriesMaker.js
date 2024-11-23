@@ -15,7 +15,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._timeSeries.x.copyWithin(0, 1)
-            this._timeSeries.x[this._timeSeries.x.length - 1] = Math.floor(Date.now() / 1000)
+            this._timeSeries.x[this._timeSeries.x.length - 1] = Date.now()
             this._timeSeries.y.copyWithin(0, 1)
             this._timeSeries.y[this._timeSeries.y.length - 1] = this._randomNumber
             variables.timeSeries.assign(this._timeSeries)

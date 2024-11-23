@@ -17,12 +17,14 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            const minDate = new Date(min(this._timeSeries.x))
+            const maxDate = new Date(max(this._timeSeries.x))
             const gca = {
                 xLim: [min(this._timeSeries.x), max(this._timeSeries.x)],
                 yLim: [0, 1],
                 xTick: [min(this._timeSeries.x), max(this._timeSeries.x)],
-                yTick: linspace(0,1,11),
-                xTickLabel: [`${min(this._timeSeries.x)}`,`${max(this._timeSeries.x)}`],
+                yTick: linspace(0, 1, 11),
+                xTickLabel: [minDate.toLocaleTimeString(), maxDate.toLocaleTimeString()],
                 yTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1))
             }
             variables.timeSeriesSVGInnerHTML.assign([
