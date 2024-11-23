@@ -14,10 +14,10 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            this._timeSeries.x.copyWithin(0, 1)
-            this._timeSeries.x[this._timeSeries.x.length - 1] = Date.now()
-            this._timeSeries.y.copyWithin(0, 1)
-            this._timeSeries.y[this._timeSeries.y.length - 1] = this._randomNumber
+            this._timeSeries.time.copyWithin(0, 1)
+            this._timeSeries.time[this._timeSeries.time.length - 1] = Date.now()
+            this._timeSeries.data.copyWithin(0, 1)
+            this._timeSeries.data[this._timeSeries.data.length - 1] = this._randomNumber
             variables.timeSeries.assign(this._timeSeries)
         }
     }

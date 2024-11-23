@@ -18,8 +18,8 @@ export default class extends Operator {
 
             if (this._timeSeries === undefined)
                 variables.timeSeries.assign({
-                    x: new Array(16).fill(Number.NaN),
-                    y: new Array(16).fill(Number.NaN)
+                    time: new Array(16).fill(Number.NaN),
+                    data: new Array(16).fill(Number.NaN)
                 })
         }
     }
