@@ -1,5 +1,6 @@
 import axes from './axes.js'
 import max from './max.js'
+import linspace from './linspace.js'
 import stairs from './stairs.js'
 import Operator from './Operator.js'
 
@@ -18,9 +19,9 @@ export default class extends Operator {
             const gca = {
                 xLim: [this._histogram.lowerEdge, this._histogram.upperEdge],
                 yLim: [0, max(this._histogram.value)],
-                xTick: [this._histogram.lowerEdge, this._histogram.upperEdge],
+                xTick: linspace(0, 1, 11),
                 yTick: [0, max(this._histogram.value)],
-                xTickLabel: [`${this._histogram.lowerEdge}`, `${this._histogram.upperEdge}`],
+                xTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1)),
                 yTickLabel: ['0', `${max(this._histogram.value)}`]
             }
             variables.histogramSVGInnerHTML.assign([
