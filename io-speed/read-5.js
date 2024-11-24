@@ -4,5 +4,6 @@ const startTime = Date.now()
 createReadStream('tmp.dat', { highWaterMark: 256 * 1024 * 1024 }).on('data', () => {
 
 }).on('end', () => {
-    console.log(`${Date.now() - startTime} ms`)
+    const elapsedTime = Date.now() - startTime
+    console.log(`${elapsedTime} ms, ${Math.trunc(256 / (1e-3 * elapsedTime))} MBps`)
 })

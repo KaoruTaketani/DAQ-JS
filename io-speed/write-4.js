@@ -15,11 +15,11 @@ open('./tmp.dat', 'w', (err, fd) => {
             resolve()
         })
     }))).then(() => {
-        console.log(`${Date.now() - startTime} ms`)
-
+        const elapsedTime = Date.now() - startTime
+        console.log(`${elapsedTime} ms, ${Math.trunc(256 / (1e-3 * elapsedTime))} MBps`)
+    
         close(fd, err => {
             if (err) throw err
-
         })
     }).catch(err => {
         console.log(err)

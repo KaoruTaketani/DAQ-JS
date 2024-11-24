@@ -9,11 +9,11 @@ open('./tmp.dat', 'w', (err, fd) => {
     const startTime = Date.now()
     write(fd, buf, 0, buf.length, err => {
         if (err) throw err
-        console.log(`${Date.now() - startTime} ms`)
-
+        const elapsedTime = Date.now() - startTime
+        console.log(`${elapsedTime} ms, ${Math.trunc(256 / (1e-3 * elapsedTime))} MBps`)
+    
         close(fd, err => {
             if (err) throw err
-
         })
     })
 })

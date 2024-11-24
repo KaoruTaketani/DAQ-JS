@@ -4,5 +4,6 @@ const startTime = Date.now()
 readFile('tmp.dat', err => {
     if (err) throw err
 
-    console.log(`${Date.now() - startTime} ms`)
+    const elapsedTime = Date.now() - startTime
+    console.log(`${elapsedTime} ms, ${Math.trunc(256 / (1e-3 * elapsedTime))} MBps`)
 })
