@@ -7,14 +7,14 @@ socket.onclose = () => {
 }
 
 const firstElement = document.createElement('div')
-const makeButtonElement = document.createElement('input')
-makeButtonElement.type = 'button'
-makeButtonElement.value = 'make'
-makeButtonElement.style.width = '64px'
-makeButtonElement.onclick = () => {
+const submitButtonElement = document.createElement('input')
+submitButtonElement.type = 'button'
+submitButtonElement.value = 'make'
+submitButtonElement.style.width = '64px'
+submitButtonElement.onclick = () => {
     socket.send(Math.random())
 }
-firstElement.appendChild(makeButtonElement)
+firstElement.appendChild(submitButtonElement)
 document.body.appendChild(firstElement)
 
 
