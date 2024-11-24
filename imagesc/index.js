@@ -35,13 +35,14 @@ httpServer.on('upgrade', (request, socket, head) => {
         ws.onmessage = event => {
             const center = parseFloat(event.data)
             // console.log(center)
-
-            const c = new Array(64 * (64 + 1)).fill(0)
-            for (let j = 0; j < 64; ++j) {
-                for (let i = 1; i < 64 + 1; ++i) {
+            const width = 64,
+                height = 64
+            const c = new Array(height * (width + 1)).fill(0)
+            for (let j = 0; j < height; ++j) {
+                for (let i = 1; i < width + 1; ++i) {
                     // c[j * (64 + 1)] is filter type, which is zero
-                    const f = Math.exp(-((i - 64 * center) ** 2 + (j - 32) ** 2) / 16 ** 2)
-                    c[j * (64 + 1) + i] = Math.floor(f * 255 / 1.0 + 0.5)
+                    const f = Math.exp(-((i - width * center) ** 2 + (j - height / 2) ** 2) / (width / 4) ** 2)
+                    c[j * (width + 1) + i] = Math.floor(f * 255 / 1.0 + 0.5)
                 }
             }
             const C = Uint8Array.from(c)
@@ -54,8 +55,8 @@ httpServer.on('upgrade', (request, socket, head) => {
                 const header = Buffer.alloc(25)
                 header.writeUInt32BE(13, 0x00) // data length; bytes for width, height,bit depth, color type,compress method, filter method and interlace method, whicha is 13 bytes
                 header.writeUInt32BE(0x49484452, 0x04) // chunk type; IHDR in ASCII
-                header.writeUint32BE(64, 0x08) // width
-                header.writeUint32BE(64, 0x0c) // height
+                header.writeUint32BE(width, 0x08) // width
+                header.writeUint32BE(height, 0x0c) // height
                 header.writeUint8(8, 0x10) // bit depth
                 header.writeUint8(0, 0x11) // color type; 0 is grayscale
                 header.writeUint8(0, 0x12) // compress method; 0 is deflate
@@ -73,10 +74,9 @@ httpServer.on('upgrade', (request, socket, head) => {
                 const end = Buffer.alloc(12)
                 end.writeUint32BE(0x49454e44, 0x4) // chunk type: IEND in ASCII
                 end.writeUint32BE(crc32(end.subarray(0x4, 0x8)), 0x8) // crc for chunk type
-                
+
                 ws.send(`data:image/png;base64,${Buffer.concat([magic, header, data, end]).toString('base64')}`)
             })
-
         }
     })
 })

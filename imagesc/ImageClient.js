@@ -19,15 +19,15 @@ document.body.appendChild(firstElement)
 
 
 const canvasElement = document.createElement('canvas')
-canvasElement.width = 64
-canvasElement.height = 64
+canvasElement.width = 256
+canvasElement.height = 256
 document.body.appendChild(canvasElement)
 
 const imageElement = new Image()
 imageElement.onload = () => {
     const ctx = canvasElement.getContext("2d")
     if (!ctx) return
-    ctx.drawImage(imageElement, 0, 0, 64, 64)
+    ctx.drawImage(imageElement, 0, 0, 256,256)
 }
 socket.onmessage = event => {
     imageElement.src = event.data
