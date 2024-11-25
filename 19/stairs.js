@@ -15,5 +15,5 @@ export default (
             `${x0 + (i + 1) * (x1 - x0) / x.length},${y0 + (y1 - y0) * scaledY[i]}`
         ].join(' '))
 
-    return `<polyline id="stairs" points="${points.join(' ')}" stroke="black" fill="none" />`
+    return `<polyline points="${points.join(' ')}" stroke="black" fill="none" />`
 }

@@ -58,12 +58,59 @@ histogramSVGElement.onmousemove = ev => {
         cursorElement.innerText = `cursor: undefined`
         return
     }
-    cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
+    const stairs = document.getElementById('stairs')
+    const points = stairs.getAttribute('points')
+    // const xInPixelsMax = points.split(' ')
+    //     .map(point => parseFloat(point))
+    //     .filter(x => x <= xInPixels)
+    //     .at(-1)
+    const i = points.split(' ')
+        .map(point => parseFloat(point))
+        .filter(x => x <= xInPixels)
+        .length
+    const point = points.split(' ')[i]
+    const xStairInPixels = parseFloat(point.split(',')[0])
+    const xStairInNormalized = (xStairInPixels - axes.dataset.xminInPixels)
+        / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
+    const xStairInData = Number(axes.dataset.xminInData)
+        + xStairInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
+
+    const yStairInPixels = parseFloat(point.split(',')[1])
+    const yStairInNormalized = (axes.dataset.yminInPixels - yStairInPixels)
+        / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
+    const yStairInData = Number(axes.dataset.yminInData)
+        + yStairInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
+    // console.log(`xMax: ${yStairInPixels},  point: ${yStairInData}`)
+    // cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
+    cursorElement.innerText = `upperEdge: ${xStairInData}, binCount: ${yStairInData}`
+    lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
 }
 histogramSVGElement.ondblclick = () => {
     dialogElement.showModal()
 }
-document.body.appendChild(histogramSVGElement)
+// document.body.appendChild(svgElement)
+const foreignElement = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
+foreignElement.setAttribute('width', '400')
+foreignElement.setAttribute('height', '300')
+foreignElement.appendChild(histogramSVGElement)
+const lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
+// lineElement.innerHTML=`<polyline points="0,0 400,30" stroke="black" fill="none" />`
+lineElement.setAttribute('points', '200,0 200,400')
+lineElement.setAttribute('stroke', 'red')
+const overlayElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+overlayElement.setAttribute('width', '400')
+overlayElement.setAttribute('height', '300')
+overlayElement.appendChild(foreignElement)
+overlayElement.appendChild(lineElement)
+// overlayElement.onmousemove = ev => {
+//     // const xInPixels = ev.offsetX * 560 / 400
+//     // const yInPixels = ev.offsetY * 420 / 300
+//     if (ev.offsetX < 120)
+//         lineElement.removeAttribute('points')
+//     else
+//         lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
+// }
+document.body.appendChild(overlayElement)
 
 const dialogElement = document.createElement('dialog')
 document.body.appendChild(dialogElement)
