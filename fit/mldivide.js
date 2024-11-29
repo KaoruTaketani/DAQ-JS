@@ -1,7 +1,8 @@
 import sub2ind from './sub2ind.js'
 
 export default (
-    n
+    m,
+    b
 ) => {
     const a = new Array(n * n).fill(0)
 
