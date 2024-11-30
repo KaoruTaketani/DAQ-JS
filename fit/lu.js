@@ -2,9 +2,9 @@ import zeros from './zeros.js'
 import size from './size.js'
 
 export default (
-    m
+    A
 ) => {
-    const [sz1, sz2] = size(m)
+    const [sz1, sz2] = size(A)
 
     if (sz1 !== sz2) return
 
@@ -21,7 +21,7 @@ export default (
 
     for (let i = 0; i < n; ++i) {
         for (let j = 0; j < n; ++j) {
-            lu[i][j] = m[i][j]
+            lu[i][j] = A[i][j]
         }
     }
     //
@@ -99,7 +99,7 @@ export default (
             // pivotSign = -pivotSign;
         }
 
-        if (j < n && m[j][j] !== 0) {
+        if (j < n && A[j][j] !== 0) {
             for (let i = j + 1; i < n; i++) {
                 lu[i][j] = lu[i][j] / lu[j][j]
             }

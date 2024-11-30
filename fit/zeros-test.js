@@ -4,18 +4,33 @@ import zeros from './zeros.js'
 import size from './size.js'
 
 test('2x3 matrix', () => {
-    const m = size(zeros(2,3))
+    const m = zeros(2, 3)
 
-    strictEqual(m.length, 2)
-    strictEqual(m[0], 2)
-    strictEqual(m[1], 3)
+    strictEqual(size(m).length, 2)
+    strictEqual(size(m)[0], 2)
+    strictEqual(size(m)[1], 3)
+    strictEqual(m[0][0], 0)
+    strictEqual(m[0][1], 0)
+    strictEqual(m[0][2], 0)
+    strictEqual(m[1][0], 0)
+    strictEqual(m[1][1], 0)
+    strictEqual(m[1][2], 0)
 })
 
 test('3x3 matrix', () => {
-    const m = size(zeros(3))
+    const m = zeros(3)
 
-    strictEqual(m.length, 2)
-    strictEqual(m[0], 3)
-    strictEqual(m[1], 3)
+    strictEqual(size(m).length, 2)
+    strictEqual(size(m)[0], 3)
+    strictEqual(size(m)[1], 3)
+    strictEqual(m[0][0], 0)
+    strictEqual(m[0][1], 0)
+    strictEqual(m[0][2], 0)
+    strictEqual(m[1][0], 0)
+    strictEqual(m[1][1], 0)
+    strictEqual(m[1][2], 0)
+    strictEqual(m[2][0], 0)
+    strictEqual(m[2][1], 0)
+    strictEqual(m[2][2], 0)
 })
 
