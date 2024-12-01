@@ -92,13 +92,17 @@ export default (
 
         for (let j = 0; j < i; ++j) {
             let s = 0
-            for (let k = 0; k < i; ++k)s += L[i][k] * U[k][j]
+            for (let k = 0; k < i; ++k)
+                s += L[i][k] * U[k][j]
+
             L[i][j] = (PA[i][j] - s) / U[j][j]
         }
 
         for (let j = i; j < n; ++j) {
             let s = 0
-            for (let k = 0; k < i; ++k)s += L[i][k] * U[k][j]
+            for (let k = 0; k < i; ++k)
+                s += L[i][k] * U[k][j]
+
             U[i][j] = PA[i][j] - s
         }
     }
