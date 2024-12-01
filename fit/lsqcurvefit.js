@@ -2,6 +2,7 @@ import zeros from './zeros.js'
 import transpose from './transpose.js'
 import mldivide from './mldivide.js'
 import mtimes from './mtimes.js'
+import plus from './plus.js'
 
 export default (
     f,
@@ -46,8 +47,24 @@ export default (
     }
     // console.log(dy)
     // console.log(J)
-    const h = mldivide(mtimes(transpose(J), J), mtimes(transpose(J), dy))
+    let h = mldivide(mtimes(transpose(J), J), mtimes(transpose(J), dy))
+    let p = zeros(p0.length, 1)
+    for (let i = 0; i < p0.length; ++i) {
+        p[i][0] = p0[i]
+    }
+    console.log(p)
     console.log(h)
+    p = plus(p, h)
+    console.log(p)
+    console.log(transpose(p))
+    for (let i = 0; i < n; ++i) {
+        dy[i][0] = ydata[i] - f[0](xdata[i], transpose(p)[0])
+        J[i] = f[1](xdata[i], transpose(p)[0])
+    }
+    h = mldivide(mtimes(transpose(J), J), mtimes(transpose(J), dy))
+    console.log(h)
+    p = plus(p, h)
+    console.log(p)
 }
 
 

@@ -3,9 +3,13 @@ import { test } from 'node:test'
 import plus from './plus.js'
 import almostEqual from './almostEqual.js'
 
-test('returns linspace of matlab', () => {
-    const result = plus([-5, 5], [7, 7])
-    strictEqual(result.length, 2)
-    almostEqual(result[0], 2)
-    almostEqual(result[1], 12)
+test('example inputs in plus of matlab', () => {
+    const A = [[1, 0], [2, 4]],
+        B = [[5, 9], [2, 1]],
+        C = plus(A, B)
+
+    strictEqual(C[0][0], 1 + 5)
+    strictEqual(C[0][1], 9)
+    strictEqual(C[1][0], 2 + 2)
+    strictEqual(C[1][1], 4 + 1)
 })
