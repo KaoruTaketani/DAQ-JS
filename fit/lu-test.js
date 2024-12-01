@@ -62,6 +62,22 @@ test('example input of python', () => {
     strictEqual(size(P)[0], 2)
 })
 
+test('example input of mldivide in matlab', () => {
+    const [L, U, P] = lu([[8, 1, 6], [3, 5, 7], [4, 9, 2]])
+    console.log(L)
+    console.log(U)
+    console.log(P)
+    strictEqual(size(L).length, 2)
+    strictEqual(size(L)[0], 3)
+    strictEqual(size(L)[1], 3)
+    strictEqual(size(U).length, 2)
+    strictEqual(size(U)[0], 3)
+    strictEqual(size(U)[0], 3)
+    strictEqual(size(P).length, 2)
+    strictEqual(size(P)[0], 3)
+    strictEqual(size(P)[0], 3)
+})
+
 test('example input of lu in matlab', () => {
     const [L, U, P] = lu([[2, -3, -1], [.5, 1, -1], [0, 1, -1]])
 
