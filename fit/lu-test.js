@@ -119,6 +119,4 @@ test('example input of Mathews p 151 result in different permutation both with M
     strictEqual(size(P).length, 2)
     strictEqual(size(P)[0], 3)
     strictEqual(size(P)[0], 3)
-    console.log(P)
-    console.log(U)
 })

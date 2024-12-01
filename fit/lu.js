@@ -15,7 +15,7 @@ export default (
         L = eye(n),
         U = zeros(n),
         P = eye(n),
-        PA=mtimes(P,A)
+        PA = mtimes(P, A)
     // lu = zeros(n)
     // const LUcolj = new Float64Array(n),
     //     pivotVector = new Float64Array(n)
@@ -70,9 +70,11 @@ export default (
     for (let i = 0; i < n; ++i) {
         // permutation start
         // permutate row i if PA[i,i] is small
-        let p = i
+        let p = i,
+            v = Math.abs(PA[i][i])
         for (let k = i + 1; k < n; ++k) {
-            if (Math.abs(PA[k][i]) > Math.abs(PA[i][i])) {
+            if (Math.abs(PA[k][i]) > v) {
+                v = Math.abs(PA[k][i])
                 p = k
             }
         }
