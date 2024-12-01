@@ -14,7 +14,8 @@ export default (
     const n = sz1,
         L = eye(n),
         U = zeros(n),
-        P = eye(n)
+        P = eye(n),
+        PA=mtimes(P,A)
     // lu = zeros(n)
     // const LUcolj = new Float64Array(n),
     //     pivotVector = new Float64Array(n)
@@ -66,40 +67,37 @@ export default (
     //     }
     // }
 
-    // find the pivot row for column p
-    for (let j = 0; j < n; j++) {
-        let p = j
-        for (let i = j + 1; i < n; i++) {
-            if (Math.abs(A[i][j]) > Math.abs(A[p][j])) {
-                p = i
+    for (let i = 0; i < n; ++i) {
+        // permutation start
+        // permutate row i if PA[i,i] is small
+        let p = i
+        for (let k = i + 1; k < n; ++k) {
+            if (Math.abs(PA[k][i]) > Math.abs(PA[i][i])) {
+                p = k
             }
         }
-        const t = P[p]
-        P[p] = P[j]
-        P[j] = t
-    }
-    const PA = mtimes(P, A)
-
-    for (let i = 0; i < n; ++i) {
-        if (i == 0) {
-            for (let j = 0; j < n; ++j)
-                U[i][j] = PA[i][j]
-        } else {
-            for (let j = 0; j < i; ++j) {
-                if (j == 0) {
-                    L[i][j] = PA[i][j] / U[j][j]
-                } else {
-                    let s = 0
-                    for (let k = 0; k < i; ++k)s += L[i][k] * U[k][j]
-                    L[i][j] = (PA[i][j] - s) / U[j][j]
-                }
+        if (p !== i) {
+            for (let k = 0; k < n; ++k) {
+                const t = PA[i][k]
+                PA[i][k] = PA[p][k]
+                PA[p][k] = t
             }
+            const t = P[p]
+            P[p] = P[i]
+            P[i] = t
+        }
+        // permutation end
 
-            for (let j = i; j < n; ++j) {
-                let s = 0
-                for (let k = 0; k < i; ++k)s += L[i][k] * U[k][j]
-                U[i][j] = PA[i][j] - s
-            }
+        for (let j = 0; j < i; ++j) {
+            let s = 0
+            for (let k = 0; k < i; ++k)s += L[i][k] * U[k][j]
+            L[i][j] = (PA[i][j] - s) / U[j][j]
+        }
+
+        for (let j = i; j < n; ++j) {
+            let s = 0
+            for (let k = 0; k < i; ++k)s += L[i][k] * U[k][j]
+            U[i][j] = PA[i][j] - s
         }
     }
 
@@ -147,14 +145,14 @@ export default (
     //     }
     // }
     // console.log(pivotVector)
-    console.log('A and PA are different matrices')
-    console.log(A)
-    console.log(PA)
-    console.log(P)
-    console.log(L)
-    console.log(U)
-    console.log(mtimes(transpose(P), mtimes(L, U)))
-    // this.LU = lu;
+    // console.log('A and PA are different matrices')
+    // console.log(A)
+    // console.log(PA)
+    // console.log(P)
+    // console.log(L)
+    // console.log(U)
+    // console.log(mtimes(transpose(P), mtimes(L, U)))
+    // // this.LU = lu;
     // this.pivotVector = pivotVector;
     // this.pivotSign = pivotSign;
 

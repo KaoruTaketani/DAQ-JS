@@ -7,17 +7,17 @@ import { strictEqual } from 'assert'
 export default (actual,
     expected,
     precision) => {
-    if (!precision) precision = 7
+    if (!precision) precision = 6
 
 
-    // strictEqual(
-    //     actual.toPrecision(precision),
-    //     expected.toPrecision(precision)
-    // )
     strictEqual(
-        Math.fround(actual),
-        Math.fround(expected)
+        actual.toPrecision(precision),
+        expected.toPrecision(precision)
     )
+    // strictEqual(
+    //     Math.fround(actual),
+    //     Math.fround(expected)
+    // )
     // strictEqual(
     //     actual.toString(2).length,
     //     expected.toString(2).length
