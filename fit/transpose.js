@@ -1,13 +1,17 @@
-import sub2ind from './sub2ind.js'
+import size from './size.js'
+import zeros from './zeros.js'
 
 export default (
-    n
+    A
 ) => {
-    const a = new Array(n * n).fill(0)
+    const [sz1, sz2] = size(A)
+    const B = zeros(sz2, sz1)
 
-    for (let i = 0; i < n; ++i) {
-        a[sub2ind([n, n], i + 1, i + 1) - 1] = 1
+    for (let i = 0; i < sz2; ++i) {
+        for (let j = 0; j < sz1; ++j) {
+            B[i][j] = A[j][i]
+        }
     }
 
-    return a
+    return B
 }
