@@ -14,7 +14,6 @@ export default (
 
     return [
         `<polyline`,
-        ` id="axes"`,
         ` data-xmin-in-data="${xMin}"`,
         ` data-xmax-in-data="${xMax}"`,
         ` data-ymin-in-data="${yMin}"`,

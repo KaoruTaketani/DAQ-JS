@@ -36,7 +36,7 @@ histogramSVGInnerHTMLSocket.onmessage = event => {
     histogramSVGElement.innerHTML = event.data
 }
 histogramSVGElement.onmousemove = ev => {
-    const axes = document.getElementById("axes")
+    const axes = histogramSVGElement.firstChild
 
     const xInPixels = ev.offsetX * 560 / 400
     const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
@@ -58,7 +58,8 @@ histogramSVGElement.onmousemove = ev => {
         cursorElement.innerText = `cursor: undefined`
         return
     }
-    const stairs = document.getElementById('stairs')
+    const stairs = histogramSVGElement.lastChild
+
     const points = stairs.getAttribute('points')
     // const xInPixelsMax = points.split(' ')
     //     .map(point => parseFloat(point))
