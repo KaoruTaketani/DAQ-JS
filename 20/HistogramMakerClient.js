@@ -58,9 +58,12 @@ histogramSVGElement.onmousemove = ev => {
         cursorElement.innerText = `cursor: undefined`
         return
     }
-    const stairs = histogramSVGElement.lastChild
+    // const stairs = histogramSVGElement.lastChild
 
-    const points = stairs.getAttribute('points')
+    // const points = stairs.getAttribute('points')
+    
+    const points = histogramSVGElement.lastChild.getAttribute('points')
+    
     // const xInPixelsMax = points.split(' ')
     //     .map(point => parseFloat(point))
     //     .filter(x => x <= xInPixels)
