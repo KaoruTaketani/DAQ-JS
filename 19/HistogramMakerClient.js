@@ -36,7 +36,7 @@ histogramSVGInnerHTMLSocket.onmessage = event => {
     histogramSVGElement.innerHTML = event.data
 }
 histogramSVGElement.onmousemove = ev => {
-    const axes = document.getElementById("axes")
+    const axes = histogramSVGElement.firstChild
 
     const xInPixels = ev.offsetX * 560 / 400
     const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
