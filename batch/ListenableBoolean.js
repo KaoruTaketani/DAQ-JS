@@ -11,7 +11,6 @@ export default class {
     }
     assign(arg) {
         this._listeners.forEach(listener => { listener(arg) })
-        // console.log(this._onceListeners.length)
         this._onceListeners.forEach(onceListener => { onceListener(arg) })
         this._onceListeners.splice(0)
     }

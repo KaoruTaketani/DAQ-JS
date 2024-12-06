@@ -21,18 +21,7 @@ deflate(C, (err, buffer) => {
     if (err) throw err
 
     console.log(`C.length: ${C.length}, buffer.length: ${buffer.length}`)
-    // function readString(dataView, position, length) {
-    //     return new Array(length)
-    //         .fill(0)
-    //         .map((e, index) => String.fromCharCode(dataView.getUint8(position + index))).join('');
-    // }
 
-    // function writeString(dataView, position, string) {
-    //     string.split('').forEach((char, index) => dataView.setUint8(position + index, char.charCodeAt(0)));
-    // }
-    // const buffer = new Uint8Array(data.array.length)
-    // const target = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)
-    // magic
     const magic = Uint8Array.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a])
     // header
     const header = Buffer.alloc(25)

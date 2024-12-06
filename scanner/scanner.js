@@ -20,7 +20,7 @@ voltages.reduce((previous, value) => previous.then(() =>
     new Promise(resolve => {
         voltage.assign(value)
         isBusy.assign(true)
-        // console.log('add once')
+        console.log('add once')
         isBusy.addOnceListener(() => {
             console.log('once')
             resolve()

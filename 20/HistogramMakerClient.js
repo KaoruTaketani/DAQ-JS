@@ -58,16 +58,8 @@ histogramSVGElement.onmousemove = ev => {
         cursorElement.innerText = `cursor: undefined`
         return
     }
-    // const stairs = histogramSVGElement.lastChild
-
-    // const points = stairs.getAttribute('points')
-    
     const points = histogramSVGElement.lastChild.getAttribute('points')
     
-    // const xInPixelsMax = points.split(' ')
-    //     .map(point => parseFloat(point))
-    //     .filter(x => x <= xInPixels)
-    //     .at(-1)
     const i = points.split(' ')
         .map(point => parseFloat(point))
         .filter(x => x <= xInPixels)
@@ -84,15 +76,14 @@ histogramSVGElement.onmousemove = ev => {
         / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
     const yStairInData = Number(axes.dataset.yminInData)
         + yStairInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
-    // console.log(`xMax: ${yStairInPixels},  point: ${yStairInData}`)
-    // cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
-    cursorElement.innerText = `upperEdge: ${xStairInData}, binCount: ${yStairInData}`
+
+        cursorElement.innerText = `upperEdge: ${xStairInData}, binCount: ${yStairInData}`
     lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
 }
 histogramSVGElement.ondblclick = () => {
     dialogElement.showModal()
 }
-// document.body.appendChild(svgElement)
+
 const foreignElement = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
 foreignElement.setAttribute('width', '400')
 foreignElement.setAttribute('height', '300')
@@ -104,16 +95,6 @@ overlayElement.setAttribute('width', '400')
 overlayElement.setAttribute('height', '300')
 overlayElement.appendChild(foreignElement)
 overlayElement.appendChild(lineElement)
-// lineElement.innerHTML=`<polyline points="0,0 400,30" stroke="black" fill="none" />`
-// lineElement.setAttribute('points', '200,0 200,400')
-// overlayElement.onmousemove = ev => {
-//     // const xInPixels = ev.offsetX * 560 / 400
-//     // const yInPixels = ev.offsetY * 420 / 300
-//     if (ev.offsetX < 120)
-//         lineElement.removeAttribute('points')
-//     else
-//         lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
-// }
 document.body.appendChild(overlayElement)
 
 const dialogElement = document.createElement('dialog')

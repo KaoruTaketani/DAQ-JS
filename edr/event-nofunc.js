@@ -21,13 +21,6 @@ createReadStream(filePath()).on('data', chunk => {
                 channel = i4 & 0x7,
                 left = (i5 << 4) + (i6 >> 4),
                 right = ((i6 & 0xf) << 8) + i7
-
-            // events.push({
-            //     channel: channel,
-            //     time: time,
-            //     left: left,
-            //     right: right
-            // })
         }
     }
 }).on('end', () => {
@@ -53,13 +46,6 @@ createReadStream(filePath()).on('data', chunk => {
                     channel = i4 & 0x7,
                     left = (i5 << 4) + (i6 >> 4),
                     right = ((i6 & 0xf) << 8) + i7
-
-                // events.push({
-                //     channel: channel,
-                //     time: time,
-                //     left: left,
-                //     right: right
-                // })
             }
         }
         performance.mark('buffer')
