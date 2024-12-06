@@ -1,17 +1,10 @@
+import { writeFile } from 'fs'
 import { test } from 'node:test'
+import axes from './axes.js'
+import colon from './colon.js'
 import linspace from './linspace.js'
 import lsqnonlin from './lsqnonlin.js'
-
-test('example inputs in lsqnonlin of matlab', () => {
-    // replaced randn by rand in the example input
-    const d = linspace(0, 3),
-        y = d.map(d => Math.exp(-1.3 * d) + 0.05 * (Math.random() - 0.5)),
-        fun = [
-            r => d.map((_, i) => Math.exp(-d[i] * r[0]) - y[i]),
-            r => d.map((_, i) => [-d[i] * Math.exp(-d[i] * r[0])])
-        ],
-        x = lsqnonlin(fun, [1.6])// 4 seems to be far from optimum
-})
+import scatter from './scatter.js'
 
 test('example inputs in lsqcurvefit of matlab', () => {
     const xdata = [0.9, 1.5, 13.8, 19.8, 24.1, 28.2, 35.2, 60.3, 74.6, 81.],
@@ -25,3 +18,35 @@ test('example inputs in lsqcurvefit of matlab', () => {
         ],
         p = lsqnonlin(fun, [500, -0.1])
 })
+
+test('example inputs in lsqnonlin of matlab', () => {
+    // replaced randn by rand in the example input
+    const d = linspace(0, 3),
+        y = d.map(d => Math.exp(-1.3 * d) + 0.05 * (Math.random() - 0.5)),
+        fun = [
+            r => d.map((_, i) => Math.exp(-d[i] * r[0]) - y[i]),
+            r => d.map((_, i) => [-d[i] * Math.exp(-d[i] * r[0])])
+        ],
+        x = lsqnonlin(fun, [4]),// 4 seems to be far from optimum
+        gca = {
+            xLim: [0, 3],
+            yLim: [-0.2, 1.2],
+            xTick: colon(0, 0.5, 3),
+            yTick: colon(-0.2, 0.2, 1.2),
+            xTickLabel: colon(0, 0.5, 3).map(x => x.toFixed(1)),
+            yTickLabel: colon(-0.2, 0.2, 1.2).map(y => y.toFixed(1))
+        }
+
+    writeFile('./lsqnonlin.svg', [
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420">',
+        axes(gca),
+        // map function is copied from lsqcurvefit.js
+        // line(gca, times, times.map(time => result[0] * Math.exp(result[1] * time))),
+        scatter(gca, d, y),
+        '</svg>'
+    ].join(''), 'utf8', err => {
+        if (err) throw err
+    })
+
+})
+

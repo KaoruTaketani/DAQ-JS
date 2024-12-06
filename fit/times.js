@@ -1,11 +1,18 @@
+import size from './size.js'
+import zeros from './zeros.js'
+
 export default (
     a,
-    b
+    B
 ) => {
-    if (a.length !== b.length) return []
+    const [sz1, sz2] = size(B),
+        C = zeros(sz1, sz2)
 
-    const c = new Array(a.length)
-    for (let i = 0; i < c.length; ++i)c[i] = a[i] * b[i]
+    for (let i = 0; i < B.length; ++i) {
+        for (let j = 0; j < B[0].length; ++j) {
+            C[i][j] = a * B[i][j]
+        }
+    }
 
-    return c
+    return C
 }
