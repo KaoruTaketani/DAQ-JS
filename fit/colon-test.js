@@ -3,8 +3,8 @@ import colon from './colon.js'
 
 test('example inputs 0 in colon of matlab', () => {
     // two arguments are not implemented yet
-    console.log(colon(0, 1, 10))
-    // output [0,1,2,3,4,5,6,7,8,9,10]
+    console.log(colon(1, 10))
+    // output [1,2,3,4,5,6,7,8,9,10]
 })
 
 test('example inputs 1 in colon of matlab', () => {

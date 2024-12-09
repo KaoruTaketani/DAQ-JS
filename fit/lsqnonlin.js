@@ -4,7 +4,7 @@ import transpose from './transpose.js'
 import zeros from './zeros.js'
 import plus from './plus.js'
 import times from './times.js'
-import eye from './eye.js'
+import diag from './diag.js'
 
 export default (
     f,
@@ -30,7 +30,8 @@ export default (
 
     for (let iteration = 0; iteration < _MaxIterations; ++iteration) {
         let h = mldivide(
-            plus(mtimes(transpose(J), J), times(damping, eye(x.length))),
+            // plus(mtimes(transpose(J), J), times(damping, eye(x.length))),
+            plus(mtimes(transpose(J), J), times(damping, diag(diag(mtimes(transpose(J), J))))),
             mtimes(transpose(J), dy)
         )
 
@@ -51,7 +52,7 @@ export default (
         if (previousError < error) {
             damping = damping * 11
             console.log(`restore damping: ${damping}`)
-            // restore the original parameter
+            // restore the original parameter?
             for (let i = 0; i < x.length; ++i) {
                 x[i] -= h[i][0]
             }
@@ -61,8 +62,8 @@ export default (
                 console.log(`break. iteration: ${iteration}`)
                 break
             }
+            previousError = error
         }
-        previousError = error
     }
     return x
 }

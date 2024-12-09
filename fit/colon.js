@@ -3,7 +3,13 @@ export default (
     i,
     k
 ) => {
-    const m = Math.trunc((k - j) / i)
+    if (k === undefined) {
+        const _k = i,
+            m = _k - j
+        return new Array(m + 1).fill(0).map((_, index) => j + index)
+    } else {
+        const m = Math.trunc((k - j) / i)
 
-    return new Array(m + 1).fill(0).map((_, index) => j + i * index)
+        return new Array(m + 1).fill(0).map((_, index) => j + i * index)
+    }
 }
