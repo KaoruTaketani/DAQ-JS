@@ -1,4 +1,4 @@
-import { writeFile } from 'fs'
+import { readFileSync, writeFile } from 'fs'
 import { test } from 'node:test'
 import axes from './axes.js'
 import colon from './colon.js'
@@ -12,22 +12,25 @@ test('example inputs in lsqcurvefit of matlab', () => {
         fun = [
             p => xdata.map((_, i) => ydata[i] - p[0] * Math.exp(p[1] * xdata[i])),
             p => xdata.map((_, i) => [
-                Math.exp(p[1] * xdata[i]),
-                p[0] * xdata[i] * Math.exp(p[1] * xdata[i])
+                -Math.exp(p[1] * xdata[i]),
+                -p[0] * xdata[i] * Math.exp(p[1] * xdata[i])
             ])
         ],
         p = lsqnonlin(fun, [500, -0.1])
 })
 
 test('example inputs in lsqnonlin of matlab', () => {
+
+
     // replaced randn by rand in the example input
-    const d = linspace(0, 3),
-        y = d.map(d => Math.exp(-1.3 * d) + 0.05 * (Math.random() - 0.5)),
+    const xy = JSON.parse(readFileSync('./lsqnonlin.json', 'utf8')),
+        // x = linspace(0, 3),
+        // y = d.map(d => Math.exp(-1.3 * d) + 0.05 * (Math.random() - 0.5)),
         fun = [
-            r => d.map((_, i) => Math.exp(-d[i] * r[0]) - y[i]),
-            r => d.map((_, i) => [-d[i] * Math.exp(-d[i] * r[0])])
+            r => xy.x.map((_, i) => Math.exp(-xy.x[i] * r[0]) - xy.y[i]),
+            r => xy.x.map((_, i) => [-xy.x[i] * Math.exp(-xy.x[i] * r[0])])
         ],
-        x = lsqnonlin(fun, [4]),// 4 seems to be far from optimum
+        p = lsqnonlin(fun, [4]),// 4 seems to be far from optimum
         gca = {
             xLim: [0, 3],
             yLim: [-0.2, 1.2],
@@ -36,17 +39,18 @@ test('example inputs in lsqnonlin of matlab', () => {
             xTickLabel: colon(0, 0.5, 3).map(x => x.toFixed(1)),
             yTickLabel: colon(-0.2, 0.2, 1.2).map(y => y.toFixed(1))
         }
-
+    // writeFile('./lsqnonlin.json', JSON.stringify({ x: x, y: y }), 'utf8', err => {
+    //     if (err) throw err
+    // })
     writeFile('./lsqnonlin.svg', [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420">',
         axes(gca),
         // map function is copied from lsqcurvefit.js
         // line(gca, times, times.map(time => result[0] * Math.exp(result[1] * time))),
-        scatter(gca, d, y),
+        scatter(gca, xy.x, xy.y),
         '</svg>'
     ].join(''), 'utf8', err => {
         if (err) throw err
     })
-
 })
 

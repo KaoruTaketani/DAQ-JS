@@ -1,5 +1,3 @@
-import sub2ind from './sub2ind.js'
-
 export default (
     n
 ) => {
