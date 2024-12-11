@@ -1,7 +1,7 @@
 import { strictEqual } from 'assert'
 import { test } from 'node:test'
 import rand from './rand.js'
-import size from './size.js'
+import size from '../lsqcurvefit/size.js'
 
 test('1st example of matlab', () => {
     const r = rand(5)
