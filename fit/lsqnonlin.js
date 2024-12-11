@@ -7,6 +7,7 @@ import times from './times.js'
 import diag from './diag.js'
 import abs from './abs.js'
 import max from './max.js'
+import uminus from './uminus.js'
 
 export default (
     f,
@@ -34,9 +35,9 @@ export default (
             b = mtimes(transpose(J), r),
             h = mldivide(
                 plus(A, times(lambda, diag(diag(A)))),
-                b
+                uminus(b)
             ),
-            _x = new Array(x.length).fill().map((_, i) => x[i] - h[i][0]),
+            _x = new Array(x.length).fill().map((_, i) => x[i] + h[i][0]),
             _J = zeros(n, x.length),
             _r = zeros(n, 1)
 
