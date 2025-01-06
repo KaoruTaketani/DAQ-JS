@@ -17,7 +17,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const gca = {
+            const ax = {
                 xLim: [min(this._timeSeries.time), max(this._timeSeries.time)],
                 yLim: [0, 1],
                 xTick: [min(this._timeSeries.time), max(this._timeSeries.time)],
@@ -29,8 +29,8 @@ export default class extends Operator {
                 yTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1))
             }
             variables.timeSeriesSVGInnerHTML.assign([
-                axes(gca),
-                line(gca, this._timeSeries.time, this._timeSeries.data)
+                axes(ax),
+                line(ax, this._timeSeries.time, this._timeSeries.data)
             ].join(''))
         }
     }

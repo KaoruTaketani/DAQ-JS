@@ -31,7 +31,7 @@ test('example inputs in lsqnonlin of matlab', () => {
             r => xy.x.map((_, i) => [-xy.x[i] * Math.exp(-xy.x[i] * r[0])])
         ],
         p = lsqnonlin(fun, [4]),// 4 seems to be far from optimum
-        gca = {
+        ax = {
             xLim: [0, 3],
             yLim: [-0.2, 1.2],
             xTick: colon(0, 0.5, 3),
@@ -44,10 +44,10 @@ test('example inputs in lsqnonlin of matlab', () => {
     // })
     writeFile('./lsqnonlin.svg', [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420">',
-        axes(gca),
+        axes(ax),
         // map function is copied from lsqcurvefit.js
-        // line(gca, times, times.map(time => result[0] * Math.exp(result[1] * time))),
-        scatter(gca, xy.x, xy.y),
+        // line(ax, times, times.map(time => result[0] * Math.exp(result[1] * time))),
+        scatter(ax, xy.x, xy.y),
         '</svg>'
     ].join(''), 'utf8', err => {
         if (err) throw err

@@ -12,7 +12,7 @@ test('example inputs in lsqcurvefit of matlab', () => {
         ydata = [455.2, 428.6, 124.1, 67.3, 43.2, 28.1, 13.1, -0.4, -1.3, -1.5],
         result = lsqcurvefit('exp', [500, -0.1], xdata, ydata),
         times = linspace(xdata[0], xdata.at(-1)),
-        gca = {
+        ax = {
             xLim: [0, 90],
             yLim: [-100, 500],
             xTick: colon(0, 10, 90),
@@ -25,10 +25,10 @@ test('example inputs in lsqcurvefit of matlab', () => {
     // so use [500, -0.1] instead
     writeFile('./lsqcurvefit.svg', [
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420">',
-        axes(gca),
+        axes(ax),
         // map function is copied from lsqcurvefit.js
-        line(gca, times, times.map(time => result[0] * Math.exp(result[1] * time))),
-        scatter(gca, xdata, ydata),
+        line(ax, times, times.map(time => result[0] * Math.exp(result[1] * time))),
+        scatter(ax, xdata, ydata),
         '</svg>'
     ].join(''), 'utf8', err => {
         if (err) throw err

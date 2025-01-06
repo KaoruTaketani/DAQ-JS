@@ -16,7 +16,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const gca = {
+            const ax = {
                 xLim: [this._histogram.lowerEdge, this._histogram.upperEdge],
                 yLim: [0, max(this._histogram.value)],
                 xTick: linspace(0, 1, 11),
@@ -25,8 +25,8 @@ export default class extends Operator {
                 yTickLabel: ['0', `${max(this._histogram.value)}`]
             }
             variables.histogramSVGInnerHTML.assign([
-                axes(gca),
-                stairs(gca, this._histogram.value)
+                axes(ax),
+                stairs(ax, this._histogram.value)
             ].join(''))
         }
     }
