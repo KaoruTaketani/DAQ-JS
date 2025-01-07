@@ -13,7 +13,6 @@ export default class extends ListenableObject {
             })
             dataset.create_attribute('binLimitsMin', this._value.binLimits[0], null, '<f')
             dataset.create_attribute('binLimitsMax', this._value.binLimits[1], null, '<f')
-            dataset.create_attribute('numBins', this._value.numBins, null, '<i')
         })
     }
     assign(arg) {

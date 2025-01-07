@@ -15,7 +15,6 @@ export default class extends Operator {
             if (!this._randomNumberGeneratorIsBusy) return
 
             variables.histogram.assign({
-                numBins: 10,
                 binLimits: [0, 1],
                 binCounts: new Array(10).fill(0)
             })

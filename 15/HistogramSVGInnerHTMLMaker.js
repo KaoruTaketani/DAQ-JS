@@ -28,9 +28,9 @@ export default class extends Operator {
             }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
-                stairs(ax, this._histogram.binCounts),
                 xlabel(ax, 'random number'),
-                ylabel(ax, 'counts')
+                ylabel(ax, 'counts'),
+                stairs(ax, this._histogram.binCounts)
             ].join(''))
         }
     }
