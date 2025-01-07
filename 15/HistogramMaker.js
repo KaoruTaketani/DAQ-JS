@@ -15,7 +15,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             const i = Math.floor(this._randomNumber * 10)
-            this._histogram.value[i]++
+            this._histogram.binCounts[i]++
             variables.histogram.assign(this._histogram)
         }
     }

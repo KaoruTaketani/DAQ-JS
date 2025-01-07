@@ -12,7 +12,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const total = this._histogram.value.reduce((prev, curr) => prev + curr, 0)
+            const total = this._histogram.binCounts.reduce((prev, curr) => prev + curr, 0)
 
             if (total === 0) return
             variables.total.assign(total)

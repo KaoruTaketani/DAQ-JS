@@ -15,12 +15,9 @@ export default class extends Operator {
             if (!this._randomNumberGeneratorIsBusy) return
 
             variables.histogram.assign({
-                lowerEdge: 0,
-                upperEdge: 1,
-                overflowValue: 0,
-                underflowValue: 0,
-                numberOfBins: 10,
-                value: new Array(10).fill(0)
+                numBins: 10,
+                binLimits: [0, 1],
+                binCounts: new Array(10).fill(0)
             })
             variables.startTime.assign(Date.now())
         }

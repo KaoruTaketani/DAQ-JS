@@ -4,6 +4,7 @@ import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import WritableHistogram from './WritableHistogram.js'
+import WritableInteger from './WritableInteger.js'
 
 export default class {
     constructor() {
@@ -12,10 +13,10 @@ export default class {
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
         this.histogramHDF5File = new ListenableObject()
-        this.histogram = new WritableHistogram('rand', this.histogramHDF5File)
+        this.histogram = new WritableHistogram('histogram', this.histogramHDF5File)
 
         this.randomNumber = new ListenableNumber()
-        this.total = new ListenableNumber()
+        this.total = new WritableInteger('total',this.histogramHDF5File)
         this.startTime = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)

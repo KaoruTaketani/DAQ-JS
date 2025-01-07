@@ -8,14 +8,12 @@ export default class extends ListenableObject {
         hdf5File.addListener(arg => {
             const dataset = arg.create_dataset({
                 name: this._name,
-                data: this._value.value,
+                data: this._value.binCounts,
                 dtype: '<i4'
             })
-            dataset.create_attribute('lowerEdge', this._value.lowerEdge, null, '<f')
-            dataset.create_attribute('upperEdge', this._value.upperEdge, null, '<f')
-            dataset.create_attribute('numberOfBins', this._value.numberOfBins, null, '<i')
-            dataset.create_attribute('underflowValue', this._value.underflowValue, null, '<i')
-            dataset.create_attribute('overflowValue', this._value.overflowValue, null, '<i')
+            dataset.create_attribute('binLimitsMin', this._value.binLimits[0], null, '<f')
+            dataset.create_attribute('binLimitsMax', this._value.binLimits[1], null, '<f')
+            dataset.create_attribute('numBins', this._value.numBins, null, '<i')
         })
     }
     assign(arg) {

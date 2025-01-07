@@ -17,16 +17,16 @@ export default class extends Operator {
         })
         this._operation = () => {
             const ax = {
-                xLim: [this._histogram.lowerEdge, this._histogram.upperEdge],
-                yLim: [0, max(this._histogram.value)],
+                xLim: this._histogram.binLimits,
+                yLim: [0, max(this._histogram.binCounts)],
                 xTick: linspace(0, 1, 11),
-                yTick: [0, max(this._histogram.value)],
+                yTick: [0, max(this._histogram.binCounts)],
                 xTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1)),
-                yTickLabel: ['0', `${max(this._histogram.value)}`]
+                yTickLabel: ['0', `${max(this._histogram.binCounts)}`]
             }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
-                stairs(ax, this._histogram.value)
+                stairs(ax, this._histogram.binCounts)
             ].join(''))
         }
     }

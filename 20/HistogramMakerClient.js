@@ -80,9 +80,6 @@ histogramSVGElement.onmousemove = ev => {
         cursorElement.innerText = `upperEdge: ${xStairInData}, binCount: ${yStairInData}`
     lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
 }
-histogramSVGElement.ondblclick = () => {
-    dialogElement.showModal()
-}
 
 const foreignElement = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
 foreignElement.setAttribute('width', '400')
@@ -95,6 +92,9 @@ overlayElement.setAttribute('width', '400')
 overlayElement.setAttribute('height', '300')
 overlayElement.appendChild(foreignElement)
 overlayElement.appendChild(lineElement)
+overlayElement.ondblclick = () => {
+    dialogElement.showModal()
+}
 document.body.appendChild(overlayElement)
 
 const dialogElement = document.createElement('dialog')
