@@ -12,12 +12,12 @@ export default class {
         this.message = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
         this.timeSeries = new ListenableObject()
+        this.elementValues = new ListenableObject()
         this.histogramHDF5File = new ListenableObject()
         this.histogram = new WritableHistogram('histogram', this.histogramHDF5File)
-        this.elementValues = new ListenableObject()
 
-        this.randomNumber = new ListenableNumber()
         this.total = new WritableInteger('total',this.histogramHDF5File)
+        this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)

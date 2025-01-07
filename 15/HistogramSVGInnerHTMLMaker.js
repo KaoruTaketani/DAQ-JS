@@ -2,6 +2,8 @@ import axes from './axes.js'
 import max from './max.js'
 import linspace from './linspace.js'
 import stairs from './stairs.js'
+import xlabel from './xlabel.js'
+import ylabel from './ylabel.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -26,7 +28,9 @@ export default class extends Operator {
             }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
-                stairs(ax, this._histogram.binCounts)
+                stairs(ax, this._histogram.binCounts),
+                xlabel(ax, 'random number'),
+                ylabel(ax, 'counts')
             ].join(''))
         }
     }

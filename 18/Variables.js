@@ -16,8 +16,8 @@ export default class {
         this.histogram = new WritableHistogram('histogram', this.histogramHDF5File)
         this.elementValues = new ListenableObject()
 
-        this.randomNumber = new ListenableNumber()
         this.total = new WritableInteger('total',this.histogramHDF5File)
+        this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
