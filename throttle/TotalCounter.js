@@ -5,7 +5,8 @@ export default class extends ThrottleOperator {
      * @param {import('./Variables.js').default} variables 
      */
     constructor(variables) {
-        super(10)
+        super(100)
+        // super(10)
         this._histogram
         variables.histogram.addListener(arg => {
             this._histogram = arg
@@ -14,7 +15,7 @@ export default class extends ThrottleOperator {
         this._operation = () => {
             const total = this._histogram.binCounts.reduce((prev, curr) => prev + curr, 0)
 
-            console.log(total)
+            console.log(`total: ${total}`)
         }
     }
 }

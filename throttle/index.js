@@ -15,4 +15,10 @@ variables.histogram.assign({
 for (let i = 0; i < 1_000_000; ++i) variables.randomNumber.assign(Math.random())
 setTimeout(() => {
     for (let i = 0; i < 1_000_000; ++i) variables.randomNumber.assign(Math.random())
+    setTimeout(() => {
+        for (let i = 0; i < 1_000_000; ++i) variables.randomNumber.assign(Math.random())
+        setTimeout(() => {
+            for (let i = 0; i < 1_000_000; ++i) variables.randomNumber.assign(Math.random())
+        })
+    })
 })
