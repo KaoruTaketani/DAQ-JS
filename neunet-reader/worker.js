@@ -18,7 +18,7 @@ socket.on('data', chunk => {
     if (totalLength === eventLength * 2 + 4) {
         const toParent = Buffer.concat(eventData)
         parentPort.postMessage(toParent, [toParent.buffer])
-        
+
         totalLength = 0
         eventData = []
         if (!socket.closed)
@@ -27,8 +27,9 @@ socket.on('data', chunk => {
 })
 
 parentPort.on('message', message => {
+    console.log(`message: ${message}`)
     if (message) {
-        socket.connect(port, address, () => {
+        socket.connect(23, 'localhost', () => {
             socket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
         })
     } else {

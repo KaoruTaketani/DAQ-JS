@@ -41,8 +41,8 @@ createServer().on('connection', socket => {
         const meanY = 0.5
         socket.write(Buffer.concat([
             eventLength, kickerEvent,
-            Buffer.concat(x.map((_, i) =>
-                edr(25_000_000, stdX * xy[i][0] + meanX, stdY * y[i][1] + meanY)
+            Buffer.concat(xy.map(xy =>
+                edr(25_000_000, stdX * xy[0] + meanX, stdY * xy[1] + meanY)
             ))
         ]))
     })

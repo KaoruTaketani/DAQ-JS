@@ -3,6 +3,7 @@ import { Socket } from 'net'
 let eventLength
 let eventData = []
 let totalLength = 0
+let i = 0
 
 const socket = new Socket()
 socket.on('data', chunk => {
@@ -17,9 +18,13 @@ socket.on('data', chunk => {
     if (totalLength === eventLength * 2 + 4) {
         totalLength = 0
         eventData = []
-
-        socket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
+        i++
+        if (i > 10) {
+            socket.end()
+        } else {
+            socket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
+        }
     }
-}).connect(23, '192.168.0.16', () => {
+}).connect(23, 'localhost', () => {
     socket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
 })
