@@ -16,12 +16,13 @@ socket.on('data', chunk => {
     totalLength += chunk.length
 
     if (totalLength === eventLength * 2 + 4) {
-        totalLength = 0
-        eventData = []
         i++
         if (i > 10) {
             socket.end()
         } else {
+            console.log(`data.length: ${eventLength}`)
+            totalLength = 0
+            eventData = []
             socket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
         }
     }

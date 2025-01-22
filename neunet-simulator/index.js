@@ -1,6 +1,6 @@
 import { createServer } from 'net'
 import randn from './randn.js'
-import edr from './edr.js'
+import txy2edr from './txy2edr.js'
 
 createServer().on('connection', socket => {
     console.log('server connection')
@@ -42,7 +42,7 @@ createServer().on('connection', socket => {
         socket.write(Buffer.concat([
             eventLength, kickerEvent,
             Buffer.concat(xy.map(xy =>
-                edr(25_000_000, stdX * xy[0] + meanX, stdY * xy[1] + meanY)
+                txy2edr(25_000_000, stdX * xy[0] + meanX, stdY * xy[1] + meanY)
             ))
         ]))
     })
