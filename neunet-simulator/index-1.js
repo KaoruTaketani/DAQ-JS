@@ -32,7 +32,7 @@ createServer().on('connection', socket => {
 
         const n = Math.round(1_000 * Math.random()),
             v3 = randn(n, 3)
-        const len = (1 + n) * 4
+        const len = (1 + 2 * n) * 4 // 1 neutron event needs 2 channel events
         const eventLength = Buffer.from(new Uint8Array([0, 0, len >> 8, len]).buffer)
 
         const meanX = 0.5
@@ -40,7 +40,7 @@ createServer().on('connection', socket => {
         socket.write(Buffer.concat([
             eventLength, kickerEvent,
             Buffer.concat(v3.map(v =>
-                txy2edr(Math.ceil(Math.hypot(v[0], v[1], v[2]) * 9_000)*1_000, meanX, meanY)
+                txy2edr(Math.ceil(Math.hypot(v[0], v[1], v[2]) * 9_000) * 1_000, meanX, meanY)
             ))
         ]))
     })

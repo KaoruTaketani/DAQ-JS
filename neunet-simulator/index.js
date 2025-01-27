@@ -32,7 +32,7 @@ createServer().on('connection', socket => {
 
         const n = Math.round(1_000 * Math.random()),
             xy = randn(n, 2)
-        const len = (1 + 2 * n) * 4
+        const len = (1 + 2 * n) * 4// 1 neutron event needs 2 channel events
         const eventLength = Buffer.from(new Uint8Array([0, 0, len >> 8, len]).buffer)
 
         const stdX = 0.1
