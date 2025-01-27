@@ -40,7 +40,7 @@ createServer().on('connection', socket => {
         socket.write(Buffer.concat([
             eventLength, kickerEvent,
             Buffer.concat(v3.map(v =>
-                txy2edr(Math.ceil(Math.hypot(v[0], v[1], v[2]) * 9_000) * 1_000, meanX, meanY)
+                txy2edr(Math.ceil(9_000 / Math.hypot(v[0], v[1], v[2])) * 1_000, meanX, meanY)
             ))
         ]))
     })
