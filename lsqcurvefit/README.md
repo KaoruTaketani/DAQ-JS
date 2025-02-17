@@ -3,3 +3,39 @@ mldivide
 ```math
 \sum _{j=1}^n a_{i,j} x_j =b_i
 ```
+
+<math>
+ <mrow>
+  <mrow>
+   <munderover>
+    <mo>&#8721;</mo>
+    <mrow>
+     <mi>j</mi>
+     <mo>=</mo>
+     <mn>1</mn>
+    </mrow>
+    <mi>n</mi>
+   </munderover>
+   <mrow>
+    <msub>
+     <mi>x</mi>
+     <mi>j</mi>
+    </msub>
+    <mo>&#8290;</mo>
+    <msub>
+     <mi>a</mi>
+     <mrow>
+      <mi>i</mi>
+      <mo>,</mo>
+      <mi>j</mi>
+     </mrow>
+    </msub>
+   </mrow>
+  </mrow>
+  <mo>=</mo>
+  <msub>
+   <mi>b</mi>
+   <mi>i</mi>
+  </msub>
+ </mrow>
+</math>
