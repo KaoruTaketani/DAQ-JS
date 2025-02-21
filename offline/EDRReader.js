@@ -9,6 +9,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {string} */
+        this._directBeamHDF5FilePath
+        variables.directBeamHDF5FilePath.prependListener(arg => { this._directBeamHDF5FilePath = arg })
+        /** @type {string} */
         this._hdf5FilePath
         variables.hdf5FilePath.prependListener(arg => { this._hdf5FilePath = arg })
         /** @type {import('./index.js').Histogram} */
@@ -30,9 +33,15 @@ export default class extends Operator {
                     variables.filteredTOFHistogram.assign(this._filteredTOFHistogram)
 
                     ready.then(() => {
-                        const file = new File(this._hdf5FilePath, 'w')
-                        variables.hdf5File.assign(file)
-                        file.close()
+                        if (this._directBeamHDF5FilePath) {
+                            const directBeamHDFFile = new File(this._directBeamHDF5FilePath, 'r')
+                            variables.directBeamHDF5File.assign(directBeamHDFFile)
+                            directBeamHDFFile.close()
+                        }
+
+                        const hdfFile = new File(this._hdf5FilePath, 'w')
+                        variables.hdf5File.assign(hdfFile)
+                        hdfFile.close()
                         console.log(`hdf5 elapsedTime: ${Date.now() - startTime} ms`)
                     })
                 })

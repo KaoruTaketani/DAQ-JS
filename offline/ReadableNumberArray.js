@@ -17,7 +17,7 @@ export default class extends ListenableObject {
             const dataset = /** @type {import('h5wasm').Dataset} */(arg.get(this._name))
             ok(dataset)
             ok(dataset.dtype === '<d')
-            this.assign(/** @type {number[]}*/(dataset.value))
+            super.assign(/** @type {number[]}*/(dataset.value))
         })
     }
 }

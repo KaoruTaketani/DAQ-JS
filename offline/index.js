@@ -1,4 +1,5 @@
 import ContrastMaker from "./ContrastMaker.js"
+import ContrastRatioMaker from "./ContrastRatioMaker.js"
 import EDRReader from "./EDRReader.js"
 import EventBufferParser from "./EventBufferParser.js"
 import FilteredImageInitializer from "./FilteredImageInitializer.js"
@@ -14,6 +15,8 @@ import NeutronEventMaker from "./NeutronEventMaker.js"
 import NeutronRateMaker from "./NeutronRateMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
 import PhaseMaker from "./PhaseMaker.js"
+import PhaseShiftMaker from "./PhaseShiftMaker.js"
+import ReflectivityMaker from "./ReflectivityMaker.js"
 import Variables from "./Variables.js"
 
 
@@ -35,6 +38,9 @@ new PhaseMaker(variables)
 new NeutronRateMaker(variables)
 new FilteredTOFImageInitializer(variables)
 new FilteredTOFImageMaker(variables)
+new ContrastRatioMaker(variables)
+new PhaseShiftMaker(variables)
+new ReflectivityMaker(variables)
 // initializers
 variables.kickerPulseCount.assign(0)
 variables.channel0Count.assign(0)
@@ -55,23 +61,23 @@ variables.downstreamSlitWidthInMillimeters.assign(2)
 //
 // parameters for 104
 //
-// variables.hdf5FilePath.assign('../../hdf5/mieze/104_mod.h5')
-// variables.roiX.assign(480)
-// variables.roiY.assign(250)
-// variables.roiWidth.assign(150)
-// variables.roiHeight.assign(450)
-// variables.edrFilePath.assign('../../edr/20240000/rpmt_run104.edr')
+variables.hdf5FilePath.assign('../../hdf5/mieze/104_mod.h5')
+variables.roiX.assign(480)
+variables.roiY.assign(250)
+variables.roiWidth.assign(150)
+variables.roiHeight.assign(450)
+variables.edrFilePath.assign('../../edr/20240000/rpmt_run104.edr')
 //
 // parameters for 106
 //
-variables.hdf5FilePath.assign('../../hdf5/mieze/106_mod.h5')
-variables.directBeamHDF5FilePath.assign('../../hdf5/mieze/104_mod.h5')
-variables.roiX.assign(400)
-variables.roiY.assign(200)
-variables.roiWidth.assign(200)
-variables.roiHeight.assign(600)
-variables.edrFilePath.assign('../../edr/20240000/rpmt_run106.edr')
-variables.incidentAngleInDegrees.assign(1.3)
+// variables.hdf5FilePath.assign('../../hdf5/mieze/106_mod.h5')
+// variables.directBeamHDF5FilePath.assign('../../hdf5/mieze/104_mod.h5')
+// variables.roiX.assign(400)
+// variables.roiY.assign(200)
+// variables.roiWidth.assign(200)
+// variables.roiHeight.assign(600)
+// variables.edrFilePath.assign('../../edr/20240000/rpmt_run106.edr')
+// variables.incidentAngleInDegrees.assign(1.3)
 
 
 

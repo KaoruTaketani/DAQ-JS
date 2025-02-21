@@ -16,6 +16,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            if (this._filteredTOFHistogram.binCounts.reduce((a, b) => a + b, 0) === 0) return
+            
             const n = 8
 
             const contrast = new Array(this._filteredTOFHistogram.binCounts.length / n).fill(0).map((_, i) => {
