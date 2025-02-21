@@ -44,10 +44,14 @@ variables.neutronCount.assign(0)
 variables.tofDifferenceMin.assign(-250)
 variables.tofDifferenceMax.assign(250)
 variables.miezeFrequencyInKilohertz.assign(10)
-variables.moderatorSampleDistanceInMeters.assign(23.76)
+variables.moderatorToSampleDistanceInMeters.assign(23.76)
 variables.cameraLengthInMeters.assign(1.755)
 variables.detectorHeightInMillimeters.assign(50)
 variables.detectorWidthInMillimeters.assign(50)
+variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
+variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
+variables.upstreamSlitWidthInMillimeters.assign(2)
+variables.downstreamSlitWidthInMillimeters.assign(2)
 //
 // parameters for 104
 //
