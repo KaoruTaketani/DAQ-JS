@@ -61,23 +61,23 @@ variables.downstreamSlitWidthInMillimeters.assign(2)
 //
 // parameters for 104
 //
-variables.hdf5FilePath.assign('../../hdf5/mieze/104_mod.h5')
-variables.roiX.assign(480)
-variables.roiY.assign(250)
-variables.roiWidth.assign(150)
-variables.roiHeight.assign(450)
-variables.edrFilePath.assign('../../edr/20240000/rpmt_run104.edr')
+// variables.hdf5FilePath.assign('../../hdf5/mieze/104_mod.h5')
+// variables.roiX.assign(480)
+// variables.roiY.assign(250)
+// variables.roiWidth.assign(150)
+// variables.roiHeight.assign(450)
+// variables.edrFilePath.assign('../../edr/20240000/rpmt_run104.edr')
 //
 // parameters for 106
 //
-// variables.hdf5FilePath.assign('../../hdf5/mieze/106_mod.h5')
-// variables.directBeamHDF5FilePath.assign('../../hdf5/mieze/104_mod.h5')
-// variables.roiX.assign(400)
-// variables.roiY.assign(200)
-// variables.roiWidth.assign(200)
-// variables.roiHeight.assign(600)
-// variables.edrFilePath.assign('../../edr/20240000/rpmt_run106.edr')
-// variables.incidentAngleInDegrees.assign(1.3)
+variables.hdf5FilePath.assign('../../hdf5/mieze/106_mod.h5')
+variables.directBeamHDF5FilePath.assign('../../hdf5/mieze/104_mod.h5')
+variables.roiX.assign(400)
+variables.roiY.assign(200)
+variables.roiWidth.assign(200)
+variables.roiHeight.assign(600)
+variables.edrFilePath.assign('../../edr/20240000/rpmt_run106.edr')
+variables.incidentAngleInDegrees.assign(1.3)
 
 
 

@@ -7,6 +7,7 @@ import WritableHistogram2D from './WritableHistogram2D.js'
 import WritableHistogram3D from './WritableHistogram3D.js'
 import WritableNumber from './WritableNumber.js'
 import WritableNumberArray from './WritableNumberArray.js'
+import WritableString from './WritableString.js'
 
 export default class {
     constructor() {
@@ -75,7 +76,8 @@ export default class {
         this.detectorWidthInMillimeters = new WritableNumber('detectorWidthInMillimeters', this.hdf5File)
 
         this.hdf5FilePath = new ListenableString()
-        this.directBeamHDF5FilePath = new ListenableString()
-        this.edrFilePath = new ListenableString()
+
+        this.directBeamHDF5FilePath = new WritableString('directBeamHDF5FilePath',this.hdf5File)
+        this.edrFilePath = new WritableString('edrFilePath',this.hdf5File)
     }
 }
