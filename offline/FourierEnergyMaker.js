@@ -13,9 +13,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const fourierEnergy = new Array(this._fourierTimeInPicoseconds.length).fill(0).map((_, i) => {
+            const fourierEnergy = this._fourierTimeInPicoseconds.map(t => {
                 /** see @FourierEnergy */
-                const t = this._fourierTimeInPicoseconds[i]
 
                 return 4.13567 / t
             })

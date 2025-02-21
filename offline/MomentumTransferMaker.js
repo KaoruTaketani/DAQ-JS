@@ -1,4 +1,3 @@
-import { ok } from 'assert'
 import Operator from './Operator.js'
 import deg2rad from './deg2rad.js'
 
@@ -24,10 +23,10 @@ export default class extends Operator {
             if (!this._incidentAngleInDegrees) return
             if (!this._wavelengthInAngstroms) return
 
-            const q = new Array(this._wavelengthInAngstroms.length).fill(0).map((_, i) => {
+            const q = this._wavelengthInAngstroms.map(lambda => {
                 /** see @MomentumTransferAmplitude */
-                const lambda = this._wavelengthInAngstroms[i]
                 const theta = deg2rad(this._incidentAngleInDegrees)
+                
                 return 4 * Math.PI * Math.sin(theta) / lambda
             })
             variables.momentumTransferInInverseAngstroms.assign(q)

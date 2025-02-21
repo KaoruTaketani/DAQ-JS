@@ -19,9 +19,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const velocity = new Array(this._tofInSeconds.length).fill(0).map((_, i) => {
-                const tof = this._tofInSeconds[i],
-                    l1 = this._moderatorToSampleDistanceInMeters,
+            const velocity = this._tofInSeconds.map(tof => {
+                const l1 = this._moderatorToSampleDistanceInMeters,
                     l2 = this._cameraLengthInMeters
                 return (l1 + l2) / tof
             })

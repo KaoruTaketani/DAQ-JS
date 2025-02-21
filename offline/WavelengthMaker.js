@@ -13,9 +13,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const wavelength = new Array(this._energyInMillielectronvolts.length).fill(0).map((_, i) => {
+            const wavelength = this._energyInMillielectronvolts.map(k => {
                 /** see @NeutronWavelengthByEnergy */ 
-                const k = this._energyInMillielectronvolts[i]
                 return 9.044568 / Math.sqrt(k)
             })
             variables.wavelengthInAngstroms.assign(wavelength)

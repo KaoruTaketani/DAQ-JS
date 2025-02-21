@@ -19,11 +19,10 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const fourierTime = new Array(this._wavelengthInAngstroms.length).fill(0).map((_, i) => {
+            const fourierTime = this._wavelengthInAngstroms.map(lambda => {
                 /** see @MIEZETime */
-                const lambda = this._wavelengthInAngstroms[i]
-                const nu = this._miezeFrequencyInKilohertz
-                const L = this._cameraLengthInMeters
+                const nu = this._miezeFrequencyInKilohertz,
+                    L = this._cameraLengthInMeters
 
                 return 0.0063896926 * L * nu * lambda ** 3
             })
