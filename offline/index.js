@@ -1,6 +1,7 @@
 import ContrastMaker from "./ContrastMaker.js"
 import ContrastRatioMaker from "./ContrastRatioMaker.js"
 import EDRReader from "./EDRReader.js"
+import EnergyMaker from "./EnergyMaker.js"
 import EventBufferParser from "./EventBufferParser.js"
 import FilteredImageInitializer from "./FilteredImageInitializer.js"
 import FilteredImageMaker from "./FilteredImageMaker.js"
@@ -9,15 +10,21 @@ import FilteredTOFHistogramInitializer from "./FilteredTOFHistogramInitializer.j
 import FilteredTOFHistogramMaker from "./FilteredTOFHistogramMaker.js"
 import FilteredTOFImageInitializer from "./FilteredTOFImageInitializer.js"
 import FilteredTOFImageMaker from "./FilteredTOFImageMaker.js"
+import FourierEnergyMaker from "./FourierEnergyMaker.js"
+import FourierTimeMaker from "./FourierTimeMaker.js"
 import ImageInitializer from "./ImageInitializer.js"
 import ImageMaker from "./ImageMaker.js"
+import MomentumTransferMaker from "./MomentumTransferMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
 import NeutronRateMaker from "./NeutronRateMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
 import PhaseMaker from "./PhaseMaker.js"
 import PhaseShiftMaker from "./PhaseShiftMaker.js"
 import ReflectivityMaker from "./ReflectivityMaker.js"
+import TOFMaker from "./TOFMaker.js"
 import Variables from "./Variables.js"
+import VelocityMaker from "./VelocityMaker.js"
+import WavelengthMaker from "./WavelengthMaker.js"
 
 
 const variables = new Variables()
@@ -41,6 +48,13 @@ new FilteredTOFImageMaker(variables)
 new ContrastRatioMaker(variables)
 new PhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
+new TOFMaker(variables)
+new VelocityMaker(variables)
+new EnergyMaker(variables)
+new WavelengthMaker(variables)
+new FourierTimeMaker(variables)
+new FourierEnergyMaker(variables)
+new MomentumTransferMaker(variables)
 // initializers
 variables.kickerPulseCount.assign(0)
 variables.channel0Count.assign(0)
@@ -49,7 +63,6 @@ variables.neutronCount.assign(0)
 // parameters
 variables.tofDifferenceMin.assign(-250)
 variables.tofDifferenceMax.assign(250)
-variables.miezeFrequencyInKilohertz.assign(10)
 variables.moderatorToSampleDistanceInMeters.assign(23.76)
 variables.cameraLengthInMeters.assign(1.755)
 variables.detectorHeightInMillimeters.assign(50)
@@ -58,6 +71,8 @@ variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
 variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
 variables.upstreamSlitWidthInMillimeters.assign(2)
 variables.downstreamSlitWidthInMillimeters.assign(2)
+// must assign after distances are assigned
+variables.miezeFrequencyInKilohertz.assign(10)
 //
 // parameters for 104
 //
