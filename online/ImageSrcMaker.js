@@ -16,7 +16,7 @@ export default class extends ThrottleOperator {
         })
         this._operation = () => {
             const maxCount = max(this._image.binCounts)
-            console.log(`maxCount:${maxCount}`)
+            console.log(`maxCount:${maxCount}, total: ${this._image.binCounts.reduce((a,b)=>a+b,0)}`)
             const C = Uint8Array.from(this._image.binCounts.map(c => (c / maxCount) * 255))
             deflate(C, (err, buffer) => {
                 if (err) throw err

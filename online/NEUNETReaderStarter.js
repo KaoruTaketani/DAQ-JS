@@ -9,6 +9,8 @@ export default class extends Operator {
         /** @type {import('net').Socket} */
         this._neunertReaderSocket
         variables.neunetReaderSocket.prependListener(arg => { this._neunertReaderSocket = arg })
+        this._image
+        variables.image.prependListener(arg => { this._image = arg })
         /** @type {boolean} */
         this._neunetReaderIsBusy
         variables.neunetReaderIsBusy.addListener(arg => {
@@ -30,11 +32,10 @@ export default class extends Operator {
                 size: [256, 256],
                 binCounts: new Array(256 * 256).fill(0)
             })
-
+            
             this._neunertReaderSocket.connect(23, 'localhost', () => {
                 this._neunertReaderSocket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
             })
         }
     }
 }
-

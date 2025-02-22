@@ -20,6 +20,9 @@ export default (time, x, y) => {
         0x5a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
         0x5a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     ])
+    if (time / 25 > 2 ** 24) {
+        time = 2 ** 24 / 25 - 1
+    }
     buffer.writeUint8((time / 25) >> 16, 1)
     buffer.writeUint8((time / 25 & 0x00ff00) >> 8, 2)
     buffer.writeUint8((time / 25 & 0x0000ff), 3)

@@ -38,7 +38,7 @@ export default class extends Operator {
                         variables.channel0Event.assign({
                             tof: tof,
                             pulse: left + right,
-                            position: ((left << 10) / (left + right)) >> 0
+                            position: ((left << 8) / (left + right)) >> 0
                         })
                     }
                     if (channel === 1) {
@@ -47,7 +47,7 @@ export default class extends Operator {
                         variables.channel1Event.assign({
                             tof: tof,
                             pulse: left + right,
-                            position: ((left << 10) / (left + right)) >> 0
+                            position: ((left << 8) / (left + right)) >> 0
                         })
                     }
                 } else if (this._eventBuffer[8 * i] === 0x5b) {
