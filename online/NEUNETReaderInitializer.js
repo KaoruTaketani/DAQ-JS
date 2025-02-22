@@ -1,3 +1,4 @@
+import { Socket } from 'net'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -14,6 +15,7 @@ export default class extends Operator {
             variables.usePreset.assign(true)
             variables.preset.assign(10)
             variables.saveFile.assign(false)
+            variables.neunetReaderSocket.assign(new Socket())
         }
     }
 }

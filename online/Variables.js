@@ -2,6 +2,7 @@ import ControllableBoolean from './ControllableBoolean.js'
 import ControllableNumber from './ControllableNumber.js'
 import ElementBoolean from './ElementBoolean.js'
 import ElementString from './ElementString.js'
+import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 
 export default class {
@@ -16,6 +17,8 @@ export default class {
         this.elementValues = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('./index.js').Histogram>} */
         this.tofHistogram = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('net').Socket>} */
+        this.neunetReaderSocket = new ListenableObject()
 
         this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.message)
         this.usePreset = new ControllableBoolean('usePreset', this.message)
@@ -30,6 +33,8 @@ export default class {
         this.saveFileDisabled = new ElementBoolean('/saveFileDisabled', this.elementValues, this.webSocketPathnames)
 
         this.preset = new ControllableNumber('preset', this.message)
+
+        this.kickerPulseCount = new ListenableNumber()
 
         this.kickerPulseCountInnerText = new ElementString('/kickerPulseCountInnerText', this.elementValues, this.webSocketPathnames)
         this.tofHistogramSVGInnerHTML = new ElementString('/tofHistogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
