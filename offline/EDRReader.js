@@ -1,4 +1,4 @@
-import { createReadStream } from 'fs'
+import { createReadStream, statSync } from 'fs'
 import { File, ready } from 'h5wasm/node'
 import Operator from './Operator.js'
 
@@ -24,10 +24,14 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const startTime = Date.now()
-            createReadStream(this._edrFilePath, { highWaterMark: 128 * 1024 * 1024 })
+            const totalSize = statSync(this._edrFilePath).size,
+                startTime = Date.now()
+            let processedSize = 0
+            createReadStream(this._edrFilePath, { highWaterMark: 32 * 1024 * 1024 })
                 .on('data', chunk => {
                     variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
+                    processedSize += chunk.length
+                    console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
                     variables.filteredTOFHistogram.assign(this._filteredTOFHistogram)
