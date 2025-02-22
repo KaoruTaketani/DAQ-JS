@@ -26,6 +26,7 @@ import ImageSrcMaker from './ImageSrcMaker.js'
 import NeutronCountInnerTextMaker from './NeutronCountInnerTextMaker.js'
 import EDRFilePathFinder from './EDRFilePathFinder.js'
 import EDRFilePathInnerTextMaker from './EDRFilePathInnerTextMaker.js'
+import EDRFileWriter from './EDRFileWriter.js'
 
 const variables = new Variables()
 
@@ -55,5 +56,6 @@ new SaveFileDisabledChanger(variables)
 new SaveFileCheckedChanger(variables)
 new EDRFilePathFinder(variables)
 new EDRFilePathInnerTextMaker(variables)
+new EDRFileWriter(variables)
 
 variables.httpServer.assign(new Server()) 

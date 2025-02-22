@@ -44,6 +44,7 @@ export default class extends Operator {
                     if (this._neunetReaderIsBusy) {
                         this._neunertReaderSocket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
                     } else {
+                        variables.eventBuffer.assign(Buffer.from([]))
                         this._neunertReaderSocket.end()
                     }
                 }

@@ -22,8 +22,6 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._eventBuffer) return
-
             for (let i = 0; i < this._eventBuffer.length / 8; ++i) {
                 if (this._eventBuffer[8 * i] === 0x5a) {
                     const

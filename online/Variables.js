@@ -32,6 +32,8 @@ export default class {
         this.neutronEvent = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('./index.js').Histogram2D>} */
         this.image = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('fs').WriteStream>} */
+        this.edrStream = new ListenableObject()
 
         this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.message)
         this.usePreset = new ControllableBoolean('usePreset', this.message)
