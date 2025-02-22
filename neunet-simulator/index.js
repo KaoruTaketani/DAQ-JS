@@ -39,12 +39,15 @@ createServer().on('connection', socket => {
         const stdY = 0.1
         const meanX = 0.5
         const meanY = 0.5
-        socket.write(Buffer.concat([
-            eventLength, kickerEvent,
-            Buffer.concat(xyv3.map(xy =>
-                txy2edr(Math.ceil(9_000 / Math.hypot(xy[2], xy[3], xy[4])) * 1_000, stdX * xy[0] + meanX, stdY * xy[1] + meanY)
-            ))
-        ]))
+        // if use NEUNETReaderDataHandler, following timeout is not necessary
+        setTimeout(() => {
+            socket.write(Buffer.concat([
+                eventLength, kickerEvent,
+                Buffer.concat(xyv3.map(xy =>
+                    txy2edr(Math.ceil(9_000 / Math.hypot(xy[2], xy[3], xy[4])) * 1_000, stdX * xy[0] + meanX, stdY * xy[1] + meanY)
+                ))
+            ]))                
+        }, 50) // less than 50ms seems to block worker thread
     })
 }).listen(23)
 

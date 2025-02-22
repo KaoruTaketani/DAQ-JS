@@ -13,9 +13,9 @@ export default class extends Operator {
         this._neunetReaderIsBusy
         variables.neunetReaderIsBusy.prependListener(arg => { this._neunetReaderIsBusy = arg })
         /** @type {import('net').Socket} */
-        this._neunertReaderSocket
+        this._neunetReaderSocket
         variables.neunetReaderSocket.addListener(arg => {
-            this._neunertReaderSocket = arg
+            this._neunetReaderSocket = arg
             this._operation()
         })
         this._operation = () => {
@@ -26,7 +26,7 @@ export default class extends Operator {
             /** @type {Uint8Array[]} */
             let chunkArray = []
 
-            this._neunertReaderSocket.on('data', chunk => {
+            this._neunetReaderSocket.on('data', chunk => {
                 if (chunkArray.length === 0) {
                     eventLength = (chunk[2] << 8) + chunk[3]
                     chunkArray.push(chunk.subarray(4))
@@ -42,10 +42,10 @@ export default class extends Operator {
                     chunkArray = []
 
                     if (this._neunetReaderIsBusy) {
-                        this._neunertReaderSocket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
+                        this._neunetReaderSocket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
                     } else {
                         variables.eventBuffer.assign(Buffer.from([]))
-                        this._neunertReaderSocket.end()
+                        this._neunetReaderSocket.end()
                     }
                 }
             })

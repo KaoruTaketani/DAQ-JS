@@ -1,4 +1,4 @@
-import { Socket } from 'net'
+import { Worker } from 'worker_threads'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -21,7 +21,22 @@ export default class extends Operator {
             variables.neutronCount.assign(0)
             variables.tofDifferenceMax.assign(250)
             variables.tofDifferenceMin.assign(-250)
-            variables.neunetReaderSocket.assign(new Socket())
+            // if use NEUNETReaderDataHandler, commentout folloing line
+            // variables.neunetReaderSocket.assign(new Socket())
+            
+            const worker = new Worker('./NEUNETReaderWorker.js')
+            worker.on('message', data => {
+                variables.eventBuffer.assign(data)
+            }).on('online', () => {
+                console.log('worker online')
+            }).on('exit', exitCode => {
+                console.log(`worker exit. exitCode: ${exitCode}`)
+            }).on('messageerror', error => {
+                console.log(`worker failed deserialization. error: ${error}`)
+            }).on('error', err => {
+                console.log(err)
+            })
+            variables.neunetReaderWorker.assign(worker)
         }
     }
 }

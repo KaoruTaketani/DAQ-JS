@@ -34,6 +34,8 @@ export default class {
         this.image = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('fs').WriteStream>} */
         this.edrStream = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('worker_threads').Worker>} */
+        this.neunetReaderWorker = new ListenableObject()
 
         this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.message)
         this.usePreset = new ControllableBoolean('usePreset', this.message)
