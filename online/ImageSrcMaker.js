@@ -1,6 +1,7 @@
 import { deflate, crc32 } from 'zlib'
 import max from './max.js'
 import ThrottleOperator from './ThrottleOperator.js'
+import sub2ind from './sub2ind.js'
 
 export default class extends ThrottleOperator {
     /**
@@ -16,8 +17,23 @@ export default class extends ThrottleOperator {
         })
         this._operation = () => {
             const maxCount = max(this._image.binCounts)
-            console.log(`maxCount:${maxCount}, total: ${this._image.binCounts.reduce((a,b)=>a+b,0)}`)
-            const C = Uint8Array.from(this._image.binCounts.map(c => (c / maxCount) * 255))
+            // console.log(`maxCount:${maxCount}, total: ${this._image.binCounts.reduce((a,b)=>a+b,0)}`)
+            // const width = this._image.size[0],
+            //     height = this._image.size[1],
+            //     C = Uint8Array.from(this._image.binCounts.map(c => (c / maxCount) * 255))
+            const width = this._image.size[0],
+                height = this._image.size[1],
+                c = new Array(height * (width + 1)).fill(0)
+            for (let j = 0; j < height; ++j) {
+                for (let i = 1; i < width + 1; ++i) {
+                    // c[j * (width + 1)] is filter type, which is zero
+                    c[j * (width + 1) + i] = Math.floor(
+                        255 * this._image.binCounts[sub2ind(this._image.size, i, j)]
+                        / maxCount
+                    )
+                }
+            }
+            const C = Uint8Array.from(c)
             deflate(C, (err, buffer) => {
                 if (err) throw err
 
@@ -27,8 +43,8 @@ export default class extends ThrottleOperator {
                 const header = Buffer.alloc(25)
                 header.writeUInt32BE(13, 0x00) // data length; bytes for width, height,bit depth, color type,compress method, filter method and interlace method, whicha is 13 bytes
                 header.writeUInt32BE(0x49484452, 0x04) // chunk type; IHDR in ASCII
-                header.writeUint32BE(this._image.size[1], 0x08) // width
-                header.writeUint32BE(this._image.size[0], 0x0c) // height
+                header.writeUint32BE(width, 0x08) // width
+                header.writeUint32BE(height, 0x0c) // height
                 header.writeUint8(8, 0x10) // bit depth
                 header.writeUint8(0, 0x11) // color type; 0 is grayscale
                 header.writeUint8(0, 0x12) // compress method; 0 is deflate

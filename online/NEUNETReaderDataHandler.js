@@ -36,7 +36,7 @@ export default class extends Operator {
                 totalLength += chunk.length
 
                 if (totalLength === eventLength * 2 + 4) {
-                    console.log(`data ${totalLength.toLocaleString()} bytes`)
+                    // console.log(`data ${totalLength.toLocaleString()} bytes`)
                     variables.eventBuffer.assign(Buffer.concat(chunkArray))
                     totalLength = 0
                     chunkArray = []
