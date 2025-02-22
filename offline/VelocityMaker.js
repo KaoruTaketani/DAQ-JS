@@ -19,12 +19,13 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const velocity = this._tofInSeconds.map(tof => {
-                const l1 = this._moderatorToSampleDistanceInMeters,
-                    l2 = this._cameraLengthInMeters
-                return (l1 + l2) / tof
-            })
-            variables.velocityInMetersPerSeconds.assign(velocity)
+            variables.velocityInMetersPerSeconds.assign(
+                this._tofInSeconds.map(tof => {
+                    const l1 = this._moderatorToSampleDistanceInMeters,
+                        l2 = this._cameraLengthInMeters
+                    return (l1 + l2) / tof
+                })
+            )
         }
     }
 }

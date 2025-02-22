@@ -13,11 +13,12 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const wavelength = this._energyInMillielectronvolts.map(k => {
-                /** see @NeutronWavelengthByEnergy */ 
-                return 9.044568 / Math.sqrt(k)
-            })
-            variables.wavelengthInAngstroms.assign(wavelength)
+            variables.wavelengthInAngstroms.assign(
+                this._energyInMillielectronvolts.map(k => {
+                    /** see @NeutronWavelengthByEnergy */
+                    return 9.044568 / Math.sqrt(k)
+                })
+            )
         }
     }
 }

@@ -13,11 +13,12 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const energy = this._velocityInMetersPerSeconds.map(v => {
-                /** see @NeutronEnergyByVelocity */
-                return 5.227e-6 * v ** 2
-            })
-            variables.energyInMillielectronvolts.assign(energy)
+            variables.energyInMillielectronvolts.assign(
+                this._velocityInMetersPerSeconds.map(v => {
+                    /** see @NeutronEnergyByVelocity */
+                    return 5.227e-6 * v ** 2
+                })
+            )
         }
     }
 }
