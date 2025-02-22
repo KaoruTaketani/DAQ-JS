@@ -19,6 +19,18 @@ export default class {
         this.tofHistogram = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('net').Socket>} */
         this.neunetReaderSocket = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<Buffer>} */
+        this.eventBuffer = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
+        this.channel0Event = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
+        this.channel1Event = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent>} */
+        this.pairedEvent = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent>} */
+        this.neutronEvent = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').Histogram2D>} */
+        this.image = new ListenableObject()
 
         this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.message)
         this.usePreset = new ControllableBoolean('usePreset', this.message)
@@ -35,10 +47,18 @@ export default class {
         this.preset = new ControllableNumber('preset', this.message)
 
         this.kickerPulseCount = new ListenableNumber()
+        this.channel0Count = new ListenableNumber()
+        this.channel1Count = new ListenableNumber()
+        this.neutronCount = new ListenableNumber()
+        this.tofDifferenceMin = new ListenableNumber()
+        this.tofDifferenceMax = new ListenableNumber()
 
-        this.kickerPulseCountInnerText = new ElementString('/kickerPulseCountInnerText', this.elementValues, this.webSocketPathnames)
-        this.tofHistogramSVGInnerHTML = new ElementString('/tofHistogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
         this.presetValue = new ElementString('/presetValue', this.elementValues, this.webSocketPathnames)
+        this.kickerPulseCountInnerText = new ElementString('/kickerPulseCountInnerText', this.elementValues, this.webSocketPathnames)
+        this.channel0CountInnerText = new ElementString('/channel0CountInnerText', this.elementValues, this.webSocketPathnames)
+        this.channel1CountInnerText = new ElementString('/channel1CountInnerText', this.elementValues, this.webSocketPathnames)
+        this.neutronCountInnerText = new ElementString('/neutronCountInnerText', this.elementValues, this.webSocketPathnames)
+        this.imageSrc = new ElementString('/imageSrc', this.elementValues, this.webSocketPathnames)
     }
 }
 

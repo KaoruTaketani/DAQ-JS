@@ -7,13 +7,13 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
-        this._kickerPulseCount
-        variables.kickerPulseCount.addListener(arg => {
-            this._kickerPulseCount = arg
+        this._neutronCount
+        variables.neutronCount.addListener(arg => {
+            this._neutronCount = arg
             this._operation()
         })
         this._operation = () => {
-            variables.kickerPulseCountInnerText.assign(`kicker pulse: ${this._kickerPulseCount.toLocaleString()} events`)
+            variables.neutronCountInnerText.assign(`neutron: ${this._neutronCount.toLocaleString()} events`)
         }
     }
 }

@@ -24,28 +24,22 @@ export default class extends Operator {
             /** @type {number} */
             let totalLength = 0
             /** @type {Uint8Array[]} */
-            let eventBuffers = []
+            let chunkArray = []
 
             this._neunertReaderSocket.on('data', chunk => {
-                if (eventBuffers.length === 0) {
+                if (chunkArray.length === 0) {
                     eventLength = (chunk[2] << 8) + chunk[3]
-                    eventBuffers.push(chunk.subarray(4))
+                    chunkArray.push(chunk.subarray(4))
                 } else {
-                    eventBuffers.push(chunk)
+                    chunkArray.push(chunk)
                 }
                 totalLength += chunk.length
 
                 if (totalLength === eventLength * 2 + 4) {
                     console.log(`data ${totalLength.toLocaleString()} bytes`)
-                    eventBuffers.forEach(eventBuffer => {
-                        for (let i = 0; i < eventBuffer.length / 8; ++i) {
-                            if (eventBuffer[8 * i] === 0x5b) {
-                                variables.kickerPulseCount.assign(this._kickerPulseCount + 1)
-                            }
-                        }
-                    })
+                    variables.eventBuffer.assign(Buffer.concat(chunkArray))
                     totalLength = 0
-                    eventBuffers = []
+                    chunkArray = []
 
                     if (this._neunetReaderIsBusy) {
                         this._neunertReaderSocket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))

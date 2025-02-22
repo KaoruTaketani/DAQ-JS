@@ -17,8 +17,20 @@ export default class extends Operator {
         })
         this._operation = () => {
             if (!this._neunetReaderIsBusy) return
-            
+
             variables.kickerPulseCount.assign(0)
+            variables.channel0Count.assign(0)
+            variables.channel1Count.assign(0)
+            variables.neutronCount.assign(0)
+            variables.tofDifferenceMax.assign(250)
+            variables.tofDifferenceMin.assign(-250)
+            variables.image.assign({
+                xBinLimits: [0, 256],
+                yBinLimits: [0, 256],
+                size: [256, 256],
+                binCounts: new Array(256 * 256).fill(0)
+            })
+
             this._neunertReaderSocket.connect(23, 'localhost', () => {
                 this._neunertReaderSocket.write(Buffer.from([0xa3, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00]))
             })

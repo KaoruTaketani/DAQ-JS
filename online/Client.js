@@ -113,15 +113,46 @@ kickerPulseCountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) =
 }
 document.body.appendChild(kickerPulseCountElement)
 
-
-const histogramSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-histogramSVGElement.setAttribute('width', '400')
-histogramSVGElement.setAttribute('height', '300')
-histogramSVGElement.setAttribute('viewBox', '0 0 560 420')
-url.pathname = 'histogramSVGInnerHTML'
-const histogramSVGInnerHTMLSocket = new WebSocket(url)
-histogramSVGInnerHTMLSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    histogramSVGElement.innerHTML = event.data
+const channel0CountElement = document.createElement('p')
+url.pathname = 'channel0CountInnerText'
+const channel0CountInnerTextSocket = new WebSocket(url)
+channel0CountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+    channel0CountElement.innerText = event.data
 }
-document.body.appendChild(histogramSVGElement)
+document.body.appendChild(channel0CountElement)
+
+const channel1CountElement = document.createElement('p')
+url.pathname = 'channel1CountInnerText'
+const channel1CountInnerTextSocket = new WebSocket(url)
+channel1CountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+    channel1CountElement.innerText = event.data
+}
+document.body.appendChild(channel1CountElement)
+
+
+const neutronCountElement = document.createElement('p')
+url.pathname = 'neutronCountInnerText'
+const neutronCountInnerTextSocket = new WebSocket(url)
+neutronCountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+    neutronCountElement.innerText = event.data
+}
+document.body.appendChild(neutronCountElement)
+
+
+const canvasElement = document.createElement('canvas')
+canvasElement.width = 256
+canvasElement.height = 256
+document.body.appendChild(canvasElement)
+
+const imageElement = new Image()
+imageElement.onload = () => {
+    const ctx = canvasElement.getContext("2d")
+    if (!ctx) return
+    ctx.drawImage(imageElement, 0, 0, 256,256)
+}
+url.pathname = 'imageSrc'
+const imageSrcSocket = new WebSocket(url)
+imageSrcSocket.onmessage = (/** @type {MessageEvent} */event) => {
+    imageElement.src = event.data
+}
 
