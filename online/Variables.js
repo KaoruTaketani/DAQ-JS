@@ -4,6 +4,7 @@ import ElementBoolean from './ElementBoolean.js'
 import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
+import ListenableString from './ListenableString.js'
 
 export default class {
     constructor() {
@@ -44,8 +45,6 @@ export default class {
         this.saveFileChecked = new ElementBoolean('/saveFileChecked', this.elementValues, this.webSocketPathnames)
         this.saveFileDisabled = new ElementBoolean('/saveFileDisabled', this.elementValues, this.webSocketPathnames)
 
-        this.preset = new ControllableNumber('preset', this.message)
-
         this.kickerPulseCount = new ListenableNumber()
         this.channel0Count = new ListenableNumber()
         this.channel1Count = new ListenableNumber()
@@ -53,12 +52,17 @@ export default class {
         this.tofDifferenceMin = new ListenableNumber()
         this.tofDifferenceMax = new ListenableNumber()
 
+        this.preset = new ControllableNumber('preset', this.message)
+
+        this.edrFilePath = new ListenableString()
+
         this.presetValue = new ElementString('/presetValue', this.elementValues, this.webSocketPathnames)
         this.kickerPulseCountInnerText = new ElementString('/kickerPulseCountInnerText', this.elementValues, this.webSocketPathnames)
         this.channel0CountInnerText = new ElementString('/channel0CountInnerText', this.elementValues, this.webSocketPathnames)
         this.channel1CountInnerText = new ElementString('/channel1CountInnerText', this.elementValues, this.webSocketPathnames)
         this.neutronCountInnerText = new ElementString('/neutronCountInnerText', this.elementValues, this.webSocketPathnames)
         this.imageSrc = new ElementString('/imageSrc', this.elementValues, this.webSocketPathnames)
+        this.edrFilePathInnerText = new ElementString('/edrFilePathInnerText', this.elementValues, this.webSocketPathnames)
     }
 }
 

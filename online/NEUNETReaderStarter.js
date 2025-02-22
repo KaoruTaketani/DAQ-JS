@@ -24,8 +24,6 @@ export default class extends Operator {
             variables.channel0Count.assign(0)
             variables.channel1Count.assign(0)
             variables.neutronCount.assign(0)
-            variables.tofDifferenceMax.assign(250)
-            variables.tofDifferenceMin.assign(-250)
             variables.image.assign({
                 xBinLimits: [0, 256],
                 yBinLimits: [0, 256],

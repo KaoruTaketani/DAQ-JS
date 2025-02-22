@@ -24,6 +24,8 @@ import UsePresetDisabledChanger from './UsePresetDisabledChanger.js'
 import Variables from './Variables.js'
 import ImageSrcMaker from './ImageSrcMaker.js'
 import NeutronCountInnerTextMaker from './NeutronCountInnerTextMaker.js'
+import EDRFilePathFinder from './EDRFilePathFinder.js'
+import EDRFilePathInnerTextMaker from './EDRFilePathInnerTextMaker.js'
 
 const variables = new Variables()
 
@@ -51,5 +53,7 @@ new PresetDisabledChanger(variables)
 new PresetValueChanger(variables)
 new SaveFileDisabledChanger(variables)
 new SaveFileCheckedChanger(variables)
+new EDRFilePathFinder(variables)
+new EDRFilePathInnerTextMaker(variables)
 
 variables.httpServer.assign(new Server()) 

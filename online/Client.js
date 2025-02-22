@@ -103,6 +103,14 @@ saveFileLabelElement.appendChild(saveFileElement)
 saveFileLabelElement.appendChild(document.createTextNode('save file'))
 document.body.appendChild(saveFileLabelElement)
 
+const edrFilePathElement = document.createElement('p')
+url.pathname = 'edrFilePathInnerText'
+const edrFilePathInnerTextSocket = new WebSocket(url)
+edrFilePathInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+    edrFilePathElement.innerText = event.data
+}
+document.body.appendChild(edrFilePathElement)
+
 
 
 const kickerPulseCountElement = document.createElement('p')
@@ -137,6 +145,7 @@ neutronCountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
     neutronCountElement.innerText = event.data
 }
 document.body.appendChild(neutronCountElement)
+
 
 
 const canvasElement = document.createElement('canvas')

@@ -1,11 +1,11 @@
-import Operator from './Operator.js'
+import ThrottleOperator from './ThrottleOperator.js'
 
-export default class extends Operator {
+export default class extends ThrottleOperator {
     /**
      * @param {import('./Variables.js').default} variables 
      */
     constructor(variables) {
-        super()
+        super(200)
         /** @type {number} */
         this._channel0Count
         variables.channel0Count.addListener(arg => {
