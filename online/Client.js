@@ -146,18 +146,23 @@ neutronCountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
 }
 document.body.appendChild(neutronCountElement)
 
-
+const cursorElement = document.createElement('p')
+cursorElement.innerText = `cursorOffset: undefined`
+document.body.appendChild(cursorElement)
 
 const canvasElement = document.createElement('canvas')
 canvasElement.width = 256
 canvasElement.height = 256
+canvasElement.onmousemove = (/** @type {MouseEvent} */event) => {
+    cursorElement.innerText = `cursorOffset: {x: ${event.offsetX}, y: ${event.offsetY}}`
+}
 document.body.appendChild(canvasElement)
 
 const imageElement = new Image()
 imageElement.onload = () => {
     const ctx = canvasElement.getContext("2d")
     if (!ctx) return
-    ctx.drawImage(imageElement, 0, 0, 256,256)
+    ctx.drawImage(imageElement, 0, 0, 256, 256)
 }
 url.pathname = 'imageSrc'
 const imageSrcSocket = new WebSocket(url)
