@@ -17,8 +17,8 @@ export default class extends Operator {
         this._edrFilePath
         variables.edrFilePath.prependListener(arg => { this._edrFilePath = arg })
         /** @type {boolean} */
-        this._saveFile
-        variables.saveFile.prependListener(arg => { this._saveFile = arg })
+        this._saveToEDR
+        variables.saveToEDR.prependListener(arg => { this._saveToEDR = arg })
         /** @type {boolean} */
         this._neunetReaderIsBusy
         variables.neunetReaderIsBusy.addListener(arg => {
@@ -28,7 +28,7 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._neunetReaderIsBusy) return
 
-            if (this._saveFile) {
+            if (this._saveToEDR) {
                 variables.edrStream.assign(createWriteStream(this._edrFilePath))
             }
 

@@ -20,8 +20,8 @@ import NeutronEventMaker from './NeutronEventMaker.js'
 import PairedEventMaker from './PairedEventMaker.js'
 import PresetDisabledChanger from './PresetDisabledChanger.js'
 import PresetValueChanger from './PresetValueChanger.js'
-import SaveFileCheckedChanger from './SaveFileCheckedChanger.js'
-import SaveFileDisabledChanger from './SaveFileDisabledChanger.js'
+import SaveToEDRCheckedChanger from './SaveToEDRCheckedChanger.js'
+import SaveToEDRDisabledChanger from './SaveToEDRDisabledChanger.js'
 import StartButtonDisabledChanger from './StartButtonDisabledChanger.js'
 import StopButtonDisabledChanger from './StopButtonDisabledChanger.js'
 import UsePresetCheckedChanger from './UsePresetCheckedChanger.js'
@@ -53,8 +53,8 @@ new UsePresetDisabledChanger(variables)
 new UsePresetCheckedChanger(variables)
 new PresetDisabledChanger(variables)
 new PresetValueChanger(variables)
-new SaveFileDisabledChanger(variables)
-new SaveFileCheckedChanger(variables)
+new SaveToEDRDisabledChanger(variables)
+new SaveToEDRCheckedChanger(variables)
 new EDRFilePathFinder(variables)
 new EDRFilePathInnerTextMaker(variables)
 new EDRFileWriter(variables)

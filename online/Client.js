@@ -87,21 +87,21 @@ presetValueSocket.onmessage = (/** @type {MessageEvent} */event) => {
 }
 document.body.appendChild(presetElement)
 
-const saveFileElement = document.createElement('input')
-saveFileElement.type = 'checkbox'
-saveFileElement.onclick = () => {
-    socket.send(JSON.stringify({ saveFile: saveFileElement.checked }))
+const saveToEDRElement = document.createElement('input')
+saveToEDRElement.type = 'checkbox'
+saveToEDRElement.onclick = () => {
+    socket.send(JSON.stringify({ saveToEDR: saveToEDRElement.checked }))
 }
-url.pathname = 'saveFileDisabled'
-const saveFileDisabledSocket = new WebSocket(url)
-saveFileDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    saveFileElement.disabled = event.data === 'true'
+url.pathname = 'saveToEDRDisabled'
+const saveToEDRDisabledSocket = new WebSocket(url)
+saveToEDRDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
+    saveToEDRElement.disabled = event.data === 'true'
 }
-const saveFileLabelElement = document.createElement('label')
-saveFileLabelElement.style.display = 'block'
-saveFileLabelElement.appendChild(saveFileElement)
-saveFileLabelElement.appendChild(document.createTextNode('save file'))
-document.body.appendChild(saveFileLabelElement)
+const saveToEDRLabelElement = document.createElement('label')
+saveToEDRLabelElement.style.display = 'block'
+saveToEDRLabelElement.appendChild(saveToEDRElement)
+saveToEDRLabelElement.appendChild(document.createTextNode('save file'))
+document.body.appendChild(saveToEDRLabelElement)
 
 const edrFilePathElement = document.createElement('p')
 url.pathname = 'edrFilePathInnerText'

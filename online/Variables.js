@@ -39,15 +39,15 @@ export default class {
 
         this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.message)
         this.usePreset = new ControllableBoolean('usePreset', this.message)
-        this.saveFile = new ControllableBoolean('saveFile', this.message)
+        this.saveToEDR = new ControllableBoolean('saveToEDR', this.message)
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.usePresetChecked = new ElementBoolean('/usePresetChecked', this.elementValues, this.webSocketPathnames)
         this.usePresetDisabled = new ElementBoolean('/usePresetDisabled', this.elementValues, this.webSocketPathnames)
         this.presetDisabled = new ElementBoolean('/presetDisabled', this.elementValues, this.webSocketPathnames)
-        this.saveFileChecked = new ElementBoolean('/saveFileChecked', this.elementValues, this.webSocketPathnames)
-        this.saveFileDisabled = new ElementBoolean('/saveFileDisabled', this.elementValues, this.webSocketPathnames)
+        this.saveToEDRChecked = new ElementBoolean('/saveToEDRChecked', this.elementValues, this.webSocketPathnames)
+        this.saveToEDRDisabled = new ElementBoolean('/saveToEDRDisabled', this.elementValues, this.webSocketPathnames)
 
         this.kickerPulseCount = new ListenableNumber()
         this.channel0Count = new ListenableNumber()

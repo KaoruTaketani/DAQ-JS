@@ -7,13 +7,13 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {boolean} */
-        this._neunetReaderIsBusy
-        variables.neunetReaderIsBusy.addListener(arg => {
-            this._neunetReaderIsBusy = arg
+        this._saveToEDR
+        variables.saveToEDR.addListener(arg => {
+            this._saveToEDR = arg
             this._operation()
         })
         this._operation = () => {
-            variables.saveFileDisabled.assign(this._neunetReaderIsBusy)
+            variables.saveToEDRChecked.assign(this._saveToEDR)
         }
     }
 }

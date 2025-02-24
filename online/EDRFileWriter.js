@@ -7,8 +7,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {boolean} */
-        this._saveFile
-        variables.saveFile.prependListener(arg => { this._saveFile = arg })
+        this._saveToEDR
+        variables.saveToEDR.prependListener(arg => { this._saveToEDR = arg })
         /** @type {import('fs').WriteStream} */
         this._edrStream
         variables.edrStream.prependListener(arg => { this._edrStream = arg })
@@ -19,7 +19,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._saveFile) return
+            if (!this._saveToEDR) return
 
             if (this._eventBuffer.length > 0) {
                 const needsNoDrain = this._edrStream.write(this._eventBuffer)

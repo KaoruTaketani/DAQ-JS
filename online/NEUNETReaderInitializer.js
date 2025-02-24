@@ -14,7 +14,7 @@ export default class extends Operator {
             variables.neunetReaderIsBusy.assign(false)
             variables.usePreset.assign(true)
             variables.preset.assign(10)
-            variables.saveFile.assign(false)
+            variables.saveToEDR.assign(false)
             variables.kickerPulseCount.assign(0)
             variables.channel0Count.assign(0)
             variables.channel1Count.assign(0)
