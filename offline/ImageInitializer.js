@@ -29,7 +29,7 @@ export default class extends Operator {
             variables.image.assign({
                 xBinLimits: [0, this._detectorWidthInMillimeters],
                 yBinLimits: [0, this._detectorHeightInMillimeters],
-                size: size,
+                numBins: size,
                 binCounts: new Array(length).fill(0)
             })
         }

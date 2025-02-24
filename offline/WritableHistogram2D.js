@@ -19,9 +19,9 @@ export default class extends ListenableObject {
                 const dataset = arg.create_dataset({
                     name: this._name,
                     data: this._value.binCounts,
-                    shape: this._value.size,
+                    shape: this._value.numBins,
                     dtype: '<i4',
-                    chunks: [1, this._value.size[1]],
+                    chunks: [1, this._value.numBins[1]],
                     compression: 'gzip'
                 })
                 dataset.create_attribute('xBinLimitsMin', this._value.xBinLimits[0], null, '<f')

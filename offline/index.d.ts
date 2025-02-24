@@ -28,14 +28,14 @@ export interface Histogram2D {
     xBinLimits: number[]
     yBinLimits: number[]
     binCounts: number[]
-    size: number[]
+    numBins: number[]
 }
 
 export interface Histogram3D {
     xBinLimits: number[]
     yBinLimits: number[]
     zBinLimits: number[]
-    size: number[]
+    numBins: number[]
     binCounts: number[]
 }
 

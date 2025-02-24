@@ -18,7 +18,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._image.binCounts[sub2ind(
-                this._image.size,
+                this._image.numBins,
                 this._neutronEvent.y,
                 this._neutronEvent.x
             )]++

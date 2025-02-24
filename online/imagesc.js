@@ -12,14 +12,14 @@ export default (
 
     const maxCount = max(C.binCounts)
 
-    const width = C.size[0],
-        height = C.size[1],
+    const width = C.numBins[0],
+        height = C.numBins[1],
         c = new Array(height * (width + 1)).fill(0)
     for (let j = 0; j < height; ++j) {
         for (let i = 1; i < width + 1; ++i) {
             // c[j * (width + 1)] is filter type, which is zero
             c[j * (width + 1) + i] = Math.floor(
-                255 * C.binCounts[sub2ind(C.size, j, i)]
+                255 * C.binCounts[sub2ind(C.numBins, j, i)]
                 / maxCount
             )
         }

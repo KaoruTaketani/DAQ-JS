@@ -28,6 +28,6 @@ export interface Histogram2D {
     xBinLimits: number[]
     yBinLimits: number[]
     binCounts: number[]
-    size: number[]
+    numBins: number[]
 }
 
