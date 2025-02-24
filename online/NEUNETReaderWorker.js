@@ -33,6 +33,8 @@ neunetReaderSocket.on('data', chunk => {
     }
 }).on('close', () => {
     console.log('neunetReaderSocket close')
+    ok(parentPort)
+    parentPort.postMessage(Buffer.from([]))
 }).on('error', err => {
     console.log('neunetReaderSocket error')
     console.log(err)
@@ -48,8 +50,8 @@ parentPort.on('message', message => {
         })
     } else if (message === false) {
         // neunetReaderIsBusy = false
-        ok(parentPort)
-        parentPort.postMessage(Buffer.from([]))
+        // ok(parentPort)
+        // parentPort.postMessage(Buffer.from([]))
         neunetReaderSocket.end()
     } else {
 
