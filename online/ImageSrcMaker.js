@@ -1,4 +1,5 @@
-import imagesc from './imagesc.js'
+import image from './image.js'
+import max from './max.js'
 import ThrottleOperator from './ThrottleOperator.js'
 
 export default class extends ThrottleOperator {
@@ -14,7 +15,10 @@ export default class extends ThrottleOperator {
             this._throttle()
         })
         this._operation = () => {
-            imagesc(this._image).then(buf => {
+            const ax = {
+                zLim: [0, max(this._image.binCounts)]
+            }
+            image(ax, this._image).then(buf => {
                 variables.imageSrc.assign(`data:image/png;base64,${buf.toString('base64')}`)
             })
         }

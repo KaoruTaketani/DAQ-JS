@@ -31,3 +31,11 @@ export interface Histogram2D {
     numBins: number[]
 }
 
+export interface Axes {
+    xLim?: number[]
+    yLim?: number[] 
+    zLim?: number[]
+    xScale?: string
+    yScale?: string
+    zScale?: string
+}
