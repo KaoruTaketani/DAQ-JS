@@ -21,7 +21,7 @@ export default class extends Operator {
         this._operation = () => {
             variables.fourierTimeInPicoseconds.assign(
                 this._wavelengthInAngstroms.map(lambda => {
-                    /** see @MIEZETime */
+                    /** see @FourierTime */
                     const nu = this._miezeFrequencyInKilohertz,
                         L = this._cameraLengthInMeters
 
