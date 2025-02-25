@@ -100,7 +100,7 @@ saveToEDRDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
 const saveToEDRLabelElement = document.createElement('label')
 saveToEDRLabelElement.style.display = 'block'
 saveToEDRLabelElement.appendChild(saveToEDRElement)
-saveToEDRLabelElement.appendChild(document.createTextNode('save file'))
+saveToEDRLabelElement.appendChild(document.createTextNode('save to edr'))
 document.body.appendChild(saveToEDRLabelElement)
 
 const edrFilePathElement = document.createElement('p')
