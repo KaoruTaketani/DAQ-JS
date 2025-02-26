@@ -78,6 +78,7 @@ export default class {
 
         this.hdf5FilePath = new ListenableString()
 
+        this.comment = new WritableString('comment',this.hdf5File)
         this.directBeamHDF5FilePath = new WritableString('directBeamHDF5FilePath',this.hdf5File)
         this.edrFilePath = new WritableString('edrFilePath',this.hdf5File)
     }
