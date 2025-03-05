@@ -23,8 +23,11 @@ neunetReaderSocket.on('data', chunk => {
         // console.log(`data ${totalLength.toLocaleString()} bytes`)
         // variables.eventBuffer.assign(Buffer.concat(chunkArray))
         ok(parentPort)
-        const toParent = Buffer.concat(chunkArray)
-        parentPort.postMessage(toParent, [toParent.buffer])
+        // worked using v20.18.2 but not worked using v22.14.0
+        // const toParent = Buffer.concat(chunkArray)
+        // parentPort.postMessage(toParent, [toParent.buffer])
+        parentPort.postMessage(Buffer.concat(chunkArray))
+
         totalLength = 0
         chunkArray = []
 
