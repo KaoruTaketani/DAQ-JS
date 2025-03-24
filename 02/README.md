@@ -1,3 +1,6 @@
+[home](../README.md)
+
+## How to run the sample code in this folder
 1. install Node.js by following the instruction in https://nodejs.org/en
 1. open a terminal
 1. change directory to this folder
