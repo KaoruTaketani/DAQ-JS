@@ -17,6 +17,9 @@ export default class extends Operator {
         /** @type {import('./index.js').Histogram} */
         this._filteredTOFHistogram
         variables.filteredTOFHistogram.prependListener(arg => { this._filteredTOFHistogram = arg })
+        /** @type {string[]} */
+        this._jsonFilePaths
+        variables.jsonFilePaths.prependListener(arg => { this._jsonFilePaths = arg })
         /** @type {string} */
         this._edrFilePath
         variables.edrFilePath.addListener(arg => {
@@ -47,6 +50,12 @@ export default class extends Operator {
                         variables.hdf5File.assign(hdfFile)
                         hdfFile.close()
                         console.log(`hdf5 elapsedTime: ${Date.now() - startTime} ms`)
+                        // initialize followings as they trigger some operators
+                        variables.roiX.assign(0)
+                        variables.roiY.assign(0)
+                        variables.roiWidth.assign(0)
+                        variables.roiHeight.assign(0)    
+                        variables.jsonFilePaths.assign(this._jsonFilePaths)
                     })
                 })
         }

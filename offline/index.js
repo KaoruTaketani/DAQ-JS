@@ -1,4 +1,3 @@
-import { readFile } from "fs"
 import ContrastMaker from "./ContrastMaker.js"
 import ContrastRatioMaker from "./ContrastRatioMaker.js"
 import EDRReader from "./EDRReader.js"
@@ -26,6 +25,7 @@ import TOFMaker from "./TOFMaker.js"
 import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
+import JSONFileReader from "./JSONFileReader.js"
 
 
 const variables = new Variables()
@@ -56,6 +56,7 @@ new WavelengthMaker(variables)
 new FourierTimeMaker(variables)
 new FourierEnergyMaker(variables)
 new MomentumTransferMaker(variables)
+new JSONFileReader(variables)
 // initializers
 variables.kickerPulseCount.assign(0)
 variables.channel0Count.assign(0)
@@ -74,20 +75,7 @@ variables.upstreamSlitWidthInMillimeters.assign(2)
 variables.downstreamSlitWidthInMillimeters.assign(2)
 // must assign after distances are assigned
 variables.miezeFrequencyInKilohertz.assign(10)
+variables.jsonFilePaths.assign(['./104.json','./106.json'])
+// variables.jsonFilePaths.assign(['./104.json'])
+// variables.jsonFilePaths.assign(['./106.json'])
 
-
-readFile('./104.json', 'utf8', (err, data) => {
-    if (err) throw err
-
-    const parameters=JSON.parse(data)
-
-    variables.hdf5FilePath.assign(parameters.hdf5FilePath)
-    variables.directBeamHDF5FilePath.assign(parameters.directBeamHDF5FilePath)
-    variables.comment.assign(parameters.comment)
-    variables.roiX.assign(parameters.roiX)
-    variables.roiY.assign(parameters.roiY)
-    variables.roiWidth.assign(parameters.roiWidth)
-    variables.roiHeight.assign(parameters.roiHeight)
-    variables.incidentAngleInDegrees.assign(parameters.incidentAngleInDegrees)
-    variables.edrFilePath.assign(parameters.edrFilePath)    
-})

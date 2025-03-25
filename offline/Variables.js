@@ -27,6 +27,8 @@ export default class {
         this.hdf5File = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('h5wasm').File>} */
         this.directBeamHDF5File = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<string[]>} */
+        this.jsonFilePaths = new ListenableObject()
 
         this.directBeamNeutronRate = new ReadableNumberArray('neutronRate', this.directBeamHDF5File)
         this.directBeamContrast = new ReadableNumberArray('contrast', this.directBeamHDF5File)
@@ -78,8 +80,8 @@ export default class {
 
         this.hdf5FilePath = new ListenableString()
 
-        this.comment = new WritableString('comment',this.hdf5File)
-        this.directBeamHDF5FilePath = new WritableString('directBeamHDF5FilePath',this.hdf5File)
-        this.edrFilePath = new WritableString('edrFilePath',this.hdf5File)
+        this.comment = new WritableString('comment', this.hdf5File)
+        this.directBeamHDF5FilePath = new WritableString('directBeamHDF5FilePath', this.hdf5File)
+        this.edrFilePath = new WritableString('edrFilePath', this.hdf5File)
     }
 }
