@@ -1,0 +1,11 @@
+{
+    "hdf5FilePath": "../../hdf5/mieze/106_mod.h5",
+    "directBeamHDF5FilePath": "../../hdf5/mieze/104_mod.h5",
+    "comment": "nickel on silicon substrate",
+    "roiX": 400,
+    "roiY": 200,
+    "roiWidth": 200,
+    "roiHeight": 600,
+    "edrFilePath": "../../edr/20240000/rpmt_run106.edr",
+    "incidentAngleInDegrees": 1.3
+}

@@ -1,3 +1,4 @@
+import { readFile } from "fs"
 import ContrastMaker from "./ContrastMaker.js"
 import ContrastRatioMaker from "./ContrastRatioMaker.js"
 import EDRReader from "./EDRReader.js"
@@ -73,38 +74,20 @@ variables.upstreamSlitWidthInMillimeters.assign(2)
 variables.downstreamSlitWidthInMillimeters.assign(2)
 // must assign after distances are assigned
 variables.miezeFrequencyInKilohertz.assign(10)
-//
-// parameters for 104
-//
-// variables.hdf5FilePath.assign('../../hdf5/mieze/104_mod.h5')
-// variables.comment.assign(`direct beam`)
-// variables.roiX.assign(480)
-// variables.roiY.assign(250)
-// variables.roiWidth.assign(150)
-// variables.roiHeight.assign(450)
-// variables.edrFilePath.assign('../../edr/20240000/rpmt_run104.edr')
-//
-// parameters for 106
-//
-variables.hdf5FilePath.assign('../../hdf5/mieze/106_mod.h5')
-variables.directBeamHDF5FilePath.assign('../../hdf5/mieze/104_mod.h5')
-variables.comment.assign(`nickel on silicon substrate`)
-variables.roiX.assign(400)
-variables.roiY.assign(200)
-variables.roiWidth.assign(200)
-variables.roiHeight.assign(600)
-variables.edrFilePath.assign('../../edr/20240000/rpmt_run106.edr')
-variables.incidentAngleInDegrees.assign(1.3)
-//
-// parameters for online
-//
-// variables.hdf5FilePath.assign('../../hdf5/mieze/a.h5')
-// variables.roiX.assign(200)
-// variables.roiY.assign(200)
-// variables.roiWidth.assign(600)
-// variables.roiHeight.assign(600)
-// variables.edrFilePath.assign('../online/edr/rpmt_run1.edr')
 
 
+readFile('./104.json', 'utf8', (err, data) => {
+    if (err) throw err
 
+    const parameters=JSON.parse(data)
 
+    variables.hdf5FilePath.assign(parameters.hdf5FilePath)
+    variables.directBeamHDF5FilePath.assign(parameters.directBeamHDF5FilePath)
+    variables.comment.assign(parameters.comment)
+    variables.roiX.assign(parameters.roiX)
+    variables.roiY.assign(parameters.roiY)
+    variables.roiWidth.assign(parameters.roiWidth)
+    variables.roiHeight.assign(parameters.roiHeight)
+    variables.incidentAngleInDegrees.assign(parameters.incidentAngleInDegrees)
+    variables.edrFilePath.assign(parameters.edrFilePath)    
+})
