@@ -42,12 +42,31 @@
 
 [20 Overlay](./20/README.md)
 
+## Graph
 ```mermaid
 graph TD;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    httpServer-->elementValues;
+    httpServer-->webSocketPathnames;
+    randomNumberGeneratorIsBusy-->timeSeries;
+    randomNumber-->timeSeries;
+    timeSeries-->timeSeriesSVGInnerHTML;
+    elementValues-->totalInnerText;
+    elementValues-->startTimeInnerText;
+    elementValues-->stopButtonDisabled;
+    elementValues-->randomNumberInnerText;
+    randomNumberGeneratorIsBusy-->histogram;
+    randomNumber-->histogram;
+    randomNumberGeneratorIsBusy-->startTime;
+    histogram-->histogramSVGInnerHTML;
+    histogram-->total;
+    total-->totalInnerText;
+    randomNumber-->randomNumberInnerText;
+    randomNumber-->timeSeries;
+    randomNumberGeneratorIsBusy-->startTime;
+    startTime-->startTimeInnerText;
+    randomNumberGeneratorIsBusy-->startButtonDisabled;
+    randomNumberGeneratorIsBusy-->stopButtonDisabled;
+    randomNumberGeneratorIsBusy-->timeSeries;
 ```
 ## References
 [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
