@@ -45,28 +45,27 @@
 ## Graph
 ```mermaid
 graph TD;
-    httpServer-->elementValues;
-    httpServer-->webSocketPathnames;
-    randomNumberGeneratorIsBusy-->timeSeries;
-    randomNumber-->timeSeries;
-    timeSeries-->timeSeriesSVGInnerHTML;
-    elementValues-->totalInnerText;
-    elementValues-->startTimeInnerText;
-    elementValues-->stopButtonDisabled;
-    elementValues-->randomNumberInnerText;
-    randomNumberGeneratorIsBusy-->histogram;
-    randomNumber-->histogram;
-    randomNumberGeneratorIsBusy-->startTime;
+    %%elementValues-->totalInnerText;
+    %%elementValues-->startTimeInnerText;
+    %%elementValues-->stopButtonDisabled;
+    %%elementValues-->randomNumberInnerText;
     histogram-->histogramSVGInnerHTML;
     histogram-->total;
-    total-->totalInnerText;
-    randomNumber-->randomNumberInnerText;
+    %%httpServer-->elementValues;
+    %%httpServer-->webSocketPathnames;
+    randomNumberGeneratorIsBusy-->histogram;
+    randomNumber-->histogram;
     randomNumber-->timeSeries;
+    randomNumber-->randomNumberInnerText;
+    randomNumberGeneratorIsBusy-->timeSeries;
     randomNumberGeneratorIsBusy-->startTime;
-    startTime-->startTimeInnerText;
+    randomNumberGeneratorIsBusy-->startTime;
     randomNumberGeneratorIsBusy-->startButtonDisabled;
     randomNumberGeneratorIsBusy-->stopButtonDisabled;
     randomNumberGeneratorIsBusy-->timeSeries;
+    startTime-->startTimeInnerText;
+    timeSeries-->timeSeriesSVGInnerHTML;
+    total-->totalInnerText;
 ```
 ## References
 [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
