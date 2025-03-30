@@ -8,5 +8,11 @@ buttonElement.addEventListener('click', () => {
 })
 ```
 
+```js
+buttonElement.addEventListener('click', () => {
+  messageElement.innerText = `random number is ${Math.random()}`
+})
+```
+
 ## How to run the sample code in this folder
 1. open ./index.html by your brouwser
