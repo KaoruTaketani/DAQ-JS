@@ -75,7 +75,7 @@ variables.upstreamSlitWidthInMillimeters.assign(2)
 variables.downstreamSlitWidthInMillimeters.assign(2)
 // must assign after distances are assigned
 variables.miezeFrequencyInKilohertz.assign(10)
-variables.jsonFilePaths.assign(['./104.json','./106.json'])
+variables.jsonFilePaths.assign(['./104.json', './106.json'])
 // variables.jsonFilePaths.assign(['./104.json'])
 // variables.jsonFilePaths.assign(['./106.json'])
 
