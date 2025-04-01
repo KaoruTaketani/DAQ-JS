@@ -1,5 +1,7 @@
 [home](../README.md)
 
+enable the server to send multiple variables
+
 ## How to run the sample code in this folder
 1. open a terminal
 1. change directory to this folder
