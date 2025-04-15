@@ -1,3 +1,4 @@
+import { ok } from 'assert'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -28,6 +29,7 @@ export default class extends Operator {
             Object.keys(this._hdf5File.attrs).forEach(key => {
                 // console.log(`key:${key}, dtype: ${this._hdf5File.attrs[key].dtype}, value: ${this._hdf5File.attrs[key].value}, typeof: ${typeof this._hdf5File.attrs[key].value}`)
                 const value = this._hdf5File.attrs[key].value
+                ok(value)
                 // tmp += `<p>${key}: ${this._hdf5File.attrs[key].dtype === '<i' ? value.toLocaleString() : value}</p>`
 
                 tmp += `<tr>`
@@ -38,34 +40,65 @@ export default class extends Operator {
             })
             tmp += '</table>'
             this._hdf5File.keys().forEach((/** @type {string} */key) => {
-                const dataset = this._hdf5File.get(key)
-                tmp += `<p><b>/${key}</b></p>`
-                tmp += '<table>'
-
-                tmp += `<tr>`
-                tmp += `<td align="right">dtype</td>`
-                tmp += `<td>:</td>`
-                // starts from < will cause problem here
-                tmp += `<td style="text-indent: 1rem;">&lt;${dataset.dtype.substring(1)}</td>`
-                tmp += `</tr>`
-
-                tmp += `<tr>`
-                tmp += `<td align="right">shape</td>`
-                tmp += `<td>:</td>`
-                tmp += `<td style="text-indent: 1rem;">[${dataset.shape}]</td>`
-                tmp += `</tr>`
-
-                Object.keys(dataset.attrs).forEach((/** @type {string} */key) => {
-                    const value = dataset.attrs[key].value
-                    // tmp += `<p>${key}: ${this._hdf5File.attrs[key].dtype === '<i' ? value.toLocaleString() : value}</p>`
+                /** @type {any} */
+                const entity = this._hdf5File.get(key)
+                // console.log(`key: ${key}, ${entity}, ${entity instanceof Group}, ${entity instanceof Dataset}, ${entity instanceof Datatype}, ${entity instanceof RegionReference}`)
+                // ok(entity)
+                if (entity.dtype) {
+                    console.log(`${key} ${entity.dtype} truthy`)
+                    /** @type {import('h5wasm').Dataset} */
+                    const dataset = entity
+                    //dataset
+                    tmp += `<p><b>/${key}</b></p>`
+                    tmp += '<table>'
 
                     tmp += `<tr>`
-                    tmp += `<td align="right">${key}</td>`
+                    tmp += `<td align="right">shape</td>`
                     tmp += `<td>:</td>`
-                    tmp += `<td style="text-indent: 1rem;">${Number.isInteger(value) ? value.toLocaleString() : value}</td>`
+                    tmp += `<td style="text-indent: 1rem;">[${dataset.shape}]</td>`
                     tmp += `</tr>`
-                })
-                tmp += '</table>'
+
+                    // Object.keys(dataset.attrs).forEach((/** @type {string} */key) => {
+                    //     const value = dataset.attrs[key].value
+                    //     // tmp += `<p>${key}: ${this._hdf5File.attrs[key].dtype === '<i' ? value.toLocaleString() : value}</p>`
+                    //     ok(value)
+                    //     tmp += `<tr>`
+                    //     tmp += `<td align="right">${key}</td>`
+                    //     tmp += `<td>:</td>`
+                    //     tmp += `<td style="text-indent: 1rem;">${Number.isInteger(value) ? value.toLocaleString() : value}</td>`
+                    //     tmp += `</tr>`
+                    // })
+                    tmp += '</table>'
+                } else {
+                    console.log(`${key} ${entity.dtype} falsy`)
+                    /** @type {import('h5wasm').Group} */
+                    const group = entity
+                    group.keys().forEach((/** @type {string} */key2) => {
+                        const dataset2 = entity.get(key2)
+                        //dataset
+                        tmp += `<p><b>/${key}/${key2}</b></p>`
+                        tmp += '<table>'
+
+
+                        const s = dataset2.shape
+
+                        tmp += `<tr>`
+                        tmp += `<td align="right">shape</td>`
+                        tmp += `<td>:</td>`
+                        tmp += `<td style="text-indent: 1rem;">[${s}]</td>`
+                        tmp += `</tr>`
+                        if (s !== null && s.length === 1 && s[0] == 2) {
+                            tmp += `<tr>`
+                            tmp += `<td align="right">value</td>`
+                            tmp += `<td>:</td>`
+                            tmp += `<td style="text-indent: 1rem;">[${dataset2.value}]</td>`
+                            tmp += `</tr>`
+                        }
+
+
+                        tmp += '</table>'
+                    })
+                }
             })
 
             variables.clientInnerHTML.assign(tmp)
