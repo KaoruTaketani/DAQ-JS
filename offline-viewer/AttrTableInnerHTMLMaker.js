@@ -63,6 +63,8 @@ export default class extends Operator {
                     bodyInnerHTML,
                     '        </tbody>',
                     '    </table>',
+                    `    <script type="module" src="./AttrTable.js">`,
+                    `    </script>`,
                     '</body>',
                     '</html>'
                 ].join('\n'))
