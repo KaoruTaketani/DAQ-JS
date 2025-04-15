@@ -1,3 +1,8 @@
+/**
+ * @param {number} j
+ * @param {number} i
+ * @param {number} [k]
+ */
 export default (
     j,
     i,
