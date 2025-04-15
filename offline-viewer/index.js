@@ -1,22 +1,45 @@
-import { readdir, readFile } from 'fs'
-import { Server } from 'http'
-import { join } from 'path'
-import { WebSocketServer } from 'ws'
+import { readdir, readFile } from 'fs';
+import { Server } from 'http';
+import { basename, join } from 'path';
+import { WebSocketServer } from 'ws';
+import Variables from './Variables.js';
+import AttrsInnerHTMLMaker from './AttrsInnerHTMLMaker.js';
+import ClientInnerHTMLSender from './ClientInnerHTMLSender.js';
+import NeutronRateInnerHTMLMaker from './NeutronRateInnerHTMLMaker.js';
 const h5wasm = await import("h5wasm/node");
+// import { ready } from 'h5wasm
 await h5wasm.ready
 
 const httpServer = new Server()
 const webSocketServer = new WebSocketServer({ noServer: true })
 const hdf5Path = '../../hdf5/mieze'
 
+const variables = new Variables()
+new ClientInnerHTMLSender(variables)
+new AttrsInnerHTMLMaker(variables)
+new NeutronRateInnerHTMLMaker(variables)
+
 httpServer.on('request', (request, response) => {
-    if (request.url.endsWith('.js')) {
+    if (request.url?.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
             if (err) throw err
 
             response.writeHead(200, { 'Content-Type': 'text/javascript' })
             response.end(data)
         })
+    } else if (request.url?.endsWith('.html')) {
+        response.writeHead(200, { 'Content-Type': 'text/html' })
+        response.end([
+            '<html>',
+            '<head>',
+            '    <meta charset="utf-8">',
+            '</head>',
+            '<body>',
+            `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
+            `    </script>`,
+            '</body>',
+            '</html>'
+        ].join('\n'))
     } else {
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
@@ -25,8 +48,8 @@ httpServer.on('request', (request, response) => {
             '    <meta charset="utf-8">',
             '</head>',
             '<body>',
-            `    <script type="module" src="./Client.js">`,
-            `    </script>`,
+            `    <p><a href="./attrs.html">attrs</a></p>`,
+            `    <p><a href="./neutronRate.html">neutronRate</a></p>`,
             '</body>',
             '</html>'
         ].join('\n'))
@@ -40,15 +63,23 @@ httpServer.on('upgrade', (request, socket, head) => {
             ws.send(files.map(innerText => `<option>${innerText}</option>`).join('\n'))
         })
         ws.onmessage = event => {
-            const files = JSON.parse(event.data)
-            // console.log(files)
+            console.log(`onmessage url:${request.url}`)
+
+            if (request.url === undefined) {
+                console.log(`request.url is undefiend`)
+                return
+            }
+            variables.clientUrl.assign(request.url)
+
+            const files = JSON.parse(event.data.toString())
             if (files.length === 1) {
                 const f = new h5wasm.File(join(hdf5Path, files[0]), "r")
-                ws.send(f.keys().map(key => `<p>${key}</p>`).join(''))
-                console.log(f.attrs)
-                console.log(Object.keys(f.attrs))
-                console.log(Object.keys(f.attrs).map(key=>`${key}: ${f.attrs[key].value}, ${f.attrs[key].dtype}`))
+                variables.hdf5File.assign(f)
                 f.close()
+                variables.webSocket.assign(ws)
+                // console.log(f.attrs)
+                // console.log(Object.keys(f.attrs))
+                // console.log(Object.keys(f.attrs).map(key => `${key}: ${f.attrs[key].value}, ${f.attrs[key].dtype}`))
             } else {
 
             }
