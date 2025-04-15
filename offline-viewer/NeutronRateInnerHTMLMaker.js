@@ -16,7 +16,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('neutronRate.js')) return
+            if (!this._clientUrl.endsWith('NeutronRate.js')) return
 
             const data = this._hdf5File.get('neutronRate').value
 

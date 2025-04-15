@@ -11,7 +11,7 @@ export default class extends Operator {
         variables.clientInnerHTML.prependListener(arg => { this._clientInnerHTML = arg })
         /** @type {import('ws').WebSocket} */
         this._webSocket
-        variables.webSocket.addListener(arg => {
+        variables.clientWebSocket.addListener(arg => {
             this._webSocket = arg
             this._operation()
         })

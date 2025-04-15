@@ -9,22 +9,21 @@ socket.onclose = () => {
 const listboxElement = document.createElement('select')
 listboxElement.id = 'listbox'
 listboxElement.size = 20
-listboxElement.multiple = true
 listboxElement.style.position = 'absolute'
 listboxElement.style.whiteSpace = 'pre-wrap'
 listboxElement.style.width = '200px'
 listboxElement.style.height = '445px'
 listboxElement.addEventListener('change', () => {
-    socket.send(JSON.stringify(Array.from(listboxElement.selectedOptions).map(option => option.innerText)))
+    socket.send(listboxElement.options[listboxElement.selectedIndex].innerText)
 })
 document.body.appendChild(listboxElement)
 
-/** @type {HTMLSelectElement} */
+/** @type {HTMLDivElement} */
 const divElement = document.createElement('div')
 divElement.style.marginLeft = '208px'
 document.body.appendChild(divElement)
 
-socket.onmessage = event => {
+socket.onmessage = (/** @type {MessageEvent} */event) => {
     if (listboxElement.options.length === 0) {
         listboxElement.innerHTML = event.data
     } else {

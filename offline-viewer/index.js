@@ -3,7 +3,7 @@ import { Server } from 'http';
 import { basename, join } from 'path';
 import { WebSocketServer } from 'ws';
 import Variables from './Variables.js';
-import AttrsInnerHTMLMaker from './AttrsInnerHTMLMaker.js';
+import AttrsInnerHTMLMaker from './AttributesInnerHTMLMaker.js';
 import ClientInnerHTMLSender from './ClientInnerHTMLSender.js';
 import NeutronRateInnerHTMLMaker from './NeutronRateInnerHTMLMaker.js';
 const h5wasm = await import("h5wasm/node");
@@ -48,8 +48,8 @@ httpServer.on('request', (request, response) => {
             '    <meta charset="utf-8">',
             '</head>',
             '<body>',
-            `    <p><a href="./attrs.html">attrs</a></p>`,
-            `    <p><a href="./neutronRate.html">neutronRate</a></p>`,
+            `    <p><a href="./Attributes.html">Attributes</a></p>`,
+            `    <p><a href="./NeutronRate.html">NeutronRate</a></p>`,
             '</body>',
             '</html>'
         ].join('\n'))
@@ -71,18 +71,10 @@ httpServer.on('upgrade', (request, socket, head) => {
             }
             variables.clientUrl.assign(request.url)
 
-            const files = JSON.parse(event.data.toString())
-            if (files.length === 1) {
-                const f = new h5wasm.File(join(hdf5Path, files[0]), "r")
-                variables.hdf5File.assign(f)
-                f.close()
-                variables.webSocket.assign(ws)
-                // console.log(f.attrs)
-                // console.log(Object.keys(f.attrs))
-                // console.log(Object.keys(f.attrs).map(key => `${key}: ${f.attrs[key].value}, ${f.attrs[key].dtype}`))
-            } else {
-
-            }
+            const f = new h5wasm.File(join(hdf5Path, event.data.toString()), "r")
+            variables.hdf5File.assign(f)
+            f.close()
+            variables.clientWebSocket.assign(ws)
         }
         ws.onclose = () => {
             console.log('a ws closed by the client')
