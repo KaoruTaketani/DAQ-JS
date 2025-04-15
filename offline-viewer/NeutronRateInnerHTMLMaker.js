@@ -1,4 +1,7 @@
+import axes from './axes.js'
+import max from './max.js'
 import Operator from './Operator.js'
+import stairs from './stairs.js'
 
 export default class extends Operator {
     /**
@@ -18,9 +21,24 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._clientUrl.endsWith('NeutronRate.js')) return
 
-            const data = this._hdf5File.get('neutronRate').value
+            const dataset = this._hdf5File.get('neutronRate')
+            if (dataset === null) {
+                variables.clientInnerHTML.assign(`<text x="20" y="35">Undefined</text>`)
+                return
+            }
+            const ax = {
+                xLim: [0, dataset.value.length],
+                yLim: [0, max(dataset.value)],
+                xTick: [0, dataset.value.length],
+                yTick: [0, max(dataset.value)],
+                xTickLabel: [0, dataset.value.length].map(x => x.toFixed(3)),
+                yTickLabel: [0, max(dataset.value)].map(y => y.toLocaleString())
+            }
 
-            variables.clientInnerHTML.assign(JSON.stringify(data))
+            variables.clientInnerHTML.assign([
+                axes(ax),
+                stairs(ax, dataset.value)
+            ].join(''))
         }
     }
 }

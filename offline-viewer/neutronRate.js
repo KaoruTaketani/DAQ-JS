@@ -18,15 +18,18 @@ listboxElement.addEventListener('change', () => {
 })
 document.body.appendChild(listboxElement)
 
-/** @type {HTMLDivElement} */
-const divElement = document.createElement('div')
-divElement.style.marginLeft = '208px'
-document.body.appendChild(divElement)
+/** @type {SVGElement} */
+const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+svgElement.setAttribute('width', '400')
+svgElement.setAttribute('height', '300')
+svgElement.setAttribute('viewBox', '0 0 560 420')
+svgElement.style.marginLeft = '208px'
+document.body.appendChild(svgElement)
 
 socket.onmessage = (/** @type {MessageEvent} */event) => {
     if (listboxElement.options.length === 0) {
         listboxElement.innerHTML = event.data
     } else {
-        divElement.innerHTML = event.data
+        svgElement.innerHTML = event.data
     }
 }
