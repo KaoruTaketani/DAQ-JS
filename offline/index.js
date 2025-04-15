@@ -27,7 +27,6 @@ import VelocityMaker from "./VelocityMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 import JSONFileReader from "./JSONFileReader.js"
 
-
 const variables = new Variables()
 
 new EDRReader(variables)
@@ -57,24 +56,7 @@ new FourierTimeMaker(variables)
 new FourierEnergyMaker(variables)
 new MomentumTransferMaker(variables)
 new JSONFileReader(variables)
-// initializers
-variables.kickerPulseCount.assign(0)
-variables.channel0Count.assign(0)
-variables.channel1Count.assign(0)
-variables.neutronCount.assign(0)
-// parameters
-variables.tofDifferenceMin.assign(-250)
-variables.tofDifferenceMax.assign(250)
-variables.moderatorToSampleDistanceInMeters.assign(23.76)
-variables.cameraLengthInMeters.assign(1.755)
-variables.detectorHeightInMillimeters.assign(50)
-variables.detectorWidthInMillimeters.assign(50)
-variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
-variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
-variables.upstreamSlitWidthInMillimeters.assign(2)
-variables.downstreamSlitWidthInMillimeters.assign(2)
-// must assign after distances are assigned
-variables.miezeFrequencyInKilohertz.assign(10)
+
 variables.jsonFilePaths.assign(['./104.json', './106.json', './113.json', './115.json'])
 // variables.jsonFilePaths.assign(['./104.json'])
 // variables.jsonFilePaths.assign(['./106.json'])

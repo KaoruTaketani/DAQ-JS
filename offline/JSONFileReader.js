@@ -21,8 +21,26 @@ export default class extends Operator {
                 readFile(path, 'utf8', (err, data) => {
                     if (err) throw err
 
-                    const parameters = JSON.parse(data)
+                    // initializers
+                    variables.kickerPulseCount.assign(0)
+                    variables.channel0Count.assign(0)
+                    variables.channel1Count.assign(0)
+                    variables.neutronCount.assign(0)
+                    // parameters
+                    variables.tofDifferenceMin.assign(-250)
+                    variables.tofDifferenceMax.assign(250)
+                    variables.moderatorToSampleDistanceInMeters.assign(23.76)
+                    variables.cameraLengthInMeters.assign(1.755)
+                    variables.detectorHeightInMillimeters.assign(50)
+                    variables.detectorWidthInMillimeters.assign(50)
+                    variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
+                    variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
+                    variables.upstreamSlitWidthInMillimeters.assign(2)
+                    variables.downstreamSlitWidthInMillimeters.assign(2)
+                    // must assign after distances are assigned
+                    variables.miezeFrequencyInKilohertz.assign(10)
 
+                    const parameters = JSON.parse(data)
                     variables.hdf5FilePath.assign(parameters.hdf5FilePath)
                     variables.directBeamHDF5FilePath.assign(parameters.directBeamHDF5FilePath)
                     variables.comment.assign(parameters.comment)
