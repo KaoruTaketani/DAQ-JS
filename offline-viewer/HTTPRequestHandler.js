@@ -53,6 +53,7 @@ export default class extends Operator {
                         '<body>',
                         `    <p><a href="./AttrTable.html">AttrTable</a></p>`,
                         `    <p><a href="./Attributes.html">Attributes</a></p>`,
+                        `    <p><a href="./Image.html">Image</a></p>`,
                         `    <p><a href="./NeutronRate.html">NeutronRate</a></p>`,
                         '</body>',
                         '</html>'
