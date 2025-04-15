@@ -7,8 +7,10 @@ export default class {
         this.clientWebSocket = new ListenableObject()
         this.httpServer = new ListenableObject()
 
+        this.hdf5Path = new ListenableString()
         this.clientUrl = new ListenableString()
         this.clientInnerHTML = new ListenableString()
+        this.attrTableInnerHTML = new ListenableString()
     }
 }
 

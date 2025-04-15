@@ -8,6 +8,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {string} */
+        this._attrTableInnerHTML
+        variables.attrTableInnerHTML.prependListener(arg => { this._attrTableInnerHTML = arg })
         /** @type {import('http').Server} */
         this._httpServer
         variables.httpServer.addListener(arg => {
@@ -25,17 +28,21 @@ export default class extends Operator {
                     })
                 } else if (request.url?.endsWith('.html')) {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
-                    response.end([
-                        '<html>',
-                        '<head>',
-                        '    <meta charset="utf-8">',
-                        '</head>',
-                        '<body>',
-                        `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
-                        `    </script>`,
-                        '</body>',
-                        '</html>'
-                    ].join('\n'))
+                    if (request.url?.endsWith('AttrTable.html')) {
+                        response.end(this._attrTableInnerHTML)
+                    } else {
+                        response.end([
+                            '<html>',
+                            '<head>',
+                            '    <meta charset="utf-8">',
+                            '</head>',
+                            '<body>',
+                            `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
+                            `    </script>`,
+                            '</body>',
+                            '</html>'
+                        ].join('\n'))
+                    }
                 } else {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
                     response.end([
@@ -44,6 +51,7 @@ export default class extends Operator {
                         '    <meta charset="utf-8">',
                         '</head>',
                         '<body>',
+                        `    <p><a href="./AttrTable.html">AttrTable</a></p>`,
                         `    <p><a href="./Attributes.html">Attributes</a></p>`,
                         `    <p><a href="./NeutronRate.html">NeutronRate</a></p>`,
                         '</body>',

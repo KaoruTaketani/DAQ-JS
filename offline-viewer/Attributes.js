@@ -7,15 +7,17 @@ socket.onclose = () => {
 
 /** @type {HTMLSelectElement} */
 const listboxElement = document.createElement('select')
-listboxElement.id = 'listbox'
 listboxElement.size = 20
 listboxElement.style.position = 'absolute'
 listboxElement.style.whiteSpace = 'pre-wrap'
 listboxElement.style.width = '200px'
-listboxElement.style.height = '445px'
+listboxElement.style.height = `${window.innerHeight - 8 * 2}px`
 listboxElement.addEventListener('change', () => {
     socket.send(listboxElement.options[listboxElement.selectedIndex].innerText)
 })
+window.onscroll = _ => {
+    listboxElement.style.top = `${window.scrollY + 8}px`
+}
 document.body.appendChild(listboxElement)
 
 /** @type {HTMLDivElement} */

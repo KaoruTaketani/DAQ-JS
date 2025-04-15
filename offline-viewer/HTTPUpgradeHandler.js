@@ -11,6 +11,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {string} */
+        this._hdf5Path
+        variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {import('http').Server} */
         this._httpServer
         variables.httpServer.addListener(arg => {
@@ -18,7 +21,6 @@ export default class extends Operator {
             this._operation()
         })
         this._webSocketServer = new WebSocketServer({ noServer: true })
-        this._hdf5Path = '../../hdf5/mieze'
         this._operation = () => {
             this._httpServer.on('upgrade', (request, socket, head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {

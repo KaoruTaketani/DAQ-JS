@@ -18,8 +18,8 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._clientUrl.endsWith('Attributes.js')) return
 
-            console.log(this._hdf5File.keys())
-            console.log(this._hdf5File.name)
+            // console.log(this._hdf5File.keys())
+            // console.log(this._hdf5File.name)
             // console.log(Object.assign({},this._hdf5File.attrs))
             // console.log(Object.values(this._hdf5File.attrs))
             // console.log(Object.values(this._hdf5File.attrs).map(attr=>`${attr.name}:${this._hdf5File.attrs[attr]}`))
