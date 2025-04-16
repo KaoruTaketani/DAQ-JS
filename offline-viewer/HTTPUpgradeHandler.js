@@ -27,7 +27,7 @@ export default class extends Operator {
         this._operation = () => {
             this._httpServer.on('upgrade', (request, socket, head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
-                    if (request.url?.endsWith('Table.js')) {
+                    if (request.url?.endsWith('/Table.js')) {
                         const keys = new Set()
                         this._tableMetadata.forEach(row => {
                             Object.keys(row).forEach(key => {
@@ -52,7 +52,7 @@ export default class extends Operator {
                         }
                         variables.clientUrl.assign(request.url)
 
-                        if (!request.url.endsWith('Table.js')) {
+                        if (!request.url.endsWith('/Table.js')) {
                             const f = new h5wasm.File(join(this._hdf5Path, event.data.toString()), "r")
                             variables.hdf5File.assign(f)
                             f.close()

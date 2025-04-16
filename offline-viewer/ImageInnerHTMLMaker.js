@@ -18,7 +18,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('Image.js')) return
+            if (!this._clientUrl.endsWith('/Image.js')) return
 
             /** @type {any} */
             const entity = this._hdf5File.get('image')

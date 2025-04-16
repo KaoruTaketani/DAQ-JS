@@ -45,6 +45,7 @@ export default class extends Operator {
                         '</head>',
                         '<body>',
                         `    <p><a href="./Attributes.html">Attributes</a></p>`,
+                        `    <p><a href="./Contrast.html">Contrast</a></p>`,
                         `    <p><a href="./Image.html">Image</a></p>`,
                         `    <p><a href="./NeutronRate.html">NeutronRate</a></p>`,
                         `    <p><a href="./Table.html">Table</a></p>`,

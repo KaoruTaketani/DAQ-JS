@@ -17,7 +17,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('Attributes.js')) return
+            if (!this._clientUrl.endsWith('/Attributes.js')) return
 
             // console.log(this._hdf5File.keys())
             // console.log(this._hdf5File.name)

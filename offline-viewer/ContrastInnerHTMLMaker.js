@@ -1,6 +1,5 @@
-import axes from './axes.js'
-import max from './max.js'
 import { ok } from 'assert'
+import axes from './axes.js'
 import Operator from './Operator.js'
 import line from './line.js'
 import colon from './colon.js'
@@ -21,10 +20,10 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('/NeutronRate.js')) return
+            if (!this._clientUrl.endsWith('/Contrast.js')) return
 
             /** @type {any} */
-            const entity = this._hdf5File.get('neutronRate')
+            const entity = this._hdf5File.get('contrast')
             if (entity === null
                 || entity.value === undefined) {
                 variables.clientInnerHTML.assign(`<text x="20" y="35">Undefined</text>`)
@@ -34,7 +33,7 @@ export default class extends Operator {
             /** @type {number[]} */
             const value = entity.value,
                 xMax = value.length,
-                yMax = max(value)
+                yMax = 1.0
             const ax = {
                 xLim: [1, xMax],
                 yLim: [0, yMax],
@@ -43,11 +42,13 @@ export default class extends Operator {
                 xTickLabel: [1, xMax].map(x => x.toFixed(3)),
                 yTickLabel: [0, yMax].map(y => y.toLocaleString())
             }
-
+            console.log(value.filter(x => Number.isFinite(x)).length)
             variables.clientInnerHTML.assign([
                 axes(ax),
                 line(ax, colon(1, xMax), value)
             ].join(''))
+            // console.log(value)
+            // console.log(line(ax,colon(1,xMax),value))
         }
     }
 }

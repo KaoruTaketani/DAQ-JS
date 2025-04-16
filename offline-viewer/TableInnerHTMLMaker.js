@@ -16,7 +16,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            console.log(this._tableColumns)
+            // console.log(this._tableColumns)
             const columns = this._tableColumns.split(',')
             const keys = new Set()
             this._tableMetadata.forEach(row => {
