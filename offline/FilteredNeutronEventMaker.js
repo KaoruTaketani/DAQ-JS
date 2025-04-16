@@ -18,6 +18,9 @@ export default class extends Operator {
         /** @type {number} */
         this._roiHeightInPixels
         variables.roiHeightInPixels.prependListener(arg => { this._roiHeightInPixels = arg })
+        /** @type {number} */
+        this._filteredNeutronCount
+        variables.filteredNeutronCount.prependListener(arg => { this._filteredNeutronCount = arg })
         this._neutronEvent
         variables.neutronEvent.addListener(arg => {
             this._neutronEvent = arg
@@ -31,6 +34,7 @@ export default class extends Operator {
             if (dy < 1) return
             if (dy > this._roiHeightInPixels) return
 
+            variables.filteredNeutronCount.assign(this._filteredNeutronCount + 1)
             variables.filteredNeutronEvent.assign(this._neutronEvent)
         }
     }

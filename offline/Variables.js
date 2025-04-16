@@ -65,6 +65,7 @@ export default class {
         this.channel1Count = new WritableNumber('channel1Count', this.hdf5File)
         this.pairedCount = new WritableNumber('pairedCount', this.hdf5File)
         this.neutronCount = new WritableNumber('neutronCount', this.hdf5File)
+        this.filteredNeutronCount = new WritableNumber('filteredNeutronCount', this.hdf5File)
         this.miezeFrequencyInKilohertz = new WritableNumber('miezeFrequencyInKilohertz', this.hdf5File)
         this.moderatorToSampleDistanceInMeters = new WritableNumber('moderatorToSampleDistanceInMeters', this.hdf5File)
         this.upstreamSlitToDownstreamSlitDistanceInMeters = new WritableNumber('upstreamSlitToDownstreamSlitDistanceInMeters', this.hdf5File)

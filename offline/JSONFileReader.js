@@ -49,6 +49,7 @@ export default class extends Operator {
                         variables.channel0Count.assign(0)
                         variables.channel1Count.assign(0)
                         variables.neutronCount.assign(0)
+                        variables.filteredNeutronCount.assign(0)
                         // parameters
                         variables.tofDifferenceMinInNanoseconds.assign(-250)
                         variables.tofDifferenceMaxInNanoseconds.assign(250)
