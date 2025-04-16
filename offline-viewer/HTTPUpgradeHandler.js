@@ -1,5 +1,5 @@
 import { readdir } from 'fs'
-import { join } from 'path'
+import { basename, join } from 'path'
 import { WebSocketServer } from 'ws'
 import Operator from './Operator.js'
 const h5wasm = await import("h5wasm/node")
@@ -14,9 +14,6 @@ export default class extends Operator {
         /** @type {string} */
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
-        /** @type {string[]} */
-        this._tableColumns
-        variables.tableColumns.prependListener(arg => { this._tableColumns = arg })
         /** @type {import('http').Server} */
         this._httpServer
         variables.httpServer.addListener(arg => {
@@ -27,15 +24,38 @@ export default class extends Operator {
         this._operation = () => {
             this._httpServer.on('upgrade', (request, socket, head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
-                    if (request.url?.endsWith('/Table.js')) {
-                        ws.send(this._tableColumns.map(column => `<option selected>${column}</option>`).join('\n'))
-                    } else {
-                        readdir(this._hdf5Path, (err, files) => {
-                            if (err) throw err
+                    readdir(this._hdf5Path, (err, files) => {
+                        if (err) throw err
 
+                        if (!request.url?.endsWith('/Table.js')) {
                             ws.send(files.map(innerText => `<option>${innerText}</option>`).join('\n'))
+                            return
+                        }
+                        const startTime = Date.now()
+                        /** @type {object[]} */
+                        const metadata = []
+                        files.forEach(file => {
+                            if (!file.endsWith('.h5')) return
+
+                            const tmp = new Map()
+                            tmp.set('_name', basename(file, '.h5'))
+                            const f = new h5wasm.File(join(this._hdf5Path, file), 'r')
+                            Object.keys(f.attrs).forEach(key => {
+                                tmp.set(key, f.attrs[key].value)
+                            })
+                            f.close()
+                            metadata.push(Object.fromEntries(tmp))
                         })
-                    }
+                        const keys = new Set()
+                        metadata.forEach(row => {
+                            Object.keys(row).forEach(key => {
+                                keys.add(key)
+                            })
+                        })
+                        console.log(`readMetadata elapsedTime: ${Date.now() - startTime}ms`)
+                        variables.tableMetadata.assign(metadata)
+                        ws.send(Array.from(keys).sort().map(key => `<option selected>${key}</option>`).join('\n'))
+                    })
 
                     ws.onmessage = event => {
                         console.log(`onmessage url:${request.url}`)

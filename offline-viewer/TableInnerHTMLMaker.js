@@ -9,9 +9,6 @@ export default class extends Operator {
         /** @type {object[]} */
         this._tableMetadata
         variables.tableMetadata.prependListener(arg => { this._tableMetadata = arg })
-        /** @type {string[]} */
-        this._tableColumns
-        variables.tableColumns.prependListener(arg => { this._tableColumns = arg })
         /** @type {string} */
         this._tableSelectedColumns
         variables.tableSelectedColumns.addListener(arg => {

@@ -8,14 +8,12 @@ import ImageInnerHTMLMaker from './ImageInnerHTMLMaker.js'
 import NeutronRateInnerHTMLMaker from './NeutronRateInnerHTMLMaker.js'
 import TableInnerHTMLMaker from './TableInnerHTMLMaker.js'
 import Variables from './Variables.js'
-import TableMetadataReader from './TableMetadataReader.js'
 import ContrastInnerHTMLMaker from './ContrastInnerHTMLMaker.js'
 
 const variables = new Variables()
 new HTTPRequestHandler(variables)
 new HTTPUpgradeHandler(variables)
 new HTTPServerSetupper(variables)
-new TableMetadataReader(variables)
 new ClientInnerHTMLSender(variables)
 new AttributesInnerHTMLMaker(variables)
 new ContrastInnerHTMLMaker(variables)
