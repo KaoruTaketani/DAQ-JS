@@ -72,6 +72,7 @@ export default class extends Operator {
                         variables.roiYInPixels.assign(parameters.roiY)
                         variables.roiWidthInPixels.assign(parameters.roiWidth)
                         variables.roiHeightInPixels.assign(parameters.roiHeight)
+                        variables.frequencyVectorLength.assign(parameters.frequencyVectorLength)
                         // followings can be undefined in json
                         variables.directBeamFileName.assign(parameters.directBeamFileName)
                         if (parameters.directBeamFileName) {
@@ -80,7 +81,8 @@ export default class extends Operator {
                             directBeamHDF5File.close()
                         }
                         variables.incidentAngleInDegrees.assign(parameters.incidentAngleInDegrees)
-                        // must assign after distances are assigned, and incidentAngle
+                        // must assign after distances, freq vec len  and incidentAngle are assigned
+                        // as this is the trigger for some operators
                         variables.miezeFrequencyInKilohertz.assign(10)
 
                         variables.edrFilePath.assign(parameters.edrFilePath)
