@@ -42,15 +42,7 @@ socket.onmessage = (/** @type {MessageEvent} */event) => {
     if (listboxElement.options.length === 0) {
         listboxElement.innerHTML = event.data
     } else {
-        if (event.data.startsWith('data')) {
-            cursorElement.innerText = 'loading'
-            imageElement.src = event.data
-        } else {
-            cursorElement.innerText = event.data
-            const ctx = canvasElement.getContext("2d")
-            if (!ctx) return
-            ctx.fillStyle = 'white'
-            ctx.fillRect(0, 0, 256, 256)
-        }
+        cursorElement.innerText = 'loading'
+        imageElement.src = event.data
     }
 }

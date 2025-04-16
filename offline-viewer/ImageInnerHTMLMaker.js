@@ -1,6 +1,6 @@
-import max from './max.js'
-import Operator from './Operator.js'
 import imagesc from './imagesc.js'
+import Operator from './Operator.js'
+import { readFile } from 'fs'
 
 export default class extends Operator {
     /**
@@ -20,24 +20,39 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._clientUrl.endsWith('Image.js')) return
 
-            const dataset = this._hdf5File.get('image')
-            if (dataset === null) {
-                console.log(`null file:${this._hdf5File.path}`)
-                variables.clientInnerHTML.assign('failed to load')
+            /** @type {any} */
+            const entity = this._hdf5File.get('image')
+            if (entity === null || entity.values === undefined) {
+                console.log(`failed file:${this._hdf5File.path}`)
+                readFile('../../png/error.png', (err, data) => {
+                    if (err) throw err
+
+                    variables.clientInnerHTML.assign(`data:image/png;base64,${data.toString('base64')}`)
+                })
                 return
             }
 
-            const ax = {
-                zLim: [0, max(dataset.value)]
-            }
+            /** @type {import('h5wasm').Group} */
+            const group = entity
+            /** @type {any} */
+            const binCountsEntity = group.get('binCounts')
+            /** @type {any} */
+            const xBinLimitsEntity = group.get('xBinLimits')
+            /** @type {any} */
+            const yBinLimitsEntity = group.get('yBinLimits')
+
+            const binCounts = binCountsEntity.value
+            const xBinLimits = xBinLimitsEntity.value
+            const yBinLimits = yBinLimitsEntity.value
+
             /**  @type {import('./index.js').Histogram2D} */
             const h = {
-                xBinLimits: [0, 1024],
-                yBinLimits: [0, 1024],
-                binCounts: dataset.value,
-                numBins: [1024, 1024]
+                xBinLimits: xBinLimits,
+                yBinLimits: yBinLimits,
+                binCounts: binCounts,
+                numBins: binCountsEntity.shape
             }
-            imagesc(ax, h).then(buf => {
+            imagesc(h).then(buf => {
                 variables.clientInnerHTML.assign(`data:image/png;base64,${buf.toString('base64')}`)
             })
         }

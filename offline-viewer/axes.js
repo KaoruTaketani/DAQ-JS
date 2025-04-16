@@ -1,3 +1,6 @@
+/**
+ * @param {import('./index.js').Axes} axes
+ */
 export default (
     axes
 ) => {

@@ -1,26 +1,25 @@
-import { deflate, crc32 } from 'zlib'
-import { ok } from 'assert'
+import { crc32, deflate } from 'zlib'
 import sub2ind from './sub2ind.js'
+import max from './max.js'
 
 /**
- * @param {import('./index.js').Axes} ax
  * @param {import('./index.js').Histogram2D} C
  * @returns {Promise<Buffer>}
  */
 export default (
-    ax,
     C
 ) => new Promise((resolve, reject) => {
-    ok(ax.zLim)
+
     const width = C.numBins[1],
         height = C.numBins[0],
-        c = new Array(height * (width + 1)).fill(0)
+        c = new Array(height * (width + 1)).fill(0),
+        scale = max(C.binCounts)
     for (let j = 0; j < height; ++j) {
         for (let i = 1; i < width + 1; ++i) {
             // c[j * (width + 1)] is filter type, which is zero
             c[j * (width + 1) + i] = Math.floor(
                 255 * C.binCounts[sub2ind(C.numBins, j, i)]
-                / ax.zLim[1]
+                / scale
             )
         }
     }
