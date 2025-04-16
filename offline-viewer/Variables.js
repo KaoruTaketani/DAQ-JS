@@ -6,11 +6,12 @@ export default class {
         this.hdf5File = new ListenableObject()
         this.clientWebSocket = new ListenableObject()
         this.httpServer = new ListenableObject()
+        this.tableMetadata = new ListenableObject()
 
         this.hdf5Path = new ListenableString()
         this.clientUrl = new ListenableString()
         this.clientInnerHTML = new ListenableString()
-        this.attrTableInnerHTML = new ListenableString()
+        this.tableColumns = new ListenableString()
     }
 }
 

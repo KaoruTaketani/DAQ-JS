@@ -1,3 +1,10 @@
+const url = new URL(import.meta.url)
+url.protocol = 'ws:'
+const socket = new WebSocket(url)
+socket.onclose = () => {
+    document.body.innerHTML = "the connection was closed by the server."
+}
+
 /** @type {string[]} */
 const keys = []
 /** @type {object[]} */
@@ -58,7 +65,7 @@ function updateView() {
         // const selected = selectedOptionInnerTexts(visibleColumnsElement.innerHTML)
         // const selected = Array.from(visibleColumnsElement.children).filter(node => node.selected)
         // return '<tr>' + optionInnerTexts(visibleColumnsElement.innerHTML)
-        return '<tr>' + Array.from(visibleColumnsElement.options)
+        return '<tr>' + Array.from(listboxElement.options)
             .filter(column => column.selected)
             .map(column => {
                 // const cell = row[column]
@@ -71,10 +78,10 @@ function updateView() {
                 }
             }).join('') + '</tr>'
     }).join('')
-    tableViewElement.innerHTML = [
+    tableElement.innerHTML = [
         '<thead>',
         `<tr>`,
-        Array.from(visibleColumnsElement.options)
+        Array.from(listboxElement.options)
             .filter(option => option.selected)
             .map(column => column.innerText === sortKey
                 ? `<th style="${sortOrder === 1
@@ -91,33 +98,24 @@ function updateView() {
 
 
 }
-/** @type {HTMLDialogElement} */
-const dialogElement = document.createElement('dialog')
-document.body.appendChild(dialogElement)
-
 /** @type {HTMLSelectElement} */
-const visibleColumnsElement = document.createElement('select')
-visibleColumnsElement.size = 20
-visibleColumnsElement.multiple = true
-visibleColumnsElement.style.display = 'block'
-visibleColumnsElement.style.width = '130px'
-visibleColumnsElement.onchange = () => {
-    // window.parent.electron.send('visibleColumnsInnerHTML', selectElementInnerHTML(visibleColumnsElement))
-    updateView()
+const listboxElement = document.createElement('select')
+listboxElement.size = 20
+listboxElement.multiple = true
+listboxElement.style.position = 'absolute'
+listboxElement.style.whiteSpace = 'pre-wrap'
+listboxElement.style.width = '200px'
+listboxElement.style.height = `${window.innerHeight - 8 * 2}px`
+listboxElement.onchange = () => {
+    socket.send(Array.from(listboxElement.selectedOptions).map(option => option.innerText).join(','))
 }
-// dialogElement.appendChild(createLabelElement('visible', visibleColumnsElement))
-dialogElement.appendChild(visibleColumnsElement)
+document.body.appendChild(listboxElement)
 
 
 /** @type {HTMLTableElement} */
-const tableViewElement = document.createElement('table')
-tableViewElement.addEventListener('dblclick', event => {
-    /** @type {HTMLTableCellElement} */
-    const target =/** @type {HTMLTableCellElement} */(event.target)
-    if (target.nodeName !== 'TD') return
-    dialogElement.showModal()
-})
-tableViewElement.addEventListener('click', event => {
+const tableElement = document.createElement('table')
+tableElement.style.marginLeft = '208px'
+tableElement.addEventListener('click', event => {
     /** @type {HTMLTableCellElement} */
     const target =/** @type {HTMLTableCellElement} */(event.target)
     if (target.nodeName !== 'TH') return
@@ -127,29 +125,18 @@ tableViewElement.addEventListener('click', event => {
     } else {
         sortKey = target.innerText
     }
+    parseTable()
     updateView()
 })
-document.body.appendChild(tableViewElement)
+document.body.appendChild(tableElement)
 
 
 
-/** @type {HTMLTableElement} */
-const tableElement = document.getElementsByTagName('table')[0]
-console.log(tableElement)
-tableElement.style.display = 'none'
-parseTable()
-visibleColumnsElement.innerHTML = keys.map(key => `<option selected>${key}</option>`).join('')
-updateView()
-
-
-
-
-
-/** @type {HTMLInputElement} */
-const closeButton = document.createElement('input')
-closeButton.type = 'button'
-closeButton.value = 'close'
-closeButton.onclick = () => {
-    dialogElement.close()
+socket.onmessage = (/** @type {MessageEvent} */event) => {
+    if (listboxElement.options.length === 0) {
+        listboxElement.innerHTML = event.data
+        listboxElement.dispatchEvent(new Event('change'))
+    } else {
+        tableElement.innerHTML = event.data
+    }
 }
-dialogElement.appendChild(closeButton)

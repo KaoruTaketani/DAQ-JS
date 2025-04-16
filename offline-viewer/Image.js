@@ -36,13 +36,11 @@ imageElement.onload = () => {
     const ctx = canvasElement.getContext("2d")
     if (!ctx) return
     ctx.drawImage(imageElement, 0, 0, 256, 256)
-    cursorElement.innerText = 'loaded'
 }
 socket.onmessage = (/** @type {MessageEvent} */event) => {
     if (listboxElement.options.length === 0) {
         listboxElement.innerHTML = event.data
     } else {
-        cursorElement.innerText = 'loading'
         imageElement.src = event.data
     }
 }
