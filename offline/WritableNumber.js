@@ -9,7 +9,7 @@ export default class extends ListenableNumber {
         super()
         /** @type {string} */
         this._name = name
-        /** @type {number|undefined} */
+        /** @type {number} */
         this._value
         hdf5File.addListener(arg => {
             if (!this._value) return
@@ -23,10 +23,10 @@ export default class extends ListenableNumber {
     }
     /**
      * @override
-     * @param {number|undefined} arg 
+     * @param {number} arg 
      */
     assign(arg) {
         this._value = arg
-        if (arg !== undefined) super.assign(arg)
+        super.assign(arg)
     }
 }

@@ -39,10 +39,10 @@ export default class extends Operator {
 
                         // initialize followings as they trigger some operators
                         // and initialize tof image 4 times
-                        variables.roiX.assign(0)
-                        variables.roiY.assign(0)
-                        variables.roiWidth.assign(0)
-                        variables.roiHeight.assign(0)
+                        variables.roiXInPixels.assign(0)
+                        variables.roiYInPixels.assign(0)
+                        variables.roiWidthInPixels.assign(0)
+                        variables.roiHeightInPixels.assign(0)
 
                         // initializers
                         variables.kickerPulseCount.assign(0)
@@ -72,10 +72,10 @@ export default class extends Operator {
                             directBeamHDF5File.close()
                         }
                         variables.comment.assign(parameters.comment)
-                        variables.roiX.assign(parameters.roiX)
-                        variables.roiY.assign(parameters.roiY)
-                        variables.roiWidth.assign(parameters.roiWidth)
-                        variables.roiHeight.assign(parameters.roiHeight)
+                        variables.roiXInPixels.assign(parameters.roiX)
+                        variables.roiYInPixels.assign(parameters.roiY)
+                        variables.roiWidthInPixels.assign(parameters.roiWidth)
+                        variables.roiHeightInPixels.assign(parameters.roiHeight)
                         variables.incidentAngleInDegrees.assign(parameters.incidentAngleInDegrees)
                         variables.edrFilePath.assign(parameters.edrFilePath)
                     })

@@ -9,46 +9,46 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
-        this._roiX
-        variables.roiX.addListener(arg => {
-            this._roiX = arg
+        this._roiXInPixels
+        variables.roiXInPixels.addListener(arg => {
+            this._roiXInPixels = arg
             this._operation()
         })
         /** @type {number} */
-        this._roiY
-        variables.roiY.addListener(arg => {
-            this._roiY = arg
+        this._roiYInPixels
+        variables.roiYInPixels.addListener(arg => {
+            this._roiYInPixels = arg
             this._operation()
         })
         /** @type {number} */
-        this._roiWidth
-        variables.roiWidth.addListener(arg => {
-            this._roiWidth = arg
+        this._roiWidthInPixels
+        variables.roiWidthInPixels.addListener(arg => {
+            this._roiWidthInPixels = arg
             this._operation()
         })
         /** @type {number} */
-        this._roiHeight
-        variables.roiHeight.addListener(arg => {
-            this._roiHeight = arg
+        this._roiHeightInPixels
+        variables.roiHeightInPixels.addListener(arg => {
+            this._roiHeightInPixels = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._roiHeight) return
-            if (!this._roiWidth) return
-            if (!this._roiX) return
-            if (!this._roiY) return
+            if (!this._roiHeightInPixels) return
+            if (!this._roiWidthInPixels) return
+            if (!this._roiXInPixels) return
+            if (!this._roiYInPixels) return
 
             const size = [
                 80,
-                this._roiHeight,
-                this._roiWidth],
+                this._roiHeightInPixels,
+                this._roiWidthInPixels],
                 length = prod(size)
             console.log(`t: ${size[0]}, h: ${size[1]}, w: ${size[2]} memory: ${(8 * length).toLocaleString()} bytes, heap_limit: ${getHeapStatistics().heap_size_limit.toLocaleString()} bytes`)
 
             variables.filteredTOFImage.assign({
                 numBins: size,
-                xBinLimits: [this._roiX, this._roiX + this._roiWidth],
-                yBinLimits: [this._roiY, this._roiY + this._roiHeight],
+                xBinLimits: [this._roiXInPixels, this._roiXInPixels + this._roiWidthInPixels],
+                yBinLimits: [this._roiYInPixels, this._roiYInPixels + this._roiHeightInPixels],
                 zBinLimits: [0, size[0]],
                 binCounts: new Array(length).fill(0)
             })

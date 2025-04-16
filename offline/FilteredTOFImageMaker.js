@@ -8,11 +8,11 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
-        this._roiX
-        variables.roiX.prependListener(arg => { this._roiX = arg })
+        this._roiXInPixels
+        variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
         /** @type {number} */
-        this._roiY
-        variables.roiY.prependListener(arg => { this._roiY = arg })
+        this._roiYInPixels
+        variables.roiYInPixels.prependListener(arg => { this._roiYInPixels = arg })
         /** @type {import('./index.js').Histogram3D} */
         this._filteredTOFImage
         variables.filteredTOFImage.prependListener(arg => { this._filteredTOFImage = arg })
@@ -26,8 +26,8 @@ export default class extends Operator {
             this._filteredTOFImage.binCounts[sub2ind(
                 this._filteredTOFImage.numBins,
                 Math.round(this._filteredNeutronEvent.tof / 1_000_000), /** in ms */
-                this._filteredNeutronEvent.y - this._roiY, /** in raw image pixcel */
-                this._filteredNeutronEvent.x - this._roiX /** in raw image pixcel */
+                this._filteredNeutronEvent.y - this._roiYInPixels, /** in raw image pixcel */
+                this._filteredNeutronEvent.x - this._roiXInPixels /** in raw image pixcel */
             )]++
         }
     }

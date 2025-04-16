@@ -1,4 +1,3 @@
-import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
 import ReadableNumberArray from './ReadableNumberArray.js'
@@ -55,11 +54,10 @@ export default class {
         this.fourierTimeInPicoseconds = new WritableNumberArray('fourierTimeInPicoseconds', this.hdf5File)
         this.fourierEnergyInMillielectronvolts = new WritableNumberArray('fourierEnergyInMillielectronvolts', this.hdf5File)
 
-        this.roiX = new ListenableNumber()
-        this.roiY = new ListenableNumber()
-        this.roiWidth = new ListenableNumber()
-        this.roiHeight = new ListenableNumber()
-
+        this.roiXInPixels = new WritableNumber('roiXInPixels', this.hdf5File)
+        this.roiYInPixels = new WritableNumber('roiYInPixels', this.hdf5File)
+        this.roiWidthInPixels = new WritableNumber('roiWidthInPixels', this.hdf5File)
+        this.roiHeightInPixels = new WritableNumber('roiHeightInPixels', this.hdf5File)
         this.tofDifferenceMax = new WritableNumber('tofDiffrenceMax', this.hdf5File)
         this.tofDifferenceMin = new WritableNumber('tofDiffrenceMin', this.hdf5File)
         this.kickerPulseCount = new WritableNumber('kickerPulseCount', this.hdf5File)
