@@ -2,6 +2,16 @@
 
 enable the clients to assign
 
+## Sequence diagram
+```mermaid
+sequenceDiagram
+    Client->>Server: randomNumberGeneratorIsBusy: true
+    Server->>Client: randomNumberInnerText
+    Server->>Client: randomNumberInnerText
+    Server->>Client: randomNumberInnerText
+    Client->>Server: randomNumberGeneratorIsBusy: false
+```
+
 ## How to run the sample code in this folder
 1. open a terminal
 1. change directory to this folder
