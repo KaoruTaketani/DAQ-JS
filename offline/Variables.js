@@ -78,10 +78,11 @@ export default class {
         this.detectorHeightInMillimeters = new WritableNumber('detectorHeightInMillimeters', this.hdf5File)
         this.detectorWidthInMillimeters = new WritableNumber('detectorWidthInMillimeters', this.hdf5File)
 
-        this.hdf5FilePath = new ListenableString()
+        this.hdf5FileName = new ListenableString()
+        this.hdf5Path = new ListenableString()
 
         this.comment = new WritableString('comment', this.hdf5File)
-        this.directBeamHDF5FilePath = new WritableString('directBeamHDF5FilePath', this.hdf5File)
+        this.directBeamFileName = new WritableString('directBeamFileName', this.hdf5File)
         this.edrFilePath = new WritableString('edrFilePath', this.hdf5File)
     }
 }

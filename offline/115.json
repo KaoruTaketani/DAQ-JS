@@ -1,6 +1,5 @@
 {
-    "hdf5FilePath": "../../hdf5/mieze/115.h5",
-    "directBeamHDF5FilePath": "../../hdf5/mieze/113.h5",
+    "directBeamFileName": "113.h5",
     "comment": "nickel on silicon substrate",
     "roiX": 400,
     "roiY": 200,

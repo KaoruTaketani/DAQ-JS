@@ -1,4 +1,5 @@
 import { readFile } from "fs"
+import { basename } from 'path'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -41,8 +42,8 @@ export default class extends Operator {
                     variables.miezeFrequencyInKilohertz.assign(10)
 
                     const parameters = JSON.parse(data)
-                    variables.hdf5FilePath.assign(parameters.hdf5FilePath)
-                    variables.directBeamHDF5FilePath.assign(parameters.directBeamHDF5FilePath)
+                    variables.hdf5FileName.assign(basename(path, '.json') + '.h5')
+                    variables.directBeamFileName.assign(parameters.directBeamFileName === undefined ? '' : parameters.directBeamFileName)
                     variables.comment.assign(parameters.comment)
                     variables.roiX.assign(parameters.roiX)
                     variables.roiY.assign(parameters.roiY)

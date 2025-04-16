@@ -1,5 +1,6 @@
 import { createReadStream, statSync } from 'fs'
 import { File, ready } from 'h5wasm/node'
+import { join } from 'path'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -9,11 +10,14 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {string} */
-        this._directBeamHDF5FilePath
-        variables.directBeamHDF5FilePath.prependListener(arg => { this._directBeamHDF5FilePath = arg })
+        this._hdf5Path
+        variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {string} */
-        this._hdf5FilePath
-        variables.hdf5FilePath.prependListener(arg => { this._hdf5FilePath = arg })
+        this._directBeamFileName
+        variables.directBeamFileName.prependListener(arg => { this._directBeamFileName = arg })
+        /** @type {string} */
+        this._hdf5FileName
+        variables.hdf5FileName.prependListener(arg => { this._hdf5FileName = arg })
         /** @type {import('./index.js').Histogram} */
         this._filteredTOFHistogram
         variables.filteredTOFHistogram.prependListener(arg => { this._filteredTOFHistogram = arg })
@@ -40,21 +44,31 @@ export default class extends Operator {
                     variables.filteredTOFHistogram.assign(this._filteredTOFHistogram)
 
                     ready.then(() => {
-                        if (this._directBeamHDF5FilePath) {
-                            const directBeamHDFFile = new File(this._directBeamHDF5FilePath, 'r')
-                            variables.directBeamHDF5File.assign(directBeamHDFFile)
-                            directBeamHDFFile.close()
+                        if (this._directBeamFileName) {
+                            const directBeamHDF5File = new File(join(this._hdf5Path, this._directBeamFileName), 'r')
+                            variables.directBeamHDF5File.assign(directBeamHDF5File)
+                            directBeamHDF5File.close()
+                        } else {
+                            // contrastRatio etc are triggered by directBeamHDF5File
+                            // but not be cleaned up even when direct beam file name is ''
+                            // directBeamContrast:
+                            variables.contrastRatio.assign(undefined)
+                            // directBeamNeutronRate
+                            variables.reflectivity.assign(undefined)
+                            // directBeamPhase
+                            variables.phaseShift.assign(undefined)                            
                         }
 
-                        const hdfFile = new File(this._hdf5FilePath, 'w')
-                        variables.hdf5File.assign(hdfFile)
-                        hdfFile.close()
+                        const hdf5File = new File(join(this._hdf5Path, this._hdf5FileName), 'w')
+                        variables.hdf5File.assign(hdf5File)
+                        hdf5File.close()
                         console.log(`hdf5 elapsedTime: ${Date.now() - startTime} ms`)
                         // initialize followings as they trigger some operators
+                        // and initialize tof image 4 times
                         variables.roiX.assign(0)
                         variables.roiY.assign(0)
                         variables.roiWidth.assign(0)
-                        variables.roiHeight.assign(0)    
+                        variables.roiHeight.assign(0)
                         variables.jsonFilePaths.assign(this._jsonFilePaths)
                     })
                 })
