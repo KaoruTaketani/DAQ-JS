@@ -7,11 +7,12 @@ export default class {
         this.clientWebSocket = new ListenableObject()
         this.httpServer = new ListenableObject()
         this.tableMetadata = new ListenableObject()
+        this.tableColumns = new ListenableObject()
 
         this.hdf5Path = new ListenableString()
         this.clientUrl = new ListenableString()
         this.clientInnerHTML = new ListenableString()
-        this.tableColumns = new ListenableString()
+        this.tableSelectedColumns = new ListenableString()
     }
 }
 

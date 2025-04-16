@@ -25,7 +25,7 @@ export default class extends Operator {
         this._operation = () => {
             this._filteredTOFImage.binCounts[sub2ind(
                 this._filteredTOFImage.numBins,
-                Math.floor(this._filteredNeutronEvent.tof / 1_000_000), /** in ms */
+                Math.round(this._filteredNeutronEvent.tof / 1_000_000), /** in ms */
                 this._filteredNeutronEvent.y - this._roiY, /** in raw image pixcel */
                 this._filteredNeutronEvent.x - this._roiX /** in raw image pixcel */
             )]++

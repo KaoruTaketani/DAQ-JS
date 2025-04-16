@@ -26,7 +26,7 @@ export default class extends Operator {
                     if (!file.endsWith('.h5')) return
 
                     const tmp = new Map()
-                    tmp.set('name', basename(file, '.h5'))
+                    tmp.set('_name', basename(file, '.h5'))
                     const f = new h5wasm.File(join(this._hdf5Path, file), 'r')
                     Object.keys(f.attrs).forEach(key => {
                         tmp.set(key, f.attrs[key].value)
@@ -35,6 +35,14 @@ export default class extends Operator {
                     metadata.push(Object.fromEntries(tmp))
                 })
                 console.log('metadata done')
+                const keys = new Set()
+                metadata.forEach(row => {
+                    Object.keys(row).forEach(key => {
+                        keys.add(key)
+                    })
+                })
+                variables.tableColumns.assign(Array.from(keys).sort())
+
                 variables.tableMetadata.assign(metadata)
             })
         }
