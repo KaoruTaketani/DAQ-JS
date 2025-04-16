@@ -22,6 +22,7 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._incidentAngleInDegrees) return
             if (!this._wavelengthInAngstroms) return
+            // console.log(`mon transfer ${this._incidentAngleInDegrees}`)
 
             variables.momentumTransferInInverseAngstroms.assign(
                 this._wavelengthInAngstroms.map(lambda => {

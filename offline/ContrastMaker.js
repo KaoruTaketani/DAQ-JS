@@ -25,7 +25,9 @@ export default class extends Operator {
                 const x = miezeX8(this._filteredTOFHistogram.binCounts, n * i)
                 const y = miezeY8(this._filteredTOFHistogram.binCounts, n * i)
                 const b = miezeB8(this._filteredTOFHistogram.binCounts, n * i)
-                return b === 0 ? Infinity : 2 * Math.hypot(x, y) / b
+                // return b === 0 ? Infinity : 2 * Math.hypot(x, y) / b
+                // may be useful not to include NaN into hdf5 files for later use
+                return b === 0 ? 1 : 2 * Math.hypot(x, y) / b
             })
             variables.contrast.assign(contrast)
         }

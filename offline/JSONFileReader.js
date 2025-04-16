@@ -35,6 +35,8 @@ export default class extends Operator {
                         variables.reflectivity.assign(undefined)
                         // directBeamPhase
                         variables.phaseShift.assign(undefined)
+                        // incidentAngleInDegrees is not defined, followings are note
+                        variables.momentumTransferInInverseAngstroms.assign(undefined)
 
 
                         // initialize followings as they trigger some operators
@@ -61,23 +63,26 @@ export default class extends Operator {
                         variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
                         variables.upstreamSlitWidthInMillimeters.assign(2)
                         variables.downstreamSlitWidthInMillimeters.assign(2)
-                        // must assign after distances are assigned
-                        variables.miezeFrequencyInKilohertz.assign(10)
 
                         const parameters = JSON.parse(data)
                         variables.hdf5FileName.assign(basename(path, '.json') + '.h5')
-                        variables.directBeamFileName.assign(parameters.directBeamFileName === undefined ? '' : parameters.directBeamFileName)
-                        if (parameters.directBeamFileName !== undefined) {
-                            const directBeamHDF5File = new File(join(this._hdf5Path, parameters.directBeamFileName), 'r')
-                            variables.directBeamHDF5File.assign(directBeamHDF5File)
-                            directBeamHDF5File.close()
-                        }
+
                         variables.comment.assign(parameters.comment)
                         variables.roiXInPixels.assign(parameters.roiX)
                         variables.roiYInPixels.assign(parameters.roiY)
                         variables.roiWidthInPixels.assign(parameters.roiWidth)
                         variables.roiHeightInPixels.assign(parameters.roiHeight)
+                        // followings can be undefined in json
+                        variables.directBeamFileName.assign(parameters.directBeamFileName)
+                        if (parameters.directBeamFileName) {
+                            const directBeamHDF5File = new File(join(this._hdf5Path, parameters.directBeamFileName), 'r')
+                            variables.directBeamHDF5File.assign(directBeamHDF5File)
+                            directBeamHDF5File.close()
+                        }
                         variables.incidentAngleInDegrees.assign(parameters.incidentAngleInDegrees)
+                        // must assign after distances are assigned, and incidentAngle
+                        variables.miezeFrequencyInKilohertz.assign(10)
+
                         variables.edrFilePath.assign(parameters.edrFilePath)
                     })
                 })

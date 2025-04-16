@@ -4,5 +4,6 @@
     "roiY": 250,
     "roiWidth": 150,
     "roiHeight": 450,
+    "frequencyVectorLength": 8,
     "edrFilePath": "../../edr/20240000/rpmt_run113.edr"
 }

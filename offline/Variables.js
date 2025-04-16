@@ -54,6 +54,7 @@ export default class {
         this.fourierTimeInPicoseconds = new WritableNumberArray('fourierTimeInPicoseconds', this.hdf5File)
         this.fourierEnergyInMillielectronvolts = new WritableNumberArray('fourierEnergyInMillielectronvolts', this.hdf5File)
 
+        this.frequencyVectorLength = new WritableNumber('frequencyVectorLength', this.hdf5File)
         this.roiXInPixels = new WritableNumber('roiXInPixels', this.hdf5File)
         this.roiYInPixels = new WritableNumber('roiYInPixels', this.hdf5File)
         this.roiWidthInPixels = new WritableNumber('roiWidthInPixels', this.hdf5File)
