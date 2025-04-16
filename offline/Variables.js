@@ -37,6 +37,7 @@ export default class {
 
         this.image = new WritableHistogram2D('image', this.hdf5File)
         this.filteredImage = new WritableHistogram2D('filteredImage', this.hdf5File)
+        this.filteredHorizontalProjections = new WritableHistogram2D('filteredHorizontalProjections', this.hdf5File)
 
         this.filteredTOFImage = new WritableHistogram3D('filteredTOFImage', this.hdf5File)
 

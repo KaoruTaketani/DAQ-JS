@@ -26,6 +26,8 @@ import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 import JSONFileReader from "./JSONFileReader.js"
+import FilteredHorizontalProjectionsInitializer from "./FilteredHorizontalProjectionsInitializer.js"
+import FilteredHorizontalProjectionsMaker from "./FilteredHorizontalProjectionsMaker.js"
 
 const variables = new Variables()
 
@@ -45,6 +47,8 @@ new PhaseMaker(variables)
 new NeutronRateMaker(variables)
 new FilteredTOFImageInitializer(variables)
 new FilteredTOFImageMaker(variables)
+new FilteredHorizontalProjectionsInitializer(variables)
+new FilteredHorizontalProjectionsMaker(variables)
 new ContrastRatioMaker(variables)
 new PhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
@@ -58,16 +62,16 @@ new MomentumTransferMaker(variables)
 new JSONFileReader(variables)
 
 variables.hdf5Path.assign('../../hdf5/mieze')
-variables.jsonFilePaths.assign([
-    './104.json',
-    './104_16.json',
-    './104_32.json',
-    './106.json',
-    './106_16.json',
-    './106_32.json',
-    './113.json',
-    './115.json'
-])
-// variables.jsonFilePaths.assign(['./104.json'])
+// variables.jsonFilePaths.assign([
+//     './104.json',
+//     './104_16.json',
+//     './104_32.json',
+//     './106.json',
+//     './106_16.json',
+//     './106_32.json',
+//     './113.json',
+//     './115.json'
+// ])
+variables.jsonFilePaths.assign(['./104.json'])
 // variables.jsonFilePaths.assign(['./106.json'])
 
