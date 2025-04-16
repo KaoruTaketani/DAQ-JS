@@ -1,5 +1,6 @@
 import { readFile } from "fs"
-import { basename } from 'path'
+import { File, ready } from 'h5wasm/node'
+import { basename, join } from 'path'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -8,6 +9,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {string} */
+        this._hdf5Path
+        variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFilePaths.addListener(arg => {
@@ -22,35 +26,59 @@ export default class extends Operator {
                 readFile(path, 'utf8', (err, data) => {
                     if (err) throw err
 
-                    // initializers
-                    variables.kickerPulseCount.assign(0)
-                    variables.channel0Count.assign(0)
-                    variables.channel1Count.assign(0)
-                    variables.neutronCount.assign(0)
-                    // parameters
-                    variables.tofDifferenceMin.assign(-250)
-                    variables.tofDifferenceMax.assign(250)
-                    variables.moderatorToSampleDistanceInMeters.assign(23.76)
-                    variables.cameraLengthInMeters.assign(1.755)
-                    variables.detectorHeightInMillimeters.assign(50)
-                    variables.detectorWidthInMillimeters.assign(50)
-                    variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
-                    variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
-                    variables.upstreamSlitWidthInMillimeters.assign(2)
-                    variables.downstreamSlitWidthInMillimeters.assign(2)
-                    // must assign after distances are assigned
-                    variables.miezeFrequencyInKilohertz.assign(10)
+                    ready.then(() => {
+                        // contrastRatio etc are triggered by directBeamHDF5File
+                        // but not be cleaned up even when direct beam file name is ''
+                        // directBeamContrast:
+                        variables.contrastRatio.assign(undefined)
+                        // directBeamNeutronRate
+                        variables.reflectivity.assign(undefined)
+                        // directBeamPhase
+                        variables.phaseShift.assign(undefined)
 
-                    const parameters = JSON.parse(data)
-                    variables.hdf5FileName.assign(basename(path, '.json') + '.h5')
-                    variables.directBeamFileName.assign(parameters.directBeamFileName === undefined ? '' : parameters.directBeamFileName)
-                    variables.comment.assign(parameters.comment)
-                    variables.roiX.assign(parameters.roiX)
-                    variables.roiY.assign(parameters.roiY)
-                    variables.roiWidth.assign(parameters.roiWidth)
-                    variables.roiHeight.assign(parameters.roiHeight)
-                    variables.incidentAngleInDegrees.assign(parameters.incidentAngleInDegrees)
-                    variables.edrFilePath.assign(parameters.edrFilePath)
+
+                        // initialize followings as they trigger some operators
+                        // and initialize tof image 4 times
+                        variables.roiX.assign(0)
+                        variables.roiY.assign(0)
+                        variables.roiWidth.assign(0)
+                        variables.roiHeight.assign(0)
+
+                        // initializers
+                        variables.kickerPulseCount.assign(0)
+                        variables.channel0Count.assign(0)
+                        variables.channel1Count.assign(0)
+                        variables.neutronCount.assign(0)
+                        // parameters
+                        variables.tofDifferenceMin.assign(-250)
+                        variables.tofDifferenceMax.assign(250)
+                        variables.moderatorToSampleDistanceInMeters.assign(23.76)
+                        variables.cameraLengthInMeters.assign(1.755)
+                        variables.detectorHeightInMillimeters.assign(50)
+                        variables.detectorWidthInMillimeters.assign(50)
+                        variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
+                        variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
+                        variables.upstreamSlitWidthInMillimeters.assign(2)
+                        variables.downstreamSlitWidthInMillimeters.assign(2)
+                        // must assign after distances are assigned
+                        variables.miezeFrequencyInKilohertz.assign(10)
+
+                        const parameters = JSON.parse(data)
+                        variables.hdf5FileName.assign(basename(path, '.json') + '.h5')
+                        variables.directBeamFileName.assign(parameters.directBeamFileName === undefined ? '' : parameters.directBeamFileName)
+                        if (parameters.directBeamFileName !== undefined) {
+                            const directBeamHDF5File = new File(join(this._hdf5Path, parameters.directBeamFileName), 'r')
+                            variables.directBeamHDF5File.assign(directBeamHDF5File)
+                            directBeamHDF5File.close()
+                        }
+                        variables.comment.assign(parameters.comment)
+                        variables.roiX.assign(parameters.roiX)
+                        variables.roiY.assign(parameters.roiY)
+                        variables.roiWidth.assign(parameters.roiWidth)
+                        variables.roiHeight.assign(parameters.roiHeight)
+                        variables.incidentAngleInDegrees.assign(parameters.incidentAngleInDegrees)
+                        variables.edrFilePath.assign(parameters.edrFilePath)
+                    })
                 })
             }
         }

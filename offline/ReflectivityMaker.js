@@ -7,16 +7,20 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number[]} */
-        this._neutronRate
-        variables.neutronRate.prependListener(arg => { this._neutronRate = arg })
+        /** @type {string} */
+        this._directBeamFileName
+        variables.directBeamFileName.prependListener(arg => { this._directBeamFileName = arg })
         /** @type {number[]} */
         this._directBeamNeutronRate
-        variables.directBeamNeutronRate.addListener(arg => {
-            this._directBeamNeutronRate = arg
+        variables.directBeamNeutronRate.prependListener(arg => { this._directBeamNeutronRate = arg })
+        /** @type {number[]} */
+        this._neutronRate
+        variables.neutronRate.addListener(arg => {
+            this._neutronRate = arg
             this._operation()
         })
         this._operation = () => {
+            if (!this._directBeamFileName) return
             ok(this._neutronRate.length === this._directBeamNeutronRate.length)
 
             const reflectivity = new Array(this._neutronRate.length).fill(0).map((_, i) => {

@@ -7,16 +7,21 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number[]} */
-        this._contrast
-        variables.contrast.prependListener(arg => { this._contrast = arg })
+        /** @type {string} */
+        this._directBeamFileName
+        variables.directBeamFileName.prependListener(arg => { this._directBeamFileName = arg })
         /** @type {number[]} */
         this._directBeamContrast
-        variables.directBeamContrast.addListener(arg => {
-            this._directBeamContrast = arg
+        variables.directBeamContrast.prependListener(arg => { this._directBeamContrast = arg })
+        /** @type {number[]} */
+        this._contrast
+        variables.contrast.addListener(arg => {
+            this._contrast = arg
             this._operation()
         })
         this._operation = () => {
+            if (!this._directBeamFileName) return
+
             ok(this._contrast.length === this._directBeamContrast.length)
 
             const contrastRatio = new Array(this._contrast.length).fill(0).map((_, i) => {

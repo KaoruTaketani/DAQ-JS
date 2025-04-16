@@ -7,16 +7,20 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number[]} */
-        this._phase
-        variables.phase.prependListener(arg => { this._phase = arg })
+        /** @type {string} */
+        this._directBeamFileName
+        variables.directBeamFileName.prependListener(arg => { this._directBeamFileName = arg })
         /** @type {number[]} */
         this._directBeamPhase
-        variables.directBeamPhase.addListener(arg => {
-            this._directBeamPhase = arg
+        variables.directBeamPhase.prependListener(arg => { this._directBeamPhase = arg })
+        /** @type {number[]} */
+        this._phase
+        variables.phase.addListener(arg => {
+            this._phase = arg
             this._operation()
         })
         this._operation = () => {
+            if (!this._directBeamFileName) return
             ok(this._phase.length === this._directBeamPhase.length)
 
             const phaseShift = new Array(this._phase.length).fill(0).map((_, i) => {
