@@ -22,8 +22,13 @@ export default class extends Operator {
             const bodyInnerHTML = this._tableMetadata.map(row => {
                 return '<tr>'
                     + selectedColumns.map(key => {
-                        const cellMap = new Map(Object.entries(row))
-                        return `<td>${Number.isInteger(cellMap.get(key)) ? cellMap.get(key)?.toLocaleString() : cellMap.get(key)}</td>`
+                        const cellMap = new Map(Object.entries(row)),
+                            value = cellMap.get(key)
+                        if (Number.isInteger(value))
+                            return `<td>${value.toLocaleString()}</td>`
+                        if(Number.isFinite(value))
+                            return `<td>${value.toFixed(3)}</td>`
+                        return `<td>${value}</td>`
                     }).join('')
                     + '</tr>'
             }).join('')
