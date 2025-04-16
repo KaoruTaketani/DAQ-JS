@@ -50,8 +50,8 @@ export default class extends Operator {
                         variables.channel1Count.assign(0)
                         variables.neutronCount.assign(0)
                         // parameters
-                        variables.tofDifferenceMin.assign(-250)
-                        variables.tofDifferenceMax.assign(250)
+                        variables.tofDifferenceMinInNanoseconds.assign(-250)
+                        variables.tofDifferenceMaxInNanoseconds.assign(250)
                         variables.moderatorToSampleDistanceInMeters.assign(23.76)
                         variables.cameraLengthInMeters.assign(1.755)
                         variables.detectorHeightInMillimeters.assign(50)

@@ -8,10 +8,10 @@ export default class extends Operator {
         super()
         /** @type {number} */
         this._tofDifferenceMax
-        variables.tofDifferenceMax.prependListener(arg => { this._tofDifferenceMax = arg })
+        variables.tofDifferenceMaxInNanoseconds.prependListener(arg => { this._tofDifferenceMax = arg })
         /** @type {number} */
         this._tofDifferenceMin
-        variables.tofDifferenceMin.prependListener(arg => { this._tofDifferenceMin = arg })
+        variables.tofDifferenceMinInNanoseconds.prependListener(arg => { this._tofDifferenceMin = arg })
         /** @type {number} */
         this._neutronCount
         variables.neutronCount.prependListener(arg => { this._neutronCount = arg })
