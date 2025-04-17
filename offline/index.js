@@ -74,6 +74,6 @@ variables.hdf5Path.assign('../../hdf5/mieze')
 //     './113.json',
 //     './115.json'
 // ])
-variables.jsonFilePaths.assign(['./104.json'])
+variables.jsonFilePaths.assign(['./115.json'])
 // variables.jsonFilePaths.assign(['./106.json'])
 

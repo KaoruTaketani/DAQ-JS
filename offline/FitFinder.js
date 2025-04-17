@@ -24,7 +24,7 @@ export default class extends Operator {
 
             for (let i = 0; i < numBins[0]; ++i) {
                 const s = this._filteredHorizontalProjections.binCounts.slice(i * numBins[1], (i + 1) * numBins[1])
-                if (sum(s) < 1000) {
+                if (sum(s) < 3000) {
                     // console.log(`${i}, ${sum(s)}`)
                     continue
                 }
