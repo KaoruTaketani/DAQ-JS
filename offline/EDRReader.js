@@ -18,6 +18,9 @@ export default class extends Operator {
         /** @type {import('./index.js').Histogram} */
         this._filteredTOFHistogram
         variables.filteredTOFHistogram.prependListener(arg => { this._filteredTOFHistogram = arg })
+        /** @type {import('./index.js').Histogram2D} */
+        this._filteredHorizontalProjections
+        variables.filteredHorizontalProjections.prependListener(arg => { this._filteredHorizontalProjections = arg })
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFilePaths.prependListener(arg => { this._jsonFilePaths = arg })
@@ -39,6 +42,7 @@ export default class extends Operator {
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
                     variables.filteredTOFHistogram.assign(this._filteredTOFHistogram)
+                    variables.filteredHorizontalProjections.assign(this._filteredHorizontalProjections)
 
                     ready.then(() => {
                         const hdf5File = new File(join(this._hdf5Path, this._hdf5FileName), 'w')

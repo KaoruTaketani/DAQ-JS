@@ -28,6 +28,7 @@ import WavelengthMaker from "./WavelengthMaker.js"
 import JSONFileReader from "./JSONFileReader.js"
 import FilteredHorizontalProjectionsInitializer from "./FilteredHorizontalProjectionsInitializer.js"
 import FilteredHorizontalProjectionsMaker from "./FilteredHorizontalProjectionsMaker.js"
+import FitFinder from "./FitFinder.js"
 
 const variables = new Variables()
 
@@ -49,6 +50,7 @@ new FilteredTOFImageInitializer(variables)
 new FilteredTOFImageMaker(variables)
 new FilteredHorizontalProjectionsInitializer(variables)
 new FilteredHorizontalProjectionsMaker(variables)
+new FitFinder(variables)
 new ContrastRatioMaker(variables)
 new PhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
