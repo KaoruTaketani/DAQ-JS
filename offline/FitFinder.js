@@ -18,16 +18,18 @@ export default class extends Operator {
         this._operation = () => {
             const numBins = this._filteredHorizontalProjections.numBins
             for (let i = 0; i < numBins[0]; ++i) {
-                const s = this._filteredHorizontalProjections.binCounts.slice(i * numBins[0], i * numBins[0] + numBins[1])
+                const s = this._filteredHorizontalProjections.binCounts.slice(i * numBins[1], (i + 1) * numBins[1])
                 if (sum(s) < 1000) {
                     // console.log(`${i}, ${sum(s)}`)
                     continue
                 }
                 // console.log(`${i}, ${s.length}, ${sum(s)}`)
-                if (i === 0) {
-                    const r = lsqcurvefit('gauss', [1007, 83, 31], colon(1, s.length), s)
-                    console.log(`fit s.length: ${s.length}, r: ${r}`)
-                }
+                // if (i === 0) {
+                    const _mean = sum(s.map((s, i) => s * i)) / sum(s),
+                        _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1)),
+                        r = lsqcurvefit('gauss', [1007, _mean, _std], colon(1, s.length), s)
+                    console.log(`fit i: ${i}, mean: ${_mean}, std: ${_std}, s.length: ${s.length}, r: ${r}`)
+                // }
             }
         }
     }

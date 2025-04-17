@@ -16,7 +16,7 @@ export default (
     const n = xdata.length
 
     if (typeof f === 'string') {
-        console.log(`'f: is ${f}`)
+        // console.log(`'f: is ${f}`)
         switch (f) {
             case 'gauss':
                 /** see @JacobianGauss */
@@ -44,7 +44,7 @@ export default (
                 return
         }
     }
-    console.log(`call lsqnonlin`)
+    // console.log(`call lsqnonlin`)
 
     const J = zeros(n, p.length),
         dy = zeros(n, 1),
@@ -55,7 +55,7 @@ export default (
         J[i] = f[1](xdata[i], p)
     }
     let previousError = mtimes(transpose(dy), dy)[0][0]
-    console.log(`p: ${p}, chi2: ${mtimes(transpose(dy), dy)[0][0]}`)
+    // console.log(`p: ${p}, chi2: ${mtimes(transpose(dy), dy)[0][0]}`)
     for (let iteration = 0; iteration < _MaxIterations; ++iteration) {
 
         let h = mldivide(mtimes(transpose(J), J), mtimes(transpose(J), dy))
@@ -67,7 +67,7 @@ export default (
             J[i] = f[1](xdata[i], p)
         }
         const error = mtimes(transpose(dy), dy)[0][0]
-        console.log(`p: ${p}, chi2: ${error}, chi2prev: ${previousError}`)
+        // console.log(`p: ${p}, chi2: ${error}, chi2prev: ${previousError}`)
         if (previousError - error < _FunctionTorelance) {
             console.log(`break. iteration: ${iteration}`)
             break
