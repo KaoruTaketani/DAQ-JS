@@ -54,6 +54,9 @@ export default class {
         this.momentumTransferInInverseAngstroms = new WritableNumberArray('momentumTransferInInverseAngstroms', this.hdf5File)
         this.fourierTimeInPicoseconds = new WritableNumberArray('fourierTimeInPicoseconds', this.hdf5File)
         this.fourierEnergyInMillielectronvolts = new WritableNumberArray('fourierEnergyInMillielectronvolts', this.hdf5File)
+        this.heights = new WritableNumberArray('heights', this.hdf5File)
+        this.centers = new WritableNumberArray('centers', this.hdf5File)
+        this.widths = new WritableNumberArray('widths', this.hdf5File)
 
         this.frequencyVectorLength = new WritableNumber('frequencyVectorLength', this.hdf5File)
         this.roiXInPixels = new WritableNumber('roiXInPixels', this.hdf5File)
