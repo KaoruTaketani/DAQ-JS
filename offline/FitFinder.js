@@ -2,6 +2,7 @@ import colon from './colon.js'
 import lsqcurvefit from './lsqcurvefit.js'
 import Operator from './Operator.js'
 import sum from './sum.js'
+import max from './max.js'
 
 export default class extends Operator {
     /**
@@ -25,10 +26,11 @@ export default class extends Operator {
                 }
                 // console.log(`${i}, ${s.length}, ${sum(s)}`)
                 // if (i === 0) {
-                    const _mean = sum(s.map((s, i) => s * i)) / sum(s),
-                        _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1)),
-                        r = lsqcurvefit('gauss', [1007, _mean, _std], colon(1, s.length), s)
-                    console.log(`fit i: ${i}, mean: ${_mean}, std: ${_std}, s.length: ${s.length}, r: ${r}`)
+                const _mean = sum(s.map((s, i) => s * i)) / sum(s),
+                    _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1)),
+                    r = lsqcurvefit('gauss', [max(s), _mean, _std], colon(1, s.length), s)
+                // console.log(`fit i: ${i}, max: ${max(s)}, mean: ${_mean}, std: ${_std}, s.length: ${s.length}`)
+                console.log(`fit i: ${i}, r: ${r}`)
                 // }
             }
         }
