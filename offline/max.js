@@ -1,3 +1,6 @@
+/**
+ * @param {number[]} x
+ */
 export default (
     x
 ) => {

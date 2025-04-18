@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "target": "ES6",
+        "target": "ES2017",
         // specifies the module system, when generating module code
         // "module": "node16", // necessary for import.meta 
         // "module": "ES2022", 

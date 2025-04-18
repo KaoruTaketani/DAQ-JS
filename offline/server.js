@@ -7,10 +7,10 @@ import HTTPUpgradeHandler from './HTTPUpgradeHandler.js'
 import ImageInnerHTMLMaker from './ImageInnerHTMLMaker.js'
 import NeutronRateInnerHTMLMaker from './NeutronRateInnerHTMLMaker.js'
 import TableInnerHTMLMaker from './TableInnerHTMLMaker.js'
-import Variables from './Variables.js'
+import ServerVariables from './ServerVariables.js'
 import ContrastInnerHTMLMaker from './ContrastInnerHTMLMaker.js'
 
-const variables = new Variables()
+const variables = new ServerVariables()
 new HTTPRequestHandler(variables)
 new HTTPUpgradeHandler(variables)
 new HTTPServerSetupper(variables)

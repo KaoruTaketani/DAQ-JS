@@ -2,6 +2,7 @@
   "type": "module",
   "main": "index.js",
   "dependencies": {
-    "h5wasm": "^0.7.8"
+    "h5wasm": "^0.7.8",
+    "ws": "^8.18.0"
   }
 }
