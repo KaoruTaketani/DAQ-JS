@@ -68,10 +68,10 @@ export default class extends Operator {
                         variables.hdf5FileName.assign(basename(path, '.json') + '.h5')
 
                         variables.comment.assign(parameters.comment)
-                        variables.roiXInPixels.assign(parameters.roiX)
-                        variables.roiYInPixels.assign(parameters.roiY)
-                        variables.roiWidthInPixels.assign(parameters.roiWidth)
-                        variables.roiHeightInPixels.assign(parameters.roiHeight)
+                        variables.roiXInPixels.assign(parameters.roiXInPixels)
+                        variables.roiYInPixels.assign(parameters.roiYInPixels)
+                        variables.roiWidthInPixels.assign(parameters.roiWidthInPixels)
+                        variables.roiHeightInPixels.assign(parameters.roiHeightInPixels)
                         variables.frequencyVectorLength.assign(parameters.frequencyVectorLength)
                         // followings can be undefined in json
                         variables.directBeamFileName.assign(parameters.directBeamFileName)

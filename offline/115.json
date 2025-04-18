@@ -1,10 +1,10 @@
 {
     "directBeamFileName": "113.h5",
     "comment": "nickel on silicon substrate",
-    "roiX": 400,
-    "roiY": 200,
-    "roiWidth": 200,
-    "roiHeight": 600,
+    "roiXInPixels": 400,
+    "roiYInPixels": 200,
+    "roiWidthInPixels": 200,
+    "roiHeightInPixels": 600,
     "frequencyVectorLength": 8,
     "edrFilePath": "../../edr/20240000/rpmt_run115.edr",
     "incidentAngleInDegrees": 1.2
