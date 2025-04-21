@@ -2,6 +2,32 @@
 
 enable the clients to assign
 
+
+```js
+import ListenableBoolean from './ListenableBoolean.js'
+
+export default class extends ListenableBoolean {
+    constructor(key, message) {
+        super()
+        message.addListener(arg => {
+            if (arg[key] === undefined) return
+
+            super.assign(arg[key])
+        })
+    }
+}
+```
+
+```js
+startButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
+}
+
+stopButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+}
+```
+
 ## Sequence diagram
 ```mermaid
 sequenceDiagram
