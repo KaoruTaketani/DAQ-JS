@@ -68,6 +68,10 @@ data.reduce((previous, value) => previous.then(() =>
         }, 1000)
     })
 ), Promise.resolve()).then(() => {
-    // https://docs.influxdata.com/influxdb/cloud/account-management/limits/
     console.log(`end elapsedTime: ${Date.now() - startTime} ms, byteLength: ${byteLength} bytes, ${byteLength / (Date.now() - startTime)} kB/s`)
+    // limits:
+    // https://docs.influxdata.com/influxdb/cloud/account-management/limits/
+    //
+    // cardinality:
+    // https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/
 })
