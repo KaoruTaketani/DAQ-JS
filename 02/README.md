@@ -2,7 +2,7 @@
 
 "Node.js runs the V8 JavaScript engine, the core of Google Chrome, outside the browser."
 
-"Node.js provides a set of asynchronous I/O primitives in its standard library."
+By runnging the sample code, different numbers are shown in the terminal.
 
 ## How to run the sample code in this folder
 1. install Node.js by following the instruction in https://nodejs.org/en

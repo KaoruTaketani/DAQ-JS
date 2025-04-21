@@ -20,7 +20,7 @@
 
 [09 Variables](./09/README.md)
 
-[10 WebSocket Pathnames](./10/README.md)
+[10 Pathnames](./10/README.md)
 
 [11 Controllable](./11/README.md)
 
