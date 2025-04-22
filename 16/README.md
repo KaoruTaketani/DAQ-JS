@@ -1,9 +1,10 @@
 [home](../README.md)
 
 ```js
+const svgLinkElement = document.createElement('a')
+
 const downloadSVGButtonElement = document.createElement('input')
 
-const svgLinkElement = document.createElement('a')
 downloadSVGButtonElement.onclick = () => {
     svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
         `<svg xmlns="http://www.w3.org/2000/svg" >${histogramSVGElement.innerHTML}</svg>`
