@@ -2,17 +2,22 @@ import mldivide from './mldivide.js'
 import mtimes from './mtimes.js'
 import transpose from './transpose.js'
 import zeros from './zeros.js'
+import { fail, ok } from 'assert'
 
+/**
+ * @param {function[]|string} f
+ * @param {number[]} p
+ * @param {number[]} xdata
+ * @param {number[]} ydata
+ * @returns {number[]}
+ */
 export default (
     f,
     p,
     xdata,
     ydata
 ) => {
-    if (xdata.length !== ydata.length) {
-        console.log(`xdata.length must be equal to ydata.length. xdata.length: ${xdata.length}, ydata.length: ${ydata.length}`)
-        return
-    }
+    ok(xdata.length === ydata.length)
     const n = xdata.length
 
     if (typeof f === 'string') {
@@ -21,8 +26,8 @@ export default (
             case 'gauss':
                 /** see @JacobianGauss */
                 f = [
-                    (x, p) => p[0] * Math.exp(-1 * (x - p[1]) ** 2 / p[2] ** 2),
-                    (x, p) => [
+                    (/** @type {number} */x,/** @type {number[]} */ p) => p[0] * Math.exp(-1 * (x - p[1]) ** 2 / p[2] ** 2),
+                    (/** @type {number} */x, /** @type {number[]} */p) => [
                         Math.exp(-1 * (x - p[1]) ** 2 / p[2] ** 2),
                         (2 * p[0] * (x - p[1]) / p[2] ** 2) * Math.exp(-1 * (x - p[1]) ** 2 / p[2] ** 2),
                         (2 * p[0] * (x - p[1]) ** 2 / p[2] ** 3) * Math.exp(-1 * (x - p[1]) ** 2 / p[2] ** 2)
@@ -32,8 +37,8 @@ export default (
             case 'exp':
                 /** see @JacobianExp */
                 f = [
-                    (x, p) => p[0] * Math.exp(p[1] * x),
-                    (x, p) => [
+                    (/** @type {number} */x, /** @type {number[]} */p) => p[0] * Math.exp(p[1] * x),
+                    (/** @type {number} */x, /** @type {number[]} */p) => [
                         Math.exp(p[1] * x),
                         p[0] * x * Math.exp(p[1] * x)
                     ]
@@ -41,7 +46,7 @@ export default (
                 break
             default:
                 console.log(`'recieved unregistered function: ${f}`)
-                return
+                fail()
         }
     }
     // console.log(`call lsqnonlin`)
@@ -69,7 +74,7 @@ export default (
         const error = mtimes(transpose(dy), dy)[0][0]
         // console.log(`p: ${p}, chi2: ${error}, chi2prev: ${previousError}`)
         if (previousError - error < _FunctionTorelance) {
-            console.log(`break. iteration: ${iteration}`)
+            // console.log(`break. iteration: ${iteration}`)
             break
         } else {
             previousError = error

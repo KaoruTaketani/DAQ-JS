@@ -2,13 +2,18 @@ import zeros from './zeros.js'
 import size from './size.js'
 import eye from './eye.js'
 import mtimes from './mtimes.js'
+import { ok } from 'assert'
 
+/**
+ * @param {number[][]} A
+ * @returns {number[][][]}
+ */
 export default (
     A
 ) => {
     const [sz1, sz2] = size(A)
 
-    if (sz1 !== sz2) return
+    ok(sz1 === sz2)
 
     const n = sz1,
         L = eye(n),

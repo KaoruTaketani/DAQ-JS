@@ -16,21 +16,14 @@ export default class extends ListenableObject {
         this._value
         hdf5File.addListener(arg => {
             if (this._value) {
-                const dataset = arg.create_dataset({
+                arg.create_dataset({
                     name: this._name,
                     data: this._value.binCounts,
                     shape: this._value.numBins,
                     dtype: '<i4',
-                    chunks: [1, this._value.numBins[1], this._value.numBins[2]],
+                    chunks: this._value.numBins,
                     compression: 'gzip'
                 })
-                dataset.create_attribute('xBinLimitsMin', this._value.xBinLimits[0], null, '<f')
-                dataset.create_attribute('xBinLimitsMax', this._value.xBinLimits[1], null, '<f')
-                dataset.create_attribute('yBinLimitsMin', this._value.yBinLimits[0], null, '<f')
-                dataset.create_attribute('yBinLimitsMax', this._value.yBinLimits[1], null, '<f')
-                dataset.create_attribute('zBinLimitsMin', this._value.zBinLimits[0], null, '<f')
-                dataset.create_attribute('zBinLimitsMax', this._value.zBinLimits[1], null, '<f')
-                dataset.create_attribute('total', this._value.binCounts.reduce((a, b) => a + b, 0), null, '<i')
             }
         })
     }

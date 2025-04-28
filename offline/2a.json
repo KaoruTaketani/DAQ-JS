@@ -1,0 +1,18 @@
+{
+        "edrFileName": "20230420/rpmt_run2.edr",
+        "sample": "silicon",
+        "pulseHeightROIMinimum": 100,
+        "pulseHeightROIMaximum": 600,
+        "spatialROIX": 428,
+        "spatialROIY": 210,
+        "spatialROIWidth": 200,
+        "spatialROIHeight": 90,
+        "miezeFrequencyInKilohertz": 10,
+        "cameraLengthInMeters": 0.33,
+        "moderatorSampleDistanceInMeters": 22,
+        "incidentAngleInDegrees": 1.5,
+        "horizontalUpstreamSlitWidthInMeters": 0.01,
+        "horizontalDownstreamSlitWidthInMeters": 0.01,
+        "horizontalSlitsDistanceInMeters": 3.8,
+        "directBeamFileName": "2.h5"
+    }

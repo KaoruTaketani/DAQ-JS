@@ -8,6 +8,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
+        this._tofMaxInMilliseconds
+        variables.tofMaxInMilliseconds.prependListener(arg => { this._tofMaxInMilliseconds = arg })
+        /** @type {number} */
         this._miezeFrequencyInKilohertz
         variables.miezeFrequencyInKilohertz.addListener(arg => {
             this._miezeFrequencyInKilohertz = arg
@@ -16,7 +19,7 @@ export default class extends Operator {
         this._operation = () => {
             const dt = 0.001 / this._miezeFrequencyInKilohertz
 
-            variables.tofInSeconds.assign(colon(dt / 2, dt, 0.08 - dt / 2))
+            variables.tofInSeconds.assign(colon(dt / 2, dt, 0.001 * this._tofMaxInMilliseconds - dt / 2))
         }
     }
 }

@@ -4,7 +4,7 @@ import { basename } from 'path'
 
 export default class extends Operator {
     /**
-     * @param {import('./Variables.js').default} variables 
+     * @param {import('./ServerVariables.js').default} variables 
      */
     constructor(variables) {
         super()
@@ -44,11 +44,13 @@ export default class extends Operator {
                         '    <meta charset="utf-8">',
                         '</head>',
                         '<body>',
-                        `    <p><a href="./Attributes.html">Attributes</a></p>`,
-                        `    <p><a href="./Contrast.html">Contrast</a></p>`,
-                        `    <p><a href="./Image.html">Image</a></p>`,
-                        `    <p><a href="./NeutronRate.html">NeutronRate</a></p>`,
-                        `    <p><a href="./Table.html">Table</a></p>`,
+                        `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
+                        `    <p><a href="./ContrastClient.html">Contrast</a></p>`,
+                        `    <p><a href="./ImageClient.html">Image</a></p>`,
+                        `    <p><a href="./NeutronRateClient.html">NeutronRate</a></p>`,
+                        `    <p><a href="./TableClient.html">Table</a></p>`,
+                        `    <hr />`,
+                        `    <p><a href="./VelocityClient.html">Velocity</a></p>`,
                         '</body>',
                         '</html>'
                     ].join('\n'))

@@ -7,6 +7,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
+        this._neutronPositionBitLength
+        variables.neutronPositionBitLength.prependListener(arg => { this._neutronPositionBitLength = arg })
+        /** @type {number} */
         this._kickerPulseCount
         variables.kickerPulseCount.prependListener(arg => { this._kickerPulseCount = arg })
         /** @type {number} */
@@ -36,18 +39,18 @@ export default class extends Operator {
                         variables.channel0Count.assign(this._channel0Count + 1)
 
                         variables.channel0Event.assign({
-                            tof: tof,
-                            pulse: left + right,
-                            position: ((left << 10) / (left + right)) >> 0
+                            tofInNanoseconds: tof,
+                            pulseHeight: left + right,
+                            position: ((left << this._neutronPositionBitLength) / (left + right)) >> 0
                         })
                     }
                     if (channel === 1) {
                         variables.channel1Count.assign(this._channel1Count + 1)
 
                         variables.channel1Event.assign({
-                            tof: tof,
-                            pulse: left + right,
-                            position: ((left << 10) / (left + right)) >> 0
+                            tofInNanoseconds: tof,
+                            pulseHeight: left + right,
+                            position: ((left << this._neutronPositionBitLength) / (left + right)) >> 0
                         })
                     }
                 } else if (this._eventBuffer[8 * i] === 0x5b) {

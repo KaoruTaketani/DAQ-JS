@@ -1,6 +1,12 @@
+import { ok } from 'assert'
 import size from './size.js'
 import zeros from './zeros.js'
 
+/** 
+ * @param {number[][]} a
+ * @param {number[][]} b
+ * @returns {number[][]}
+ */
 export default (
     a,
     b
@@ -8,7 +14,7 @@ export default (
     const [a1, a2] = size(a),
         [b1, b2] = size(b)
 
-    if (a2 !== b1) return
+    ok(a2===b1)
 
     const c = zeros(a1, b2)
 

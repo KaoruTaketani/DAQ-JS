@@ -16,11 +16,11 @@ export default class extends Operator {
         this._hdf5FileName
         variables.hdf5FileName.prependListener(arg => { this._hdf5FileName = arg })
         /** @type {import('./index.js').Histogram} */
-        this._filteredTOFHistogram
-        variables.filteredTOFHistogram.prependListener(arg => { this._filteredTOFHistogram = arg })
+        this._tofHistogram
+        variables.tofHistogram.prependListener(arg => { this._tofHistogram = arg })
         /** @type {import('./index.js').Histogram2D} */
-        this._filteredHorizontalProjections
-        variables.filteredHorizontalProjections.prependListener(arg => { this._filteredHorizontalProjections = arg })
+        this._horizontalProjectionHistograms
+        variables.horizontalProjectionHistograms.prependListener(arg => { this._horizontalProjectionHistograms = arg })
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFilePaths.prependListener(arg => { this._jsonFilePaths = arg })
@@ -31,6 +31,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            if (!this._edrFilePath) return
+
             const totalSize = statSync(this._edrFilePath).size,
                 startTime = Date.now()
             let processedSize = 0
@@ -41,8 +43,8 @@ export default class extends Operator {
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
-                    variables.filteredTOFHistogram.assign(this._filteredTOFHistogram)
-                    variables.filteredHorizontalProjections.assign(this._filteredHorizontalProjections)
+                    variables.tofHistogram.assign(this._tofHistogram)
+                    variables.horizontalProjectionHistograms.assign(this._horizontalProjectionHistograms)
 
                     ready.then(() => {
                         const hdf5File = new File(join(this._hdf5Path, this._hdf5FileName), 'w')

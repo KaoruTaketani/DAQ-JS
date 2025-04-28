@@ -5,5 +5,5 @@
     "roiWidthInPixels": 150,
     "roiHeightInPixels": 450,
     "frequencyVectorLength": 8,
-    "edrFilePath": "../../edr/20240000/rpmt_run104.edr"
+    "edrFilePath": "../edr/20240000/rpmt_run104.edr"
 }

@@ -7,6 +7,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {number} */
+        this._roiXInPixels
+        variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
+        /** @type {number} */
+        this._roiYInPixels
+        variables.roiYInPixels.prependListener(arg => { this._roiYInPixels = arg })
         /** @type {import('./index.js').Histogram2D} */
         this._filteredImage
         variables.filteredImage.prependListener(arg => { this._filteredImage = arg })
@@ -18,9 +24,9 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._filteredImage.binCounts[sub2ind(
-                this._filteredImage.numBins, 
-                this._filteredNeutronEvent.y - this._filteredImage.yBinLimits[0],
-                this._filteredNeutronEvent.x - this._filteredImage.xBinLimits[0]
+                this._filteredImage.numBins,
+                this._filteredNeutronEvent.y - this._roiYInPixels,
+                this._filteredNeutronEvent.x - this._roiXInPixels
             )]++
         }
     }

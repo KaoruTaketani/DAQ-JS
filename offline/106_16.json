@@ -6,6 +6,6 @@
     "roiWidthInPixels": 200,
     "roiHeightInPixels": 600,
     "frequencyVectorLength": 16,
-    "edrFilePath": "../../edr/20240000/rpmt_run106.edr",
+    "edrFilePath": "../edr/20240000/rpmt_run106.edr",
     "incidentAngleInDegrees": 1.3
 }

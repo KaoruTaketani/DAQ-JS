@@ -7,10 +7,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {string} */
-        this._directBeamFileName
-        variables.directBeamFileName.prependListener(arg => { this._directBeamFileName = arg })
-        /** @type {number[]} */
+        /** @type {number[]|undefined} */
         this._directBeamNeutronRate
         variables.directBeamNeutronRate.prependListener(arg => { this._directBeamNeutronRate = arg })
         /** @type {number[]} */
@@ -20,17 +17,20 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._directBeamFileName) return
-            ok(this._neutronRate.length === this._directBeamNeutronRate.length)
+            if (!this._directBeamNeutronRate) {
+                variables.reflectivity.assign(undefined)
+            } else {
+                ok(this._neutronRate.length === this._directBeamNeutronRate.length)
 
-            const reflectivity = new Array(this._neutronRate.length).fill(0).map((_, i) => {
-                ok(this._directBeamNeutronRate)
-                const rate = this._neutronRate[i]
-                const directRate = this._directBeamNeutronRate[i]
+                const reflectivity = new Array(this._neutronRate.length).fill(0).map((_, i) => {
+                    ok(this._directBeamNeutronRate)
+                    const rate = this._neutronRate[i]
+                    const directRate = this._directBeamNeutronRate[i]
 
-                return directRate === 0 ? NaN : rate / directRate
-            })
-            variables.reflectivity.assign(reflectivity)
+                    return directRate === 0 ? NaN : rate / directRate
+                })
+                variables.reflectivity.assign(reflectivity)
+            }
         }
     }
 }

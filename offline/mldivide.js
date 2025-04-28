@@ -2,16 +2,22 @@ import size from './size.js'
 import lu from './lu.js'
 import mtimes from './mtimes.js'
 import zeros from './zeros.js'
+import { ok } from 'assert'
 
+/**
+ * @param {number[][]} A
+ * @param {number[][]} B
+ * @returns {number[][]}
+ */
 export default (
     A,
     B
 ) => {
     const [sz1, sz2] = size(A)
-    if (sz1 !== sz2) return
+    ok(sz1 === sz2)
 
     const n = sz1
-    if (size(B)[0] !== n) return
+    ok(size(B)[0] === n)
 
     const [L, U, P] = lu(A),
         Z = mtimes(P, B),

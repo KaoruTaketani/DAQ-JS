@@ -1,12 +1,14 @@
+import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
+import ParameterNumber from './ParameterNumber.js'
+import ParameterString from './ParameterString.js'
 import ReadableNumberArray from './ReadableNumberArray.js'
 import WritableHistogram from './WritableHistogram.js'
 import WritableHistogram2D from './WritableHistogram2D.js'
 import WritableHistogram3D from './WritableHistogram3D.js'
 import WritableNumber from './WritableNumber.js'
 import WritableNumberArray from './WritableNumberArray.js'
-import WritableString from './WritableString.js'
 
 export default class {
     constructor() {
@@ -24,23 +26,28 @@ export default class {
         this.filteredNeutronEvent = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('h5wasm').File>} */
         this.hdf5File = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('h5wasm').File>} */
+        /** @type {import('./ListenableObject.js').default<import('h5wasm').File|undefined>} */
         this.directBeamHDF5File = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<string[]>} */
         this.jsonFilePaths = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').Parameters>} */
+        this.parameters = new ListenableObject()
 
         this.directBeamNeutronRate = new ReadableNumberArray('neutronRate', this.directBeamHDF5File)
         this.directBeamContrast = new ReadableNumberArray('contrast', this.directBeamHDF5File)
         this.directBeamPhase = new ReadableNumberArray('phase', this.directBeamHDF5File)
 
-        this.filteredTOFHistogram = new WritableHistogram('filteredTOFHistogram', this.hdf5File)
+        this.tofHistogram = new WritableHistogram('tofHistogram', this.hdf5File)
+        this.pulseHeightHistogram = new WritableHistogram('pulseHeightHistogram', this.hdf5File)
+        this.tofDifferenceHistogram = new WritableHistogram('tofDifferenceHistogram', this.hdf5File)
 
-        this.image = new WritableHistogram2D('image', this.hdf5File)
+        this.rawImage = new WritableHistogram2D('rawImage', this.hdf5File)
         this.filteredImage = new WritableHistogram2D('filteredImage', this.hdf5File)
-        this.filteredHorizontalProjections = new WritableHistogram2D('filteredHorizontalProjections', this.hdf5File)
+        this.horizontalProjectionHistograms = new WritableHistogram2D('horizontalProjectionHistograms', this.hdf5File)
 
-        this.filteredTOFImage = new WritableHistogram3D('filteredTOFImage', this.hdf5File)
+        this.tofImage = new WritableHistogram3D('tofImage', this.hdf5File)
 
+        this.neutronPerPulses = new WritableNumberArray('neutronPerPulses', this.hdf5File)
         this.neutronRate = new WritableNumberArray('neutronRate', this.hdf5File)
         this.tofInSeconds = new WritableNumberArray('tofInSeconds', this.hdf5File)
         this.contrast = new WritableNumberArray('contrast', this.hdf5File)
@@ -57,20 +64,24 @@ export default class {
         this.heights = new WritableNumberArray('heights', this.hdf5File)
         this.centers = new WritableNumberArray('centers', this.hdf5File)
         this.widths = new WritableNumberArray('widths', this.hdf5File)
+        this.horizontalProjectionMeans = new WritableNumberArray('horizontalProjectionMeans', this.hdf5File)
+        this.horizontalProjectionStandardDeviations = new WritableNumberArray('horizontalProjectionStandardDeviations', this.hdf5File)
 
-        this.frequencyVectorLength = new WritableNumber('frequencyVectorLength', this.hdf5File)
-        this.roiXInPixels = new WritableNumber('roiXInPixels', this.hdf5File)
-        this.roiYInPixels = new WritableNumber('roiYInPixels', this.hdf5File)
-        this.roiWidthInPixels = new WritableNumber('roiWidthInPixels', this.hdf5File)
-        this.roiHeightInPixels = new WritableNumber('roiHeightInPixels', this.hdf5File)
-        this.tofDifferenceMaxInNanoseconds = new WritableNumber('tofDiffrenceMaxInNanoseconds', this.hdf5File)
-        this.tofDifferenceMinInNanoseconds = new WritableNumber('tofDiffrenceMinInNanoseconds', this.hdf5File)
+        this.pulseHeightHistogramNumBins = new ListenableNumber()
+
         this.kickerPulseCount = new WritableNumber('kickerPulseCount', this.hdf5File)
         this.channel0Count = new WritableNumber('channel0Count', this.hdf5File)
         this.channel1Count = new WritableNumber('channel1Count', this.hdf5File)
         this.pairedCount = new WritableNumber('pairedCount', this.hdf5File)
         this.neutronCount = new WritableNumber('neutronCount', this.hdf5File)
         this.filteredNeutronCount = new WritableNumber('filteredNeutronCount', this.hdf5File)
+        this.neutronCount = new WritableNumber('neutronCount', this.hdf5File)
+        // followings are parameters but fixed
+        this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', this.hdf5File)
+        this.tofDifferenceMaxInNanoseconds = new WritableNumber('tofDiffrenceMaxInNanoseconds', this.hdf5File)
+        this.tofDifferenceMinInNanoseconds = new WritableNumber('tofDiffrenceMinInNanoseconds', this.hdf5File)
+        this.tofDifferenceHistogramMaxInNanoseconds = new WritableNumber('tofDiffrenceHistogramMaxInNanoseconds', this.hdf5File)
+        this.tofDifferenceHistogramMinInNanoseconds = new WritableNumber('tofDiffrenceHistogramMinInNanoseconds', this.hdf5File)
         this.miezeFrequencyInKilohertz = new WritableNumber('miezeFrequencyInKilohertz', this.hdf5File)
         this.moderatorToSampleDistanceInMeters = new WritableNumber('moderatorToSampleDistanceInMeters', this.hdf5File)
         this.upstreamSlitToDownstreamSlitDistanceInMeters = new WritableNumber('upstreamSlitToDownstreamSlitDistanceInMeters', this.hdf5File)
@@ -78,15 +89,24 @@ export default class {
         this.upstreamSlitWidthInMillimeters = new WritableNumber('upstreamSlitWidthInMillimeters', this.hdf5File)
         this.downstreamSlitWidthInMillimeters = new WritableNumber('downstreamSlitWidthInMillimeters', this.hdf5File)
         this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
-        this.incidentAngleInDegrees = new WritableNumber('incidentAngleInDegrees', this.hdf5File)
-        this.detectorHeightInMillimeters = new WritableNumber('detectorHeightInMillimeters', this.hdf5File)
-        this.detectorWidthInMillimeters = new WritableNumber('detectorWidthInMillimeters', this.hdf5File)
+        this.neutronPositionMaxInMillimeters = new WritableNumber('neutronPositionMaxInMillimeters', this.hdf5File)
+        this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
+
+        this.roiXInPixels = new ParameterNumber('roiXInPixels', this.hdf5File, this.parameters)
+        this.roiYInPixels = new ParameterNumber('roiYInPixels', this.hdf5File, this.parameters)
+        this.roiWidthInPixels = new ParameterNumber('roiWidthInPixels', this.hdf5File, this.parameters)
+        this.roiHeightInPixels = new ParameterNumber('roiHeightInPixels', this.hdf5File, this.parameters)
+        this.incidentAngleInDegrees = new ParameterNumber('incidentAngleInDegrees', this.hdf5File,this.parameters)
+        this.frequencyVectorLength = new ParameterNumber('frequencyVectorLength', this.hdf5File, this.parameters)
 
         this.hdf5FileName = new ListenableString()
         this.hdf5Path = new ListenableString()
 
-        this.comment = new WritableString('comment', this.hdf5File)
-        this.directBeamFileName = new WritableString('directBeamFileName', this.hdf5File)
-        this.edrFilePath = new WritableString('edrFilePath', this.hdf5File)
+        this.comment = new ParameterString('comment', this.hdf5File, this.parameters)
+        this.upstreamFlipperOutput = new ParameterString('upstreamFlipperOutput', this.hdf5File, this.parameters)
+        this.downstreamFlipperOutput = new ParameterString('downstreamFlipperOutput', this.hdf5File, this.parameters)
+        this.directBeamFileName = new ParameterString('directBeamFileName', this.hdf5File, this.parameters)
+        /// edrFilePath must be the final listener
+        this.edrFilePath = new ParameterString('edrFilePath', this.hdf5File, this.parameters)
     }
 }

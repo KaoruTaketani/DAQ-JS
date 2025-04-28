@@ -7,7 +7,7 @@ await h5wasm.ready
 
 export default class extends Operator {
     /**
-     * @param {import('./Variables.js').default} variables 
+     * @param {import('./ServerVariables.js').default} variables 
      */
     constructor(variables) {
         super()
@@ -27,37 +27,38 @@ export default class extends Operator {
                     readdir(this._hdf5Path, (err, files) => {
                         if (err) throw err
 
-                        if (!request.url?.endsWith('/Table.js')) {
-                            ws.send(files.map(innerText => `<option>${innerText}</option>`).join('\n'))
-                            return
-                        }
-                        const startTime = Date.now()
-                        /** @type {object[]} */
-                        const metadata = []
-                        files.forEach(file => {
-                            if (!file.endsWith('.h5')) return
+                        if (request.url?.endsWith('/TableClient.js')) {
+                            const startTime = Date.now()
+                            /** @type {object[]} */
+                            const metadata = []
+                            files.forEach(file => {
+                                if (!file.endsWith('.h5')) return
 
-                            const tmp = new Map()
-                            tmp.set('_name', basename(file, '.h5'))
-                            const f = new h5wasm.File(join(this._hdf5Path, file), 'r')
-                            Object.keys(f.attrs).forEach(key => {
-                                tmp.set(key, f.attrs[key].value)
+                                const tmp = new Map()
+                                tmp.set('_name', basename(file, '.h5'))
+                                const f = new h5wasm.File(join(this._hdf5Path, file), 'r')
+                                Object.keys(f.attrs).forEach(key => {
+                                    tmp.set(key, f.attrs[key].value)
+                                })
+                                f.close()
+                                metadata.push(Object.fromEntries(tmp))
                             })
-                            f.close()
-                            metadata.push(Object.fromEntries(tmp))
-                        })
-                        const keys = new Set()
-                        metadata.forEach(row => {
-                            Object.keys(row).forEach(key => {
-                                keys.add(key)
+                            const keys = new Set()
+                            metadata.forEach(row => {
+                                Object.keys(row).forEach(key => {
+                                    keys.add(key)
+                                })
                             })
-                        })
-                        console.log(`readMetadata elapsedTime: ${Date.now() - startTime}ms`)
-                        variables.tableMetadata.assign(metadata)
-                        ws.send(Array.from(keys).sort().map(key => `<option selected>${key}</option>`).join('\n'))
+                            console.log(`readMetadata elapsedTime: ${Date.now() - startTime}ms`)
+                            variables.tableMetadata.assign(metadata)
+                            ws.send(Array.from(keys).sort().map(key => `<option selected>${key}</option>`).join('\n'))
+                        } else if (request.url?.endsWith('/VelocityClient.js')) {
+                        } else {
+                            ws.send(files.map(innerText => `<option>${innerText}</option>`).join('\n'))
+                        }
                     })
 
-                    ws.onmessage = event => {
+                    ws.on('message', data => {
                         console.log(`onmessage url:${request.url}`)
 
                         if (request.url === undefined) {
@@ -65,19 +66,20 @@ export default class extends Operator {
                             return
                         }
                         variables.clientUrl.assign(request.url)
-
-                        if (!request.url.endsWith('/Table.js')) {
-                            const f = new h5wasm.File(join(this._hdf5Path, event.data.toString()), "r")
-                            variables.hdf5File.assign(f)
-                            f.close()
-                        } else {
-                            variables.tableSelectedColumns.assign(event.data.toString())
-                        }
+                        variables.message.assign(data.toString())
+                        // if (request.url.endsWith('/TableClient.js')) {
+                        //     variables.tableSelectedColumns.assign(data.toString())
+                        // } else if (request.url.endsWith('/VelocityClient.js')) {
+                        // } else {
+                        //     const f = new h5wasm.File(join(this._hdf5Path, data.toString()), "r")
+                        //     variables.hdf5File.assign(f)
+                        //     f.close()
+                        // }
                         variables.clientWebSocket.assign(ws)
-                    }
-                    ws.onclose = () => {
+                    })
+                    ws.on('close', () => {
                         console.log('a ws closed by the client')
-                    }
+                    })
                 })
             })
         }

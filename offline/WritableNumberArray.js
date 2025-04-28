@@ -12,14 +12,24 @@ export default class extends ListenableObject {
         super()
         /** @type {string} */
         this._name = name
-        /** @type {number[]|undefined} */
+        /** @type {number[]|undefined|import('./index.js').Histogram} */
         this._value
         readable.addListener(arg => {
-            if (this._value) arg.create_dataset({
-                name: this._name,
-                data: this._value,
-                dtype: '<d'
-            })
+            if (this._value) {
+                if (Array.isArray(this._value)) {
+                    arg.create_dataset({
+                        name: this._name,
+                        data: this._value,
+                        dtype: '<f'
+                    })
+                } else {
+                    arg.create_dataset({
+                        name: this._name,
+                        data: this._value.binCounts,
+                        dtype: '<i'
+                    })
+                }
+            }
         })
     }
     /**

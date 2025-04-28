@@ -7,10 +7,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {string} */
-        this._directBeamFileName
-        variables.directBeamFileName.prependListener(arg => { this._directBeamFileName = arg })
-        /** @type {number[]} */
+        /** @type {number[]|undefined} */
         this._directBeamContrast
         variables.directBeamContrast.prependListener(arg => { this._directBeamContrast = arg })
         /** @type {number[]} */
@@ -20,19 +17,21 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._directBeamFileName) return
+            if (!this._directBeamContrast) {
+                variables.contrastRatio.assign(undefined)
+            }else{
+                ok(this._contrast.length === this._directBeamContrast.length)
 
-            ok(this._contrast.length === this._directBeamContrast.length)
-
-            const contrastRatio = new Array(this._contrast.length).fill(0).map((_, i) => {
-                ok(this._directBeamContrast)
-                return Number.isNaN(this._contrast[i])
-                    || Number.isNaN(this._directBeamContrast[i])
-                    || this._directBeamContrast[i] === 0
-                    ? NaN
-                    : this._contrast[i] / this._directBeamContrast[i]
-            })
-            variables.contrastRatio.assign(contrastRatio)
+                const contrastRatio = new Array(this._contrast.length).fill(0).map((_, i) => {
+                    ok(this._directBeamContrast)
+                    return Number.isNaN(this._contrast[i])
+                        || Number.isNaN(this._directBeamContrast[i])
+                        || this._directBeamContrast[i] === 0
+                        ? NaN
+                        : this._contrast[i] / this._directBeamContrast[i]
+                })
+                variables.contrastRatio.assign(contrastRatio)    
+            }
         }
     }
 }

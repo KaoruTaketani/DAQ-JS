@@ -1,42 +1,49 @@
+export interface Parameters {
+    edrFilePath: string
+    comment?: string
+    roiXInPixels?: number
+    roiYInPixels?: number
+    roiWidthInPixels?: number
+    roiHeightInPixels?: number
+    frequencyVectorLength?: number
+}
 export interface ChannelEvent {
-    tof: number
+    tofInNanoseconds: number
     position: number
-    pulse: number
+    pulseHeight: number
 }
 
 export interface PairedEvent {
-    xTOF: number
+    xTOFInNanoseconds: number
     xPosition: number
-    xPulse: number
-    yTOF: number
+    xPulseHeight: number
+    yTOFInNanoseconds: number
     yPosition: number
-    yPulse: number
+    yPulseHeight: number
 }
 
 export interface NeutronEvent {
-    tof: number
+    tofInNanoseconds: number
     x: number
-    y: number
+    y: number,
+    pulseheight: number
 }
 
 export interface Histogram {
-    binLimits: number[]
     binCounts: number[]
+    binWidth: number
 }
 
 export interface Histogram2D {
-    xBinLimits: number[]
-    yBinLimits: number[]
     binCounts: number[]
     numBins: number[]
+    binWidth: number[]
 }
 
 export interface Histogram3D {
-    xBinLimits: number[]
-    yBinLimits: number[]
-    zBinLimits: number[]
-    numBins: number[]
     binCounts: number[]
+    numBins: number[]
+    binWidth: number[]
 }
 
 export interface Axes {
