@@ -1,12 +1,10 @@
 [home](../README.md)
 
 ```js
-const downloadSVGButtonElement = document.createElement('input')
-downloadSVGButtonElement.type = 'button'
-downloadSVGButtonElement.value = 'download svg'
-downloadSVGButtonElement.style.width = '130px'
-downloadSVGButtonElement.style.display = 'block'
 const svgLinkElement = document.createElement('a')
+
+const downloadSVGButtonElement = document.createElement('input')
+
 downloadSVGButtonElement.onclick = () => {
     svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
         `<svg xmlns="http://www.w3.org/2000/svg" >${histogramSVGElement.innerHTML}</svg>`
@@ -14,7 +12,6 @@ downloadSVGButtonElement.onclick = () => {
     svgLinkElement.setAttribute('download', 'histogram.svg')
     svgLinkElement.click()
 }
-dialogElement.appendChild(downloadSVGButtonElement)
 ```
 
 
