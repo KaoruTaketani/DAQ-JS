@@ -75,3 +75,5 @@ graph TD;
 [ws](https://github.com/websockets/ws)
 
 [h5wasm](https://github.com/usnistgov/h5wasm)
+
+[koffi](https://github.com/Koromix/koffi)

@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "koffi": "^2.11.0"
+  }
+}

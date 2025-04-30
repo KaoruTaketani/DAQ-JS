@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "node-ni-visa": "^0.5.0"
+  }
+}
