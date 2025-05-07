@@ -18,7 +18,6 @@ httpServer.on('upgrade', (request, socket, head) => {
         if (request.url === '/') {
             ws.on('message', data => {
                 console.log(`recieved ${data.toString()}`)
-                ws.close()
             })
         }
     })
