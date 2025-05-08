@@ -20,11 +20,12 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            // sub2ind expects indexes to start frpm 1
             this._horizontalProjectionHistograms.binCounts[sub2ind(
                 this._horizontalProjectionHistograms.numBins,
-                Math.round(this._filteredNeutronEvent.tofInNanoseconds
+                Math.ceil(this._filteredNeutronEvent.tofInNanoseconds
                     / this._horizontalProjectionHistograms.binWidth[0]),
-                this._filteredNeutronEvent.x - this._roiXInPixels /** in raw image pixcel */
+                this._filteredNeutronEvent.xPositionInPixels - this._roiXInPixels
             )]++
         }
     }

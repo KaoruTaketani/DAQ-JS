@@ -9,23 +9,23 @@ export interface Parameters {
 }
 export interface ChannelEvent {
     tofInNanoseconds: number
-    position: number
+    positionInPixels: number
     pulseHeight: number
 }
 
 export interface PairedEvent {
     xTOFInNanoseconds: number
-    xPosition: number
+    xPositionInPixels: number
     xPulseHeight: number
     yTOFInNanoseconds: number
-    yPosition: number
+    yPositionInPixels: number
     yPulseHeight: number
 }
 
 export interface NeutronEvent {
     tofInNanoseconds: number
-    x: number
-    y: number,
+    xPositionInPixels: number
+    yPositionInPixels: number,
     pulseheight: number
 }
 

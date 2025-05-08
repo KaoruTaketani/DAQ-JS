@@ -41,7 +41,7 @@ export default class extends Operator {
                         variables.channel0Event.assign({
                             tofInNanoseconds: tof,
                             pulseHeight: left + right,
-                            position: ((left << this._neutronPositionBitLength) / (left + right)) >> 0
+                            positionInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
                         })
                     }
                     if (channel === 1) {
@@ -50,7 +50,7 @@ export default class extends Operator {
                         variables.channel1Event.assign({
                             tofInNanoseconds: tof,
                             pulseHeight: left + right,
-                            position: ((left << this._neutronPositionBitLength) / (left + right)) >> 0
+                            positionInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
                         })
                     }
                 } else if (this._eventBuffer[8 * i] === 0x5b) {

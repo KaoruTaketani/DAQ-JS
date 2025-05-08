@@ -23,12 +23,13 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            // sub2ind expects indexes to start frpm 1
             this._tofImage.binCounts[sub2ind(
                 this._tofImage.numBins,
-                Math.round(this._filteredNeutronEvent.tofInNanoseconds 
+                Math.ceil(this._filteredNeutronEvent.tofInNanoseconds
                     / this._tofImage.binWidth[0]),
-                this._filteredNeutronEvent.y - this._roiYInPixels, /** in raw image pixcel */
-                this._filteredNeutronEvent.x - this._roiXInPixels /** in raw image pixcel */
+                this._filteredNeutronEvent.yPositionInPixels - this._roiYInPixels,
+                this._filteredNeutronEvent.xPositionInPixels - this._roiXInPixels
             )]++
         }
     }

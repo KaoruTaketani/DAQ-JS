@@ -17,8 +17,9 @@ export default (
     for (let j = 0; j < height; ++j) {
         for (let i = 1; i < width + 1; ++i) {
             // c[j * (width + 1)] is filter type, which is zero
+            // sub2ind expects indexes to start frpm 1
             c[j * (width + 1) + i] = Math.floor(
-                255 * C.binCounts[sub2ind(C.numBins, j, i)]
+                255 * C.binCounts[sub2ind(C.numBins, j + 1, i)]
                 / scale
             )
         }

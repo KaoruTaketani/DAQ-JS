@@ -27,8 +27,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const dx = this._neutronEvent.x - this._roiXInPixels
-            const dy = this._neutronEvent.y - this._roiYInPixels
+            const dx = this._neutronEvent.xPositionInPixels - this._roiXInPixels
+            const dy = this._neutronEvent.yPositionInPixels - this._roiYInPixels
             if (dx < 1) return
             if (dx > this._roiWidthInPixels) return
             if (dy < 1) return

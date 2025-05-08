@@ -17,10 +17,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            // sub2ind expects indexes to start frpm 1
             this._rawImage.binCounts[sub2ind(
                 this._rawImage.numBins,
-                this._neutronEvent.y,
-                this._neutronEvent.x
+                this._neutronEvent.yPositionInPixels + 1,
+                this._neutronEvent.xPositionInPixels + 1
             )]++
         }
     }
