@@ -1,7 +1,7 @@
 import sum from './sum.js'
 /**
  * @param {number[]} a
- * @param {number[]} w
+ * @param {number[]} [w]
  * @returns {number}
  */
 export default (

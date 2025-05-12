@@ -2,7 +2,7 @@ import sum from './sum.js'
 import mean from './mean.js'
 /**
  * @param {number[]} a
- * @param {number[]} w
+ * @param {number[]} [w]
  * @returns {number}
  */
 export default (
