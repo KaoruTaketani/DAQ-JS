@@ -1,10 +1,21 @@
+import sum from './sum.js'
+import mean from './mean.js'
+/**
+ * @param {number[]} a
+ * @param {number[]} w
+ * @returns {number}
+ */
 export default (
-    x
+    a,
+    w
 ) => {
-    // S = std(A) returns the standard deviation of the elements of A along the first array dimension whose size does not equal 1. By default, the standard deviation is normalized by N-1, where N is the number of observations.
-    // If A is a vector of observations, then S is a scalar.
-    // If A is a matrix whose columns are random variables and whose rows are observations, then S is a row vector containing the standard deviation corresponding to each column.
-    const total = x.reduce((a, b) => a + b, 0)
-    const squared = x.reduce((a, b) => a + Math.pow(b - total / x.length, 2), 0)
-    return Math.sqrt(squared / (x.length - 1))
+    if (!w) {
+        const mu = mean(a),
+            squared = a.map(_a => Math.pow(_a - mu, 2))
+        return Math.sqrt(sum(squared) / (a.length - 1))
+    } else {
+        const mu = mean(a, w),
+            squared = a.map((_a, i) => w[i] * Math.pow(_a - mu, 2))
+        return Math.sqrt(sum(squared) / sum(w))
+    }
 }

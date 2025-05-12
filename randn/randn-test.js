@@ -9,7 +9,7 @@ test('1st example of matlab', () => {
     strictEqual(size(r).length, 2)
     strictEqual(size(r)[0], 5)
     strictEqual(size(r)[1], 5)
-    console.log(r)
+    // console.log(r)
 })
 
 test('2nd example of matlab', () => {
@@ -18,7 +18,7 @@ test('2nd example of matlab', () => {
     strictEqual(size(r).length, 2)
     strictEqual(size(r)[0], 10)
     strictEqual(size(r)[1], 2)
-    console.log(r)
+    // console.log(r)
 })
 
 test('histogram 1d', () => {
@@ -42,7 +42,7 @@ test('histogram 1d', () => {
             h.value[idx]++
         }
     }
-    console.log(h)
+    // console.log(h)
 })
 
 test('histogram 1d', () => {
@@ -67,6 +67,6 @@ test('histogram 1d', () => {
             h.value[ix][iy]++
         }
     }
-    console.log(h)
+    // console.log(h)
 })
 

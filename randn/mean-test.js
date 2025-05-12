@@ -8,10 +8,7 @@ test('returns mean', () => {
     almostEqual(mean([1, 2, 2, 2]), 1.75)
 })
 
-test('example of mean in matlab', () => {
-    const M = mean([[0, 1, 1], [2, 3, 2], [1, 3, 2], [4, 2, 2]])
-    // mean averages over column, (0+2+1+4)/4=1.75
-    // output is M = 1×3
-    //
-    //    1.7500    2.2500    1.7500
+test('returns weighted mean', () => {
+    almostEqual(mean([1, 7, 1, 1, 6], [1, 2, 1, 2, 3]), 4.00000)
+    almostEqual(mean([1, 9, 9, 9, 2], [1, 2, 1, 2, 3]), 5.77778)
 })
