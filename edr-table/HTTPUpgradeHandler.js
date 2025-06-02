@@ -1,5 +1,6 @@
 import { WebSocketServer } from 'ws'
 import ChannelEventTableServer from './ChannelEventTableServer.js'
+import PairedEventTableServer from './PairedEventTableServer.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -21,9 +22,11 @@ export default class extends Operator {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
                     if (request.url === '/ChannelEventTableClient.js')
                         this._servers.set(ws, new ChannelEventTableServer(ws))
+                    if (request.url === '/PairedEventTableClient.js')
+                        this._servers.set(ws, new PairedEventTableServer(ws))
 
                     ws.on('message', data => {
-                        console.log(`onmessage url:${request.url}`)
+                        // console.log(`onmessage url:${request.url}`)
 
                         const arg = JSON.parse(data.toString())
                         this._servers.get(ws)?.variables.message.assign(arg)

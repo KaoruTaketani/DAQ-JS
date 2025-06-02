@@ -26,8 +26,8 @@ export default class extends Operator {
             variables.edrFileSize.assign(statSync(filePath).size)
             variables.processedSize.assign(0)
 
-            variables.channelEventTableInnerHTML.assign('')
             variables.channelEvents.assign([])
+            variables.pairedEvents.assign([])
 
             const startTime = Date.now()
             createReadStream(filePath, { highWaterMark: 32 * 1024 * 1024 })
@@ -36,8 +36,11 @@ export default class extends Operator {
                     variables.processedSize.assign(this._processedSize += chunk.length)
                 }).on('end', () => {
                     console.log(`elapsedTime: ${Date.now() - startTime} ms`)
+
                     variables.channelEventOffset.assign(0)
                     variables.channelEventOffsetValue.assign('0')
+                    variables.pairedEventOffset.assign(0)
+                    variables.pairedEventOffsetValue.assign('0')
                     // variables.eventsBuffer.assign(null)
                 })
         }

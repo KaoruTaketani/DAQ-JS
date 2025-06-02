@@ -18,6 +18,10 @@ export default class {
         this.channelEvents = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
         this.channelEvent = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent[]>} */
+        this.pairedEvents = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent>} */
+        this.pairedEvent = new ListenableObject()
 
         this.edrFileSize = new ListenableNumber()
         this.processedSize = new ListenableNumber()
@@ -27,12 +31,16 @@ export default class {
         this.neutronPositionBitLength = new ListenableNumber()
 
         this.channelEventOffset = new ControllableNumber('channelEventOffset', this.message)
+        this.pairedEventOffset = new ControllableNumber('pairedEventOffset', this.message)
 
         this.edrPath = new ListenableString()
 
         this.channelEventTableInnerHTML = new ElementString('channelEventTableInnerHTML', webSocket)
+        this.pairedEventTableInnerHTML = new ElementString('pairedEventTableInnerHTML', webSocket)
         this.channelEventOffsetValue = new ElementString('channelEventOffsetValue', webSocket)
+        this.pairedEventOffsetValue = new ElementString('pairedEventOffsetValue', webSocket)
         this.channelEventMessageInnerText = new ElementString('channelEventMessageInnerText', webSocket)
+        this.pairedEventMessageInnerText = new ElementString('pairedEventMessageInnerText', webSocket)
         this.edrFileNamesInnerHTML = new ElementString('edrFileNamesInnerHTML', webSocket)
 
         this.edrReaderFileName = new ControllableString('edrReaderFileName', this.message)

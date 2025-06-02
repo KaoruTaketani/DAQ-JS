@@ -45,10 +45,8 @@ export default class extends Operator {
                         '</head>',
                         '<body>',
                         `    <p><a href="./ChannelEventTableClient.html">Channel</a></p>`,
-                        `    <p><a href="./FlagEventTableClient.html">Flag</a></p>`,
-                        `    <p><a href="./NeutronEventTableClient.html">Neutron</a></p>`,
                         `    <p><a href="./PairedEventTableClient.html">Paired</a></p>`,
-                        `    <p><a href="./UnixTimeEventTableClient.html">Unix Time</a></p>`,
+                        `    <p><a href="./NeutronEventTableClient.html">Neutron</a></p>`,
                         '</body>',
                         '</html>'
                     ].join('\n'))
