@@ -12,14 +12,14 @@ offsetElement.style.marginTop = '508px'
 offsetElement.style.position = 'absolute'
 offsetElement.min = '0'
 socket.addEventListener('message', event => {
-    const key = 'pairedEventOffsetValue'
+    const key = 'offsetValue'
     if (!event.data.startsWith(`{"${key}":`)) return
     offsetElement.value = JSON.parse(event.data)[key]
 })
 offsetElement.onchange = () => {
     const value = parseInt(offsetElement.value)
     if (!Number.isInteger(value)) return
-    socket.send(JSON.stringify({ pairedEventOffset: value }))
+    socket.send(JSON.stringify({ eventOffset: value }))
 }
 document.body.appendChild(offsetElement)
 
@@ -45,7 +45,7 @@ const messageElement = document.createElement('div')
 // messageElement.style.position = 'absolute'
 messageElement.style.marginLeft = '158px'
 socket.addEventListener('message', event => {
-    const key = 'pairedEventMessageInnerText'
+    const key = 'messageInnerText'
     if (!event.data.startsWith(`{"${key}":"`)) return
     messageElement.innerText = JSON.parse(event.data)[key]
 })
@@ -55,7 +55,7 @@ document.body.appendChild(messageElement)
 const tableElement = document.createElement('table')
 tableElement.style.marginLeft = '158px'
 socket.addEventListener('message', event => {
-    const key = 'pairedEventTableInnerHTML'
+    const key = 'tableInnerHTML'
     if (!event.data.startsWith(`{"${key}":`)) return
     tableElement.innerHTML = JSON.parse(event.data)[key]
 })

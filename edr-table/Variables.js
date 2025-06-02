@@ -22,25 +22,26 @@ export default class {
         this.pairedEvents = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent>} */
         this.pairedEvent = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent[]>} */
+        this.neutronEvents = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent>} */
+        this.neutronEvent = new ListenableObject()
 
         this.edrFileSize = new ListenableNumber()
         this.processedSize = new ListenableNumber()
         this.kickerPulseCount = new ListenableNumber()
-        this.channel0Count = new ListenableNumber()
-        this.channel1Count = new ListenableNumber()
         this.neutronPositionBitLength = new ListenableNumber()
+        this.tofMaxInMilliseconds = new ListenableNumber()
+        this.tofDifferenceMaxInNanoseconds=new ListenableNumber()
+        this.tofDifferenceMinInNanoseconds=new ListenableNumber()
 
-        this.channelEventOffset = new ControllableNumber('channelEventOffset', this.message)
-        this.pairedEventOffset = new ControllableNumber('pairedEventOffset', this.message)
+        this.eventOffset = new ControllableNumber('eventOffset', this.message)
 
         this.edrPath = new ListenableString()
 
-        this.channelEventTableInnerHTML = new ElementString('channelEventTableInnerHTML', webSocket)
-        this.pairedEventTableInnerHTML = new ElementString('pairedEventTableInnerHTML', webSocket)
-        this.channelEventOffsetValue = new ElementString('channelEventOffsetValue', webSocket)
-        this.pairedEventOffsetValue = new ElementString('pairedEventOffsetValue', webSocket)
-        this.channelEventMessageInnerText = new ElementString('channelEventMessageInnerText', webSocket)
-        this.pairedEventMessageInnerText = new ElementString('pairedEventMessageInnerText', webSocket)
+        this.tableInnerHTML = new ElementString('tableInnerHTML', webSocket)
+        this.offsetValue = new ElementString('offsetValue', webSocket)
+        this.messageInnerText = new ElementString('messageInnerText', webSocket)
         this.edrFileNamesInnerHTML = new ElementString('edrFileNamesInnerHTML', webSocket)
 
         this.edrReaderFileName = new ControllableString('edrReaderFileName', this.message)

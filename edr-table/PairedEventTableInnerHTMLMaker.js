@@ -10,16 +10,16 @@ export default class extends Operator {
         this._pairedEvents
         variables.pairedEvents.prependListener(arg => { this._pairedEvents = arg })
         /** @type {number} */
-        this._pairedEventOffset
-        variables.pairedEventOffset.addListener(arg => {
-            this._pairedEventOffset = arg
+        this._eventOffset
+        variables.eventOffset.addListener(arg => {
+            this._eventOffset = arg
             this._operation()
         })
         this._operation = () => {
-            const sliced = this._pairedEvents.slice(this._pairedEventOffset, this._pairedEventOffset + 25)
+            const sliced = this._pairedEvents.slice(this._eventOffset, this._eventOffset + 25)
             if (sliced.length === 0) return
 
-            variables.pairedEventTableInnerHTML.assign([
+            variables.tableInnerHTML.assign([
                 '<thead>',
                 '<tr>',
                 Object.keys(this._pairedEvents[0]).map(key => `<th>${key}</th>`).join(''),

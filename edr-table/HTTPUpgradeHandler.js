@@ -1,6 +1,7 @@
 import { WebSocketServer } from 'ws'
 import ChannelEventTableServer from './ChannelEventTableServer.js'
 import PairedEventTableServer from './PairedEventTableServer.js'
+import NeutronEventTableServer from './NeutronEventTableServer.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -24,6 +25,8 @@ export default class extends Operator {
                         this._servers.set(ws, new ChannelEventTableServer(ws))
                     if (request.url === '/PairedEventTableClient.js')
                         this._servers.set(ws, new PairedEventTableServer(ws))
+                    if (request.url === '/NeutronEventTableClient.js')
+                        this._servers.set(ws, new NeutronEventTableServer(ws))
 
                     ws.on('message', data => {
                         // console.log(`onmessage url:${request.url}`)

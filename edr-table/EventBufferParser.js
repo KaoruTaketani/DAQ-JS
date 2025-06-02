@@ -12,12 +12,6 @@ export default class extends Operator {
         /** @type {number} */
         this._kickerPulseCount
         variables.kickerPulseCount.prependListener(arg => { this._kickerPulseCount = arg })
-        /** @type {number} */
-        this._channel0Count
-        variables.channel0Count.prependListener(arg => { this._channel0Count = arg })
-        /** @type {number} */
-        this._channel1Count
-        variables.channel1Count.prependListener(arg => { this._channel1Count = arg })
         /** @type {Buffer} */
         this._eventBuffer
         variables.eventBuffer.addListener(arg => {
@@ -41,12 +35,6 @@ export default class extends Operator {
                         pulseHeight: left + right,
                         positionInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
                     })
-                    if (channel === 0) {
-                        variables.channel0Count.assign(this._channel0Count + 1)
-                    }
-                    if (channel === 1) {
-                        variables.channel1Count.assign(this._channel1Count + 1)
-                    }
                 } else if (this._eventBuffer[8 * i] === 0x5b) {
                     variables.kickerPulseCount.assign(this._kickerPulseCount + 1)
                 } else if (this._eventBuffer[8 * i] === 0x5c) {

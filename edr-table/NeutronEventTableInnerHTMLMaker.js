@@ -6,9 +6,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').ChannelEvent[]} */
-        this._channelEvents
-        variables.channelEvents.prependListener(arg => { this._channelEvents = arg })
+        /** @type {import('./index.js').NeutronEvent[]} */
+        this._neutronEvents
+        variables.neutronEvents.prependListener(arg => { this._neutronEvents = arg })
         /** @type {number} */
         this._eventOffset
         variables.eventOffset.addListener(arg => {
@@ -16,13 +16,13 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const sliced = this._channelEvents.slice(this._eventOffset, this._eventOffset + 25)
+            const sliced = this._neutronEvents.slice(this._eventOffset, this._eventOffset + 25)
             if (sliced.length === 0) return
 
             variables.tableInnerHTML.assign([
                 '<thead>',
                 '<tr>',
-                Object.keys(this._channelEvents[0]).map(key => `<th>${key}</th>`).join(''),
+                Object.keys(this._neutronEvents[0]).map(key => `<th>${key}</th>`).join(''),
                 '</tr>',
                 '</thead>',
                 '<tbody align=\\"right\\">',// backslash is necessary if string contains ""

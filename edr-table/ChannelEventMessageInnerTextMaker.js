@@ -6,12 +6,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._channel0Count
-        variables.channel0Count.prependListener(arg => { this._channel0Count = arg })
-        /** @type {number} */
-        this._channel1Count
-        variables.channel1Count.prependListener(arg => { this._channel1Count = arg })
         /** @type {import('./index.js').ChannelEvent[]} */
         this._channelEvents
         variables.channelEvents.prependListener(arg => { this._channelEvents = arg })
@@ -27,7 +21,7 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._channelEvents) return
 
-            variables.channelEventMessageInnerText.assign([
+            variables.messageInnerText.assign([
                 `bytes: ${this._processedSize.toLocaleString()}/ ${this._edrFileSize.toLocaleString()}`,
                 `channelEvents.length: ${this._channelEvents.length.toLocaleString()}`
             ].join(', '))// can not use \n

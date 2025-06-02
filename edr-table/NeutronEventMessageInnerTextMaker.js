@@ -6,9 +6,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').PairedEvent[]} */
-        this._pairedEvents
-        variables.pairedEvents.prependListener(arg => { this._pairedEvents = arg })
+        /** @type {import('./index.js').NeutronEvent[]} */
+        this._neutronEvents
+        variables.neutronEvents.prependListener(arg => { this._neutronEvents = arg })
         /** @type {number} */
         this._edrFileSize
         variables.edrFileSize.prependListener(arg => { this._edrFileSize = arg })
@@ -19,11 +19,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._pairedEvents) return
+            if (!this._neutronEvents) return
 
             variables.messageInnerText.assign([
                 `bytes: ${this._processedSize.toLocaleString()}/ ${this._edrFileSize.toLocaleString()}`,
-                `pairedEvents.length: ${this._pairedEvents.length.toLocaleString()}`
+                `neutronEvents.length: ${this._neutronEvents.length.toLocaleString()}`
             ].join(', '))// can not use \n
         }
     }

@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        // 2017 is necessary for top level await, used to import hdf5
+        "target": "ES2017",
+        "module": "node16", 
+        // "moduleResolution": "node16", 
+        "checkJs": true,
+        // following from  tsoptions?
+        "strict": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        // "baseUrl": "."
+    },
+    "exclude": []
+}
