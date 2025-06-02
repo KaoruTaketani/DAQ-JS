@@ -7,10 +7,13 @@ export default class extends ListenableNumber {
      */
     constructor(key, message) {
         super()
+        this._key = key
         message.addListener(arg => {
-            if (arg[key] === undefined) return
+            for (const [key, value] of Object.entries(arg)) {
+                if (key !== this._key)return
 
-            super.assign(arg[key])
+                super.assign(value)
+            }
         })
     }
 }
