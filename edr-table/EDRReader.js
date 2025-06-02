@@ -31,7 +31,7 @@ export default class extends Operator {
             variables.neutronEvents.assign([])
 
             const startTime = Date.now()
-            createReadStream(filePath, { highWaterMark: 32 * 1024 * 1024 })
+            createReadStream(filePath, { highWaterMark: 4 * 1024 * 1024 })
                 .on('data', chunk => {
                     variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
                     variables.processedSize.assign(this._processedSize += chunk.length)
