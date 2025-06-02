@@ -24,7 +24,7 @@ export default class extends Operator {
             variables.messageInnerText.assign([
                 `bytes: ${this._processedSize.toLocaleString()}/ ${this._edrFileSize.toLocaleString()}`,
                 `neutronEvents.length: ${this._neutronEvents.length.toLocaleString()}`
-            ].join(', '))// can not use \n
+            ].join('\n'))
         }
     }
 }

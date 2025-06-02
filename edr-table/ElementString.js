@@ -11,6 +11,6 @@ export default class {
     }
     /** @param {string} arg */
     assign(arg) {
-        this._webSocket.send(`{"${this._key}":"${arg}"}`)
+        this._webSocket.send(JSON.stringify(Object.fromEntries([[this._key, arg]])))
     }
 }

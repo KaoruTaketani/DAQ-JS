@@ -7,6 +7,7 @@ export default class extends ListenableString {
      */
     constructor(key, message) {
         super()
+        /** @type {string} */
         this._key = key
         message.addListener(arg => {
             for (const [key, value] of Object.entries(arg)) {

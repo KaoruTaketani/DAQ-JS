@@ -25,7 +25,7 @@ export default class extends Operator {
                 Object.keys(this._neutronEvents[0]).map(key => `<th>${key}</th>`).join(''),
                 '</tr>',
                 '</thead>',
-                '<tbody align=\\"right\\">',// backslash is necessary if string contains ""
+                '<tbody align="right">',
                 sliced.map(obj => ['<tr>',
                     Object.keys(obj).map(key => {
                         /** @type {any} */
