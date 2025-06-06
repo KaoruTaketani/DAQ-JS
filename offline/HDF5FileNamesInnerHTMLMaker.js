@@ -6,14 +6,14 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._httpServer
-        variables.httpServer.addListener(arg => {
-            this._httpServer = arg
+        /** @type {string[]} */
+        this._hdf5FileNames
+        variables.hdf5FileNames.addListener(arg => {
+            this._hdf5FileNames = arg
             this._operation()
         })
         this._operation = () => {
-            this._httpServer.listen(80)
+            variables.hdf5FileNamesInnerHTML.assign(this._hdf5FileNames.map(fileName => `<option>${fileName}</option>`).join('\n'))
         }
     }
 }
-

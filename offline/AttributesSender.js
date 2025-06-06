@@ -14,21 +14,13 @@ export default class extends Operator {
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {string} */
-        this._message
-        variables.message.prependListener(arg => { this._message = arg })
-        /** @type {string} */
-        this._clientUrl
-        variables.clientUrl.prependListener(arg => { this._clientUrl = arg })
-        /** @type {import('ws').WebSocket} */
-        this._clientWebSocket
-        variables.clientWebSocket.addListener(arg => {
-            this._clientWebSocket = arg
+        this._hdf5ReaderFileName
+        variables.hdf5ReaderFileName.addListener(arg => {
+            this._hdf5ReaderFileName = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('/AttributesClient.js')) return
-
-            const f = new h5wasm.File(join(this._hdf5Path, this._message), "r")
+            const f = new h5wasm.File(join(this._hdf5Path, this._hdf5ReaderFileName), "r")
             // console.log(this._hdf5File.keys())
             // console.log(this._hdf5File.name)
             // console.log(Object.assign({},this._hdf5File.attrs))
@@ -111,7 +103,7 @@ export default class extends Operator {
                 }
             })
 
-            this._clientWebSocket.send(tmp)
+            variables.divInnerHTML.assign(tmp)
         }
     }
 }

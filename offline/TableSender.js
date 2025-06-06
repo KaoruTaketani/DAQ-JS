@@ -7,31 +7,20 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {object[]} */
-        this._tableMetadata
-        variables.tableMetadata.prependListener(arg => { this._tableMetadata = arg })
-        /** @type {string} */
-        this._clientUrl
-        variables.clientUrl.prependListener(arg => { this._clientUrl = arg })
-        /** @type {string} */
-        this._message
-        variables.message.prependListener(arg => { this._message = arg })
-        /** @type {import('ws').WebSocket} */
-        this._clientWebSocket
-        variables.clientWebSocket.addListener(arg => {
-            this._clientWebSocket = arg
+        this._hdf5Attributes
+        variables.hdf5Attributes.prependListener(arg => { this._hdf5Attributes = arg })
+        /** @type {string[]} */
+        this._tableMakerColumns
+        variables.tableMakerColumns.addListener(arg => {
+            this._tableMakerColumns = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('/TableClient.js')) return
-
-            /** @type {string[]} */
-            const selectedColumns = this._message.split(',')
-
-            const bodyInnerHTML = this._tableMetadata.map(row => {
+            const bodyInnerHTML = this._hdf5Attributes.map(row => {
                 return '<tr>'
-                    + selectedColumns.map(key => {
+                    + this._tableMakerColumns.map(column => {
                         const cellMap = new Map(Object.entries(row)),
-                            value = cellMap.get(key)
+                            value = cellMap.get(column)
                         if (Number.isInteger(value))
                             return `<td>${value.toLocaleString()}</td>`
                         if (Number.isFinite(value))
@@ -41,7 +30,7 @@ export default class extends Operator {
                     + '</tr>'
             }).join('')
 
-            this._clientWebSocket.send([
+            variables.tableInnerHTML.assign([
                 '<html>',
                 '<head>',
                 '    <meta charset="utf-8">',
@@ -50,7 +39,7 @@ export default class extends Operator {
                 '    <table>',
                 '        <thead>',
                 '            <tr>',
-                selectedColumns.map(key => `<th>${key}</th>`).join(''),
+                this._tableMakerColumns.map(key => `<th>${key}</th>`).join(''),
                 '            </tr>',
                 '        </thead>',
                 '        <tbody>',

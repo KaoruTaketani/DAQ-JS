@@ -1,7 +1,7 @@
+import { readFile } from 'fs'
+import { join } from 'path'
 import imagesc from './imagesc.js'
 import Operator from './Operator.js'
-import { join } from 'path'
-import { readFile } from 'fs'
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
 
@@ -15,34 +15,23 @@ export default class extends Operator {
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {string} */
-        this._message
-        variables.message.prependListener(arg => { this._message = arg })
-        /** @type {string} */
-        this._clientUrl
-        variables.clientUrl.prependListener(arg => { this._clientUrl = arg })
-        /** @type {import('ws').WebSocket} */
-        this._clientWebSocket
-        variables.clientWebSocket.addListener(arg => {
-            this._clientWebSocket = arg
+        this._hdf5ReaderFileName
+        variables.hdf5ReaderFileName.addListener(arg => {
+            this._hdf5ReaderFileName = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('/ImageClient.js')) return
-
-            console.log(join(this._hdf5Path, this._message))
-            const f = new h5wasm.File(join(this._hdf5Path, this._message), "r")
+            const f = new h5wasm.File(join(this._hdf5Path, this._hdf5ReaderFileName), "r")
 
             /** @type {import('h5wasm').Dataset} */
             const dataset = /** @type {import('h5wasm').Dataset} */(f.get('/rawImage'))
 
-            // console.log(dataset.value)
-            // console.log(dataset.dtype)
             if (dataset === null || dataset.shape === null || dataset.value === null) {
                 console.log(`failed file:${f.path}`)
                 readFile('../../png/error.png', (err, data) => {
                     if (err) throw err
 
-                    this._clientWebSocket.send(`data:image/png;base64,${data.toString('base64')}`)
+                    variables.imageSrc.assign(`data:image/png;base64,${data.toString('base64')}`)
                 })
                 return
             }
@@ -69,7 +58,7 @@ export default class extends Operator {
                 binWidth: [1, 1]
             }
             imagesc(h).then(buf => {
-                this._clientWebSocket.send(`data:image/png;base64,${buf.toString('base64')}`)
+                variables.imageSrc.assign(`data:image/png;base64,${buf.toString('base64')}`)
             })
         }
     }

@@ -4,17 +4,35 @@ const socket = new WebSocket(url)
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
+/** @type {Map<string,function>} */
+const listeners = new Map()
+socket.addEventListener('message', event => {
+    const arg = JSON.parse(event.data)
+    for (const [key, value] of Object.entries(arg)) {
+        listeners.get(key)?.(value)
+    }
+})
 
-const flightTimeElement = document.createElement('div')
-document.body.appendChild(flightTimeElement)
 
-const flightTimeLabelElement = document.createElement('label')
-flightTimeLabelElement.innerText = 'time of flight (ms)'
-flightTimeElement.appendChild(flightTimeLabelElement)
+const tofElement = document.createElement('div')
+document.body.appendChild(tofElement)
 
-const flightTimeInputElement = document.createElement('input')
-flightTimeInputElement.value = '40'
-flightTimeLabelElement.appendChild(flightTimeInputElement)
+const tofLabelElement = document.createElement('label')
+tofLabelElement.innerText = 'time of flight (ms)'
+tofElement.appendChild(tofLabelElement)
+
+const tofInputElement = document.createElement('input')
+// tofInputElement.value = '40'
+tofInputElement.type = 'number'
+tofInputElement.addEventListener('change', () => {
+    const value = parseFloat(tofInputElement.value)
+    if (Number.isNaN(value)) return
+
+    socket.send(JSON.stringify({ tofInMilliseconds: value }))
+})
+listeners.set('tofInputValue', (/** @type {string} */arg) => { tofInputElement.value = arg })
+// tofInputElement.dispatchEvent(new Event('change'))
+tofLabelElement.appendChild(tofInputElement)
 
 const flightLengthElement = document.createElement('div')
 document.body.appendChild(flightLengthElement)
@@ -24,24 +42,20 @@ flightLengthLabelElement.innerText = 'flight length (m)'
 flightLengthElement.appendChild(flightLengthLabelElement)
 
 const flightLengthInputElement = document.createElement('input')
-flightLengthInputElement.value = '20'
-flightLengthLabelElement.appendChild(flightLengthInputElement)
+// flightLengthInputElement.value = '20'
+flightLengthInputElement.type = 'number'
+flightLengthInputElement.addEventListener('change', () => {
+    const value = parseFloat(flightLengthInputElement.value)
+    if (Number.isNaN(value)) return
 
-const submitButtonElement = document.createElement('input')
-submitButtonElement.type = 'submit'
-submitButtonElement.value = 'calculate'
-submitButtonElement.onclick = () => {
-    socket.send(JSON.stringify({
-        tof: flightTimeInputElement.value,
-        length: flightLengthInputElement.value
-    }))
-}
-document.body.appendChild(submitButtonElement)
+    socket.send(JSON.stringify({ flightLengthInMeters: value }))
+})
+listeners.set('flightLengthInputValue', (/** @type {string} */arg) => { flightLengthInputElement.value = arg })
+// flightLengthInputElement.dispatchEvent(new Event('change'))
+flightLengthLabelElement.appendChild(flightLengthInputElement)
 
 const velocityElement = document.createElement('p')
 velocityElement.innerText = 'velocity (m/s): '
-socket.onmessage = (/** @type {MessageEvent} */event) => {
-    velocityElement.innerText = event.data
-}
+listeners.set('velocityMessageInnerText', (/** @type {string} */arg) => { velocityElement.innerText = arg })
 document.body.appendChild(velocityElement)
 

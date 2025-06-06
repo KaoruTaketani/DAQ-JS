@@ -18,27 +18,19 @@ export default class extends Operator {
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {string} */
-        this._clientUrl
-        variables.clientUrl.prependListener(arg => { this._clientUrl = arg })
-        /** @type {string} */
-        this._message
-        variables.message.prependListener(arg => { this._message = arg })
-        /** @type {import('ws').WebSocket} */
-        this._clientWebSocket
-        variables.clientWebSocket.addListener(arg => {
-            this._clientWebSocket = arg
+        this._hdf5ReaderFileName
+        variables.hdf5ReaderFileName.addListener(arg => {
+            this._hdf5ReaderFileName = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('/NeutronRateClient.js')) return
-
-            const f = new h5wasm.File(join(this._hdf5Path, this._message), "r")
+            const f = new h5wasm.File(join(this._hdf5Path, this._hdf5ReaderFileName), "r")
 
             /** @type {any} */
             const entity = f.get('neutronRate')
             if (entity === null
                 || entity.value === undefined) {
-                this._clientWebSocket.send(`<text x="20" y="35">Undefined</text>`)
+                variables.svgInnerHTML.assign(`<text x="20" y="35">Undefined</text>`)
                 return
             }
             ok(typeof entity.value[0] === 'number')
@@ -56,7 +48,7 @@ export default class extends Operator {
             }
             f.close()
 
-            this._clientWebSocket.send([
+            variables.svgInnerHTML.assign([
                 axes(ax),
                 line(ax, colon(1, xMax), value)
             ].join(''))

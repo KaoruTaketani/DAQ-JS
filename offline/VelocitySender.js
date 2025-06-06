@@ -6,24 +6,24 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {string} */
-        this._clientUrl
-        variables.clientUrl.prependListener(arg => { this._clientUrl = arg })
-        /** @type {string} */
-        this._message
-        variables.message.prependListener(arg => { this._message = arg })
-        /** @type {import('ws').WebSocket} */
-        this._clientWebSocket
-        variables.clientWebSocket.addListener(arg => {
-            this._clientWebSocket = arg
+        /** @type {number} */
+        this._flightLengthInMeters
+        variables.flightLengthInMeters.addListener(arg => {
+            this._flightLengthInMeters = arg
+            this._operation()
+        })
+        /** @type {number} */
+        this._tofInMilliseconds
+        variables.tofInMilliseconds.addListener(arg => {
+            this._tofInMilliseconds = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._clientUrl.endsWith('/VelocityClient.js')) return
+            // console.log(`${this._tofInMilliseconds}, ${this._flightLengthInMeters}`)
+            if (!this._tofInMilliseconds) return
+            if (!this._flightLengthInMeters) return
 
-            const args = JSON.parse(this._message)
-
-            this._clientWebSocket.send(`velocity is ${args.length / (args.tof * 1e-3)}`)
+            variables.velocityMessageInnerText.assign(`velocity is ${this._flightLengthInMeters / (this._tofInMilliseconds * 1e-3)} m/s`)
         }
     }
 }
