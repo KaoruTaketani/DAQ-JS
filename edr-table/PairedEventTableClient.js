@@ -7,7 +7,6 @@ socket.onclose = () => {
 /** @type {Map<string,function>} */
 const listeners = new Map()
 /**
- * 
  * @param {string} channel 
  * @param {function} listener 
  */

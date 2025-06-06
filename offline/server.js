@@ -21,7 +21,7 @@ new NeutronRateSender(variables)
 new TableSender(variables)
 new VelocitySender(variables)
 
-variables.hdf5Path.assign('../hdf5/mieze')
+variables.hdf5Path.assign('../../hdf5/mieze')
 variables.httpServer.assign(new Server())
 
 
