@@ -29,6 +29,8 @@ export default class extends Operator {
             variables.channelEvents.assign([])
             variables.pairedEvents.assign([])
             variables.neutronEvents.assign([])
+            variables.startTimeInSeconds.assign(0)
+            variables.kickerPulseCount.assign(0)
 
             const startTime = Date.now()
             createReadStream(filePath, { highWaterMark: 4 * 1024 * 1024 })

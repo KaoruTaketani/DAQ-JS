@@ -32,8 +32,12 @@ export default class {
         this.kickerPulseCount = new ListenableNumber()
         this.neutronPositionBitLength = new ListenableNumber()
         this.tofMaxInMilliseconds = new ListenableNumber()
-        this.tofDifferenceMaxInNanoseconds=new ListenableNumber()
-        this.tofDifferenceMinInNanoseconds=new ListenableNumber()
+        this.tofDifferenceMaxInNanoseconds = new ListenableNumber()
+        this.tofDifferenceMinInNanoseconds = new ListenableNumber()
+        this.pulseRepetitionFrequencyInHertz = new ListenableNumber()
+        this.startTimeInSeconds = new ListenableNumber()
+        this.actualMeasuremntTimeInSeconds = new ListenableNumber()
+        this.expectedMeasuremntTimeInSeconds = new ListenableNumber()
 
         this.eventOffset = new ControllableNumber('eventOffset', this.message)
 

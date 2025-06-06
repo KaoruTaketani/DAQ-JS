@@ -22,6 +22,7 @@ export default class {
 
         this.variables.edrPath.assign('../../edr/20230420')
         this.variables.neutronPositionBitLength.assign(10)
+        this.variables.pulseRepetitionFrequencyInHertz.assign(25 / 2)
     }
 }
 

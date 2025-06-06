@@ -12,6 +12,12 @@ export default class extends Operator {
         /** @type {number} */
         this._kickerPulseCount
         variables.kickerPulseCount.prependListener(arg => { this._kickerPulseCount = arg })
+        /** @type {number} */
+        this._startTimeInSeconds
+        variables.startTimeInSeconds.prependListener(arg => { this._startTimeInSeconds = arg })
+        /** @type {number} */
+        this._pulseRepetitionFrequencyInHertz
+        variables.pulseRepetitionFrequencyInHertz.prependListener(arg => { this._pulseRepetitionFrequencyInHertz = arg })
         /** @type {Buffer} */
         this._eventBuffer
         variables.eventBuffer.addListener(arg => {
@@ -37,8 +43,17 @@ export default class extends Operator {
                     })
                 } else if (this._eventBuffer[8 * i] === 0x5b) {
                     variables.kickerPulseCount.assign(this._kickerPulseCount + 1)
+                    variables.expectedMeasuremntTimeInSeconds.assign(Math.floor(this._kickerPulseCount / this._pulseRepetitionFrequencyInHertz))
                 } else if (this._eventBuffer[8 * i] === 0x5c) {
-                    // timeEvent
+                    const i1 = this._eventBuffer[8 * i + 1],
+                        i2 = this._eventBuffer[8 * i + 2],
+                        i3 = this._eventBuffer[8 * i + 3],
+                        i4 = this._eventBuffer[8 * i + 4],
+                        sec = ((i1 << 24) + (i2 << 16) + (i3 << 8) + i4) >> 2
+                    if (!this._startTimeInSeconds) {
+                        variables.startTimeInSeconds.assign(sec)
+                    }
+                    variables.actualMeasuremntTimeInSeconds.assign(sec - this._startTimeInSeconds)
                 } else {
                     // unexpected
                 }
