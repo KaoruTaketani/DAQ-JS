@@ -44,9 +44,6 @@ this._webSocketPathnames.forEach((pathname, ws) => {
 
 StartTimeInnerTextChanger.js:
 ```js
-if (this._startTime) return
-
-this._startTime = Date.now()
 this._webSocketPathnames.forEach((pathname, ws) => {
     if (pathname === '/startTimeInnerText')
         ws.send(`start time is ${new Date(this._startTime).toString()}`)

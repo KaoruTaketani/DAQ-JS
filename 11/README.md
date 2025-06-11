@@ -52,6 +52,10 @@ RandomNumberInnerTextChanger.js:
 variables.randomNumberInnerText.assign(`random number is ${this._randomNumber}`)
 ```
 
+StartTimeInnerTextChanger.js:
+```js
+variables.startTimeInnerText.assign(`start time is ${new Date(Date.now())toString()}`)
+```
 ## How to run the sample code in this folder
 1. open a terminal
 1. change directory to this folder
