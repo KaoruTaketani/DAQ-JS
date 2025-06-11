@@ -22,15 +22,15 @@ export default class extends Operator {
                         '    <meta charset="utf-8">',
                         '</head>',
                         '<body>',
-                        `    <script type="module" src="./RandomNumberGeneratorClient.js">`,
+                        `    <script type="module" src="./Client.js">`,
                         `    </script>`,
                         '</body>',
                         '</html>'
                     ].join('\n'))
                     return
                 }
-                if (request.url.endsWith('.js')) {
-                    readFile(`.${request.url}`, 'utf8', (err, data) => {
+                if (request.url === '/Client.js') {
+                    readFile('./Client.js', 'utf8', (err, data) => {
                         if (err) throw err
 
                         response.writeHead(200, { 'Content-Type': 'text/javascript' })

@@ -31,6 +31,7 @@ setInterval(() => {
 }, 1000)
 ```
 
+index.js:
 ```html
 <p id="randomNumber">random number is NaN</p>
 <script type="module">

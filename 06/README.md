@@ -42,21 +42,35 @@ if (request.url === '/') {
         '    <meta charset="utf-8">',
         '</head>',
         '<body>',
-        `    <script type="module" src="./RandomNumberGeneratorClient.js">`,
+        `    <script type="module" src="./Client.js">`,
         `    </script>`,
         '</body>',
         '</html>'
     ].join('\n'))
     return
 }
-if (request.url.endsWith('.js')) {
-    readFile(`.${request.url}`, 'utf8', (err, data) => {
+if (request.url === '/Client.js') {
+    readFile('./Client.js', 'utf8', (err, data) => {
         if (err) throw err
 
         response.writeHead(200, { 'Content-Type': 'text/javascript' })
         response.end(data)
     })
     return
+}
+```
+
+Client.js
+```js
+const randomNumberElement = document.createElement('p')
+document.body.appendChild(randomNumberElement)
+
+const socket = new WebSocket("ws://localhost")
+socket.onclose = () => {
+    document.body.innerHTML = "the connection was closed by the server."
+}
+socket.onmessage = event => {
+    randomNumberElement.innerText = event.data
 }
 ```
 

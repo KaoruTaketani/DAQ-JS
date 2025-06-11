@@ -6,13 +6,13 @@
 
 [02 Node.js](./02/README.md)
 
-[03 http](./03/README.md)
+[03 HTTP](./03/README.md)
 
 [04 setInterval](./04/README.md)
 
 [05 WebSocket](./05/README.md)
 
-[06 fs](./06/README.md)
+[06 Client](./06/README.md)
 
 [07 Listenable](./07/README.md)
 
