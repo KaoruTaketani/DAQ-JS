@@ -1,55 +1,39 @@
 [home](../README.md)
 
-### before
-RandomNumberInnerTextChanger.js:
+TimeSeriesInitializer.js:
 ```js
-this._webSocketPathnames.forEach((pathname, ws) => {
-    if (pathname !== '/randomNumberInnerText') return
-
-    ws.send(`random number is ${this._randomNumber}`)
+variables.timeSeries.assign({
+    time: new Array(16).fill(Number.NaN),
+    data: new Array(16).fill(Number.NaN)
 })
 ```
 
-### after
-ElementString.js:
+TimeSeriesMaker.js:
 ```js
-export default class {
-    constructor(pathname, elementValues, webSocketPathnames) {
-        this._pathname = pathname
-        this._elementValues
-        elementValues.addListener(arg => { this._elementValues = arg })
-        this._webSocketPathnames
-        webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
-    }
-    assign(arg) {
-        this._elementValues.set(this._pathname, arg)
-        this._webSocketPathnames.forEach((pathname, ws) => {
-            if (this._pathname !== pathname) return
+this._timeSeries.time.copyWithin(0, 1)
+this._timeSeries.time[this._timeSeries.time.length - 1] = Date.now()
+this._timeSeries.data.copyWithin(0, 1)
+this._timeSeries.data[this._timeSeries.data.length - 1] = this._randomNumber
+variables.timeSeries.assign(this._timeSeries)
+```
 
-            ws.send(arg)
-        })
-    }
+TimeSeriesSVGInnerHTMLMaker.js:
+```js
+const ax = {
+    xLim: [min(this._timeSeries.time), max(this._timeSeries.time)],
+    yLim: [0, 1],
+    xTick: [min(this._timeSeries.time), max(this._timeSeries.time)],
+    yTick: linspace(0, 1, 11),
+    xTickLabel: [
+        (new Date(min(this._timeSeries.time))).toLocaleTimeString(),
+        (new Date(max(this._timeSeries.time))).toLocaleTimeString()
+    ],
+    yTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1))
 }
-```
-
-HTTPUpgradeHandler.js:
-```js
-this._webSocketServer.handleUpgrade(request, socket, head, ws => {
-
-    this._elementValues.forEach((value, key) => {
-        if (request.url !== key) return
-
-        if (typeof value === 'string')
-            ws.send(value)
-        if (typeof value === 'boolean')
-            ws.send(value.toString())
-    })
-})
-```
-
-RandomNumberInnerTextChanger.js:
-```js
-variables.randomNumberInnerText.assign(`random number is ${this._randomNumber}`)
+variables.timeSeriesSVGInnerHTML.assign([
+    axes(ax),
+    line(ax, this._timeSeries.time, this._timeSeries.data)
+].join(''))
 ```
 
 ## How to run the sample code in this folder

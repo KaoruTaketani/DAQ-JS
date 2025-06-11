@@ -1,6 +1,4 @@
 import { Server } from 'http'
-import HistogramMakerInitializer from './HistogramMakerInitializer.js'
-import RandomNumberGeneratorInitializer from './RandomNumberGeneratorInitializer.js'
 import HistogramInitializer from './HistogramInitializer.js'
 import HistogramMaker from './HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
@@ -15,6 +13,8 @@ import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 import TotalCounter from './TotalCounter.js'
 import TotalInnerTextChanger from './TotalInnerTextChanger.js'
 import Variables from './Variables.js'
+import HistogramMakerInitializer from './HistogramMakerInitializer.js'
+import RandomNumberGeneratorInitializer from './RandomNumberGeneratorInitializer.js'
 
 const variables = new Variables()
 

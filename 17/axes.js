@@ -11,8 +11,17 @@ export default (
         xMax = axes.xLim[1],
         yMin = axes.yLim[0],
         yMax = axes.yLim[1]
+
     return [
         `<polyline`,
+        ` data-xmin-in-data="${xMin}"`,
+        ` data-xmax-in-data="${xMax}"`,
+        ` data-ymin-in-data="${yMin}"`,
+        ` data-ymax-in-data="${yMax}"`,
+        ` data-xmin-in-pixels="${xMinInPixels}"`,
+        ` data-xmax-in-pixels="${xMaxInPixels}"`,
+        ` data-ymin-in-pixels="${yMinInPixels}"`,
+        ` data-ymax-in-pixels="${yMaxInPixels}"`,
         ` points="${xMinInPixels},${yMinInPixels} ${xMaxInPixels},${yMinInPixels} ${xMaxInPixels},${yMaxInPixels} ${xMinInPixels},${yMaxInPixels} ${xMinInPixels},${yMinInPixels}"`,
         ` stroke="black"`,
         ` fill="none"`,

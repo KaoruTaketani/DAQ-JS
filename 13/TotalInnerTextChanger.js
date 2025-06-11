@@ -6,19 +6,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._webSocketPathnames
-        variables.webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
         this._total
         variables.total.addListener(arg => {
             this._total = arg
             this._operation()
         })
         this._operation = () => {
-            this._webSocketPathnames.forEach((pathname, ws) => {
-                if (pathname !== '/totalInnerText') return
-
-                ws.send(`total is ${this._total}`)
-            })
+            variables.totalInnerText.assign(`total is ${this._total}`)
         }
     }
 }

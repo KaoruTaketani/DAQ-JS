@@ -1,58 +1,35 @@
 [home](../README.md)
 
-### before
-HTTPRequestHandler.js:
+HistogramSVGInnerHTMLMaker.js:
 ```js
-if (request.url === '/') {
-    response.writeHead(200, { 'Content-Type': 'text/html' })
-        response.end([
-            '<html>',
-            '<head>',
-            '    <meta charset="utf-8">',
-            '</head>',
-            '<body>',
-            `    <script type="module" src="./RandomNumberGeneratorClient.js">`,
-            `    </script>`,
-            '</body>',
-            '</html>'
-        ].join('\n'))
-        return
+const ax = {
+    xLim: this._histogram.binLimits,
+    yLim: [0, max(this._histogram.binCounts)],
+    xTick: linspace(0, 1, 11),
+    yTick: [0, max(this._histogram.binCounts)],
+    xTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1)),
+    yTickLabel: ['0', `${max(this._histogram.binCounts)}`]
 }
+variables.histogramSVGInnerHTML.assign([
+    axes(ax),
+    xlabel(ax, 'random number'),
+    ylabel(ax, 'counts'),
+    stairs(ax, this._histogram.binCounts)
+].join(''))
 ```
 
-### after
-HTTPRequestHandler.js:
+Client.js:
 ```js
-if (request.url === '/') {
-    response.writeHead(200, { 'Content-Type': 'text/html' })
-        response.end([
-            '<html>',
-            '<head>',
-            '    <meta charset="utf-8">',
-            '</head>',
-            '<body>',
-            `    <p><a href="./RandomNumberGeneratorClient.html">RandomNumberGenerator</a></p>`,
-            `    <p><a href="./HistogramMakerClient.html">HistogramMaker</a></p>`,
-            '</body>',
-            '</html>'
-        ].join('\n'))
-        return
-    }
-if (request.url.endsWith('.html')) {
-    response.writeHead(200, { 'Content-Type': 'text/html' })
-    response.end([
-        '<html>',
-        '<head>',
-        '    <meta charset="utf-8">',
-        '</head>',
-        '<body>',
-        `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
-        `    </script>`,
-        '</body>',
-        '</html>'
-    ].join('\n'))
-    return
+const histogramSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+histogramSVGElement.setAttribute('width', '400')
+histogramSVGElement.setAttribute('height', '300')
+histogramSVGElement.setAttribute('viewBox', '0 0 560 420')
+url.pathname = 'histogramSVGInnerHTML'
+const histogramSVGInnerHTMLSocket = new WebSocket(url)
+histogramSVGInnerHTMLSocket.onmessage = event => {
+    histogramSVGElement.innerHTML = event.data
 }
+document.body.appendChild(histogramSVGElement)
 ```
 
 ## How to run the sample code in this folder

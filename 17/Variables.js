@@ -11,6 +11,7 @@ export default class {
         this.httpServer = new ListenableObject()
         this.message = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
+        this.timeSeries = new ListenableObject()
         this.elementValues = new ListenableObject()
         this.histogramHDF5File = new ListenableObject()
         this.histogram = new WritableHistogram('histogram', this.histogramHDF5File)
@@ -23,12 +24,13 @@ export default class {
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
-
         this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
 
         this.totalInnerText = new ElementString('/totalInnerText', this.elementValues, this.webSocketPathnames)
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)
         this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
+
+        this.timeSeriesSVGInnerHTML = new ElementString('/timeSeriesSVGInnerHTML', this.elementValues, this.webSocketPathnames)
     }
 }
 

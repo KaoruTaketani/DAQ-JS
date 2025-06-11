@@ -1,5 +1,5 @@
 const url = new URL(import.meta.url)
-url.protocol = 'ws:'
+url.protocol = 'ws'
 url.pathname = ''
 const socket = new WebSocket(url)
 socket.onclose = () => {
@@ -43,4 +43,3 @@ stopButtonDisabledSocket.onmessage = event => {
     stopButtonElement.disabled = event.data === 'true'
 }
 document.body.appendChild(stopButtonElement)
-

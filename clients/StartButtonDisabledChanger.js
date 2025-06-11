@@ -6,19 +6,20 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        this._webSocketPathnames
+        variables.webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
         this._randomNumberGeneratorIsBusy
         variables.randomNumberGeneratorIsBusy.addListener(arg => {
             this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._randomNumberGeneratorIsBusy) return
-
-            variables.histogram.assign({
-                binLimits: [0, 1],
-                binCounts: new Array(10).fill(0)
+            this._webSocketPathnames.forEach((pathname, ws) => {
+                if (pathname !== '/startButtonDisabled') return
+                
+                ws.send(this._randomNumberGeneratorIsBusy.toString())
             })
-            variables.startTime.assign(Date.now())
         }
     }
 }
+

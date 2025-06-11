@@ -1,42 +1,55 @@
 [home](../README.md)
 
-enable the clients to assign
-
-ControllableBoolean.js:
+### before
+RandomNumberInnerTextChanger.js:
 ```js
-import ListenableBoolean from './ListenableBoolean.js'
+this._webSocketPathnames.forEach((pathname, ws) => {
+    if (pathname !== '/randomNumberInnerText') return
 
-export default class extends ListenableBoolean {
-    constructor(key, message) {
-        super()
-        message.addListener(arg => {
-            if (arg[key] === undefined) return
+    ws.send(`random number is ${this._randomNumber}`)
+})
+```
 
-            super.assign(arg[key])
+### after
+ElementString.js:
+```js
+export default class {
+    constructor(pathname, elementValues, webSocketPathnames) {
+        this._pathname = pathname
+        this._elementValues
+        elementValues.addListener(arg => { this._elementValues = arg })
+        this._webSocketPathnames
+        webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
+    }
+    assign(arg) {
+        this._elementValues.set(this._pathname, arg)
+        this._webSocketPathnames.forEach((pathname, ws) => {
+            if (this._pathname !== pathname) return
+
+            ws.send(arg)
         })
     }
 }
 ```
 
-Client.js:
+HTTPUpgradeHandler.js:
 ```js
-startButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
-}
+this._webSocketServer.handleUpgrade(request, socket, head, ws => {
 
-stopButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
-}
+    this._elementValues.forEach((value, key) => {
+        if (request.url !== key) return
+
+        if (typeof value === 'string')
+            ws.send(value)
+        if (typeof value === 'boolean')
+            ws.send(value.toString())
+    })
+})
 ```
 
-## Sequence diagram
-```mermaid
-sequenceDiagram
-    Client->>Server: randomNumberGeneratorIsBusy: true
-    Server->>Client: randomNumberInnerText
-    Server->>Client: randomNumberInnerText
-    Server->>Client: randomNumberInnerText
-    Client->>Server: randomNumberGeneratorIsBusy: false
+RandomNumberInnerTextChanger.js:
+```js
+variables.randomNumberInnerText.assign(`random number is ${this._randomNumber}`)
 ```
 
 ## How to run the sample code in this folder

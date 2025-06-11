@@ -1,5 +1,5 @@
 const url = new URL(import.meta.url)
-url.protocol = 'ws'
+url.protocol = 'ws:'
 url.pathname = ''
 const socket = new WebSocket(url)
 socket.onclose = () => {
@@ -7,7 +7,6 @@ socket.onclose = () => {
 }
 
 const randomNumberElement = document.createElement('p')
-randomNumberElement.innerText = 'random number is NaN'
 url.pathname = 'randomNumberInnerText'
 const randomNumberInnerTextSocket = new WebSocket(url)
 randomNumberInnerTextSocket.onmessage = event => {
@@ -33,7 +32,6 @@ const stopButtonElement = document.createElement('input')
 stopButtonElement.type = 'button'
 stopButtonElement.value = 'stop'
 stopButtonElement.style.width = '130px'
-stopButtonElement.disabled = true
 stopButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
 }

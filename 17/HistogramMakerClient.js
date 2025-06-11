@@ -22,6 +22,10 @@ startTimeInnerTextSocket.onmessage = event => {
 }
 document.body.appendChild(startTimeElement)
 
+const cursorElement = document.createElement('p')
+cursorElement.innerText = 'cursor: undefined'
+document.body.appendChild(cursorElement)
+
 const histogramSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 histogramSVGElement.setAttribute('width', '400')
 histogramSVGElement.setAttribute('height', '300')
@@ -31,10 +35,48 @@ const histogramSVGInnerHTMLSocket = new WebSocket(url)
 histogramSVGInnerHTMLSocket.onmessage = event => {
     histogramSVGElement.innerHTML = event.data
 }
+histogramSVGElement.onmousemove = ev => {
+    const axes = histogramSVGElement.firstChild
+
+    const xInPixels = ev.offsetX * 560 / 400
+    const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
+        / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
+    const xInData = Number(axes.dataset.xminInData)
+        + xInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
+
+    const yInPixels = ev.offsetY * 420 / 300
+    const yInNormalized = (axes.dataset.yminInPixels - yInPixels)
+        / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
+    const yInData = Number(axes.dataset.yminInData)
+        + yInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
+
+    if (xInNormalized < 0 || xInNormalized > 1) {
+        cursorElement.innerText = `cursor: undefined`
+        return
+    }
+    if (yInNormalized < 0 || yInNormalized > 1) {
+        cursorElement.innerText = `cursor: undefined`
+        return
+    }
+
+    cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
+}
 histogramSVGElement.ondblclick = () => {
     dialogElement.showModal()
 }
-document.body.appendChild(histogramSVGElement)
+
+const foreignElement = document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')
+foreignElement.setAttribute('width', '400')
+foreignElement.setAttribute('height', '300')
+foreignElement.appendChild(histogramSVGElement)
+const lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
+lineElement.setAttribute('stroke', 'red')
+const overlayElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+overlayElement.setAttribute('width', '400')
+overlayElement.setAttribute('height', '300')
+overlayElement.appendChild(foreignElement)
+overlayElement.appendChild(lineElement)
+document.body.appendChild(overlayElement)
 
 const dialogElement = document.createElement('dialog')
 document.body.appendChild(dialogElement)

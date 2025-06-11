@@ -2,66 +2,33 @@
 
 Client.js:
 ```js
-const hdf5LinkElement = document.createElement('a')
-const downloadHDF5ButtonElement = document.createElement('input')
-downloadHDF5ButtonElement.type = 'button'
-downloadHDF5ButtonElement.value = 'download hdf5'
-downloadHDF5ButtonElement.style.width = '130px'
-downloadHDF5ButtonElement.style.display = 'block'
-downloadHDF5ButtonElement.onclick = () => {
-    const url = new URL(import.meta.url)
-    hdf5LinkElement.setAttribute('href', `${url.origin}/histogram.h5`)
-    hdf5LinkElement.click()
-}
-dialogElement.appendChild(downloadHDF5ButtonElement)
-```
+histogramSVGElement.onmousemove = ev => {
+    const axes = histogramSVGElement.firstChild
 
-HTTPRequestHandler.js:
-```js
-import { File, ready } from 'h5wasm/node'
+    const xInPixels = ev.offsetX * 560 / 400
+    const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
+        / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
+    const xInData = Number(axes.dataset.xminInData)
+        + xInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
 
-if (request.url === '/histogram.h5') {
-    ready.then(() => {
-        const file = new File('./histogram.h5', 'w')
-        variables.histogramHDF5File.assign(file)
-        file.close()
+    const yInPixels = ev.offsetY * 420 / 300
+    const yInNormalized = (axes.dataset.yminInPixels - yInPixels)
+        / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
+    const yInData = Number(axes.dataset.yminInData)
+        + yInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
 
-        readFile('./histogram.h5',(err,data)=>{
-                if(err) throw err
-
-                response.end(data)
-            })
-        })
-    return
-}
-```
-
-WritableHistogram.js:
-```js
-import ListenableObject from './ListenableObject.js'
-
-export default class extends ListenableObject {
-    constructor(name, hdf5File) {
-        super()
-        this._name = name
-        this._value
-        hdf5File.addListener(arg => {
-            const dataset = arg.create_dataset({
-                name: this._name,
-                data: this._value.binCounts,
-                dtype: '<i4'
-            })
-            dataset.create_attribute('binLimitsMin', this._value.binLimits[0], null, '<f')
-            dataset.create_attribute('binLimitsMax', this._value.binLimits[1], null, '<f')
-        })
+    if (xInNormalized < 0 || xInNormalized > 1) {
+        cursorElement.innerText = `cursor: undefined`
+        return
     }
-    assign(arg) {
-        super.assign(arg)
-        this._value = arg
+    if (yInNormalized < 0 || yInNormalized > 1) {
+        cursorElement.innerText = `cursor: undefined`
+        return
     }
+
+    cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
 }
 ```
-
 ## How to run the sample code in this folder
 1. open a terminal
 1. change directory to this folder

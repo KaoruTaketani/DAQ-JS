@@ -1,18 +1,42 @@
 [home](../README.md)
 
-HistogramInitializer.js:
+enable the clients to assign
+
+ControllableBoolean.js:
 ```js
-variables.histogram.assign({
-    binLimits: [0, 1],
-    binCounts: new Array(10).fill(0)
-})
+import ListenableBoolean from './ListenableBoolean.js'
+
+export default class extends ListenableBoolean {
+    constructor(key, message) {
+        super()
+        message.addListener(arg => {
+            if (arg[key] === undefined) return
+
+            super.assign(arg[key])
+        })
+    }
+}
 ```
 
-HistogramMaker.js:
+Client.js:
 ```js
-const i = Math.floor(this._randomNumber * this._histogram.binCounts.length)
-this._histogram.binCounts[i]++
-variables.histogram.assign(this._histogram)
+startButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
+}
+
+stopButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+}
+```
+
+## Sequence diagram
+```mermaid
+sequenceDiagram
+    Client->>Server: randomNumberGeneratorIsBusy: true
+    Server->>Client: randomNumberInnerText
+    Server->>Client: randomNumberInnerText
+    Server->>Client: randomNumberInnerText
+    Client->>Server: randomNumberGeneratorIsBusy: false
 ```
 
 ## How to run the sample code in this folder

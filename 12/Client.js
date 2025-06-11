@@ -1,5 +1,5 @@
 const url = new URL(import.meta.url)
-url.protocol = 'ws'
+url.protocol = 'ws:'
 url.pathname = ''
 const socket = new WebSocket(url)
 socket.onclose = () => {
@@ -22,7 +22,7 @@ startButtonElement.style.width = '130px'
 startButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
 }
-url.pathname = 'randomNumberStartDisabled'
+url.pathname = 'startButtonDisabled'
 const startButtonDisabledSocket = new WebSocket(url)
 startButtonDisabledSocket.onmessage = event => {
     startButtonElement.disabled = event.data === 'true'
@@ -43,22 +43,4 @@ stopButtonDisabledSocket.onmessage = event => {
     stopButtonElement.disabled = event.data === 'true'
 }
 document.body.appendChild(stopButtonElement)
-
-const totalElement = document.createElement('p')
-totalElement.innerText = 'total is NaN'
-url.pathname = 'totalInnerText'
-const totalInnerTextSocket = new WebSocket(url)
-totalInnerTextSocket.onmessage = event => {
-    totalElement.innerText = event.data
-}
-document.body.appendChild(totalElement)
-
-const startTimeElement = document.createElement('p')
-startTimeElement.innerText = 'start time is undefined'
-url.pathname = 'startTimeInnerText'
-const startTimeInnerTextSocket = new WebSocket(url)
-startTimeInnerTextSocket.onmessage = event => {
-    startTimeElement.innerText = event.data
-}
-document.body.appendChild(startTimeElement)
 

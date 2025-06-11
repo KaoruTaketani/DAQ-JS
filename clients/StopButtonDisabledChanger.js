@@ -6,13 +6,19 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        this._webSocketPathnames
+        variables.webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
         this._randomNumberGeneratorIsBusy
         variables.randomNumberGeneratorIsBusy.addListener(arg => {
             this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
         this._operation = () => {
-            variables.stopButtonDisabled.assign(!this._randomNumberGeneratorIsBusy)
+            this._webSocketPathnames.forEach((pathname, ws) => {
+                if (pathname !== '/stopButtonDisabled') return
+
+                ws.send((!this._randomNumberGeneratorIsBusy).toString())
+            })
         }
     }
 }

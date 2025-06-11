@@ -22,25 +22,22 @@
 
 [10 Pathnames](./10/README.md)
 
-[11 Controllable](./11/README.md)
+[11 Element](./11/README.md)
 
-[12 Histogram](./12/README.md)
+[12 Controllable](./12/README.md)
 
-[13 Clients](./13/README.md)
+[13 Histogram](./13/README.md)
 
-[14 Element](./14/README.md)
+[14 Time Series](./14/README.md)
 
 [15 SVG](./15/README.md)
 
-[16 Download](./16/README.md)
+[16 HDF5](./16/README.md)
 
-[17 HDF5](./17/README.md)
+[17 Cursor](./17/README.md)
 
-[18 Time Series](./18/README.md)
+[18 Overlay](./18/README.md)
 
-[19 Cursor](./19/README.md)
-
-[20 Overlay](./20/README.md)
 
 ## Graph
 ```mermaid
