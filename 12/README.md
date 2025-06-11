@@ -1,5 +1,6 @@
 [home](../README.md)
 
+HistogramInitializer.js:
 ```js
 variables.histogram.assign({
     binLimits: [0, 1],
@@ -7,6 +8,7 @@ variables.histogram.assign({
 })
 ```
 
+HistogramMaker.js:
 ```js
 const i = Math.floor(this._randomNumber * this._histogram.binCounts.length)
 this._histogram.binCounts[i]++

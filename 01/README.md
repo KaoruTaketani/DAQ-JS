@@ -4,6 +4,7 @@ According to MDN Web Docs, "JavaScript is a ... programming language with first-
 
 By runnging the sample code and clicking the button, different numbers are shown in the browser.
 
+index.html:
 ```js
 buttonElement.addEventListener('click', () => {
   messageElement.innerText = `random number is ${Math.random()}`

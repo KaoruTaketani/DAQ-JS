@@ -2,6 +2,7 @@
 
 set all operators accept only one argument
 ### before
+index.js:
 ```js
 const randomNumber = new ListenableNumber()
 const httpServer = new ListenableObject()
@@ -17,6 +18,7 @@ new WebSocketServerMaker(httpServer, webSocketServer)
 ```
 
 ### after
+Variables.js:
 ```js
 import ListenableBoolean from './ListenableBoolean.js'
 import ListenableNumber from './ListenableNumber.js'
@@ -34,6 +36,7 @@ export default class {
 }
 ```
 
+index.js:
 ```js
 const variables = new Variables()
 

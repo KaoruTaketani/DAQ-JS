@@ -1,7 +1,7 @@
 [home](../README.md)
 
 ### before
-
+RandomNumberInnerTextChanger.js:
 ```js
 this._webSocketPathnames.forEach((pathname, ws) => {
     if (pathname !== '/randomNumberInnerText') return
@@ -11,6 +11,7 @@ this._webSocketPathnames.forEach((pathname, ws) => {
 ```
 
 ### after
+ElementString.js:
 ```js
 export default class {
     constructor(pathname, elementValues, webSocketPathnames) {
@@ -31,6 +32,7 @@ export default class {
 }
 ```
 
+HTTPUpgradeHandler.js:
 ```js
 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
 
@@ -45,6 +47,7 @@ this._webSocketServer.handleUpgrade(request, socket, head, ws => {
 })
 ```
 
+RandomNumberInnerTextChanger.js:
 ```js
 variables.randomNumberInnerText.assign(`random number is ${this._randomNumber}`)
 ```

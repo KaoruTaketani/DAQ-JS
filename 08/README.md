@@ -2,6 +2,7 @@
 
 separate the previous code to multiple files
 
+index.js:
 ```js
 import { Server } from 'http'
 import ListenableBoolean from './ListenableBoolean.js'
@@ -30,6 +31,7 @@ randomNumberGeneratorIsBusy.assign(true)
 httpServer.assign(new Server()) 
 ```
 
+Operator.js:
 ```js
 export default class {
     constructor() {
@@ -38,6 +40,7 @@ export default class {
 }
 ```
 
+RandomNumberGenerator.js:
 ```js
 import Operator from './Operator.js'
 

@@ -5,11 +5,13 @@
 By runnging the sample code, a number is shown in the browser. The number changes by reloading.
 
 ### before
+index.js:
 ```js
 const randomNumber = Math.random()
 ```
 
 ### after
+index.js: 
 ```js
 let randomNumber
 setInterval(() => {

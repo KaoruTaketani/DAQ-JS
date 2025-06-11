@@ -3,12 +3,14 @@
 enable the server to send multiple variables
 
 ### before
+RandomNumberInnerTextChanger.js:
 ```js
 this._webSocketServer.clients.forEach(ws => {
      ws.send(`random number is ${this._randomNumber}`)
 })
 ```
 
+Client.js
 ```js
 const socket = new WebSocket("ws://localhost")
 socket.onclose = () => {
@@ -20,6 +22,7 @@ socket.onmessage = event => {
 ```
 
 ### after
+HTTPServerUpgradeHandler.js:
 ```js
 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
     const url = new URL(`ws://localhost${request.url}`)
@@ -30,6 +33,8 @@ this._webSocketServer.handleUpgrade(request, socket, head, ws => {
     })
 })
 ```
+
+RandomNumberInnerTextChanger.js:
 ```js
 this._webSocketPathnames.forEach((pathname, ws) => {
     if (pathname === '/randomNumberInnerText')
@@ -37,6 +42,7 @@ this._webSocketPathnames.forEach((pathname, ws) => {
 })
 ```
 
+Client.js:
 ```js
 const url = new URL(import.meta.url)
 url.protocol = 'ws'

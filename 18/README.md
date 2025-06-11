@@ -1,5 +1,6 @@
 [home](../README.md)
 
+TimeSeriesInitializer.js:
 ```js
 variables.timeSeries.assign({
     time: new Array(16).fill(Number.NaN),
@@ -7,6 +8,7 @@ variables.timeSeries.assign({
 })
 ```
 
+TimeSeriesMaker.js:
 ```js
 this._timeSeries.time.copyWithin(0, 1)
 this._timeSeries.time[this._timeSeries.time.length - 1] = Date.now()
@@ -15,6 +17,7 @@ this._timeSeries.data[this._timeSeries.data.length - 1] = this._randomNumber
 variables.timeSeries.assign(this._timeSeries)
 ```
 
+TimeSeriesSVGInnerHTMLMaker.js:
 ```js
 const ax = {
     xLim: [min(this._timeSeries.time), max(this._timeSeries.time)],

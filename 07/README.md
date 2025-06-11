@@ -3,6 +3,7 @@
 enable to add listener to boolean, number, string and object.
 
 ### before
+index.js:
 ```js
 setInterval(() => {
     randomNumber = Math.random()
@@ -13,6 +14,7 @@ setInterval(() => {
 ```
 
 ### after
+ListenableNumber.js:
 ```js
 export default class {
     constructor() {
@@ -27,6 +29,7 @@ export default class {
 }
 ```
 
+index.js:
 ```js
 import ListenableNumber from './ListenableNumber.js'
 

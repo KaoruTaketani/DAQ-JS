@@ -1,6 +1,6 @@
 [home](../README.md)
 
-
+HistogramSVGInnerHTMLMaker.js:
 ```js
 const ax = {
     xLim: this._histogram.binLimits,
@@ -18,6 +18,7 @@ variables.histogramSVGInnerHTML.assign([
 ].join(''))
 ```
 
+Client.js:
 ```js
 const histogramSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
 histogramSVGElement.setAttribute('width', '400')

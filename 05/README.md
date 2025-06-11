@@ -5,16 +5,19 @@
 By runnging the sample code, a number is shown in the browser. The number changes without reloading.
 
 ### before
+index.js:
 ```js
 setInterval(() => {
     randomNumber = Math.random()
 }, 1000)
 ```
 
+index.js:
 ```html
 <p >random number is ${randomNumber}</p>
 ```
 ### after
+index.js:
 ```js
 import { WebSocketServer } from 'ws'
 
