@@ -6,15 +6,15 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._webSocketPathnames
-        variables.webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
         this._randomNumberGeneratorIsBusy
         variables.randomNumberGeneratorIsBusy.addListener(arg => {
             this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
         this._operation = () => {
-            variables.stopButtonDisabled.assign(!this._randomNumberGeneratorIsBusy)
+            if (!this._randomNumberGeneratorIsBusy) return
+
+            variables.startTimeInnerText.assign(`start time is ${new Date(Date.now()).toString()}`)
         }
     }
 }

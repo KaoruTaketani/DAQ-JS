@@ -6,8 +6,15 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
+const startTimeElement = document.createElement('p')
+url.pathname = 'startTimeInnerText'
+const startTimeInnerTextSocket = new WebSocket(url)
+startTimeInnerTextSocket.onmessage = event => {
+    startTimeElement.innerText = event.data
+}
+document.body.appendChild(startTimeElement)
+
 const randomNumberElement = document.createElement('p')
-randomNumberElement.innerText = 'random number is NaN'
 url.pathname = 'randomNumberInnerText'
 const randomNumberInnerTextSocket = new WebSocket(url)
 randomNumberInnerTextSocket.onmessage = event => {

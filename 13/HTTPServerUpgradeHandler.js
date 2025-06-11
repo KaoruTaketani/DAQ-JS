@@ -34,7 +34,6 @@ export default class extends Operator {
                         const arg = JSON.parse(data.toString())
                         variables.message.assign(arg)
                     })
-
                     this._elementValues.forEach((value, key) => {
                         if (request.url !== key) return
 
