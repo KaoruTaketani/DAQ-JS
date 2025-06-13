@@ -6,14 +6,6 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const randomNumberElement = document.createElement('p')
-url.pathname = 'randomNumberInnerText'
-const randomNumberInnerTextSocket = new WebSocket(url)
-randomNumberInnerTextSocket.onmessage = event => {
-    randomNumberElement.innerText = event.data
-}
-document.body.appendChild(randomNumberElement)
-
 const startButtonElement = document.createElement('input')
 startButtonElement.type = 'button'
 startButtonElement.value = 'start'
@@ -41,3 +33,31 @@ stopButtonDisabledSocket.onmessage = event => {
     stopButtonElement.disabled = event.data === 'true'
 }
 document.body.appendChild(stopButtonElement)
+
+const startTimeElement = document.createElement('p')
+url.pathname = 'startTimeInnerText'
+const startTimeInnerTextSocket = new WebSocket(url)
+startTimeInnerTextSocket.onmessage = event => {
+    startTimeElement.innerText = event.data
+}
+document.body.appendChild(startTimeElement)
+
+const randomNumberElement = document.createElement('p')
+url.pathname = 'randomNumberInnerText'
+const randomNumberInnerTextSocket = new WebSocket(url)
+randomNumberInnerTextSocket.onmessage = event => {
+    randomNumberElement.innerText = event.data
+}
+document.body.appendChild(randomNumberElement)
+
+const histogramSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+histogramSVGElement.setAttribute('width', '400')
+histogramSVGElement.setAttribute('height', '300')
+histogramSVGElement.setAttribute('viewBox', '0 0 560 420')
+url.pathname = 'histogramSVGInnerHTML'
+const histogramSVGInnerHTMLSocket = new WebSocket(url)
+histogramSVGInnerHTMLSocket.onmessage = event => {
+    histogramSVGElement.innerHTML = event.data
+}
+document.body.appendChild(histogramSVGElement)
+
