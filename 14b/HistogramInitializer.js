@@ -6,6 +6,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        this._histogramBinLimitsMin
+        variables.histogramBinLimitsMin.addListener(arg => { this._histogramBinLimitsMin = arg })
+        this._histogramBinLimitsMax
+        variables.histogramBinLimitsMax.addListener(arg => { this._histogramBinLimitsMax = arg })
         this._randomNumberGeneratorIsBusy
         variables.randomNumberGeneratorIsBusy.addListener(arg => {
             this._randomNumberGeneratorIsBusy = arg
@@ -15,7 +19,7 @@ export default class extends Operator {
             if (!this._randomNumberGeneratorIsBusy) return
 
             variables.histogram.assign({
-                binLimits: [0, 1],
+                binLimits: [this._histogramBinLimitsMin, this._histogramBinLimitsMax],
                 binCounts: new Array(10).fill(0)
             })
         }

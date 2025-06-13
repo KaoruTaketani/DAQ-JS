@@ -1,4 +1,4 @@
-import ListenableObject from './ListenableObject.js'
+import ListenableObject from '../14/ListenableObject.js'
 
 export default class extends ListenableObject {
     constructor(name, hdf5File) {
@@ -6,7 +6,7 @@ export default class extends ListenableObject {
         this._name = name
         this._value
         hdf5File.addListener(arg => {
-            arg.create_attribute(this._name, this._value, null, '<i')
+            arg.create_attribute(this._name, this._value, null, '<f')
         })
     }
     assign(arg) {

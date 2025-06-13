@@ -1,15 +1,18 @@
 import { Server } from 'http'
 import HistogramInitializer from './HistogramInitializer.js'
-import HistogramMaker from './HistogramMaker.js'
-import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
+import HistogramMaker from '../14/HistogramMaker.js'
+import HistogramSVGInnerHTMLMaker from '../14/HistogramSVGInnerHTMLMaker.js'
 import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
-import HTTPServerSetupper from './HTTPServerSetupper.js'
-import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
-import RandomNumberGenerator from './RandomNumberGenerator.js'
-import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
-import StartButtonDisabledChanger from './StartButtonDisabledChanger.js'
-import StopButtonDisabledChanger from './StopButtonDisabledChanger.js'
-import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
+import HTTPServerSetupper from '../14/HTTPServerSetupper.js'
+import HTTPServerUpgradeHandler from '../14/HTTPServerUpgradeHandler.js'
+import RandomNumberGenerator from '../14/RandomNumberGenerator.js'
+import RandomNumberInnerTextChanger from '../14/RandomNumberInnerTextChanger.js'
+import StartButtonDisabledChanger from '../14/StartButtonDisabledChanger.js'
+import StopButtonDisabledChanger from '../14/StopButtonDisabledChanger.js'
+import StartTimeInnerTextChanger from '../14/StartTimeInnerTextChanger.js'
+import TimeSeriesInitializer from '../14/TimeSeriesInitializer.js'
+import TimeSeriesMaker from '../14/TimeSeriesMaker.js'
+import TimeSeriesSVGInnerHTMLMaker from '../14/TimeSeriesSVGInnerHTMLMaker.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
@@ -25,6 +28,11 @@ new RandomNumberInnerTextChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
+new TimeSeriesInitializer(variables)
+new TimeSeriesMaker(variables)
+new TimeSeriesSVGInnerHTMLMaker(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(false)
+variables.histogramBinLimitsMin.assign(0)
+variables.histogramBinLimitsMax.assign(1)

@@ -1,4 +1,4 @@
-import ListenableObject from './ListenableObject.js'
+import ListenableObject from '../14/ListenableObject.js'
 
 export default class extends ListenableObject {
     constructor(name, hdf5File) {
@@ -9,10 +9,8 @@ export default class extends ListenableObject {
             const dataset = arg.create_dataset({
                 name: this._name,
                 data: this._value.binCounts,
-                dtype: '<i4'
+                dtype: '<i'
             })
-            dataset.create_attribute('binLimitsMin', this._value.binLimits[0], null, '<f')
-            dataset.create_attribute('binLimitsMax', this._value.binLimits[1], null, '<f')
         })
     }
     assign(arg) {
