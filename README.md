@@ -42,12 +42,7 @@
 ## Graph
 ```mermaid
 graph TD;
-    %%elementValues-->totalInnerText;
-    %%elementValues-->startTimeInnerText;
-    %%elementValues-->stopButtonDisabled;
-    %%elementValues-->randomNumberInnerText;
     histogram-->histogramSVGInnerHTML;
-    histogram-->total;
     %%httpServer-->elementValues;
     %%httpServer-->webSocketPathnames;
     randomNumberGeneratorIsBusy-->histogram;
@@ -60,7 +55,6 @@ graph TD;
     randomNumberGeneratorIsBusy-->stopButtonDisabled;
     startTime-->startTimeInnerText;
     timeSeries-->timeSeriesSVGInnerHTML;
-    total-->totalInnerText;
 ```
 ## References
 [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)

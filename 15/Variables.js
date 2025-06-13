@@ -13,7 +13,6 @@ export default class {
         this.elementValues = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
-        this.total = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
 
@@ -21,8 +20,6 @@ export default class {
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
 
         this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
-
-        this.totalInnerText = new ElementString('/totalInnerText', this.elementValues, this.webSocketPathnames)
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)
         this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
     }

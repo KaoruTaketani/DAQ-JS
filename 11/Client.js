@@ -16,8 +16,8 @@ document.body.appendChild(startTimeElement)
 
 const randomNumberElement = document.createElement('p')
 url.pathname = 'randomNumberInnerText'
-const totalInnerTextSocket = new WebSocket(url)
-totalInnerTextSocket.onmessage = event => {
+const randomNumberInnerTextSocket = new WebSocket(url)
+randomNumberInnerTextSocket.onmessage = event => {
     randomNumberElement.innerText = event.data
 }
 document.body.appendChild(randomNumberElement)

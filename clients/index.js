@@ -9,16 +9,12 @@ import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from './StartButtonDisabledChanger.js'
 import StopButtonDisabledChanger from './StopButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
-import TotalCounter from './TotalCounter.js'
-import TotalInnerTextChanger from './TotalInnerTextChanger.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
 
 new HistogramInitializer(variables)
 new HistogramMaker(variables)
-new TotalInnerTextChanger(variables)
-new TotalCounter(variables)
 new HTTPServerRequestHandler(variables)
 new HTTPServerSetupper(variables)
 new HTTPServerUpgradeHandler(variables)
@@ -29,3 +25,4 @@ new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server()) 
+variables.randomNumberGeneratorIsBusy.assign(false)
