@@ -16,6 +16,5 @@ new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
-
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(true)
