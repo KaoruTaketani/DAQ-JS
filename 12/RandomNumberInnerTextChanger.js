@@ -14,7 +14,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.randomNumberInnerText.assign(`random number: ${this._randomNumber}`)
+            variables.randomNumberInnerText.assign(`random number is ${this._randomNumber}`)
         }
     }
 }

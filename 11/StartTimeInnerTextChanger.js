@@ -16,7 +16,7 @@ export default class extends Operator {
             if (this._randomNumberGeneratorIsBusy) {
                 this._startTime = Date.now()
             }
-            variables.startTimeInnerText.assign(`start time: ${new Date(this._startTime).toString()}`)
+            variables.startTimeInnerText.assign(`start time is ${new Date(this._startTime).toString()}`)
         }
     }
 }
