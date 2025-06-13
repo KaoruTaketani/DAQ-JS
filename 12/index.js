@@ -21,3 +21,4 @@ new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server()) 
+variables.randomNumberGeneratorIsBusy.assign(false)

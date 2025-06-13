@@ -40,7 +40,6 @@ const stopButtonElement = document.createElement('input')
 stopButtonElement.type = 'button'
 stopButtonElement.value = 'stop'
 stopButtonElement.style.width = '130px'
-stopButtonElement.disabled = true
 stopButtonElement.onclick = () => {
     socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
 }

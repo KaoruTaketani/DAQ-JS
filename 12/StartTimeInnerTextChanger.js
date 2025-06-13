@@ -11,10 +11,12 @@ export default class extends Operator {
             this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
+        this._startTime
         this._operation = () => {
-            if (!this._randomNumberGeneratorIsBusy) return
-
-            variables.startTimeInnerText.assign(`start time is ${new Date(Date.now()).toString()}`)
+            if (this._randomNumberGeneratorIsBusy) {
+                this._startTime = Date.now()
+            }
+            variables.startTimeInnerText.assign(`start time: ${new Date(this._startTime).toString()}`)
         }
     }
 }
