@@ -9,8 +9,8 @@ export default class {
         this.httpServer = new ListenableObject()
         this.message = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
-        this.histogram = new ListenableObject()
         this.elementValues = new ListenableObject()
+        this.histogram = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
 

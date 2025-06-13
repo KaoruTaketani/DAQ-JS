@@ -24,45 +24,15 @@ export default class extends Operator {
                         '    <meta charset="utf-8">',
                         '</head>',
                         '<body>',
-                        `    <p><a href="./RandomNumberGeneratorClient.html">RandomNumberGenerator</a></p>`,
-                        `    <p><a href="./HistogramMakerClient.html">HistogramMaker</a></p>`,
-                        `    <p><a href="./TimeSeriesMakerClient.html">TimeSeriesMaker</a></p>`,
-                        '</body>',
-                        '</html>'
-                    ].join('\n'))
-                    return
-                }
-                if (request.url === '/histogram.h5') {
-                    ready.then(() => {
-                        const file = new File('./histogram.h5', 'w')
-                        variables.histogramHDF5File.assign(file)
-                        file.close()
-
-                        readFile('./histogram.h5',(err,data)=>{
-                            if(err) throw err
-
-                            response.end(data)
-                        })
-                    })
-                    return
-                }
-                if (request.url.endsWith('.html')) {
-                    response.writeHead(200, { 'Content-Type': 'text/html' })
-                    response.end([
-                        '<html>',
-                        '<head>',
-                        '    <meta charset="utf-8">',
-                        '</head>',
-                        '<body>',
-                        `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
+                        `    <script type="module" src="./Client.js">`,
                         `    </script>`,
                         '</body>',
                         '</html>'
                     ].join('\n'))
                     return
                 }
-                if (request.url.endsWith('.js')) {
-                    readFile(`.${request.url}`, 'utf8', (err, data) => {
+                if (request.url === '/Client.js') {
+                    readFile(`./Client.js`, 'utf8', (err, data) => {
                         if (err) throw err
 
                         response.writeHead(200, { 'Content-Type': 'text/javascript' })
