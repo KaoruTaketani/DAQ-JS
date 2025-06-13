@@ -6,15 +6,6 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const randomNumberElement = document.createElement('p')
-randomNumberElement.innerText = 'random number is NaN'
-url.pathname = 'randomNumberInnerText'
-const randomNumberInnerTextSocket = new WebSocket(url)
-randomNumberInnerTextSocket.onmessage = event => {
-    randomNumberElement.innerText = event.data
-}
-document.body.appendChild(randomNumberElement)
-
 const startButtonElement = document.createElement('input')
 startButtonElement.type = 'button'
 startButtonElement.value = 'start'
@@ -43,3 +34,21 @@ stopButtonDisabledSocket.onmessage = event => {
     stopButtonElement.disabled = event.data === 'true'
 }
 document.body.appendChild(stopButtonElement)
+
+const startTimeElement = document.createElement('p')
+startTimeElement.innerText = 'start time is undefined'
+url.pathname = 'startTimeInnerText'
+const startTimeInnerTextSocket = new WebSocket(url)
+startTimeInnerTextSocket.onmessage = event => {
+    startTimeElement.innerText = event.data
+}
+document.body.appendChild(startTimeElement)
+
+const randomNumberElement = document.createElement('p')
+url.pathname = 'randomNumberInnerText'
+const randomNumberInnerTextSocket = new WebSocket(url)
+randomNumberInnerTextSocket.onmessage = event => {
+    randomNumberElement.innerText = event.data
+}
+document.body.appendChild(randomNumberElement)
+

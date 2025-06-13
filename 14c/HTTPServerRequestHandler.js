@@ -24,7 +24,8 @@ export default class extends Operator {
                         '</head>',
                         '<body>',
                         `    <p><a href="./RandomNumberGeneratorClient.html">RandomNumberGenerator</a></p>`,
-                        `    <p><a href="./HistogramMakerClient.html">HistogramMaker</a></p>`,
+                        `    <p><a href="./HistogramClient.html">Histogram</a></p>`,
+                        `    <p><a href="./TimeSeriesClient.html">Time Series</a></p>`,
                         '</body>',
                         '</html>'
                     ].join('\n'))
