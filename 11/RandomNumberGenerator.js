@@ -18,7 +18,6 @@ export default class extends Operator {
                     variables.randomNumber.assign(Math.random())
                 }, 1000)
             } else {
-                variables.randomNumber.assign(Number.NaN)
                 clearInterval(this._interval)
             }
         }
