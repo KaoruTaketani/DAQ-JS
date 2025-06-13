@@ -6,12 +6,16 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._startTime
-        variables.startTime.addListener(arg => {
-            this._startTime = arg
+        this._randomNumberGeneratorIsBusy
+        variables.randomNumberGeneratorIsBusy.addListener(arg => {
+            this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
+        this._startTime
         this._operation = () => {
+            if (this._randomNumberGeneratorIsBusy) {
+                this._startTime = Date.now()
+            }
             variables.startTimeInnerText.assign(`start time is ${new Date(this._startTime).toString()}`)
         }
     }

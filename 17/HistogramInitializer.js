@@ -18,7 +18,6 @@ export default class extends Operator {
                 binLimits: [0, 1],
                 binCounts: new Array(10).fill(0)
             })
-            variables.startTime.assign(Date.now())
         }
     }
 }
