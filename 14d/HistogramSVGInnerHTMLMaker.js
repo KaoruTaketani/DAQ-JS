@@ -1,9 +1,9 @@
 import axes from './axes.js'
-import max from './max.js'
-import linspace from './linspace.js'
-import stairs from './stairs.js'
-import xlabel from './xlabel.js'
-import ylabel from './ylabel.js'
+import max from '../14/max.js'
+import linspace from '../14/linspace.js'
+import stairs from '../14/stairs.js'
+import xlabel from '../14/xlabel.js'
+import ylabel from '../14/ylabel.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
