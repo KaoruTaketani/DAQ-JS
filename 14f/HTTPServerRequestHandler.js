@@ -21,8 +21,8 @@ export default class extends Operator {
             this._httpServer.on('request', (request, response) => {
                 if (this._blockList.check(request.socket.remoteAddress)
                     || this._blockList.check(request.socket.remoteAddress, 'ipv6')) {
-                    res.statusCode = 403
-                    res.end('Forbidden')
+                    response.statusCode = 403
+                    response.end('Forbidden')
                     return
                 }
 
