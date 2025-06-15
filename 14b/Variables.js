@@ -30,6 +30,7 @@ export default class {
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)
         this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
         this.timeSeriesSVGInnerHTML = new ElementString('/timeSeriesSVGInnerHTML', this.elementValues, this.webSocketPathnames)
+        this.hdf5LinkHref = new ElementString('/hdf5LinkHref', this.elementValues, this.webSocketPathnames)
     }
 }
 

@@ -2,7 +2,7 @@ import { Server } from 'http'
 import HistogramInitializer from './HistogramInitializer.js'
 import HistogramMaker from '../14/HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from '../14/HistogramSVGInnerHTMLMaker.js'
-import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
+import HTTPServerRequestHandler from '../14/HTTPServerRequestHandler.js'
 import HTTPServerSetupper from '../14/HTTPServerSetupper.js'
 import HTTPServerUpgradeHandler from '../14/HTTPServerUpgradeHandler.js'
 import RandomNumberGenerator from '../14/RandomNumberGenerator.js'
@@ -14,6 +14,7 @@ import TimeSeriesInitializer from '../14/TimeSeriesInitializer.js'
 import TimeSeriesMaker from '../14/TimeSeriesMaker.js'
 import TimeSeriesSVGInnerHTMLMaker from '../14/TimeSeriesSVGInnerHTMLMaker.js'
 import Variables from './Variables.js'
+import HDF5LinkHrefMaker from './HDF5LinkHrefMaker.js'
 
 const variables = new Variables()
 
@@ -31,6 +32,7 @@ new StartTimeInnerTextChanger(variables)
 new TimeSeriesInitializer(variables)
 new TimeSeriesMaker(variables)
 new TimeSeriesSVGInnerHTMLMaker(variables)
+new HDF5LinkHrefMaker(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(false)
