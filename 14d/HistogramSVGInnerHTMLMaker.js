@@ -4,7 +4,7 @@ import linspace from '../14/linspace.js'
 import stairs from '../14/stairs.js'
 import xlabel from '../14/xlabel.js'
 import ylabel from '../14/ylabel.js'
-import Operator from './Operator.js'
+import Operator from '../14/Operator.js'
 
 export default class extends Operator {
     /**

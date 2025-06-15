@@ -1,6 +1,6 @@
 import { readFile } from 'fs'
 import { basename } from 'path'
-import Operator from './Operator.js'
+import Operator from '../14/Operator.js'
 
 export default class extends Operator {
     /**

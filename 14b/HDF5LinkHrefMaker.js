@@ -1,7 +1,7 @@
-import { File, ready } from 'h5wasm/node'
 import { readFile } from 'fs'
-import { basename } from 'path'
-import Operator from './Operator.js'
+const h5wasm = await import("h5wasm/node")
+await h5wasm.ready
+import Operator from '../14/Operator.js'
 
 export default class extends Operator {
     /**
@@ -16,7 +16,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             const startTime = Date.now(),
-                file = new File('./histogram.h5', 'w')
+                file = new h5wasm.File('./histogram.h5', 'w')
             variables.histogramHDF5File.assign(file)
             file.close()
 

@@ -1,5 +1,5 @@
 import { readFile } from 'fs'
-import Operator from './Operator.js'
+import Operator from '../14/Operator.js'
 
 export default class extends Operator {
     /**
