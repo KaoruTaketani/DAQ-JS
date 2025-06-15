@@ -1,5 +1,6 @@
 import { readFile } from 'fs'
-import Operator from './Operator.js'
+import Operator from '../14/Operator.js'
+import { BlockList } from 'net'
 
 export default class extends Operator {
     /**
@@ -12,8 +13,19 @@ export default class extends Operator {
             this._httpServer = arg
             this._operation()
         })
+        this._blockList
         this._operation = () => {
+            this._blockList = new BlockList()
+            this._blockList.addRange('0.0.0.0', '255.255.255.255')
+
             this._httpServer.on('request', (request, response) => {
+                if (this._blockList.check(request.socket.remoteAddress)
+                    || this._blockList.check(request.socket.remoteAddress, 'ipv6')) {
+                    res.statusCode = 403
+                    res.end('Forbidden')
+                    return
+                }
+
                 if (request.url === '/') {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
                     response.end([
@@ -30,7 +42,7 @@ export default class extends Operator {
                     return
                 }
                 if (request.url === '/Client.js') {
-                    readFile(`./Client.js`, 'utf8', (err, data) => {
+                    readFile(`../14/Client.js`, 'utf8', (err, data) => {
                         if (err) throw err
 
                         response.writeHead(200, { 'Content-Type': 'text/javascript' })
