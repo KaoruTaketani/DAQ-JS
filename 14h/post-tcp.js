@@ -1,6 +1,6 @@
 import { connect } from 'net'
 
-const body ='{"eventGeneratorIsBusy":false}'
+const body ='{"randomNumberGeneratorIsBusy":true}'
 const client = connect({
     port: 80,
     host:'localhost'

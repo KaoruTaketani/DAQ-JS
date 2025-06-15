@@ -5,7 +5,7 @@ const client = connect({
     host:'localhost'
 }, () => {
     client.write([
-        'GET /now HTTP/1.1',
+        'GET /randomNumberInnerText HTTP/1.1',
         'Host: localhost',
         'Connection: Close',
         '',

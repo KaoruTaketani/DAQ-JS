@@ -21,4 +21,4 @@ const req = request(
     }
 )
 
-req.end('{"randomNumberGeneratorIsBusy": false}')
+req.end('{"randomNumberGeneratorIsBusy": true}')

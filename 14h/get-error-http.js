@@ -3,7 +3,7 @@ import { request } from 'http'
 const req = request(
     {
         host: 'localhost',
-        path: `/now`,
+        path: `/randomNumber`,
         method: 'GET',
     },
     res => {
