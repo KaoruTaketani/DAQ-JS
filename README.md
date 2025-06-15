@@ -42,6 +42,8 @@
 
 [14.f BlockList](./14f/README.md)
 
+[14.g InfluxDB](./14g/README.md)
+
 
 ## Graph
 ```mermaid
