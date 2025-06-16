@@ -4,7 +4,7 @@ await h5wasm.ready
 
 export default class extends Operator {
     /**
-     * @param {import('./ServerVariables.js').default} variables 
+     * @param {import('./Variables.js').default} variables 
      */
     constructor(variables) {
         super()

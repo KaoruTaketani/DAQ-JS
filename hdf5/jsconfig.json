@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "ES2017",
+        // specifies the module system, when generating module code
+        // "module": "node16", // necessary for import.meta 
+        // "module": "ES2022", 
+        "module": "NodeNext", 
+        // specifies how modules are resolved for imports.
+        "moduleResolution": "nodenext", // necessary for only import('h5wasm')? but if module is node16, it seems to be unnecessary
+        "checkJs": true,
+        // following from  tsoptions?
+        "strict": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        // "baseUrl": "."
+    },
+    "exclude": []
+}

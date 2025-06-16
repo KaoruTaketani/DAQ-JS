@@ -74,7 +74,7 @@ new TOFDifferenceHistogramInitializer(variables)
 new TOFDifferenceHistogramMaker(variables)
 new JSONFileReader(variables)
 
-variables.hdf5Path.assign('../hdf5/mieze')
+variables.hdf5Path.assign('../../hdf5/mieze')
 variables.jsonFilePaths.assign([
     './104.json',
     './104_16.json',

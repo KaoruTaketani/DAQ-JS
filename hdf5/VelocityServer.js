@@ -1,4 +1,4 @@
-import ServerVariables from './ServerVariables.js'
+import Variables from './Variables.js'
 import VelocitySender from './VelocitySender.js'
 
 export default class {
@@ -6,7 +6,7 @@ export default class {
      * @param {import('ws').WebSocket} webSocket 
      */
     constructor(webSocket) {
-        this.variables = new ServerVariables(webSocket)
+        this.variables = new Variables(webSocket)
 
         new VelocitySender(this.variables)
 
