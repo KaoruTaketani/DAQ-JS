@@ -22,3 +22,6 @@ downloadSVGButtonElement.onclick = () => {
 1. type `npm i` in the terminal
 1. type `node .` in the terminal
 1. open http://localhost in your browser
+1. click start button
+1. double click histogram
+1. click download svg button
