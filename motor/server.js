@@ -38,7 +38,7 @@ server.on('connection', socket => {
             interval = setInterval(() => {
                 const pulse = pulses.get(channel)
                 ok(pulse)
-                console.log(pulse)
+                // console.log(pulse)
                 if (pulse < destination) {
                     pulses.set(channel, pulse + 1)
                 } else if (pulse > destination) {
@@ -47,7 +47,7 @@ server.on('connection', socket => {
                     isBusy = false
                     clearInterval(interval)
                 }
-            }, 10)
+            }, 100)
             return
         }
         if (data.startsWith('stop:')) {
@@ -57,12 +57,12 @@ server.on('connection', socket => {
         }
         if (data.startsWith('pulse?:')) {
             const channel = parseInt(data.split(':')[1])
-
+console.log(channel)
             if (!pulses.has(channel)) {
                 socket.write('ng')
                 return
             }
-
+console.log(`ok ${pulses.get(channel)} ${isBusy ? 1 : 0}`)
             socket.write(`ok ${pulses.get(channel)} ${isBusy ? 1 : 0}`)
             return
         }

@@ -11,14 +11,14 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-
+            variables.xDestinationValue.assign('NaN')
+            variables.thetaDestinationValue.assign('NaN')
             const socket = new Socket()
             socket.setEncoding('utf8')
             socket.once('data', (/** @type {string} */data) => {
                 console.log(`data: ${data}`)
                 const x = parseInt(data.split(' ')[1])
                 variables.xPulse.assign(x)
-                variables.xPulseInnerText.assign(`x: ${x}`)
                 socket.end()
             }).once('close', () => {
                 console.log(`close`)
@@ -26,7 +26,6 @@ export default class extends Operator {
                     console.log(`2nd data: ${data}`)
                     const theta = parseInt(data.split(' ')[1])
                     variables.thetaPulse.assign(theta)
-                    variables.thetaPulseInnerText.assign(`theta: ${theta}`)
                     socket.end()
                 }).once('close', () => {
                     console.log('2nd close')
@@ -36,8 +35,6 @@ export default class extends Operator {
             }).connect(23, 'localhost', () => {
                 socket.write(`pulse?:0`)
             })
-
-
         }
     }
 }

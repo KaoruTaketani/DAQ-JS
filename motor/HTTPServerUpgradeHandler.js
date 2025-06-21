@@ -21,7 +21,7 @@ export default class extends Operator {
             variables.webSocketPathnames.assign(new Map())
             variables.elementValues.assign(new Map())
 
-            this._httpServer.on('upgrade', (request, socket, head) => {
+            this._httpServer.on('upgrade', (/** @type {import('http').IncomingMessage} */request, /** @type {import('net').Socket} */socket, /** @type {Buffer} */head) => {
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
                     const url = new URL(`ws://localhost${request.url}`)
                     this._webSocketPathnames.set(ws, url.pathname)
@@ -35,7 +35,7 @@ export default class extends Operator {
                         variables.message.assign(arg)
                     })
 
-                    this._elementValues.forEach((value, key) => {
+                    this._elementValues.forEach((/** @type {string|boolean} */value, /** @type {string} */key) => {
                         if (request.url !== key) return
 
                         if (typeof value === 'string')

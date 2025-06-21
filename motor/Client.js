@@ -47,7 +47,12 @@ moveXButtonElement.type = 'button'
 moveXButtonElement.value = 'move x'
 moveXButtonElement.style.width = '130px'
 moveXButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ xDestination: xDestinationElement.value }))
+    const xDestination = parseInt(xDestinationElement.value)
+    if (Number.isNaN(xDestination)) {
+        xDestinationElement.value = `NaN`
+    } else {
+        socket.send(JSON.stringify({ xDestination: xDestination }))
+    }
 }
 url.pathname = 'moveXButtonDisabled'
 const moveXButtonDisabledSocket = new WebSocket(url)
@@ -84,7 +89,12 @@ moveThetaButtonElement.type = 'button'
 moveThetaButtonElement.value = 'move theta'
 moveThetaButtonElement.style.width = '130px'
 moveThetaButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ thetaDestination: thetaDestinationElement.value }))
+    const thetaDestination = parseInt(thetaDestinationElement.value)
+    if (Number.isNaN(thetaDestination)) {
+        thetaDestinationElement.value = `NaN`
+    } else {
+        socket.send(JSON.stringify({ thetaDestination: thetaDestination }))
+    }
 }
 url.pathname = 'moveThetaButtonDisabled'
 const moveThetaButtonDisabledSocket = new WebSocket(url)

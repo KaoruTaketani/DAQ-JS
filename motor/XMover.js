@@ -14,13 +14,33 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            if (Number.isNaN(this._xDestination)) return
+
             const socket = new Socket()
             socket.setEncoding('utf8')
-            socket.once('data', (/** @type {string} */data) => {
+            socket.on('data', (/** @type {string} */data) => {
                 console.log(`data: ${data}`)
-                socket.end()
-            }).once('close', () => {
+                if (!data.startsWith('ok')) {
+                    socket.end()
+                    return
+                }
+                if (data === 'ok') {
+                    socket.write('pulse?:0')
+                } else {
+                    const pulse = parseInt(data.split(' ')[1]),
+                        isBusy = data.split(' ')[2] === '1'
+                    variables.xPulse.assign(pulse)
+                    if (isBusy) {
+                        setTimeout(() => {
+                            socket.write('pulse?:0')
+                        }, 100)
+                    } else {
+                        socket.end()
+                    }
+                }
+            }).on('close', () => {
                 console.log(`close`)
+                variables.xDestination.assign(Number.NaN)
             }).connect(23, 'localhost', () => {
                 socket.write(`move_to:0 ${this._xDestination}`)
             })
