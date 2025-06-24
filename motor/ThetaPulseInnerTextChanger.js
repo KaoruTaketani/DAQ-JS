@@ -13,7 +13,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.thetaPulseInnerText.assign(`x: ${this._thetaPulse}`)
+            variables.thetaPulseInnerText.assign(this._thetaPulse.toLocaleString())
         }
     }
 }

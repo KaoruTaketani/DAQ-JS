@@ -13,7 +13,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.xPulseInnerText.assign(`x: ${this._xPulse}`)
+            variables.xPulseInnerText.assign(this._xPulse.toLocaleString())
         }
     }
 }
