@@ -1,5 +1,3 @@
-import sub2ind from './sub2ind.js'
-import eye from './eye.js'
 
 export default (
     fname,

@@ -1,6 +1,6 @@
 import zeros from './zeros.js'
 import size from './size.js'
-import eye from './eye.js'
+import eye from '../lib/eye.js'
 import mtimes from './mtimes.js'
 import { ok } from 'assert'
 
