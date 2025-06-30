@@ -1,6 +1,6 @@
 import Operator from './Operator.js'
 import fft0 from './fft0.js'
-import sum from './sum.js'
+import sum from '../lib/sum.js'
 
 export default class extends Operator {
     /**

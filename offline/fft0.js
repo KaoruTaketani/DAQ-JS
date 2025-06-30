@@ -1,5 +1,5 @@
 import freqspace from '../lib/freqspace.js'
-import sum from './sum.js'
+import sum from '../lib/sum.js'
 /**
  * @param {number[]} x
  * @returns {number[]}

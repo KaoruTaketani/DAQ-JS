@@ -2,8 +2,8 @@
     "compilerOptions": {
         "target": "ES6",
         // specifies the module system, when generating module code
-        "module": "node16", // necessary for import.meta 
-        // "module": "ES2022", 
+        // "module": "node16", // necessary for import.meta 
+        "module": "ES2022", 
         // specifies how modules are resolved for imports.
         // "moduleResolution": "node", // necessary for only import('h5wasm')? but if module is node16, it seems to be unnecessary
         "checkJs": true,
