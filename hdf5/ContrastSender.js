@@ -1,7 +1,7 @@
 import { ok } from 'assert'
 import { join } from 'path'
 import axes from './axes.js'
-import colon from './colon.js'
+import colon from '../lib/colon.js'
 import line from './line.js'
 import Operator from './Operator.js'
 const h5wasm = await import("h5wasm/node")

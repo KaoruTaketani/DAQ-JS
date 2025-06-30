@@ -1,4 +1,4 @@
-import colon from './colon.js'
+import colon from '../lib/colon.js'
 import lsqcurvefit from './lsqcurvefit.js'
 import Operator from './Operator.js'
 import sum from './sum.js'

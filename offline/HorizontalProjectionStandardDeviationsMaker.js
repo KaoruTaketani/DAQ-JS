@@ -1,4 +1,4 @@
-import colon from './colon.js'
+import colon from '../lib/colon.js'
 import Operator from './Operator.js'
 import std from './std.js'
 
