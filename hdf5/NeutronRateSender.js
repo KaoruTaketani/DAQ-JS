@@ -3,7 +3,7 @@ import { join } from 'path'
 import Operator from './Operator.js'
 import axes from '../lib/axes.js'
 import colon from '../lib/colon.js'
-import line from './line.js'
+import line from '../lib/line.js'
 import max from '../lib/max.js'
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
