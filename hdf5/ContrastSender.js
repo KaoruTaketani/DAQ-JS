@@ -1,6 +1,6 @@
 import { ok } from 'assert'
 import { join } from 'path'
-import axes from './axes.js'
+import axes from '../lib/axes.js'
 import colon from '../lib/colon.js'
 import line from './line.js'
 import Operator from './Operator.js'

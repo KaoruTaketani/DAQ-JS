@@ -1,8 +1,8 @@
 import colon from '../lib/colon.js'
 import lsqcurvefit from '../lib/lsqcurvefit.js'
 import Operator from './Operator.js'
-import sum from './sum.js'
-import max from './max.js'
+import sum from '../lib/sum.js'
+import max from '../lib/max.js'
 
 export default class extends Operator {
     /**

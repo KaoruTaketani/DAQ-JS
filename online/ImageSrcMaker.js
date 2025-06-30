@@ -1,5 +1,5 @@
 import image from './image.js'
-import max from './max.js'
+import max from '../lib/max.js'
 import ThrottleOperator from './ThrottleOperator.js'
 
 export default class extends ThrottleOperator {
