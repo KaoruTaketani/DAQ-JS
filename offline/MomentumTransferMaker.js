@@ -1,5 +1,5 @@
 import Operator from './Operator.js'
-import deg2rad from './deg2rad.js'
+import deg2rad from '../lib/deg2rad.js'
 import { ok } from 'assert'
 
 export default class extends Operator {

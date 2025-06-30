@@ -1,6 +1,6 @@
 import { readFile } from 'fs'
 import { join } from 'path'
-import imagesc from './imagesc.js'
+import imagesc from '../lib/imagesc.js'
 import Operator from './Operator.js'
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
