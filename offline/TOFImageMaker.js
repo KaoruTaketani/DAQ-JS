@@ -1,5 +1,5 @@
 import Operator from './Operator.js'
-import sub2ind from './sub2ind.js'
+import sub2ind from '../lib/sub2ind.js'
 
 export default class extends Operator {
     /**

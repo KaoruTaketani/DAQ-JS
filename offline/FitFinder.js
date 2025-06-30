@@ -1,5 +1,5 @@
 import colon from '../lib/colon.js'
-import lsqcurvefit from './lsqcurvefit.js'
+import lsqcurvefit from '../lib/lsqcurvefit.js'
 import Operator from './Operator.js'
 import sum from './sum.js'
 import max from './max.js'

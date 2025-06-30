@@ -1,4 +1,4 @@
-import freqspace from './freqspace.js'
+import freqspace from '../lib/freqspace.js'
 import sum from './sum.js'
 /**
  * @param {number[]} x

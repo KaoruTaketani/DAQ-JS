@@ -1,5 +1,5 @@
 import { crc32, deflate } from 'zlib'
-import sub2ind from './sub2ind.js'
+import sub2ind from '../lib/sub2ind.js'
 import max from './max.js'
 
 /**

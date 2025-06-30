@@ -1,6 +1,6 @@
-import rand from './rand.js'
-import mean from './mean.js'
-import std from './std.js'
+import rand from '../lib/rand.js'
+import mean from '../lib/mean.js'
+import std from '../lib/std.js'
 
 const settings = [
     {

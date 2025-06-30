@@ -1,5 +1,5 @@
 import colon from '../lib/colon.js'
-import mean from './mean.js'
+import mean from '../lib/mean.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {

@@ -2,7 +2,7 @@ import axes from './axes.js'
 import max from './max.js'
 import min from './min.js'
 import line from './line.js'
-import linspace from './linspace.js'
+import linspace from '../lib/linspace.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {

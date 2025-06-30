@@ -1,6 +1,6 @@
 import { deflate, crc32 } from 'zlib'
 import { ok } from 'assert'
-import sub2ind from './sub2ind.js'
+import sub2ind from '../lib/sub2ind.js'
 
 /**
  * @param {import('./index.js').Axes} ax

@@ -1,7 +1,6 @@
-import sub2ind from './sub2ind.js'
-import { writeFile } from 'fs'
-import { deflate, crc32 } from 'zlib'
 import { Buffer } from 'buffer'
+import { writeFile } from 'fs'
+import { crc32, deflate } from 'zlib'
 
 const c = new Array(64 * (64 + 1)).fill(0)
 // for (let j = 1; j <= 64; ++j) {

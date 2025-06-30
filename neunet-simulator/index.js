@@ -1,5 +1,5 @@
 import { createServer } from 'net'
-import randn from './randn.js'
+import randn from '../lib/randn.js'
 import txy2edr from './txy2edr.js'
 
 createServer().on('connection', socket => {

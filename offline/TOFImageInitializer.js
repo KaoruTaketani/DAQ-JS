@@ -1,6 +1,6 @@
 import Operator from './Operator.js'
 import { getHeapStatistics } from 'v8'
-import prod from './prod.js'
+import prod from '../lib/prod.js'
 
 export default class extends Operator {
     /**

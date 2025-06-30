@@ -1,4 +1,4 @@
-import freqspace from './freqspace.js'
+import freqspace from '../lib/freqspace.js'
 import miezeB from './miezeB.js'
 import Operator from './Operator.js'
 

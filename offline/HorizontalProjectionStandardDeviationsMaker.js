@@ -1,6 +1,6 @@
 import colon from '../lib/colon.js'
 import Operator from './Operator.js'
-import std from './std.js'
+import std from '../lib/std.js'
 
 export default class extends Operator {
     /**
