@@ -35,6 +35,21 @@ export default class extends Operator {
             }).connect(23, 'localhost', () => {
                 socket.write(`pulse?:0`)
             })
+            // following code fails to assign thetaPulse as data are same
+            // socket.connect(23, 'localhost', () => {
+            //     socket.once('data', (/** @type {string} */data) => {
+            //         console.log(`data: ${data}`)
+            //         const x = parseInt(data.split(' ')[1])
+            //         variables.xPulse.assign(x)
+            //     }).write(`pulse?:0`)
+            //     socket.once('data', (/** @type {string} */data) => {
+            //         console.log(`2nd data: ${data}`)
+            //         const theta = parseInt(data.split(' ')[1])
+            //         variables.thetaPulse.assign(theta)
+
+            //         socket.end()
+            //     }).write('pulse?:1')
+            // })
         }
     }
 }
