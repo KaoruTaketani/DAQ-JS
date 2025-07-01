@@ -4,9 +4,7 @@ TaskQueue.js
 ```js
 export default class {
     constructor() {
-        /** @type {boolean} */
         this._isRunning = false
-        /** @type {function[]} */
         this._queue = []
     }
     push(task) {
@@ -30,26 +28,24 @@ export default class {
 Initializer.js
 
 ```js
-            socket.connect(23, 'localhost', () => {
-                taskQueue.push((/** @type {()=>void} */ done) => {
-                    socket.once('data', (/** @type {string} */data) => {
-                        console.log(`data: ${data}`)
-                        const x = parseInt(data.split(' ')[1])
-                        variables.xPulse.assign(x)
-                        done()
-                    }).write(`pulse?:0`)
-                })
-                taskQueue.push((/** @type {()=>void} */ done) => {
-                    socket.once('data', (/** @type {string} */data) => {
-                        console.log(`2nd data: ${data}`)
-                        const theta = parseInt(data.split(' ')[1])
-                        variables.thetaPulse.assign(theta)
+socket.connect(23, 'localhost', () => {
+    taskQueue.push(done => {
+        socket.once('data', (/** @type {string} */data) => {
+            const x = parseInt(data.split(' ')[1])
+            variables.xPulse.assign(x)
+            done()
+        }).write(`pulse?:0`)
+    })
+    taskQueue.push((done => {
+        socket.once('data', (/** @type {string} */data) => {
+            const theta = parseInt(data.split(' ')[1])
+            variables.thetaPulse.assign(theta)
 
-                        socket.end()
-                        done()
-                    }).write('pulse?:1')
-                })
-            })
+            socket.end()
+            done()
+        }).write('pulse?:1')
+    })
+})
 ```
 
 
