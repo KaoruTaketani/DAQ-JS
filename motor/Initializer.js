@@ -1,6 +1,5 @@
-import { Socket } from 'net'
 import Operator from './Operator.js'
-import TaskQueue from './TaskQeueue.js'
+import SocketQueue from './SocketQueue.js'
 
 export default class extends Operator {
     /**
@@ -14,9 +13,10 @@ export default class extends Operator {
         this._operation = () => {
             variables.xDestinationValue.assign('NaN')
             variables.thetaDestinationValue.assign('NaN')
-            const socket = new Socket()
-            socket.setEncoding('utf8')
-            const taskQueue = new TaskQueue()
+            // const socket = new Socket()
+            // socket.setEncoding('utf8')
+            // const taskQueue = new TaskQueue()
+            const socketQueue = new SocketQueue()
             // socket.once('data', (/** @type {string} */data) => {
             //     console.log(`data: ${data}`)
             //     const x = parseInt(data.split(' ')[1])
@@ -52,25 +52,43 @@ export default class extends Operator {
             //         socket.end()
             //     }).write('pulse?:1')
             // })
-            socket.connect(23, 'localhost', () => {
-                taskQueue.push((/** @type {()=>void} */ done) => {
-                    socket.once('data', (/** @type {string} */data) => {
-                        console.log(`data: ${data}`)
-                        const x = parseInt(data.split(' ')[1])
-                        variables.xPulse.assign(x)
-                        done()
-                    }).write(`pulse?:0`)
-                })
-                taskQueue.push((/** @type {()=>void} */ done) => {
-                    socket.once('data', (/** @type {string} */data) => {
-                        console.log(`2nd data: ${data}`)
-                        const theta = parseInt(data.split(' ')[1])
-                        variables.thetaPulse.assign(theta)
+            // socket.connect(23, 'localhost', () => {
+            //     taskQueue.push((/** @type {()=>void} */ done) => {
+            //         socket.once('data', (/** @type {string} */data) => {
+            //             console.log(`data: ${data}`)
+            //             const x = parseInt(data.split(' ')[1])
+            //             variables.xPulse.assign(x)
+            //             done()
+            //         }).write(`pulse?:0`)
+            //     })
+            //     taskQueue.push((/** @type {()=>void} */ done) => {
+            //         socket.once('data', (/** @type {string} */data) => {
+            //             console.log(`2nd data: ${data}`)
+            //             const theta = parseInt(data.split(' ')[1])
+            //             variables.thetaPulse.assign(theta)
 
-                        socket.end()
-                        done()
-                    }).write('pulse?:1')
-                })
+            //             socket.end()
+            //             done()
+            //         }).write('pulse?:1')
+            //     })
+            // })
+            socketQueue.push((/** @type {import('net').Socket}*/socket,/** @type {()=>void} */ done) => {
+                socket.once('data', (/** @type {string} */data) => {
+                    console.log(`data: ${data}`)
+                    const x = parseInt(data.split(' ')[1])
+                    variables.xPulse.assign(x)
+                    done()
+                }).write(`pulse?:0`)
+            })
+            socketQueue.push((/** @type {import('net').Socket}*/socket,/** @type {()=>void} */ done) => {
+                socket.once('data', (/** @type {string} */data) => {
+                    console.log(`2nd data: ${data}`)
+                    const theta = parseInt(data.split(' ')[1])
+                    variables.thetaPulse.assign(theta)
+
+                    socket.end()
+                    done()
+                }).write('pulse?:1')
             })
         }
     }
