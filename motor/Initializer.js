@@ -85,8 +85,7 @@ export default class extends Operator {
                     console.log(`2nd data: ${data}`)
                     const theta = parseInt(data.split(' ')[1])
                     variables.thetaPulse.assign(theta)
-
-                    socket.end()
+                    // socket.end()
                     done()
                 }).write('pulse?:1')
             })

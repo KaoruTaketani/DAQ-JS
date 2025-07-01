@@ -20,26 +20,29 @@ export default class {
         this._next()
     }
     _next() {
-        while (!this._isRunning && this._queue.length) {
-            const task = this._queue.shift()
-            if (!task) return
+        if (this._isRunning) return
+        
+        const task = this._queue.shift()
+        if (!task) {
+            this._socket.end()
+            return
+        }
 
-            console.log(`pending: ${this._socket.pending}, closed: ${this._socket.closed}, writable: ${this._socket.writable}`)
-            if (!this._socket.pending) {
+        console.log(`pending: ${this._socket.pending}, closed: ${this._socket.closed}, writable: ${this._socket.writable}`)
+        if (!this._socket.pending) {
+            task(this._socket, () => {
+                this._isRunning = false
+                this._next()
+            })
+        } else {
+            this._socket.connect(23, 'localhost', () => {
                 task(this._socket, () => {
                     this._isRunning = false
                     this._next()
                 })
-            } else {
-                this._socket.connect(23, 'localhost', () => {
-                    task(this._socket, () => {
-                        this._isRunning = false
-                        this._next()
-                    })
-                })
-            }
-
-            this._isRunning = true
+            })
         }
+
+        this._isRunning = true
     }
 }
