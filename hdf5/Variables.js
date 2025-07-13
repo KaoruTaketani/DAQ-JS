@@ -24,6 +24,7 @@ export default class {
 
         this.hdf5Path = new ListenableString()
 
+        this.csvLinkHref = new ElementString('csvLinkHref', webSocket)
         this.imageSrc = new ElementString('imageSrc', webSocket)
         this.divInnerHTML = new ElementString('divInnerHTML', webSocket)
         this.svgInnerHTML = new ElementString('svgInnerHTML', webSocket)
@@ -31,8 +32,8 @@ export default class {
         this.hdf5FileNamesInnerHTML = new ElementString('hdf5FileNamesInnerHTML', webSocket)
         this.hdf5AttributesInnerHTML = new ElementString('hdf5AttributesInnerHTML', webSocket)
         this.velocityMessageInnerText = new ElementString('velocityMessageInnerText', webSocket)
-        this.tofInputValue = new ElementString('tofInputValue',webSocket)
-        this.flightLengthInputValue = new ElementString('flightLengthInputValue',webSocket)
+        this.tofInputValue = new ElementString('tofInputValue', webSocket)
+        this.flightLengthInputValue = new ElementString('flightLengthInputValue', webSocket)
 
         this.hdf5ReaderFileName = new ControllableString('hdf5ReaderFileName', this.message)
     }

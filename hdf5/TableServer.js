@@ -3,6 +3,7 @@ import HDF5AttributesReader from './HDF5AttributesReader.js'
 import HDF5FileNamesReader from './HDF5FileNamesReader.js'
 import ServerVariables from './Variables.js'
 import TableSender from './TableSender.js'
+import CSVLinkHrefMaker from './CSVLinkHrefMaker.js'
 
 export default class {
     /**
@@ -14,6 +15,7 @@ export default class {
         new HDF5FileNamesReader(this.variables)
         new HDF5AttributesReader(this.variables)
         new HDF5AttributesInnerHTMLMaker(this.variables)
+        new CSVLinkHrefMaker(this.variables)
         new TableSender(this.variables)
 
         this.variables.hdf5Path.assign('../../hdf5/mieze')

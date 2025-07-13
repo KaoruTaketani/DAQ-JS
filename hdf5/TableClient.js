@@ -19,6 +19,7 @@ document.body.appendChild(dialogElement)
 
 /** @type {HTMLAnchorElement} */
 const csvLinkElement = document.createElement('a')
+csvLinkElement.setAttribute('download', `table.csv`)
 listeners.set('csvLinkHref', (/** @type {string} */arg) => {
     csvLinkElement.href = arg
 })
@@ -30,8 +31,6 @@ downloadCSVButtonElement.value = 'download'
 downloadCSVButtonElement.style.width = '130px'
 downloadCSVButtonElement.style.display = 'block'
 downloadCSVButtonElement.onclick = () => {
-    const url = new URL(import.meta.url)
-    csvLinkElement.setAttribute('href', `${url.origin}/table.csv`)
     csvLinkElement.click()
 }
 dialogElement.appendChild(downloadCSVButtonElement)
@@ -69,7 +68,7 @@ document.body.appendChild(listboxElement)
 const tableElement = document.createElement('table')
 tableElement.style.marginLeft = '208px'
 listeners.set('tableInnerHTML', (/** @type {string} */arg) => { tableElement.innerHTML = arg })
-tableElement.ondblclick=()=>{
+tableElement.ondblclick = () => {
     dialogElement.showModal()
 }
 document.body.appendChild(tableElement)
