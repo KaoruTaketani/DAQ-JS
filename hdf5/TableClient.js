@@ -13,6 +13,39 @@ socket.addEventListener('message', event => {
     }
 })
 
+/** @type {HTMLDialogElement} */
+const dialogElement = document.createElement('dialog')
+document.body.appendChild(dialogElement)
+
+/** @type {HTMLAnchorElement} */
+const csvLinkElement = document.createElement('a')
+listeners.set('csvLinkHref', (/** @type {string} */arg) => {
+    csvLinkElement.href = arg
+})
+
+/** @type {HTMLInputElement} */
+const downloadCSVButtonElement = document.createElement('input')
+downloadCSVButtonElement.type = 'button'
+downloadCSVButtonElement.value = 'download'
+downloadCSVButtonElement.style.width = '130px'
+downloadCSVButtonElement.style.display = 'block'
+downloadCSVButtonElement.onclick = () => {
+    const url = new URL(import.meta.url)
+    csvLinkElement.setAttribute('href', `${url.origin}/table.csv`)
+    csvLinkElement.click()
+}
+dialogElement.appendChild(downloadCSVButtonElement)
+
+/** @type {HTMLInputElement} */
+const closeButtonElement = document.createElement('input')
+closeButtonElement.type = 'button'
+closeButtonElement.value = 'close'
+closeButtonElement.style.width = '130px'
+closeButtonElement.style.display = 'block'
+closeButtonElement.onclick = () => {
+    dialogElement.close()
+}
+dialogElement.appendChild(closeButtonElement)
 
 /** @type {HTMLSelectElement} */
 const listboxElement = document.createElement('select')
@@ -36,5 +69,8 @@ document.body.appendChild(listboxElement)
 const tableElement = document.createElement('table')
 tableElement.style.marginLeft = '208px'
 listeners.set('tableInnerHTML', (/** @type {string} */arg) => { tableElement.innerHTML = arg })
+tableElement.ondblclick=()=>{
+    dialogElement.showModal()
+}
 document.body.appendChild(tableElement)
 
