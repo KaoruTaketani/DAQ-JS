@@ -24,7 +24,7 @@ const tableElement = document.createElement('table')
 document.body.appendChild(tableElement)
 
 const headerElement = document.createElement('thead')
-headerElement.innerHTML = '<tr><th>name</th><th>pulse</th><th>destination</th></tr>'
+headerElement.innerHTML = '<tr><th>name</th><th>pulse</th><th>destination</th><th>limit switch</th></tr>'
 tableElement.appendChild(headerElement)
 
 const bodyElement = document.createElement('tbody')
@@ -38,12 +38,16 @@ xNameElement.innerText = 'x'
 xRowElement.appendChild(xNameElement)
 
 const xPulseElement = document.createElement('td')
+xPulseElement.style.textAlign = 'right'
 url.pathname = 'xPulseInnerText'
 const xPulseInnerTextSocket = new WebSocket(url)
 xPulseInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
     xPulseElement.innerText = event.data
 }
 xRowElement.appendChild(xPulseElement)
+
+const xDestinationCellElement = document.createElement('td')
+xRowElement.appendChild(xDestinationCellElement)
 
 const xDestinationElement = document.createElement('input')
 xDestinationElement.style.width = '130px'
@@ -57,7 +61,7 @@ const xDestinationValueSocket = new WebSocket(url)
 xDestinationValueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
     xDestinationElement.value = event.data
 }
-xRowElement.appendChild(xDestinationElement)
+xDestinationCellElement.appendChild(xDestinationElement)
 
 const moveXButtonElement = document.createElement('input')
 moveXButtonElement.type = 'button'
@@ -76,16 +80,25 @@ const moveXButtonDisabledSocket = new WebSocket(url)
 moveXButtonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
     moveXButtonElement.disabled = event.data === 'true'
 }
-xRowElement.appendChild(moveXButtonElement)
+xDestinationCellElement.appendChild(moveXButtonElement)
+
+const xLimitSwitchElement = document.createElement('td')
+xLimitSwitchElement.style.textAlign = 'right'
+xLimitSwitchElement.innerText = 'off'
+xRowElement.appendChild(xLimitSwitchElement)
+
+
+
 
 const thetaRowElement = document.createElement('tr')
 bodyElement.appendChild(thetaRowElement)
 
 const thetaNameElement = document.createElement('td')
-thetaNameElement.innerText='theta'
+thetaNameElement.innerText = 'theta'
 thetaRowElement.appendChild(thetaNameElement)
 
 const thetaPulseElement = document.createElement('td')
+thetaPulseElement.style.textAlign = 'right'
 url.pathname = 'thetaPulseInnerText'
 const thetaPulseInnerTextSocket = new WebSocket(url)
 thetaPulseInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
@@ -93,6 +106,8 @@ thetaPulseInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
 }
 thetaRowElement.appendChild(thetaPulseElement)
 
+const thetaDestinationCellElement = document.createElement('td')
+thetaRowElement.appendChild(thetaDestinationCellElement)
 
 const thetaDestinationElement = document.createElement('input')
 thetaDestinationElement.style.width = '130px'
@@ -106,7 +121,7 @@ const thetaDestinationValueSocket = new WebSocket(url)
 thetaDestinationValueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
     thetaDestinationElement.value = event.data
 }
-thetaRowElement.appendChild(thetaDestinationElement)
+thetaDestinationCellElement.appendChild(thetaDestinationElement)
 
 const moveThetaButtonElement = document.createElement('input')
 moveThetaButtonElement.type = 'button'
@@ -125,5 +140,9 @@ const moveThetaButtonDisabledSocket = new WebSocket(url)
 moveThetaButtonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
     moveThetaButtonElement.disabled = event.data === 'true'
 }
-thetaRowElement.appendChild(moveThetaButtonElement)
+thetaDestinationCellElement.appendChild(moveThetaButtonElement)
 
+const thetaLimitSwitchElement = document.createElement('td')
+thetaLimitSwitchElement.style.textAlign = 'right'
+thetaLimitSwitchElement.innerText = 'off'
+thetaRowElement.appendChild(thetaLimitSwitchElement)
