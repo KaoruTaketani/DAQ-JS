@@ -84,6 +84,8 @@ downloadHDF5ButtonElement.type = 'button'
 downloadHDF5ButtonElement.value = 'download hdf5'
 downloadHDF5ButtonElement.style.width = '130px'
 downloadHDF5ButtonElement.style.display = 'block'
+dialogElement.appendChild(downloadHDF5ButtonElement)
+
 const hdf5LinkElement = document.createElement('a')
 url.pathname = 'hdf5LinkHref'
 const hdf5LinkHrefSocket = new WebSocket(url)
@@ -94,7 +96,7 @@ downloadHDF5ButtonElement.onclick = () => {
     hdf5LinkElement.setAttribute('download', 'histogram.h5')
     hdf5LinkElement.click()
 }
-dialogElement.appendChild(downloadHDF5ButtonElement)
+
 
 const closeButtonElement = document.createElement('input')
 closeButtonElement.type = 'button'

@@ -2,44 +2,45 @@
 
 Client.js:
 ```js
-const hdf5LinkElement = document.createElement('a')
 const downloadHDF5ButtonElement = document.createElement('input')
 downloadHDF5ButtonElement.type = 'button'
 downloadHDF5ButtonElement.value = 'download hdf5'
 downloadHDF5ButtonElement.style.width = '130px'
 downloadHDF5ButtonElement.style.display = 'block'
+dialogElement.appendChild(downloadHDF5ButtonElement)
+
+const hdf5LinkElement = document.createElement('a')
+url.pathname = 'hdf5LinkHref'
+const hdf5LinkHrefSocket = new WebSocket(url)
+hdf5LinkHrefSocket.onmessage = event => {
+    hdf5LinkElement.href = event.data
+}
 downloadHDF5ButtonElement.onclick = () => {
-    const url = new URL(import.meta.url)
-    hdf5LinkElement.setAttribute('href', `${url.origin}/histogram.h5`)
+    hdf5LinkElement.setAttribute('download', 'histogram.h5')
     hdf5LinkElement.click()
 }
-dialogElement.appendChild(downloadHDF5ButtonElement)
 ```
 
-HTTPRequestHandler.js:
+WritableFloat.js:
 ```js
-import { File, ready } from 'h5wasm/node'
-
-if (request.url === '/histogram.h5') {
-    ready.then(() => {
-        const file = new File('./histogram.h5', 'w')
-        variables.histogramHDF5File.assign(file)
-        file.close()
-
-        readFile('./histogram.h5',(err,data)=>{
-                if(err) throw err
-
-                response.end(data)
-            })
+export default class extends ListenableObject {
+    constructor(name, hdf5File) {
+        super()
+        this._name = name
+        this._value
+        hdf5File.addListener(arg => {
+            arg.create_attribute(this._name, this._value, null, '<f')
         })
-    return
+    }
+    assign(arg) {
+        super.assign(arg)
+        this._value = arg
+    }
 }
 ```
 
 WritableHistogram.js:
 ```js
-import ListenableObject from './ListenableObject.js'
-
 export default class extends ListenableObject {
     constructor(name, hdf5File) {
         super()
@@ -51,8 +52,6 @@ export default class extends ListenableObject {
                 data: this._value.binCounts,
                 dtype: '<i4'
             })
-            dataset.create_attribute('binLimitsMin', this._value.binLimits[0], null, '<f')
-            dataset.create_attribute('binLimitsMax', this._value.binLimits[1], null, '<f')
         })
     }
     assign(arg) {
