@@ -48,6 +48,8 @@
 
 [14.h Slow](./14i/README.md)
 
+[14.j Normal Distribution](./14j/README.md)
+
 
 
 ## Graph
