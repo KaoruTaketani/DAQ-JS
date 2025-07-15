@@ -14,7 +14,12 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const i = Math.floor(this._randomNumber * this._histogram.binCounts.length)
+            const binWidth = (this._histogram.binLimits[1] - this._histogram.binLimits[0]) / this._histogram.binCounts.length,
+                i = Math.floor((this._randomNumber - this._histogram.binLimits[0]) / binWidth)
+
+            if (i < 0) return
+            if (i >= this._histogram.binCounts.length) return
+
             this._histogram.binCounts[i]++
             variables.histogram.assign(this._histogram)
         }

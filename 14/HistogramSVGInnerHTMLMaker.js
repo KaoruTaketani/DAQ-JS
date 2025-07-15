@@ -21,9 +21,9 @@ export default class extends Operator {
             const ax = {
                 xLim: this._histogram.binLimits,
                 yLim: [0, max(this._histogram.binCounts)],
-                xTick: linspace(0, 1, 11),
+                xTick: linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1),
                 yTick: [0, max(this._histogram.binCounts)],
-                xTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1)),
+                xTickLabel: linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1).map(x => x.toFixed(1)),
                 yTickLabel: ['0', `${max(this._histogram.binCounts)}`]
             }
             variables.histogramSVGInnerHTML.assign([
