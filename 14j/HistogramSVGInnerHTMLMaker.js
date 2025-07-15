@@ -18,14 +18,15 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const ax = {
-                xLim: [-3, 3],
-                yLim: [0, max(this._histogram.binCounts)],
-                xTick: linspace(-3, 3, 11),
-                yTick: [0, max(this._histogram.binCounts)],
-                xTickLabel: linspace(-3, 3, 11).map(x => x.toFixed(1)),
-                yTickLabel: ['0', `${max(this._histogram.binCounts)}`]
-            }
+            const xtick = linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1),
+                ax = {
+                    xLim: this._histogram.binLimits,
+                    yLim: [0, max(this._histogram.binCounts)],
+                    xTick: xtick,
+                    yTick: [0, max(this._histogram.binCounts)],
+                    xTickLabel: xtick.map(x => x.toFixed(1)),
+                    yTickLabel: ['0', `${max(this._histogram.binCounts)}`]
+                }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
                 xlabel(ax, 'random number'),

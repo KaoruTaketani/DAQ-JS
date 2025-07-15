@@ -10,7 +10,7 @@ import RandomNumberInnerTextChanger from '../14/RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../14/StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../14/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from '../14/StopButtonDisabledChanger.js'
-import Variables from './Variables.js'
+import Variables from '../14/Variables.js'
 
 const variables = new Variables()
 

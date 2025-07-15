@@ -14,11 +14,9 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const dx = (3 + 3) / this._histogram.binCounts.length,
-                o = this._randomNumber + 3.0,
-                i = Math.floor(o / dx)
+            const binWidth = (this._histogram.binLimits[1] - this._histogram.binLimits[0]) / this._histogram.binCounts.length,
+                i = Math.floor(this._randomNumber - this._histogram.binLimits[0] / binWidth)
 
-            // console.log(`${dx}, ${this._randomNumber},${typeof this._randomNumber} ${o}, ${o / dx}, ${i}`)
             if (i >= this._histogram.binCounts.length) return
             if (i < 0) return
             this._histogram.binCounts[i]++
