@@ -50,6 +50,8 @@
 
 [14.j Normal Distribution](./14j/README.md)
 
+[14.k Log Scale](./14k/README.md)
+
 
 
 ## Graph
