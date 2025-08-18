@@ -2,15 +2,20 @@ import { readFile } from 'fs'
 import Operator from './Operator.js'
 
 export default class extends Operator {
-    constructor(httpServer) {
+    /**
+     * @param {import('./Variables.js').default} variables 
+     */
+    constructor(variables) {
         super()
         this._httpServer
-        httpServer.addListener(arg => {
+        variables.httpServer.addListener(arg => {
             this._httpServer = arg
             this._operation()
         })
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
+                if (request.method !== 'GET') return
+
                 if (request.url === '/') {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
                     response.end([
@@ -27,7 +32,7 @@ export default class extends Operator {
                     return
                 }
                 if (request.url === '/Client.js') {
-                    readFile('./Client.js', 'utf8', (err, data) => {
+                    readFile(`./Client.js`, 'utf8', (err, data) => {
                         if (err) throw err
 
                         response.writeHead(200, { 'Content-Type': 'text/javascript' })

@@ -2,9 +2,9 @@ import { Server } from 'http'
 import HistogramInitializer from './HistogramInitializer.js'
 import HistogramMaker from './HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
-import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
+import HTTPGetHandler from './HTTPGetHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
-import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
+import HTTPUpgradeHandler from './HTTPUpgradeHandler.js'
 import RandomNumberGenerator from './RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from './StartButtonDisabledChanger.js'
@@ -17,9 +17,9 @@ const variables = new Variables()
 new HistogramInitializer(variables)
 new HistogramMaker(variables)
 new HistogramSVGInnerHTMLMaker(variables)
-new HTTPServerRequestHandler(variables)
+new HTTPGetHandler(variables)
 new HTTPServerSetupper(variables)
-new HTTPServerUpgradeHandler(variables)
+new HTTPUpgradeHandler(variables)
 new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new StartButtonDisabledChanger(variables)

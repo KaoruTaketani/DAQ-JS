@@ -1,4 +1,5 @@
 import { readFile } from 'fs'
+import { basename } from 'path'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -14,6 +15,8 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
+                if (request.method !== 'GET') return
+
                 if (request.url === '/') {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
                     response.end([

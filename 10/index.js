@@ -1,7 +1,7 @@
 import { Server } from 'http'
-import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
+import HTTPGetHandler from './HTTPGetHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
-import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
+import HTTPUpgradeHandler from './HTTPUpgradeHandler.js'
 import RandomNumberGenerator from './RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
 import Variables from './Variables.js'
@@ -9,9 +9,9 @@ import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 
 const variables = new Variables()
 
-new HTTPServerRequestHandler(variables)
+new HTTPGetHandler(variables)
 new HTTPServerSetupper(variables)
-new HTTPServerUpgradeHandler(variables)
+new HTTPUpgradeHandler(variables)
 new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new StartTimeInnerTextChanger(variables)

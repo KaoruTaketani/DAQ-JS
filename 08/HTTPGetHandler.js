@@ -2,18 +2,17 @@ import { readFile } from 'fs'
 import Operator from './Operator.js'
 
 export default class extends Operator {
-    /**
-     * @param {import('./Variables.js').default} variables 
-     */
-    constructor(variables) {
+    constructor(httpServer) {
         super()
         this._httpServer
-        variables.httpServer.addListener(arg => {
+        httpServer.addListener(arg => {
             this._httpServer = arg
             this._operation()
         })
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
+                if (request.method !== 'GET') return
+
                 if (request.url === '/') {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
                     response.end([
