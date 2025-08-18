@@ -1,6 +1,6 @@
 import { readFile } from 'fs'
+import { basename } from 'path'
 import Operator from '../14/Operator.js'
-import { BlockList } from 'net'
 
 export default class extends Operator {
     /**
@@ -13,18 +13,9 @@ export default class extends Operator {
             this._httpServer = arg
             this._operation()
         })
-        this._blockList
         this._operation = () => {
-            this._blockList = new BlockList()
-            this._blockList.addRange('0.0.0.0', '255.255.255.255')
-
             this._httpServer.on('request', (request, response) => {
-                if (this._blockList.check(request.socket.remoteAddress)
-                    || this._blockList.check(request.socket.remoteAddress, 'ipv6')) {
-                    response.statusCode = 403
-                    response.end('Forbidden')
-                    return
-                }
+                if (request.method !== 'GET') return
 
                 if (request.url === '/') {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
@@ -34,15 +25,31 @@ export default class extends Operator {
                         '    <meta charset="utf-8">',
                         '</head>',
                         '<body>',
-                        `    <script type="module" src="./Client.js">`,
+                        `    <p><a href="./RandomNumberGeneratorClient.html">RandomNumberGenerator</a></p>`,
+                        `    <p><a href="./HistogramClient.html">Histogram</a></p>`,
+                        `    <p><a href="./TimeSeriesClient.html">Time Series</a></p>`,
+                        '</body>',
+                        '</html>'
+                    ].join('\n'))
+                    return
+                }
+                if (request.url.endsWith('.html')) {
+                    response.writeHead(200, { 'Content-Type': 'text/html' })
+                    response.end([
+                        '<html>',
+                        '<head>',
+                        '    <meta charset="utf-8">',
+                        '</head>',
+                        '<body>',
+                        `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
                         `    </script>`,
                         '</body>',
                         '</html>'
                     ].join('\n'))
                     return
                 }
-                if (request.url === '/Client.js') {
-                    readFile(`../14/Client.js`, 'utf8', (err, data) => {
+                if (request.url.endsWith('.js')) {
+                    readFile(`.${request.url}`, 'utf8', (err, data) => {
                         if (err) throw err
 
                         response.writeHead(200, { 'Content-Type': 'text/javascript' })
