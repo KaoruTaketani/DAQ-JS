@@ -11,7 +11,7 @@ export default class extends Operator {
     constructor(variables) {
         super()
         this._timeSeries
-        variables.timeSeries.addListener(arg => { this._timeSeries })
+        variables.timeSeries.addListener(arg => { this._timeSeries = arg })
         this._influxReaderField
         variables.influxReaderField.addListener(arg => {
             this._influxReaderField = arg
@@ -19,6 +19,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             console.log(this._influxReaderField)
+            let count = 0
             const req = request(
                 {
                     host: 'us-east-1-1.aws.cloud2.influxdata.com',
@@ -45,12 +46,19 @@ export default class extends Operator {
                         crlfDelay: Infinity // This option helps in handling different line endings
                     })
                     rl.on('line', line => {
-                        console.log(line.split(',')[3])
-                        // this._timeSeries.time.copyWithin(0, 1)
-                        // this._timeSeries.time[this._timeSeries.time.length - 1] = Date.now()
-                        // this._timeSeries.data.copyWithin(0, 1)
-                        // this._timeSeries.data[this._timeSeries.data.length - 1] = this._randomNumber
-                        // variables.timeSeries.assign(this._timeSeries)
+                        const time = Date.parse(line.split(',')[5]),
+                            data = parseFloat(line.split(',')[6])
+                        // console.log(`${time} ${data}`)
+                        if (Number.isNaN(time) || Number.isNaN(data)) return
+
+                        count++
+                        this._timeSeries.time.copyWithin(0, 1)
+                        this._timeSeries.time[this._timeSeries.time.length - 1] = time
+                        this._timeSeries.data.copyWithin(0, 1)
+                        this._timeSeries.data[this._timeSeries.data.length - 1] = data
+                    }).on('close', () => {
+                        console.log(`readline.close count: ${count}`)
+                        variables.timeSeries.assign(this._timeSeries)
                     })
                 }
             )
