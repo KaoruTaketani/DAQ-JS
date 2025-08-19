@@ -6,15 +6,6 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const readButtonElement = document.createElement('input')
-readButtonElement.type = 'button'
-readButtonElement.value = 'read'
-readButtonElement.style.width = '130px'
-readButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ influxReaderField: 'randomNumber' }))
-}
-document.body.appendChild(readButtonElement)
-
 const startButtonElement = document.createElement('input')
 startButtonElement.type = 'button'
 startButtonElement.value = 'start'
@@ -42,6 +33,15 @@ stopButtonDisabledSocket.onmessage = event => {
     stopButtonElement.disabled = event.data === 'true'
 }
 document.body.appendChild(stopButtonElement)
+
+const readButtonElement = document.createElement('input')
+readButtonElement.type = 'button'
+readButtonElement.value = 'read'
+readButtonElement.style.width = '130px'
+readButtonElement.onclick = () => {
+    socket.send(JSON.stringify({ influxReaderField: 'randomNumber' }))
+}
+document.body.appendChild(readButtonElement)
 
 const startTimeElement = document.createElement('p')
 url.pathname = 'startTimeInnerText'

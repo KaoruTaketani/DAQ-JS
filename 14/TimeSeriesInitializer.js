@@ -16,11 +16,10 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._randomNumberGeneratorIsBusy) return
 
-            if (this._timeSeries === undefined)
-                variables.timeSeries.assign({
-                    time: new Array(16).fill(Number.NaN),
-                    data: new Array(16).fill(Number.NaN)
-                })
+            variables.timeSeries.assign({
+                time: new Array(16).fill(Number.NaN),
+                data: new Array(16).fill(Number.NaN)
+            })
         }
     }
 }
