@@ -7,6 +7,7 @@ import HTTPServerSetupper from '../14/HTTPServerSetupper.js'
 import HTTPUpgradeHandler from '../14/HTTPUpgradeHandler.js'
 import RandomNumberGenerator from '../14/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../14/RandomNumberInnerTextChanger.js'
+import ReadButtonDisabledChanger from './ReadButtonDisabledChanger.js'
 import StartButtonDisabledChanger from '../14/StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../14/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from '../14/StopButtonDisabledChanger.js'
@@ -29,6 +30,7 @@ new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
+new ReadButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 new TimeSeriesInitializer(variables)
 new TimeSeriesMaker(variables)
@@ -38,3 +40,4 @@ new InfluxReader(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(false)
+variables.readButtonDisabled.assign(true)

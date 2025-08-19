@@ -41,6 +41,11 @@ readButtonElement.style.width = '130px'
 readButtonElement.onclick = () => {
     socket.send(JSON.stringify({ influxReaderField: 'randomNumber' }))
 }
+url.pathname = 'readButtonDisabled'
+const readButtonDisabledSocket = new WebSocket(url)
+readButtonDisabledSocket.onmessage = event => {
+    readButtonElement.disabled = event.data === 'true'
+}
 document.body.appendChild(readButtonElement)
 
 const startTimeElement = document.createElement('p')

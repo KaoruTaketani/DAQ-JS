@@ -20,6 +20,7 @@ export default class {
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
+        this.readButtonDisabled = new ElementBoolean('/readButtonDisabled', this.elementValues, this.webSocketPathnames)        
 
         this.influxReaderField = new ControllableString('influxReaderField',this.message)
 
