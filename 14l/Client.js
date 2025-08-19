@@ -34,6 +34,34 @@ stopButtonDisabledSocket.onmessage = event => {
 }
 document.body.appendChild(stopButtonElement)
 
+const presetLabelElement = document.createElement('label')
+presetLabelElement.innerText = 'preset'
+let presetValue
+const presetElement = document.createElement('input')
+presetElement.type = 'number'
+presetElement.min = 1
+presetElement.addEventListener('change', () => {
+    if (Number.isNaN(presetElement.valueAsNumber)) {
+        presetElement.value = presetValue
+        return
+    }
+
+    socket.send(JSON.stringify({ preset: presetElement.valueAsNumber }))
+})
+url.pathname = 'presetValue'
+const presetValueSocket = new WebSocket(url)
+presetValueSocket.onmessage = event => {
+    presetElement.value = event.data
+    presetValue = presetElement.value
+}
+url.pathname = 'presetDisabled'
+const presetDisabledSocket = new WebSocket(url)
+presetDisabledSocket.onmessage = event => {
+    presetElement.disabled = event.data === 'true'
+}
+presetLabelElement.appendChild(presetElement)
+document.body.appendChild(presetLabelElement)
+
 const startTimeElement = document.createElement('p')
 url.pathname = 'startTimeInnerText'
 const startTimeInnerTextSocket = new WebSocket(url)

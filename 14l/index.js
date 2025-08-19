@@ -10,6 +10,9 @@ import RandomNumberInnerTextChanger from '../14/RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../14/StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../14/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from '../14/StopButtonDisabledChanger.js'
+import Comparator from './Comparator.js'
+import PresetDisabledChanger from './PresetDisabledChanger.js'
+import PresetValueChanger from './PresetValueChanger.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
@@ -25,6 +28,10 @@ new RandomNumberInnerTextChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
+new PresetValueChanger(variables)
+new PresetDisabledChanger(variables)
+new Comparator(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(false)
+variables.preset.assign(5)

@@ -3,6 +3,7 @@ import ElementBoolean from '../14/ElementBoolean.js'
 import ElementString from '../14/ElementString.js'
 import ListenableNumber from '../14/ListenableNumber.js'
 import ListenableObject from '../14/ListenableObject.js'
+import ControllableNumber from './ControllableNumber.js'
 
 export default class {
     constructor() {
@@ -17,11 +18,15 @@ export default class {
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
 
+        this.preset = new ControllableNumber('preset', this.message)
+
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
+        this.presetDisabled = new ElementBoolean('/presetDisabled', this.elementValues, this.webSocketPathnames)
 
         this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)
+        this.presetValue = new ElementString('/presetValue', this.elementValues, this.webSocketPathnames)
         this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
         this.timeSeriesSVGInnerHTML = new ElementString('/timeSeriesSVGInnerHTML', this.elementValues, this.webSocketPathnames)
     }
