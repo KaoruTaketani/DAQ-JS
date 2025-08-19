@@ -1,4 +1,5 @@
 import { request } from 'https'
+import { createInterface } from 'readline'
 import token from './token.js'
 import org from './org.js'
 import Operator from '../14/Operator.js'
@@ -9,6 +10,8 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        this._timeSeries
+        variables.timeSeries.addListener(arg => { this._timeSeries })
         this._influxReaderField
         variables.influxReaderField.addListener(arg => {
             this._influxReaderField = arg
@@ -31,11 +34,23 @@ export default class extends Operator {
                     console.log(`STATUS: ${res.statusCode}`)
                     console.log(`HEADERS: ${JSON.stringify(res.headers)}`)
                     res.setEncoding('utf8')
-                    res.on('data', (chunk) => {
-                        console.log(`BODY: ${chunk}`);
+                    // res.on('data', (chunk) => {
+                    //     console.log(`BODY: ${chunk}`);
+                    // })
+                    // res.on('end', () => {
+                    //     console.log('No more data in response.');
+                    // })
+                    const rl = createInterface({
+                        input: res,
+                        crlfDelay: Infinity // This option helps in handling different line endings
                     })
-                    res.on('end', () => {
-                        console.log('No more data in response.');
+                    rl.on('line', line => {
+                        console.log(line.split(',')[3])
+                        // this._timeSeries.time.copyWithin(0, 1)
+                        // this._timeSeries.time[this._timeSeries.time.length - 1] = Date.now()
+                        // this._timeSeries.data.copyWithin(0, 1)
+                        // this._timeSeries.data[this._timeSeries.data.length - 1] = this._randomNumber
+                        variables.timeSeries.assign(this._timeSeries)
                     })
                 }
             )
