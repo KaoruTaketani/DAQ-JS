@@ -1,6 +1,6 @@
 import axes from './axes.js'
 import max from '../lib/max.js'
-import min from './min.js'
+import min from '../lib/min.js'
 import line from './line.js'
 import linspace from '../lib/linspace.js'
 import Operator from './Operator.js'
