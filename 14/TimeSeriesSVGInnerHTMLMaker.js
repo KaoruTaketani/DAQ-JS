@@ -1,5 +1,5 @@
 import axes from './axes.js'
-import max from './max.js'
+import max from '../lib/max.js'
 import min from './min.js'
 import line from './line.js'
 import linspace from '../lib/linspace.js'

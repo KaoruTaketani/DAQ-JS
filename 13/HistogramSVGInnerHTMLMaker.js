@@ -1,5 +1,5 @@
 import axes from './axes.js'
-import max from './max.js'
+import max from '../lib/max.js'
 import linspace from '../lib/linspace.js'
 import stairs from './stairs.js'
 import xlabel from './xlabel.js'
