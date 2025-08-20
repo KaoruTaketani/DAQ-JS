@@ -36,6 +36,8 @@ export interface Axes {
     innerHeight?: number
     xTickLabelGapOffset?: number
     yTickLabelGapOffset?: number
+    xLabelGapOffset?: number
+    yLabelGapOffset?: number
     xScale?: string
     yScale?: string
     zScale?: string
