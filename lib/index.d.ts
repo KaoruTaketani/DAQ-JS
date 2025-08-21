@@ -3,6 +3,11 @@ export interface XY {
     y: number[]
 }
 
+export interface LineOptions {
+    color?: string
+    lineStyle?: string
+}
+
 export interface Histogram {
     binCounts: number[]
     binWidth: number
