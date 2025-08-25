@@ -16,12 +16,11 @@ export default class extends Operator {
         this._operation = () => {
             const size = [
                 2 ** this._neutronPositionBitLength,
-                2 ** this._neutronPositionBitLength],
-                length = prod(size)
+                2 ** this._neutronPositionBitLength]
 
             variables.rawImage.assign({
                 numBins: size,
-                binCounts: new Array(length).fill(0),
+                binCounts: new Array(prod(size)).fill(0),
                 xBinLimits: [0, 2 ** this._neutronPositionBitLength],
                 yBinLimits: [0, 2 ** this._neutronPositionBitLength]
             })

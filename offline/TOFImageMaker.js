@@ -23,13 +23,12 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const binWidth = (this._tofImage.xBinLimits[1] - this._tofImage.xBinLimits[0])
+            const binWidth = (this._tofImage.zBinLimits[1] - this._tofImage.zBinLimits[0])
                 / this._tofImage.numBins[0]
             // sub2ind expects indexes to start frpm 1
             this._tofImage.binCounts[sub2ind(
                 this._tofImage.numBins,
-                Math.ceil(this._filteredNeutronEvent.tofInNanoseconds
-                    / binWidth),
+                Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidth),
                 this._filteredNeutronEvent.yPositionInPixels - this._roiYInPixels,
                 this._filteredNeutronEvent.xPositionInPixels - this._roiXInPixels
             )]++

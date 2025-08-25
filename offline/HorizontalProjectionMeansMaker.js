@@ -17,11 +17,10 @@ export default class extends Operator {
         this._operation = () => {
             const numBins = this._horizontalProjectionHistograms.numBins,
                 means = new Array(numBins[0]).fill(0)
-
             for (let i = 0; i < numBins[0]; ++i) {
                 const weights = this._horizontalProjectionHistograms.binCounts.slice(i * numBins[1], (i + 1) * numBins[1])
 
-                means[i] = mean(colon(0, numBins[1]), weights)
+                means[i] = mean(colon(1, numBins[1]), weights)
             }
             variables.horizontalProjectionMeans.assign(means)
         }

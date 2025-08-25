@@ -60,7 +60,7 @@ export default class extends Operator {
                 binCounts: new Array(length).fill(0),
                 xBinLimits: [0, this._roiWidthInPixels],
                 yBinLimits: [0, this._roiHeightInPixels],
-                zBinLimits: [0, size[0]]
+                zBinLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
             })
         }
     }

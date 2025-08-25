@@ -21,7 +21,7 @@ export default class extends Operator {
             for (let i = 0; i < numBins[0]; ++i) {
                 const weights = this._horizontalProjectionHistograms.binCounts.slice(i * numBins[1], (i + 1) * numBins[1])
 
-                stds[i] = std(colon(0, numBins[1]), weights)
+                stds[i] = std(colon(1, numBins[1]), weights)
             }
             variables.horizontalProjectionStandardDeviations.assign(stds)
         }
