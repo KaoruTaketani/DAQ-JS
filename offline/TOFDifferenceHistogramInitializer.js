@@ -30,7 +30,7 @@ export default class extends Operator {
 
             variables.tofDifferenceHistogram.assign({
                 binCounts: new Array(numBins).fill(0),
-                binWidth: dt
+                binLimits: [this._tofDifferenceHistogramMinInNanoseconds, this._tofDifferenceHistogramMaxInNanoseconds]
             })
         }
     }

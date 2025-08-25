@@ -20,11 +20,13 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            const binWidth = (this._horizontalProjectionHistograms.xBinLimits[1] - this._horizontalProjectionHistograms.xBinLimits[0])
+                / this._horizontalProjectionHistograms.binCounts.length
             // sub2ind expects indexes to start frpm 1
             this._horizontalProjectionHistograms.binCounts[sub2ind(
                 this._horizontalProjectionHistograms.numBins,
-                Math.ceil(this._filteredNeutronEvent.tofInNanoseconds
-                    / this._horizontalProjectionHistograms.binWidth[0]),
+                Math.floor(this._filteredNeutronEvent.tofInNanoseconds
+                    / binWidth),
                 this._filteredNeutronEvent.xPositionInPixels - this._roiXInPixels
             )]++
         }

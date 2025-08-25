@@ -51,11 +51,10 @@ export default class extends Operator {
 
             /**  @type {import('../lib/index.js').Histogram2D} */
             const h = {
-                // xBinLimits: xBinLimits,
-                // yBinLimits: yBinLimits,
+                xBinLimits: [0, dataset.shape[0]],
+                yBinLimits: [0, dataset.shape[1]],
                 binCounts: /** @type {number[]} */(dataset.value),
-                numBins: dataset.shape,
-                binWidth: [1, 1]
+                numBins: dataset.shape
             }
             imagesc(h).then(buf => {
                 variables.imageSrc.assign(`data:image/png;base64,${buf.toString('base64')}`)

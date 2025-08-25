@@ -39,14 +39,15 @@ export default class extends Operator {
 
             const size = [
                 this._tofMaxInMilliseconds * this._miezeFrequencyInKilohertz,
-                this._roiWidthInPixels],
-                // must be nanoseconds as used in maker
-                dt = this._tofMaxInMilliseconds * 1_000_000 / size[0]
+                this._roiWidthInPixels]//,
+            // must be nanoseconds as used in maker
+            // dt = this._tofMaxInMilliseconds * 1_000_000 / size[0]
 
             variables.horizontalProjectionHistograms.assign({
                 numBins: size,
                 binCounts: new Array(prod(size)).fill(0),
-                binWidth: [dt, 1]
+                xBinLimits: [0, 80],
+                yBinLimits: [0, size[1]]
             })
         }
     }

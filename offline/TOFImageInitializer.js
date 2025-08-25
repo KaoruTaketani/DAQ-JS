@@ -49,16 +49,18 @@ export default class extends Operator {
                 this._tofMaxInMilliseconds,
                 this._roiHeightInPixels,
                 this._roiWidthInPixels],
-                length = prod(size),
-                // must be nanoseconds as used in maker
-                dt = size[0] * 1_000_000 / size[0]
+                length = prod(size)//,
+            // must be nanoseconds as used in maker
+            //dt = size[0] * 1_000_000 / size[0]
 
             console.log(`t: ${size[0]}, h: ${size[1]}, w: ${size[2]} memory: ${(8 * length).toLocaleString()} bytes, heap_limit: ${getHeapStatistics().heap_size_limit.toLocaleString()} bytes`)
 
             variables.tofImage.assign({
                 numBins: size,
                 binCounts: new Array(length).fill(0),
-                binWidth: [dt, 1, 1]
+                xBinLimits: [0, this._roiWidthInPixels],
+                yBinLimits: [0, this._roiHeightInPixels],
+                zBinLimits: [0, size[0]]
             })
         }
     }

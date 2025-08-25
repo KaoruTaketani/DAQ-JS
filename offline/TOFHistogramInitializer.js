@@ -31,13 +31,13 @@ export default class extends Operator {
 
             const cycleInMilliseconds = 1 / this._miezeFrequencyInKilohertz
             const binWidthInMillisecond = cycleInMilliseconds / this._frequencyVectorLength
-            const numBins = Math.ceil(this._tofMaxInMilliseconds / binWidthInMillisecond),
-                // unit must be nanoseconds as used in maker
-                dt = this._tofMaxInMilliseconds * 1_000_000 / numBins
+            const numBins = Math.ceil(this._tofMaxInMilliseconds / binWidthInMillisecond)//,
+            // unit must be nanoseconds as used in maker
+            // dt = this._tofMaxInMilliseconds * 1_000_000 / numBins
 
             variables.tofHistogram.assign({
                 binCounts: new Array(numBins).fill(0),
-                binWidth: dt
+                binLimits: [0, this._tofMaxInMilliseconds]
             })
         }
     }
