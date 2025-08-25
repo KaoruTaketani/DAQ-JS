@@ -6,10 +6,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').Histogram} */
+        /** @type {import('../lib/index.js').Histogram} */
         this._tofHistogram
         variables.tofHistogram.prependListener(arg => { this._tofHistogram = arg })
-        /** @type {import('./index.js').NeutronEvent} */
+        /** @type {import('../lib/index.js').NeutronEvent} */
         this._filteredNeutronEvent
         variables.filteredNeutronEvent.addListener(arg => {
             this._filteredNeutronEvent = arg

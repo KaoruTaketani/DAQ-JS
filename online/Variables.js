@@ -16,21 +16,21 @@ export default class {
         this.webSocketPathnames = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Map<string,boolean|string>>} */
         this.elementValues = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').Histogram>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Histogram>} */
         this.tofHistogram = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('net').Socket>} */
         this.neunetReaderSocket = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Buffer>} */
         this.eventBuffer = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').ChannelEvent>} */
         this.channel0Event = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').ChannelEvent>} */
         this.channel1Event = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').PairedEvent>} */
         this.pairedEvent = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').NeutronEvent>} */
         this.neutronEvent = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').Histogram2D>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Histogram2D>} */
         this.image = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('fs').WriteStream>} */
         this.edrStream = new ListenableObject()

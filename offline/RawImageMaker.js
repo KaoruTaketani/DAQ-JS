@@ -7,10 +7,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').Histogram2D} */
+        /** @type {import('../lib/index.js').Histogram2D} */
         this._rawImage
         variables.rawImage.prependListener(arg => { this._rawImage = arg })
-        /** @type {import('./index.js').NeutronEvent} */
+        /** @type {import('../lib/index.js').NeutronEvent} */
         this._neutronEvent
         variables.neutronEvent.addListener(arg => {
             this._neutronEvent = arg

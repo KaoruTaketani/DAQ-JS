@@ -14,17 +14,17 @@ export default class {
         this.message = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Buffer>} */
         this.eventBuffer = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent[]>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').ChannelEvent[]>} */
         this.channelEvents = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').ChannelEvent>} */
         this.channelEvent = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent[]>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').PairedEvent[]>} */
         this.pairedEvents = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').PairedEvent>} */
         this.pairedEvent = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent[]>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').NeutronEvent[]>} */
         this.neutronEvents = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').NeutronEvent>} */
         this.neutronEvent = new ListenableObject()
 
         this.edrFileSize = new ListenableNumber()

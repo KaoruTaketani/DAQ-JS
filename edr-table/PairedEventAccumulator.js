@@ -6,10 +6,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').PairedEvent[]} */
+        /** @type {import('../lib/index.js').PairedEvent[]} */
         this._pairedEvents
         variables.pairedEvents.prependListener(arg => { this._pairedEvents = arg })
-        /** @type {import('./index.js').PairedEvent} */
+        /** @type {import('../lib/index.js').PairedEvent} */
         this._pairedEvent
         variables.pairedEvent.addListener(arg => {
             this._pairedEvent = arg

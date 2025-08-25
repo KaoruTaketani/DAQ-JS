@@ -1,7 +1,7 @@
 import ListenableObject from './ListenableObject.js'
 
 /**
- * @extends ListenableObject<import('./index.js').Histogram3D>
+ * @extends ListenableObject<import('../lib/index.js').Histogram3D>
  */
 export default class extends ListenableObject {
     /**
@@ -12,7 +12,7 @@ export default class extends ListenableObject {
         super()
         /** @type {string} */
         this._name = name
-        /** @type {import('./index.js').Histogram3D} */
+        /** @type {import('../lib/index.js').Histogram3D} */
         this._value
         hdf5File.addListener(arg => {
             if (this._value) {
@@ -29,7 +29,7 @@ export default class extends ListenableObject {
     }
     /**
      * @override
-     * @param {import('./index.js').Histogram3D} arg 
+     * @param {import('../lib/index.js').Histogram3D} arg 
      */
     assign(arg) {
         super.assign(arg)

@@ -9,10 +9,10 @@ export default class extends Operator {
         /** @type {number} */
         this._tofDifferenceHistogramMinInNanoseconds
         variables.tofDifferenceHistogramMinInNanoseconds.prependListener(arg => { this._tofDifferenceHistogramMinInNanoseconds = arg })
-        /** @type {import('./index.js').Histogram} */
+        /** @type {import('../lib/index.js').Histogram} */
         this._tofDifferenceHistogram
         variables.tofDifferenceHistogram.prependListener(arg => { this._tofDifferenceHistogram = arg })
-        /** @type {import('./index.js').PairedEvent} */
+        /** @type {import('../lib/index.js').PairedEvent} */
         this._pairedEvent
         variables.pairedEvent.addListener(arg => {
             this._pairedEvent = arg

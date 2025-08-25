@@ -15,10 +15,10 @@ export default class extends Operator {
         /** @type {string} */
         this._hdf5FileName
         variables.hdf5FileName.prependListener(arg => { this._hdf5FileName = arg })
-        /** @type {import('./index.js').Histogram} */
+        /** @type {import('../lib/index.js').Histogram} */
         this._tofHistogram
         variables.tofHistogram.prependListener(arg => { this._tofHistogram = arg })
-        /** @type {import('./index.js').Histogram2D} */
+        /** @type {import('../lib/index.js').Histogram2D} */
         this._horizontalProjectionHistograms
         variables.horizontalProjectionHistograms.prependListener(arg => { this._horizontalProjectionHistograms = arg })
         /** @type {string[]} */

@@ -10,10 +10,10 @@ export default class extends Operator {
         /** @type {number} */
         this._roiXInPixels
         variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
-        /** @type {import('./index.js').Histogram2D} */
+        /** @type {import('../lib/index.js').Histogram2D} */
         this._horizontalProjectionHistograms
         variables.horizontalProjectionHistograms.prependListener(arg => { this._horizontalProjectionHistograms = arg })
-        /** @type {import('./index.js').NeutronEvent} */
+        /** @type {import('../lib/index.js').NeutronEvent} */
         this._filteredNeutronEvent
         variables.filteredNeutronEvent.addListener(arg => {
             this._filteredNeutronEvent = arg

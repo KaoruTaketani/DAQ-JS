@@ -14,15 +14,15 @@ export default class {
     constructor() {
         /** @type {import('./ListenableObject.js').default<Buffer>} */
         this.eventBuffer = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').ChannelEvent>} */
         this.channel0Event = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').ChannelEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').ChannelEvent>} */
         this.channel1Event = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').PairedEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').PairedEvent>} */
         this.pairedEvent = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').NeutronEvent>} */
         this.neutronEvent = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').NeutronEvent>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').NeutronEvent>} */
         this.filteredNeutronEvent = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('h5wasm').File>} */
         this.hdf5File = new ListenableObject()
@@ -30,7 +30,7 @@ export default class {
         this.directBeamHDF5File = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<string[]>} */
         this.jsonFilePaths = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('./index.js').Parameters>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
 
         this.directBeamNeutronRate = new ReadableNumberArray('neutronRate', this.directBeamHDF5File)

@@ -21,12 +21,12 @@ export default class extends Operator {
             if (!this._channel1Event) return
 
             variables.pairedEvent.assign({
-                xPosition: this._channel0Event.position,
-                xPulse: this._channel0Event.pulse,
-                xTOF: this._channel0Event.tof,
-                yPosition: this._channel1Event.position,
-                yPulse: this._channel1Event.pulse,
-                yTOF: this._channel1Event.tof
+                xPositionInPixels: this._channel0Event.positionInPixels,
+                xPulseHeight: this._channel0Event.pulseHeight,
+                xTOFInNanoseconds: this._channel0Event.tofInNanoseconds,
+                yPositionInPixels: this._channel1Event.positionInPixels,
+                yPulseHeight: this._channel1Event.pulseHeight,
+                yTOFInNanoseconds: this._channel1Event.tofInNanoseconds
             })
         }
     }

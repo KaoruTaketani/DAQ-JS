@@ -10,7 +10,7 @@ export default class extends Operator {
         /** @type {number} */
         this._frequencyVectorLength
         variables.frequencyVectorLength.prependListener(arg => { this._frequencyVectorLength = arg })
-        /** @type {import('./index.js').Histogram} */
+        /** @type {import('../lib/index.js').Histogram} */
         this._tofHistogram
         variables.tofHistogram.addListener(arg => {
             this._tofHistogram = arg

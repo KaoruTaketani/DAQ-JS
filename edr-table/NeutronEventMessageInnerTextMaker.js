@@ -6,7 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').NeutronEvent[]} */
+        /** @type {import('../lib/index.js').NeutronEvent[]} */
         this._neutronEvents
         variables.neutronEvents.prependListener(arg => { this._neutronEvents = arg })
         /** @type {number} */

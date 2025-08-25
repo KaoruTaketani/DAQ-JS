@@ -12,7 +12,7 @@ export default class extends ListenableObject {
         super()
         /** @type {string} */
         this._name = name
-        /** @type {number[]|undefined|import('./index.js').Histogram} */
+        /** @type {number[]|undefined|import('../lib/index.js').Histogram} */
         this._value
         readable.addListener(arg => {
             if (this._value) {

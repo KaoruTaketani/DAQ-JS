@@ -3,8 +3,8 @@ import { ok } from 'assert'
 import sub2ind from '../lib/sub2ind.js'
 
 /**
- * @param {import('./index.js').Axes} ax
- * @param {import('./index.js').Histogram2D} C
+ * @param {import('../lib/index.js').Axes} ax
+ * @param {import('../lib/index.js').Histogram2D} C
  * @returns {Promise<Buffer>}
  */
 export default (

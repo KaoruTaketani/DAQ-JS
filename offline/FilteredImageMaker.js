@@ -13,10 +13,10 @@ export default class extends Operator {
         /** @type {number} */
         this._roiYInPixels
         variables.roiYInPixels.prependListener(arg => { this._roiYInPixels = arg })
-        /** @type {import('./index.js').Histogram2D} */
+        /** @type {import('../lib/index.js').Histogram2D} */
         this._filteredImage
         variables.filteredImage.prependListener(arg => { this._filteredImage = arg })
-        /** @type {import('./index.js').NeutronEvent} */
+        /** @type {import('../lib/index.js').NeutronEvent} */
         this._filteredNeutronEvent
         variables.filteredNeutronEvent.addListener(arg => {
             this._filteredNeutronEvent = arg

@@ -8,7 +8,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').Histogram2D} */
+        /** @type {import('../lib/index.js').Histogram2D} */
         this._horizontalProjectionHistograms
         variables.horizontalProjectionHistograms.addListener(arg => {
             this._horizontalProjectionHistograms = arg

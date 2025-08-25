@@ -7,10 +7,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').Histogram2D} */
+        /** @type {import('../lib/index.js').Histogram2D} */
         this._image
         variables.image.prependListener(arg => { this._image = arg })
-        /** @type {import('./index.js').NeutronEvent} */
+        /** @type {import('../lib/index.js').NeutronEvent} */
         this._neutronEvent
         variables.neutronEvent.addListener(arg => {
             this._neutronEvent = arg
@@ -19,8 +19,8 @@ export default class extends Operator {
         this._operation = () => {
             this._image.binCounts[sub2ind(
                 this._image.numBins,
-                this._neutronEvent.y,
-                this._neutronEvent.x
+                this._neutronEvent.yPositionInPixels,
+                this._neutronEvent.xPositionInPixels
             )]++
             variables.image.assign(this._image)
         }

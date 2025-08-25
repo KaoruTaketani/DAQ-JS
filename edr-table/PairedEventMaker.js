@@ -6,15 +6,15 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('./index.js').ChannelEvent} */
+        /** @type {import('../lib/index.js').ChannelEvent} */
         this._channelEvent
         variables.channelEvent.addListener(arg => {
             this._channelEvent = arg
             this._operation()
         })
-        /** @type {import('./index.js').ChannelEvent} */
+        /** @type {import('../lib/index.js').ChannelEvent} */
         this._channel0Event
-        /** @type {import('./index.js').ChannelEvent} */
+        /** @type {import('../lib/index.js').ChannelEvent} */
         this._channel1Event
         this._operation = () => {
             if (this._channelEvent.channel === 0) this._channel0Event = this._channelEvent

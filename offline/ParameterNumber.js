@@ -4,7 +4,7 @@ export default class extends WritableNumber {
     /**
      * @param {string} name
      * @param {import('./ListenableObject.js').default<import('h5wasm').File>} hdf5File 
-     * @param {import('./ListenableObject.js').default<import('./index.js').Parameters>} parameters
+     * @param {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} parameters
      */
     constructor(name, hdf5File, parameters) {
         super(name, hdf5File)

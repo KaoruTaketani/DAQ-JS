@@ -49,7 +49,7 @@ export default class extends Operator {
             // const xBinLimits = xBinLimitsEntity.value
             // const yBinLimits = yBinLimitsEntity.value
 
-            /**  @type {import('./index.js').Histogram2D} */
+            /**  @type {import('../lib/index.js').Histogram2D} */
             const h = {
                 // xBinLimits: xBinLimits,
                 // yBinLimits: yBinLimits,
