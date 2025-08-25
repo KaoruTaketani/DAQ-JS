@@ -14,7 +14,7 @@ variables.histogramSVGInnerHTML.assign([
     axes(ax),
     xlabel(ax, 'random number'),
     ylabel(ax, 'counts'),
-    stairs(ax, this._histogram.binCounts)
+    stairs(ax, this._histogram)
 ].join(''))
 ```
 
