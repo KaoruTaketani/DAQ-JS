@@ -1,4 +1,4 @@
-import axes from './axes.js'
+import axes from '../lib/axes.js'
 import max from '../lib/max.js'
 import linspace from '../lib/linspace.js'
 import stairs from '../lib/stairs.js'

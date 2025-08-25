@@ -1,4 +1,4 @@
-import axes from './axes.js'
+import axes from '../lib/axes.js'
 import max from '../lib/max.js'
 import min from '../lib/min.js'
 import line from '../lib/line.js'
