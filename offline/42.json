@@ -1,0 +1,8 @@
+{
+    "roiXInPixels": 450,
+    "roiYInPixels": 250,
+    "roiWidthInPixels": 150,
+    "roiHeightInPixels": 450,
+    "frequencyVectorLength":8,
+    "edrFilePath": "../../edr/20250424/rpmt_run42.edr"
+}

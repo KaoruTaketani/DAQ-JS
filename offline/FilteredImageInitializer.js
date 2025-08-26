@@ -39,12 +39,11 @@ export default class extends Operator {
 
             const size = [
                 this._roiHeightInPixels,
-                this._roiWidthInPixels],
-                length = prod(size)
+                this._roiWidthInPixels]
 
             variables.filteredImage.assign({
                 numBins: size,
-                binCounts: new Array(length).fill(0),
+                binCounts: new Array(prod(size)).fill(0),
                 xBinLimits: [this._roiXInPixels, this._roiXInPixels + this._roiWidthInPixels],
                 yBinLimits: [this._roiYInPixels, this._roiYInPixels + this._roiHeightInPixels]
             })
