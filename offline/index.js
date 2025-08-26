@@ -8,10 +8,6 @@ import FilteredImageMaker from "./FilteredImageMaker.js"
 import FilteredNeutronEventMaker from "./FilteredNeutronEventMaker.js"
 import FourierEnergyMaker from "./FourierEnergyMaker.js"
 import FourierTimeMaker from "./FourierTimeMaker.js"
-import HorizontalProjectionHistogramsInitializer from "./HorizontalProjectionHistogramsInitializer.js"
-import HorizontalProjectionHistogramsMaker from "./HorizontalProjectionHistogramsMaker.js"
-import HorizontalProjectionMeansMaker from "./HorizontalProjectionMeansMaker.js"
-import HorizontalProjectionStandardDeviationsMaker from "./HorizontalProjectionStandardDeviationsMaker.js"
 import JSONFileReader from "./JSONFileReader.js"
 import MomentumTransferMaker from "./MomentumTransferMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
@@ -85,12 +81,12 @@ variables.hdf5Path.assign('../../hdf5/mieze')
 //     './113.json',
 //     './115.json'
 // ])
-variables.jsonFilePaths.assign([
-    './40.json',
-    './41.json',
-    './42.json',
-    './43.json'
-])
-// variables.jsonFilePaths.assign(['./40.json'])
+// variables.jsonFilePaths.assign([
+//     './40.json',
+//     './41.json',
+//     './42.json',
+//     './43.json'
+// ])
+variables.jsonFilePaths.assign(['./2a.json'])
 // variables.jsonFilePaths.assign(['./106.json'])
 
