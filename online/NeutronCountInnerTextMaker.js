@@ -1,20 +1,21 @@
-import ThrottleOperator from './ThrottleOperator.js'
+import throttle from '../14n/throttle.js'
+import Operator from './Operator.js'
 
-export default class extends ThrottleOperator {
+export default class extends Operator {
     /**
      * @param {import('./Variables.js').default} variables 
      */
     constructor(variables) {
-        super(200)
+        super()
         /** @type {number} */
         this._neutronCount
         variables.neutronCount.addListener(arg => {
             this._neutronCount = arg
             this._operation()
         })
-        this._operation = () => {
+        this._operation = throttle(() => {
             variables.neutronCountInnerText.assign(`neutron: ${this._neutronCount.toLocaleString()} events`)
-        }
+        }, 200)
     }
 }
 
