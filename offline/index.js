@@ -28,6 +28,8 @@ import TOFHistogramMaker from "./TOFHistogramMaker.js"
 import TOFMaker from "./TOFMaker.js"
 import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
+import VerticalProjectionInitializer from "./VerticalProjectionInitializer.js"
+import VerticalProjectionMaker from "./VerticalProjectionMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 
 const variables = new Variables()
@@ -38,6 +40,8 @@ new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
 new RawImageInitializer(variables)
 new RawImageMaker(variables)
+new VerticalProjectionInitializer(variables)
+new VerticalProjectionMaker(variables)
 new FilteredNeutronEventMaker(variables)
 new FilteredImageInitializer(variables)
 new FilteredImageMaker(variables)

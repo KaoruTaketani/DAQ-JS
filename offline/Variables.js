@@ -40,6 +40,7 @@ export default class {
         this.tofHistogram = new WritableHistogram('tofHistogram', this.hdf5File)
         this.pulseHeightHistogram = new WritableHistogram('pulseHeightHistogram', this.hdf5File)
         this.tofDifferenceHistogram = new WritableHistogram('tofDifferenceHistogram', this.hdf5File)
+        this.verticalProjection = new WritableHistogram('verticalProjection', this.hdf5File)
 
         this.rawImage = new WritableHistogram2D('rawImage', this.hdf5File)
         this.filteredImage = new WritableHistogram2D('filteredImage', this.hdf5File)
