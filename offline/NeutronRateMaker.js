@@ -1,4 +1,3 @@
-import freqspace from '../lib/freqspace.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -22,8 +21,7 @@ export default class extends Operator {
         this._operation = () => {
             if (this._tofHistogram.binCounts.reduce((a, b) => a + b, 0) === 0) return
 
-            const numBins = this._frequencyVectorLength,
-                fs = freqspace(this._frequencyVectorLength)
+            const numBins = this._frequencyVectorLength
 
             const neutronRate = new Array(this._tofHistogram.binCounts.length / numBins).fill(0).map((_, i) => {
                 const s = this._tofHistogram.binCounts.slice(i * numBins, (i + 1) * numBins)
