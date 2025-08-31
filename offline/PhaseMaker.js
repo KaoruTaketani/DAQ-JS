@@ -23,10 +23,6 @@ export default class extends Operator {
 
             const phase = new Array(this._tofHistogram.binCounts.length / numBins).fill(0).map((_, i) => {
                 /** see @MIEZEPhase */
-                // const x = miezeX8(this._filteredTOFHistogram.binCounts, n * i)
-                // const x = miezeX(this._tofHistogram.binCounts, fs, i)
-                // const y = miezeY8(this._filteredTOFHistogram.binCounts, n * i)
-                // const y = miezeY(this._tofHistogram.binCounts, fs, i)
                 const s = this._tofHistogram.binCounts.slice(i * numBins, (i + 1) * numBins)
                 const [x, y] = fft0(s)
                 return Math.atan2(y, x)

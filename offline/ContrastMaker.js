@@ -24,12 +24,6 @@ export default class extends Operator {
 
             const contrast = new Array(this._tofHistogram.binCounts.length / numBins).fill(0).map((_, i) => {
                 /** see @MIEZEContrast */
-                // const x = miezeX8(this._filteredTOFHistogram.binCounts, n * i)
-                // const x = miezeX(this._tofHistogram.binCounts, fs, i)
-                // const y = miezeY8(this._filteredTOFHistogram.binCounts, n * i)
-                // const y = miezeY(this._tofHistogram.binCounts, fs, i)
-                // const b = miezeB8(this._filteredTOFHistogram.binCounts, n * i)
-                // const b = miezeB(this._tofHistogram.binCounts, fs, i)
                 const s = this._tofHistogram.binCounts.slice(i * numBins, (i + 1) * numBins),
                     [x, y] = fft0(s),
                     b = sum(s)
