@@ -6,58 +6,59 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const startButtonElement = document.createElement('input')
-startButtonElement.type = 'button'
-startButtonElement.value = 'start'
-startButtonElement.style.width = '130px'
-startButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
-}
-url.pathname = 'startButtonDisabled'
-const startButtonDisabledSocket = new WebSocket(url)
-startButtonDisabledSocket.onmessage = event => {
-    startButtonElement.disabled = event.data === 'true'
-}
-document.body.appendChild(startButtonElement)
+(element => {
+    element.type = 'button'
+    element.value = 'start'
+    element.style.width = '130px'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
+    }
+    url.pathname = 'startButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
 
-const stopButtonElement = document.createElement('input')
-stopButtonElement.type = 'button'
-stopButtonElement.value = 'stop'
-stopButtonElement.style.width = '130px'
-stopButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
-}
-url.pathname = 'stopButtonDisabled'
-const stopButtonDisabledSocket = new WebSocket(url)
-stopButtonDisabledSocket.onmessage = event => {
-    stopButtonElement.disabled = event.data === 'true'
-}
-document.body.appendChild(stopButtonElement)
+(element => {
+    element.type = 'button'
+    element.value = 'stop'
+    element.style.width = '130px'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+    }
+    url.pathname = 'stopButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
 
-const startTimeElement = document.createElement('p')
-url.pathname = 'startTimeInnerText'
-const startTimeInnerTextSocket = new WebSocket(url)
-startTimeInnerTextSocket.onmessage = event => {
-    startTimeElement.innerText = event.data
-}
-document.body.appendChild(startTimeElement)
+(element => {
+    url.pathname = 'startTimeInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
 
-const randomNumberElement = document.createElement('p')
-url.pathname = 'randomNumberInnerText'
-const randomNumberInnerTextSocket = new WebSocket(url)
-randomNumberInnerTextSocket.onmessage = event => {
-    randomNumberElement.innerText = event.data
-}
-document.body.appendChild(randomNumberElement)
+(element => {
+    url.pathname = 'randomNumberInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
 
-const histogramSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-histogramSVGElement.setAttribute('width', '400')
-histogramSVGElement.setAttribute('height', '300')
-histogramSVGElement.setAttribute('viewBox', '0 0 560 420')
-url.pathname = 'histogramSVGInnerHTML'
-const histogramSVGInnerHTMLSocket = new WebSocket(url)
-histogramSVGInnerHTMLSocket.onmessage = event => {
-    histogramSVGElement.innerHTML = event.data
-}
-document.body.appendChild(histogramSVGElement)
+(element => {
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300')
+    element.setAttribute('viewBox', '0 0 560 420')
+    url.pathname = 'histogramSVGInnerHTML'
+    const innerHTMLSocket = new WebSocket(url)
+    innerHTMLSocket.onmessage = event => {
+        element.innerHTML = event.data
+    }
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+
 
