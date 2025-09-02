@@ -34,33 +34,33 @@ socket.onclose = () => {
     }
 })(document.body.appendChild(document.createElement('input')));
 
-(labelElement => {
-    labelElement.innerText = 'preset'
-    let value
+(element => {
+    element.innerText = 'preset';
 
-    const element = document.createElement('input')
-    element.type = 'number'
-    element.min = 1
-    element.addEventListener('change', () => {
-        if (Number.isNaN(element.valueAsNumber)) {
-            element.value = value
-            return
+    (element => {
+        let value
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
+
+            socket.send(JSON.stringify({ preset: element.valueAsNumber }))
+        })
+        url.pathname = 'presetValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
         }
-
-        socket.send(JSON.stringify({ preset: element.valueAsNumber }))
-    })
-    url.pathname = 'presetValue'
-    const valueSocket = new WebSocket(url)
-    valueSocket.onmessage = event => {
-        element.value = event.data
-        value = element.value
-    }
-    url.pathname = 'presetDisabled'
-    const disabledSocket = new WebSocket(url)
-    disabledSocket.onmessage = event => {
-        element.disabled = event.data === 'true'
-    }
-    labelElement.appendChild(element)
+        url.pathname = 'presetDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {

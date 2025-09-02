@@ -34,33 +34,34 @@ socket.onclose = () => {
     }
 })(document.body.appendChild(document.createElement('input')));
 
-(labelElement => {
-    labelElement.innerText = 'preset'
+(element => {
+    element.innerText = 'preset';
 
-    let value
+    (element => {
+        let value
 
-    const element = labelElement.appendChild(document.createElement('input'))
-    element.type = 'number'
-    element.min = 1
-    element.addEventListener('change', () => {
-        if (Number.isNaN(labelElement.valueAsNumber)) {
-            element.value = value
-            return
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
+
+            socket.send(JSON.stringify({ preset: element.valueAsNumber }))
+        })
+        url.pathname = 'presetValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
         }
-
-        socket.send(JSON.stringify({ preset: element.valueAsNumber }))
-    })
-    url.pathname = 'presetValue'
-    const valueSocket = new WebSocket(url)
-    valueSocket.onmessage = event => {
-        element.value = event.data
-        value = element.value
-    }
-    url.pathname = 'presetDisabled'
-    const disabledSocket = new WebSocket(url)
-    disabledSocket.onmessage = event => {
-        element.disabled = event.data === 'true'
-    }
+        url.pathname = 'presetDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {
@@ -71,91 +72,92 @@ socket.onclose = () => {
     }
 })(document.body.appendChild(document.createElement('p')));
 
-(labelElement => {
-    labelElement.innerText = 'from'
+(element => {
+    element.innerText = 'from';
+    (element => {
+        let value
 
-    let value
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
 
-    const element = labelElement.appendChild(document.createElement('input'))
-    element.type = 'number'
-    element.min = 1
-    element.addEventListener('change', () => {
-        if (Number.isNaN(element.valueAsNumber)) {
-            element.value = value
-            return
+            socket.send(JSON.stringify({ scanFrom: element.valueAsNumber }))
+        })
+        url.pathname = 'scanFromValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
         }
-
-        socket.send(JSON.stringify({ scanFrom: element.valueAsNumber }))
-    })
-    url.pathname = 'scanFromValue'
-    const valueSocket = new WebSocket(url)
-    valueSocket.onmessage = event => {
-        element.value = event.data
-        value = element.value
-    }
-    url.pathname = 'scanFromDisabled'
-    const disabledSocket = new WebSocket(url)
-    disabledSocket.onmessage = event => {
-        element.disabled = event.data === 'true'
-    }
+        url.pathname = 'scanFromDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('label')));
 
-(labelElement => {
-    labelElement.innerText = 'to'
+(element => {
+    element.innerText = 'to';
 
-    let value
+    (element => {
+        let value
 
-    const element = labelElement.appendChild(document.createElement('input'))
-    element.type = 'number'
-    element.min = 1
-    element.addEventListener('change', () => {
-        if (Number.isNaN(element.valueAsNumber)) {
-            element.value = value
-            return
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
+
+            socket.send(JSON.stringify({ scanTo: element.valueAsNumber }))
+        })
+        url.pathname = 'scanToValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
         }
-
-        socket.send(JSON.stringify({ scanTo: element.valueAsNumber }))
-    })
-    url.pathname = 'scanToValue'
-    const valueSocket = new WebSocket(url)
-    valueSocket.onmessage = event => {
-        element.value = event.data
-        value = element.value
-    }
-    url.pathname = 'scanToDisabled'
-    const disabledSocket = new WebSocket(url)
-    disabledSocket.onmessage = event => {
-        element.disabled = event.data === 'true'
-    }
+        url.pathname = 'scanToDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('label')));
 
-(labelElement => {
-    labelElement.innerText = 'num'
+(element => {
+    element.innerText = 'num';
+    (element => {
+        let value
 
-    let value
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
 
-    const element = labelElement.appendChild(document.createElement('input'))
-    element.type = 'number'
-    element.min = 1
-    element.addEventListener('change', () => {
-        if (Number.isNaN(element.valueAsNumber)) {
-            element.value = value
-            return
+            socket.send(JSON.stringify({ scanNum: element.valueAsNumber }))
+        })
+        url.pathname = 'scanNumValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
         }
-
-        socket.send(JSON.stringify({ scanNum: element.valueAsNumber }))
-    })
-    url.pathname = 'scanNumValue'
-    const valueSocket = new WebSocket(url)
-    valueSocket.onmessage = event => {
-        element.value = event.data
-        value = element.value
-    }
-    url.pathname = 'scanNumDisabled'
-    const disabledSocket = new WebSocket(url)
-    disabledSocket.onmessage = event => {
-        element.disabled = event.data === 'true'
-    }
+        url.pathname = 'scanNumDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {
