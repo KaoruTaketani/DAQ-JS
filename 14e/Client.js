@@ -119,11 +119,7 @@ document.body.appendChild(cursorElement);
     overlayElement.setAttribute('height', '300')
     overlayElement.appendChild(foreignElement)
     overlayElement.appendChild(lineElement)
-    overlayElement.ondblclick = () => {
-        dialogElement.showModal()
-    }
     document.body.appendChild(overlayElement)
-
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 
