@@ -73,7 +73,7 @@ graph TD;
     randomNumberGeneratorIsBusy-->startButtonDisabled;
     randomNumberGeneratorIsBusy-->stopButtonDisabled;
     startTime-->startTimeInnerText;
-    timeSeries-->timeSeriesSVGInnerHTML;
+    %%timeSeries-->timeSeriesSVGInnerHTML;
 ```
 ## References
 [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
