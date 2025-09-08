@@ -1,4 +1,4 @@
-import Operator from '../14/Operator.js'
+import Operator from '../13/Operator.js'
 import sum from '../lib/sum.js'
 
 export default class extends Operator {
