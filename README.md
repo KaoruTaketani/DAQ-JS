@@ -36,13 +36,13 @@
 
 [13.c.a Clients](./13ca/README.md)
 
+[13.c.b InfluxDB](./14cb/README.md)
+
 [13.d Cursor](./13d/README.md)
 
 [13.d.a Overlay](./13da/README.md)
 
 [13.e BlockList](./13e/README.md)
-
-[14.g InfluxDB](./14g/README.md)
 
 [14.h API](./14h/README.md)
 
