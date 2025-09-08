@@ -1,5 +1,4 @@
-import Operator from '../14/Operator.js'
-import randn from '../lib/randn.js'
+import Operator from '../13/Operator.js'
 
 export default class extends Operator {
     /**
@@ -12,16 +11,13 @@ export default class extends Operator {
             this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
-        this._interval
         this._operation = () => {
-            if (this._randomNumberGeneratorIsBusy) {
-                this._interval = setInterval(() => {
-                    variables.randomNumber.assign(randn(1,1)[0][0])
-                }, 1000)
-            } else {
-                clearInterval(this._interval)
-            }
+            if (!this._randomNumberGeneratorIsBusy) return
+
+            variables.histogram.assign({
+                binLimits: [-3, 3],
+                binCounts: new Array(10).fill(0)
+            })
         }
     }
 }
-

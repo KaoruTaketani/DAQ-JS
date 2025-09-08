@@ -48,7 +48,7 @@
 
 [13.f TCP](./13f/README.md)
 
-[14.k Log Scale](./14k/README.md)
+[13.g Log Scale](./13g/README.md)
 
 [14.l Plot Range](./14l/README.md)
 
