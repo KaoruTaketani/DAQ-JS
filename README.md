@@ -38,9 +38,9 @@
 
 [13.d Cursor](./13d/README.md)
 
-[14.d.a Overlay](./13da/README.md)
+[13.d.a Overlay](./13da/README.md)
 
-[14.f BlockList](./14f/README.md)
+[13.e BlockList](./13e/README.md)
 
 [14.g InfluxDB](./14g/README.md)
 
