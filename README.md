@@ -48,8 +48,6 @@
 
 [13.f TCP](./13f/README.md)
 
-[14.j Normal Distribution](./14j/README.md)
-
 [14.k Log Scale](./14k/README.md)
 
 [14.l Plot Range](./14l/README.md)
