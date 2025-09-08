@@ -1,7 +1,7 @@
 import { request } from 'https'
 import token from './token.js'
 import org from './org.js'
-import Operator from '../14/Operator.js'
+import Operator from '../13/Operator.js'
 
 export default class extends Operator {
     /**
