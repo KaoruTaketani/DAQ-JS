@@ -50,7 +50,7 @@
 
 [13.g Log Scale](./13g/README.md)
 
-[14.l Plot Range](./14l/README.md)
+[13.g.a Plot Range](./13ga/README.md)
 
 [14.m Preset](./14m/README.md)
 
