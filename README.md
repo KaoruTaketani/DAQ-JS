@@ -54,7 +54,7 @@
 
 [13.h Preset](./13h/README.md)
 
-[14.n Throttle](./14n/README.md)
+[13.h.a Throttle](./13ha/README.md)
 
 ## Graph
 ```mermaid

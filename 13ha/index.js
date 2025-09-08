@@ -1,18 +1,18 @@
 import { Server } from 'http'
-import HistogramInitializer from '../14/HistogramInitializer.js'
-import HistogramMaker from '../14/HistogramMaker.js'
+import HistogramInitializer from '../13/HistogramInitializer.js'
+import HistogramMaker from '../13/HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
-import HTTPGetHandler from '../14/HTTPGetHandler.js'
-import HTTPServerSetupper from '../14/HTTPServerSetupper.js'
-import HTTPUpgradeHandler from '../14/HTTPUpgradeHandler.js'
+import HTTPGetHandler from '../13/HTTPGetHandler.js'
+import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
+import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'
 import RandomNumberGenerator from './RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
-import StartButtonDisabledChanger from '../14/StartButtonDisabledChanger.js'
-import StartTimeInnerTextChanger from '../14/StartTimeInnerTextChanger.js'
-import StopButtonDisabledChanger from '../14/StopButtonDisabledChanger.js'
-import Comparator from '../14m/Comparator.js'
-import PresetDisabledChanger from '../14m/PresetDisabledChanger.js'
-import PresetValueChanger from '../14m/PresetValueChanger.js'
+import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
+import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
+import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
+import Comparator from '../13h/Comparator.js'
+import PresetDisabledChanger from '../13h/PresetDisabledChanger.js'
+import PresetValueChanger from '../13h/PresetValueChanger.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
@@ -34,4 +34,4 @@ new Comparator(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(false)
-variables.preset.assign(500)
+variables.preset.assign(50)
