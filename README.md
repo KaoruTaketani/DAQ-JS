@@ -28,11 +28,11 @@
 
 [13 Histogram](./13/README.md)
 
-[14 Time Series](./14/README.md)
-
 [13.a SVG](./13a/README.md)
 
-[14.b HDF5](./14b/README.md)
+[13.b HDF5](./13b/README.md)
+
+[14 Time Series](./14/README.md)
 
 [14.c Clients](./14c/README.md)
 
