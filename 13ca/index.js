@@ -10,10 +10,10 @@ import RandomNumberInnerTextChanger from '../13/RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
 import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
-import TimeSeriesInitializer from '../13/TimeSeriesInitializer.js'
-import TimeSeriesMaker from '../14/TimeSeriesMaker.js'
-import TimeSeriesSVGInnerHTMLMaker from '../14/TimeSeriesSVGInnerHTMLMaker.js'
-import Variables from '../14/Variables.js'
+import TimeSeriesInitializer from '../13c/TimeSeriesInitializer.js'
+import TimeSeriesMaker from '../13c/TimeSeriesMaker.js'
+import TimeSeriesSVGInnerHTMLMaker from '../13c/TimeSeriesSVGInnerHTMLMaker.js'
+import Variables from '../13c/Variables.js'
 
 const variables = new Variables()
 
