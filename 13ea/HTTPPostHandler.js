@@ -1,9 +1,9 @@
 import { readFile } from 'fs'
-import Operator from '../14/Operator.js'
+import Operator from '../13/Operator.js'
 
 export default class extends Operator {
     /**
-     * @param {import('../14/Variables.js').default} variables 
+     * @param {import('../13/Variables.js').default} variables 
      */
     constructor(variables) {
         super()
