@@ -32,7 +32,7 @@
 
 [13.b HDF5](./13b/README.md)
 
-[14 Time Series](./14/README.md)
+[13.c Time Series](./13c/README.md)
 
 [14.c Clients](./14c/README.md)
 
