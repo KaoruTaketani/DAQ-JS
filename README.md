@@ -56,7 +56,7 @@
 
 [13.h.a Throttle](./13ha/README.md)
 
-[13.h.a Scanner](./13hb/README.md)
+[13.h.b Scanner](./13hb/README.md)
 
 ## Graph
 ```mermaid
