@@ -3,6 +3,7 @@ import HistogramInitializer from '../13/HistogramInitializer.js'
 import HistogramMaker from '../13/HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
 import HTTPGetHandler from '../13/HTTPGetHandler.js'
+import HTTPPostHandler from './HTTPPostHandler.js'
 import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
 import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'
 import RandomNumberGenerator from '../13/RandomNumberGenerator.js'
@@ -18,6 +19,7 @@ new HistogramInitializer(variables)
 new HistogramMaker(variables)
 new HistogramSVGInnerHTMLMaker(variables)
 new HTTPGetHandler(variables)
+new HTTPPostHandler(variables)
 new HTTPServerSetupper(variables)
 new HTTPUpgradeHandler(variables)
 new RandomNumberGenerator(variables)

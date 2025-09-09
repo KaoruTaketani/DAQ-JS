@@ -6,6 +6,55 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
+const dialogElement = document.createElement('dialog')
+document.body.appendChild(dialogElement);
+
+
+
+(element => {
+    // element.method = 'dialog';
+
+    (element => {
+        element.innerHTML = 'minimum';
+        (element => {
+            element.type = 'text'
+            element.name = 'xMin'
+            element.style.width = '130px'
+            element.style.display = 'block'
+        })(element.appendChild(document.createElement('input')));
+    })(element.appendChild(document.createElement('label')));
+
+    (element => {
+        element.innerHTML = 'maximum';
+        (element => {
+            element.type = 'text'
+            element.name = 'xMax'
+            element.style.width = '130px'
+            element.style.display = 'block'
+        })(element.appendChild(document.createElement('input')));
+    })(element.appendChild(document.createElement('label')));
+
+    (element => {
+        // element.type = 'button'
+        element.type = 'submit'
+        // element.type='dialog'
+        element.formMethod = 'post'
+        element.value = 'ok'
+        element.style.width = '130px'
+        element.style.display = 'block'
+    })(element.appendChild(document.createElement('input')));
+})(dialogElement.appendChild(document.createElement('form')));
+
+(element => {
+    element.type = 'button'
+    element.value = 'cancel'
+    element.style.width = '130px'
+    element.style.display = 'block'
+    element.onclick = () => {
+        dialogElement.close()
+    }
+})(dialogElement.appendChild(document.createElement('input')));
+
 (element => {
     element.type = 'button'
     element.value = 'start'
@@ -58,6 +107,9 @@ socket.onclose = () => {
     const innerHTMLSocket = new WebSocket(url)
     innerHTMLSocket.onmessage = event => {
         element.innerHTML = event.data
+    }
+    element.ondblclick = () => {
+        dialogElement.showModal()
     }
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
