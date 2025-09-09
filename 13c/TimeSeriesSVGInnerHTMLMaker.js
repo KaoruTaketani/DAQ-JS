@@ -3,7 +3,7 @@ import max from '../lib/max.js'
 import min from '../lib/min.js'
 import line from '../lib/line.js'
 import linspace from '../lib/linspace.js'
-import Operator from './Operator.js'
+import Operator from '../13/Operator.js'
 
 export default class extends Operator {
     /**

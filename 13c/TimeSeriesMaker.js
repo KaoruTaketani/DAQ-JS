@@ -1,4 +1,4 @@
-import Operator from './Operator.js'
+import Operator from '../13/Operator.js'
 
 export default class extends Operator {
     /**

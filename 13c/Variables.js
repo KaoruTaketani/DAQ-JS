@@ -1,8 +1,8 @@
-import ControllableBoolean from './ControllableBoolean.js'
-import ElementBoolean from './ElementBoolean.js'
-import ElementString from './ElementString.js'
-import ListenableNumber from './ListenableNumber.js'
-import ListenableObject from './ListenableObject.js'
+import ControllableBoolean from '../13/ControllableBoolean.js'
+import ElementBoolean from '../13/ElementBoolean.js'
+import ElementString from '../13/ElementString.js'
+import ListenableNumber from '../13/ListenableNumber.js'
+import ListenableObject from '../13/ListenableObject.js'
 
 export default class {
     constructor() {
