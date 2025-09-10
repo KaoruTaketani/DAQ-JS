@@ -24,6 +24,7 @@ export default class extends Operator {
                 })
                 request.on('end', () => {
                     console.log(`posted: ${posted}`)
+
                     const params = new URLSearchParams(posted)
                     params.forEach((value,key)=>{
                         console.log(`key: ${key}, value: ${value}`)
