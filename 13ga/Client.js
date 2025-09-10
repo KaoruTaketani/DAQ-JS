@@ -16,15 +16,19 @@ document.body.appendChild(dialogElement);
     element.onsubmit = event => {
         event.preventDefault()
 
-        fetch("localhost", {
-            method: "POST",
-            body: new URLSearchParams(new FormData(element)),
-        }).then(response => {
-            // console.log(response);
-            if (response.status === 200) {
-                dialogElement.close()
-            }
-        })
+        // fetch("localhost", {
+        //     method: "POST",
+        //     body: new URLSearchParams(new FormData(element)),
+        // }).then(response => {
+        //     // console.log(response);
+        //     if (response.status === 200) {
+        //         dialogElement.close()
+        //     }
+        // })
+        const xhr = new XMLHttpRequest()
+        xhr.open('POST', '/')
+        xhr.send(new URLSearchParams(new FormData(element)))
+        dialogElement.close()
     };
 
     (element => {
