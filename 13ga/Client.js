@@ -11,16 +11,21 @@ document.body.appendChild(dialogElement);
 
 
 
-(formElement => {
+(element => {
     // formElement.method = 'post';
-    // formElement.onsubmit = () => {
-    //     fetch("localhost", {
-    //         method: "POST",
-    //         body: new FormData(formElement),
-    //     }).then(response => {
-    //         console.log(response);
-    //     })
-    // }
+    element.onsubmit = event => {
+        event.preventDefault()
+
+        fetch("localhost", {
+            method: "POST",
+            body: new URLSearchParams(new FormData(element)),
+        }).then(response => {
+            // console.log(response);
+            if (response.status === 200) {
+                dialogElement.close()
+            }
+        })
+    };
 
     (element => {
         element.innerHTML = 'minimum';
@@ -30,7 +35,7 @@ document.body.appendChild(dialogElement);
             element.style.width = '130px'
             element.style.display = 'block'
         })(element.appendChild(document.createElement('input')));
-    })(formElement.appendChild(document.createElement('label')));
+    })(element.appendChild(document.createElement('label')));
 
     (element => {
         element.innerHTML = 'maximum';
@@ -40,34 +45,17 @@ document.body.appendChild(dialogElement);
             element.style.width = '130px'
             element.style.display = 'block'
         })(element.appendChild(document.createElement('input')));
-    })(formElement.appendChild(document.createElement('label')));
+    })(element.appendChild(document.createElement('label')));
 
     (element => {
-        element.type = 'button'
-        element.onclick = () => {
-            // const formData = new FormData(formElement)
-            // for (const [key, value] of formData) {
-            //     console.log(`${key}: ${value}`);
-            // }
-            // const params = new URLSearchParams(formData)
-            // params.forEach((value, key) => {
-            //     console.log(`key: ${key}, value: ${value}`)
-            // })
-            fetch("localhost", {
-                method: "POST",
-                body: new URLSearchParams(new FormData(formElement)),
-            }).then(response => {
-                console.log(response)
-                dialogElement.close()
-            })
-        }
-        // element.type = 'submit'
+        // element.type = 'button'
+        element.type = 'submit'
         // element.formMethod = 'post'
         // element.formTarget='_blank'
         element.value = 'ok'
         element.style.width = '130px'
         element.style.display = 'block'
-    })(formElement.appendChild(document.createElement('input')));
+    })(element.appendChild(document.createElement('input')));
 })(dialogElement.appendChild(document.createElement('form')));
 
 (element => {
