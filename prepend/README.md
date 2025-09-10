@@ -13,6 +13,7 @@ angle.addListener(arg => {
 length.addListener(_ => {
     angle.assign(5)
 })
+/// index
 length.assign(10)
 ```
 
@@ -30,6 +31,7 @@ angle.addListener(arg => {
     _angle = arg
     console.log(`length: ${_length}, angle: ${_angle}`)
 })
+/// index
 length.assign(10)
 ```
 
@@ -47,6 +49,7 @@ angle.addListener(arg => {
 length.addListener(_ => {
     angle.assign(5)
 })
+/// index
 length.assign(10)
 ```
 
@@ -64,6 +67,7 @@ angle.addListener(arg => {
     _angle = arg
     console.log(`length: ${_length}, angle: ${_angle}`)
 })
+/// index
 length.assign(10)
 ```
 
