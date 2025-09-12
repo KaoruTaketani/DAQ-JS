@@ -32,7 +32,11 @@
 
 [13.a.b Download HDF5](./13ab/README.md)
 
-[13.b Prepend](./13b/README.md)
+[13.b.a Add OK](./13ba/README.md)
+
+[13.b.b Add Fail](./13bb/README.md)
+
+[13.b.c Prepend](./13bc/README.md)
 
 [13.c Time Series](./13c/README.md)
 
