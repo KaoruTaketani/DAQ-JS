@@ -32,6 +32,8 @@
 
 [13.a.b Download HDF5](./13ab/README.md)
 
+[13.b Prepend](./13b/README.md)
+
 [13.c Time Series](./13c/README.md)
 
 [13.c.a Clients](./13ca/README.md)
