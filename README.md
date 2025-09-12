@@ -64,6 +64,8 @@
 
 [13.h.b Scanner](./13hb/README.md)
 
+[13.h.c Scanner](./13hc/README.md)
+
 ## Graph
 ```mermaid
 graph TD;
