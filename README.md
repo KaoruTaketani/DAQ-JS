@@ -38,11 +38,11 @@
 
 [13.b.c Prepend](./13bc/README.md)
 
-[13.c Time Series](./13c/README.md)
+[13.c.a Time Series](./13c/README.md)
 
-[13.c.a Clients](./13ca/README.md)
+[13.c.b InfluxDB](./13cb/README.md)
 
-[13.c.b InfluxDB](./14cb/README.md)
+[13.c.c Clients](./13cc/README.md)
 
 [13.d Cursor](./13d/README.md)
 
