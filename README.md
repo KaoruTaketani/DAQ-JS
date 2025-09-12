@@ -38,7 +38,7 @@
 
 [13.b.c Prepend](./13bc/README.md)
 
-[13.c.a Time Series](./13c/README.md)
+[13.c.a Time Series](./13ca/README.md)
 
 [13.c.b InfluxDB](./13cb/README.md)
 
