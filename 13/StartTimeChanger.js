@@ -6,8 +6,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._startTime
-        variables.startTime.addListener(arg => { this._startTime = arg })
         this._randomNumberGeneratorIsBusy
         variables.randomNumberGeneratorIsBusy.addListener(arg => {
             this._randomNumberGeneratorIsBusy = arg
