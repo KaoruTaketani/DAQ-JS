@@ -9,9 +9,9 @@ import RandomNumberGenerator from '../13//RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13/RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
 import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
-import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
-import StartTimeChanger from './StartTimeChanger.js'
-import Variables from './Variables.js'
+import StartTimeInnerTextChanger from '../13ba/StartTimeInnerTextChanger.js'
+import StartTimeChanger from '../13ba/StartTimeChanger.js'
+import Variables from '../13/Variables.js'
 
 const variables = new Variables()
 
