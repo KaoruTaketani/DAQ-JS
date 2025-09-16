@@ -13,6 +13,7 @@ export default class {
         this.histogram = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
+        this.startTime = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
 
