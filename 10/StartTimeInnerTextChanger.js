@@ -8,19 +8,15 @@ export default class extends Operator {
         super()
         this._webSocketPathnames
         variables.webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
-        this._randomNumberGeneratorIsBusy
-        variables.randomNumberGeneratorIsBusy.addListener(arg => {
-            this._randomNumberGeneratorIsBusy = arg
+        this._startTime
+        variables.startTime.addListener(arg => {
+            this._startTime = arg
             this._operation()
         })
-        this._startTime
         this._operation = () => {
-            if (this._randomNumberGeneratorIsBusy) {
-                this._startTime = Date.now()
-            }
             this._webSocketPathnames.forEach((pathname, ws) => {
                 if (pathname === '/startTimeInnerText')
-                    ws.send(`start time is ${new Date(Date.now()).toString()}`)
+                    ws.send(`start time is ${this._startTime.toString()}`)
             })
         }
     }

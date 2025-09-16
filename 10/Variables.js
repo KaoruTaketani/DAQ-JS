@@ -8,6 +8,7 @@ export default class {
         this.webSocketPathnames = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
+        this.startTime = new ListenableNumber()
 
         this.randomNumberGeneratorIsBusy = new ListenableBoolean()
     }
