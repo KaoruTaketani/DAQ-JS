@@ -4,6 +4,7 @@ import HTTPServerSetupper from './HTTPServerSetupper.js'
 import HTTPUpgradeHandler from './HTTPUpgradeHandler.js'
 import RandomNumberGenerator from './RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
+import StartTimeChanger from './StartTimeChanger.js'
 import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 import Variables from './Variables.js'
 
@@ -14,6 +15,7 @@ new HTTPServerSetupper(variables)
 new HTTPUpgradeHandler(variables)
 new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
+new StartTimeChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server()) 

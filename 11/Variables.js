@@ -12,6 +12,7 @@ export default class {
         this.randomNumberGeneratorIsBusy = new ListenableBoolean()
 
         this.randomNumber = new ListenableNumber()
+        this.startTime = new ListenableNumber()
 
         this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)

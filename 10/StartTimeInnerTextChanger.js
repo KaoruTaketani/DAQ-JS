@@ -16,7 +16,7 @@ export default class extends Operator {
         this._operation = () => {
             this._webSocketPathnames.forEach((pathname, ws) => {
                 if (pathname === '/startTimeInnerText')
-                    ws.send(`start time is ${this._startTime.toString()}`)
+                    ws.send(`start time is ${new Date(this._startTime).toString()}`)
             })
         }
     }
