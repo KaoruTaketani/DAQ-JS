@@ -19,14 +19,17 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = throttle(() => {
-            const ax = {
-                xLim: this._histogram.binLimits,
-                yLim: [0, max(this._histogram.binCounts)],
-                xTick: linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1),
-                yTick: [0, max(this._histogram.binCounts)],
-                xTickLabel: linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1).map(x => x.toFixed(1)),
-                yTickLabel: ['0', `${max(this._histogram.binCounts)}`]
-            }
+            const yMax = max(this._histogram.binCounts) === 0
+                ? 1 : max(this._histogram.binCounts),
+                xTick = linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1),
+                ax = {
+                    xLim: this._histogram.binLimits,
+                    yLim: [0, yMax],
+                    xTick: xTick,
+                    yTick: [0, yMax],
+                    xTickLabel: xTick.map(x => x.toFixed(1)),
+                    yTickLabel: ['0', `${yMax}`]
+                }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
                 xlabel(ax, 'random number'),
