@@ -1,7 +1,7 @@
 import { Server } from 'http'
 import HistogramInitializer from '../13/HistogramInitializer.js'
 import HistogramMaker from '../13/HistogramMaker.js'
-import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
+import HistogramSVGInnerHTMLMaker from '../13/HistogramSVGInnerHTMLMaker.js'
 import HTTPGetHandler from '../13/HTTPGetHandler.js'
 import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
 import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'
