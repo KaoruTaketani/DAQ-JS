@@ -6,167 +6,164 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-
-const startButtonElement = document.createElement('input')
-startButtonElement.type = 'button'
-startButtonElement.value = 'start'
-startButtonElement.style.width = '130px'
-startButtonElement.style.display = 'block'
-startButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ neunetReaderIsBusy: true }))
-}
-url.pathname = 'startButtonDisabled'
-const startButtonDisabledSocket = new WebSocket(url)
-startButtonDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    startButtonElement.disabled = event.data === 'true'
-}
-document.body.appendChild(startButtonElement)
-
-
-const stopButtonElement = document.createElement('input')
-stopButtonElement.type = 'button'
-stopButtonElement.value = 'stop'
-stopButtonElement.style.width = '130px'
-stopButtonElement.style.display = 'block'
-stopButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ neunetReaderIsBusy: false }))
-}
-url.pathname = 'stopButtonDisabled'
-const stopButtonDisabledSocket = new WebSocket(url)
-stopButtonDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    stopButtonElement.disabled = event.data === 'true'
-}
-document.body.appendChild(stopButtonElement)
-
-const usePresetElement = document.createElement('input')
-usePresetElement.type = 'checkbox'
-usePresetElement.onclick = () => {
-    socket.send(JSON.stringify({ usePreset: usePresetElement.checked }))
-}
-url.pathname = 'usePresetChecked'
-const usePresetCheckedSocket = new WebSocket(url)
-usePresetCheckedSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    usePresetElement.checked = event.data === 'true'
-}
-url.pathname = 'usePresetDisabled'
-const usePresetDisabledSocket = new WebSocket(url)
-usePresetDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    usePresetElement.disabled = event.data === 'true'
-}
-const usePresetLabelElement = document.createElement('label')
-usePresetLabelElement.style.display = 'block'
-usePresetLabelElement.appendChild(usePresetElement)
-usePresetLabelElement.appendChild(document.createTextNode('use preset'))
-document.body.appendChild(usePresetLabelElement)
-
-
-
-const presetElement = document.createElement('input')
-presetElement.type = 'number'
-presetElement.style.width = '130px'
-presetElement.style.display = 'block'
-presetElement.onchange = () => {
-    const preset = parseInt(presetElement.value)
-
-    if (Number.isNaN(preset) || preset < 0) {
-        startButtonElement.disabled = true
-    } else {
-        startButtonElement.disabled = false
-        socket.send(JSON.stringify({ preset: preset }))
+const startButtonElement = document.createElement('input');
+(element => {
+    element.type = 'button'
+    element.value = 'start'
+    element.style.width = '130px'
+    element.style.display = 'block'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ neunetReaderIsBusy: true }))
     }
-}
-url.pathname = 'presetDisabled'
-const presetDsiabledSocket = new WebSocket(url)
-presetDsiabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    presetElement.disabled = event.data === 'true'
-}
-url.pathname = 'presetValue'
-const presetValueSocket = new WebSocket(url)
-presetValueSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    presetElement.value = event.data
-}
-document.body.appendChild(presetElement)
+    url.pathname = 'startButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.disabled = event.data === 'true'
+    }
 
-const saveToEDRElement = document.createElement('input')
-saveToEDRElement.type = 'checkbox'
-saveToEDRElement.onclick = () => {
-    socket.send(JSON.stringify({ saveToEDR: saveToEDRElement.checked }))
-}
-url.pathname = 'saveToEDRDisabled'
-const saveToEDRDisabledSocket = new WebSocket(url)
-saveToEDRDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    saveToEDRElement.disabled = event.data === 'true'
-}
-const saveToEDRLabelElement = document.createElement('label')
-saveToEDRLabelElement.style.display = 'block'
-saveToEDRLabelElement.appendChild(saveToEDRElement)
-saveToEDRLabelElement.appendChild(document.createTextNode('save to edr'))
-document.body.appendChild(saveToEDRLabelElement)
+})(document.body.appendChild(startButtonElement));
 
-const edrFilePathElement = document.createElement('p')
-url.pathname = 'edrFilePathInnerText'
-const edrFilePathInnerTextSocket = new WebSocket(url)
-edrFilePathInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    edrFilePathElement.innerText = event.data
-}
-document.body.appendChild(edrFilePathElement)
+(element => {
+    element.type = 'button'
+    element.value = 'stop'
+    element.style.width = '130px'
+    element.style.display = 'block'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ neunetReaderIsBusy: false }))
+    }
+    url.pathname = 'stopButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
 
 
+(element => {
+    (element => {
+        element.type = 'checkbox'
+        element.onclick = () => {
+            socket.send(JSON.stringify({ usePreset: element.checked }))
+        }
+        url.pathname = 'usePresetChecked'
+        const checkedSocket = new WebSocket(url)
+        checkedSocket.onmessage = (/** @type {MessageEvent} */event) => {
+            element.checked = event.data === 'true'
+        }
+        url.pathname = 'usePresetDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+    element.style.display = 'block'
 
-const kickerPulseCountElement = document.createElement('p')
-url.pathname = 'kickerPulseCountInnerText'
-const kickerPulseCountInnerTextSocket = new WebSocket(url)
-kickerPulseCountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    kickerPulseCountElement.innerText = event.data
-}
-document.body.appendChild(kickerPulseCountElement)
+    element.appendChild(document.createTextNode('use preset'))
 
-const channel0CountElement = document.createElement('p')
-url.pathname = 'channel0CountInnerText'
-const channel0CountInnerTextSocket = new WebSocket(url)
-channel0CountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    channel0CountElement.innerText = event.data
-}
-document.body.appendChild(channel0CountElement)
+})(document.body.appendChild(document.createElement('label')));
 
-const channel1CountElement = document.createElement('p')
-url.pathname = 'channel1CountInnerText'
-const channel1CountInnerTextSocket = new WebSocket(url)
-channel1CountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    channel1CountElement.innerText = event.data
-}
-document.body.appendChild(channel1CountElement)
+(element => {
+    element.type = 'number'
+    element.style.width = '130px'
+    element.style.display = 'block'
+    element.onchange = () => {
+        const preset = parseInt(element.value)
 
+        if (Number.isNaN(preset) || preset < 0) {
+            startButtonElement.disabled = true
+        } else {
+            startButtonElement.disabled = false
+            socket.send(JSON.stringify({ preset: preset }))
+        }
+    }
+    url.pathname = 'presetDisabled'
+    const dsiabledSocket = new WebSocket(url)
+    dsiabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.disabled = event.data === 'true'
+    }
+    url.pathname = 'presetValue'
+    const valueSocket = new WebSocket(url)
+    valueSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.value = event.data
+    }
+})(document.body.appendChild(document.createElement('input')));
 
-const neutronCountElement = document.createElement('p')
-url.pathname = 'neutronCountInnerText'
-const neutronCountInnerTextSocket = new WebSocket(url)
-neutronCountInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    neutronCountElement.innerText = event.data
-}
-document.body.appendChild(neutronCountElement)
+(element => {
+    (element => {
+        element.type = 'checkbox'
+        element.onclick = () => {
+            socket.send(JSON.stringify({ saveToEDR: element.checked }))
+        }
+        url.pathname = 'saveToEDRDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+    element.style.display = 'block'
+    element.appendChild(document.createTextNode('save to edr'))
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    url.pathname = 'edrFilePathInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    url.pathname = 'kickerPulseCountInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    url.pathname = 'channel0CountInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    url.pathname = 'channel1CountInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    url.pathname = 'neutronCountInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
 
 const cursorElement = document.createElement('p')
 cursorElement.innerText = `cursorOffset: undefined`
-document.body.appendChild(cursorElement)
+document.body.appendChild(cursorElement);
 
-const canvasElement = document.createElement('canvas')
-canvasElement.width = 256
-canvasElement.height = 256
-canvasElement.onmousemove = (/** @type {MouseEvent} */event) => {
-    cursorElement.innerText = `cursorOffset: {x: ${event.offsetX}, y: ${event.offsetY}}`
-}
-document.body.appendChild(canvasElement)
-
-const imageElement = new Image()
-imageElement.onload = () => {
-    const ctx = canvasElement.getContext("2d")
-    if (!ctx) return
-    ctx.drawImage(imageElement, 0, 0, 256, 256)
-}
-url.pathname = 'imageSrc'
-const imageSrcSocket = new WebSocket(url)
-imageSrcSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    imageElement.src = event.data
-}
+(element => {
+    element.width = 256
+    element.height = 256
+    element.onmousemove = (/** @type {MouseEvent} */event) => {
+        cursorElement.innerText = `cursorOffset: {x: ${event.offsetX}, y: ${event.offsetY}}`
+    }
+    const imageElement = new Image()
+    imageElement.onload = () => {
+        const ctx = element.getContext("2d")
+        if (!ctx) return
+        ctx.drawImage(imageElement, 0, 0, 256, 256)
+    }
+    url.pathname = 'imageSrc'
+    const imageSrcSocket = new WebSocket(url)
+    imageSrcSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        imageElement.src = event.data
+    }
+})(document.body.appendChild(document.createElement('canvas')));
 

@@ -1,4 +1,4 @@
-import throttle from '../14n/throttle.js'
+import throttle from '../13ha/throttle.js'
 import max from '../lib/max.js'
 import image from './image.js'
 import Operator from './Operator.js'
