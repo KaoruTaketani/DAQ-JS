@@ -1,5 +1,5 @@
 import Operator from '../13/Operator.js'
-import throttle from './throttle.js'
+import throttle from '../lib/throttle.js'
 
 export default class extends Operator {
     /**
