@@ -4,6 +4,7 @@ const socket = new WebSocket(url)
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
+
 /** @type {Map<string,function>} */
 const listeners = new Map()
 /**
@@ -18,45 +19,39 @@ socket.addEventListener('message', event => {
     for (const [key, value] of Object.entries(arg)) {
         listeners.get(key)?.(value)
     }
-})
+});
 
-/** @type {HTMLInputElement} */
-const offsetElement = document.createElement('input')
-offsetElement.type = 'number'
-offsetElement.style.marginTop = '508px'
-offsetElement.style.position = 'absolute'
-offsetElement.min = '0'
-on('offsetValue', (/** @type {string} */ arg) => { offsetElement.value = arg })
-offsetElement.onchange = () => {
-    const value = parseInt(offsetElement.value)
-    if (!Number.isInteger(value)) return
-    socket.send(JSON.stringify({ eventOffset: value }))
-}
-document.body.appendChild(offsetElement)
+(element => {
+    element.type = 'number'
+    element.style.marginTop = '508px'
+    element.style.position = 'absolute'
+    element.min = '0'
+    on('offsetValue', (/** @type {string} */ arg) => { element.value = arg })
+    element.onchange = () => {
+        const value = parseInt(element.value)
+        if (!Number.isInteger(value)) return
+        socket.send(JSON.stringify({ eventOffset: value }))
+    }
+})(document.body.appendChild(document.createElement('input')));
 
-/** @type {HTMLSelectElement} */
-const fileNamesElement = document.createElement('select')
-fileNamesElement.size = 20
-fileNamesElement.style.position = 'absolute'
-fileNamesElement.style.width = '150px'
-fileNamesElement.style.height = `500px`
-on('edrFileNamesInnerHTML', (/** @type {string} */ arg) => { fileNamesElement.innerHTML = arg })
-fileNamesElement.onchange = () => {
-    socket.send(JSON.stringify({ edrReaderFileName: fileNamesElement.selectedOptions[0].innerText }))
-}
-document.body.appendChild(fileNamesElement)
+(element => {
+    element.size = 20
+    element.style.position = 'absolute'
+    element.style.width = '150px'
+    element.style.height = `500px`
+    on('edrFileNamesInnerHTML', (/** @type {string} */ arg) => { element.innerHTML = arg })
+    element.onchange = () => {
+        socket.send(JSON.stringify({ edrReaderFileName: element.selectedOptions[0].innerText }))
+    }
+})(document.body.appendChild(document.createElement('select')));
 
-/** @type {HTMLDivElement} */
-const messageElement = document.createElement('div')
-// messageElement.style.marginTop = '608px'
-// messageElement.style.position = 'absolute'
-messageElement.style.marginLeft = '158px'
-on('messageInnerText', (/** @type {string} */ arg) => { messageElement.innerText = arg })
-document.body.appendChild(messageElement)
+(element => {
+    element.style.marginLeft = '158px'
+    on('messageInnerText', (/** @type {string} */ arg) => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
 
-/** @type {HTMLTableElement} */
-const tableElement = document.createElement('table')
-tableElement.style.marginLeft = '158px'
-on('tableInnerHTML', (/** @type {string} */ arg) => { tableElement.innerHTML = arg })
-document.body.appendChild(tableElement)
+(element => {
+    element.style.marginLeft = '158px'
+    on('tableInnerHTML', (/** @type {string} */ arg) => { element.innerHTML = arg })
+})(document.body.appendChild(document.createElement('table')));
 

@@ -11,6 +11,7 @@ const httpServer = new Server(),
     servers = new Map()
 
 httpServer.on('request', (request, response) => {
+    console.log(request.url)
     if (request.url?.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
             if (err) throw err
