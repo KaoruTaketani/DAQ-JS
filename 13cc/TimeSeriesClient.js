@@ -6,14 +6,14 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const timeSeriesSVGElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-timeSeriesSVGElement.setAttribute('width', '400')
-timeSeriesSVGElement.setAttribute('height', '300')
-timeSeriesSVGElement.setAttribute('viewBox', '0 0 560 420')
-url.pathname = 'timeSeriesSVGInnerHTML'
-const timeSeriesSVGInnerHTMLSocket = new WebSocket(url)
-timeSeriesSVGInnerHTMLSocket.onmessage = event => {
-    timeSeriesSVGElement.innerHTML = event.data
-}
-document.body.appendChild(timeSeriesSVGElement)
+(element => {
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300')
+    element.setAttribute('viewBox', '0 0 560 420')
+    url.pathname = 'timeSeriesSVGInnerHTML'
+    const timeSeriesSVGInnerHTMLSocket = new WebSocket(url)
+    timeSeriesSVGInnerHTMLSocket.onmessage = event => {
+        element.innerHTML = event.data
+    }
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')))
 
