@@ -6,30 +6,29 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const firstElement = document.createElement('div')
-const submitButtonElement = document.createElement('input')
-submitButtonElement.type = 'button'
-submitButtonElement.value = 'make'
-submitButtonElement.style.width = '64px'
-submitButtonElement.onclick = () => {
-    socket.send(Math.random())
-}
-firstElement.appendChild(submitButtonElement)
-document.body.appendChild(firstElement)
+(element => {
+    (element => {
+        element.type = 'button'
+        element.value = 'make'
+        element.style.width = '64px'
+        element.onclick = () => {
+            socket.send(Math.random())
+        }
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('div')));
 
+(element => {
+    element.width = 256
+    element.height = 256
+    const imageElement = new Image()
+    imageElement.onload = () => {
+        const ctx = element.getContext("2d")
+        if (!ctx) return
+        ctx.drawImage(imageElement, 0, 0, 256, 256)
+    }
+    socket.onmessage = event => {
+        imageElement.src = event.data
+    }
+})(document.body.appendChild(document.createElement('canvas')));
 
-const canvasElement = document.createElement('canvas')
-canvasElement.width = 256
-canvasElement.height = 256
-document.body.appendChild(canvasElement)
-
-const imageElement = new Image()
-imageElement.onload = () => {
-    const ctx = canvasElement.getContext("2d")
-    if (!ctx) return
-    ctx.drawImage(imageElement, 0, 0, 256,256)
-}
-socket.onmessage = event => {
-    imageElement.src = event.data
-}
 
