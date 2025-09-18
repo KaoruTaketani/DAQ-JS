@@ -4,72 +4,67 @@ const socket = new WebSocket(url)
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
+
 /** @type {Map<string,function>} */
-const listeners = new Map()
+const tableListeners = new Map()
 socket.addEventListener('message', event => {
     const arg = JSON.parse(event.data)
     for (const [key, value] of Object.entries(arg)) {
-        listeners.get(key)?.(value)
+        tableListeners.get(key)?.(value)
     }
 })
 
 /** @type {HTMLDialogElement} */
 const dialogElement = document.createElement('dialog')
-document.body.appendChild(dialogElement)
+document.body.appendChild(dialogElement);
 
-/** @type {HTMLAnchorElement} */
-const csvLinkElement = document.createElement('a')
-csvLinkElement.setAttribute('download', `table.csv`)
-listeners.set('csvLinkHref', (/** @type {string} */arg) => {
-    csvLinkElement.href = arg
-})
+(element => {
+    const linkElement = document.createElement('a')
+    linkElement.setAttribute('download', `table.csv`)
+    tableListeners.set('csvLinkHref', (/** @type {string} */arg) => {
+        linkElement.href = arg
+    })
 
-/** @type {HTMLInputElement} */
-const downloadCSVButtonElement = document.createElement('input')
-downloadCSVButtonElement.type = 'button'
-downloadCSVButtonElement.value = 'download'
-downloadCSVButtonElement.style.width = '130px'
-downloadCSVButtonElement.style.display = 'block'
-downloadCSVButtonElement.onclick = () => {
-    csvLinkElement.click()
-}
-dialogElement.appendChild(downloadCSVButtonElement)
+    element.type = 'button'
+    element.value = 'download'
+    element.style.width = '130px'
+    element.style.display = 'block'
+    element.onclick = () => {
+        linkElement.click()
+    }
+})(dialogElement.appendChild(document.createElement('input')));
 
-/** @type {HTMLInputElement} */
-const closeButtonElement = document.createElement('input')
-closeButtonElement.type = 'button'
-closeButtonElement.value = 'close'
-closeButtonElement.style.width = '130px'
-closeButtonElement.style.display = 'block'
-closeButtonElement.onclick = () => {
-    dialogElement.close()
-}
-dialogElement.appendChild(closeButtonElement)
+(element => {
+    element.type = 'button'
+    element.value = 'close'
+    element.style.width = '130px'
+    element.style.display = 'block'
+    element.onclick = () => {
+        dialogElement.close()
+    }
+})(dialogElement.appendChild(document.createElement('input')));
 
-/** @type {HTMLSelectElement} */
-const listboxElement = document.createElement('select')
-listboxElement.size = 20
-listboxElement.multiple = true
-listboxElement.style.position = 'absolute'
-listboxElement.style.whiteSpace = 'pre-wrap'
-listboxElement.style.width = '200px'
-listboxElement.style.height = `${window.innerHeight - 8 * 2}px`
-listboxElement.onchange = () => {
-    socket.send(JSON.stringify({ tableMakerColumns: Array.from(listboxElement.selectedOptions).map(option => option.innerText) }))
-}
-listeners.set('hdf5AttributesInnerHTML', (/** @type {string} */arg) => {
-    listboxElement.innerHTML = arg
-    listboxElement.dispatchEvent(new Event('change'))
-})
-document.body.appendChild(listboxElement)
+(element => {
+    element.size = 20
+    element.multiple = true
+    element.style.position = 'absolute'
+    element.style.whiteSpace = 'pre-wrap'
+    element.style.width = '200px'
+    element.style.height = `${window.innerHeight - 8 * 2}px`
+    element.onchange = () => {
+        socket.send(JSON.stringify({ tableMakerColumns: Array.from(element.selectedOptions).map(option => option.innerText) }))
+    }
+    tableListeners.set('hdf5AttributesInnerHTML', (/** @type {string} */arg) => {
+        element.innerHTML = arg
+        element.dispatchEvent(new Event('change'))
+    })
+})(document.body.appendChild(document.createElement('select')));
 
-
-/** @type {HTMLTableElement} */
-const tableElement = document.createElement('table')
-tableElement.style.marginLeft = '208px'
-listeners.set('tableInnerHTML', (/** @type {string} */arg) => { tableElement.innerHTML = arg })
-tableElement.ondblclick = () => {
-    dialogElement.showModal()
-}
-document.body.appendChild(tableElement)
+(element => {
+    element.style.marginLeft = '208px'
+    tableListeners.set('tableInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
+    element.ondblclick = () => {
+        dialogElement.showModal()
+    }
+})(document.body.appendChild(document.createElement('table')));
 
