@@ -6,143 +6,142 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const stopButtonElement = document.createElement('input')
-stopButtonElement.type = 'button'
-stopButtonElement.value = 'stop'
-stopButtonElement.style.width = '130px'
-stopButtonElement.onclick = () => {
-    socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
-}
-url.pathname = 'stopButtonDisabled'
-const stopButtonDisabledSocket = new WebSocket(url)
-stopButtonDisabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    stopButtonElement.disabled = event.data === 'true'
-}
-document.body.appendChild(stopButtonElement)
+(element => {
+    element.type = 'button'
+    element.value = 'stop'
+    element.style.width = '130px'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+    }
+    url.pathname = 'stopButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
 
 const tableElement = document.createElement('table')
-document.body.appendChild(tableElement)
+document.body.appendChild(tableElement);
 
-const headerElement = document.createElement('thead')
-headerElement.innerHTML = '<tr><th>name</th><th>pulse</th><th>destination</th><th>limit switch</th></tr>'
-tableElement.appendChild(headerElement)
+(element => {
+    element.innerHTML = '<tr><th>name</th><th>pulse</th><th>destination</th><th>limit switch</th></tr>'
+})(tableElement.appendChild(document.createElement('thead')));
 
 const bodyElement = document.createElement('tbody')
-tableElement.appendChild(bodyElement)
+tableElement.appendChild(bodyElement);
 
-const xRowElement = document.createElement('tr')
-bodyElement.appendChild(xRowElement)
+(element => {
+    (element => {
+        element.innerText = 'x'
+    })(element.appendChild(document.createElement('td')));
 
-const xNameElement = document.createElement('td')
-xNameElement.innerText = 'x'
-xRowElement.appendChild(xNameElement)
+    (element => {
+        element.style.textAlign = 'right'
+        url.pathname = 'xPulseInnerText'
+        const innerTextSocket = new WebSocket(url)
+        innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+            element.innerText = event.data
+        }
+    })(element.appendChild(document.createElement('td')));
 
-const xPulseElement = document.createElement('td')
-xPulseElement.style.textAlign = 'right'
-url.pathname = 'xPulseInnerText'
-const xPulseInnerTextSocket = new WebSocket(url)
-xPulseInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    xPulseElement.innerText = event.data
-}
-xRowElement.appendChild(xPulseElement)
+    (element => {
+        const destinationElement = document.createElement('input')
+        destinationElement.style.width = '130px'
+        url.pathname = 'xDestinationDisabled'
+        const destinationDisabledSocket = new WebSocket(url)
+        destinationDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
+            destinationElement.disabled = event.data === 'true'
+        }
+        url.pathname = 'xDestinationValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
+            destinationElement.value = event.data
+        }
+        element.appendChild(destinationElement)
 
-const xDestinationCellElement = document.createElement('td')
-xRowElement.appendChild(xDestinationCellElement)
+        const buttonElement = document.createElement('input')
+        buttonElement.type = 'button'
+        buttonElement.value = 'move'
+        buttonElement.onclick = () => {
+            const destination = parseInt(destinationElement.value)
+            if (Number.isNaN(destination)) {
+                destinationElement.value = `NaN`
+            } else {
+                socket.send(JSON.stringify({ xDestination: destination }))
+            }
+        }
+        url.pathname = 'moveXButtonDisabled'
+        const buttonDisabledSocket = new WebSocket(url)
+        buttonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
+            buttonElement.disabled = event.data === 'true'
+        }
+        element.appendChild(buttonElement)
+    })(element.appendChild(document.createElement('td')));
 
-const xDestinationElement = document.createElement('input')
-xDestinationElement.style.width = '130px'
-url.pathname = 'xDestinationDisabled'
-const xDestinationDisabledSocket = new WebSocket(url)
-xDestinationDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-    xDestinationElement.disabled = event.data === 'true'
-}
-url.pathname = 'xDestinationValue'
-const xDestinationValueSocket = new WebSocket(url)
-xDestinationValueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-    xDestinationElement.value = event.data
-}
-xDestinationCellElement.appendChild(xDestinationElement)
-
-const moveXButtonElement = document.createElement('input')
-moveXButtonElement.type = 'button'
-moveXButtonElement.value = 'move'
-// moveXButtonElement.style.width = '130px'
-moveXButtonElement.onclick = () => {
-    const xDestination = parseInt(xDestinationElement.value)
-    if (Number.isNaN(xDestination)) {
-        xDestinationElement.value = `NaN`
-    } else {
-        socket.send(JSON.stringify({ xDestination: xDestination }))
-    }
-}
-url.pathname = 'moveXButtonDisabled'
-const moveXButtonDisabledSocket = new WebSocket(url)
-moveXButtonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-    moveXButtonElement.disabled = event.data === 'true'
-}
-xDestinationCellElement.appendChild(moveXButtonElement)
-
-const xLimitSwitchElement = document.createElement('td')
-xLimitSwitchElement.style.textAlign = 'right'
-xLimitSwitchElement.innerText = 'off'
-xRowElement.appendChild(xLimitSwitchElement)
+    (element => {
+        element.style.textAlign = 'right'
+        element.innerText = 'off'
+    })(element.appendChild(document.createElement('td')));
+})(bodyElement.appendChild(document.createElement('tr')));
 
 
+(element => {
+    (element => {
+        element.innerText = 'theta'
+    })(element.appendChild(document.createElement('td')));
+
+    (element => {
+        element.style.textAlign = 'right'
+        url.pathname = 'thetaPulseInnerText'
+        const innerTextSocket = new WebSocket(url)
+        innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+            element.innerText = event.data
+        }
+    })(element.appendChild(document.createElement('td')));
+
+    (element => {
+        const destinationElement = document.createElement('input')
+        destinationElement.style.width = '130px'
+        url.pathname = 'thetaDestinationDisabled'
+        const destinationDisabledSocket = new WebSocket(url)
+        destinationDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
+            destinationElement.disabled = event.data === 'true'
+        }
+        url.pathname = 'thetaDestinationValue'
+        const destinationValueSocket = new WebSocket(url)
+        destinationValueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
+            destinationElement.value = event.data
+        }
+        element.appendChild(destinationElement)
+
+        const buttonElement = document.createElement('input')
+        buttonElement.type = 'button'
+        buttonElement.value = 'move'
+        buttonElement.onclick = () => {
+            const destination = parseInt(destinationElement.value)
+            if (Number.isNaN(destination)) {
+                destinationElement.value = `NaN`
+            } else {
+                socket.send(JSON.stringify({ thetaDestination: destination }))
+            }
+        }
+        url.pathname = 'moveThetaButtonDisabled'
+        const buttonDisabledSocket = new WebSocket(url)
+        buttonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
+            buttonElement.disabled = event.data === 'true'
+        }
+        element.appendChild(buttonElement)
+    })(element.appendChild(document.createElement('td')));
+
+    (element => {
+        element.style.textAlign = 'right'
+        element.innerText = 'off'
+    })(element.appendChild(document.createElement('td')));
+})(bodyElement.appendChild(document.createElement('tr')));
 
 
-const thetaRowElement = document.createElement('tr')
-bodyElement.appendChild(thetaRowElement)
 
-const thetaNameElement = document.createElement('td')
-thetaNameElement.innerText = 'theta'
-thetaRowElement.appendChild(thetaNameElement)
 
-const thetaPulseElement = document.createElement('td')
-thetaPulseElement.style.textAlign = 'right'
-url.pathname = 'thetaPulseInnerText'
-const thetaPulseInnerTextSocket = new WebSocket(url)
-thetaPulseInnerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-    thetaPulseElement.innerText = event.data
-}
-thetaRowElement.appendChild(thetaPulseElement)
 
-const thetaDestinationCellElement = document.createElement('td')
-thetaRowElement.appendChild(thetaDestinationCellElement)
 
-const thetaDestinationElement = document.createElement('input')
-thetaDestinationElement.style.width = '130px'
-url.pathname = 'thetaDestinationDisabled'
-const thetaDestinationDisabledSocket = new WebSocket(url)
-thetaDestinationDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-    thetaDestinationElement.disabled = event.data === 'true'
-}
-url.pathname = 'thetaDestinationValue'
-const thetaDestinationValueSocket = new WebSocket(url)
-thetaDestinationValueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-    thetaDestinationElement.value = event.data
-}
-thetaDestinationCellElement.appendChild(thetaDestinationElement)
 
-const moveThetaButtonElement = document.createElement('input')
-moveThetaButtonElement.type = 'button'
-moveThetaButtonElement.value = 'move'
-// moveThetaButtonElement.style.width = '130px'
-moveThetaButtonElement.onclick = () => {
-    const thetaDestination = parseInt(thetaDestinationElement.value)
-    if (Number.isNaN(thetaDestination)) {
-        thetaDestinationElement.value = `NaN`
-    } else {
-        socket.send(JSON.stringify({ thetaDestination: thetaDestination }))
-    }
-}
-url.pathname = 'moveThetaButtonDisabled'
-const moveThetaButtonDisabledSocket = new WebSocket(url)
-moveThetaButtonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-    moveThetaButtonElement.disabled = event.data === 'true'
-}
-thetaDestinationCellElement.appendChild(moveThetaButtonElement)
-
-const thetaLimitSwitchElement = document.createElement('td')
-thetaLimitSwitchElement.style.textAlign = 'right'
-thetaLimitSwitchElement.innerText = 'off'
-thetaRowElement.appendChild(thetaLimitSwitchElement)
