@@ -9,6 +9,7 @@ export default class {
         this.hdf5FileNames = new ListenableObject()
 
         this.hdf5Path = new ListenableString()
+        this.hdf5FileReaderFileName = new ListenableString()
     }
 }
 

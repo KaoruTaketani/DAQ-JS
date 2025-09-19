@@ -64,7 +64,15 @@ httpServer.on('request', (request, response) => {
     }
     if (request.method === 'PUT') {
         console.log(`PUT url: ${request.url}`)
-
+        const url = new URL(`http://localhost${request.url}`)
+        console.log(`hash ${url.hash}, pathname: ${url.pathname}, search: ${url.search}, searchParams: ${url.searchParams}`)
+        const time = parseInt(url.pathname.substring(1)),
+            value = url.searchParams.get('hdf5FileReaderFileName'),
+            v=variables.get(time),
+            s=servers.get(v)
+        console.log(`has: ${url.searchParams.has('hdf5FileReaderFileName')}, get: ${value}, v: ${v}, s: ${s}`)
+        if (url.searchParams.has('hdf5FileReaderFileName'))
+            s.variables.hdf5FileReaderFileName.assign(value)
     }
     if (request.method === 'POST') {
         console.log(`POST url: ${request.url}`)
