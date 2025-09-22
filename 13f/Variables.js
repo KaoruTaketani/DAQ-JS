@@ -11,8 +11,6 @@ export default class {
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
         this.histogram = new ListenableObject()
-        this.timeSeries = new ListenableObject()
-        this.socket = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()

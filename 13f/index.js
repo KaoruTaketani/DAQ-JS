@@ -11,7 +11,6 @@ import StartButtonDisabledChanger from './StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from './StopButtonDisabledChanger.js'
 import RandomNumberGetter from './RandomNumberGetter.js'
-import SocketDataHandler from './SocketDataHandler.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
@@ -27,8 +26,6 @@ new RandomNumberInnerTextChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
-new SocketDataHandler(variables)
 
 variables.httpServer.assign(new Server()) 
-variables.socket.assign(new Socket()) 
 variables.randomNumberGetterIsBusy.assign(false)

@@ -2,28 +2,23 @@
 
 RandomNumberGetter.js
 ```js
-if (this._randomNumberGeneratorIsBusy) {
-    this._socket.once('close', () => {
+ if (this._randomNumberGeneratorIsBusy) {
+    this._socket = new Socket()
+    this._socket.setEncoding('utf8')
+    this._socket.on('data', data => {
+        const randomNumber = parseFloat(data)
+        variables.randomNumber.assign(randomNumber)
+        setTimeout(() => {
+            this._socket.write('get')
+        }, 1000)
+    }).on('close', () => {
         console.log('close')
     }).connect(23, 'localhost', () => {
         this._socket.write('get')
     })
 } else {
-     this._socket?.end()
+    this._socket?.end()
 }
-```
-
-SocketDataHandler.js
-
-```js
-this._socket.setEncoding('utf8')
-this._socket.on('data', data => {
-    const randomNumber = parseFloat(data)
-    variables.randomNumber.assign(randomNumber)
-    setTimeout(() => {
-         this._socket.write('get')
-    }, 1000)
-})
 ```
 
 server.js
