@@ -1,19 +1,9 @@
-import { createReadStream, readFile, statSync } from 'fs'
-import { performance } from 'perf_hooks'
-import filePath from './filePath.js'
+import { readFile } from 'fs'
 
-console.log(`fileSize: ${statSync(filePath()).size.toLocaleString()} bytes`)
+const startTime = Date.now()
+readFile('tmp.dat', err => {
+    if (err) throw err
 
-performance.mark('start')
-createReadStream(filePath()).on('data', _ => {
-}).on('end', () => {
-    performance.mark('stream')
-    console.log(`stream duration: ${performance.measure('', 'start', 'stream').duration} ms`)
-
-    readFile(filePath(), (err, data) => {
-        if (err) throw err
-
-        performance.mark('buffer')
-        console.log(`buffer duration: ${performance.measure('', 'stream', 'buffer').duration} ms`)
-    })
+    const elapsedTime = Date.now() - startTime
+    console.log(`${elapsedTime} ms, ${Math.trunc(256 / (1e-3 * elapsedTime))} MBps`)
 })
