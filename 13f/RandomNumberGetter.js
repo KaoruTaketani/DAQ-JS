@@ -10,7 +10,7 @@ export default class extends Operator {
         this._socket
         variables.socket.addListener(arg => { this._socket = arg })
         this._randomNumberGeneratorIsBusy
-        variables.randomNumberGeneratorIsBusy.addListener(arg => {
+        variables.randomNumberGetterIsBusy.addListener(arg => {
             this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })

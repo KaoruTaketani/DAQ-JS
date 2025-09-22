@@ -11,7 +11,7 @@ socket.onclose = () => {
     element.value = 'start'
     element.style.width = '130px'
     element.onclick = () => {
-        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
+        socket.send(JSON.stringify({ randomNumberGetterIsBusy: true }))
     }
     url.pathname = 'startButtonDisabled'
     const disabledSocket = new WebSocket(url)
@@ -25,7 +25,7 @@ socket.onclose = () => {
     element.value = 'stop'
     element.style.width = '130px'
     element.onclick = () => {
-        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+        socket.send(JSON.stringify({ randomNumberGetterIsBusy: false }))
     }
     url.pathname = 'stopButtonDisabled'
     const disabledSocket = new WebSocket(url)
@@ -60,18 +60,4 @@ socket.onclose = () => {
         element.innerHTML = event.data
     }
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
-
-(element => {
-    element.setAttribute('width', '400')
-    element.setAttribute('height', '300')
-    element.setAttribute('viewBox', '0 0 560 420')
-    url.pathname = 'timeSeriesSVGInnerHTML'
-    const innerHTMLSocket = new WebSocket(url)
-    innerHTMLSocket.onmessage = event => {
-        element.innerHTML = event.data
-    }
-})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
-
-
-
 
