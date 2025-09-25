@@ -56,7 +56,7 @@
 
 [13.g.a Plot Range](./13ga/README.md)
 
-[13.g.b Log Scale](./13gb/README.md)
+[13.g.b Log Plot](./13gb/README.md)
 
 [13.g.c Plot Dialog](./13gc/README.md)
 
