@@ -13,6 +13,7 @@ export default class extends Operator {
             this._httpServer = arg
             this._operation()
         })
+        this._basenames = ['HistogramClient', 'RandomNumberGeneratorClient', 'TimeSeriesClient']
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
                 if (request.method !== 'GET') return
@@ -34,27 +35,37 @@ export default class extends Operator {
                     return
                 }
                 if (request.url.endsWith('.html')) {
-                    response.writeHead(200, { 'Content-Type': 'text/html' })
-                    response.end([
-                        '<html>',
-                        '<head>',
-                        '    <meta charset="utf-8">',
-                        '</head>',
-                        '<body>',
-                        `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
-                        `    </script>`,
-                        '</body>',
-                        '</html>'
-                    ].join('\n'))
+                    if (this._basenames.includes(basename(request.url, '.html'))) {
+                        response.writeHead(200, { 'Content-Type': 'text/html' })
+                        response.end([
+                            '<html>',
+                            '<head>',
+                            '    <meta charset="utf-8">',
+                            '</head>',
+                            '<body>',
+                            `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
+                            `    </script>`,
+                            '</body>',
+                            '</html>'
+                        ].join('\n'))
+                    } else {
+                        response.writeHead(404)
+                        response.end(`${request.url} was not found on this server`)
+                    }
                     return
                 }
                 if (request.url.endsWith('.js')) {
-                    readFile(`.${request.url}`, 'utf8', (err, data) => {
-                        if (err) throw err
+                    if (this._basenames.includes(basename(request.url, '.js'))) {
+                        readFile(`.${request.url}`, 'utf8', (err, data) => {
+                            if (err) throw err
 
-                        response.writeHead(200, { 'Content-Type': 'text/javascript' })
-                        response.end(data)
-                    })
+                            response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                            response.end(data)
+                        })
+                    } else {
+                        response.writeHead(404)
+                        response.end(`${request.url} was not found on this server`)
+                    }
                     return
                 }
                 response.writeHead(404)
