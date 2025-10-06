@@ -34,12 +34,8 @@ httpServer.on('request', (request, response) => {
 httpServer.on('upgrade', (request, socket, head) => {
     webSocketServer.handleUpgrade(request, socket, head, ws => {
         ws.onmessage = event => {
-            // const center = parseFloat(event.data)
-            // console.log(center)
-            const alpha = parseFloat(event.data)
-            // console.log(center)
-
-            const width = 64,
+            const alpha = parseFloat(event.data),
+                width = 64,
                 height = 64,
                 w = gausswin(width, 10 * alpha),
                 h = gausswin(height, 10 * alpha)
@@ -47,7 +43,6 @@ httpServer.on('upgrade', (request, socket, head) => {
             const c = new Array(height * width)
             for (let j = 0; j < height; ++j) {
                 for (let i = 0; i < width; ++i) {
-                    // c[j * width + i] = Math.exp(-((i - width * center) ** 2 + (j - height / 2) ** 2) / (width / 4) ** 2)
                     c[j * width + i] = w[i] * h[j]
                 }
             }
