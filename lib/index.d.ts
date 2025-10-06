@@ -41,6 +41,11 @@ export interface LineOptions {
     lineStyle?: string
 }
 
+export interface Image {
+    data: Uint8Array
+    width: number
+    height: number
+}
 
 export interface Histogram {
     binLimits: number[]

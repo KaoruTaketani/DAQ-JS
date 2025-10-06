@@ -46,7 +46,7 @@ httpServer.on('upgrade', (request, socket, head) => {
                     c[j * width + i] = w[i] * h[j]
                 }
             }
-            imwrite(imagesc({ binCounts: c, numBins: [width, height], xBinLimits: [], yBinLimits: [] }), width, height).then(buffer => {
+            imwrite(imagesc({ binCounts: c, numBins: [width, height], xBinLimits: [], yBinLimits: [] })).then(buffer => {
                 ws.send(`data:image/png;base64,${buffer.toString('base64')}`)
             })
         }
