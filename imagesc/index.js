@@ -3,6 +3,7 @@ import { Server } from 'http'
 import { WebSocketServer } from 'ws'
 import imagesc from '../lib/imagesc.js'
 import imwrite from '../lib/imwrite.js'
+import gausswin from '../lib/gausswin.js'
 
 const httpServer = new Server()
 const webSocketServer = new WebSocketServer({ noServer: true })
@@ -33,14 +34,21 @@ httpServer.on('request', (request, response) => {
 httpServer.on('upgrade', (request, socket, head) => {
     webSocketServer.handleUpgrade(request, socket, head, ws => {
         ws.onmessage = event => {
-            const center = parseFloat(event.data)
+            // const center = parseFloat(event.data)
             // console.log(center)
+            const alpha = parseFloat(event.data)
+            // console.log(center)
+
             const width = 64,
-                height = 64
+                height = 64,
+                w = gausswin(width, 10 * alpha),
+                h = gausswin(height, 10 * alpha)
+
             const c = new Array(height * width)
             for (let j = 0; j < height; ++j) {
                 for (let i = 0; i < width; ++i) {
-                    c[j * width + i] = Math.exp(-((i - width * center) ** 2 + (j - height / 2) ** 2) / (width / 4) ** 2)
+                    // c[j * width + i] = Math.exp(-((i - width * center) ** 2 + (j - height / 2) ** 2) / (width / 4) ** 2)
+                    c[j * width + i] = w[i] * h[j]
                 }
             }
             imwrite(imagesc({ binCounts: c, numBins: [width, height], xBinLimits: [], yBinLimits: [] }), width, height).then(buffer => {
