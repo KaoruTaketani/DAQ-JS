@@ -20,6 +20,8 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._operation = () => {
+
+                
                 const dt = this._pairedEvent.xTOFInNanoseconds - this._pairedEvent.yTOFInNanoseconds,
                     binWidth = (this._tofDifferenceHistogram.binLimits[1] - this._tofDifferenceHistogram.binLimits[0])
                         / this._tofDifferenceHistogram.binCounts.length,

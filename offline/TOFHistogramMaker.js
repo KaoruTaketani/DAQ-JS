@@ -1,4 +1,6 @@
 import Operator from './Operator.js'
+import isbetween from '../lib/isbetween.js'
+import rescale from '../lib/rescale.js'
 
 export default class extends Operator {
     /**
@@ -16,12 +18,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const binWidth = (this._tofHistogram.binLimits[1] - this._tofHistogram.binLimits[0])
-                / this._tofHistogram.binCounts.length
-            this._tofHistogram.binCounts[
-                Math.floor(this._filteredNeutronEvent.tofInNanoseconds
-                    / binWidth)
-            ]++
+            if (!isbetween(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogram.binLimits)) return
+
+            const r = rescale(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogram.binLimits),
+                i = Math.floor(r * this._tofHistogram.binCounts.length)
+            this._tofHistogram.binCounts[i]++
         }
     }
 }
