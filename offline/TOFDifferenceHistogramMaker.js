@@ -1,3 +1,5 @@
+import isbetween from '../lib/isbetween.js'
+import rescale from '../lib/rescale.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -20,26 +22,13 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._operation = () => {
+                const dt = this._pairedEvent.xTOFInNanoseconds - this._pairedEvent.yTOFInNanoseconds
+                if (!isbetween(dt, this._tofDifferenceHistogram.binLimits)) return
 
-                
-                const dt = this._pairedEvent.xTOFInNanoseconds - this._pairedEvent.yTOFInNanoseconds,
-                    binWidth = (this._tofDifferenceHistogram.binLimits[1] - this._tofDifferenceHistogram.binLimits[0])
-                        / this._tofDifferenceHistogram.binCounts.length,
-                    id = Math.floor(
-                        (dt - this._tofDifferenceHistogramMinInNanoseconds)
-                        / binWidth
-                    )
+                const r = rescale(dt, this._tofDifferenceHistogram.binLimits),
+                    i = Math.floor(r * this._tofDifferenceHistogram.binCounts.length)
 
-                if (id < 0) {
-                    // this._tofDifferenceHistogram.value[0]++
-                    // this._tofDifferenceHistogram.underflowValue++
-                } else if (id > this._tofDifferenceHistogram.binCounts.length - 1) {
-                    // this._tofDifferenceHistogram.value[this._tofDifferenceHistogram.numberOfBins + 1]++
-                    // this._tofDifferenceHistogram.overflowValue++
-                } else {
-                    // this._tofDifferenceHistogram.value[id + 1]++
-                    this._tofDifferenceHistogram.binCounts[id]++
-                }
+                this._tofDifferenceHistogram.binCounts[i]++
             }
         }
     }
