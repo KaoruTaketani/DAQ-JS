@@ -11,7 +11,9 @@ socket.onclose = () => {
     element.value = 'start'
     element.style.width = '130px'
     element.onclick = () => {
-        socket.send(JSON.stringify({ randomNumberGetterIsBusy: true }))
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT','/?randomNumberGetterIsBusy=true')
+        xhr.send()
     }
     url.pathname = 'startButtonDisabled'
     const disabledSocket = new WebSocket(url)
@@ -25,7 +27,9 @@ socket.onclose = () => {
     element.value = 'stop'
     element.style.width = '130px'
     element.onclick = () => {
-        socket.send(JSON.stringify({ randomNumberGetterIsBusy: false }))
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT','/?randomNumberGetterIsBusy=false')
+        xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
     const disabledSocket = new WebSocket(url)

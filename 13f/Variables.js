@@ -7,7 +7,7 @@ import ListenableObject from '../13/ListenableObject.js'
 export default class {
     constructor() {
         this.httpServer = new ListenableObject()
-        this.message = new ListenableObject()
+        this.requestParams = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
         this.histogram = new ListenableObject()
@@ -15,7 +15,7 @@ export default class {
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
-        this.randomNumberGetterIsBusy = new ControllableBoolean('randomNumberGetterIsBusy', this.message)
+        this.randomNumberGetterIsBusy = new ControllableBoolean('randomNumberGetterIsBusy', this.requestParams)
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
