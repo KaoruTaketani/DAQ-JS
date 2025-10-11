@@ -77,7 +77,9 @@ document.body.appendChild(dialogElement);
     element.value = 'start'
     element.style.width = '130px'
     element.onclick = () => {
-        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT','/?randomNumberGeneratorIsBusy=true')
+        xhr.send()
     }
     url.pathname = 'startButtonDisabled'
     const disabledSocket = new WebSocket(url)
@@ -91,7 +93,9 @@ document.body.appendChild(dialogElement);
     element.value = 'stop'
     element.style.width = '130px'
     element.onclick = () => {
-        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT','/?randomNumberGeneratorIsBusy=false')
+        xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
     const disabledSocket = new WebSocket(url)
