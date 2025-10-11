@@ -4,9 +4,14 @@ export default class extends ListenableBoolean {
     constructor(key, message) {
         super()
         message.addListener(arg => {
-            if (arg[key] === undefined) return
+            if (!arg.has(key)) return
 
-            super.assign(arg[key])
+            try {
+                const value = JSON.parse(arg.get(key))
+                if (typeof value === 'boolean') super.assign(value)
+            } catch {
+                console.log(`recieved unexpected value for ${key}`)
+            }
         })
     }
 }
