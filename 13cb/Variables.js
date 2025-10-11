@@ -8,7 +8,7 @@ import ListenableObject from '../13/ListenableObject.js'
 export default class {
     constructor() {
         this.httpServer = new ListenableObject()
-        this.message = new ListenableObject()
+        this.requestParams = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
         this.histogram = new ListenableObject()
@@ -17,13 +17,13 @@ export default class {
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
-        this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
+        this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.requestParams)
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.readButtonDisabled = new ElementBoolean('/readButtonDisabled', this.elementValues, this.webSocketPathnames)        
 
-        this.influxReaderField = new ControllableString('influxReaderField',this.message)
+        this.influxReaderField = new ControllableString('influxReaderField',this.requestParams)
 
         this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)

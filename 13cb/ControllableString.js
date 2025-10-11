@@ -4,9 +4,9 @@ export default class extends ListenableString {
     constructor(key, message) {
         super()
         message.addListener(arg => {
-            if (arg[key] === undefined) return
+            if (!arg.has(key)) return
 
-            super.assign(arg[key])
+            super.assign(arg.get(key))
         })
     }
 }
