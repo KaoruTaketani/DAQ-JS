@@ -1,21 +1,21 @@
 import { connect } from 'net'
 
-const body ='{"randomNumberGeneratorIsBusy":true}'
+const body = ''
+let data = ''
 const client = connect({
     port: 80,
-    host:'localhost'
+    host: 'localhost'
 }, () => {
     client.write([
-        'POST /message HTTP/1.1',
+        'PUT /?randomNumberGeneratorIsBusy=true HTTP/1.1',
         'Host: localhost',
         'Connection: Close',
-        'Content-Type: application/json',
         `Content-Length: ${body.length}`,
         '',
         body
     ].join('\r\n'))
 }).on('data', chunk => {
-    console.log(`chunk: ${chunk.toString()}`)
+    data+=chunk
 }).on('end', () => {
-    console.log('end')
+    console.log(data)
 })

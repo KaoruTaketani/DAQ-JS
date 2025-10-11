@@ -3,11 +3,8 @@ import { request } from 'http'
 const req = request(
     {
         host: 'localhost',
-        path: `/message`,
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
+        path: `/?randomNumberGeneratorIsBusy=true`,
+        method: 'PUT',
     },
     res => {
         let data=''
@@ -21,4 +18,4 @@ const req = request(
     }
 )
 
-req.end('{"randomNumberGeneratorIsBusy": true}')
+req.end()
