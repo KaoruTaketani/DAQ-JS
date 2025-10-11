@@ -26,14 +26,6 @@ export default class extends Operator {
                     const url = new URL(`ws://localhost${request.url}`)
                     this._webSocketPathnames.set(ws, url.pathname)
 
-                    ws.on('close', () => {
-                        ws.removeAllListeners('message')
-                        this._webSocketPathnames.delete(ws)
-                    })
-                    ws.on('message', data => {
-                        const arg = JSON.parse(data.toString())
-                        variables.message.assign(arg)
-                    })
                     this._elementValues.forEach((value, key) => {
                         if (request.url !== key) return
 
