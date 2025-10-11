@@ -1,5 +1,4 @@
 import Operator from './Operator.js'
-import isbetween from '../lib/isbetween.js'
 
 export default class extends Operator {
     /**
@@ -15,8 +14,6 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!isbetween(this._randomNumber, this._histogram.binLimits)) return
-
             const i = Math.floor((this._randomNumber * this._histogram.binCounts.length))
             this._histogram.binCounts[i]++
             variables.histogram.assign(this._histogram)
