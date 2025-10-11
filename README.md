@@ -68,6 +68,8 @@
 
 [13.h.c Batch](./13hc/README.md)
 
+[13.h.d Image](./13hd/README.md)
+
 ## Graph
 ```mermaid
 graph TD;
