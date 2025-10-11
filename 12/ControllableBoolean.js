@@ -6,7 +6,12 @@ export default class extends ListenableBoolean {
         requestParams.addListener(arg => {
             if (!arg.has(key)) return
 
-            super.assign(arg.get(key) === 'true')
+            try {
+                const value = JSON.parse(arg.get(key))
+                if (typeof value === 'boolean') super.assign(value)
+            } catch {
+                console.log(`recieved unexpected value for ${key}`)
+            }
         })
     }
 }
