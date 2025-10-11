@@ -4,9 +4,10 @@ export default class extends ListenableNumber {
     constructor(key, message) {
         super()
         message.addListener(arg => {
-            if (arg[key] === undefined) return
+            if (!arg.has(key)) return
 
-            super.assign(arg[key])
+            const value = parseFloat(arg.get(key))
+            if (Number.isFinite(value)) super.assign(value)
         })
     }
 }

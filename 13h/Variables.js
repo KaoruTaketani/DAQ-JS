@@ -8,7 +8,7 @@ import ControllableNumber from './ControllableNumber.js'
 export default class {
     constructor() {
         this.httpServer = new ListenableObject()
-        this.message = new ListenableObject()
+        this.requestParams = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
         this.histogram = new ListenableObject()
@@ -16,9 +16,9 @@ export default class {
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
-        this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.message)
+        this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.requestParams)
 
-        this.preset = new ControllableNumber('preset', this.message)
+        this.preset = new ControllableNumber('preset', this.requestParams)
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
