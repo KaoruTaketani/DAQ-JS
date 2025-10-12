@@ -72,6 +72,8 @@
 
 [13.h.e Scanner](./13he/README.md)
 
+[13.h.f Scan Editor](./13hf/README.md)
+
 [13.i Image](./13hd/README.md)
 
 ## Graph
