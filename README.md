@@ -64,9 +64,13 @@
 
 [13.h.a Throttle](./13ha/README.md)
 
-[13.h.b Batch](./13hb/README.md)
+[13.h.b Batch Processor](./13hb/README.md)
 
-[13.h.c Scanner](./13hc/README.md)
+[13.h.c Batch Stopper](./13hc/README.md)
+
+[13.h.d Batch Editor](./13hd/README.md)
+
+[13.h.e Scanner](./13he/README.md)
 
 [13.i Image](./13hd/README.md)
 
