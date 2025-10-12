@@ -1,19 +1,21 @@
 import { Server } from 'http'
-import HistogramInitializer from '../14/HistogramInitializer.js'
-import HistogramMaker from '../14/HistogramMaker.js'
-import HistogramSVGInnerHTMLMaker from '../14n/HistogramSVGInnerHTMLMaker.js'
-import HTTPGetHandler from '../14/HTTPGetHandler.js'
-import HTTPServerSetupper from '../14/HTTPServerSetupper.js'
-import HTTPUpgradeHandler from '../14/HTTPUpgradeHandler.js'
-import RandomNumberGenerator from '../14n/RandomNumberGenerator.js'
-import RandomNumberInnerTextChanger from '../14n/RandomNumberInnerTextChanger.js'
-import StartButtonDisabledChanger from '../14/StartButtonDisabledChanger.js'
-import StartTimeInnerTextChanger from '../14/StartTimeInnerTextChanger.js'
-import StopButtonDisabledChanger from '../14/StopButtonDisabledChanger.js'
-import Comparator from '../14m/Comparator.js'
-import PresetDisabledChanger from '../14m/PresetDisabledChanger.js'
-import PresetValueChanger from '../14m/PresetValueChanger.js'
+import HistogramInitializer from '../13/HistogramInitializer.js'
+import HistogramMaker from '../13/HistogramMaker.js'
+import HTTPGetHandler from '../13/HTTPGetHandler.js'
+import HTTPPutHandler from './HTTPPutHandler.js'
+import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
+import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'
+import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
+import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
+import Comparator from '../13h/Comparator.js'
+import PresetDisabledChanger from '../13h/PresetDisabledChanger.js'
+import PresetValueChanger from '../13h/PresetValueChanger.js'
+import RandomNumberGenerator from '../13ha/RandomNumberGenerator.js'
+import RandomNumberInnerTextChanger from '../13ha/RandomNumberInnerTextChanger.js'
+import HistogramSVGInnerHTMLMaker from '../13ha/HistogramSVGInnerHTMLMaker.js'
 import Variables from './Variables.js'
+import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
+import BatchProcessor from './BatchProcessor.js'
 
 const variables = new Variables()
 
@@ -21,17 +23,31 @@ new HistogramInitializer(variables)
 new HistogramMaker(variables)
 new HistogramSVGInnerHTMLMaker(variables)
 new HTTPGetHandler(variables)
+new HTTPPutHandler(variables)
 new HTTPServerSetupper(variables)
 new HTTPUpgradeHandler(variables)
 new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
-new StartTimeInnerTextChanger(variables)
 new PresetValueChanger(variables)
 new PresetDisabledChanger(variables)
 new Comparator(variables)
+new BatchTableInnerHTMLMaker(variables)
+new BatchProcessor(variables)
 
-variables.httpServer.assign(new Server()) 
+variables.httpServer.assign(new Server())
 variables.randomNumberGeneratorIsBusy.assign(false)
-variables.preset.assign(500)
+variables.preset.assign(50)
+variables.batchParams.assign([
+    'preset=10',
+    'randomNumberGeneratorIsBusy=true',
+    'preset=20',
+    'randomNumberGeneratorIsBusy=true',
+    'preset=30',
+    'randomNumberGeneratorIsBusy=true',
+    'preset=40',
+    'randomNumberGeneratorIsBusy=true',
+    'preset=50',
+    'randomNumberGeneratorIsBusy=true'
+])

@@ -64,11 +64,11 @@
 
 [13.h.a Throttle](./13ha/README.md)
 
-[13.h.b Scanner](./13hb/README.md)
+[13.h.b Batch](./13hb/README.md)
 
-[13.h.c Batch](./13hc/README.md)
+[13.h.c Scanner](./13hc/README.md)
 
-[13.h.d Image](./13hd/README.md)
+[13.i Image](./13hd/README.md)
 
 ## Graph
 ```mermaid

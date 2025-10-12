@@ -1,0 +1,222 @@
+const url = new URL(import.meta.url)
+url.protocol = 'ws:'
+url.pathname = ''
+const socket = new WebSocket(url)
+socket.onclose = () => {
+    document.body.innerHTML = "the connection was closed by the server."
+}
+
+(element => {
+    element.type = 'button'
+    element.value = 'start'
+    element.style.width = '130px'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: true }))
+    }
+    url.pathname = 'startButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    element.type = 'button'
+    element.value = 'stop'
+    element.style.width = '130px'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+    }
+    url.pathname = 'stopButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    element.innerText = 'preset';
+
+    (element => {
+        let value
+
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
+
+            socket.send(JSON.stringify({ preset: element.valueAsNumber }))
+        })
+        url.pathname = 'presetValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
+        }
+        url.pathname = 'presetDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    url.pathname = 'startTimeInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    element.innerText = 'from';
+    (element => {
+        let value
+
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
+
+            socket.send(JSON.stringify({ scanFrom: element.valueAsNumber }))
+        })
+        url.pathname = 'scanFromValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
+        }
+        url.pathname = 'scanFromDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.innerText = 'to';
+
+    (element => {
+        let value
+
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
+
+            socket.send(JSON.stringify({ scanTo: element.valueAsNumber }))
+        })
+        url.pathname = 'scanToValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
+        }
+        url.pathname = 'scanToDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.innerText = 'num';
+    (element => {
+        let value
+
+        element.type = 'number'
+        element.min = 1
+        element.addEventListener('change', () => {
+            if (Number.isNaN(element.valueAsNumber)) {
+                element.value = value
+                return
+            }
+
+            socket.send(JSON.stringify({ scanNum: element.valueAsNumber }))
+        })
+        url.pathname = 'scanNumValue'
+        const valueSocket = new WebSocket(url)
+        valueSocket.onmessage = event => {
+            element.value = event.data
+            value = element.value
+        }
+        url.pathname = 'scanNumDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.type = 'button'
+    element.value = 'scan'
+    element.style.width = '130px'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ scannerIsBusy: true }))
+    }
+    url.pathname = 'scanStartButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    element.type = 'button'
+    element.value = 'scan stop'
+    element.style.width = '130px'
+    element.onclick = () => {
+        socket.send(JSON.stringify({ scannerIsBusy: false }))
+    }
+    url.pathname = 'scanStopButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data === 'true'
+    }
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    url.pathname = 'randomNumberInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300')
+    element.setAttribute('viewBox', '0 0 560 420')
+    url.pathname = 'histogramSVGInnerHTML'
+    const innerHTMLSocket = new WebSocket(url)
+    innerHTMLSocket.onmessage = event => {
+        element.innerHTML = event.data
+    }
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+
+(element => {
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300')
+    element.setAttribute('viewBox', '0 0 560 420')
+    url.pathname = 'timeSeriesSVGInnerHTML'
+    const innerHTMLSocket = new WebSocket(url)
+    innerHTMLSocket.onmessage = event => {
+        element.innerHTML = event.data
+    }
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+
+
+
