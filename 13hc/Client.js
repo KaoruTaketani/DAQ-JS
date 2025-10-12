@@ -98,6 +98,22 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('input')));
 
     (element => {
+        element.type = 'button'
+        element.value = 'stop'
+        element.style.width = '130px'
+        element.onclick = () => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('PUT','/?batchProcessorIsBusy=false')
+            xhr.send()
+        }
+        url.pathname = 'batchtopButtonDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+
+    (element => {
         url.pathname = 'batchTableInnerHTML'
         const innerHTMLSocket = new WebSocket(url)
         innerHTMLSocket.onmessage = event => {
