@@ -87,8 +87,38 @@ socket.onclose = () => {
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT','/?batchProcessorIsBusy=true')
+            xhr.open('PUT', '/?batchProcessorIsBusy=true')
             xhr.send()
+        }
+        url.pathname = 'batchStartButtonDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+
+    (element => {
+        element.type = 'button'
+        element.value = 'stop'
+        element.style.width = '130px'
+        element.onclick = () => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('PUT', '/?batchProcessorIsBusy=false')
+            xhr.send()
+        }
+        url.pathname = 'batchStopButtonDisabled'
+        const disabledSocket = new WebSocket(url)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data === 'true'
+        }
+    })(element.appendChild(document.createElement('input')));
+
+    (element => {
+        element.type = 'button'
+        element.value = 'edit'
+        element.style.width = '130px'
+        element.onclick = () => {
+            editDialog.showModal()
         }
         url.pathname = 'batchStartButtonDisabled'
         const disabledSocket = new WebSocket(url)
@@ -106,6 +136,44 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('table')));
 
 })(document.body.appendChild(document.createElement('fieldset')));
+
+const editDialog = document.createElement('dialog');
+(element => {
+    (element => {
+        (element => {
+            element.autocorrect = 'off'
+            element.rows = 20
+            element.style.width = '240px'
+            element.style.resize = 'none'
+            element.style.margin = '10px'
+
+            url.pathname = 'textAreaValue'
+            const valueSocket = new WebSocket(url)
+            valueSocket.onmessage = event => {
+                element.value = event.data
+            }
+        })(element.appendChild(document.createElement('textarea')));
+    })(element.appendChild(document.createElement('div')));
+
+    (element => {
+        element.type = 'button'
+        element.value = 'ok'
+        element.style.width = '130px'
+        element.onclick = () => {
+            editDialog.close()
+        }
+    })(element.appendChild(document.createElement('input')));
+
+    (element => {
+        element.type = 'button'
+        element.value = 'cancel'
+        element.style.width = '130px'
+        element.onclick = () => {
+            editDialog.close()
+        }
+    })(element.appendChild(document.createElement('input')));
+
+})(document.body.appendChild(editDialog));
 
 (element => {
     url.pathname = 'randomNumberInnerText'

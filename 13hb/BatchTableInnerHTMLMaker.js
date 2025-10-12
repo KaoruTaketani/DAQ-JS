@@ -1,6 +1,4 @@
 import Operator from '../13/Operator.js'
-import sum from '../lib/sum.js'
-import throttle from '../lib/throttle.js'
 
 export default class extends Operator {
     /**
