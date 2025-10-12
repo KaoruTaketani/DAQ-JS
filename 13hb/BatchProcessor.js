@@ -22,20 +22,18 @@ export default class extends Operator {
                     const p = new URLSearchParams(params)
                     ok(p.size === 1)
                     variables.requestParams.assign(new URLSearchParams(params))
-                    // console.log(`${key}=${value}`)
-                    // resolve()
+
                     if (p.has('randomNumberGeneratorIsBusy')) {
-                        console.log('add once')
                         variables.randomNumberGeneratorIsBusy.addOnceListener(() => {
-                            console.log('once')
                             resolve()
                         })
                     } else {
-                        console.log('not add once')
                         resolve()
                     }
                 })
-            ), Promise.resolve())
+            ), Promise.resolve()).then(()=>{
+                variables.batchProcessorIsBusy.assign(false)
+            })
         }
     }
 }

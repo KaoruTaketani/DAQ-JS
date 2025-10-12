@@ -16,6 +16,7 @@ import HistogramSVGInnerHTMLMaker from '../13ha/HistogramSVGInnerHTMLMaker.js'
 import Variables from './Variables.js'
 import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
 import BatchProcessor from './BatchProcessor.js'
+import BatchStartButtonDisabledChanger from './BatchStartButtonDisabledChanger.js'
 
 const variables = new Variables()
 
@@ -28,6 +29,7 @@ new HTTPServerSetupper(variables)
 new HTTPUpgradeHandler(variables)
 new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
+new BatchStartButtonDisabledChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new PresetValueChanger(variables)
