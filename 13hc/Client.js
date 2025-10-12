@@ -106,7 +106,7 @@ socket.onclose = () => {
             xhr.open('PUT','/?batchProcessorIsBusy=false')
             xhr.send()
         }
-        url.pathname = 'batchtopButtonDisabled'
+        url.pathname = 'batchStopButtonDisabled'
         const disabledSocket = new WebSocket(url)
         disabledSocket.onmessage = event => {
             element.disabled = event.data === 'true'

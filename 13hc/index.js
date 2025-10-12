@@ -14,9 +14,10 @@ import RandomNumberGenerator from '../13ha/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13ha/RandomNumberInnerTextChanger.js'
 import HistogramSVGInnerHTMLMaker from '../13ha/HistogramSVGInnerHTMLMaker.js'
 import Variables from './Variables.js'
-import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
+import BatchTableInnerHTMLMaker from '../13hb/BatchTableInnerHTMLMaker.js'
 import BatchProcessor from './BatchProcessor.js'
-import BatchStartButtonDisabledChanger from './BatchStartButtonDisabledChanger.js'
+import BatchStartButtonDisabledChanger from '../13hb/BatchStartButtonDisabledChanger.js'
+import BatchStopButtonDisabledChanger from './BatchStopButtonDisabledChanger.js'
 
 const variables = new Variables()
 
@@ -30,6 +31,7 @@ new HTTPUpgradeHandler(variables)
 new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new BatchStartButtonDisabledChanger(variables)
+new BatchStopButtonDisabledChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new PresetValueChanger(variables)
@@ -41,6 +43,7 @@ new BatchProcessor(variables)
 variables.httpServer.assign(new Server())
 variables.randomNumberGeneratorIsBusy.assign(false)
 variables.preset.assign(50)
+variables.batchProcessorIsBusy.assign(false)
 variables.batchParams.assign([
     'preset=10',
     'randomNumberGeneratorIsBusy=true',
