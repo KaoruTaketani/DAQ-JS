@@ -74,7 +74,11 @@
 
 [13.h.f Scan Editor](./13hf/README.md)
 
-[13.i Image](./13hd/README.md)
+[13.i.a Image](./13ia/README.md)
+
+[13.i.b repelem](./13ib/README.md)
+
+[13.i.c Socket Queue](./13ic/README.md)
 
 ## Graph
 ```mermaid
