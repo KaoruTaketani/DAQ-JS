@@ -1,4 +1,4 @@
-import Operator from './Operator.js'
+import Operator from '../13/Operator.js'
 
 export default class extends Operator {
     /**
@@ -6,13 +6,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._httpServer
-        variables.httpServer.addListener(arg => {
-            this._httpServer = arg
+        this._channel2Pulse
+        variables.channel2Pulse.addListener(arg => {
+            this._channel2Pulse = arg
             this._operation()
         })
         this._operation = () => {
-            this._httpServer.listen(80)
+            variables.channel2PulseInnerText.assign(this._channel2Pulse.toLocaleString())
         }
     }
 }

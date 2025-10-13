@@ -6,14 +6,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._thetaDestination
-        variables.thetaDestination.addListener(arg => {
-            this._thetaDestination = arg
+        this._channel2Destination
+        variables.channel2Destination.addListener(arg => {
+            this._channel2Destination = arg
             this._operation()
         })
         this._operation = () => {
-            variables.thetaDestinationValue.assign(`${this._thetaDestination}`)
+            variables.channel2DestinationInnerText.assign(this._channel2Destination.toLocaleString())
         }
     }
 }

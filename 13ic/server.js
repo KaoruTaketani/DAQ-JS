@@ -8,8 +8,8 @@ let interval
 let isBusy = false
 /** @type {Map<number,number>} */
 const pulses = new Map()
-pulses.set(0, 30)
-pulses.set(1, -50)
+pulses.set(1, 30)
+pulses.set(2, -50)
 
 server.maxConnections = 1
 server.on('connection', socket => {
@@ -37,7 +37,8 @@ server.on('connection', socket => {
             isBusy = true
             interval = setInterval(() => {
                 const pulse = pulses.get(channel)
-                ok(pulse)
+                // console.log(`channel: ${channel}, pulse: ${pulse}`)
+                // ok(pulse) // pulse is 0, ok fails
                 // console.log(pulse)
                 if (pulse < destination) {
                     pulses.set(channel, pulse + 1)
