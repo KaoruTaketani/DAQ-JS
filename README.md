@@ -56,6 +56,8 @@
 
 [13.f.b Ring Fail](./13fb/README.md)
 
+[13.f.b Ring Worker](./13fc/README.md)
+
 [13.g.a Plot Range](./13ga/README.md)
 
 [13.g.b Log Plot](./13gb/README.md)
