@@ -16,7 +16,9 @@ socket.onclose = () => {
         element.value = 'stop'
         element.style.width = '130px'
         element.onclick = () => {
-            socket.send(JSON.stringify({ randomNumberGeneratorIsBusy: false }))
+            const xhr = new XMLHttpRequest()
+            xhr.open('PUT','/?stopChannel=2')
+            xhr.send()
         }
         url.pathname = 'stopButtonDisabled'
         const disabledSocket = new WebSocket(url)

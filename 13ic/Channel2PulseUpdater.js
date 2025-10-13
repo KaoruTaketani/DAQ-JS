@@ -32,7 +32,7 @@ export default class extends Operator {
                         // socket.end()
                         done()
                     }).write('pulse?:2')
-                }, 100)//necessary to accept stop queue
+                }, 100)//necessary to accept stop queue?
             })
         }
     }

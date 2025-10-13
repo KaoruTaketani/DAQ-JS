@@ -19,7 +19,8 @@ import WidthDestinationInnerTextChanger from './WidthDestinationInnerTextChanger
 import WidthInMillimetersInnerTextChanger from './WidthInMillimetersInnerTextChanger.js'
 import WidthInMillimetersUpdater from './WidthInMillimetersUpdater.js'
 import XMover from './XMover.js'
-
+import PulseMotorStopper from './PulseMotorStopper.js'
+ 
 const variables = new Variables()
 
 new HTTPGetHandler(variables)
@@ -40,6 +41,7 @@ new CenterInMillimetersUpdater(variables)
 new WidthInMillimetersInnerTextChanger(variables)
 new WidthInMillimetersUpdater(variables)
 new WidthDestinationInnerTextChanger(variables)
+new PulseMotorStopper(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.socketQueue.assign(new SocketQueue())

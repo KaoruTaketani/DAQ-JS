@@ -17,6 +17,7 @@ export default class {
         this.centerInMillimeters = new ListenableNumber()
         this.widthInMillimeters = new ListenableNumber()
 
+        this.stopChannel = new ControllableNumber('stopChannel', this.requestParams)
         this.channel1Destination = new ControllableNumber('channel1Destination', this.requestParams)
         this.channel2Destination = new ControllableNumber('channel2Destination', this.requestParams)
         this.widthDestination = new ControllableNumber('widthDestination', this.requestParams)
