@@ -57,12 +57,16 @@ socket.onclose = () => {
                 })(element.appendChild(document.createElement('td')));
 
                 (element => {
-                    element.style.textAlign = 'right'
-                    url.pathname = 'channel1DestinationInnerText'
-                    const innerTextSocket = new WebSocket(url)
-                    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-                        element.innerText = event.data
-                    }
+                    element.style.textAlign = 'right';
+
+                    (element => {
+                        element.href = '#'
+                        url.pathname = 'channel1DestinationInnerText'
+                        const innerTextSocket = new WebSocket(url)
+                        innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+                            element.innerText = event.data
+                        }
+                    })(element.appendChild(document.createElement('a')));
                 })(element.appendChild(document.createElement('td')));
             })(element.appendChild(document.createElement('tr')));
 
@@ -150,13 +154,16 @@ socket.onclose = () => {
         (element => {
             (element => {
                 (element => {
-                    element.innerText = 'channel'
+                    element.innerText = 'key'
                 })(element.appendChild(document.createElement('th')));
                 (element => {
-                    element.innerText = 'pulse'
+                    element.innerText = 'magnitude'
                 })(element.appendChild(document.createElement('th')));
                 (element => {
                     element.innerText = 'destination'
+                })(element.appendChild(document.createElement('th')));
+                (element => {
+                    element.innerText = 'unit'
                 })(element.appendChild(document.createElement('th')));
             })(element.appendChild(document.createElement('tr')));
 
@@ -165,12 +172,12 @@ socket.onclose = () => {
         (element => {
             (element => {
                 (element => {
-                    element.innerText = '1'
+                    element.innerText = 'center'
                 })(element.appendChild(document.createElement('td')));
 
                 (element => {
                     element.style.textAlign = 'right'
-                    url.pathname = 'channel1PulseInnerText'
+                    url.pathname = 'centerInMillimetersInnerText'
                     const innerTextSocket = new WebSocket(url)
                     innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
                         element.innerText = event.data
@@ -178,54 +185,34 @@ socket.onclose = () => {
                 })(element.appendChild(document.createElement('td')));
 
                 (element => {
-                    const destinationElement = document.createElement('input')
-                    destinationElement.style.width = '130px'
-                    url.pathname = 'DestinationDisabled'
-                    const destinationDisabledSocket = new WebSocket(url)
-                    destinationDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-                        destinationElement.disabled = event.data === 'true'
-                    }
-                    url.pathname = 'xDestinationValue'
-                    const valueSocket = new WebSocket(url)
-                    valueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-                        destinationElement.value = event.data
-                    }
-                    element.appendChild(destinationElement)
+                    element.style.textAlign = 'right';
 
-                    const buttonElement = document.createElement('input')
-                    buttonElement.type = 'button'
-                    buttonElement.value = 'move'
-                    buttonElement.onclick = () => {
-                        const destination = parseInt(destinationElement.value)
-                        if (Number.isNaN(destination)) {
-                            destinationElement.value = `NaN`
-                        } else {
-                            socket.send(JSON.stringify({ xDestination: destination }))
+                    (element => {
+                        element.href = '#'
+
+                        url.pathname = 'centerDestinationInnerText'
+                        const innerTextSocket = new WebSocket(url)
+                        innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+                            element.innerText = event.data
                         }
-                    }
-                    url.pathname = 'moveXButtonDisabled'
-                    const buttonDisabledSocket = new WebSocket(url)
-                    buttonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-                        buttonElement.disabled = event.data === 'true'
-                    }
-                    element.appendChild(buttonElement)
+                    })(element.appendChild(document.createElement('a')));
                 })(element.appendChild(document.createElement('td')));
 
                 (element => {
-                    element.style.textAlign = 'right'
-                    element.innerText = 'off'
+                    element.innerText = 'mm'
                 })(element.appendChild(document.createElement('td')));
             })(element.appendChild(document.createElement('tr')));
 
 
             (element => {
                 (element => {
-                    element.innerText = 'theta'
+                    element.innerText = 'width'
                 })(element.appendChild(document.createElement('td')));
 
                 (element => {
                     element.style.textAlign = 'right'
-                    url.pathname = 'thetaPulseInnerText'
+
+                    url.pathname = 'widthInMillimetersInnerText'
                     const innerTextSocket = new WebSocket(url)
                     innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
                         element.innerText = event.data
@@ -233,42 +220,21 @@ socket.onclose = () => {
                 })(element.appendChild(document.createElement('td')));
 
                 (element => {
-                    const destinationElement = document.createElement('input')
-                    destinationElement.style.width = '130px'
-                    url.pathname = 'thetaDestinationDisabled'
-                    const destinationDisabledSocket = new WebSocket(url)
-                    destinationDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-                        destinationElement.disabled = event.data === 'true'
-                    }
-                    url.pathname = 'thetaDestinationValue'
-                    const destinationValueSocket = new WebSocket(url)
-                    destinationValueSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-                        destinationElement.value = event.data
-                    }
-                    element.appendChild(destinationElement)
+                    element.style.textAlign = 'right';
 
-                    const buttonElement = document.createElement('input')
-                    buttonElement.type = 'button'
-                    buttonElement.value = 'move'
-                    buttonElement.onclick = () => {
-                        const destination = parseInt(destinationElement.value)
-                        if (Number.isNaN(destination)) {
-                            destinationElement.value = `NaN`
-                        } else {
-                            socket.send(JSON.stringify({ thetaDestination: destination }))
+                    (element => {
+                        element.href = '#'
+
+                        url.pathname = 'widthDestinationInnerText'
+                        const innerTextSocket = new WebSocket(url)
+                        innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
+                            element.innerText = event.data
                         }
-                    }
-                    url.pathname = 'moveThetaButtonDisabled'
-                    const buttonDisabledSocket = new WebSocket(url)
-                    buttonDisabledSocket.onmessage = (/** @type {MessageEvent}*/event) => {
-                        buttonElement.disabled = event.data === 'true'
-                    }
-                    element.appendChild(buttonElement)
+                    })(element.appendChild(document.createElement('a')));
                 })(element.appendChild(document.createElement('td')));
 
                 (element => {
-                    element.style.textAlign = 'right'
-                    element.innerText = 'off'
+                    element.innerText = 'mm'
                 })(element.appendChild(document.createElement('td')));
             })(element.appendChild(document.createElement('tr')));
         })(element.appendChild(document.createElement('tbody')));

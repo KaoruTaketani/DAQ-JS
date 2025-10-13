@@ -9,7 +9,7 @@ export default class extends Operator {
         super()
         /** @type {number} */
         this._xDestination
-        variables.xDestination.addListener(arg => {
+        variables.widthDestination.addListener(arg => {
             this._xDestination = arg
             this._operation()
         })
@@ -29,7 +29,7 @@ export default class extends Operator {
                 } else {
                     const pulse = parseInt(data.split(' ')[1]),
                         isBusy = data.split(' ')[2] === '1'
-                    variables.xPulse.assign(pulse)
+                    variables.centerInMillimeters.assign(pulse)
                     if (isBusy) {
                         setTimeout(() => {
                             socket.write('pulse?:0')
@@ -40,7 +40,7 @@ export default class extends Operator {
                 }
             }).on('close', () => {
                 console.log(`close`)
-                variables.xDestination.assign(Number.NaN)
+                variables.widthDestination.assign(Number.NaN)
             }).connect(23, 'localhost', () => {
                 socket.write(`move_to:0 ${this._xDestination}`)
             })

@@ -6,14 +6,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._thetaDestination
-        variables.thetaDestination.addListener(arg => {
-            this._thetaDestination = arg
+        this._channel2Pulse
+        variables.channel2Pulse.addListener(arg => {
+            this._channel2Pulse = arg
             this._operation()
         })
         this._operation = () => {
-            variables.thetaDestinationValue.assign(`${this._thetaDestination}`)
+            variables.centerInMillimeters.assign(this._channel2Pulse * 500 + 0.5)
         }
     }
 }

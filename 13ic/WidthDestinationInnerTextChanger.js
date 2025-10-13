@@ -7,13 +7,13 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
-        this._xPulse
-        variables.xPulse.addListener(arg => {
-            this._xPulse = arg
+        this._thetaDestination
+        variables.centerDestination.addListener(arg => {
+            this._thetaDestination = arg
             this._operation()
         })
         this._operation = () => {
-            variables.xPulseInnerText.assign(this._xPulse.toLocaleString())
+            variables.widthDestinationInnerText.assign(`${this._thetaDestination}`)
         }
     }
 }

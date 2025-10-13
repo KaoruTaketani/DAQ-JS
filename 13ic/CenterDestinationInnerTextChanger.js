@@ -8,12 +8,12 @@ export default class extends Operator {
         super()
         /** @type {number} */
         this._xDestination
-        variables.xDestination.addListener(arg => {
+        variables.widthDestination.addListener(arg => {
             this._xDestination = arg
             this._operation()
         })
         this._operation = () => {
-            variables.xDestinationValue.assign(`${this._xDestination}`)
+            variables.centerDestinationInnerText.assign(`${this._xDestination}`)
         }
     }
 }

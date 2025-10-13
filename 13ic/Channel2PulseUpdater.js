@@ -16,7 +16,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            console.log(`pulse: ${this._channel2Pulse}, dest: ${this._channel2Destination}`)
+            // console.log(`pulse: ${this._channel2Pulse}, dest: ${this._channel2Destination}`)
             if (Number.isNaN(this._channel2Destination)) {
                 if (!Number.isNaN(this._channel2Pulse)) return
 
