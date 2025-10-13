@@ -58,13 +58,14 @@ server.on('connection', socket => {
         }
         if (data.startsWith('pulse?:')) {
             const channel = parseInt(data.split(':')[1])
-            console.log(channel)
+            
             if (!pulses.has(channel)) {
                 socket.write('ng')
                 return
             }
-            console.log(`ok ${pulses.get(channel)} ${isBusy ? 1 : 0}`)
-            socket.write(`ok ${pulses.get(channel)} ${isBusy ? 1 : 0}`)
+            const msg =`ok ${pulses.get(channel)} ${isBusy ? 1 : 0}`
+            console.log(msg)
+            socket.write(msg)
             return
         }
         socket.write('ng')

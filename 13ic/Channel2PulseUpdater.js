@@ -20,17 +20,19 @@ export default class extends Operator {
                 && !Number.isNaN(this._channel2Pulse)) return
 
             this._socketQueue.push((socket, done) => {
-                socket.once('data', data => {
-                    console.log(`2nd data: ${data}`)
-                    const pulse = parseInt(data.split(' ')[1]),
-                        isBusy = data.split(' ')[2] == '1'
-                    variables.channel2Pulse.assign(pulse)
-                    if (!isBusy) {
-                        variables.channel2Destination.assign(Number.NaN)
-                    }
-                    // socket.end()
-                    done()
-                }).write('pulse?:2')
+                setTimeout(() => {
+                    socket.once('data', data => {
+                        console.log(`2nd data: ${data}`)
+                        const pulse = parseInt(data.split(' ')[1]),
+                            isBusy = data.split(' ')[2] == '1'
+                        variables.channel2Pulse.assign(pulse)
+                        if (!isBusy) {
+                            variables.channel2Destination.assign(Number.NaN)
+                        }
+                        // socket.end()
+                        done()
+                    }).write('pulse?:2')
+                }, 100)//necessary to accept stop queue
             })
         }
     }
