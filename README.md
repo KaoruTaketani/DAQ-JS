@@ -52,7 +52,9 @@
 
 [13.e.a API](./13ea/README.md)
 
-[13.f TCP](./13f/README.md)
+[13.f.a TCP Socket](./13fa/README.md)
+
+[13.f.b Ring Fail](./13fb/README.md)
 
 [13.g.a Plot Range](./13ga/README.md)
 
