@@ -6,6 +6,8 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        this._channel2Pulse
+        variables.channel2Pulse.addListener(arg => { this._channel2Pulse = arg })
         this._socketQueue
         variables.socketQueue.addListener(arg => { this._socketQueue = arg })
         this._channel2Destination
@@ -21,16 +23,17 @@ export default class extends Operator {
                 socket.once('data', data => {
                     console.log(`1st data: ${data}`)
                     if (data === 'ok') {
-                        this._socketQueue.push((socket, done) => {
-                            socket.once('data', data => {
-                                console.log(`2nd data: ${data}`)
-                                const pulse = parseInt(data.split(' ')[1])
-                                console.log(pulse)
-                                variables.channel2Pulse.assign(pulse)
-                                // socket.end()
-                                done()
-                            }).write('pulse?:2')
-                        })
+                        variables.channel2Pulse.assign(this._channel2Pulse)
+                        // this._socketQueue.push((socket, done) => {
+                        //     socket.once('data', data => {
+                        //         console.log(`2nd data: ${data}`)
+                        //         const pulse = parseInt(data.split(' ')[1])
+                        //         console.log(pulse)
+                        //         variables.channel2Pulse.assign(pulse)
+                        //         // socket.end()
+                        //         done()
+                        //     }).write('pulse?:2')
+                        // })
                     }
                     done()
                 }).write(`move_to:2 ${this._channel2Destination}`)
