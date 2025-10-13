@@ -41,8 +41,8 @@ server.on('connection', socket => {
 
 ## How to run the sample code in this folder
 1. open a terminal
-1. change directory to this folder
-1. type `node server.js` in the terminal
+1. change directory to the top folder
+1. type `node simulator-rand` in the terminal
 1. open another terminal
 1. change directory to this folder
 1. type `npm i` in the terminal
