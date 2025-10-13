@@ -16,9 +16,16 @@ export default class extends Operator {
             this._presetStop = arg
             this._operation()
         })
+        this._presetStep
+        variables.presetStep.addListener(arg => {
+            this._presetStep = arg
+            this._operation()
+        })
         this._operation = () => {
+            if (this._presetStep < 0) return
             if (this._presetStart > this._presetStop) return
-            
+
+            variables.presets.assign([10, 20, 30, 40, 50])
             variables.batchParams.assign([
                 'preset=10',
                 'randomNumberGeneratorIsBusy=true',

@@ -22,6 +22,9 @@ import BatchParamsMaker from './BatchParamsMaker.js'
 import PresetStartValueChanger from './PresetStartValueChanger.js'
 import PresetStopValueChanger from './PresetStopValueChanger.js'
 import PresetStepValueChanger from './PresetStepValueChanger.js'
+import MeansInitializer from './MeansInitializer.js'
+import MeansMaker from './MeansMaker.js'
+import MeansSVGInnerHTMLMaker from './MeansSVGInnerHTMLMaker.js'
 
 const variables = new Variables()
 
@@ -42,11 +45,15 @@ new PresetValueChanger(variables)
 new PresetDisabledChanger(variables)
 new Comparator(variables)
 new BatchTableInnerHTMLMaker(variables)
+new MeansMaker(variables)
 new BatchProcessor(variables)
 new BatchParamsMaker(variables)
 new PresetStartValueChanger(variables)
 new PresetStopValueChanger(variables)
 new PresetStepValueChanger(variables)
+new MeansInitializer(variables)
+new MeansSVGInnerHTMLMaker(variables)
+
 
 variables.httpServer.assign(new Server())
 variables.randomNumberGeneratorIsBusy.assign(false)

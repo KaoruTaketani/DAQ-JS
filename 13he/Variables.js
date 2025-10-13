@@ -14,6 +14,8 @@ export default class {
         this.elementValues = new ListenableObject()
         this.histogram = new ListenableObject()
         this.batchParams = new ListenableObject()
+        this.means = new ListenableObject()
+        this.presets = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
         this.presetStart = new ListenableNumber()
@@ -38,6 +40,7 @@ export default class {
         this.presetStartValue = new ElementString('/presetStartValue', this.elementValues, this.webSocketPathnames)
         this.presetStopValue = new ElementString('/presetStopValue', this.elementValues, this.webSocketPathnames)
         this.presetStepValue = new ElementString('/presetStepValue', this.elementValues, this.webSocketPathnames)
+        this.meansSVGInnerHTML = new ElementString('/meansSVGInnerHTML', this.elementValues, this.webSocketPathnames)
     }
 }
 

@@ -7,8 +7,8 @@ export default class extends ControllableBoolean {
         batchProcessorIsBusy.addListener(arg => {
             if (arg) return
      
-            console.log(`stop ${key}`)       
-            this.assign(false)
+            // console.log(`stop ${key}`)       
+            // this.assign(false)
         })
     }
     addOnceListener(onceListener) {

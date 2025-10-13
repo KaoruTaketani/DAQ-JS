@@ -107,14 +107,14 @@ socket.onclose = () => {
 
     (element => {
         element.type = 'button'
-        element.value = 'scan stop'
+        element.value = 'stop'
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
             xhr.open('PUT', '/?batchProcessorIsBusy=false')
             xhr.send()
         }
-        url.pathname = 'scanStopButtonDisabled'
+        url.pathname = 'batchStopButtonDisabled'
         const disabledSocket = new WebSocket(url)
         disabledSocket.onmessage = event => {
             element.disabled = event.data === 'true'
@@ -188,7 +188,7 @@ socket.onclose = () => {
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
-    url.pathname = 'meanSVGInnerHTML'
+    url.pathname = 'meansSVGInnerHTML'
     const innerHTMLSocket = new WebSocket(url)
     innerHTMLSocket.onmessage = event => {
         element.innerHTML = event.data
