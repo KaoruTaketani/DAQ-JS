@@ -70,11 +70,11 @@
 
 13.f Ring Buffer
 
-[13.f.a TCP Socket](./13fa/README.md)
+[13.f.a TCP Reader](./13fa/README.md)
 
-[13.f.b Ring Fail](./13fb/README.md)
+[13.f.b Slow Reader](./13fb/README.md)
 
-[13.f.c Ring Worker](./13fc/README.md)
+[13.f.c Worker](./13fc/README.md)
 
 [13.h Preset](./13h/README.md)
 
