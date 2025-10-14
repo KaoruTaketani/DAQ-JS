@@ -58,9 +58,9 @@
 
 13.d Plot
 
-[13.g.a Plot Range](./13ga/README.md)
+[13.d.a Plot Range](./13da/README.md)
 
-[13.g.b Log Plot](./13gb/README.md)
+[13.d.b Log Plot](./13db/README.md)
 
 [13.g.c Plot Dialog](./13gc/README.md)
 
