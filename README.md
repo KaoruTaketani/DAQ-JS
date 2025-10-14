@@ -62,9 +62,11 @@
 
 [13.d.c Plot Dialog](./13dc/README.md)
 
-[13.e BlockList](./13e/README.md)
+13.e API
 
-[13.e.a API](./13ea/README.md)
+[13.e.a BlockList](./13e/README.md)
+
+[13.e.b HTTP GET](./13eb/README.md)
 
 [13.f.a TCP Socket](./13fa/README.md)
 
