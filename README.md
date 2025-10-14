@@ -64,7 +64,7 @@
 
 13.e API
 
-[13.e.a BlockList](./13e/README.md)
+[13.e.a BlockList](./13ea/README.md)
 
 [13.e.b HTTP GET](./13eb/README.md)
 
