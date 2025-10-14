@@ -36,7 +36,11 @@
 
 [13.a.c Cursor](./13ac/README.md)
 
-[13.d.a Overlay](./13ad/README.md)
+[13.a.d Overlay](./13ad/README.md)
+
+[13.a.e Multi Page](./13ae/README.md)
+
+13.b Prepend
 
 [13.b.a Add OK](./13ba/README.md)
 
@@ -44,11 +48,11 @@
 
 [13.b.c Prepend](./13bc/README.md)
 
+13.c Time Series
+
 [13.c.a Time Series](./13ca/README.md)
 
 [13.c.b InfluxDB](./13cb/README.md)
-
-[13.c.c Clients](./13cc/README.md)
 
 [13.e BlockList](./13e/README.md)
 
