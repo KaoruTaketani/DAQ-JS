@@ -34,7 +34,7 @@
 
 [13.a.b Download HDF5](./13ab/README.md)
 
-[13.a.c Cursor](./13ac/README.md)
+[13.a.c Cursor Coordinate](./13ac/README.md)
 
 [13.a.d Overlay](./13ad/README.md)
 
@@ -56,6 +56,14 @@
 
 [13.e BlockList](./13e/README.md)
 
+13.d Plot
+
+[13.g.a Plot Range](./13ga/README.md)
+
+[13.g.b Log Plot](./13gb/README.md)
+
+[13.g.c Plot Dialog](./13gc/README.md)
+
 [13.e.a API](./13ea/README.md)
 
 [13.f.a TCP Socket](./13fa/README.md)
@@ -63,12 +71,6 @@
 [13.f.b Ring Fail](./13fb/README.md)
 
 [13.f.b Ring Worker](./13fc/README.md)
-
-[13.g.a Plot Range](./13ga/README.md)
-
-[13.g.b Log Plot](./13gb/README.md)
-
-[13.g.c Plot Dialog](./13gc/README.md)
 
 [13.h Preset](./13h/README.md)
 
