@@ -2,19 +2,16 @@ import { Server } from 'http'
 import HistogramInitializer from '../13/HistogramInitializer.js'
 import HistogramMaker from '../13/HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from '../13/HistogramSVGInnerHTMLMaker.js'
-import HTTPGetHandler from './HTTPGetHandler.js'
+import HTTPPutHandler from '../13/HTTPPutHandler.js'
 import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
 import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'
-import HTTPPutHandler from '../13/HTTPPutHandler.js'
 import RandomNumberGenerator from '../13/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13/RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
-import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
-import TimeSeriesInitializer from '../13ca/TimeSeriesInitializer.js'
-import TimeSeriesMaker from '../13ca/TimeSeriesMaker.js'
-import TimeSeriesSVGInnerHTMLMaker from '../13ca/TimeSeriesSVGInnerHTMLMaker.js'
+import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import Variables from '../13ca/Variables.js'
+import HTTPGetHandler from './HTTPGetHandler.js'
 
 const variables = new Variables()
 
@@ -30,9 +27,6 @@ new RandomNumberInnerTextChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
-new TimeSeriesInitializer(variables)
-new TimeSeriesMaker(variables)
-new TimeSeriesSVGInnerHTMLMaker(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(false)

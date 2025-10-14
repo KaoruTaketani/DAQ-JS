@@ -13,7 +13,7 @@ export default class extends Operator {
             this._httpServer = arg
             this._operation()
         })
-        this._basenames = ['HistogramClient', 'RandomNumberGeneratorClient', 'TimeSeriesClient']
+        this._basenames = ['HistogramClient', 'RandomNumberGeneratorClient']
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
                 if (request.method !== 'GET') return
@@ -28,7 +28,6 @@ export default class extends Operator {
                         '<body>',
                         `    <p><a href="./RandomNumberGeneratorClient.html">RandomNumberGenerator</a></p>`,
                         `    <p><a href="./HistogramClient.html">Histogram</a></p>`,
-                        `    <p><a href="./TimeSeriesClient.html">Time Series</a></p>`,
                         '</body>',
                         '</html>'
                     ].join('\n'))
