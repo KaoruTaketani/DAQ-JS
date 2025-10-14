@@ -28,9 +28,15 @@
 
 [13 Histogram](./13/README.md)
 
+13.a Client
+
 [13.a.a Download SVG](./13aa/README.md)
 
 [13.a.b Download HDF5](./13ab/README.md)
+
+[13.a.c Cursor](./13ac/README.md)
+
+[13.d.a Overlay](./13da/README.md)
 
 [13.b.a Add OK](./13ba/README.md)
 
@@ -43,10 +49,6 @@
 [13.c.b InfluxDB](./13cb/README.md)
 
 [13.c.c Clients](./13cc/README.md)
-
-[13.d Cursor](./13d/README.md)
-
-[13.d.a Overlay](./13da/README.md)
 
 [13.e BlockList](./13e/README.md)
 
