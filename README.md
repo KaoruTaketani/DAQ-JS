@@ -54,15 +54,15 @@
 
 [13.c.b InfluxDB](./13cb/README.md)
 
-[13.e BlockList](./13e/README.md)
-
 13.d Plot
 
 [13.d.a Plot Range](./13da/README.md)
 
 [13.d.b Log Plot](./13db/README.md)
 
-[13.g.c Plot Dialog](./13gc/README.md)
+[13.d.c Plot Dialog](./13dc/README.md)
+
+[13.e BlockList](./13e/README.md)
 
 [13.e.a API](./13ea/README.md)
 
