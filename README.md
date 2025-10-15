@@ -66,7 +66,9 @@
 
 [13.e.a BlockList](./13ea/README.md)
 
-[13.e.b GET](./13eb/README.md)
+[13.e.b PUT](./13eb/README.md)
+
+[13.e.c GET](./13ec/README.md)
 
 13.f Ring Buffer
 
