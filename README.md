@@ -78,6 +78,8 @@
 
 [13.f.c Worker](./13fc/README.md)
 
+13.h Scanner
+
 [13.h Preset](./13h/README.md)
 
 [13.h.a Throttle](./13ha/README.md)
