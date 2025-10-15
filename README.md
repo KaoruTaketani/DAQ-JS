@@ -72,7 +72,7 @@
 
 [13.f.a TCP Reader](./13fa/README.md)
 
-[13.f.b Slow Reader](./13fb/README.md)
+[13.f.b Heavy Work](./13fb/README.md)
 
 [13.f.c Worker](./13fc/README.md)
 
