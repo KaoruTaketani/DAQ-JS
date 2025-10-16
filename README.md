@@ -74,9 +74,11 @@
 
 [13.f.a TCP Reader](./13fa/README.md)
 
-[13.f.b Heavy Work](./13fb/README.md)
+[13.f.b Ring Buffer](./13fb/README.md)
 
-[13.f.c Worker](./13fc/README.md)
+[13.f.d Heavy Work](./13fb/README.md)
+
+[13.f.e Worker](./13fc/README.md)
 
 13.h Scanner
 
