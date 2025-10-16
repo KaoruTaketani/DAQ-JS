@@ -11,9 +11,9 @@ import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
-import Comparator from '../13h/Comparator.js'
-import PresetDisabledChanger from '../13h/PresetDisabledChanger.js'
-import PresetValueChanger from '../13h/PresetValueChanger.js'
+import Comparator from '../13ha/Comparator.js'
+import PresetDisabledChanger from '../13ha/PresetDisabledChanger.js'
+import PresetValueChanger from '../13ha/PresetValueChanger.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
