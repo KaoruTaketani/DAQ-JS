@@ -3,7 +3,7 @@ import throttle from '../lib/throttle.js'
 
 export default class extends Operator {
     /**
-     * @param {import('./Variables.js').default} variables 
+     * @param {import('../13hb/Variables.js').default} variables 
      */
     constructor(variables) {
         super()
