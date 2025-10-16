@@ -76,6 +76,8 @@
 
 [13.f.b Ring Buffer](./13fb/README.md)
 
+[13.f.c Throttle](./13fc/README.md)
+
 [13.f.d Heavy Work](./13fb/README.md)
 
 [13.f.e Worker](./13fc/README.md)
@@ -83,8 +85,6 @@
 13.h Scanner
 
 [13.h Preset](./13h/README.md)
-
-[13.h.a Throttle](./13ha/README.md)
 
 [13.h.b Batch Processor](./13hb/README.md)
 
