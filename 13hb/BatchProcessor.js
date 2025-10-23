@@ -21,17 +21,19 @@ export default class extends Operator {
                 new Promise(resolve => {
                     const p = new URLSearchParams(params)
                     ok(p.size === 1)
+                    variables.batchResolve.assign(resolve)
                     variables.requestParams.assign(new URLSearchParams(params))
 
-                    if (p.has('randomNumberGeneratorIsBusy')) {
-                        variables.randomNumberGeneratorIsBusy.addOnceListener(() => {
-                            resolve()
-                        })
-                    } else {
-                        resolve()
-                    }
+                    // if (p.has('randomNumberGeneratorIsBusy')) {
+                    //     variables.randomNumberGeneratorIsBusy.addOnceListener(() => {
+                    //         resolve()
+                    //     })
+                    // } else {
+                    //     resolve()
+                    // }
                 })
             ), Promise.resolve()).then(()=>{
+                variables.batchResolve.assign(undefined)
                 variables.batchProcessorIsBusy.assign(false)
             })
         }
