@@ -9,33 +9,37 @@ export default class extends Operator {
         super()
         this._batchParams
         variables.batchParams.addListener(arg => { this._batchParams = arg })
+        this._batchReject
+        variables.batchReject.addListener(arg => { this._batchReject = arg })
         this._batchProcessorIsBusy
         variables.batchProcessorIsBusy.addListener(arg => {
             this._batchProcessorIsBusy = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._batchProcessorIsBusy) return
-
-            this._batchParams.reduce((previous, params) => previous.then(() =>
-                new Promise((resolve, reject) => {
-                    const p = new URLSearchParams(params)
-                    ok(p.size === 1)
-                    variables.batchReject.assign(reject)
-                    variables.batchResolve.assign(resolve)
-                    variables.requestParams.assign(new URLSearchParams(params))
+            if (this._batchProcessorIsBusy) {
+                this._batchParams.reduce((previous, params) => previous.then(() =>
+                    new Promise((resolve, reject) => {
+                        const p = new URLSearchParams(params)
+                        ok(p.size === 1)
+                        variables.batchReject.assign(reject)
+                        variables.batchResolve.assign(resolve)
+                        variables.requestParams.assign(new URLSearchParams(params))
+                    })
+                ), Promise.resolve()).then(() => {
+                    console.log('finished')
+                    variables.batchReject.assign(undefined)
+                    variables.batchResolve.assign(undefined)
+                    variables.batchProcessorIsBusy.assign(false)
+                }).catch(() => {
+                    console.log('stopped')
+                    variables.batchReject.assign(undefined)
+                    variables.batchResolve.assign(undefined)
+                    variables.batchProcessorIsBusy.assign(false)
                 })
-            ), Promise.resolve()).then(() => {
-                console.log('finished')
-                variables.batchReject.assign(undefined)
-                variables.batchResolve.assign(undefined)
-                variables.batchProcessorIsBusy.assign(false)
-            }).catch(() => {
-                console.log('stopped')
-                variables.batchReject.assign(undefined)
-                variables.batchResolve.assign(undefined)
-                variables.batchProcessorIsBusy.assign(false)
-            })
+            } else {
+                if (this._batchReject) this._batchReject()
+            }
         }
     }
 }

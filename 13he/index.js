@@ -10,22 +10,21 @@ import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import Comparator from '../13ha/Comparator.js'
 import PresetDisabledChanger from '../13ha/PresetDisabledChanger.js'
 import PresetValueChanger from '../13ha/PresetValueChanger.js'
+import BatchStartButtonDisabledChanger from '../13hb/BatchStartButtonDisabledChanger.js'
+import BatchTableInnerHTMLMaker from '../13hb/BatchTableInnerHTMLMaker.js'
 import HistogramSVGInnerHTMLMaker from '../13hb/HistogramSVGInnerHTMLMaker.js'
 import RandomNumberGenerator from '../13hb/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13hb/RandomNumberInnerTextChanger.js'
-import BatchStartButtonDisabledChanger from '../13hb/BatchStartButtonDisabledChanger.js'
-import BatchTableInnerHTMLMaker from '../13hb/BatchTableInnerHTMLMaker.js'
 import BatchProcessor from '../13hc/BatchProcessor.js'
-import BatchStopper from '../13hc/BatchStopper.js'
 import BatchStopButtonDisabledChanger from '../13hc/BatchStopButtonDisabledChanger.js'
-import Variables from './Variables.js'
 import BatchParamsMaker from './BatchParamsMaker.js'
-import PresetStartValueChanger from './PresetStartValueChanger.js'
-import PresetStopValueChanger from './PresetStopValueChanger.js'
-import PresetStepValueChanger from './PresetStepValueChanger.js'
 import MeansInitializer from './MeansInitializer.js'
 import MeansMaker from './MeansMaker.js'
 import MeansSVGInnerHTMLMaker from './MeansSVGInnerHTMLMaker.js'
+import PresetStartValueChanger from './PresetStartValueChanger.js'
+import PresetStepValueChanger from './PresetStepValueChanger.js'
+import PresetStopValueChanger from './PresetStopValueChanger.js'
+import Variables from './Variables.js'
 
 const variables = new Variables()
 
@@ -48,7 +47,6 @@ new Comparator(variables)
 new BatchTableInnerHTMLMaker(variables)
 new MeansMaker(variables)
 new BatchProcessor(variables)
-new BatchStopper(variables)
 new BatchParamsMaker(variables)
 new PresetStartValueChanger(variables)
 new PresetStopValueChanger(variables)

@@ -10,15 +10,14 @@ import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import Comparator from '../13ha/Comparator.js'
 import PresetDisabledChanger from '../13ha/PresetDisabledChanger.js'
 import PresetValueChanger from '../13ha/PresetValueChanger.js'
+import BatchStartButtonDisabledChanger from '../13hb/BatchStartButtonDisabledChanger.js'
+import BatchTableInnerHTMLMaker from '../13hb/BatchTableInnerHTMLMaker.js'
+import HistogramSVGInnerHTMLMaker from '../13hb/HistogramSVGInnerHTMLMaker.js'
 import RandomNumberGenerator from '../13hb/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13hb/RandomNumberInnerTextChanger.js'
-import HistogramSVGInnerHTMLMaker from '../13hb/HistogramSVGInnerHTMLMaker.js'
-import Variables from './Variables.js'
-import BatchTableInnerHTMLMaker from '../13hb/BatchTableInnerHTMLMaker.js'
 import BatchProcessor from './BatchProcessor.js'
-import BatchStopper from './BatchStopper.js'
-import BatchStartButtonDisabledChanger from '../13hb/BatchStartButtonDisabledChanger.js'
 import BatchStopButtonDisabledChanger from './BatchStopButtonDisabledChanger.js'
+import Variables from './Variables.js'
 
 const variables = new Variables()
 
@@ -40,7 +39,6 @@ new PresetDisabledChanger(variables)
 new Comparator(variables)
 new BatchTableInnerHTMLMaker(variables)
 new BatchProcessor(variables)
-new BatchStopper(variables)
 
 variables.httpServer.assign(new Server())
 variables.randomNumberGeneratorIsBusy.assign(false)
