@@ -16,6 +16,7 @@ import RandomNumberInnerTextChanger from '../13hb/RandomNumberInnerTextChanger.j
 import BatchStartButtonDisabledChanger from '../13hb/BatchStartButtonDisabledChanger.js'
 import BatchTableInnerHTMLMaker from '../13hb/BatchTableInnerHTMLMaker.js'
 import BatchProcessor from '../13hc/BatchProcessor.js'
+import BatchStopper from '../13hc/BatchStopper.js'
 import BatchStopButtonDisabledChanger from '../13hc/BatchStopButtonDisabledChanger.js'
 import Variables from './Variables.js'
 import BatchParamsMaker from './BatchParamsMaker.js'
@@ -47,6 +48,7 @@ new Comparator(variables)
 new BatchTableInnerHTMLMaker(variables)
 new MeansMaker(variables)
 new BatchProcessor(variables)
+new BatchStopper(variables)
 new BatchParamsMaker(variables)
 new PresetStartValueChanger(variables)
 new PresetStopValueChanger(variables)
