@@ -21,22 +21,28 @@ export default class extends Operator {
                 new Promise((resolve, reject) => {
                     const p = new URLSearchParams(params)
                     ok(p.size === 1)
+                    variables.batchReject.assign(reject)
+                    variables.batchResolve.assign(resolve)
                     variables.requestParams.assign(new URLSearchParams(params))
 
-                    if (p.has('randomNumberGeneratorIsBusy')) {
-                        variables.randomNumberGeneratorIsBusy.addOnceListener(() => {
-                            if (!this._batchProcessorIsBusy) reject()
-                            resolve()
-                        })
-                    } else {
-                        resolve()
-                    }
+                    // if (p.has('randomNumberGeneratorIsBusy')) {
+                    //     variables.randomNumberGeneratorIsBusy.addOnceListener(() => {
+                    //         if (!this._batchProcessorIsBusy) reject()
+                    //         resolve()
+                    //     })
+                    // } else {
+                    //     resolve()
+                    // }
                 })
             ), Promise.resolve()).then(() => {
                 console.log('finished')
+                variables.batchReject.assign(undefined)
+                variables.batchResolve.assign(undefined)
                 variables.batchProcessorIsBusy.assign(false)
             }).catch(() => {
                 console.log('stopped')
+                variables.batchReject.assign(undefined)
+                variables.batchResolve.assign(undefined)
                 variables.batchProcessorIsBusy.assign(false)
             })
         }
