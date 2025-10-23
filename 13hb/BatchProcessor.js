@@ -23,14 +23,6 @@ export default class extends Operator {
                     ok(p.size === 1)
                     variables.batchResolve.assign(resolve)
                     variables.requestParams.assign(new URLSearchParams(params))
-
-                    // if (p.has('randomNumberGeneratorIsBusy')) {
-                    //     variables.randomNumberGeneratorIsBusy.addOnceListener(() => {
-                    //         resolve()
-                    //     })
-                    // } else {
-                    //     resolve()
-                    // }
                 })
             ), Promise.resolve()).then(()=>{
                 variables.batchResolve.assign(undefined)

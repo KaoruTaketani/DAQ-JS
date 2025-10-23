@@ -24,15 +24,6 @@ export default class extends Operator {
                     variables.batchReject.assign(reject)
                     variables.batchResolve.assign(resolve)
                     variables.requestParams.assign(new URLSearchParams(params))
-
-                    // if (p.has('randomNumberGeneratorIsBusy')) {
-                    //     variables.randomNumberGeneratorIsBusy.addOnceListener(() => {
-                    //         if (!this._batchProcessorIsBusy) reject()
-                    //         resolve()
-                    //     })
-                    // } else {
-                    //     resolve()
-                    // }
                 })
             ), Promise.resolve()).then(() => {
                 console.log('finished')
