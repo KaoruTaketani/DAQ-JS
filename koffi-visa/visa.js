@@ -1,15 +1,15 @@
 import koffi from 'koffi'
 
 const ViUInt32 = koffi.alias('ViUInt32', 'uint32')
-const ViPUInt32 = koffi.pointer(ViUInt32)
+const ViUInt32P = koffi.pointer(ViUInt32)
 const ViStatus = ViUInt32
 const ViObject = ViUInt32
 const ViSession = ViUInt32
-const ViPSession = koffi.pointer(ViSession)
+const ViSessionP = koffi.pointer(ViSession)
 const ViAccessMode = ViUInt32
 const ViByte = koffi.alias('ViByte', 'uchar')
-const ViPByte = koffi.pointer(ViByte)
-const ViPBuf = ViPByte
+const ViByteP = koffi.pointer(ViByte)
+const ViPBuf = ViByteP
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa/page/user-manual-welcome.html
 const lib = koffi.load('visa64.dll')
@@ -27,7 +27,7 @@ export function checkStatus(statusCode) {
 
 // https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viopendefaultrm.html
 const _viOpenDefaultRM = lib.func('viOpenDefaultRM', ViStatus, [
-    koffi.out(ViPSession)
+    koffi.out(ViSessionP)
 ])
 
 /**
@@ -46,7 +46,7 @@ const _viOpen = lib.func('viOpen', ViStatus, [
     'string',
     ViAccessMode,
     ViUInt32,
-    koffi.out(ViPSession)
+    koffi.out(ViSessionP)
 ])
 
 /**
@@ -81,7 +81,7 @@ const _viWrite = lib.func('viWrite', ViStatus, [
     ViSession,
     'string',
     ViUInt32,
-    koffi.out(ViPUInt32)
+    koffi.out(ViUInt32P)
 ])
 
 /**
@@ -101,7 +101,7 @@ const _viRead = lib.func('viRead', ViStatus, [
     ViSession,
     koffi.out(ViPBuf),
     ViUInt32,
-    koffi.out(ViPUInt32)
+    koffi.out(ViUInt32P)
 ])
 
 /**
