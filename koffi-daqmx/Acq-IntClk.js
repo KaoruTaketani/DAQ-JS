@@ -1,7 +1,7 @@
 import koffi from 'koffi'
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/cdaqmx/help_file_title.html
-const lib = koffiload('nicaiu.dll')
+const lib = koffi.load('nicaiu.dll')
 
 // https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatetask.html
 // 	DAQmxErrChk (DAQmxCreateTask("",&taskHandle));
