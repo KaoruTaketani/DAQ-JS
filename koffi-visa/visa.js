@@ -25,7 +25,7 @@ export function checkStatus(statusCode) {
     }
 }
 
-// https://documentation.help/NI-VISA/viOpenDefaultRM.html
+// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viopendefaultrm.html
 const _viOpenDefaultRM = lib.func('viOpenDefaultRM', ViStatus, [
     koffi.out(ViPSession)
 ])
@@ -40,7 +40,7 @@ export function viOpenDefaultRM() {
     return koffi.decode(sessionCodeBuffer, ViSession)
 }
 
-// https://documentation.help/NI-VISA/viOpen.html
+// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viopen.html
 const _viOpen = lib.func('viOpen', ViStatus, [
     ViSession,
     'string',
@@ -63,7 +63,7 @@ export function viOpen(driverSession, resourceString, accessMode = 0, openTimeou
     return koffi.decode(sessionCodeBuffer, ViSession)
 }
 
-// https://documentation.help/NI-VISA/viClose.html
+// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viclose.html
 const _viClose = lib.func('viClose', ViStatus, [
     ViObject
 ])
@@ -76,7 +76,7 @@ export function viClose(sessionCode) {
     checkStatus(status)
 }
 
-// https://documentation.help/NI-VISA/viWrite.html
+// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viwrite.html
 const _viWrite = lib.func('viWrite', ViStatus, [
     ViSession,
     'string',
@@ -96,7 +96,7 @@ export function viWrite(deviceSession, message) {
     return koffi.decode(messageLengthBuffer, ViUInt32)
 }
 
-// https://documentation.help/NI-VISA/viRead.html
+// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viread.html
 const _viRead = lib.func('viRead', ViStatus, [
     ViSession,
     koffi.out(ViPBuf),
