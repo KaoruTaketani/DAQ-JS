@@ -1,37 +1,42 @@
-import { viOpenDefaultRM, viOpen, viWrite, viRead, viClose } from './visa.js'
+import { openDefaultRM, open, installHandler, enableEvent,write,readAsync, close,getAttribute,VI_ATTR_RET_COUNT,terminate } from './visa.js'
+import { VI_FALSE,VI_TRUE } from './visa.js'
 
-const driverSession = viOpenDefaultRM()
-const deviceSession = viOpen(driverSession, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+let stopflag=VI_FALSE
+let RdCount=0
 
-// static ViAddr uhandle;
-// static ViJobId job;
-// static unsigned char data[4096];
-
-// ViStatus _VI_FUNCH AsyncHandler(ViSession vi, ViEventType etype, ViEvent event, ViAddr userHandle);
-
-// https://documentation.help/NI-VISA/viInstallHandler.html
-// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viinstallhandler.html
-//    status = viInstallHandler (inst, VI_EVENT_IO_COMPLETION, AsyncHandler, uhandle);
-
-// https://documentation.help/NI-VISA/viEnableEvent.html
-// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vienableevent.html
-//    status = viEnableEvent (inst, VI_EVENT_IO_COMPLETION, VI_HNDLR, VI_NULL);
-
-// https://documentation.help/NI-VISA/viReadAsync.html
-// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vireadasync.html
-//    status = viReadAsync (inst, data, READ_BUFFER_SIZE - 1, &job);
-
-// https://documentation.help/NI-VISA/viTerminate.html
-// https://www.ni.com/docs/en-US/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viterminate.html
-//       status = viTerminate (inst, VI_NULL, job);  
-
-// console.log('Write result:', viWrite(deviceSession, '*IDN?\n'))
-// console.log('Read result:', viReadAsync(deviceSession))
-
-viClose(deviceSession)
-viClose(driverSession)
+const defaultRM = openDefaultRM()
+const inst = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+const data = Buffer.alloc(4096)
+installHandler(inst,(vi,etype,event,userHandle)=>{
+    // console.log(`etype: ${etype}`)
+    // RdCount=getAttribute(event,VI_ATTR_RET_COUNT)
+        stopflag = VI_TRUE
+    console.log(`called userHandle:${userHandle}`)
+    return 0
+})
+enableEvent(inst)
+write(inst,'*IDN?\n')
+const job=readAsync(inst,data)
 
 
+console.log('Hit enter to continue.')
+
+process.stdin.on('readable',()=>{
+    const chunk=process.stdin.read()
+    // console.log(chunk)
+
+   if (stopflag == VI_TRUE){
+    console.log(`RdCount: ${RdCount}`)
+      console.log(`Here is the data:  ${data.subarray(0,RdCount).toString()}`)
+   } else {
+      const status = terminate (inst, job)
+      console.log('The asynchronous read did not complete.')
+   }
+
+
+    close(inst)
+    close(defaultRM)
+})
 
 // /**************************************************************************/
 // /*                 Asynchronous I/O Completion Example                    */
