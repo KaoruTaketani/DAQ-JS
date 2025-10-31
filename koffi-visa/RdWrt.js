@@ -1,13 +1,18 @@
-import { viOpenDefaultRM, viOpen, viWrite, viRead, viClose } from './visa.js'
+import { openDefaultRM, open, write, read, close } from './visa.js'
 
-const driverSession = viOpenDefaultRM()
-const deviceSession = viOpen(driverSession, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+const defaultRM = openDefaultRM()
+let instr 
+try {
+    instr = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+    write(instr, '*IDN?\n')
+    const data = read(instr)
+    console.log('Read result:', data)
+} catch(e) {
+    
+}
 
-console.log('Write result:', viWrite(deviceSession, '*IDN?\n'))
-console.log('Read result:', viRead(deviceSession))
-
-viClose(deviceSession)
-viClose(driverSession)
+close(instr)
+close(defaultRM)
 
 // /********************************************************************/
 // /*              Read and Write to an Instrument Example             */
@@ -145,4 +150,3 @@ viClose(driverSession)
 
 //    return 0;
 // }
-
