@@ -1,9 +1,10 @@
-import { openDefaultRM, open, write, read, close } from './visa.js'
+import { openDefaultRM, open, setAttribute, VI_ATTR_TMO_VALUE, write, read, close } from './visa.js'
 
 const defaultRM = openDefaultRM()
 let instr 
 try {
     instr = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+    setAttribute(instr, VI_ATTR_TMO_VALUE, 5000)
     write(instr, '*IDN?\n')
     const data = read(instr)
     console.log('Read result:', data)
