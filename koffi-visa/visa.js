@@ -7,18 +7,24 @@ const VI_NULL = 0
 const VI_HNDLR = 2
 const VI_EVENT_IO_COMPLETION = 0x3FFF2009
 export const VI_ATTR_RET_COUNT = 0x3FFF4028
+export const VI_ATTR_TMO_VALUE = 0x3FFF001A
 
 const ViUInt16 = koffi.alias('ViUInt16', 'uint16')
 const ViUInt32 = koffi.alias('ViUInt32', 'uint32')
 const ViPUint32 = koffi.pointer(ViUInt32)
+const ViUInt64 = koffi.alias('ViUInt64', 'uint64')
+const ViPUint64 = koffi.pointer(ViUInt64)
 const ViAttrState = koffi.alias('ViAttrState', 'uint64')
 const ViEventFilter = ViUInt32
 const ViEventType = ViUInt32
-const ViAddr = koffi.pointer(koffi.opaque())
+// const ViAddr = koffi.pointer(koffi.opaque())
+// const ViAddr = koffi.alias('ViAddr', 'void *')
+const ViAddr = koffi.pointer('ViAddr',koffi.opaque())
+// typedef void        _VI_PTR ViAddr;
 const ViAttr = ViUInt32
 const ViStatus = ViUInt32
 const ViObject = ViUInt32
-const ViEvent = koffi.pointer('ViEvent', ViObject)
+const ViEvent = ViObject
 const ViJobId = ViUInt32
 const ViPJobId = koffi.pointer(ViJobId)
 const ViSession = ViUInt32
@@ -31,155 +37,179 @@ const lib = koffi.load('visa64.dll')
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viopendefaultrm.html
 const viOpenDefaultRM = lib.func('viOpenDefaultRM', ViStatus, [
-    koffi.out(ViPSession)
+    koffi.out(ViPSession) // sesn
 ])
 
 /**
  * @returns {number}
  */
 export function openDefaultRM() {
-    const sessionCodeBuffer = Buffer.alloc(4)
-    const status = viOpenDefaultRM(sessionCodeBuffer)
+    const sesn = [null]
+    const status = viOpenDefaultRM(sesn)
+
     if (status < VI_SUCCESS) {
         console.log('Could not open a session to the VISA Resource Manager!')
         process.exit(1)
     }
-    return koffi.decode(sessionCodeBuffer, ViSession)
+
+    return sesn[0]
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viopen.html
 const viOpen = lib.func('viOpen', ViStatus, [
-    ViSession,
-    'string',
-    ViAccessMode,
-    ViUInt32,
-    koffi.out(ViPSession)
+    ViSession, // sesn
+    'string', // rsrcName
+    ViAccessMode, // accessMode
+    ViUInt32, // openTimeout
+    koffi.out(ViPSession) // vi
 ])
 
 /**
- * @param {number} driverSession
- * @param {string} resourceString
+ * @param {number} sesn
+ * @param {string} rsrcName
  * @returns {number}
  */
-export function open(driverSession, resourceString) {
-    const sessionBuffer = Buffer.alloc(4)
-    const status = viOpen(driverSession, resourceString, VI_NULL, VI_NULL, sessionBuffer)
+export function open(sesn, rsrcName) {
+    const vi = [null]
+    const status = viOpen(sesn, rsrcName, VI_NULL, VI_NULL, vi)
+
     if (status < VI_SUCCESS) {
         console.log('Cannot open a session to the device.')
         throw new Error()
     }
-    return koffi.decode(sessionBuffer, ViSession)
+
+    return vi[0]
 }
 
-//    status = viSetAttribute(instr, VI_ATTR_TMO_VALUE, 5000);
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/visetattribute.html
 const viSetAttribute = lib.func('viSetAttribute', ViStatus, [
-    ViObject,
-    ViAttr,
-    ViAttrState
+    ViObject, // vi
+    ViAttr, // attribute
+    ViAttrState // attrState
 ])
 
 /**
- * @param {number} driverSession
+ * @param {number} vi
  * @param {number} attribute
  * @param {string} attrState
  * @returns {number}
  */
-export function setAttribute(driverSession,attribute,attrState) {
-    const status = viSetAttribute(driverSession,attribute,attrState)
+export function setAttribute(vi, attribute, attrState) {
+    const status = viSetAttribute(vi, attribute, attrState)
     return status
 }
+
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viwrite.html
 const viWrite = lib.func('viWrite', ViStatus, [
-    ViSession,
-    'string',
-    ViUInt32,
-    koffi.out(ViPUint32)
+    ViSession, // vi
+    'string', // buf
+    ViUInt32, // count
+    koffi.out(ViPUint32) // retCount
 ])
 
 /**
- * @param {number} deviceSession
- * @param {string} message
+ * @param {number} vi
+ * @param {string} buf
  * @returns {number}
  */
-export function write(deviceSession, message) {
-    const writeCountBuffer = Buffer.alloc(4)
-    const status = viWrite(deviceSession, message, message.length, writeCountBuffer)
+export function write(vi, buf) {
+    const retCount = [null]
+    const status = viWrite(vi, buf, buf.length, retCount)
+
     if (status < VI_SUCCESS) {
         console.log('Error writing to the device')
         throw new Error()
     }
 
-    return koffi.decode(writeCountBuffer, ViUInt32)
+    return retCount[0]
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viread.html
 const viRead = lib.func('viRead', ViStatus, [
-    ViSession,
-    koffi.out(ViPBuf),
-    ViUInt32,
-    koffi.out(ViPUint32)
+    ViSession, // vi
+    koffi.out(ViPBuf), // buf
+    ViUInt32, // count
+    koffi.out(ViPUint32) // retCount
 ])
 
 /**
- * @param {number} deviceSession
- * @param {number} messageLength
+ * @param {number} vi
+ * @param {number} count
  * @returns {string}
  */
-export function read(deviceSession, messageLength = 256) {
-    const messageBuffer = Buffer.alloc(messageLength)
-    const realMessageLengthBuffer = Buffer.alloc(4)
-    const status = viRead(deviceSession, messageBuffer, messageLength, realMessageLengthBuffer)
-    const realMessageLength = koffi.decode(realMessageLengthBuffer, ViUInt32)
-    const data = messageBuffer.subarray(0, realMessageLength).toString()
+export function read(vi, count = 256) {
+    const buf = Buffer.alloc(count)
+    const retCount = [null]
+    const status = viRead(vi, buf, count, retCount)
+    const data = buf.subarray(0, retCount[0]).toString()
+
     if (status < VI_SUCCESS) {
         console.log('Error reading a response from the device')
-    }
-    else {
+    } else {
         console.log(`Data read: ${data}`)
     }
 
     return data
 }
 
+export function read_async(vi, callback, count = 256) {
+    console.log(vi)
+    const buf = Buffer.alloc(count)
+    const retCount = [null]
+    viRead.async(vi, buf, count, retCount, (err, status) => {
+        console.log(`err: ${err}, status: ${status}`)
+        if (status < VI_SUCCESS) {
+            console.log('Error reading a response from the device')
+        } else {
+            const data = buf.subarray(0, retCount).toString()
+
+            console.log(`Data read: ${data}`)
+            callback(data)
+        }
+    })
+}
+
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viclose.html
 const viClose = lib.func('viClose', ViStatus, [
-    ViObject
+    ViObject // vi
 ])
 
 /**
- * @param {number} sessionCode
+ * @param {number} vi
  * @returns {number}
  */
-export function close(sessionCode) {
-    const status = viClose(sessionCode)
+export function close(vi) {
+    const status = viClose(vi)
     return status
 }
 
-const callback = koffi.proto('__stdcall', 'callback', ViStatus,
-    [ViSession, ViEventType, ViEvent, ViAddr]
-)
+const callback = koffi.proto('__fastcall', 'callback', ViStatus, [
+    ViSession, // vi
+    ViEventType, // eventType
+    ViEvent, // event
+    ViAddr // userHandle
+])
 const ViHndlr = koffi.pointer(callback)
 // typedef ViStatus (_VI_FUNCH _VI_PTR ViHndlr)
 //    (ViSession vi, ViEventType eventType, ViEvent event, ViAddr userHandle);
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viinstallhandler.html
 const viInstallHandler = lib.func('viInstallHandler', ViStatus, [
-    ViSession,
-    ViEventType,
-    ViHndlr,
-    ViAddr
+    ViSession, // vi
+    ViEventType, // eventType
+    ViHndlr, // handler
+    ViAddr // userHandle
 ])
 
 /**
- * @param {number} sessionCode
+ * @param {number} vi
  * @param {function} handler
- * @param {number} uhandle
+ * @param {number} userHandle
  * @returns {number}
  */
-export function installHandler(sessionCode, handler, uhandle = 0) {
-    let cb1 = koffi.register(handler, koffi.pointer(callback));
-    const status = viInstallHandler(sessionCode, VI_EVENT_IO_COMPLETION, cb1, uhandle)
+export function installHandler(vi, handler, userHandle = 0) {
+    const handler_ = koffi.register(handler, ViHndlr)
+    const status = viInstallHandler(vi, VI_EVENT_IO_COMPLETION, handler_, userHandle)
     if (status < VI_SUCCESS) {
         console.log(`failed installHandler. status: ${status}`)
     }
@@ -188,18 +218,18 @@ export function installHandler(sessionCode, handler, uhandle = 0) {
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vienableevent.html
 const viEnableEvent = lib.func('viEnableEvent', ViStatus, [
-    ViSession,
-    ViEventType,
-    ViUInt16,
-    ViEventFilter
+    ViSession, // vi
+    ViEventType, // eventType
+    ViUInt16, // mechanism
+    ViEventFilter // context
 ])
 
 /**
- * @param {number} sessionCode
+ * @param {number} vi
  * @returns {number}
  */
-export function enableEvent(sessionCode) {
-    const status = viEnableEvent(sessionCode, VI_EVENT_IO_COMPLETION, VI_HNDLR, VI_NULL)
+export function enableEvent(vi) {
+    const status = viEnableEvent(vi, VI_EVENT_IO_COMPLETION, VI_HNDLR, VI_NULL)
     if (status < VI_SUCCESS) {
         console.log(`failed enableEvent. status: ${status}`)
     }
@@ -208,59 +238,67 @@ export function enableEvent(sessionCode) {
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vireadasync.html
 const viReadAsync = lib.func('viReadAsync', ViStatus, [
-    ViSession,
-    koffi.out(ViPBuf),
-    ViUInt32,
-    koffi.out(ViPJobId)
+    ViSession, // vi
+    koffi.out(ViPBuf), // buf
+    ViUInt32, // count
+    koffi.out(ViPJobId) // jobId
 ])
 
 /**
- * @param {number} sessionCode
+ * @param {number} vi
  * @param {Buffer} buf
  * @returns {number}
  */
-export function readAsync(sessionCode, buf) {
-    const jobBuffer = Buffer.alloc(4)
+export function readAsync(vi, buf) {
+    const jobId = [null]
+    const status = viReadAsync(vi, buf, buf.length, jobId)
 
-    const status = viReadAsync(sessionCode, buf, buf.length, jobBuffer)
-    const job = koffi.decode(jobBuffer, ViUInt32)
-
-    return job
+    return jobId[0]
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viterminate.html
 const viTerminate = lib.func('viReadAsync', ViStatus, [
-    ViSession,
-    ViUInt16,
-    ViJobId
+    ViSession, // vi
+    ViUInt16, // degree
+    ViJobId // jobId
 ])
 
 /**
- * @param {number} sessionCode
- * @param {number} job
+ * @param {number} vi
+ * @param {number} jobId
  * @returns {number}
  */
-export function terminate(sessionCode, job) {
-    const status = viTerminate(sessionCode, VI_NULL, job);
+export function terminate(vi, jobId) {
+    const status = viTerminate(vi, VI_NULL, jobId)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vigetattribute.html
 const viGetAttribute = lib.func('viReadAsync', ViStatus, [
-    ViObject,
-    ViAttr,
-    koffi.out(koffi.pointer(koffi.opaque()))
+    ViObject, // vi
+    ViAttr, // attribute
+    koffi.out('void *') // void* attrState
 ])
 
 /**
- * @param {number} sessionCode
+ * @param {number} vi
  * @param {number} attribute
  * @returns {number}
  */
-export function getAttribute(sessionCode, attribute) {
-    const stateBuffer = Buffer.alloc(4)
+export function getAttribute(vi, attribute) {
+    console.log(`vi: ${vi}, attribute: ${attribute}`)
+    // const tmp=koffi.pack('tmp',{a:'uint64'})
+    // const attrState=Buffer.alloc(8)
+    const attrState = [null]
+    // const attrState = {}
 
-    const status = viGetAttribute(sessionCode, VI_NULL, job);
-    return koffi.decode(stateBuffer, ViUInt32)
+    // const status = viGetAttribute(vi, attribute, attrState)
+    // const status = viGetAttribute(vi, attribute, koffi.as(attrState,'void*'))
+    const status = viGetAttribute(vi, attribute, koffi.as(attrState, ViPUint32))
+    // const status = viGetAttribute(vi, attribute, koffi.as(attrState, 'tmp*'))
+    console.log(attrState)
+    // console.log(`vi: ${vi}, attribute: ${attribute}, ${koffi.decode(attrStateBuffer, ViUInt32)}`)
+    // return koffi.decode(attrStateBuffer, ViUInt32)
+    return attrState[0]
 }
 
 
