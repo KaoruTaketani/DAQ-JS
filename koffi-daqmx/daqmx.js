@@ -35,8 +35,8 @@ function DAQmxFailed(status) {
 
 // https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatetask.html
 const DAQmxCreateTask = lib.func('DAQmxCreateTask', 'int32', [
-    'string',
-    koffi.out(koffi.pointer(TaskHandle))
+    'string', // taskName
+    koffi.out(koffi.pointer(TaskHandle)) // taskHandle
 ])
 
 /**
@@ -285,3 +285,21 @@ export function registerDoneEvent(taskHandle, callbackFunction) {
 
     DAQmxFailed(status)
 }
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/mxcprop/func18e1.html
+const DAQmxSetCOPulseTerm = lib.func('DAQmxSetCOPulseTerm', 'int32', [
+    TaskHandle, //taskHandle
+    'string', // channel
+    'string' // data
+])
+
+export function setCOPulseTerm(taskHandle, channel,data) {
+    const status = DAQmxSetCOPulseTerm(
+        taskHandle,
+        channel,
+        data
+    )
+
+    DAQmxFailed(status)
+}
+

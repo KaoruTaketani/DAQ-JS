@@ -1,10 +1,10 @@
-import { cfgImplicitTiming, cfgSampClkTiming, clearTask, createCOPulseChanFreq, createTask, registerDoneEvent, startTask, stopTask } from './daqmx.js'
+import { cfgImplicitTiming, setCOPulseTerm, clearTask, createCOPulseChanFreq, createTask, registerDoneEvent, startTask, stopTask } from './daqmx.js'
 
 let taskHandle = 0
 taskHandle = createTask()
 createCOPulseChanFreq(taskHandle, 'Dev1/ctr0')
 cfgImplicitTiming(taskHandle, 1000)
-
+setCOPulseTerm(taskHandle,'Dev1/ctr0','/Dev1/PFI0')
 registerDoneEvent(taskHandle,(t,s,callbackData)=>{
     console.log(`t: ${t},status: ${status}, callbackData: ${callbackData}`)
 })

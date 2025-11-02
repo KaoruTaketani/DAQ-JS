@@ -1,9 +1,10 @@
-import {createTask,createCOPulseChanTime,startTask, waitUntilTaskDone,stopTask,clearTask}from './daqmx.js'
+import {createTask,createCOPulseChanTime,startTask, waitUntilTaskDone,stopTask,clearTask, setCOPulseTerm}from './daqmx.js'
 let taskHandle = 0
 
 
 taskHandle = createTask()
 createCOPulseChanTime(taskHandle,'Dev1/ctr0')
+setCOPulseTerm(taskHandle,'Dev1/ctr0','/Dev1/PFI0')
 startTask(taskHandle)
 waitUntilTaskDone(taskHandle,10.0)
 if (taskHandle !== 0) {
