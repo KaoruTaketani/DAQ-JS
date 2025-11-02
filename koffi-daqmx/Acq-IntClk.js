@@ -1,28 +1,18 @@
-import koffi from 'koffi'
+import { createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask } from './daqmx.js'
 
-// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/cdaqmx/help_file_title.html
-const lib = koffi.load('nicaiu.dll')
+let taskHandle = 0
+const data = new Array(1000).fill(0)
 
-// https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatetask.html
-// 	DAQmxErrChk (DAQmxCreateTask("",&taskHandle));
-
-// https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreateaivoltagechan.html
-// 	DAQmxErrChk (DAQmxCreateAIVoltageChan(taskHandle,"Dev1/ai0","",DAQmx_Val_Cfg_Default,-10.0,10.0,DAQmx_Val_Volts,NULL));
-
-// https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgsampclktiming.html
-// 	DAQmxErrChk (DAQmxCfgSampClkTiming(taskHandle,"",10000.0,DAQmx_Val_Rising,DAQmx_Val_FiniteSamps,1000));
-
-// https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxstarttask.html
-// 	DAQmxErrChk (DAQmxStartTask(taskHandle));
-
-// https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxreadanalogf64.html
-// 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
-
-// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxstoptask.html
-// 		DAQmxStopTask(taskHandle);
-
-// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcleartask.html
-// 		DAQmxClearTask(taskHandle);
+taskHandle = createTask()
+createAIVoltageChan(taskHandle, 'Dev1/ai0')
+cfgSampClkTiming(taskHandle, 10000.0, 1000)
+startTask(taskHandle)
+const read = readAnalogF64(taskHandle, data)
+console.log(`Acquired ${read} points`)
+if (taskHandle !== 0) {
+    stopTask(taskHandle)
+    clearTask(taskHandle)
+}
 
 // /*********************************************************************
 // *
