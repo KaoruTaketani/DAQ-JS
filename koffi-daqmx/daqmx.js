@@ -9,6 +9,15 @@ const TaskHandle = 'void*'
 const bool32 = koffi.alias('bool32', 'uint32')
 // #define NULL            (0L)
 const NULL = 0
+// #define CVICDECL        __cdecl
+// #define CVICALLBACK     CVICDECL
+// typedef int32 (CVICALLBACK *DAQmxDoneEventCallbackPtr)(TaskHandle taskHandle, int32 status, void *callbackData);
+const DAQmxDoneEventCallback = koffi.proto('DAQmxDoneEventCallback', 'int32', [
+    TaskHandle, //taskHandle
+    'int32', // status
+    'void*' // callbackData
+])
+const DAQmxDoneEventCallbackPtr = koffi.pointer(DAQmxDoneEventCallback)
 
 const DAQmx_Val_Cfg_Default = -1
 const DAQmx_Val_Volts = 10348
@@ -17,6 +26,8 @@ const DAQmx_Val_FiniteSamps = 10178
 const DAQmx_Val_GroupByChannel = 0
 const DAQmx_Val_Seconds = 10364
 const DAQmx_Val_Low = 10214
+const DAQmx_Val_Hz = 10373
+const DAQmx_Val_ContSamps = 10123
 
 function DAQmxFailed(status) {
     if (status < 0) throw new Error(`DAQmxFailed status: ${status}`)
@@ -194,10 +205,82 @@ const DAQmxWaitUntilTaskDone = lib.func('DAQmxWaitUntilTaskDone', 'int32', [
     'float64'// timeToWait
 ])
 
-export function waitUntilTaskDone(taskHandle,timeToWait){
+export function waitUntilTaskDone(taskHandle, timeToWait) {
     const status = DAQmxWaitUntilTaskDone(
         taskHandle,
         timeToWait
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatecopulsechanfreq.html
+const DAQmxCreateCOPulseChanFreq = lib.func('DAQmxCreateCOPulseChanFreq', 'int32', [
+    TaskHandle, // taskHandle
+    'string', // counter
+    'string', // nameToAssignToChannel
+    'int32', // units
+    'int32', // idleState
+    'float64', // initialDelay
+    'float64', // freq
+    'float64' // dutyCycle
+])
+
+export function createCOPulseChanFreq(taskHandle, counter) {
+    // 	DAQmxErrChk (DAQmxCreateCOPulseChanFreq(taskHandle,"Dev1/ctr0","",DAQmx_Val_Hz,DAQmx_Val_Low,0.0,1.00,0.50));
+    const initialDelay = 0.0
+    const freq = 1.00
+    const dutyCycle = 0.50
+
+    const status = DAQmxCreateCOPulseChanFreq(
+        taskHandle,
+        counter,
+        '',
+        DAQmx_Val_Hz,
+        DAQmx_Val_Low,
+        initialDelay,
+        freq,
+        dutyCycle
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgimplicittiming.html
+const DAQmxCfgImplicitTiming = lib.func('DAQmxCfgImplicitTiming', 'int32', [
+    TaskHandle, //taskHandle
+    'int32', // sampleMode
+    'uint64' // sampsPerChanToAcquire
+])
+
+export function cfgImplicitTiming(taskHandle, sampsPerChanToAcquire) {
+    // 	DAQmxErrChk (DAQmxCfgImplicitTiming(taskHandle,DAQmx_Val_ContSamps,1000));
+    const status = DAQmxCfgImplicitTiming(
+        taskHandle,
+        DAQmx_Val_ContSamps,
+        sampsPerChanToAcquire
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxregisterdoneevent.html
+const DAQmxRegisterDoneEvent = lib.func('DAQmxRegisterDoneEvent', 'int32', [
+    TaskHandle, //taskHandle
+    'uint32', // options
+    DAQmxDoneEventCallbackPtr,//  callbackFunction
+    'void*' // callbackData
+])
+
+export function registerDoneEvent(taskHandle, callbackFunction) {
+    const options = 0
+    const cb = koffi.register(callbackFunction, DAQmxDoneEventCallbackPtr)
+    // 	DAQmxErrChk (DAQmxRegisterDoneEvent(taskHandle,0,DoneCallback,NULL));
+    const status = DAQmxRegisterDoneEvent(
+        taskHandle,
+        options,
+        cb,
+        NULL
     )
 
     DAQmxFailed(status)

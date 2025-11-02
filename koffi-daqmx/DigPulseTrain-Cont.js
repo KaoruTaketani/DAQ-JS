@@ -1,3 +1,26 @@
+import { cfgImplicitTiming, cfgSampClkTiming, clearTask, createCOPulseChanFreq, createTask, registerDoneEvent, startTask, stopTask } from './daqmx.js'
+
+let taskHandle = 0
+taskHandle = createTask()
+createCOPulseChanFreq(taskHandle, 'Dev1/ctr0')
+cfgImplicitTiming(taskHandle, 1000)
+
+registerDoneEvent(taskHandle,(t,s,callbackData)=>{
+    console.log(`t: ${t},status: ${status}, callbackData: ${callbackData}`)
+})
+
+startTask(taskHandle)
+
+console.log('Generating pulse train. Press Enter to interrupt')
+process.stdin.on('readable', () => {
+    if (taskHandle !== 0) {
+        stopTask(taskHandle)
+        clearTask(taskHandle)
+    }
+    process.exit(0)
+})
+
+
 // /*********************************************************************
 // *
 // * ANSI C Example program:
