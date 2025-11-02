@@ -15,6 +15,8 @@ const DAQmx_Val_Volts = 10348
 const DAQmx_Val_Rising = 10280
 const DAQmx_Val_FiniteSamps = 10178
 const DAQmx_Val_GroupByChannel = 0
+const DAQmx_Val_Seconds = 10364
+const DAQmx_Val_Low = 10214
 
 function DAQmxFailed(status) {
     if (status < 0) throw new Error(`DAQmxFailed status: ${status}`)
@@ -151,6 +153,52 @@ const DAQmxClearTask = lib.func('DAQmxClearTask', 'int32', [
 
 export function clearTask(taskHandle) {
     const status = DAQmxClearTask(taskHandle)
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatecopulsechantime.html
+const DAQmxCreateCOPulseChanTime = lib.func('DAQmxCreateCOPulseChanTime', 'int32', [
+    TaskHandle, // taskHandle
+    'string', // counter
+    'string', // nameToAssignToChannel
+    'int32', // units
+    'int32', // idleState
+    'float64', // initialDelay
+    'float64', // lowTime
+    'float64' // highTime
+])
+
+export function createCOPulseChanTime(taskHandle, counter) {
+    // 	DAQmxErrChk (DAQmxCreateCOPulseChanTime(taskHandle,"Dev1/ctr0","",DAQmx_Val_Seconds,DAQmx_Val_Low,1.00,0.50,1.00));
+    const initialDelay = 1.00
+    const lowTime = 0.50
+    const highTime = 1.00
+    const status = DAQmxCreateCOPulseChanTime(
+        taskHandle,
+        counter,
+        '',
+        DAQmx_Val_Seconds,
+        DAQmx_Val_Low,
+        initialDelay,
+        lowTime,
+        highTime
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxwaituntiltaskdone.html
+const DAQmxWaitUntilTaskDone = lib.func('DAQmxWaitUntilTaskDone', 'int32', [
+    TaskHandle,// taskHandle
+    'float64'// timeToWait
+])
+
+export function waitUntilTaskDone(taskHandle,timeToWait){
+    const status = DAQmxWaitUntilTaskDone(
+        taskHandle,
+        timeToWait
+    )
 
     DAQmxFailed(status)
 }
