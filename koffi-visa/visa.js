@@ -257,7 +257,7 @@ export function readAsync(vi, buf) {
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viterminate.html
-const viTerminate = lib.func('viReadAsync', ViStatus, [
+const viTerminate = lib.func('viTerminate', ViStatus, [
     ViSession, // vi
     ViUInt16, // degree
     ViJobId // jobId
@@ -273,7 +273,7 @@ export function terminate(vi, jobId) {
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vigetattribute.html
-const viGetAttribute = lib.func('viReadAsync', ViStatus, [
+const viGetAttribute = lib.func('viGetAttribute', ViStatus, [
     ViObject, // vi
     ViAttr, // attribute
     koffi.out('void *') // void* attrState
@@ -285,19 +285,9 @@ const viGetAttribute = lib.func('viReadAsync', ViStatus, [
  * @returns {number}
  */
 export function getAttribute(vi, attribute) {
-    console.log(`vi: ${vi}, attribute: ${attribute}`)
-    // const tmp=koffi.pack('tmp',{a:'uint64'})
-    // const attrState=Buffer.alloc(8)
     const attrState = [null]
-    // const attrState = {}
-
-    // const status = viGetAttribute(vi, attribute, attrState)
-    // const status = viGetAttribute(vi, attribute, koffi.as(attrState,'void*'))
     const status = viGetAttribute(vi, attribute, koffi.as(attrState, ViPUint32))
-    // const status = viGetAttribute(vi, attribute, koffi.as(attrState, 'tmp*'))
-    console.log(attrState)
-    // console.log(`vi: ${vi}, attribute: ${attribute}, ${koffi.decode(attrStateBuffer, ViUInt32)}`)
-    // return koffi.decode(attrStateBuffer, ViUInt32)
+
     return attrState[0]
 }
 
