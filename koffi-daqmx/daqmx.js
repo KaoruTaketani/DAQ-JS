@@ -230,7 +230,8 @@ export function createCOPulseChanFreq(taskHandle, counter) {
     // 	DAQmxErrChk (DAQmxCreateCOPulseChanFreq(taskHandle,"Dev1/ctr0","",DAQmx_Val_Hz,DAQmx_Val_Low,0.0,1.00,0.50));
     const initialDelay = 0.0
     const freq = 1.00
-    const dutyCycle = 0.50
+    // const dutyCycle = 0.50
+    const dutyCycle = 0.05
 
     const status = DAQmxCreateCOPulseChanFreq(
         taskHandle,
@@ -293,7 +294,7 @@ const DAQmxSetCOPulseTerm = lib.func('DAQmxSetCOPulseTerm', 'int32', [
     'string' // data
 ])
 
-export function setCOPulseTerm(taskHandle, channel,data) {
+export function setCOPulseTerm(taskHandle, channel, data) {
     const status = DAQmxSetCOPulseTerm(
         taskHandle,
         channel,
