@@ -126,7 +126,7 @@ export function cfgSampClkTiming(taskHandle, source, rate, sampsPerChanToAcquire
         source,
         rate,
         DAQmx_Val_Rising,
-        DAQmx_Val_FiniteSamps,
+        DAQmx_Val_ContSamps,// DAQmx_Val_FiniteSamps,
         sampsPerChanToAcquire
     )
 
@@ -174,7 +174,7 @@ export function readAnalogF64(taskHandle, readArray) {
 
     DAQmxFailed(status)
 
-    return sampsPerChanRead
+    return sampsPerChanRead[0]
 }
 
 
