@@ -31,7 +31,10 @@ const DAQmxEveryNSamplesEventCallbackPtr = koffi.pointer(EveryNCallback)
 
 const DAQmx_Val_Cfg_Default = -1
 const DAQmx_Val_Volts = 10348
-const DAQmx_Val_Rising = 10280
+const DAQmx_Val_RisingSlope = 10280
+const DAQmx_Val_Rising = DAQmx_Val_RisingSlope
+const DAQmx_Val_FallingSlope = 10171
+const DAQmx_Val_Falling = DAQmx_Val_FallingSlope
 const DAQmx_Val_FiniteSamps = 10178
 const DAQmx_Val_GroupByChannel = 0
 const DAQmx_Val_Seconds = 10364
@@ -41,8 +44,25 @@ const DAQmx_Val_ContSamps = 10123
 const DAQmx_Val_Acquired_Into_Buffer = 1
 const DAQmx_Val_GroupByScanNumber = 1
 
+// 		DAQmxGetExtendedErrorInfo(errBuff,2048);
+// https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxgetextendederrorinfo.html
+const DAQmxGetExtendedErrorInfo = lib.func('DAQmxGetExtendedErrorInfo', 'int32', [
+    koffi.out('char*'), // errorString
+    'uint32' // bufferSize
+])
+
+
 function DAQmxFailed(status) {
-    if (status < 0) throw new Error(`DAQmxFailed status: ${status}`)
+    if (status < 0) {
+        // 		DAQmxGetExtendedErrorInfo(errBuff,2048);
+        const size = DAQmxGetExtendedErrorInfo(NULL, 0)
+        const errBuf = Buffer.alloc(size)
+        // console.log(size)
+        DAQmxGetExtendedErrorInfo(errBuf, errBuf.length)
+        // console.log(errBuf.subarray(0,size).toString())
+        console.log(errBuf.toString())
+        throw new Error(`DAQmxFailed status: ${status}`)
+    }
 }
 
 // https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatetask.html
@@ -362,3 +382,77 @@ export function cfgDigEdgeRefTrig(taskHandle, triggerSource, pretriggerSamples) 
 
     DAQmxFailed(status)
 }
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgdigedgestarttrig.html
+const DAQmxCfgDigEdgeStartTrig = lib.func('DAQmxCfgDigEdgeStartTrig', 'int32', [
+    TaskHandle, // taskHandle
+    'string', // triggerSource
+    'int32' // triggerEdge
+])
+
+export function cfgDigEdgeStartTrig(taskHandle, triggerSource) {
+    // 	DAQmxErrChk (DAQmxCfgDigEdgeStartTrig(taskHandle,"/Dev1/PFI0",DAQmx_Val_Rising));
+
+    const status = DAQmxCfgDigEdgeStartTrig(
+        taskHandle,
+        triggerSource,
+        DAQmx_Val_Rising
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/mxcprop/func190f.html
+const DAQmxSetStartTrigRetriggerable = lib.func('DAQmxSetStartTrigRetriggerable', 'int32', [
+    TaskHandle, // taskHandle
+    bool32 // data
+])
+
+export function setStartTrigRetriggerable(taskHandle, data) {
+    // 	DAQmxErrChk (DAQmxSetStartTrigRetriggerable(taskHandle,1));
+
+    const status = DAQmxSetStartTrigRetriggerable(
+        taskHandle,
+        data
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfganlgedgestarttrig.html
+const DAQmxCfgAnlgEdgeStartTrig = lib.func('DAQmxCfgAnlgEdgeStartTrig', 'int32', [
+    TaskHandle,// taskHandle
+    'string',// triggerSource
+    'int32',// triggerSlope
+    'float64'// triggerLevel
+])
+
+export function cfgAnlgEdgeStartTrig(taskHandle, triggerSource) {
+    // DAQmxErrChk (DAQmxCfgAnlgEdgeStartTrig(taskHandle,"APFI0",DAQmx_Val_Rising,1.0));
+    const triggerLevel = 1.0
+
+    const status = DAQmxCfgAnlgEdgeStartTrig(
+        taskHandle,
+        triggerSource,
+        DAQmx_Val_Falling,
+        triggerLevel
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/mxcprop/func1395.html
+const DAQmxSetAnlgEdgeStartTrigHyst = lib.func('DAQmxSetAnlgEdgeStartTrigHyst', 'int32', [
+    TaskHandle, // taskHandle
+    'float64' // data
+])
+
+export function setAnlgEdgeStartTrigHyst(taskHandle, data) {
+    const status = DAQmxSetAnlgEdgeStartTrigHyst(
+        taskHandle,
+        data
+    )
+
+    DAQmxFailed(status)
+}
+
