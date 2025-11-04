@@ -12,12 +12,22 @@ const NULL = 0
 // #define CVICDECL        __cdecl
 // #define CVICALLBACK     CVICDECL
 // typedef int32 (CVICALLBACK *DAQmxDoneEventCallbackPtr)(TaskHandle taskHandle, int32 status, void *callbackData);
-const DAQmxDoneEventCallback = koffi.proto('DAQmxDoneEventCallback', 'int32', [
+// int32 CVICALLBACK DoneCallback(TaskHandle taskHandle, int32 status, void *callbackData);
+const DoneEventCallback = koffi.proto('DAQmxDoneEventCallback', 'int32', [
     TaskHandle, //taskHandle
     'int32', // status
     'void*' // callbackData
 ])
-const DAQmxDoneEventCallbackPtr = koffi.pointer(DAQmxDoneEventCallback)
+const DAQmxDoneEventCallbackPtr = koffi.pointer(DoneEventCallback)
+// typedef int32 (CVICALLBACK *DAQmxEveryNSamplesEventCallbackPtr)(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
+// int32 CVICALLBACK EveryNCallback(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
+const EveryNCallback = koffi.proto('EveryNCallback', 'int32', [
+    TaskHandle, // taskHandle
+    'int32', // everyNsamplesEventType
+    'uint32', // nSamples
+    'void *'// callbackData
+])
+const DAQmxEveryNSamplesEventCallbackPtr = koffi.pointer(EveryNCallback)
 
 const DAQmx_Val_Cfg_Default = -1
 const DAQmx_Val_Volts = 10348
@@ -28,6 +38,8 @@ const DAQmx_Val_Seconds = 10364
 const DAQmx_Val_Low = 10214
 const DAQmx_Val_Hz = 10373
 const DAQmx_Val_ContSamps = 10123
+const DAQmx_Val_Acquired_Into_Buffer = 1
+const DAQmx_Val_GroupByScanNumber = 1
 
 function DAQmxFailed(status) {
     if (status < 0) throw new Error(`DAQmxFailed status: ${status}`)
@@ -72,7 +84,7 @@ export function createAIVoltageChan(taskHandle, physicalChannel) {
         -10.0,
         10.0,
         DAQmx_Val_Volts,
-        ''
+        NULL
     )
 
     DAQmxFailed(status)
@@ -88,10 +100,10 @@ const DAQmxCfgSampClkTiming = lib.func('DAQmxCfgSampClkTiming', 'int32', [
     'uint64' // sampsPerChanToAcquire
 ])
 
-export function cfgSampClkTiming(taskHandle, rate, sampsPerChanToAcquire) {
+export function cfgSampClkTiming(taskHandle, source, rate, sampsPerChanToAcquire) {
     const status = DAQmxCfgSampClkTiming(
         taskHandle,
-        '',
+        source,
         rate,
         DAQmx_Val_Rising,
         DAQmx_Val_FiniteSamps,
@@ -304,3 +316,49 @@ export function setCOPulseTerm(taskHandle, channel, data) {
     DAQmxFailed(status)
 }
 
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxregistereverynsamplesevent.html
+const DAQmxRegisterEveryNSamplesEvent = lib.func('DAQmxRegisterEveryNSamplesEvent', 'int32', [
+    TaskHandle, // taskHandle
+    'int32',// everyNsamplesEventType
+    'uint32',// nSamples
+    'uint32',// options
+    DAQmxEveryNSamplesEventCallbackPtr, // callbackFunction
+    'void*'// callbackData
+])
+
+export function registerEveryNSamplesEvent(taskHandle, nSamples, callbackFunction) {
+    // 	DAQmxErrChk (DAQmxRegisterEveryNSamplesEvent(taskHandle,DAQmx_Val_Acquired_Into_Buffer,1000,0,EveryNCallback,NULL));
+    const options = 0
+    const cb = koffi.register(callbackFunction, DAQmxEveryNSamplesEventCallbackPtr)
+    const status = DAQmxRegisterEveryNSamplesEvent(
+        taskHandle,
+        DAQmx_Val_Acquired_Into_Buffer,
+        nSamples,
+        options,
+        cb,
+        NULL
+    )
+
+    DAQmxFailed(status)
+}
+
+// https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgdigedgereftrig.html
+const DAQmxCfgDigEdgeRefTrig = lib.func('DAQmxCfgDigEdgeRefTrig', 'int32', [
+    TaskHandle, // taskHandle
+    'string', // triggerSource
+    'int32', // triggerEdge
+    'uint32' // pretriggerSamples
+])
+
+export function cfgDigEdgeRefTrig(taskHandle, triggerSource, pretriggerSamples) {
+    // 	DAQmxErrChk (DAQmxCfgDigEdgeRefTrig(taskHandle,"/Dev1/PFI0",DAQmx_Val_Rising,100));
+
+    const status = DAQmxCfgDigEdgeRefTrig(
+        taskHandle,
+        triggerSource,
+        DAQmx_Val_Rising,
+        pretriggerSamples
+    )
+
+    DAQmxFailed(status)
+}
