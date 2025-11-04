@@ -35,12 +35,12 @@ const DAQmx_Val_RisingSlope = 10280
 const DAQmx_Val_Rising = DAQmx_Val_RisingSlope
 const DAQmx_Val_FallingSlope = 10171
 const DAQmx_Val_Falling = DAQmx_Val_FallingSlope
-const DAQmx_Val_FiniteSamps = 10178
+export const DAQmx_Val_FiniteSamps = 10178
+export const DAQmx_Val_ContSamps = 10123
 const DAQmx_Val_GroupByChannel = 0
 const DAQmx_Val_Seconds = 10364
 const DAQmx_Val_Low = 10214
 const DAQmx_Val_Hz = 10373
-const DAQmx_Val_ContSamps = 10123
 const DAQmx_Val_Acquired_Into_Buffer = 1
 const DAQmx_Val_GroupByScanNumber = 1
 
@@ -120,13 +120,13 @@ const DAQmxCfgSampClkTiming = lib.func('DAQmxCfgSampClkTiming', 'int32', [
     'uint64' // sampsPerChanToAcquire
 ])
 
-export function cfgSampClkTiming(taskHandle, source, rate, sampsPerChanToAcquire) {
+export function cfgSampClkTiming(taskHandle, rate, sampleMode, sampsPerChanToAcquire) {
     const status = DAQmxCfgSampClkTiming(
         taskHandle,
-        source,
+        '',
         rate,
         DAQmx_Val_Rising,
-        DAQmx_Val_ContSamps,// DAQmx_Val_FiniteSamps,
+        sampleMode,
         sampsPerChanToAcquire
     )
 

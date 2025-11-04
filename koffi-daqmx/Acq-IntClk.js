@@ -1,18 +1,18 @@
-import { createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask } from './daqmx.js'
-import {writeFile} from 'fs'
+import { DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask } from './daqmx.js'
+import { writeFile } from 'fs'
 
 let taskHandle = 0
 const data = new Float64Array(3000)
 
 taskHandle = createTask()
 createAIVoltageChan(taskHandle, 'Dev1/ai20')
-cfgSampClkTiming(taskHandle, 1000.0, 3000)
+cfgSampClkTiming(taskHandle, 1000.0, DAQmx_Val_FiniteSamps, 3000)
 startTask(taskHandle)
 const read = readAnalogF64(taskHandle, data)
 console.log(`Acquired ${read} points`)
 if (taskHandle !== 0) {
-    stopTask(taskHandle)
-    clearTask(taskHandle)
+  stopTask(taskHandle)
+  clearTask(taskHandle)
 }
 writeFile('Acq-IntClk.bin', Buffer.from(data.buffer), err => {
   if (err) throw err

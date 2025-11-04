@@ -1,4 +1,4 @@
-import { createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgAnlgEdgeStartTrig, setAnlgEdgeStartTrigHyst } from './daqmx.js'
+import { DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgAnlgEdgeStartTrig, setAnlgEdgeStartTrigHyst } from './daqmx.js'
 import { writeFile } from 'fs'
 
 let taskHandle = 0
@@ -8,7 +8,7 @@ taskHandle = createTask()
 // 	DAQmxErrChk (DAQmxCreateAIVoltageChan(taskHandle,"Dev1/ai0","",DAQmx_Val_Cfg_Default,-10.0,10.0,DAQmx_Val_Volts,NULL));
 createAIVoltageChan(taskHandle, 'Dev1/ai20')
 // 	DAQmxErrChk (DAQmxCfgSampClkTiming(taskHandle,"",10000.0,DAQmx_Val_Rising,DAQmx_Val_FiniteSamps,1000));
-cfgSampClkTiming(taskHandle, '', 1000, 1000)
+cfgSampClkTiming(taskHandle, 1000, DAQmx_Val_FiniteSamps, 1000)
 // 	DAQmxErrChk (DAQmxCfgAnlgEdgeStartTrig(taskHandle,"APFI0",DAQmx_Val_Rising,1.0));
 cfgAnlgEdgeStartTrig(taskHandle, 'APFI0')
 // 	DAQmxErrChk (DAQmxSetAnlgEdgeStartTrigHyst(taskHandle, 1.0));

@@ -1,4 +1,4 @@
-import { createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgDigEdgeRefTrig, registerEveryNSamplesEvent, registerDoneEvent, cfgDigEdgeStartTrig, setStartTrigRetriggerable, cfgAnlgEdgeStartTrig, setAnlgEdgeStartTrigHyst } from './daqmx.js'
+import { DAQmx_Val_ContSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgDigEdgeRefTrig, registerEveryNSamplesEvent, registerDoneEvent, cfgDigEdgeStartTrig, setStartTrigRetriggerable, cfgAnlgEdgeStartTrig, setAnlgEdgeStartTrigHyst } from './daqmx.js'
 import { writeFile } from 'fs'
 
 let taskHandle = 0
@@ -9,7 +9,7 @@ taskHandle = createTask()
 // 	DAQmxErrChk (DAQmxCreateAIVoltageChan(taskHandle,"Dev1/ai0","",DAQmx_Val_Cfg_Default,-10.0,10.0,DAQmx_Val_Volts,NULL));
 createAIVoltageChan(taskHandle, 'Dev1/ai20')
 // 	DAQmxErrChk (DAQmxCfgSampClkTiming(taskHandle,"",10000.0,DAQmx_Val_Rising,DAQmx_Val_ContSamps,1000));
-cfgSampClkTiming(taskHandle, '', 1000, 1000)
+cfgSampClkTiming(taskHandle, 1000, DAQmx_Val_ContSamps, 1000)
 // 	DAQmxErrChk (DAQmxCfgAnlgEdgeStartTrig(taskHandle,"APFI0",DAQmx_Val_Rising,0.0));
 cfgAnlgEdgeStartTrig(taskHandle, 'APFI0')
 // 	DAQmxErrChk (DAQmxSetAnlgEdgeStartTrigHyst(taskHandle, 1.0));
@@ -18,7 +18,7 @@ setAnlgEdgeStartTrigHyst(taskHandle, 1.0)
 // 	DAQmxErrChk (DAQmxRegisterEveryNSamplesEvent(taskHandle,DAQmx_Val_Acquired_Into_Buffer,1000,0,EveryNCallback,NULL));
 registerEveryNSamplesEvent(taskHandle, 1000, () => {
     // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByScanNumber,data,1000,&read,NULL));
-    const read=readAnalogF64(taskHandle, data)
+    const read = readAnalogF64(taskHandle, data)
     if (read > 0) {
         totalRead += read
         console.log(`Acquired ${read} samples. Total ${totalRead}`)
