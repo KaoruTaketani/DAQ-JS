@@ -1,4 +1,4 @@
-import { DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask } from './daqmx.js'
+import { DAQmx_Val_GroupByChannel, DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask } from './daqmx.js'
 import { writeFile } from 'fs'
 
 let taskHandle = 0
@@ -8,7 +8,8 @@ taskHandle = createTask()
 createAIVoltageChan(taskHandle, 'Dev1/ai20')
 cfgSampClkTiming(taskHandle, 1000.0, DAQmx_Val_FiniteSamps, 3000)
 startTask(taskHandle)
-const read = readAnalogF64(taskHandle, data)
+// 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
+const read = readAnalogF64(taskHandle, DAQmx_Val_GroupByChannel, data)
 console.log(`Acquired ${read} points`)
 if (taskHandle !== 0) {
   stopTask(taskHandle)

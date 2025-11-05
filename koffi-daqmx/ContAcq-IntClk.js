@@ -1,23 +1,26 @@
-import { DAQmx_Val_ContSamps, createTask, registerEveryNSamplesEvent, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, registerDoneEvent } from './daqmx.js'
-import { writeFile } from 'fs'
+import { DAQmx_Val_GroupByScanNumber, DAQmx_Val_ContSamps, createTask, registerEveryNSamplesEvent, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, registerDoneEvent } from './daqmx.js'
+import { createWriteStream } from 'fs'
 let taskHandle = 0
 let totalRead = 0
+const ws = createWriteStream('ContAcq-IntClk.bin')
 const data = new Float64Array(1000)
 taskHandle = createTask()
 createAIVoltageChan(taskHandle, 'Dev1/ai20')
 // 	DAQmxErrChk (DAQmxCfgSampClkTiming(taskHandle,"",10000.0,DAQmx_Val_Rising,DAQmx_Val_ContSamps,1000));
-cfgSampClkTiming(taskHandle, 1000, DAQmx_Val_ContSamps, 1000)
+cfgSampClkTiming(taskHandle, 1000, DAQmx_Val_ContSamps, data.length)
 // 	DAQmxErrChk (DAQmxRegisterEveryNSamplesEvent(taskHandle,DAQmx_Val_Acquired_Into_Buffer,1000,0,EveryNCallback,NULL));
-registerEveryNSamplesEvent(taskHandle, 1000, () => {
+registerEveryNSamplesEvent(taskHandle, data.length, (t,everyNsamplesEventType,nSamples,callbackData) => {
     // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByScanNumber,data,1000,&read,NULL));
-    const read = readAnalogF64(taskHandle, data)
+    const read = readAnalogF64(t, DAQmx_Val_GroupByScanNumber, data)
 
     if (read > 0) {
         totalRead += read
         console.log(`Acquired ${read} samples. Total ${totalRead}`)
+        ws.write(data)
     }
 })
-registerDoneEvent(taskHandle, () => {
+registerDoneEvent(taskHandle, (t,status,callbackData) => {
+
     console.log('done')
 })
 startTask(taskHandle)
@@ -27,6 +30,7 @@ process.stdin.on('readable', () => {
         stopTask(taskHandle)
         clearTask(taskHandle)
     }
+    ws.close()
 })
 
 

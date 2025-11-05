@@ -1,4 +1,4 @@
-import { DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgAnlgEdgeStartTrig, setAnlgEdgeStartTrigHyst } from './daqmx.js'
+import { DAQmx_Val_GroupByChannel, DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgAnlgEdgeStartTrig, setAnlgEdgeStartTrigHyst } from './daqmx.js'
 import { writeFile } from 'fs'
 
 let taskHandle = 0
@@ -16,7 +16,8 @@ setAnlgEdgeStartTrigHyst(taskHandle, 1.0)
 
 startTask(taskHandle)
 
-const read = readAnalogF64(taskHandle, data)
+// 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,-1,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
+const read = readAnalogF64(taskHandle, DAQmx_Val_GroupByChannel, data)
 
 if (read > 1) console.log(`Acquired ${read} samples`)
 

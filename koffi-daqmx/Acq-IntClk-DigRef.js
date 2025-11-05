@@ -1,4 +1,4 @@
-import { DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgDigEdgeRefTrig } from './daqmx.js'
+import { DAQmx_Val_GroupByChannel, DAQmx_Val_FiniteSamps, createTask, createAIVoltageChan, cfgSampClkTiming, startTask, readAnalogF64, stopTask, clearTask, cfgDigEdgeRefTrig } from './daqmx.js'
 import { writeFile } from 'fs'
 
 let taskHandle = 0
@@ -14,7 +14,7 @@ cfgDigEdgeRefTrig(taskHandle, '/Dev1/PFI7', 100)
 startTask(taskHandle)
 
 // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
-const read = readAnalogF64(taskHandle, data)
+const read = readAnalogF64(taskHandle, DAQmx_Val_GroupByChannel, data)
 console.log(`Acquired ${read} points`)
 
 if (taskHandle !== 0) {

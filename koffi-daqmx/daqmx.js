@@ -13,7 +13,7 @@ const NULL = 0
 // #define CVICALLBACK     CVICDECL
 // typedef int32 (CVICALLBACK *DAQmxDoneEventCallbackPtr)(TaskHandle taskHandle, int32 status, void *callbackData);
 // int32 CVICALLBACK DoneCallback(TaskHandle taskHandle, int32 status, void *callbackData);
-const DoneEventCallback = koffi.proto('DAQmxDoneEventCallback', 'int32', [
+const DoneEventCallback = koffi.proto('__cdecl','DAQmxDoneEventCallback', 'int32', [
     TaskHandle, //taskHandle
     'int32', // status
     'void*' // callbackData
@@ -21,11 +21,11 @@ const DoneEventCallback = koffi.proto('DAQmxDoneEventCallback', 'int32', [
 const DAQmxDoneEventCallbackPtr = koffi.pointer(DoneEventCallback)
 // typedef int32 (CVICALLBACK *DAQmxEveryNSamplesEventCallbackPtr)(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
 // int32 CVICALLBACK EveryNCallback(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
-const EveryNCallback = koffi.proto('EveryNCallback', 'int32', [
+const EveryNCallback = koffi.proto('__cdecl','EveryNCallback', 'int32', [
     TaskHandle, // taskHandle
     'int32', // everyNsamplesEventType
     'uint32', // nSamples
-    'void *'// callbackData
+    'void*'// callbackData
 ])
 const DAQmxEveryNSamplesEventCallbackPtr = koffi.pointer(EveryNCallback)
 
@@ -37,12 +37,13 @@ const DAQmx_Val_FallingSlope = 10171
 const DAQmx_Val_Falling = DAQmx_Val_FallingSlope
 export const DAQmx_Val_FiniteSamps = 10178
 export const DAQmx_Val_ContSamps = 10123
-const DAQmx_Val_GroupByChannel = 0
+export const DAQmx_Val_GroupByChannel = 0
+export const DAQmx_Val_GroupByScanNumber = 1
 const DAQmx_Val_Seconds = 10364
 const DAQmx_Val_Low = 10214
 const DAQmx_Val_Hz = 10373
 const DAQmx_Val_Acquired_Into_Buffer = 1
-const DAQmx_Val_GroupByScanNumber = 1
+
 
 // 		DAQmxGetExtendedErrorInfo(errBuff,2048);
 // https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxgetextendederrorinfo.html
@@ -157,7 +158,17 @@ const DAQmxReadAnalogF64 = lib.func('DAQmxReadAnalogF64', 'int32', [
     bool32 // reserved
 ])
 
-export function readAnalogF64(taskHandle, readArray) {
+export function readAnalogF64(taskHandle, fillMode, readArray) {
+    // Acq-IntClk-AnlgStart
+    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,-1,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
+    // Acq-IntClk-DigRef
+    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
+    // Acq-IntClk
+    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
+    // ContAcq-IntClk-AnlgStart
+    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByScanNumber,data,1000,&read,NULL));
+    // ContAcq-IntClk
+    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByScanNumber,data,1000,&read,NULL));
     const sampsPerChanRead = [null]
     const timeout = 10.0
 
@@ -165,7 +176,7 @@ export function readAnalogF64(taskHandle, readArray) {
         taskHandle,
         readArray.length,
         timeout,
-        DAQmx_Val_GroupByChannel,
+        fillMode,
         readArray,
         readArray.length,
         sampsPerChanRead,
