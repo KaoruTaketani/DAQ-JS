@@ -13,6 +13,7 @@ import StartTimeChanger from './StartTimeChanger.js'
 import StartTimeInnerTextChanger from './StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from './StopButtonDisabledChanger.js'
 import Variables from './Variables.js'
+import PeakFinder from './PeakFinder.js'
 
 const variables = new Variables()
 
@@ -29,6 +30,7 @@ new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeChanger(variables)
 new StartTimeInnerTextChanger(variables)
+new PeakFinder(variables)
 
 variables.httpServer.assign(new Server()) 
 variables.randomNumberGeneratorIsBusy.assign(false)
