@@ -14,9 +14,9 @@ parentPort.on('message', value => {
         readAnalogF64(taskHandle, DAQmx_Val_GroupByChannel, data)
         parentPort.postMessage(data)
         stopTask(taskHandle)
-        setTimeout(() => {
+        setImmediate(() => {
             parentPort.emit('message', true)
-        }, 10)
+        })
     } else {
         clearTask(taskHandle)
         process.exit()
