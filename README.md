@@ -70,17 +70,19 @@
 
 [13.e.c GET](./13ec/README.md)
 
-13.f Ring Buffer
+13.f Device
 
-[13.f.a TCP Reader](./13fa/README.md)
+[13.f.a TCP Communication](./13fa/README.md)
 
-[13.f.b Ring Buffer](./13fb/README.md)
+[13.b.b TCP Queue](./13fb/README.md)
 
-[13.f.c Throttle](./13fc/README.md)
+[13.f.d Ring Buffer](./13fd/README.md)
 
-[13.f.d Heavy Work](./13fb/README.md)
+[13.f.e Throttle](./13fe/README.md)
 
-[13.f.e Worker](./13fc/README.md)
+[13.f.f Heavy Work](./13ff/README.md)
+
+[13.f.g Worker](./13fg/README.md)
 
 13.h Scanner
 
@@ -99,8 +101,6 @@
 [13.i.a Image](./13ia/README.md)
 
 [13.i.b repelem](./13ib/README.md)
-
-[13.i.c Socket Queue](./13ic/README.md)
 
 ## Graph
 ```mermaid
