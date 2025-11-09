@@ -74,7 +74,9 @@
 
 [13.f.a TCP Communication](./13fa/README.md)
 
-[13.b.b TCP Queue](./13fb/README.md)
+[13.f.b TCP Queue](./13fb/README.md)
+
+[13.f.c VISA Queue](./13fc/README.md)
 
 [13.f.d Ring Buffer](./13fd/README.md)
 
@@ -83,6 +85,12 @@
 [13.f.f Heavy Work](./13ff/README.md)
 
 [13.f.g Worker](./13fg/README.md)
+
+13.g Image
+
+[13.g.a Image](./13ga/README.md)
+
+[13.g.b repelem](./13gb/README.md)
 
 13.h Scanner
 
@@ -97,10 +105,6 @@
 [13.h.e Scanner](./13he/README.md)
 
 [13.h.f Scan Editor](./13hf/README.md)
-
-[13.i.a Image](./13ia/README.md)
-
-[13.i.b repelem](./13ib/README.md)
 
 ## Graph
 ```mermaid
