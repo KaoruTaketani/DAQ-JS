@@ -80,31 +80,35 @@
 
 [13.f.d Ring Buffer](./13fd/README.md)
 
-[13.f.e Throttle](./13fe/README.md)
+[13.f.e Heavy Work](./13fe/README.md)
 
-[13.f.f Heavy Work](./13ff/README.md)
+[13.f.f Worker](./13ff/README.md)
 
-[13.f.g Worker](./13fg/README.md)
+13.g Scanner
 
-13.g Image
+[13.g.a Preset](./13ga/README.md)
 
-[13.g.a Image](./13ga/README.md)
+[13.g.b Throttle](./13gb/README.md)
 
-[13.g.b repelem](./13gb/README.md)
+[13.h.c Batch Processor](./13gc/README.md)
 
-13.h Scanner
+[13.g.c Batch Stopper](./13gd/README.md)
 
-[13.h.a Preset](./13h/README.md)
+[13.g.e Batch Editor](./13ge/README.md)
 
-[13.h.b Batch Processor](./13hb/README.md)
+[13.g.f Scanner](./13gf/README.md)
 
-[13.h.c Batch Stopper](./13hc/README.md)
+[13.g.g Scan Editor](./13gg/README.md)
 
-[13.h.d Batch Editor](./13hd/README.md)
+13.h Image
 
-[13.h.e Scanner](./13he/README.md)
+[13.h.a Image](./13ha/README.md)
 
-[13.h.f Scan Editor](./13hf/README.md)
+[13.h.b repelem](./13hb/README.md)
+
+[13.h.c Axis](./13hc/README.md)
+
+[13.h.d Log](./13hd/README.md)
 
 ## Graph
 ```mermaid

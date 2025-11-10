@@ -1,10 +1,10 @@
-import ControllableBoolean from '../13/ControllableBoolean.js'
 import ElementBoolean from '../13/ElementBoolean.js'
 import ElementString from '../13/ElementString.js'
 import ListenableNumber from '../13/ListenableNumber.js'
 import ListenableObject from '../13/ListenableObject.js'
-import ControllableNumber from '../13hb/ControllableNumber.js'
-import BatchBoolean from '../13hc/BatchBoolean.js'
+import ControllableBoolean from '../13gc/ControllableBoolean.js'
+import ControllableNumber from '../13gc/ControllableNumber.js'
+import BatchBoolean from './BatchBoolean.js'
 
 export default class {
     constructor() {
@@ -16,13 +16,8 @@ export default class {
         this.batchParams = new ListenableObject()
         this.batchResolve = new ListenableObject()
         this.batchReject = new ListenableObject()
-        this.means = new ListenableObject()
-        this.presets = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
-        this.presetStart = new ListenableNumber()
-        this.presetStop = new ListenableNumber()
-        this.presetStep = new ListenableNumber()
 
         this.batchProcessorIsBusy = new ControllableBoolean('batchProcessorIsBusy', this.requestParams,this.batchResolve)
         this.randomNumberGeneratorIsBusy = new BatchBoolean('randomNumberGeneratorIsBusy', this.requestParams, this.batchResolve)
@@ -39,10 +34,6 @@ export default class {
         this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
         this.batchTableInnerHTML = new ElementString('/batchTableInnerHTML', this.elementValues, this.webSocketPathnames)
         this.presetValue = new ElementString('/presetValue', this.elementValues, this.webSocketPathnames)
-        this.presetStartValue = new ElementString('/presetStartValue', this.elementValues, this.webSocketPathnames)
-        this.presetStopValue = new ElementString('/presetStopValue', this.elementValues, this.webSocketPathnames)
-        this.presetStepValue = new ElementString('/presetStepValue', this.elementValues, this.webSocketPathnames)
-        this.meansSVGInnerHTML = new ElementString('/meansSVGInnerHTML', this.elementValues, this.webSocketPathnames)
     }
 }
 
