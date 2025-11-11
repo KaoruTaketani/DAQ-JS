@@ -10,7 +10,7 @@ export default class {
         this.requestParams = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
-        this.socketQueue = new ListenableObject()
+        this.tcpQueue = new ListenableObject()
 
         this.channel1Pulse = new ListenableNumber()
         this.channel2Pulse = new ListenableNumber()

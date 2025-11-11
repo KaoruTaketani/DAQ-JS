@@ -8,8 +8,8 @@ export default class extends Operator {
         super()
         this._channel2Pulse
         variables.channel2Pulse.addListener(arg => { this._channel2Pulse = arg })
-        this._socketQueue
-        variables.socketQueue.addListener(arg => { this._socketQueue = arg })
+        this._tcpQueue
+        variables.tcpQueue.addListener(arg => { this._tcpQueue = arg })
         this._channel2Destination
         variables.channel2Destination.addListener(arg => {
             this._channel2Destination = arg
@@ -19,25 +19,25 @@ export default class extends Operator {
             console.log(this._channel2Destination)
             if (Number.isNaN(this._channel2Destination)) return
 
-            this._socketQueue.push((socket, done) => {
-                socket.once('data', data => {
-                    console.log(`1st data: ${data}`)
-                    if (data === 'ok') {
-                        variables.channel2Pulse.assign(this._channel2Pulse)
-                        // this._socketQueue.push((socket, done) => {
-                        //     socket.once('data', data => {
-                        //         console.log(`2nd data: ${data}`)
-                        //         const pulse = parseInt(data.split(' ')[1])
-                        //         console.log(pulse)
-                        //         variables.channel2Pulse.assign(pulse)
-                        //         // socket.end()
-                        //         done()
-                        //     }).write('pulse?:2')
-                        // })
-                    }
-                    done()
-                }).write(`move_to:2 ${this._channel2Destination}`)
-            })
+            // this._tcpQueue.push((socket, done) => {
+            //     socket.once('data', data => {
+            //         console.log(`1st data: ${data}`)
+            //         if (data === 'ok') {
+            //             variables.channel2Pulse.assign(this._channel2Pulse)
+            //             // this._socketQueue.push((socket, done) => {
+            //             //     socket.once('data', data => {
+            //             //         console.log(`2nd data: ${data}`)
+            //             //         const pulse = parseInt(data.split(' ')[1])
+            //             //         console.log(pulse)
+            //             //         variables.channel2Pulse.assign(pulse)
+            //             //         // socket.end()
+            //             //         done()
+            //             //     }).write('pulse?:2')
+            //             // })
+            //         }
+            //         done()
+            //     }).write(`move_to:2 ${this._channel2Destination}`)
+            // })
 
             // const socket = new Socket()
             // socket.setEncoding('utf8')

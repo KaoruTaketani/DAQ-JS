@@ -6,22 +6,22 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._socketQueue
-        variables.socketQueue.addListener(arg => { this._socketQueue = arg })
+        this._tcpQueue
+        variables.tcpQueue.addListener(arg => { this._tcpQueue = arg })
         this._stopChannel
         variables.stopChannel.addListener(arg => {
             this._stopChannel = arg
             this._operation()
         })
         this._operation = () => {
-            this._socketQueue.push((socket, done) => {
-                socket.once('data', data => {
-                    console.log(`stop response: ${data}`)
+            // this._tcpQueue.push((socket, done) => {
+            //     socket.once('data', data => {
+            //         console.log(`stop response: ${data}`)
 
-                    variables.channel2Destination.assign(Number.NaN)
-                    done()
-                }).write(`stop:${this._stopChannel}`)
-            })
+            //         variables.channel2Destination.assign(Number.NaN)
+            //         done()
+            //     }).write(`stop:${this._stopChannel}`)
+            // })
         }
     }
 }

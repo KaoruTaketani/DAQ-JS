@@ -13,7 +13,7 @@ import Channel2DestinationInnerTextChanger from './Channel2DestinationInnerTextC
 import Channel2Mover from './Channel2Mover.js'
 import Channel2PulseInnerTextChanger from './Channel2PulseInnerTextChanger.js'
 import Channel2PulseUpdater from './Channel2PulseUpdater.js'
-import SocketQueue from './SocketQueue.js'
+import TCPQueue from './TCPQueue.js'
 import Variables from './Variables.js'
 import WidthDestinationInnerTextChanger from './WidthDestinationInnerTextChanger.js'
 import WidthInMillimetersInnerTextChanger from './WidthInMillimetersInnerTextChanger.js'
@@ -44,7 +44,7 @@ new WidthDestinationInnerTextChanger(variables)
 new PulseMotorStopper(variables)
 
 variables.httpServer.assign(new Server())
-variables.socketQueue.assign(new SocketQueue(23, 'localhost'))
+variables.tcpQueue.assign(new TCPQueue(23, 'localhost'))
 variables.centerDestination.assign(Number.NaN)
 variables.widthDestination.assign(Number.NaN)
 variables.channel1Destination.assign(Number.NaN)

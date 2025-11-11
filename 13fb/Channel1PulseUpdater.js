@@ -8,8 +8,8 @@ export default class extends Operator {
         super()
         this._channel1Destination
         variables.channel1Destination.addListener(arg => { this._channel1Destination = arg })
-        this._socketQueue
-        variables.socketQueue.addListener(arg => { this._socketQueue = arg })
+        this._tcpQueue
+        variables.tcpQueue.addListener(arg => { this._tcpQueue = arg })
         this._channel1Pulse
         variables.channel1Pulse.addListener(arg => {
             this._channel1Pulse = arg
@@ -19,14 +19,23 @@ export default class extends Operator {
             if (Number.isNaN(this._channel1Destination)) {
                 if (!Number.isNaN(this._channel1Pulse)) return
 
-                this._socketQueue.push((socket, done) => {
-                    socket.once('data', data => {
+                this._tcpQueue.push({
+                    message: 'pulse?:1',
+                    callback: (data, done) => {
                         console.log(`data: ${data}`)
                         const x = parseInt(data.split(' ')[1])
                         variables.channel1Pulse.assign(x)
                         done()
-                    }).write(`pulse?:1`)
+                    }
                 })
+                // this._socketQueue.push((socket, done) => {
+                //     socket.once('data', data => {
+                //         console.log(`data: ${data}`)
+                //         const x = parseInt(data.split(' ')[1])
+                //         variables.channel1Pulse.assign(x)
+                //         done()
+                //     }).write(`pulse?:1`)
+                // })                
             }
         }
     }
