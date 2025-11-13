@@ -134,22 +134,18 @@ const viRead = lib.func('viRead', ViStatus, [
 
 /**
  * @param {number} vi
- * @param {number} count
- * @returns {string}
+ * @param {number} buf
+ * @returns {number}
  */
-export function read(vi, count = 256) {
-    const buf = Buffer.alloc(count)
+export function read(vi, buf) {
     const retCount = [null]
-    const status = viRead(vi, buf, count, retCount)
-    const data = buf.subarray(0, retCount[0]).toString()
+    const status = viRead(vi, buf, buf.length, retCount)
 
     if (status < VI_SUCCESS) {
         console.log('Error reading a response from the device')
-    } else {
-        console.log(`Data read: ${data}`)
     }
 
-    return data
+    return retCount[0]
 }
 
 export function read_async(vi, callback, count = 256) {

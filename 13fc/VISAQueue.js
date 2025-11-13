@@ -1,4 +1,4 @@
-import { openDefaultRM, open, write, read, close } from './visa.js'
+import { openDefaultRM, open, write, read, close } from '../koffi-visa/visa.js'
 
 export default class {
     constructor() {
