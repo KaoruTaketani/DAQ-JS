@@ -9,18 +9,14 @@ const VI_EVENT_IO_COMPLETION = 0x3FFF2009
 export const VI_ATTR_RET_COUNT = 0x3FFF4028
 export const VI_ATTR_TMO_VALUE = 0x3FFF001A
 
-const ViUInt16 = koffi.alias('ViUInt16', 'uint16')
-const ViUInt32 = koffi.alias('ViUInt32', 'uint32')
+const ViUInt16 = 'uint16'
+const ViUInt32 = 'uint32'
 const ViPUint32 = koffi.pointer(ViUInt32)
-const ViUInt64 = koffi.alias('ViUInt64', 'uint64')
-const ViPUint64 = koffi.pointer(ViUInt64)
-const ViAttrState = koffi.alias('ViAttrState', 'uint64')
+const ViAttrState = 'uint64'
 const ViEventFilter = ViUInt32
 const ViEventType = ViUInt32
-// const ViAddr = koffi.pointer(koffi.opaque())
-// const ViAddr = koffi.alias('ViAddr', 'void *')
-const ViAddr = koffi.pointer('ViAddr',koffi.opaque())
 // typedef void        _VI_PTR ViAddr;
+const ViAddr = koffi.pointer('ViAddr', koffi.opaque())
 const ViAttr = ViUInt32
 const ViStatus = ViUInt32
 const ViObject = ViUInt32
@@ -30,8 +26,17 @@ const ViPJobId = koffi.pointer(ViJobId)
 const ViSession = ViUInt32
 const ViPSession = koffi.pointer(ViSession)
 const ViAccessMode = ViUInt32
-const ViByte = koffi.alias('ViByte', 'uchar')
+const ViByte = 'uchar'
 const ViPBuf = koffi.pointer(ViByte)
+// typedef ViStatus (_VI_FUNCH _VI_PTR ViHndlr)
+//    (ViSession vi, ViEventType eventType, ViEvent event, ViAddr userHandle);
+const AsyncHandler = koffi.proto('__fastcall', 'callback', ViStatus, [
+    ViSession, // vi
+    ViEventType, // eventType
+    ViEvent, // event
+    ViAddr // userHandle
+])
+const ViHndlr = koffi.pointer(AsyncHandler)
 
 const lib = koffi.load('visa64.dll')
 
@@ -74,8 +79,7 @@ export function open(sesn, rsrcName) {
     const status = viOpen(sesn, rsrcName, VI_NULL, VI_NULL, vi)
 
     if (status < VI_SUCCESS) {
-        console.log('Cannot open a session to the device.')
-        throw new Error()
+        throw new Error(`failed open. status: ${status}`)
     }
 
     return vi[0]
@@ -92,11 +96,13 @@ const viSetAttribute = lib.func('viSetAttribute', ViStatus, [
  * @param {number} vi
  * @param {number} attribute
  * @param {string} attrState
- * @returns {number}
  */
 export function setAttribute(vi, attribute, attrState) {
     const status = viSetAttribute(vi, attribute, attrState)
-    return status
+
+    if (status < VI_SUCCESS) {
+        throw new Error(`failed setAttribute. status: ${status}`)
+    }
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viwrite.html
@@ -117,8 +123,7 @@ export function write(vi, buf) {
     const status = viWrite(vi, buf, buf.length, retCount)
 
     if (status < VI_SUCCESS) {
-        console.log('Error writing to the device')
-        throw new Error()
+        throw new Error(`failed writec. status: ${status}`)
     }
 
     return retCount[0]
@@ -142,26 +147,22 @@ export function read(vi, buf) {
     const status = viRead(vi, buf, buf.length, retCount)
 
     if (status < VI_SUCCESS) {
-        console.log('Error reading a response from the device')
+        throw new Error(`failed read. status: ${status}`)
     }
 
     return retCount[0]
 }
 
-export function read_async(vi, callback, count = 256) {
-    console.log(vi)
-    const buf = Buffer.alloc(count)
+export function read_async(vi, buf, callback, count = 256) {
     const retCount = [null]
-    viRead.async(vi, buf, count, retCount, (err, status) => {
-        console.log(`err: ${err}, status: ${status}`)
-        if (status < VI_SUCCESS) {
-            console.log('Error reading a response from the device')
-        } else {
-            const data = buf.subarray(0, retCount).toString()
+    viRead.async(vi, buf, buf.length, retCount, (err, status) => {
+        if (err) throw err
 
-            console.log(`Data read: ${data}`)
-            callback(data)
+        if (status < VI_SUCCESS) {
+            throw new Error(`failed read_async. status: ${status}`)
         }
+
+        callback(retCount[0])
     })
 }
 
@@ -172,22 +173,14 @@ const viClose = lib.func('viClose', ViStatus, [
 
 /**
  * @param {number} vi
- * @returns {number}
  */
 export function close(vi) {
     const status = viClose(vi)
-    return status
-}
 
-const callback = koffi.proto('__fastcall', 'callback', ViStatus, [
-    ViSession, // vi
-    ViEventType, // eventType
-    ViEvent, // event
-    ViAddr // userHandle
-])
-const ViHndlr = koffi.pointer(callback)
-// typedef ViStatus (_VI_FUNCH _VI_PTR ViHndlr)
-//    (ViSession vi, ViEventType eventType, ViEvent event, ViAddr userHandle);
+    if (status < VI_SUCCESS) {
+        throw new Error('failed close')
+    }
+}
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viinstallhandler.html
 const viInstallHandler = lib.func('viInstallHandler', ViStatus, [
@@ -203,13 +196,15 @@ const viInstallHandler = lib.func('viInstallHandler', ViStatus, [
  * @param {number} userHandle
  * @returns {number}
  */
-export function installHandler(vi, handler, userHandle = 0) {
-    const handler_ = koffi.register(handler, ViHndlr)
-    const status = viInstallHandler(vi, VI_EVENT_IO_COMPLETION, handler_, userHandle)
+export function installHandler(vi, handler) {
+    const handle = koffi.register(handler, ViHndlr)
+    const status = viInstallHandler(vi, VI_EVENT_IO_COMPLETION, handle, 0)
+
     if (status < VI_SUCCESS) {
-        console.log(`failed installHandler. status: ${status}`)
+        throw new Error(`failed installHandler. status: ${status}`)
     }
-    return status
+
+    return handle
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vienableevent.html
@@ -226,10 +221,10 @@ const viEnableEvent = lib.func('viEnableEvent', ViStatus, [
  */
 export function enableEvent(vi) {
     const status = viEnableEvent(vi, VI_EVENT_IO_COMPLETION, VI_HNDLR, VI_NULL)
+
     if (status < VI_SUCCESS) {
-        console.log(`failed enableEvent. status: ${status}`)
+        throw new Error(`failed enableEvent. status: ${status}`)
     }
-    return status
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vireadasync.html
@@ -249,6 +244,10 @@ export function readAsync(vi, buf) {
     const jobId = [null]
     const status = viReadAsync(vi, buf, buf.length, jobId)
 
+    if (status < VI_SUCCESS) {
+        throw new Error(`failed readAsync. status: ${status}`)
+    }
+
     return jobId[0]
 }
 
@@ -262,10 +261,13 @@ const viTerminate = lib.func('viTerminate', ViStatus, [
 /**
  * @param {number} vi
  * @param {number} jobId
- * @returns {number}
  */
 export function terminate(vi, jobId) {
     const status = viTerminate(vi, VI_NULL, jobId)
+
+    if (status < VI_SUCCESS) {
+        throw new Error(`failed in terminate. status: ${status}`)
+    }
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vigetattribute.html
@@ -283,6 +285,10 @@ const viGetAttribute = lib.func('viGetAttribute', ViStatus, [
 export function getAttribute(vi, attribute) {
     const attrState = [null]
     const status = viGetAttribute(vi, attribute, koffi.as(attrState, ViPUint32))
+
+    if (status < VI_SUCCESS) {
+        throw new Error(`failed in getAttribute. status: ${status}`)
+    }
 
     return attrState[0]
 }
