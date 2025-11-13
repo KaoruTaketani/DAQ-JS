@@ -8,6 +8,7 @@ const VI_HNDLR = 2
 const VI_EVENT_IO_COMPLETION = 0x3FFF2009
 export const VI_ATTR_RET_COUNT = 0x3FFF4028
 export const VI_ATTR_TMO_VALUE = 0x3FFF001A
+const VI_ANY_HNDLR = 0
 
 const ViUInt16 = 'uint16'
 const ViUInt32 = 'uint32'
@@ -192,19 +193,14 @@ const viInstallHandler = lib.func('viInstallHandler', ViStatus, [
 
 /**
  * @param {number} vi
- * @param {function} handler
- * @param {number} userHandle
- * @returns {number}
+ * @param {number} handle
  */
-export function installHandler(vi, handler) {
-    const handle = koffi.register(handler, ViHndlr)
+export function installHandler(vi, handle) {
     const status = viInstallHandler(vi, VI_EVENT_IO_COMPLETION, handle, 0)
 
     if (status < VI_SUCCESS) {
         throw new Error(`failed installHandler. status: ${status}`)
     }
-
-    return handle
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/vienableevent.html
@@ -217,7 +213,6 @@ const viEnableEvent = lib.func('viEnableEvent', ViStatus, [
 
 /**
  * @param {number} vi
- * @returns {number}
  */
 export function enableEvent(vi) {
     const status = viEnableEvent(vi, VI_EVENT_IO_COMPLETION, VI_HNDLR, VI_NULL)
@@ -293,5 +288,30 @@ export function getAttribute(vi, attribute) {
     return attrState[0]
 }
 
+// https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viuninstallhandler.html
+const viUninstallHandler = lib.func('viUninstallHandler', ViStatus, [
+    ViSession, // vi
+    ViEventType, // eventType
+    ViHndlr, // handler
+    ViAddr // userHandle
+])
 
+/**
+ * @param {number} vi
+ * @param {number} handle
+ */
+export function uninstallHandler(vi, handle) {
+    const status = viUninstallHandler(vi, VI_EVENT_IO_COMPLETION, handle, 0)
 
+    if (status < VI_SUCCESS) {
+        throw new Error(`failed uninstallHandler. status: ${status}`)
+    }
+}
+
+export function register(handler){
+    return koffi.register(handler, ViHndlr)
+}
+
+export function unregister(handle){
+    koffi.unregister(handle)
+}

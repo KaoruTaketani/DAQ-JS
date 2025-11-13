@@ -1,23 +1,23 @@
-import { openDefaultRM, open, installHandler, enableEvent,write,readAsync, close,getAttribute,VI_ATTR_RET_COUNT,terminate } from './visa.js'
+import { openDefaultRM,register,unregister, open, installHandler, enableEvent,write,readAsync, close,getAttribute,VI_ATTR_RET_COUNT,terminate, uninstallHandler } from './visa.js'
 import { VI_FALSE,VI_TRUE } from './visa.js'
 
 let stopflag=VI_FALSE
-let RdCount=0
+let RdCount=-1
 
 const defaultRM = openDefaultRM()
 const inst = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
 const data = Buffer.alloc(4096)
-installHandler(inst,(vi,etype,event,userHandle)=>{
-    // console.log(`etype: ${etype}`)
-    // RdCount=getAttribute(event,VI_ATTR_RET_COUNT)
-        stopflag = VI_TRUE
-    console.log(`called userHandle:${userHandle}`)
+const handle = register((vi,etype,event,userHandle) => {
+    console.log(`called vi: ${vi}, etype: ${etype}, event: ${event}, userHandle:${userHandle}`)
+    RdCount=getAttribute(event,VI_ATTR_RET_COUNT)
+    stopflag = VI_TRUE
     return 0
 })
+installHandler(inst,handle)
 enableEvent(inst)
 write(inst,'*IDN?\n')
 const job=readAsync(inst,data)
-
+console.log(`inst: ${inst}`)
 
 console.log('Hit enter to continue.')
 
@@ -25,15 +25,17 @@ process.stdin.on('readable',()=>{
     const chunk=process.stdin.read()
     // console.log(chunk)
 
-   if (stopflag == VI_TRUE){
+    if (stopflag == VI_TRUE){
+    
     console.log(`RdCount: ${RdCount}`)
       console.log(`Here is the data:  ${data.subarray(0,RdCount).toString()}`)
-   } else {
+    } else {
       const status = terminate (inst, job)
       console.log('The asynchronous read did not complete.')
-   }
-
-
+    }
+    uninstallHandler(inst,handle)
+    unregister(handle)
+    
     close(inst)
     close(defaultRM)
 })
