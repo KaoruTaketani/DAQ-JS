@@ -15,10 +15,14 @@ export default class {
         this._queue.splice(0)
     }
     /**
-     * @param {function} task 
+     * @param {string} message
+     * @param {function} callback 
      */
-    push(task) {
-        this._queue.push(task)
+    push(message, callback) {
+        this._queue.push({
+            message: message,
+            callback: callback
+        })
         this._next()
     }
     _next() {

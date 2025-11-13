@@ -19,14 +19,11 @@ export default class extends Operator {
             if (Number.isNaN(this._channel1Destination)) {
                 if (!Number.isNaN(this._channel1Pulse)) return
 
-                this._tcpQueue.push({
-                    message: 'pulse?:1',
-                    callback: (data, done) => {
-                        console.log(`data: ${data}`)
-                        const x = parseInt(data.split(' ')[1])
-                        variables.channel1Pulse.assign(x)
-                        done()
-                    }
+                this._tcpQueue.push('pulse?:1', (data, done) => {
+                    console.log(`data: ${data}`)
+                    const x = parseInt(data.split(' ')[1])
+                    variables.channel1Pulse.assign(x)
+                    done()
                 })
                 // this._socketQueue.push((socket, done) => {
                 //     socket.once('data', data => {
