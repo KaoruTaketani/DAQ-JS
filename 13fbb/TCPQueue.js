@@ -10,6 +10,9 @@ export default class {
         this._queue = []
         this._socket = new Socket()
         this._socket.setEncoding('utf8')
+        this._socket.on('data',data=>{
+            console.log(`data: ${data}`)
+        })
     }
     flush() {
         this._queue.splice(0)
