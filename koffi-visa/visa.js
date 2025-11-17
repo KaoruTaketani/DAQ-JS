@@ -54,8 +54,7 @@ export function openDefaultRM() {
     const status = viOpenDefaultRM(sesn)
 
     if (status < VI_SUCCESS) {
-        console.log('Could not open a session to the VISA Resource Manager!')
-        process.exit(1)
+        throw new Error(`failed openDefaultRM. status: ${status}`)
     }
 
     return sesn[0]
