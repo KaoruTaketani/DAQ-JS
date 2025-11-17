@@ -2,7 +2,7 @@ import Operator from './Operator.js'
 
 export default class extends Operator {
     /**
-     * @param {import('./Variables.js').default} variables 
+     * @param {import('./Variables.js').default|import('./WorkerVariables.js').default} variables 
      */
     constructor(variables) {
         super()

@@ -17,6 +17,7 @@ import TOFHistogramMaker from "./TOFHistogramMaker.js"
 import Variables from "./Variables.js"
 import VerticalProjectionInitializer from "./VerticalProjectionInitializer.js"
 import VerticalProjectionMaker from "./VerticalProjectionMaker.js"
+import WorkerMaker from "./WorkerMaker.js"
 
 const variables = new Variables()
 
@@ -26,22 +27,23 @@ new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
 new RawImageInitializer(variables)
 new RawImageMaker(variables)
-new VerticalProjectionInitializer(variables)
-new VerticalProjectionMaker(variables)
-new FilteredNeutronEventMaker(variables)
-new FilteredImageInitializer(variables)
-new FilteredImageMaker(variables)
+// new VerticalProjectionInitializer(variables)
+// new VerticalProjectionMaker(variables)
+// new FilteredNeutronEventMaker(variables)
+// new FilteredImageInitializer(variables)
+// new FilteredImageMaker(variables)
 new TOFHistogramInitializer(variables)
 new TOFHistogramMaker(variables)
 // new TOFImageInitializer(variables)
 // new TOFImageMaker(variables)
 // new HorizontalProjectionHistogramsInitializer(variables)
 // new HorizontalProjectionHistogramsMaker(variables)
-new PulseHeightHistogramInitializer(variables)
-new PulseHeightHistogramMaker(variables)
-new TOFDifferenceHistogramInitializer(variables)
-new TOFDifferenceHistogramMaker(variables)
+// new PulseHeightHistogramInitializer(variables)
+// new PulseHeightHistogramMaker(variables)
+// new TOFDifferenceHistogramInitializer(variables)
+// new TOFDifferenceHistogramMaker(variables)
 new JSONFileReader(variables)
+new WorkerMaker(variables)
 
 variables.hdf5Path.assign('../../hdf5/mieze')
 variables.jsonFilePaths.assign(['./2a.json'])

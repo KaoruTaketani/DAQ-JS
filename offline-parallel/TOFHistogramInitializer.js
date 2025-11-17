@@ -6,6 +6,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {import('worker_threads').MessagePort} */
+        this._tofHistogramPort
+        variables.tofHistogramPort.prependListener(arg => { this._tofHistogramPort = arg })
         /** @type {number} */
         this._tofMaxInMilliseconds
         variables.tofMaxInMilliseconds.addListener(arg => {
@@ -36,6 +39,10 @@ export default class extends Operator {
             // dt = this._tofMaxInMilliseconds * 1_000_000 / numBins
 
             variables.tofHistogram.assign({
+                binCounts: new Array(numBins).fill(0),
+                binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
+            })
+            this._tofHistogramPort.postMessage({
                 binCounts: new Array(numBins).fill(0),
                 binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
             })

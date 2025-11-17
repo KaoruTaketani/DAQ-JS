@@ -2,7 +2,7 @@ import Operator from './Operator.js'
 
 export default class extends Operator {
     /**
-     * @param {import('./Variables.js').default} variables 
+     * @param {import('./Variables.js').default|import('./WorkerVariables.js').default} variables 
      */
     constructor(variables) {
         super()
@@ -15,7 +15,7 @@ export default class extends Operator {
         /** @type {number} */
         this._channel1Count
         variables.channel1Count.prependListener(arg => { this._channel1Count = arg })
-        /** @type {Buffer} */
+        /** @type {Buffer|Uint8Array} */
         this._eventBuffer
         variables.eventBuffer.addListener(arg => {
             this._eventBuffer = arg

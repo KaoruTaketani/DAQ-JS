@@ -3,7 +3,7 @@ import sub2ind from '../lib/sub2ind.js'
 
 export default class extends Operator {
     /**
-     * @param {import('./Variables.js').default} variables 
+     * @param {import('./Variables.js').default|import('./WorkerVariables.js').default} variables 
      */
     constructor(variables) {
         super()

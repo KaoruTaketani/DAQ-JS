@@ -11,14 +11,13 @@ import WritableNumberArray from './WritableNumberArray.js'
 
 export default class {
     constructor() {
-        /** @type {import('./ListenableObject.js').default<import('worker_threads').Worker>} */
-        this.worker = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('worker_threads').MessagePort>} */
         this.tofHistogramPort = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('worker_threads').MessagePort>} */
         this.rawImagePort = new ListenableObject()
 
-        /** @type {import('./ListenableObject.js').default<Buffer>} */
+
+        /** @type {import('./ListenableObject.js').default<Uint8Array>} */
         this.eventBuffer = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').ChannelEvent>} */
         this.channel0Event = new ListenableObject()
