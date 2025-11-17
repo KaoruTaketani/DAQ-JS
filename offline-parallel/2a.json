@@ -1,0 +1,8 @@
+{
+    "edrFilePath": "../../edr/20230420/rpmt_run2.edr",
+    "roiXInPixels": 420,
+    "roiYInPixels": 210,
+    "roiWidthInPixels": 150,
+    "roiHeightInPixels": 450,
+    "frequencyVectorLength": 8
+}
