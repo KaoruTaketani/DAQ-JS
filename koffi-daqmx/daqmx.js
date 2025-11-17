@@ -13,7 +13,7 @@ const NULL = 0
 // #define CVICALLBACK     CVICDECL
 // typedef int32 (CVICALLBACK *DAQmxDoneEventCallbackPtr)(TaskHandle taskHandle, int32 status, void *callbackData);
 // int32 CVICALLBACK DoneCallback(TaskHandle taskHandle, int32 status, void *callbackData);
-const DoneEventCallback = koffi.proto('__cdecl', 'DAQmxDoneEventCallback', 'int32', [
+const DoneEventCallback = koffi.proto('__cdecl','DAQmxDoneEventCallback', 'int32', [
     TaskHandle, //taskHandle
     'int32', // status
     'void*' // callbackData
@@ -21,7 +21,7 @@ const DoneEventCallback = koffi.proto('__cdecl', 'DAQmxDoneEventCallback', 'int3
 const DAQmxDoneEventCallbackPtr = koffi.pointer(DoneEventCallback)
 // typedef int32 (CVICALLBACK *DAQmxEveryNSamplesEventCallbackPtr)(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
 // int32 CVICALLBACK EveryNCallback(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
-const EveryNCallback = koffi.proto('__cdecl', 'EveryNCallback', 'int32', [
+const EveryNCallback = koffi.proto('__cdecl','EveryNCallback', 'int32', [
     TaskHandle, // taskHandle
     'int32', // everyNsamplesEventType
     'uint32', // nSamples
@@ -51,9 +51,12 @@ const DAQmxGetExtendedErrorInfo = lib.func('DAQmxGetExtendedErrorInfo', 'int32',
     'uint32' // bufferSize
 ])
 
+function DAQmxFailed(status){
+    return state < 0
+}
 
-function DAQmxFailed(status) {
-    if (status < 0) {
+function DAQmxErrChk(status) {
+    if (DAQmxFailed(status)) {
         const size = DAQmxGetExtendedErrorInfo(NULL, 0)
         const errBuf = Buffer.alloc(size)
         DAQmxGetExtendedErrorInfo(errBuf, errBuf.length)
@@ -75,7 +78,7 @@ export function createTask() {
     const taskHandle = [null]
     const status = DAQmxCreateTask('', taskHandle)
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 
     return taskHandle[0]
 }
@@ -104,7 +107,7 @@ export function createAIVoltageChan(taskHandle, physicalChannel) {
         NULL
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgsampclktiming.html
@@ -127,7 +130,7 @@ export function cfgSampClkTiming(taskHandle, rate, sampleMode, sampsPerChanToAcq
         sampsPerChanToAcquire
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 
@@ -139,7 +142,7 @@ const DAQmxStartTask = lib.func('DAQmxStartTask', 'int32', [
 export function startTask(taskHandle) {
     const status = DAQmxStartTask(taskHandle)
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxreadanalogf64.html
@@ -168,7 +171,7 @@ export function readAnalogF64(taskHandle, fillMode, readArray) {
         NULL
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 
     return sampsPerChanRead[0]
 }
@@ -182,7 +185,7 @@ const DAQmxStopTask = lib.func('DAQmxStopTask', 'int32', [
 export function stopTask(taskHandle) {
     const status = DAQmxStopTask(taskHandle)
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcleartask.html
@@ -193,7 +196,7 @@ const DAQmxClearTask = lib.func('DAQmxClearTask', 'int32', [
 export function clearTask(taskHandle) {
     const status = DAQmxClearTask(taskHandle)
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatecopulsechantime.html
@@ -223,7 +226,7 @@ export function createCOPulseChanTime(taskHandle, counter) {
         highTime
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxwaituntiltaskdone.html
@@ -238,7 +241,7 @@ export function waitUntilTaskDone(taskHandle, timeToWait) {
         timeToWait
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcreatecopulsechanfreq.html
@@ -268,7 +271,7 @@ export function createCOPulseChanFreq(taskHandle, counter) {
         dutyCycle
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgimplicittiming.html
@@ -285,7 +288,7 @@ export function cfgImplicitTiming(taskHandle, sampsPerChanToAcquire) {
         sampsPerChanToAcquire
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxregisterdoneevent.html
@@ -306,7 +309,7 @@ export function registerDoneEvent(taskHandle, callbackFunction) {
         NULL
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/mxcprop/func18e1.html
@@ -323,7 +326,7 @@ export function setCOPulseTerm(taskHandle, channel, data) {
         data
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxregistereverynsamplesevent.html
@@ -348,7 +351,7 @@ export function registerEveryNSamplesEvent(taskHandle, nSamples, callbackFunctio
         NULL
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgdigedgereftrig.html
@@ -367,7 +370,7 @@ export function cfgDigEdgeRefTrig(taskHandle, triggerSource, pretriggerSamples) 
         pretriggerSamples
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfgdigedgestarttrig.html
@@ -384,7 +387,7 @@ export function cfgDigEdgeStartTrig(taskHandle, triggerSource) {
         DAQmx_Val_Rising
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/mxcprop/func190f.html
@@ -399,7 +402,7 @@ export function setStartTrigRetriggerable(taskHandle, data) {
         data
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxcfganlgedgestarttrig.html
@@ -420,7 +423,7 @@ export function cfgAnlgEdgeStartTrig(taskHandle, triggerSource) {
         triggerLevel
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-daqmx-c-api-ref/page/mxcprop/func1395.html
@@ -435,6 +438,6 @@ export function setAnlgEdgeStartTrigHyst(taskHandle, data) {
         data
     )
 
-    DAQmxFailed(status)
+    DAQmxErrChk(status)
 }
 
