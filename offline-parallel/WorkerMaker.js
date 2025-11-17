@@ -37,6 +37,8 @@ export default class extends Operator {
             this._ports.set('rawImagePort', rawImageChannel.port1)
 
             this._worker.postMessage(Object.fromEntries(this._ports), Array.from(this._ports.values()))
+            // following code throws an error
+            // this._worker.postMessage(Object.fromEntries(this._ports))
         }
     }
 }
