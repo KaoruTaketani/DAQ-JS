@@ -31,7 +31,7 @@ const ViByte = 'uchar'
 const ViPBuf = koffi.pointer(ViByte)
 // typedef ViStatus (_VI_FUNCH _VI_PTR ViHndlr)
 //    (ViSession vi, ViEventType eventType, ViEvent event, ViAddr userHandle);
-const AsyncHandler = koffi.proto('__fastcall', 'callback', ViStatus, [
+const AsyncHandler = koffi.proto('__fastcall', 'AsyncHandler', ViStatus, [
     ViSession, // vi
     ViEventType, // eventType
     ViEvent, // event
