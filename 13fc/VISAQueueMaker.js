@@ -1,5 +1,5 @@
-import Operator from '../13/Operator.js'
-import TCPQueue from './TCPQueue.js'
+import Operator from './Operator.js'
+import VISAQueue from './VISAQueue.js'
 
 export default class extends Operator {
     /**
@@ -7,13 +7,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._tcpParsers
-        variables.tcpParsers.addListener(arg => {
-            this._tcpParsers = arg
+        this._visaParsers
+        variables.visaParsers.addListener(arg => {
+            this._visaParsers = arg
             this._operation()
         })
         this._operation = () => {
-            variables.tcpQueue.assign(new TCPQueue(23, 'localhost', this._tcpParsers))
+            variables.visaQueue.assign(new VISAQueue(this._visaParsers))
         }
     }
 }
