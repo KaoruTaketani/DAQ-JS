@@ -1,10 +1,15 @@
-import VISAQueue from './VISAQueue.js'
+import Channel1PulseListener from './Channel1PulseListener.js'
+import Channel2PulseListener from './Channel2PulseListener.js'
+import VISAQueueMaker from './VISAQueueMaker.js'
+import Variables from './Variables.js'
 
-const queue = new VISAQueue()
-console.log(`func: ${queue.query(':SOURCE1:FUNC?\n')}`)
-console.log(`freq: ${queue.query(':SOURCE1:FREQ?\n')}`)
-console.log(`output: ${queue.query(':OUTPUT1:STATE?\n')}`)
-queue.write(':OUTPUT1:STATE ON\n')
-console.log(`output ${queue.query(':OUTPUT1:STATE?\n')}`)
-console.log(`freq: ${queue.query(':SOURCE1:VOLT?\n')}`)
-console.log(`freq: ${queue.query(':SOURCE1:PHAS?\n')}`)
+const variables = new Variables()
+
+new VISAQueueMaker(variables)
+new Channel1PulseListener(variables)
+new Channel2PulseListener(variables)
+
+variables.tcpParsers.assign(new Map())
+variables.channel1Pulse.sync()
+variables.channel2Pulse.sync()
+
