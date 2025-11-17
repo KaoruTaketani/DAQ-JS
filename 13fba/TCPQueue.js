@@ -6,7 +6,7 @@ export default class {
         this._host = host
         this._parsers = parsers
         /** @type {boolean} */
-        this._isRunning = false
+        this._isBusy = false
         /** @type {string[]} */
         this._queue = []
         /** @type {string} */
@@ -20,7 +20,7 @@ export default class {
                 parser(data)
             }
 
-            this._isRunning = false
+            this._isBusy = false
             this._next()
         })
     }
@@ -36,7 +36,7 @@ export default class {
         this._next()
     }
     _next() {
-        if (this._isRunning) return
+        if (this._isBusy) return
 
         this._message = this._queue.shift()
         if (!this._message) {
@@ -44,7 +44,7 @@ export default class {
             return
         }
 
-        console.log(`isRunning: ${this._isRunning}, pending: ${this._socket.pending}, closed: ${this._socket.closed}, writable: ${this._socket.writable}`)
+        console.log(`isBusy: ${this._isBusy}, pending: ${this._socket.pending}, closed: ${this._socket.closed}, writable: ${this._socket.writable}`)
         if (!this._socket.pending) {
             this._socket.write(this._message)
         } else {
@@ -53,6 +53,6 @@ export default class {
             })
         }
 
-        this._isRunning = true
+        this._isBusy = true
     }
 }

@@ -5,7 +5,7 @@ export default class {
         this._port = port
         this._host = host
         /** @type {boolean} */
-        this._isRunning = false
+        this._isBusy = false
         /** @type {function[]} */
         this._queue = []
         this._socket = new Socket()
@@ -22,7 +22,7 @@ export default class {
         this._next()
     }
     _next() {
-        if (this._isRunning) return
+        if (this._isBusy) return
 
         const task = this._queue.shift()
         if (!task) {
@@ -33,18 +33,18 @@ export default class {
         console.log(`pending: ${this._socket.pending}, closed: ${this._socket.closed}, writable: ${this._socket.writable}`)
         if (!this._socket.pending) {
             task(this._socket, () => {
-                this._isRunning = false
+                this._isBusy = false
                 this._next()
             })
         } else {
             this._socket.connect(this._port, this._host, () => {
                 task(this._socket, () => {
-                    this._isRunning = false
+                    this._isBusy = false
                     this._next()
                 })
             })
         }
 
-        this._isRunning = true
+        this._isBusy = true
     }
 }

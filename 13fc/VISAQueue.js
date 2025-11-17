@@ -4,7 +4,7 @@ export default class {
     constructor(parsers) {
         this._parsers = parsers
         /** @type {boolean} */
-        this._isRunning = false
+        this._isBusy = false
         /** @type {string[]} */
         this._queue = []
         /** @type {string} */
@@ -28,7 +28,7 @@ export default class {
         //     //     parser(data)
         //     // }
 
-        //     // this._isRunning = false
+        //     // this._isBusy = false
         //     // this._next()
 
         //     // following code is necessary to prevent warning
@@ -49,7 +49,7 @@ export default class {
         this._next()
     }
     _next() {
-        if (this._isRunning) return
+        if (this._isBusy) return
 
         this._message = this._queue.shift()
         if (!this._message) {
@@ -67,10 +67,10 @@ export default class {
             if (parser) {
                 parser(data)
             }
-            this._isRunning = false
+            this._isBusy = false
             this._next()
         })
 
-        this._isRunning = true
+        this._isBusy = true
     }
 }

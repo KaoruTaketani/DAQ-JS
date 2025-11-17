@@ -5,7 +5,7 @@ export default class {
         this._port = port
         this._host = host
         /** @type {boolean} */
-        this._isRunning = false
+        this._isBusy = false
         /** @type {function[]} */
         this._queue = []
         this._socket = new Socket()
@@ -29,7 +29,7 @@ export default class {
         this._next()
     }
     _next() {
-        if (this._isRunning) return
+        if (this._isBusy) return
 
         const task = this._queue.shift()
         if (!task) {
@@ -41,7 +41,7 @@ export default class {
         if (!this._socket.pending) {
             this._socket.once('data', data => {
                 task.callback(data, () => {
-                    this._isRunning = false
+                    this._isBusy = false
                     this._next()
                 })
             }).write(task.message)
@@ -49,13 +49,13 @@ export default class {
             this._socket.connect(this._port, this._host, () => {
                 this._socket.once('data', data => {
                     task.callback(data, () => {
-                        this._isRunning = false
+                        this._isBusy = false
                         this._next()
                     })
                 }).write(task.message)
             })
         }
 
-        this._isRunning = true
+        this._isBusy = true
     }
 }
