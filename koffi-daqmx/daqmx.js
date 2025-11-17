@@ -6,14 +6,14 @@ const lib = koffi.load('nicaiu.dll')
 // typedef void*              TaskHandle;
 const TaskHandle = 'void*'
 // typedef uInt32             bool32;
-const bool32 = koffi.alias('bool32', 'uint32')
+const bool32 = 'uint32'
 // #define NULL            (0L)
 const NULL = 0
 // #define CVICDECL        __cdecl
 // #define CVICALLBACK     CVICDECL
 // typedef int32 (CVICALLBACK *DAQmxDoneEventCallbackPtr)(TaskHandle taskHandle, int32 status, void *callbackData);
 // int32 CVICALLBACK DoneCallback(TaskHandle taskHandle, int32 status, void *callbackData);
-const DoneEventCallback = koffi.proto('__cdecl','DAQmxDoneEventCallback', 'int32', [
+const DoneEventCallback = koffi.proto('__cdecl', 'DAQmxDoneEventCallback', 'int32', [
     TaskHandle, //taskHandle
     'int32', // status
     'void*' // callbackData
@@ -21,7 +21,7 @@ const DoneEventCallback = koffi.proto('__cdecl','DAQmxDoneEventCallback', 'int32
 const DAQmxDoneEventCallbackPtr = koffi.pointer(DoneEventCallback)
 // typedef int32 (CVICALLBACK *DAQmxEveryNSamplesEventCallbackPtr)(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
 // int32 CVICALLBACK EveryNCallback(TaskHandle taskHandle, int32 everyNsamplesEventType, uInt32 nSamples, void *callbackData);
-const EveryNCallback = koffi.proto('__cdecl','EveryNCallback', 'int32', [
+const EveryNCallback = koffi.proto('__cdecl', 'EveryNCallback', 'int32', [
     TaskHandle, // taskHandle
     'int32', // everyNsamplesEventType
     'uint32', // nSamples
@@ -45,7 +45,6 @@ const DAQmx_Val_Hz = 10373
 const DAQmx_Val_Acquired_Into_Buffer = 1
 
 
-// 		DAQmxGetExtendedErrorInfo(errBuff,2048);
 // https://www.ni.com/docs/en-US/bundle/ni-daqmx-c-api-ref/page/daqmxcfunc/daqmxgetextendederrorinfo.html
 const DAQmxGetExtendedErrorInfo = lib.func('DAQmxGetExtendedErrorInfo', 'int32', [
     koffi.out('char*'), // errorString
@@ -55,12 +54,9 @@ const DAQmxGetExtendedErrorInfo = lib.func('DAQmxGetExtendedErrorInfo', 'int32',
 
 function DAQmxFailed(status) {
     if (status < 0) {
-        // 		DAQmxGetExtendedErrorInfo(errBuff,2048);
         const size = DAQmxGetExtendedErrorInfo(NULL, 0)
         const errBuf = Buffer.alloc(size)
-        // console.log(size)
         DAQmxGetExtendedErrorInfo(errBuf, errBuf.length)
-        // console.log(errBuf.subarray(0,size).toString())
         console.log(errBuf.toString())
         throw new Error(`DAQmxFailed status: ${status}`)
     }
@@ -159,19 +155,8 @@ const DAQmxReadAnalogF64 = lib.func('DAQmxReadAnalogF64', 'int32', [
 ])
 
 export function readAnalogF64(taskHandle, fillMode, readArray) {
-    // Acq-IntClk-AnlgStart
-    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,-1,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
-    // Acq-IntClk-DigRef
-    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
-    // Acq-IntClk
-    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByChannel,data,1000,&read,NULL));
-    // ContAcq-IntClk-AnlgStart
-    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByScanNumber,data,1000,&read,NULL));
-    // ContAcq-IntClk
-    // 	DAQmxErrChk (DAQmxReadAnalogF64(taskHandle,1000,10.0,DAQmx_Val_GroupByScanNumber,data,1000,&read,NULL));
     const sampsPerChanRead = [null]
     const timeout = 10.0
-
     const status = DAQmxReadAnalogF64(
         taskHandle,
         readArray.length,
@@ -224,7 +209,6 @@ const DAQmxCreateCOPulseChanTime = lib.func('DAQmxCreateCOPulseChanTime', 'int32
 ])
 
 export function createCOPulseChanTime(taskHandle, counter) {
-    // 	DAQmxErrChk (DAQmxCreateCOPulseChanTime(taskHandle,"Dev1/ctr0","",DAQmx_Val_Seconds,DAQmx_Val_Low,1.00,0.50,1.00));
     const initialDelay = 1.00
     const lowTime = 0.50
     const highTime = 1.00
@@ -270,12 +254,9 @@ const DAQmxCreateCOPulseChanFreq = lib.func('DAQmxCreateCOPulseChanFreq', 'int32
 ])
 
 export function createCOPulseChanFreq(taskHandle, counter) {
-    // 	DAQmxErrChk (DAQmxCreateCOPulseChanFreq(taskHandle,"Dev1/ctr0","",DAQmx_Val_Hz,DAQmx_Val_Low,0.0,1.00,0.50));
     const initialDelay = 0.0
     const freq = 1.00
-    // const dutyCycle = 0.50
     const dutyCycle = 0.05
-
     const status = DAQmxCreateCOPulseChanFreq(
         taskHandle,
         counter,
@@ -298,7 +279,6 @@ const DAQmxCfgImplicitTiming = lib.func('DAQmxCfgImplicitTiming', 'int32', [
 ])
 
 export function cfgImplicitTiming(taskHandle, sampsPerChanToAcquire) {
-    // 	DAQmxErrChk (DAQmxCfgImplicitTiming(taskHandle,DAQmx_Val_ContSamps,1000));
     const status = DAQmxCfgImplicitTiming(
         taskHandle,
         DAQmx_Val_ContSamps,
@@ -319,7 +299,6 @@ const DAQmxRegisterDoneEvent = lib.func('DAQmxRegisterDoneEvent', 'int32', [
 export function registerDoneEvent(taskHandle, callbackFunction) {
     const options = 0
     const cb = koffi.register(callbackFunction, DAQmxDoneEventCallbackPtr)
-    // 	DAQmxErrChk (DAQmxRegisterDoneEvent(taskHandle,0,DoneCallback,NULL));
     const status = DAQmxRegisterDoneEvent(
         taskHandle,
         options,
@@ -358,7 +337,6 @@ const DAQmxRegisterEveryNSamplesEvent = lib.func('DAQmxRegisterEveryNSamplesEven
 ])
 
 export function registerEveryNSamplesEvent(taskHandle, nSamples, callbackFunction) {
-    // 	DAQmxErrChk (DAQmxRegisterEveryNSamplesEvent(taskHandle,DAQmx_Val_Acquired_Into_Buffer,1000,0,EveryNCallback,NULL));
     const options = 0
     const cb = koffi.register(callbackFunction, DAQmxEveryNSamplesEventCallbackPtr)
     const status = DAQmxRegisterEveryNSamplesEvent(
@@ -382,8 +360,6 @@ const DAQmxCfgDigEdgeRefTrig = lib.func('DAQmxCfgDigEdgeRefTrig', 'int32', [
 ])
 
 export function cfgDigEdgeRefTrig(taskHandle, triggerSource, pretriggerSamples) {
-    // 	DAQmxErrChk (DAQmxCfgDigEdgeRefTrig(taskHandle,"/Dev1/PFI0",DAQmx_Val_Rising,100));
-
     const status = DAQmxCfgDigEdgeRefTrig(
         taskHandle,
         triggerSource,
@@ -402,8 +378,6 @@ const DAQmxCfgDigEdgeStartTrig = lib.func('DAQmxCfgDigEdgeStartTrig', 'int32', [
 ])
 
 export function cfgDigEdgeStartTrig(taskHandle, triggerSource) {
-    // 	DAQmxErrChk (DAQmxCfgDigEdgeStartTrig(taskHandle,"/Dev1/PFI0",DAQmx_Val_Rising));
-
     const status = DAQmxCfgDigEdgeStartTrig(
         taskHandle,
         triggerSource,
@@ -420,8 +394,6 @@ const DAQmxSetStartTrigRetriggerable = lib.func('DAQmxSetStartTrigRetriggerable'
 ])
 
 export function setStartTrigRetriggerable(taskHandle, data) {
-    // 	DAQmxErrChk (DAQmxSetStartTrigRetriggerable(taskHandle,1));
-
     const status = DAQmxSetStartTrigRetriggerable(
         taskHandle,
         data
@@ -439,7 +411,6 @@ const DAQmxCfgAnlgEdgeStartTrig = lib.func('DAQmxCfgAnlgEdgeStartTrig', 'int32',
 ])
 
 export function cfgAnlgEdgeStartTrig(taskHandle, triggerSource) {
-    // DAQmxErrChk (DAQmxCfgAnlgEdgeStartTrig(taskHandle,"APFI0",DAQmx_Val_Rising,1.0));
     const triggerLevel = 1.0
 
     const status = DAQmxCfgAnlgEdgeStartTrig(
