@@ -18,7 +18,7 @@ export default class {
         this._vi = open(this._driverSession, 'USB0::0x0D4A::0x000E::9139964::INSTR')
         this._callback = register((vi, etype, event, userHandle) => {
             console.log(`called vi: ${vi}, etype: ${etype}, event: ${event}, userHandle:${userHandle}`)
-            RdCount = getAttribute(event, VI_ATTR_RET_COUNT)
+            const RdCount = getAttribute(event, VI_ATTR_RET_COUNT)
             console.log(`RdCount: ${RdCount}`)
             const data = this._buffer.subarray(0, RdCount).toString()
             console.log(`Here is the data: ${this._message} is ${data}`)
