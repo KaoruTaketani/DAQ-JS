@@ -21,13 +21,18 @@ export default class extends Operator {
         })
         this._operation = () => {
             // variables.workers.assign(new Array(2).fill(new Worker('./worker.js')))
-            variables.workers.assign([new Worker('./worker.js'), new Worker('./worker.js')])
+            // variables.workers.assign([new Worker('./worker.js'), new Worker('./worker.js')])
+            variables.workers.assign(new Array(2).fill(null).map(_ => new Worker('./worker.js')))
             // this._ports = new Map()
             // variables.ports.assign(new Array(2).fill(new Map()))
-            variables.ports.assign([new Map(), new Map()])
+            // variables.ports.assign([new Map(), new Map()])
+            variables.ports.assign(new Array(2).fill(null).map(_ => new Map()))
 
-            this._workers[0].postMessage(Object.fromEntries(this._ports[0]), Array.from(this._ports[0].values()))
-            this._workers[1].postMessage(Object.fromEntries(this._ports[1]), Array.from(this._ports[1].values()))
+            // this._workers[0].postMessage(Object.fromEntries(this._ports[0]), Array.from(this._ports[0].values()))
+            // this._workers[1].postMessage(Object.fromEntries(this._ports[1]), Array.from(this._ports[1].values()))
+            this._workers.forEach((worker, index) => {
+                worker.postMessage(Object.fromEntries(this._ports[index]), Array.from(this._ports[index].values()))
+            })
             // following code throws an error
             // this._worker.postMessage(Object.fromEntries(this._ports))
         }
