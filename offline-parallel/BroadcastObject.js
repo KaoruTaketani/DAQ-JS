@@ -10,18 +10,22 @@ export default class extends ListenableObject {
     /**
      * 
      * @param {string} key 
-     * @param {import('./ListenableObject').default<Map<string,import('worker_threads').MessagePort>>} ports 
+     * @param {import('./ListenableObject').default<Map<string,import('worker_threads').MessagePort>[]>} ports 
      */
     constructor(key, ports) {
         super()
         this._key = key
-        this._channel = new MessageChannel()
-        this._port = this._channel.port2
-        this._port.on('message', (/** @type import('../lib/index.js').Histogram */message) => {
-            console.log(`tofHistogram recieved ${sum(message.binCounts)}`)
+        // this._channels = new Array(2).fill(new MessageChannel())
+        this._channels = [new MessageChannel(), new MessageChannel()]
+        this._channels[0].port2.on('message', (/** @type import('../lib/index.js').Histogram */message) => {
+            console.log(`${this._key} 0 recieved ${sum(message.binCounts)}`)
+        })
+        this._channels[1].port2.on('message', (/** @type import('../lib/index.js').Histogram */message) => {
+            console.log(`${this._key} 1 recieved ${sum(message.binCounts)}`)
         })
         ports.addListener(arg => {
-            arg.set(this._key, this._channel.port1)
+            arg[0].set(this._key, this._channels[0].port1)
+            arg[1].set(this._key, this._channels[1].port1)
         })
     }
     /**
@@ -30,7 +34,8 @@ export default class extends ListenableObject {
      */
     assign(arg) {
         super.assign(arg)
-        this._port.postMessage(arg)
+        this._channels[0].port2.postMessage(arg)
+        this._channels[1].port2.postMessage(arg)
     }
 }
 
