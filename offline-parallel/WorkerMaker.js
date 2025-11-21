@@ -1,6 +1,5 @@
+import { Worker } from 'worker_threads'
 import Operator from './Operator.js'
-import sum from '../lib/sum.js'
-import { MessageChannel, Worker } from 'worker_threads'
 
 export default class extends Operator {
     /**
@@ -8,6 +7,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {import('worker_threads').Worker[]} */
+        this._workers
+        variables.workers.prependListener(arg => { this._workers = arg })
         /** @type {Map<string,import('worker_threads').MessagePort>} */
         this._ports
         variables.ports.prependListener(arg => { this._ports = arg })
@@ -18,13 +20,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            this._worker = new Worker('./worker.js', {
-            })
-            variables.worker.assign(this._worker)
+            variables.workers.assign(new Array(1).fill(new Worker('./worker.js')))
             // this._ports = new Map()
             variables.ports.assign(new Map())
 
-            this._worker.postMessage(Object.fromEntries(this._ports), Array.from(this._ports.values()))
+            this._workers[0].postMessage(Object.fromEntries(this._ports), Array.from(this._ports.values()))
             // following code throws an error
             // this._worker.postMessage(Object.fromEntries(this._ports))
         }

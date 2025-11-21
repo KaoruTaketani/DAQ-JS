@@ -12,8 +12,8 @@ import WritableNumberArray from './WritableNumberArray.js'
 
 export default class {
     constructor() {
-        /** @type {import('./ListenableObject.js').default<import('worker_threads').Worker>} */
-        this.worker = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('worker_threads').Worker[]>} */
+        this.workers = new ListenableObject()
 
         /** @type {import('./ListenableObject.js').default<Buffer>} */
         this.eventBuffer = new ListenableObject()

@@ -7,9 +7,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('worker_threads').Worker} */
-        this._worker
-        variables.worker.prependListener(arg => { this._worker = arg })
+        /** @type {import('worker_threads').Worker[]} */
+        this._workers
+        variables.workers.prependListener(arg => { this._workers = arg })
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFilePaths.prependListener(arg => { this._jsonFilePaths = arg })
@@ -28,11 +28,11 @@ export default class extends Operator {
             createReadStream(this._edrFilePath, { highWaterMark: 32 * 1024 * 1024 })
                 .on('data', chunk => {
                     variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
-                    this._worker.postMessage(chunk)
+                    this._workers[0].postMessage(chunk)
                     processedSize += chunk.length
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
-                    this._worker.postMessage(Buffer.alloc(0))
+                    this._workers[0].postMessage(Buffer.alloc(0))
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
                     // this._worker.terminate()
                 })
