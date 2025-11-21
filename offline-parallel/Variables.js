@@ -1,3 +1,4 @@
+import BroadcastObject from './BroadcastObject.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
@@ -13,10 +14,6 @@ export default class {
     constructor() {
         /** @type {import('./ListenableObject.js').default<import('worker_threads').Worker>} */
         this.worker = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('worker_threads').MessagePort>} */
-        this.tofHistogramPort = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('worker_threads').MessagePort>} */
-        this.rawImagePort = new ListenableObject()
 
         /** @type {import('./ListenableObject.js').default<Buffer>} */
         this.eventBuffer = new ListenableObject()
@@ -38,6 +35,11 @@ export default class {
         this.jsonFilePaths = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
+
+        this.ports = new ListenableObject()
+
+        this.tofHistogramWorker = new BroadcastObject('tofHistogramPort', this.ports)
+        this.rawImageWorker = new BroadcastObject('rawImagePort', this.ports)
 
         this.tofHistogram = new WritableHistogram('tofHistogram', this.hdf5File)
         this.pulseHeightHistogram = new WritableHistogram('pulseHeightHistogram', this.hdf5File)
