@@ -20,16 +20,16 @@ export default class extends ListenableObject {
         message.addListener(arg => {
             if (arg[this._key + 'Port'] instanceof MessagePort) {
                 this._port = arg[this._key + 'Port']
-                console.log(`init port ${this._key}`)
+                // console.log(`init port ${this._key}`)
                 this._port.on('message', (/** @type {T}}*/message) => {
-                    console.log(`${this._key} init`)
+                    // console.log(`${this._key} init`)
                     this._value = message
                     super.assign(message)
                 })
             }
             if (arg instanceof Uint8Array
                 && arg.length === 0) {
-                console.log(`gather ${this._key}`)
+                // console.log(`gather ${this._key}`)
                 this._port.postMessage(this._value)
             }
         })

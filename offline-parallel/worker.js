@@ -44,45 +44,15 @@ new TOFHistogramMaker(variables)
 // new TOFDifferenceHistogramMaker(variables)
 // new JSONFileReader(variables)
 
-/** @type {import('../lib/index.js').Histogram} */
-let _rawImage
-variables.rawImage.prependListener(arg => { _rawImage = arg })
-/** @type {import('worker_threads').MessagePort} */
-let _rawImagePort
-variables.rawImagePort.prependListener(arg => { _rawImagePort = arg })
-
 ok(parentPort)
 parentPort.on('message', message => {
     // console.log(`${isTypedArray(message)} ${message instanceof Uint8Array} ${message instanceof Buffer}`)
     variables.message.assign(message)
 
-    // message is Buffer and parse here
-    // if (message instanceof Buffer) {
-    // if(isTypedArray(message)){
     if (message instanceof Uint8Array) {
         console.log(`Buffer.length: ${message.length}`)
         if (message.length > 0) {
             variables.eventBuffer.assign(message)
-        } else {
-            // if Buffer.length is zero, return the results
-            // _tofHistogramPort.postMessage(_tofHistogram)
-            _rawImagePort.postMessage(_rawImage)
         }
-    }
-    // if (message.tofHistogramPort instanceof MessagePort) {
-    // if (message['tofHistogramPort'] instanceof MessagePort) {
-    //     variables.tofHistogramPort.assign(message.tofHistogramPort)
-    //     message.tofHistogramPort.on('message', (/** @type {import('../lib/index.js').Histogram}}*/message) => {
-    //         console.log(`tofHistogram init`)
-    //         variables.tofHistogram.assign(message)
-    //     })
-    // }
-    // if (message.rawImagePort instanceof MessagePort) {
-    if (message['rawImagePort'] instanceof MessagePort) {
-        variables.rawImagePort.assign(message.rawImagePort)
-        message.rawImagePort.on('message', (/** @type {import('../lib/index.js').Histogram2D}}*/message) => {
-            console.log(`rawImage init`)
-            variables.rawImage.assign(message)
-        })
     }
 })

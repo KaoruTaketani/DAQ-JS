@@ -12,9 +12,6 @@ import WritableNumberArray from './WritableNumberArray.js'
 
 export default class {
     constructor() {
-        /** @type {import('./ListenableObject.js').default<import('worker_threads').MessagePort>} */
-        this.rawImagePort = new ListenableObject()
-
         this.message = new ListenableObject()
 
         /** @type {import('./ListenableObject.js').default<Uint8Array>} */
@@ -43,7 +40,7 @@ export default class {
         this.tofDifferenceHistogram = new WritableHistogram('tofDifferenceHistogram', this.hdf5File)
         this.verticalProjection = new WritableHistogram('verticalProjection', this.hdf5File)
 
-        this.rawImage = new WritableHistogram2D('rawImage', this.hdf5File)
+        this.rawImage = new DistributedObject('rawImage', this.message)
         this.filteredImage = new WritableHistogram2D('filteredImage', this.hdf5File)
         this.horizontalProjectionHistograms = new WritableHistogram2D('horizontalProjectionHistograms', this.hdf5File)
 
