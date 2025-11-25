@@ -1,3 +1,4 @@
+import DistributedObject from './DistributedObject.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
@@ -12,10 +13,9 @@ import WritableNumberArray from './WritableNumberArray.js'
 export default class {
     constructor() {
         /** @type {import('./ListenableObject.js').default<import('worker_threads').MessagePort>} */
-        this.tofHistogramPort = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('worker_threads').MessagePort>} */
         this.rawImagePort = new ListenableObject()
 
+        this.message = new ListenableObject()
 
         /** @type {import('./ListenableObject.js').default<Uint8Array>} */
         this.eventBuffer = new ListenableObject()
@@ -38,7 +38,7 @@ export default class {
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
 
-        this.tofHistogram = new WritableHistogram('tofHistogram', this.hdf5File)
+        this.tofHistogram = new DistributedObject('tofHistogram', this.message)
         this.pulseHeightHistogram = new WritableHistogram('pulseHeightHistogram', this.hdf5File)
         this.tofDifferenceHistogram = new WritableHistogram('tofDifferenceHistogram', this.hdf5File)
         this.verticalProjection = new WritableHistogram('verticalProjection', this.hdf5File)

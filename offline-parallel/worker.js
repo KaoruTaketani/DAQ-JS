@@ -45,12 +45,6 @@ new TOFHistogramMaker(variables)
 // new JSONFileReader(variables)
 
 /** @type {import('../lib/index.js').Histogram} */
-let _tofHistogram
-variables.tofHistogram.prependListener(arg => { _tofHistogram = arg })
-/** @type {import('worker_threads').MessagePort} */
-let _tofHistogramPort
-variables.tofHistogramPort.prependListener(arg => { _tofHistogramPort = arg })
-/** @type {import('../lib/index.js').Histogram} */
 let _rawImage
 variables.rawImage.prependListener(arg => { _rawImage = arg })
 /** @type {import('worker_threads').MessagePort} */
@@ -60,6 +54,7 @@ variables.rawImagePort.prependListener(arg => { _rawImagePort = arg })
 ok(parentPort)
 parentPort.on('message', message => {
     // console.log(`${isTypedArray(message)} ${message instanceof Uint8Array} ${message instanceof Buffer}`)
+    variables.message.assign(message)
 
     // message is Buffer and parse here
     // if (message instanceof Buffer) {
@@ -70,18 +65,18 @@ parentPort.on('message', message => {
             variables.eventBuffer.assign(message)
         } else {
             // if Buffer.length is zero, return the results
-            _tofHistogramPort.postMessage(_tofHistogram)
+            // _tofHistogramPort.postMessage(_tofHistogram)
             _rawImagePort.postMessage(_rawImage)
         }
     }
     // if (message.tofHistogramPort instanceof MessagePort) {
-    if (message['tofHistogramPort'] instanceof MessagePort) {
-        variables.tofHistogramPort.assign(message.tofHistogramPort)
-        message.tofHistogramPort.on('message', (/** @type {import('../lib/index.js').Histogram}}*/message) => {
-            console.log(`tofHistogram init`)
-            variables.tofHistogram.assign(message)
-        })
-    }
+    // if (message['tofHistogramPort'] instanceof MessagePort) {
+    //     variables.tofHistogramPort.assign(message.tofHistogramPort)
+    //     message.tofHistogramPort.on('message', (/** @type {import('../lib/index.js').Histogram}}*/message) => {
+    //         console.log(`tofHistogram init`)
+    //         variables.tofHistogram.assign(message)
+    //     })
+    // }
     // if (message.rawImagePort instanceof MessagePort) {
     if (message['rawImagePort'] instanceof MessagePort) {
         variables.rawImagePort.assign(message.rawImagePort)
