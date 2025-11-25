@@ -10,9 +10,6 @@ export default class extends Operator {
         /** @type {import('worker_threads').Worker[]} */
         this._workers
         variables.workers.prependListener(arg => { this._workers = arg })
-        /** @type {Map<string,import('worker_threads').MessagePort>[]} */
-        this._ports
-        variables.ports.prependListener(arg => { this._ports = arg })
         /** @type {import('../lib/index.js').Histogram} */
         this._verticalProjection
         variables.verticalProjection.prependListener(arg => { this._verticalProjection = arg })
@@ -26,13 +23,13 @@ export default class extends Operator {
             // this._ports = new Map()
             // variables.ports.assign(new Array(2).fill(new Map()))
             // variables.ports.assign([new Map(), new Map()])
-            variables.ports.assign(new Array(2).fill(null).map(_ => new Map()))
+            // variables.ports.assign(new Array(2).fill(null).map(_ => new Map()))
 
             // this._workers[0].postMessage(Object.fromEntries(this._ports[0]), Array.from(this._ports[0].values()))
             // this._workers[1].postMessage(Object.fromEntries(this._ports[1]), Array.from(this._ports[1].values()))
-            this._workers.forEach((worker, index) => {
-                worker.postMessage(Object.fromEntries(this._ports[index]), Array.from(this._ports[index].values()))
-            })
+            // this._workers.forEach((worker, index) => {
+            //     worker.postMessage(Object.fromEntries(this._ports[index]), Array.from(this._ports[index].values()))
+            // })
             // following code throws an error
             // this._worker.postMessage(Object.fromEntries(this._ports))
         }

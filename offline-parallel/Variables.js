@@ -36,10 +36,8 @@ export default class {
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
 
-        this.ports = new ListenableObject()
-
-        this.tofHistogramWorker = new BroadcastObject('tofHistogramPort', this.ports)
-        this.rawImageWorker = new BroadcastObject('rawImagePort', this.ports)
+        this.tofHistogramWorker = new BroadcastObject('tofHistogramPort', this.workers)
+        this.rawImageWorker = new BroadcastObject('rawImagePort', this.workers)
 
         this.tofHistogram = new WritableHistogram('tofHistogram', this.hdf5File)
         this.pulseHeightHistogram = new WritableHistogram('pulseHeightHistogram', this.hdf5File)
