@@ -30,15 +30,27 @@ httpServer.on('request', (request, response) => {
             }
         })
     } else if (request.url?.endsWith('.js')) {
-        readFile(`.${request.url}`, 'utf8', (err, data) => {
-            if (err) {
-                response.writeHead(404)
-                response.end()
-            } else {
-                response.writeHead(200, { 'Content-Type': 'text/javascript' })
-                response.end(data)
-            }
-        })
+        if (request.url.startsWith('/lib/')) {
+            readFile(`..${request.url}`, 'utf8', (err, data) => {
+                if (err) {
+                    response.writeHead(404)
+                    response.end()
+                } else {
+                    response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                    response.end(data)
+                }
+            })
+        } else {
+            readFile(`.${request.url}`, 'utf8', (err, data) => {
+                if (err) {
+                    response.writeHead(404)
+                    response.end()
+                } else {
+                    response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                    response.end(data)
+                }
+            })
+        }
     } else if (request.url?.endsWith('.html')) {
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
