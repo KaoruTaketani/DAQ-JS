@@ -1,4 +1,5 @@
-import h5wasm from "https://cdn.jsdelivr.net/npm/h5wasm/dist/esm/hdf5_hl.js";
+import h5wasm from "./node_modules/h5wasm/dist/esm/hdf5_hl.js";
+// import h5wasm from "https://cdn.jsdelivr.net/npm/h5wasm/dist/esm/hdf5_hl.js";
 const { FS } = await h5wasm.ready;
 
 let response = await fetch("https://ncnr.nist.gov/pub/ncnrdata/vsans/202003/24845/data/sans59510.nxs.ngv");
