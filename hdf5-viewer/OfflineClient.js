@@ -1,44 +1,15 @@
-const xhr = new XMLHttpRequest()
-let time = ''
-xhr.open('POST', '/')
-xhr.addEventListener('readystatechange', () => {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-        time = xhr.responseText
-        console.log(xhr.responseText)
-        // fetch('/'+xhr.responseText+'/hdf5FileNamesInnerHTML').then(data=>{
-        // use # failed
-        // fetch(`/hdf5FileNamesInnerHTML?${xhr.responseText}`).then(data=>{
-        fetch(`/${time}?hdf5FileNamesInnerHTML`).then(response => {
-            response.text().then(result => {
-                // console.log(result)
-                listboxElement.innerHTML = result
-            })
-        })
-    }
-})
-xhr.send()
+import h5wasm from "https://cdn.jsdelivr.net/npm/h5wasm/dist/esm/hdf5_hl.js";
+const { FS } = await h5wasm.ready;
 
+let response = await fetch("https://ncnr.nist.gov/pub/ncnrdata/vsans/202003/24845/data/sans59510.nxs.ngv");
+let ab = await response.arrayBuffer();
 
-const listboxElement = document.createElement('select');
-(element => {
-    element.size = 20
-    element.style.position = 'absolute'
-    element.style.whiteSpace = 'pre-wrap'
-    element.style.width = '200px'
-    element.style.height = `${window.innerHeight - 8 * 2}px`
-    element.addEventListener('change', () => {
-        console.log(element.options[element.selectedIndex].innerText)
-        // socket.send(JSON.stringify({ hdf5ReaderFileName: element.options[element.selectedIndex].innerText }))
-        xhr.open('PUT', `/${time}?hdf5FileReaderFileName=${element.options[element.selectedIndex].innerText}`)
-        xhr.send()
-    })
-    window.onscroll = _ => {
-        element.style.top = `${window.scrollY + 8}px`
-    }
-    // attributesListeners.set('hdf5FileNamesInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
-})(document.body.appendChild(listboxElement));
+FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
 
-(element => {
-    element.style.marginLeft = '208px'
-    // attributesListeners.set('divInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
-})(document.body.appendChild(document.createElement('div')));
+// use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
+let f = new h5wasm.File("sans59510.nxs.ngv", "r");
+// File {path: "/", file_id: 72057594037927936n, filename: "data.h5", mode: "r"}
+console.log(f)
+console.log(f.keys())
+console.log(f.get("entry/instrument").keys())
+console.log(f.attrs)
