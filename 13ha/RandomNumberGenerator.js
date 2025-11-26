@@ -17,7 +17,7 @@ export default class extends Operator {
             if (this._randomNumberGeneratorIsBusy) {
                 this._interval = setInterval(() => {
                     const r = randn(1, 2)[0]
-                    variables.randomNumber.assign([r[0] * 5 + 32, r[1] * 5 + 16])
+                    variables.randomNumber.assign([r[0] * 2 + 8, r[1] * 2 + 4])
                 }, 5)
             } else {
                 clearInterval(this._interval)

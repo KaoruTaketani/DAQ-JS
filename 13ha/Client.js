@@ -12,7 +12,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorIsBusy=true')
+        xhr.open('PUT', '/?randomNumberGeneratorIsBusy=true')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -28,7 +28,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorIsBusy=false')
+        xhr.open('PUT', '/?randomNumberGeneratorIsBusy=false')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
@@ -45,6 +45,7 @@ socket.onclose = () => {
     imageElement.onload = () => {
         const ctx = element.getContext("2d")
         if (!ctx) return
+        ctx.imageSmoothingEnabled = false
         ctx.drawImage(imageElement, 0, 0, 256, 256)
     }
     url.pathname = 'histogramImageSrc'

@@ -15,10 +15,10 @@ export default class extends Operator {
             if (!this._randomNumberGeneratorIsBusy) return
 
             variables.histogram.assign({
-                xBinLimits: [0, 64],
-                yBinLimits: [0, 64],
-                numBins: [64, 64],
-                binCounts: new Array(64 * 64).fill(0)
+                xBinLimits: [0, 16],
+                yBinLimits: [0, 16],
+                numBins: [16, 16],
+                binCounts: new Array(16 * 16).fill(0)
             })
         }
     }
