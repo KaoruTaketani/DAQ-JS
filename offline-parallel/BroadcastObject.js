@@ -22,7 +22,7 @@ export default class {
                     console.log(`${this._key} ${index} recieved ${sum(message.binCounts)}`)
                     this._values[index] = message
                     if (this._values.filter(value => value === null).length == 0) {
-                        console.log(`all gathered`)
+                        console.log(`${this._key} gathered`)
                     }
                 })
             })
