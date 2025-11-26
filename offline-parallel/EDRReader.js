@@ -1,5 +1,6 @@
 import { createReadStream, statSync } from 'fs'
 import Operator from './Operator.js'
+import partition from '../lib/partition.js'
 
 export default class extends Operator {
     /**
@@ -30,7 +31,11 @@ export default class extends Operator {
                     variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
                     // this._workers[0].postMessage(chunk)
                     // this._workers[1].postMessage(chunk)
-                    this._workers.forEach(worker => { worker.postMessage(chunk) })
+                    // this._workers.forEach(worker => { worker.postMessage(chunk) })
+                    this._workers.forEach((worker, index) => {
+                        const [start, end] = partition(chunk.length / 8, this._workers.length, index)
+                        worker.postMessage(chunk.slice(8 * start, 8 * end))
+                    })
                     processedSize += chunk.length
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
