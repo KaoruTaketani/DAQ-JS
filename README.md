@@ -104,7 +104,7 @@
 
 [13.h.a Image](./13ha/README.md)
 
-[13.h.b repelem](./13hb/README.md)
+[13.h.b Cursor Value](./13hb/README.md)
 
 [13.h.c Axis](./13hc/README.md)
 
