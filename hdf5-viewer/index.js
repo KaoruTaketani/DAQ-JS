@@ -19,6 +19,16 @@ httpServer.on('request', (request, response) => {
             '</body>',
             '</html>'
         ].join('\n'))
+    } else if (request.url?.endsWith('.h5')) {
+        readFile(`../../hdf5/debug${request.url}`, (err, data) => {
+            if (err) {
+                response.writeHead(404)
+                response.end()
+            } else {
+                response.writeHead(200, { 'Content-Type': 'application/octet-stream' })
+                response.end(data)
+            }
+        })
     } else if (request.url?.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
             if (err) {
