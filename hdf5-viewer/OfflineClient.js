@@ -53,23 +53,22 @@ console.log(f.attrs);
                 // imagedata(h)
                 const lims = bounds(h.binCounts)
                 console.log(lims)
-                const arr = new Uint8ClampedArray(4 * dataset.shape[0] * dataset.shape[1])
+                const imagedata = new ImageData(dataset.shape[0], dataset.shape[1]);
 
                 for (var y = 0; y < dataset.shape[0]; y++) {
                     for (var x = 0; x < dataset.shape[1]; x++) {
                         const c = h.binCounts[sub2ind(h.numBins, y, x)],
                             rgb = Math.floor(255 * rescale(c, lims))
-                        arr[(y * dataset.shape[0] + x) * 4 + 0] = rgb;  // R
-                        arr[(y * dataset.shape[0] + x) * 4 + 1] = rgb;  // G
-                        arr[(y * dataset.shape[0] + x) * 4 + 2] = rgb;  // B
-                        arr[(y * dataset.shape[0] + x) * 4 + 3] = 255;  // Alpha
+                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 0] = rgb;  // R
+                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 1] = rgb;  // G
+                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 2] = rgb;  // B
+                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 3] = 255;  // Alpha
                     }
                 }
-                const imagedata = new ImageData(arr, dataset.shape[0], dataset.shape[1]);
 
                 // var tmp = document.createElement('canvas');
                 var ctxInvisible = invisibleCanvasElement.getContext('2d');
-                if(!ctxInvisible)return
+                if (!ctxInvisible) return
                 // console.log('new')
                 invisibleCanvasElement.width = imagedata.width;
                 invisibleCanvasElement.height = imagedata.height;
@@ -77,7 +76,8 @@ console.log(f.attrs);
 
                 var image = new Image();
                 image.src = invisibleCanvasElement.toDataURL();
-                ctx.drawImage(image,0,0,canvasElement.width,canvasElement.height)
+                ctx.imageSmoothingEnabled = false
+                ctx.drawImage(image, 0, 0, canvasElement.width, canvasElement.height)
                 // f.close()
             })
         })
