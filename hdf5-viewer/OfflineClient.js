@@ -48,8 +48,8 @@ console.log(f.attrs);
                     binCounts: dataset.value,
                     numBins: dataset.shape
                 }
-                const ct = canvasElement.getContext('2d')
-                if (!ct) return
+                const ctx = canvasElement.getContext('2d')
+                if (!ctx) return
                 // imagedata(h)
                 const lims = bounds(h.binCounts)
                 console.log(lims)
@@ -65,15 +65,19 @@ console.log(f.attrs);
                         arr[(y * dataset.shape[0] + x) * 4 + 3] = 255;  // Alpha
                     }
                 }
-                const img = new ImageData(arr, dataset.shape[0], dataset.shape[1]);
-                const renderer = document.createElement('canvas');
-                renderer.width = img.width;
-                renderer.height = img.height;
+                const imagedata = new ImageData(arr, dataset.shape[0], dataset.shape[1]);
 
-                const tmp = renderer.getContext('2d')
-                if (!tmp) return
-                tmp.putImageData(img, 0, 0);
-                ct.drawImage(renderer, 0, 0);
+                // var tmp = document.createElement('canvas');
+                var ctxInvisible = invisibleCanvasElement.getContext('2d');
+                if(!ctxInvisible)return
+                // console.log('new')
+                invisibleCanvasElement.width = imagedata.width;
+                invisibleCanvasElement.height = imagedata.height;
+                ctxInvisible.putImageData(imagedata, 0, 0);
+
+                var image = new Image();
+                image.src = invisibleCanvasElement.toDataURL();
+                ctx.drawImage(image,0,0,canvasElement.width,canvasElement.height)
                 // f.close()
             })
         })
@@ -95,3 +99,4 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.width = 512
     element.height = 512
 })(canvasElement);
+const invisibleCanvasElement = document.body.appendChild(document.createElement('canvas'));
