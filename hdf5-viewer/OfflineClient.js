@@ -1,8 +1,6 @@
 import h5wasm from "./node_modules/h5wasm/dist/esm/hdf5_hl.js";
 // import h5wasm from "https://cdn.jsdelivr.net/npm/h5wasm/dist/esm/hdf5_hl.js";
-import bounds from "../lib/bounds.js";
-import sub2ind from "../lib/sub2ind.js"
-import rescale from "../lib/rescale.js"
+import imagesc from "../lib/imagesc.js";
 const { FS } = await h5wasm.ready;
 
 let response = await fetch("./sans59510.nxs.ngv.h5");
@@ -51,18 +49,16 @@ console.log(f.attrs);
                 const ctx = canvasElement.getContext('2d')
                 if (!ctx) return
                 // imagedata(h)
-                const lims = bounds(h.binCounts)
-                console.log(lims)
+                const im = imagesc(h)
                 const imagedata = new ImageData(dataset.shape[0], dataset.shape[1]);
 
-                for (var y = 0; y < dataset.shape[0]; y++) {
-                    for (var x = 0; x < dataset.shape[1]; x++) {
-                        const c = h.binCounts[sub2ind(h.numBins, y, x)],
-                            rgb = Math.floor(255 * rescale(c, lims))
-                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 0] = rgb;  // R
-                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 1] = rgb;  // G
-                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 2] = rgb;  // B
-                        imagedata.data[(y * dataset.shape[0] + x) * 4 + 3] = 255;  // Alpha
+                for (var y = 0; y < im.height; y++) {
+                    for (var x = 0; x < im.width; x++) {
+                        const rgb = im.data[y * (im.width + 1) + x + 1] // x=0 corresponds null data for png
+                        imagedata.data[(y * im.width + x) * 4 + 0] = rgb;  // R
+                        imagedata.data[(y * im.width + x) * 4 + 1] = rgb;  // G
+                        imagedata.data[(y * im.width + x) * 4 + 2] = rgb;  // B
+                        imagedata.data[(y * im.width + x) * 4 + 3] = 255;  // Alpha
                     }
                 }
 
