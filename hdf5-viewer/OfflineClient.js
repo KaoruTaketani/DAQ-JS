@@ -10,6 +10,11 @@ let ab = await response.arrayBuffer();
 
 FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
 
+let items = await fetch("/readdir?path=/");
+items.text().then(data => { console.log(data) })
+let subitems = await fetch("/readdir?path=/debug/");
+subitems.text().then(data => { console.log(data) })
+
 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
 let f = new h5wasm.File("sans59510.nxs.ngv", "r");
 // File {path: "/", file_id: 72057594037927936n, filename: "data.h5", mode: "r"}
