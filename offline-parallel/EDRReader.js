@@ -28,7 +28,7 @@ export default class extends Operator {
             let processedSize = 0
             createReadStream(this._edrFilePath, { highWaterMark: 32 * 1024 * 1024 })
                 .on('data', chunk => {
-                    variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
+                    // variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
                     // this._workers[0].postMessage(chunk)
                     // this._workers[1].postMessage(chunk)
                     // this._workers.forEach(worker => { worker.postMessage(chunk) })

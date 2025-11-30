@@ -50,7 +50,7 @@ parentPort.on('message', message => {
     variables.message.assign(message)
 
     if (message instanceof Uint8Array) {
-        console.log(`Buffer.length: ${message.length}`)
+        // console.log(`Buffer.length: ${message.length}`)
         if (message.length > 0) {
             variables.eventBuffer.assign(message)
         }
