@@ -11,7 +11,10 @@ export default class {
      * @param {import('./ListenableObject').default<import('worker_threads').Worker[]>} workers
      */
     constructor(key, workers) {
+        /** @type {string} */
         this._key = key
+        /** @type {number} */
+        this._startTime
         this._values
         this._channels
         workers.addListener(arg => {
@@ -22,7 +25,7 @@ export default class {
                     console.log(`${this._key} ${index} recieved ${sum(message.binCounts)}`)
                     this._values[index] = message
                     if (this._values.filter(value => value === null).length == 0) {
-                        console.log(`${this._key} gathered`)
+                        console.log(`${this._key} gathered. ${Date.now()-this._startTime} msec`)
                     }
                 })
             })
@@ -39,6 +42,7 @@ export default class {
      */
     broadcast(arg) {
         this._channels.forEach(channel => { channel.port2.postMessage(arg) })
+        this._startTime = Date.now()
     }
 }
 

@@ -19,7 +19,7 @@ export default class extends Operator {
         this._operation = () => {
             // variables.workers.assign(new Array(2).fill(new Worker('./worker.js')))
             // variables.workers.assign([new Worker('./worker.js'), new Worker('./worker.js')])
-            variables.workers.assign(new Array(2).fill(null).map(_ => new Worker('./worker.js')))
+            variables.workers.assign(new Array(8).fill(null).map(_ => new Worker('./worker.js')))
             // this._ports = new Map()
             // variables.ports.assign(new Array(2).fill(new Map()))
             // variables.ports.assign([new Map(), new Map()])
