@@ -47,15 +47,7 @@ console.log(f.attrs);
                     binCounts: dataset.value,
                     numBins: dataset.shape
                 }
-                const ctx = canvasElement.getContext('2d')
-                if (!ctx) return
-                // imagedata(h)
-                const im = imagesc(h)
-
-                var image = new Image();
-                image.src = im2src(im,invisibleCanvasElement);
-                ctx.imageSmoothingEnabled = false
-                ctx.drawImage(image, 0, 0, canvasElement.width, canvasElement.height)
+                imageElement.src = im2src(imagesc(h), invisibleCanvasElement)
                 // f.close()
             })
         })
@@ -67,6 +59,15 @@ console.log(f.attrs);
     // attributesListeners.set('hdf5FileNamesInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
+const invisibleCanvasElement = document.createElement('canvas')
+const imageElement = document.createElement('img')
+imageElement.addEventListener('load', () => {
+    const ctx = canvasElement.getContext('2d')
+    if (!ctx) throw new Error()
+
+    ctx.imageSmoothingEnabled = false
+    ctx.drawImage(imageElement, 0, 0, canvasElement.width, canvasElement.height)
+})
 const divElement = document.body.appendChild(document.createElement('div'));
 (element => {
     element.style.marginLeft = '208px'
@@ -77,4 +78,4 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.width = 512
     element.height = 512
 })(canvasElement);
-const invisibleCanvasElement = document.body.appendChild(document.createElement('canvas'));
+
