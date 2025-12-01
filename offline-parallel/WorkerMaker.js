@@ -1,5 +1,5 @@
 import { Worker } from 'worker_threads'
-import {availableParallelism} from 'os'
+import { availableParallelism } from 'os'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -18,10 +18,23 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            const workers = new Array(availableParallelism()).fill(null)
+            workers.forEach((_, index) => {
+                const worker = new Worker('./worker.js')
+                worker.on('online', () => {
+                    workers[index] = worker
+                    // console.log(`worker${index} online`)
+                    if (workers.filter(worker => worker === null).length === 0) {
+
+                        console.log(`all workers online. numWorkers: ${availableParallelism()}`)
+                        variables.workers.assign(workers)
+                        variables.jsonFilePaths.assign(['./2a.json'])
+                    }
+                })
+            })
             // variables.workers.assign(new Array(2).fill(new Worker('./worker.js')))
             // variables.workers.assign([new Worker('./worker.js'), new Worker('./worker.js')])
-            console.log(`numWorkers: ${availableParallelism()}`)
-            variables.workers.assign(new Array(availableParallelism()).fill(null).map(_ => new Worker('./worker.js')))
+
             // this._ports = new Map()
             // variables.ports.assign(new Array(2).fill(new Map()))
             // variables.ports.assign([new Map(), new Map()])

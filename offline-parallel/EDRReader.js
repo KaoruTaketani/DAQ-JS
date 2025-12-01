@@ -26,7 +26,7 @@ export default class extends Operator {
             const totalSize = statSync(this._edrFilePath).size,
                 startTime = Date.now()
             let processedSize = 0
-            createReadStream(this._edrFilePath, { highWaterMark: 32 * 1024 * 1024 })
+            createReadStream(this._edrFilePath, { highWaterMark: 128 * 1024 * 1024 })
                 .on('data', chunk => {
                     // variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
                     // this._workers[0].postMessage(chunk)

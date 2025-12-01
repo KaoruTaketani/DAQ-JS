@@ -35,10 +35,10 @@ export default class extends Operator {
             // unit must be nanoseconds as used in maker
             // dt = this._tofMaxInMilliseconds * 1_000_000 / numBins
 
-            variables.tofHistogram.assign({
-                binCounts: new Array(numBins).fill(0),
-                binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
-            })
+            // variables.tofHistogram.assign({
+            //     binCounts: new Array(numBins).fill(0),
+            //     binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
+            // })
             variables.tofHistogramWorker.broadcast({
                 binCounts: new Array(numBins).fill(0),
                 binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]

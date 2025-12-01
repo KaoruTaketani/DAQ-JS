@@ -46,6 +46,6 @@ new JSONFileReader(variables)
 new WorkerMaker(variables)
 
 variables.hdf5Path.assign('../../hdf5/mieze')
-variables.jsonFilePaths.assign(['./2a.json'])
+// variables.jsonFilePaths.assign(['./2a.json'])
 
 

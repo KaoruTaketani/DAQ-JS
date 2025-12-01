@@ -41,6 +41,7 @@ export default class {
      * @param {T} arg 
      */
     broadcast(arg) {
+        console.log(`bradcast ${this._key}`)
         this._channels.forEach(channel => { channel.port2.postMessage(arg) })
         this._startTime = Date.now()
     }
