@@ -45,14 +45,19 @@ console.log(f.attrs);
                     return `${key}: ${f.attrs[key].value}`
                 }).join('\n')
 
-                const dataset = f.get('/rawImage')
-                const h = {
-                    xBinLimits: [0, dataset.shape[0]],
-                    yBinLimits: [0, dataset.shape[1]],
-                    binCounts: dataset.value,
-                    numBins: dataset.shape
+                console.log(filename)
+                if (filename === '1.h5') {
+                    imageElement.src = ''
+                } else {
+                    const dataset = f.get('/rawImage')
+                    const h = {
+                        xBinLimits: [0, dataset.shape[0]],
+                        yBinLimits: [0, dataset.shape[1]],
+                        binCounts: dataset.value,
+                        numBins: dataset.shape
+                    }
+                    imageElement.src = im2src(imagesc(h), invisibleCanvasElement)
                 }
-                imageElement.src = im2src(imagesc(h), invisibleCanvasElement)
                 // f.close()
             })
         })
@@ -66,6 +71,13 @@ console.log(f.attrs);
 
 const invisibleCanvasElement = document.createElement('canvas')
 const imageElement = document.createElement('img')
+imageElement.addEventListener('error', () => {
+    console.log('image error')
+    const ctx = canvasElement.getContext('2d')
+    if (!ctx) throw new Error()
+
+    ctx.clearRect(0, 0, canvasElement.width, canvasElement.height)
+})
 imageElement.addEventListener('load', () => {
     const ctx = canvasElement.getContext('2d')
     if (!ctx) throw new Error()
