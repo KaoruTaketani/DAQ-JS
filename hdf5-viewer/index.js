@@ -10,7 +10,7 @@ httpServer.on('request', (request, response) => {
     if (!request.url) throw new Error()
     console.log(`GET url: ${request.url}`)
     const url = new URL(`http://localhost${request.url}`)
-    console.log(url)
+    // console.log(url)
     if (url.pathname === '/readdir') {
         const path = url.searchParams.get('path')
         if (!path) return
