@@ -3,6 +3,7 @@ import lsqcurvefit from '../lib/lsqcurvefit.js'
 import Operator from './Operator.js'
 import sum from '../lib/sum.js'
 import max from '../lib/max.js'
+import gauss1 from '../lib/gauss1.js'
 
 export default class extends Operator {
     /**
@@ -35,7 +36,8 @@ export default class extends Operator {
                 // if (i === 0) {
                 const //_mean = sum(s.map((s, i) => s * i)) / sum(s),
                     // _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1)),
-                    r = lsqcurvefit('gauss', [max(s), _mean, _std], colon(1, s.length), s)
+                    // r = lsqcurvefit('gauss', [max(s), _mean, _std], colon(1, s.length), s)
+                    r = lsqcurvefit(gauss1, [max(s), _mean, _std], colon(1, s.length), s)
                 // console.log(`fit i: ${i}, max: ${max(s)}, mean: ${_mean}, std: ${_std}, s.length: ${s.length}`)
                 // console.log(`fit i: ${i}, r: ${r}`)
                 heights[i] = r[0]
