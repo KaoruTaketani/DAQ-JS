@@ -57,7 +57,7 @@ export default class extends Operator {
 
             variables.tofImage.assign({
                 numBins: size,
-                binCounts: new Array(length).fill(0),
+                binCounts: new Uint16Array(length),
                 xBinLimits: [0, this._roiWidthInPixels],
                 yBinLimits: [0, this._roiHeightInPixels],
                 zBinLimits: [0, this._tofMaxInMilliseconds * 1_000_000]

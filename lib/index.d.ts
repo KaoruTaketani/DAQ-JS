@@ -60,7 +60,7 @@ export interface Histogram2D {
 }
 
 export interface Histogram3D {
-    binCounts: number[]
+    binCounts: Uint16Array
     numBins: number[]
     xBinLimits: number[]
     yBinLimits: number[]

@@ -25,6 +25,8 @@ import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializ
 import TOFDifferenceHistogramMaker from "./TOFDifferenceHistogramMaker.js"
 import TOFHistogramInitializer from "./TOFHistogramInitializer.js"
 import TOFHistogramMaker from "./TOFHistogramMaker.js"
+import TOFImageInitializer from "./TOFImageInitializer.js"
+import TOFImageMaker from "./TOFImageMaker.js"
 import TOFMaker from "./TOFMaker.js"
 import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
@@ -50,8 +52,8 @@ new TOFHistogramMaker(variables)
 new ContrastMaker(variables)
 new PhaseMaker(variables)
 new NeutronRateMaker(variables)
-// new TOFImageInitializer(variables)
-// new TOFImageMaker(variables)
+new TOFImageInitializer(variables)
+new TOFImageMaker(variables)
 // new HorizontalProjectionHistogramsInitializer(variables)
 // new HorizontalProjectionHistogramsMaker(variables)
 // new FitFinder(variables)
