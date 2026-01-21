@@ -26,7 +26,7 @@ export default class extends Operator {
             this._horizontalProjectionHistograms.binCounts[sub2ind(
                 this._horizontalProjectionHistograms.numBins,
                 Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidth),
-                this._filteredNeutronEvent.xPositionInPixels - this._roiXInPixels
+                this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels
             )]++
         }
     }

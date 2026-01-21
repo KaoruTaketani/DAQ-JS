@@ -37,8 +37,8 @@ export default class extends Operator {
 
             variables.neutronEvent.assign({
                 tofInNanoseconds: tof,
-                xPositionInPixels: this._pairedEvent.xPositionInPixels,
-                yPositionInPixels: this._pairedEvent.yPositionInPixels,
+                xCoordinateInPixels: this._pairedEvent.xCoordinateInPixels,
+                yCoordinateInPixels: this._pairedEvent.yCoordinateInPixels,
                 // channelEvent.pulse is 12bit, pairedEvent.pulse is sum of them.
                 // to match the pulseHieghtHistogram's 10bit bints, divide here 2^4=16
                 pulseheight: (this._pairedEvent.xPulseHeight + this._pairedEvent.yPulseHeight) / 16

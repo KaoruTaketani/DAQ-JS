@@ -39,18 +39,20 @@ export default class extends Operator {
                         variables.channel0Count.assign(this._channel0Count + 1)
 
                         variables.channel0Event.assign({
+                            channel: 0,
                             tofInNanoseconds: tof,
                             pulseHeight: left + right,
-                            positionInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
+                            coordinateInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
                         })
                     }
                     if (channel === 1) {
                         variables.channel1Count.assign(this._channel1Count + 1)
 
                         variables.channel1Event.assign({
+                            channel: 1,
                             tofInNanoseconds: tof,
                             pulseHeight: left + right,
-                            positionInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
+                            coordinateInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
                         })
                     }
                 } else if (this._eventBuffer[8 * i] === 0x5b) {

@@ -34,8 +34,8 @@ export default class extends Operator {
 
             variables.neutronEvent.assign({
                 tofInNanoseconds: tof,
-                xPositionInPixels: this._pairedEvent.xPositionInPixels,
-                yPositionInPixels: this._pairedEvent.yPositionInPixels,
+                xCoordinateInPixels: this._pairedEvent.xCoordinateInPixels,
+                yCoordinateInPixels: this._pairedEvent.yCoordinateInPixels,
                 pulseheight: 0
             })
         }

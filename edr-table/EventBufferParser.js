@@ -39,7 +39,7 @@ export default class extends Operator {
                         channel: channel,
                         tofInNanoseconds: tof,
                         pulseHeight: left + right,
-                        positionInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
+                        coordinateInPixels: Math.floor((left << this._neutronPositionBitLength) / (left + right))
                     })
                 } else if (this._eventBuffer[8 * i] === 0x5b) {
                     variables.kickerPulseCount.assign(this._kickerPulseCount + 1)

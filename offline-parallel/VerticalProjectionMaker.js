@@ -18,7 +18,7 @@ export default class extends Operator {
         this._operation = () => {
             // sub2ind expects indexes to start frpm 1
             this._verticalProjection.binCounts[
-                this._neutronEvent.yPositionInPixels + 1
+                this._neutronEvent.yCoordinateInPixels + 1
             ]++
         }
     }

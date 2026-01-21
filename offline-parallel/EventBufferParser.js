@@ -37,7 +37,7 @@ export default class extends Operator {
                             channel:0,
                             tofInNanoseconds: tof,
                             pulseHeight: left + right,
-                            positionInPixels: ((left << 8) / (left + right)) >> 0
+                            coordinateInPixels: ((left << 8) / (left + right)) >> 0
                         })
                     }
                     if (channel === 1) {
@@ -47,7 +47,7 @@ export default class extends Operator {
                             channel: 1,
                             tofInNanoseconds: tof,
                             pulseHeight: left + right,
-                            positionInPixels: ((left << 8) / (left + right)) >> 0
+                            coordinateInPixels: ((left << 8) / (left + right)) >> 0
                         })
                     }
                 } else if (this._eventBuffer[8 * i] === 0x5b) {

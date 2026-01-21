@@ -29,8 +29,8 @@ export default class extends Operator {
             this._tofImage.binCounts[sub2ind(
                 this._tofImage.numBins,
                 Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidth),
-                this._filteredNeutronEvent.yPositionInPixels - this._roiYInPixels,
-                this._filteredNeutronEvent.xPositionInPixels - this._roiXInPixels
+                this._filteredNeutronEvent.yCoordinateInPixels - this._roiYInPixels,
+                this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels
             )]++
         }
     }

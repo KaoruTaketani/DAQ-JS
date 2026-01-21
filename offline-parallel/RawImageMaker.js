@@ -20,8 +20,8 @@ export default class extends Operator {
             // sub2ind expects indexes to start frpm 1
             this._rawImage.binCounts[sub2ind(
                 this._rawImage.numBins,
-                this._neutronEvent.yPositionInPixels + 1,
-                this._neutronEvent.xPositionInPixels + 1
+                this._neutronEvent.yCoordinateInPixels + 1,
+                this._neutronEvent.xCoordinateInPixels + 1
             )]++
         }
     }
