@@ -11,9 +11,6 @@ export default class extends Operator {
         /** @type {import('worker_threads').Worker[]} */
         this._workers
         variables.workers.prependListener(arg => { this._workers = arg })
-        /** @type {import('../lib/index.js').Histogram} */
-        this._verticalProjection
-        variables.verticalProjection.prependListener(arg => { this._verticalProjection = arg })
         variables.hdf5Path.addListener(_ => {
             this._operation()
         })
