@@ -4,7 +4,7 @@ import { basename } from 'path'
 import { WebSocketServer } from 'ws'
 import AttributesServer from './AttributesServer.js'
 import ContrastServer from './ContrastServer.js'
-import RawImageServer from './RawImageServer.js'
+import ImageServer from './ImageServer.js'
 import NeutronRateServer from './NeutronRateServer.js'
 import TableServer from './TableServer.js'
 import VelocityServer from './VelocityServer.js'
@@ -45,7 +45,7 @@ httpServer.on('request', (request, response) => {
             '<body>',
             `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
             `    <p><a href="./ContrastClient.html">Contrast</a></p>`,
-            `    <p><a href="./RawImageClient.html">Raw Image</a></p>`,
+            `    <p><a href="./ImageClient.html">Image</a></p>`,
             `    <p><a href="./NeutronRateClient.html">NeutronRate</a></p>`,
             `    <p><a href="./TableClient.html">Table</a></p>`,
             `    <hr />`,
@@ -60,8 +60,8 @@ httpServer.on('request', (request, response) => {
             servers.set(ws, new AttributesServer(ws))
         if (request.url === '/ContrastClient.js')
             servers.set(ws, new ContrastServer(ws))
-        if (request.url === '/RawImageClient.js')
-            servers.set(ws, new RawImageServer(ws))
+        if (request.url === '/ImageClient.js')
+            servers.set(ws, new ImageServer(ws))
         if (request.url === '/NeutronRateClient.js')
             servers.set(ws, new NeutronRateServer(ws))
         if (request.url === '/TableClient.js')

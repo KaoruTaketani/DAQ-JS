@@ -37,14 +37,14 @@ export default class {
         this.parameters = new ListenableObject()
 
         this.tofHistogramWorker = new BroadcastObject('tofHistogramPort', this.workers)
-        this.rawImageWorker = new BroadcastObject('rawImagePort', this.workers)
+        this.imageWorker = new BroadcastObject('imagePort', this.workers)
 
         this.tofHistogram = new WritableHistogram('tofHistogram', this.hdf5File)
         this.pulseHeightHistogram = new WritableHistogram('pulseHeightHistogram', this.hdf5File)
         this.tofDifferenceHistogram = new WritableHistogram('tofDifferenceHistogram', this.hdf5File)
         this.verticalProjection = new WritableHistogram('verticalProjection', this.hdf5File)
 
-        this.rawImage = new WritableHistogram2D('rawImage', this.hdf5File)
+        this.image = new WritableHistogram2D('image', this.hdf5File)
         this.filteredImage = new WritableHistogram2D('filteredImage', this.hdf5File)
         this.horizontalProjectionHistograms = new WritableHistogram2D('horizontalProjectionHistograms', this.hdf5File)
 

@@ -6,11 +6,11 @@ socket.onclose = () => {
 }
 
 /** @type {Map<string,function>} */
-const rawImageListeners = new Map()
+const imageListeners = new Map()
 socket.addEventListener('message', event => {
     const arg = JSON.parse(event.data)
     for (const [key, value] of Object.entries(arg)) {
-        rawImageListeners.get(key)?.(value)
+        imageListeners.get(key)?.(value)
     }
 });
 
@@ -23,7 +23,7 @@ socket.addEventListener('message', event => {
     element.addEventListener('change', () => {
         socket.send(JSON.stringify({ hdf5ReaderFileName: element.options[element.selectedIndex].innerText }))
     })
-    rawImageListeners.set('hdf5FileNamesInnerHTML', (/** @type (string) */ arg) => { element.innerHTML = arg })
+    imageListeners.set('hdf5FileNamesInnerHTML', (/** @type (string) */ arg) => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
 const cursorElement = document.createElement('p');
@@ -45,6 +45,6 @@ const cursorElement = document.createElement('p');
         if (!ctx) return
         ctx.drawImage(imageElement, 0, 0, 256, 256)
     }
-    rawImageListeners.set('imageSrc', (/** @type (string) */ arg) => { imageElement.src = arg })
+    imageListeners.set('imageSrc', (/** @type (string) */ arg) => { imageElement.src = arg })
 })(document.body.appendChild(document.createElement('canvas')));
 

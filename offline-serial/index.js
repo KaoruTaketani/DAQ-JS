@@ -18,8 +18,8 @@ import PhaseMaker from "./PhaseMaker.js"
 import PhaseShiftMaker from "./PhaseShiftMaker.js"
 import PulseHeightHistogramInitializer from "./PulseHeightHistogramInitializer.js"
 import PulseHeightHistogramMaker from "./PulseHeightHistogramMaker.js"
-import RawImageInitializer from "./RawImageInitializer.js"
-import RawImageMaker from "./RawImageMaker.js"
+import ImageInitializer from "./ImageInitializer.js"
+import ImageMaker from "./ImageMaker.js"
 import ReflectivityMaker from "./ReflectivityMaker.js"
 import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializer.js"
 import TOFDifferenceHistogramMaker from "./TOFDifferenceHistogramMaker.js"
@@ -40,8 +40,8 @@ new EDRReader(variables)
 new EventBufferParser(variables)
 new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
-new RawImageInitializer(variables)
-new RawImageMaker(variables)
+new ImageInitializer(variables)
+new ImageMaker(variables)
 new VerticalProjectionInitializer(variables)
 new VerticalProjectionMaker(variables)
 new FilteredNeutronEventMaker(variables)
@@ -52,8 +52,8 @@ new TOFHistogramMaker(variables)
 new ContrastMaker(variables)
 new PhaseMaker(variables)
 new NeutronRateMaker(variables)
-new TOFImageInitializer(variables)
-new TOFImageMaker(variables)
+// new TOFImageInitializer(variables)
+// new TOFImageMaker(variables)
 // new HorizontalProjectionHistogramsInitializer(variables)
 // new HorizontalProjectionHistogramsMaker(variables)
 // new FitFinder(variables)

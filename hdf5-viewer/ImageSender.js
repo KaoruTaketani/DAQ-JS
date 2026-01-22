@@ -24,7 +24,7 @@ export default class extends Operator {
             const f = new h5wasm.File(join(this._hdf5Path, this._hdf5ReaderFileName), "r")
 
             /** @type {import('h5wasm').Dataset} */
-            const dataset = /** @type {import('h5wasm').Dataset} */(f.get('/rawImage'))
+            const dataset = /** @type {import('h5wasm').Dataset} */(f.get('/image'))
 
             if (dataset === null || dataset.shape === null || dataset.value === null) {
                 console.log(`failed file:${f.path}`)

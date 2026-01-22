@@ -49,7 +49,7 @@ console.log(f.attrs);
                 if (filename === '1.h5') {
                     imageElement.src = ''
                 } else {
-                    const dataset = f.get('/rawImage')
+                    const dataset = f.get('/image')
                     const h = {
                         xBinLimits: [0, dataset.shape[0]],
                         yBinLimits: [0, dataset.shape[1]],

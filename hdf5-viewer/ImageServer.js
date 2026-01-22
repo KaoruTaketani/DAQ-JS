@@ -1,6 +1,6 @@
 import HDF5FileNamesInnerHTMLMaker from './HDF5FileNamesInnerHTMLMaker.js'
 import HDF5FileNamesReader from './HDF5FileNamesReader.js'
-import RawImageSender from './RawImageSender.js'
+import ImageSender from './ImageSender.js'
 import ServerVariables from './Variables.js'
 
 export default class {
@@ -12,7 +12,7 @@ export default class {
 
         new HDF5FileNamesReader(this.variables)
         new HDF5FileNamesInnerHTMLMaker(this.variables)
-        new RawImageSender(this.variables)
+        new ImageSender(this.variables)
 
         this.variables.hdf5Path.assign('../../hdf5/mieze')
     }

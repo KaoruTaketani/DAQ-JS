@@ -40,7 +40,7 @@ export default class {
         this.tofDifferenceHistogram = new WritableHistogram('tofDifferenceHistogram', this.hdf5File)
         this.verticalProjection = new WritableHistogram('verticalProjection', this.hdf5File)
 
-        this.rawImage = new DistributedObject('rawImage', this.message)
+        this.image = new DistributedObject('image', this.message)
         this.filteredImage = new WritableHistogram2D('filteredImage', this.hdf5File)
         this.horizontalProjectionHistograms = new WritableHistogram2D('horizontalProjectionHistograms', this.hdf5File)
 

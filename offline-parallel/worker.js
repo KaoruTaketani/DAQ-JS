@@ -7,8 +7,8 @@ import NeutronEventMaker from "./NeutronEventMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
 import PulseHeightHistogramInitializer from "./PulseHeightHistogramInitializer.js"
 import PulseHeightHistogramMaker from "./PulseHeightHistogramMaker.js"
-import RawImageInitializer from "./RawImageInitializer.js"
-import RawImageMaker from "./RawImageMaker.js"
+import ImageInitializer from "./ImageInitializer.js"
+import ImageMaker from "./ImageMaker.js"
 import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializer.js"
 import TOFDifferenceHistogramMaker from "./TOFDifferenceHistogramMaker.js"
 import TOFHistogramInitializer from "./TOFHistogramInitializer.js"
@@ -25,8 +25,8 @@ const variables = new WorkerVariables()
 new EventBufferParser(variables)
 new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
-// new RawImageInitializer(variables)
-new RawImageMaker(variables)
+// new ImageInitializer(variables)
+new ImageMaker(variables)
 // new VerticalProjectionInitializer(variables)
 // new VerticalProjectionMaker(variables)
 // new FilteredNeutronEventMaker(variables)

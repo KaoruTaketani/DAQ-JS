@@ -6,6 +6,6 @@ graph TD;
     pairedEvent-->neutronEvent;
     pairedEvent-->tofDifferenceHistogram;
     neutronEvent-->pulseHeightHistogram;
-    neutronEvent-->rawImage;
+    neutronEvent-->image;
     neutronEvent-->tofHistogram;
 ```

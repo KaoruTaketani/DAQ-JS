@@ -18,7 +18,7 @@ export default class extends Operator {
                 2 ** this._neutronPositionBitLength,
                 2 ** this._neutronPositionBitLength]
 
-            variables.rawImage.assign({
+            variables.image.assign({
                 numBins: size,
                 binCounts: new Array(prod(size)).fill(0),
                 xBinLimits: [0, 2 ** this._neutronPositionBitLength],
