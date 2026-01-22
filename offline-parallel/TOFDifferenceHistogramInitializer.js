@@ -29,7 +29,7 @@ export default class extends Operator {
                     / dt
 
             variables.tofDifferenceHistogram.assign({
-                binCounts: new Array(numBins).fill(0),
+                binCounts: new Uint32Array(numBins),
                 binLimits: [this._tofDifferenceHistogramMinInNanoseconds, this._tofDifferenceHistogramMaxInNanoseconds]
             })
         }

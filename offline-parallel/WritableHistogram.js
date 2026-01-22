@@ -18,8 +18,7 @@ export default class extends ListenableObject {
             if (this._value) {
                 arg.create_dataset({
                     name: this._name,
-                    data: this._value.binCounts,
-                    dtype: '<i4'
+                    data: this._value.binCounts
                 })
             }
         })

@@ -1,7 +1,7 @@
 import freqspace from '../lib/freqspace.js'
 import sum from '../lib/sum.js'
 /**
- * @param {number[]} x
+ * @param {number[]|Uint32Array} x
  * @returns {number[]}
  */
 export default (

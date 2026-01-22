@@ -49,7 +49,7 @@ export interface Image {
 
 export interface Histogram {
     binLimits: number[]
-    binCounts: number[]
+    binCounts: Uint32Array
 }
 
 export interface Histogram2D {

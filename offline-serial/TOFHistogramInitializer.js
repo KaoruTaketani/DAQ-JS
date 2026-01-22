@@ -36,7 +36,7 @@ export default class extends Operator {
             // dt = this._tofMaxInMilliseconds * 1_000_000 / numBins
 
             variables.tofHistogram.assign({
-                binCounts: new Array(numBins).fill(0),
+                binCounts: new Uint32Array(numBins),
                 binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
             })
         }

@@ -20,7 +20,6 @@ export default class extends ListenableObject {
                     name: this._name,
                     data: this._value.binCounts,
                     shape: this._value.numBins,
-                    dtype: '<i4',
                     chunks: this._value.numBins,
                     compression: 'gzip'
                 })
