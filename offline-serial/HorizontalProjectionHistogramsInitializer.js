@@ -45,7 +45,7 @@ export default class extends Operator {
 
             variables.horizontalProjectionHistograms.assign({
                 numBins: size,
-                binCounts: new Array(prod(size)).fill(0),
+                binCounts: new Uint32Array(prod(size)),
                 xBinLimits: [0, this._roiWidthInPixels],
                 yBinLimits: [0, size[0]]
             })

@@ -40,7 +40,7 @@ export default class extends Operator {
                 xBinLimits: [0, 256],
                 yBinLimits: [0, 256],
                 numBins: [256, 256],
-                binCounts: new Array(256 * 256).fill(0)
+                binCounts: new Uint32Array(256 * 256)
             })
 
             // if use NEUNETReaderDataHandler, commentout folloing line

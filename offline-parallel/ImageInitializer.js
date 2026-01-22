@@ -20,13 +20,13 @@ export default class extends Operator {
 
             variables.image.assign({
                 numBins: size,
-                binCounts: new Array(prod(size)).fill(0),
+                binCounts: new Uint32Array(prod(size)),
                 xBinLimits: [0, 2 ** this._neutronPositionBitLength],
                 yBinLimits: [0, 2 ** this._neutronPositionBitLength]
             })
             variables.imageWorker.broadcast({
                 numBins: size,
-                binCounts: new Array(prod(size)).fill(0),
+                binCounts: new Uint32Array(prod(size)),
                 xBinLimits: [0, 2 ** this._neutronPositionBitLength],
                 yBinLimits: [0, 2 ** this._neutronPositionBitLength]
             })

@@ -43,7 +43,7 @@ export default class extends Operator {
 
             variables.filteredImage.assign({
                 numBins: size,
-                binCounts: new Array(prod(size)).fill(0),
+                binCounts: new Uint32Array(prod(size)),
                 xBinLimits: [this._roiXInPixels, this._roiXInPixels + this._roiWidthInPixels],
                 yBinLimits: [this._roiYInPixels, this._roiYInPixels + this._roiHeightInPixels]
             })

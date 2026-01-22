@@ -55,7 +55,7 @@ export interface Histogram {
 export interface Histogram2D {
     xBinLimits: number[]
     yBinLimits: number[]
-    binCounts: number[]
+    binCounts: Uint32Array
     numBins: number[]
 }
 
