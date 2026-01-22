@@ -1,5 +1,5 @@
 import Operator from './Operator.js'
-import fft0 from './fft0.js'
+import fft0 from '../lib/fft0.js'
 
 export default class extends Operator {
     /**
