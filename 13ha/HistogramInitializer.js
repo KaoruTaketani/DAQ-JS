@@ -18,7 +18,7 @@ export default class extends Operator {
                 xBinLimits: [0, 16],
                 yBinLimits: [0, 16],
                 numBins: [16, 16],
-                binCounts: new Array(16 * 16).fill(0)
+                binCounts: new Uint32Array(16 * 16)
             })
         }
     }

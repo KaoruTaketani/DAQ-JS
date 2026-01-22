@@ -16,7 +16,7 @@ export default class extends Operator {
 
             variables.histogram.assign({
                 binLimits: [0, 1],
-                binCounts: new Array(10).fill(0)
+                binCounts: new Uint32Array(10)
             })
         }
     }
