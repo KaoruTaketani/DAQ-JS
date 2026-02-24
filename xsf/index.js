@@ -1,5 +1,8 @@
-import { createReadStream } from 'fs'
-import { createInterface } from 'readline'
+import { createReadStream } from 'fs';
+import { createInterface } from 'readline';
+import prod from '../lib/prod.js';
+const h5wasm = await import("h5wasm/node");
+await h5wasm.ready;
 
 // readFile('../../xsf/graphene_00001.xsf', 'utf8', (err, data) => {
 //     if (err) throw err
@@ -15,8 +18,10 @@ let numLinesPrimVec = 0
 let numLinesConvVec = 0
 let numLinesPrimCoord = 0
 let numLinesAtomCoord = 0
-let expectedSize = 1
-let values = []
+let shape = []
+let values
+let valueIndex = 0
+const startTime = Date.now()
 createInterface({
     input: createReadStream('../../xsf/graphene_00001.xsf', { encoding: 'utf8' })
     // output: channel
@@ -61,13 +66,24 @@ createInterface({
     }
     if (line === 'END_DATAGRID_3D') {
         datagrid3dType = ''
-        console.log(`expected: ${expectedSize.toLocaleString()}, actual: ${values.length.toLocaleString()}`)
+        console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+        let f = new h5wasm.File("./test.h5", "w")
+        f.create_dataset({
+            name: 'density',
+            data: values,
+            shape: shape,
+            chunks: shape,
+            compression: 'gzip'
+        })
+
+        f.close()
         return
     }
     if (datagrid3dType === 'size') {
         console.log(`size: ${line}`)
         for (let i = 0; i < 3; ++i)
-            expectedSize *= parseInt(line.substring(6 * i, 6 * (i + 1)))
+            shape.push(parseInt(line.substring(6 * i, 6 * (i + 1))))
+        values = new Float64Array(prod(shape))
         datagrid3dType = 'origin'
         return
     }
@@ -92,7 +108,9 @@ createInterface({
         return
     }
     if (datagrid3dType === 'value') {
-        for (let i = 0; i < 6; ++i)
-            values.push(parseFloat(line.substring(13 * i, 13 * (i + 1))))
+        for (let i = 0; i < 6; ++i) {
+            values[valueIndex] = parseFloat(line.substring(13 * i, 13 * (i + 1)))
+            valueIndex++
+        }
     }
 })
