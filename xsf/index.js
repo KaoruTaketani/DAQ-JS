@@ -1,6 +1,7 @@
 import { createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import prod from '../lib/prod.js';
+import fliplr from '../lib/fliplr.js';
 const h5wasm = await import("h5wasm/node");
 await h5wasm.ready;
 
@@ -71,8 +72,8 @@ createInterface({
         f.create_dataset({
             name: 'density',
             data: values,
-            shape: shape,
-            chunks: shape,
+            shape: fliplr(shape),
+            chunks: fliplr(shape),
             compression: 'gzip'
         })
 
