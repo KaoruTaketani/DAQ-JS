@@ -22,9 +22,10 @@ let numLinesAtomCoord = 0
 let shape = []
 let values
 let valueIndex = 0
+const basename = 'graphene_00005'
 const startTime = Date.now()
 createInterface({
-    input: createReadStream('../../xsf/graphene_00001.xsf', { encoding: 'utf8' })
+    input: createReadStream(`../../xsf/${basename}.xsf`, { encoding: 'utf8' })
     // output: channel
 }).on('line', line => {
     // console.log(`recived: ${line}`)
@@ -68,7 +69,7 @@ createInterface({
     if (line === 'END_DATAGRID_3D') {
         datagrid3dType = ''
         console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-        let f = new h5wasm.File("./test.h5", "w")
+        let f = new h5wasm.File(`./${basename}.h5`, 'w')
         f.create_dataset({
             name: 'density',
             data: values,
