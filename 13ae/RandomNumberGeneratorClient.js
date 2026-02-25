@@ -18,7 +18,7 @@ socket.onclose = () => {
     url.pathname = 'startButtonDisabled'
     const disabledSocket = new WebSocket(url)
     disabledSocket.onmessage = event => {
-        element.disabled = event.data === 'true'
+        element.disabled = JSON.parse(event.data)
     }
 })(document.body.appendChild(document.createElement('input')));
 
@@ -35,7 +35,7 @@ socket.onclose = () => {
     url.pathname = 'stopButtonDisabled'
     const disabledSocket = new WebSocket(url)
     disabledSocket.onmessage = event => {
-        element.disabled = event.data === 'true'
+        element.disabled = JSON.parse(event.data)
     }
 })(document.body.appendChild(document.createElement('input')));
 

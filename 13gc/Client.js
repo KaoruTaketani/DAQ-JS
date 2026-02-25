@@ -23,7 +23,7 @@ socket.onclose = () => {
         url.pathname = 'startButtonDisabled'
         const disabledSocket = new WebSocket(url)
         disabledSocket.onmessage = event => {
-            element.disabled = event.data === 'true'
+            element.disabled = JSON.parse(event.data)
         }
     })(element.appendChild(document.createElement('input')));
 
@@ -39,7 +39,7 @@ socket.onclose = () => {
         url.pathname = 'stopButtonDisabled'
         const disabledSocket = new WebSocket(url)
         disabledSocket.onmessage = event => {
-            element.disabled = event.data === 'true'
+            element.disabled = JSON.parse(event.data)
         }
     })(element.appendChild(document.createElement('input')));
 
@@ -70,7 +70,7 @@ socket.onclose = () => {
             url.pathname = 'presetDisabled'
             const disabledSocket = new WebSocket(url)
             disabledSocket.onmessage = event => {
-                element.disabled = event.data === 'true'
+                element.disabled = JSON.parse(event.data)
             }
         })(element.appendChild(document.createElement('input')));
     })(element.appendChild(document.createElement('label')));
@@ -93,7 +93,7 @@ socket.onclose = () => {
         url.pathname = 'batchStartButtonDisabled'
         const disabledSocket = new WebSocket(url)
         disabledSocket.onmessage = event => {
-            element.disabled = event.data === 'true'
+            element.disabled = JSON.parse(event.data)
         }
     })(element.appendChild(document.createElement('input')));
 
