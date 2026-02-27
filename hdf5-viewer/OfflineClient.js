@@ -10,6 +10,10 @@ let ab = await response.arrayBuffer();
 
 FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
 
+(element => {
+    element.type = 'button'
+    element.value = 'parent folder'
+})(document.body.appendChild(document.createElement('input')));
 // let subitems = await fetch("/readdir?path=/debug/");
 // subitems.text().then(data => { console.log(data) })
 
@@ -111,6 +115,7 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.width = 512
     element.height = 512
 })(canvasElement);
+
 
 let items = await fetch("/readdir?path=" + path);
 items.text().then(data => {
