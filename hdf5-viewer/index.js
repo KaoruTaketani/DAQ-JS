@@ -38,7 +38,7 @@ httpServer.on('request', (request, response) => {
             '</html>'
         ].join('\n'))
     } else if (request.url?.endsWith('.h5')) {
-        readFile(`../../hdf5/debug${request.url}`, (err, data) => {
+        readFile(`../../hdf5${request.url}`, (err, data) => {
             if (err) {
                 response.writeHead(404)
                 response.end()

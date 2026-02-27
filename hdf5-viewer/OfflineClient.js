@@ -4,17 +4,16 @@ import imagesc from "../lib/imagesc.js";
 import im2src from "../lib/im2src.js";
 const { FS } = await h5wasm.ready;
 
-let response = await fetch("./sans59510.nxs.ngv.h5");
+let response = await fetch("/debug/sans59510.nxs.ngv.h5");
 // let response = await fetch("https://ncnr.nist.gov/pub/ncnrdata/vsans/202003/24845/data/sans59510.nxs.ngv");
 let ab = await response.arrayBuffer();
 
 FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
 
-let items = await fetch("/readdir?path=/");
-items.text().then(data => { console.log(data) })
-let subitems = await fetch("/readdir?path=/debug/");
-subitems.text().then(data => { console.log(data) })
+// let subitems = await fetch("/readdir?path=/debug/");
+// subitems.text().then(data => { console.log(data) })
 
+let path = '/'
 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
 let f = new h5wasm.File("sans59510.nxs.ngv", "r");
 // File {path: "/", file_id: 72057594037927936n, filename: "data.h5", mode: "r"}
@@ -23,17 +22,34 @@ console.log(f.keys())
 console.log(f.get("entry/instrument").keys())
 console.log(f.attrs);
 
+const selectElement = document.createElement('select');
 (element => {
     element.size = 20
     element.style.position = 'absolute'
     element.style.whiteSpace = 'pre-wrap'
     element.style.width = '200px'
     element.style.height = `${window.innerHeight - 8 * 2}px`
+    element.addEventListener('dblclick', () => {
+        const filename = element.options[element.selectedIndex].innerText
+        console.log(`dblclick ${filename}`)
+        if (!filename.endsWith('/')) return
+
+        path = path + filename
+
+        fetch("/readdir?path=" + path).then(items => {
+            items.text().then(data => {
+                console.log(data)
+                selectElement.innerHTML = data
+            })
+        })
+    })
     element.addEventListener('change', () => {
         const filename = element.options[element.selectedIndex].innerText
-        // console.log(filename)
+        console.log(filename)
+        if (filename.endsWith('/')) return
+        if (!filename.endsWith('.h5')) return
 
-        fetch(`./${filename}`).then(response => {
+        fetch(path + `${filename}`).then(response => {
             response.arrayBuffer().then(ab => {
                 FS.writeFile(filename, new Uint8Array(ab));
 
@@ -65,9 +81,9 @@ console.log(f.attrs);
     window.onscroll = _ => {
         element.style.top = `${window.scrollY + 8}px`
     }
-    element.innerHTML = [0, 1, 2, 3, 4].map(i => `<option>${i}.h5</option>`).join()
+    // element.innerHTML = [0, 1, 2, 3, 4].map(i => `<option>${i}.h5</option>`).join()
     // attributesListeners.set('hdf5FileNamesInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
-})(document.body.appendChild(document.createElement('select')));
+})(document.body.appendChild(selectElement));
 
 const invisibleCanvasElement = document.createElement('canvas')
 const imageElement = document.createElement('img')
@@ -96,3 +112,8 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.height = 512
 })(canvasElement);
 
+let items = await fetch("/readdir?path=" + path);
+items.text().then(data => {
+    console.log(data)
+    selectElement.innerHTML = data
+})
