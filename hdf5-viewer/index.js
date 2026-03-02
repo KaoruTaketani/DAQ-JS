@@ -3,6 +3,7 @@ import { Server } from 'http'
 import { basename, join } from 'path'
 
 const httpServer = new Server()
+const hdf5Path = '../../hdf5'
 
 httpServer.on('request', (request, response) => {
     if (request.method !== 'GET') return
@@ -14,16 +15,23 @@ httpServer.on('request', (request, response) => {
     if (url.pathname === '/readdir') {
         const path = url.searchParams.get('path')
         if (!path) return
-        readdir(join('../../hdf5', path), { withFileTypes: true }, (err, files) => {
+        readdir(join(hdf5Path, path), { withFileTypes: true }, (err, files) => {
             if (err) {
                 response.writeHead(404)
                 response.end()
             } else {
                 response.writeHead(200)
-                response.end(
-                    files.map(file => file.isDirectory() ? file.name + '/' : file.name)
-                        .map(text => `<option>${text}</option>`).join('')
-                )
+                if (path === '/') {
+                    response.end(
+                        files.map(file => file.isDirectory() ? file.name + '/' : file.name)
+                            .map(text => `<option>${text}</option>`).join('')
+                    )
+                } else {
+                    response.end(
+                        '<option>../</option>' + files.map(file => file.isDirectory() ? file.name + '/' : file.name)
+                            .map(text => `<option>${text}</option>`).join('')
+                    )
+                }
             }
         })
         return
@@ -41,7 +49,7 @@ httpServer.on('request', (request, response) => {
             '</html>'
         ].join('\n'))
     } else if (request.url?.endsWith('.h5')) {
-        readFile(`../../hdf5${request.url}`, (err, data) => {
+        readFile(`${hdf5Path}${request.url}`, (err, data) => {
             if (err) {
                 response.writeHead(404)
                 response.end()

@@ -10,14 +10,14 @@ let ab = await response_hdf5.arrayBuffer();
 
 FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
 
-(element => {
-    element.type = 'button'
-    element.value = 'parent folder'
-})(document.body.appendChild(document.createElement('input')));
+// (element => {
+//     element.type = 'button'
+//     element.value = 'parent folder'
+// })(document.body.appendChild(document.createElement('input')));
 // let subitems = await fetch("/readdir?path=/debug/");
 // subitems.text().then(data => { console.log(data) })
 
-let path = '/'
+// let path = '/'
 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
 let f = new h5wasm.File("sans59510.nxs.ngv", "r");
 // File {path: "/", file_id: 72057594037927936n, filename: "data.h5", mode: "r"}
@@ -37,23 +37,32 @@ const selectElement = document.createElement('select');
         const filename = element.options[element.selectedIndex].innerText
         console.log(`dblclick ${filename}`)
         if (!filename.endsWith('/')) return
+        if (filename === '../') {
+            const params = new URLSearchParams(window.location.search),
+                path = params.get('path')
+            // console.log(path)
+            // console.log(path.length)
+            // console.log(path?.lastIndexOf('/'))
+            // console.log(path?.lastIndexOf('/', 5))
+            // console.log(path?.lastIndexOf('/', path.length - 2))
+            window.location.href = "http://localhost/OfflineClient.html?path=" + path?.substring(0, path.lastIndexOf('/', path.length - 2) + 1)
+        } else {
+            const params = new URLSearchParams(window.location.search)
 
-        path = path + filename
-
-        fetch("/readdir?path=" + path).then(items => {
-            items.text().then(data => {
-                console.log(data)
-                selectElement.innerHTML = data
-            })
-        })
+            window.location.href = "http://localhost/OfflineClient.html?path=" + params.get('path') + filename
+        }
     })
     element.addEventListener('change', () => {
         const filename = element.options[element.selectedIndex].innerText
         console.log(filename)
-        if (filename.endsWith('/')) return
+        if (filename.endsWith('/')) {
+            divElement.innerText = ''
+            return
+        }
         if (!filename.endsWith('.h5')) return
 
-        fetch(path + `${filename}`).then(response => {
+        const params = new URLSearchParams(window.location.search)
+        fetch(params.get('path') + `${filename}`).then(response => {
             response.arrayBuffer().then(ab => {
                 FS.writeFile(filename, new Uint8Array(ab));
 
@@ -65,19 +74,19 @@ const selectElement = document.createElement('select');
                     return `${key}: ${f.attrs[key].value}`
                 }).join('\n')
 
-                console.log(filename)
-                if (filename === '1.h5') {
-                    imageElement.src = ''
-                } else {
-                    const dataset = f.get('/image')
-                    const h = {
-                        xBinLimits: [0, dataset.shape[0]],
-                        yBinLimits: [0, dataset.shape[1]],
-                        binCounts: dataset.value,
-                        numBins: dataset.shape
-                    }
-                    imageElement.src = im2src(imagesc(h), invisibleCanvasElement)
-                }
+                // console.log(filename)
+                // if (filename === '1.h5') {
+                //     imageElement.src = ''
+                // } else {
+                //     const dataset = f.get('/image')
+                //     const h = {
+                //         xBinLimits: [0, dataset.shape[0]],
+                //         yBinLimits: [0, dataset.shape[1]],
+                //         binCounts: dataset.value,
+                //         numBins: dataset.shape
+                //     }
+                //     imageElement.src = im2src(imagesc(h), invisibleCanvasElement)
+                // }
                 // f.close()
             })
         })
