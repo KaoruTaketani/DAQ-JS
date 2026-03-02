@@ -116,7 +116,8 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.height = 512
 })(canvasElement);
 
-
+const params = new URLSearchParams(window.location.search)
+console.log(params.get('path'))
 let items = await fetch("/readdir?path=" + path);
 items.text().then(data => {
     console.log(data)

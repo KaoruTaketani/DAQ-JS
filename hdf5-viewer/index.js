@@ -33,7 +33,7 @@ httpServer.on('request', (request, response) => {
             '    <meta charset="utf-8">',
             '</head>',
             '<body>',
-            `    <p><a href="./OfflineClient.html">Offline</a></p>`,
+            `    <p><a href="./OfflineClient.html?path=/debug/">Offline</a></p>`,
             '</body>',
             '</html>'
         ].join('\n'))
@@ -69,7 +69,7 @@ httpServer.on('request', (request, response) => {
                 }
             })
         }
-    } else if (request.url?.endsWith('.html')) {
+    } else if (url.pathname.endsWith('.html')) {
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
             '<html>',
@@ -77,7 +77,7 @@ httpServer.on('request', (request, response) => {
             '    <meta charset="utf-8">',
             '</head>',
             '<body>',
-            `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
+            `    <script type="module" src="./${basename(url.pathname, '.html')}.js">`,
             `    </script>`,
             '</body>',
             '</html>'
