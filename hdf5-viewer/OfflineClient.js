@@ -4,9 +4,9 @@ import imagesc from "../lib/imagesc.js";
 import im2src from "../lib/im2src.js";
 const { FS } = await h5wasm.ready;
 
-let response = await fetch("/debug/sans59510.nxs.ngv.h5");
+let response_hdf5 = await fetch("/debug/sans59510.nxs.ngv.h5");
 // let response = await fetch("https://ncnr.nist.gov/pub/ncnrdata/vsans/202003/24845/data/sans59510.nxs.ngv");
-let ab = await response.arrayBuffer();
+let ab = await response_hdf5.arrayBuffer();
 
 FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
 
@@ -117,9 +117,23 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
 })(canvasElement);
 
 const params = new URLSearchParams(window.location.search)
-console.log(params.get('path'))
-let items = await fetch("/readdir?path=" + path);
-items.text().then(data => {
-    console.log(data)
-    selectElement.innerHTML = data
-})
+// console.log(params.get('path'))
+// let items = await fetch("/readdir?path=" + params.get('path'));
+// items.text().then(data => {
+//     // console.log(data)
+//     selectElement.innerHTML = data
+// }).catch(() => {
+//     console.log('404')
+//     document.body.innerHTML = '404'
+// })
+const response = await fetch("/readdir?path=" + params.get('path'));
+
+// 2. Check for HTTP error status codes (404, 500, etc.)
+if (!response.ok) {
+    // throw new Error(`HTTP error! status: ${response.status}`);
+    document.body.innerHTML = response.statusText
+} else {
+    // 3. Process the response data if all is good
+    selectElement.innerHTML = await response.text()
+}
+

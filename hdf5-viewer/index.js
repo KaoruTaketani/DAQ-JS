@@ -15,13 +15,16 @@ httpServer.on('request', (request, response) => {
         const path = url.searchParams.get('path')
         if (!path) return
         readdir(join('../../hdf5', path), { withFileTypes: true }, (err, files) => {
-            if (err) throw err
-
-            response.writeHead(200)
-            response.end(
-                files.map(file => file.isDirectory() ? file.name + '/' : file.name)
-                    .map(text => `<option>${text}</option>`).join('')
-            )
+            if (err) {
+                response.writeHead(404)
+                response.end()
+            } else {
+                response.writeHead(200)
+                response.end(
+                    files.map(file => file.isDirectory() ? file.name + '/' : file.name)
+                        .map(text => `<option>${text}</option>`).join('')
+                )
+            }
         })
         return
     }
