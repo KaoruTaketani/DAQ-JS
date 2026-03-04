@@ -9,9 +9,6 @@ export default class {
         /** @type {string} */
         this._path
         variables.path.prependListener(arg => { this._path = arg })
-        /** @type {HTMLDivElement} */
-        this._divElement
-        variables.divElement.prependListener(arg => { this._divElement = arg })
         /** @type {HTMLSelectElement} */
         this._selectElement
         variables.selectElement.addListener(arg => {
@@ -22,7 +19,7 @@ export default class {
             this._selectElement.addEventListener('change', () => {
                 const filename = this._selectElement.options[this._selectElement.selectedIndex].innerText
                 if (filename.endsWith('/')) {
-                    this._divElement.innerText = ''
+                    variables.divInnerText.assign('')
                     return
                 }
                 if (!filename.endsWith('.h5')) return
@@ -35,9 +32,8 @@ export default class {
 
                         // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
                         let f = new h5wasm.File(filename, "r");
-                        this._divElement.innerText = Object.keys(f.attrs).map(key => {
-                            return `${key}: ${f.attrs[key].value}`
-                        }).join('\n')
+                        variables.hdf5File.assign(f)
+                        f.close()
                     })
                 })
             })

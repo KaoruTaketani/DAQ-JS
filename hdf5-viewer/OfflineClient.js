@@ -1,3 +1,4 @@
+import OfflineDivInnerTextMaker from "./OfflineDivInnerTextMaker.js";
 import OfflineVariables from "./OfflineVariables.js";
 import SelectChangeHandler from "./SelectChangeHandler.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
@@ -7,7 +8,8 @@ const variables = new OfflineVariables()
 new SelectDblclickHandler(variables)
 new SelectChangeHandler(variables)
 new SelectUpdater(variables)
-;
+new OfflineDivInnerTextMaker(variables)
+    ;
 (element => {
     element.size = 20
     element.style.position = 'absolute'
@@ -45,7 +47,9 @@ imageElement.addEventListener('load', () => {
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.divElement.assign(element)
+    variables.divInnerText.addListener(arg => {
+        element.innerText = arg
+    })
 })(document.body.appendChild(document.createElement('div')));
 
 const canvasElement = document.body.appendChild(document.createElement('canvas'));
