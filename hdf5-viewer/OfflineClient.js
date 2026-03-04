@@ -1,14 +1,16 @@
 import h5wasm from "./node_modules/h5wasm/dist/esm/hdf5_hl.js";
 // import h5wasm from "https://cdn.jsdelivr.net/npm/h5wasm/dist/esm/hdf5_hl.js";
 import OfflineVariables from "./OfflineVariables.js";
+import SelectDblclickHandler from "./SelectDblclickHandler.js";
 const { FS } = await h5wasm.ready;
 
 let response_hdf5 = await fetch("/debug/sans59510.nxs.ngv.h5");
 // let response = await fetch("https://ncnr.nist.gov/pub/ncnrdata/vsans/202003/24845/data/sans59510.nxs.ngv");
 let ab = await response_hdf5.arrayBuffer();
-const variables = new OfflineVariables()
-variables.path
 FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
+
+const variables = new OfflineVariables()
+new SelectDblclickHandler(variables)
 
 // (element => {
 //     element.type = 'button'
@@ -38,19 +40,19 @@ const selectElement = document.createElement('select');
     element.style.whiteSpace = 'pre-wrap'
     element.style.width = '200px'
     element.style.height = `${window.innerHeight - 8 * 2}px`
-    element.addEventListener('dblclick', () => {
-        const filename = element.options[element.selectedIndex].innerText
-        console.log(`dblclick ${filename}`)
-        if (!filename.endsWith('/')) return
+    // element.addEventListener('dblclick', () => {
+    //     const filename = element.options[element.selectedIndex].innerText
+    //     console.log(`dblclick ${filename}`)
+    //     if (!filename.endsWith('/')) return
 
-        if (filename === '../') {
-            const newPath = path.substring(0, path.lastIndexOf('/'))
-            variables.path.assign(newPath === '' ? '/' : newPath)
-        } else {
-            const newPath = (path === '/' ? '' : path) + '/' + filename.substring(0, filename.length - 1)
-            variables.path.assign(newPath)
-        }
-    })
+    //     if (filename === '../') {
+    //         const newPath = path.substring(0, path.lastIndexOf('/'))
+    //         variables.path.assign(newPath === '' ? '/' : newPath)
+    //     } else {
+    //         const newPath = (path === '/' ? '' : path) + '/' + filename.substring(0, filename.length - 1)
+    //         variables.path.assign(newPath)
+    //     }
+    // })
     element.addEventListener('change', () => {
         const filename = element.options[element.selectedIndex].innerText
         console.log(filename)
@@ -96,6 +98,7 @@ const selectElement = document.createElement('select');
     // element.innerHTML = [0, 1, 2, 3, 4].map(i => `<option>${i}.h5</option>`).join()
     // attributesListeners.set('hdf5FileNamesInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
 })(document.body.appendChild(selectElement));
+variables.selectElement.assign(selectElement);
 
 (element => {
     element.style.marginLeft = '208px'
