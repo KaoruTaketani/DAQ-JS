@@ -1,13 +1,13 @@
 import h5wasm from "./node_modules/h5wasm/dist/esm/hdf5_hl.js";
 // import h5wasm from "https://cdn.jsdelivr.net/npm/h5wasm/dist/esm/hdf5_hl.js";
-import imagesc from "../lib/imagesc.js";
-import im2src from "../lib/im2src.js";
+import OfflineVariables from "./OfflineVariables.js";
 const { FS } = await h5wasm.ready;
 
 let response_hdf5 = await fetch("/debug/sans59510.nxs.ngv.h5");
 // let response = await fetch("https://ncnr.nist.gov/pub/ncnrdata/vsans/202003/24845/data/sans59510.nxs.ngv");
 let ab = await response_hdf5.arrayBuffer();
-
+const variables = new OfflineVariables()
+variables.path
 FS.writeFile("sans59510.nxs.ngv", new Uint8Array(ab));
 
 // (element => {
@@ -25,6 +25,11 @@ console.log(f)
 console.log(f.keys())
 console.log(f.get("entry/instrument").keys())
 console.log(f.attrs);
+/** @type {string} */
+let path
+variables.path.addListener(arg => {
+    path = arg
+})
 
 const selectElement = document.createElement('select');
 (element => {
@@ -38,18 +43,23 @@ const selectElement = document.createElement('select');
         console.log(`dblclick ${filename}`)
         if (!filename.endsWith('/')) return
         if (filename === '../') {
-            const params = new URLSearchParams(window.location.search),
-                path = params.get('path')
+            // variables.path.assign()
+            // const params = new URLSearchParams(window.location.search),
+            //     path = params.get('path')
             // console.log(path)
             // console.log(path.length)
             // console.log(path?.lastIndexOf('/'))
             // console.log(path?.lastIndexOf('/', 5))
             // console.log(path?.lastIndexOf('/', path.length - 2))
-            window.location.href = "http://localhost/OfflineClient.html?path=" + path?.substring(0, path.lastIndexOf('/', path.length - 2) + 1)
+            // window.location.href = "http://localhost/OfflineClient.html?path=" + path?.substring(0, path.lastIndexOf('/', path.length - 2) + 1)
+            const folderPath = path.substring(0, path.lastIndexOf('/') + 1)
+            variables.path.assign(folderPath)
         } else {
-            const params = new URLSearchParams(window.location.search)
+            // const params = new URLSearchParams(window.location.search)
 
-            window.location.href = "http://localhost/OfflineClient.html?path=" + params.get('path') + filename
+            // window.location.href = "http://localhost/OfflineClient.html?path=" + params.get('path') + filename
+            const folderPath = path + filename.substring(0, filename.length - 1)
+            variables.path.assign(folderPath)
         }
     })
     element.addEventListener('change', () => {
@@ -60,9 +70,9 @@ const selectElement = document.createElement('select');
             return
         }
         if (!filename.endsWith('.h5')) return
-
-        const params = new URLSearchParams(window.location.search)
-        fetch(params.get('path') + `${filename}`).then(response => {
+        const filePath = path === '/' ? `/${filename}` : `${path}/${filename}`
+        console.log(filePath)
+        fetch(filePath).then(response => {
             response.arrayBuffer().then(ab => {
                 FS.writeFile(filename, new Uint8Array(ab));
 
@@ -98,12 +108,12 @@ const selectElement = document.createElement('select');
     // attributesListeners.set('hdf5FileNamesInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
 })(document.body.appendChild(selectElement));
 
-const pathElement = document.createElement('p');
 (element => {
-    const params = new URLSearchParams(window.location.search)
-    element.innerText = `path: ${params.get('path')}`
     element.style.marginLeft = '208px'
-})(document.body.appendChild(pathElement))
+    variables.path.addListener(arg => {
+        element.innerText = `path: ${arg}`
+    })
+})(document.body.appendChild(document.createElement('p')))
 
 const invisibleCanvasElement = document.createElement('canvas')
 const imageElement = document.createElement('img')
@@ -132,7 +142,7 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.height = 512
 })(canvasElement);
 
-const params = new URLSearchParams(window.location.search)
+// const params = new URLSearchParams(window.location.search)
 // console.log(params.get('path'))
 // let items = await fetch("/readdir?path=" + params.get('path'));
 // items.text().then(data => {
@@ -142,14 +152,17 @@ const params = new URLSearchParams(window.location.search)
 //     console.log('404')
 //     document.body.innerHTML = '404'
 // })
-const response = await fetch("/readdir?path=" + params.get('path'));
+variables.path.addListener(arg => {
+    fetch("/readdir?path=" + arg).then(response => {
+        // 2. Check for HTTP error status codes (404, 500, etc.)
+        if (!response.ok) {
+            // throw new Error(`HTTP error! status: ${response.status}`);
+            document.body.innerHTML = response.statusText
+        } else {
+            // 3. Process the response data if all is good
+            response.text().then(text => { selectElement.innerHTML = text })
+        }
+    })
+})
 
-// 2. Check for HTTP error status codes (404, 500, etc.)
-if (!response.ok) {
-    // throw new Error(`HTTP error! status: ${response.status}`);
-    document.body.innerHTML = response.statusText
-} else {
-    // 3. Process the response data if all is good
-    selectElement.innerHTML = await response.text()
-}
-
+variables.path.assign('/')
