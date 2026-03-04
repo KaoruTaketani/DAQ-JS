@@ -42,24 +42,13 @@ const selectElement = document.createElement('select');
         const filename = element.options[element.selectedIndex].innerText
         console.log(`dblclick ${filename}`)
         if (!filename.endsWith('/')) return
-        if (filename === '../') {
-            // variables.path.assign()
-            // const params = new URLSearchParams(window.location.search),
-            //     path = params.get('path')
-            // console.log(path)
-            // console.log(path.length)
-            // console.log(path?.lastIndexOf('/'))
-            // console.log(path?.lastIndexOf('/', 5))
-            // console.log(path?.lastIndexOf('/', path.length - 2))
-            // window.location.href = "http://localhost/OfflineClient.html?path=" + path?.substring(0, path.lastIndexOf('/', path.length - 2) + 1)
-            const folderPath = path.substring(0, path.lastIndexOf('/') + 1)
-            variables.path.assign(folderPath)
-        } else {
-            // const params = new URLSearchParams(window.location.search)
 
-            // window.location.href = "http://localhost/OfflineClient.html?path=" + params.get('path') + filename
-            const folderPath = path + filename.substring(0, filename.length - 1)
-            variables.path.assign(folderPath)
+        if (filename === '../') {
+            const newPath = path.substring(0, path.lastIndexOf('/'))
+            variables.path.assign(newPath === '' ? '/' : newPath)
+        } else {
+            const newPath = (path === '/' ? '/' : path + '/') + filename.substring(0, filename.length - 1)
+            variables.path.assign(newPath)
         }
     })
     element.addEventListener('change', () => {
