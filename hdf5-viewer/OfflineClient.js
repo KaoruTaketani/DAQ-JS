@@ -98,6 +98,13 @@ const selectElement = document.createElement('select');
     // attributesListeners.set('hdf5FileNamesInnerHTML', (/** @type {string} */arg) => { element.innerHTML = arg })
 })(document.body.appendChild(selectElement));
 
+const pathElement = document.createElement('p');
+(element => {
+    const params = new URLSearchParams(window.location.search)
+    element.innerText = `path: ${params.get('path')}`
+    element.style.marginLeft = '208px'
+})(document.body.appendChild(pathElement))
+
 const invisibleCanvasElement = document.createElement('canvas')
 const imageElement = document.createElement('img')
 imageElement.addEventListener('error', () => {
