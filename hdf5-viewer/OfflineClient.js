@@ -47,7 +47,7 @@ const selectElement = document.createElement('select');
             const newPath = path.substring(0, path.lastIndexOf('/'))
             variables.path.assign(newPath === '' ? '/' : newPath)
         } else {
-            const newPath = (path === '/' ? '/' : path + '/') + filename.substring(0, filename.length - 1)
+            const newPath = (path === '/' ? '' : path) + '/' + filename.substring(0, filename.length - 1)
             variables.path.assign(newPath)
         }
     })
