@@ -7,8 +7,6 @@ export default class {
         this.selectElement = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<HTMLDivElement>} */
         this.divElement = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<HTMLParagraphElement>} */
-        this.pathElement = new ListenableObject()
 
         this.path = new ListenableString()
     }
