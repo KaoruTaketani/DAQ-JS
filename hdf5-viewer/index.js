@@ -1,6 +1,8 @@
 import { readdir, readFile } from 'fs'
 import { Server } from 'http'
 import { basename, join } from 'path'
+const h5wasm = await import("h5wasm/node");
+await h5wasm.ready;
 
 const httpServer = new Server()
 const hdf5Path = '../../hdf5'
@@ -49,7 +51,22 @@ httpServer.on('request', (request, response) => {
             '</body>',
             '</html>'
         ].join('\n'))
-    } else if (request.url?.endsWith('.h5')) {
+    } else if (url.pathname.endsWith('.h5')) {
+        console.log(url.searchParams.get('path'))
+        console.log(url.searchParams.get('type'))
+        if (url.searchParams.get('type') === 'attributes') {
+            // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
+            let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
+            //     variables.hdf5File.assign(f)
+            const tmp = Object.keys(f.attrs).map(key => {
+                return `${key}: ${f.attrs[key].value}`
+            }).join('\n')
+            response.writeHead(200)
+            response.end(tmp)
+            f.close()
+            return
+        }
+
         readFile(`${hdf5Path}${request.url}`, (err, data) => {
             if (err) {
                 response.writeHead(404)
@@ -59,28 +76,16 @@ httpServer.on('request', (request, response) => {
                 response.end(data)
             }
         })
-    } else if (request.url?.endsWith('.js')) {
-        if (request.url.startsWith('/lib/')) {
-            readFile(`..${request.url}`, 'utf8', (err, data) => {
-                if (err) {
-                    response.writeHead(404)
-                    response.end()
-                } else {
-                    response.writeHead(200, { 'Content-Type': 'text/javascript' })
-                    response.end(data)
-                }
-            })
-        } else {
-            readFile(`.${request.url}`, 'utf8', (err, data) => {
-                if (err) {
-                    response.writeHead(404)
-                    response.end()
-                } else {
-                    response.writeHead(200, { 'Content-Type': 'text/javascript' })
-                    response.end(data)
-                }
-            })
-        }
+    } else if (url.pathname.endsWith('.js')) {
+        readFile(`.${request.url}`, 'utf8', (err, data) => {
+            if (err) {
+                response.writeHead(404)
+                response.end()
+            } else {
+                response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                response.end(data)
+            }
+        })
     } else if (url.pathname.endsWith('.html')) {
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
