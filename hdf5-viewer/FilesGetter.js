@@ -1,6 +1,3 @@
-import h5wasm from "./node_modules/h5wasm/dist/esm/hdf5_hl.js";
-const { FS } = await h5wasm.ready;
-
 export default class {
     /**
      * @param {import('./OfflineVariables.js').default} variables 

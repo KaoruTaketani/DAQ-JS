@@ -1,14 +1,12 @@
-import OfflineDivInnerTextMaker from "./OfflineDivInnerTextMaker.js";
+import AttributesGetter from "./AttributesGetter.js";
+import FilesGetter from "./FilesGetter.js";
 import OfflineVariables from "./OfflineVariables.js";
-import SelectChangeHandler from "./SelectChangeHandler.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
-import SelectUpdater from "./SelectUpdater.js";
 
 const variables = new OfflineVariables()
 new SelectDblclickHandler(variables)
-new SelectChangeHandler(variables)
-new SelectUpdater(variables)
-new OfflineDivInnerTextMaker(variables)
+new AttributesGetter(variables)
+new FilesGetter(variables)
     ;
 (element => {
     element.size = 20

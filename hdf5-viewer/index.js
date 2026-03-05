@@ -1,6 +1,8 @@
 import { readdir, readFile } from 'fs'
 import { Server } from 'http'
 import { basename, join } from 'path'
+import imwrite from '../lib/imwrite.js'
+import imagesc from '../lib/imagesc.js'
 const h5wasm = await import("h5wasm/node");
 await h5wasm.ready;
 
@@ -56,7 +58,7 @@ httpServer.on('request', (request, response) => {
         console.log(url.searchParams.get('type'))
         if (url.searchParams.get('type') === 'attributes') {
             // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
-            let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
+            let f = new h5wasm.File(join(hdf5Path, url.pathname), "r")
             //     variables.hdf5File.assign(f)
             const tmp = Object.keys(f.attrs).map(key => {
                 return `${key}: ${f.attrs[key].value}`
@@ -65,6 +67,23 @@ httpServer.on('request', (request, response) => {
             response.end(tmp)
             f.close()
             return
+        }
+        if (url.searchParams.get('type') === 'png') {
+            let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
+            const filteredImage = f.get('filteredImage')
+            if (!filteredImage) {
+                response.writeHead(404)
+                response.end()
+                return
+            }
+            console.log(filteredImage.shape)
+            console.log(filteredImage.value)
+            const startTime = Date.now()
+            imwrite(imagesc({ numBins: filteredImage.shape, binCounts: filteredImage.value })).then(buffer => {
+                console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+                response.writeHead(200)
+                response.end(`data:image/png;base64,${buffer.toString('base64')}`)
+            })
         }
 
         readFile(`${hdf5Path}${request.url}`, (err, data) => {

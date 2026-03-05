@@ -27,14 +27,6 @@ export default class {
                     response.text().then(text => {
                         variables.divInnerText.assign(text)
                     })
-                    // response.arrayBuffer().then(ab => {
-                    //     FS.writeFile(filename, new Uint8Array(ab));
-
-                    //     // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
-                    //     let f = new h5wasm.File(filename, "r");
-                    //     variables.hdf5File.assign(f)
-                    //     f.close()
-                    // })
                 })
             })
         }

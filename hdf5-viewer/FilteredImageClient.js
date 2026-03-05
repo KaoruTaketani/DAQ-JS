@@ -1,8 +1,8 @@
 import FilteredImageMaker from "./FilteredImageMaker.js";
 import FilteredImageVariables from "./FilteredImageVariables.js";
-import SelectChangeHandler from "./SelectChangeHandler.js";
+import SelectChangeHandler from "./AttributesGetter.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
-import SelectUpdater from "./SelectUpdater.js";
+import SelectUpdater from "./FilesGetter.js";
 
 const variables = new FilteredImageVariables()
 new SelectDblclickHandler(variables)
