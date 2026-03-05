@@ -32,10 +32,13 @@ export default class extends Operator {
                     // this._workers[0].postMessage(chunk)
                     // this._workers[1].postMessage(chunk)
                     // this._workers.forEach(worker => { worker.postMessage(chunk) })
-                    this._workers.forEach((worker, index) => {
-                        const [start, end] = partition(chunk.length / 8, this._workers.length, index)
-                        worker.postMessage(chunk.slice(8 * start, 8 * end))
-                    })
+                    // this._workers.forEach((worker, index) => {
+                    //     const [start, end] = partition(chunk.length / 8, this._workers.length, index)
+                    //     worker.postMessage(chunk.slice(8 * start, 8 * end))
+                    // })
+                    const sharedBuffer = new SharedArrayBuffer(/** @type {Buffer} */(chunk).byteLength)
+                    const sharedArray = new Uint8Array(sharedBuffer)
+                    sharedArray.set(/** @type {Buffer} */(chunk))
                     processedSize += chunk.length
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
