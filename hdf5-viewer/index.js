@@ -81,9 +81,10 @@ httpServer.on('request', (request, response) => {
             const startTime = Date.now()
             imwrite(imagesc({ numBins: filteredImage.shape, binCounts: filteredImage.value })).then(buffer => {
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-                response.writeHead(200)
+                response.writeHead(200,{ 'Content-Type': 'application/base64' })
                 response.end(`data:image/png;base64,${buffer.toString('base64')}`)
             })
+            return
         }
 
         readFile(`${hdf5Path}${request.url}`, (err, data) => {

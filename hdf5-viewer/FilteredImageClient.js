@@ -1,14 +1,12 @@
-import FilteredImageMaker from "./FilteredImageMaker.js";
+import FilteredImageGetter from "./FilteredImageGetter.js";
 import FilteredImageVariables from "./FilteredImageVariables.js";
-import SelectChangeHandler from "./AttributesGetter.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
-import SelectUpdater from "./FilesGetter.js";
+import FilesGetter from "./FilesGetter.js";
 
 const variables = new FilteredImageVariables()
 new SelectDblclickHandler(variables)
-new SelectChangeHandler(variables)
-new SelectUpdater(variables)
-new FilteredImageMaker(variables)
+new FilesGetter(variables)
+new FilteredImageGetter(variables)
     ;
 (element => {
     element.size = 20
