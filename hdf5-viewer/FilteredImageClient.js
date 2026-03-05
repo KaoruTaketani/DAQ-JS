@@ -57,7 +57,8 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
         if (!ctx) throw new Error()
 
         ctx.imageSmoothingEnabled = false
-        ctx.drawImage(element, 0, 0, canvasElement.width, canvasElement.height)
+        // ctx.drawImage(element, 0, 0, canvasElement.width, canvasElement.height)
+        ctx.drawImage(element, 0, 0)
     });
 })(document.createElement('img'));
 
