@@ -44,7 +44,8 @@ httpServer.on('request', (request, response) => {
             '    <meta charset="utf-8">',
             '</head>',
             '<body>',
-            `    <p><a href="./OfflineClient.html">Offline</a></p>`,
+            `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
+            `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
             '</body>',
             '</html>'
         ].join('\n'))
