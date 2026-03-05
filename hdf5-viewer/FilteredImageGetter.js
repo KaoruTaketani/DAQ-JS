@@ -17,6 +17,7 @@ export default class {
                 const filename = this._selectElement.options[this._selectElement.selectedIndex].innerText
                 if (filename.endsWith('/')) {
                     variables.divInnerText.assign('')
+                    variables.imageSrc.assign('')
                     return
                 }
                 if (!filename.endsWith('.h5')) return
