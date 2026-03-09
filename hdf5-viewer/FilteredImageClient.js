@@ -62,7 +62,9 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
 
         ctx.imageSmoothingEnabled = false
         // ctx.drawImage(element, 0, 0, canvasElement.width, canvasElement.height)
-        ctx.drawImage(element, 0, 0)
+        // ctx.drawImage(element, 0, 0)
+        // x:[73, 503], y: [374,32]
+        ctx.drawImage(element, 73 * 400/560, 32 * 300/420)
     });
 })(document.createElement('img'));
 
