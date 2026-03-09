@@ -37,8 +37,12 @@ new FilteredImageGetter(variables)
 const canvasElement = document.body.appendChild(document.createElement('canvas'));
 (element => {
     element.style.marginLeft = '200px'
-    element.width = 512
-    element.height = 512
+    element.style.marginTop = '50px'
+    element.style.position='absolute'
+    // element.style.top='0'
+    // element.style.left='0'
+    element.width = 400
+    element.height = 300
 })(canvasElement);
 
 (element => {
@@ -63,7 +67,11 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
 })(document.createElement('img'));
 
 (element => {
-    element.style.marginLeft = '208px'
+    element.style.marginLeft = '200px'
+    element.style.marginTop = '50px'
+    element.style.position='absolute'
+    // element.style.top='0'
+    // element.style.left='0'
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
