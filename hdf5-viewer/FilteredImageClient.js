@@ -62,4 +62,14 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     });
 })(document.createElement('img'));
 
+(element => {
+    element.style.marginLeft = '208px'
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300')
+    element.setAttribute('viewBox', '0 0 560 420')
+    variables.svgInnerHTML.addListener(arg => {
+        element.innerHTML = arg
+    })
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+
 variables.path.assign('/')

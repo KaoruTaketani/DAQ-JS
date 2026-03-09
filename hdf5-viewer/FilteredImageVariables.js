@@ -6,6 +6,7 @@ export default class extends OfflineVariables {
         super()
 
         this.imageSrc = new ListenableString()
+        this.svgInnerHTML = new ListenableString()
     }
 }
 

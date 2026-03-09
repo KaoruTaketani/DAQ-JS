@@ -34,6 +34,16 @@ export default class {
                         })
                     }
                 })
+                fetch(`${filePath}?type=svg&path=/filteredImage`).then(response => {
+                    if (!response.ok) {
+                        variables.divInnerText.assign('filteredImage was not found')
+                        variables.svgInnerHTML.assign('')
+                    } else {
+                        response.text().then(text => {
+                            variables.svgInnerHTML.assign(text)
+                        })
+                    }
+                })
             })
         }
     }

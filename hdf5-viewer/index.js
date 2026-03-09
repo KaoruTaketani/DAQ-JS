@@ -8,6 +8,7 @@ import linspace from '../lib/linspace.js'
 import axes from '../lib/axes.js'
 import stairs from '../lib/stairs.js'
 import xlabel from '../lib/xlabel.js'
+import ylabel from '../lib/ylabel.js'
 const h5wasm = await import("h5wasm/node");
 await h5wasm.ready;
 
@@ -74,54 +75,88 @@ httpServer.on('request', (request, response) => {
             f.close()
             return
         }
-        if (url.searchParams.get('type') === 'png') {
-            let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
-            const filteredImage = f.get('filteredImage')
-            if (!filteredImage) {
-                response.writeHead(404)
-                response.end()
+        if (url.searchParams.get('path') === '/filteredImage') {
+            if (url.searchParams.get('type') === 'png') {
+                let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
+                const filteredImage = f.get('filteredImage')
+                if (!filteredImage) {
+                    response.writeHead(404)
+                    response.end()
+                    return
+                }
+                console.log(filteredImage.shape)
+                console.log(filteredImage.value)
+                const startTime = Date.now()
+                imwrite(imagesc({ numBins: filteredImage.shape, binCounts: filteredImage.value })).then(buffer => {
+                    console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+                    response.writeHead(200, { 'Content-Type': 'application/base64' })
+                    response.end(`data:image/png;base64,${buffer.toString('base64')}`)
+                })
                 return
             }
-            console.log(filteredImage.shape)
-            console.log(filteredImage.value)
-            const startTime = Date.now()
-            imwrite(imagesc({ numBins: filteredImage.shape, binCounts: filteredImage.value })).then(buffer => {
+            if (url.searchParams.get('type') === 'svg') {
+                let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
+                const filteredImage = f.get('filteredImage')
+                if (!filteredImage) {
+                    response.writeHead(404)
+                    response.end()
+                    return
+                }
+                // console.log(filteredTOFHistogram.shape)
+                // console.log(filteredTOFHistogram.value)
+                const startTime = Date.now()
+                const widthInMillimeters = filteredImage.shape[0] / 1024 * 50
+                const heightInMillimeters = filteredImage.shape[1] / 1024 * 50
+                const ax = {
+                    xLim: [0, widthInMillimeters],
+                    yLim: [0, heightInMillimeters],
+                    xTick: [0, widthInMillimeters],
+                    yTick: [0, heightInMillimeters],
+                    xTickLabel: ['0', `${widthInMillimeters.toFixed(1)}`],
+                    yTickLabel: ['0', `${heightInMillimeters.toFixed(1)}`]
+                }
+                response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
+                response.end([
+                    axes(ax),
+                    xlabel(ax, 'width (mm)'),
+                    ylabel(ax, 'height (mm)')
+                ].join(''))
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-                response.writeHead(200, { 'Content-Type': 'application/base64' })
-                response.end(`data:image/png;base64,${buffer.toString('base64')}`)
-            })
-            return
-        }
-        if (url.searchParams.get('type') === 'svg') {
-            let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
-            const filteredTOFHistogram = f.get('filteredTOFHistogram')
-            if (!filteredTOFHistogram) {
-                response.writeHead(404)
-                response.end()
                 return
             }
-            // console.log(filteredTOFHistogram.shape)
-            // console.log(filteredTOFHistogram.value)
-            const startTime = Date.now()
-            const binCounts = filteredTOFHistogram.value
-            const yMax = max(binCounts)
-            const xTick = linspace(0, binCounts.length, 8 + 1)
-            const ax = {
-                xLim: [0, binCounts.length],
-                yLim: [0, yMax],
-                xTick: xTick,
-                yTick: [0, yMax],
-                xTickLabel: xTick.map(x => x.toFixed()),
-                yTickLabel: ['0', `${yMax}`]
+        }
+        if (url.searchParams.get('path') === '/filteredTOFHistogram') {
+            if (url.searchParams.get('type') === 'svg') {
+                let f = new h5wasm.File(join(hdf5Path, url.pathname), "r");
+                const filteredTOFHistogram = f.get('filteredTOFHistogram')
+                if (!filteredTOFHistogram) {
+                    response.writeHead(404)
+                    response.end()
+                    return
+                }
+                // console.log(filteredTOFHistogram.shape)
+                // console.log(filteredTOFHistogram.value)
+                const startTime = Date.now()
+                const binCounts = filteredTOFHistogram.value
+                const yMax = max(binCounts)
+                const xTick = linspace(0, binCounts.length, 8 + 1)
+                const ax = {
+                    xLim: [0, binCounts.length],
+                    yLim: [0, yMax],
+                    xTick: xTick,
+                    yTick: [0, yMax],
+                    xTickLabel: xTick.map(x => x.toFixed()),
+                    yTickLabel: ['0', `${yMax}`]
+                }
+                response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
+                response.end([
+                    axes(ax),
+                    xlabel(ax, 'tof (ch)'),
+                    stairs(ax, { binLimits: [0, binCounts.length], binCounts: binCounts })
+                ].join(''))
+                console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+                return
             }
-            response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-            response.end([
-                axes(ax),
-                xlabel(ax, 'tof (ch)'),
-                stairs(ax, { binLimits: [0, binCounts.length], binCounts: binCounts })
-            ].join(''))
-            console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-            return
         }
     } else if (url.pathname.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
