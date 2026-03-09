@@ -63,7 +63,7 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
         ctx.imageSmoothingEnabled = false
         // ctx.drawImage(element, 0, 0, canvasElement.width, canvasElement.height)
         // ctx.drawImage(element, 0, 0)
-        // x:[73, 503], y: [374,32]
+        // x:[73, 503], y: [374,32] can be obtained from axes.dataset.xMinInPixels
         // ctx.drawImage(element, 73 * 400/560, 32 * 300/420)
         ctx.drawImage(element, 73 * 400 / 560, 32 * 300 / 420, (503 - 73) * 400 / 560, (374 - 32) * 300 / 420)
     });
@@ -80,6 +80,9 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.setAttribute('viewBox', '0 0 560 420')
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
+        
+        const axes = element.firstChild
+        console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
