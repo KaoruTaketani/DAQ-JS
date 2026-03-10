@@ -1,17 +1,110 @@
-import { readFile } from 'fs'
+import { createReadStream, readdir, readFile } from 'fs'
 import { Server } from 'http'
-import { basename } from 'path'
-import { WebSocketServer } from 'ws'
-import ChannelEventTableServer from './ChannelEventTableServer.js'
-import NeutronEventTableServer from './NeutronEventTableServer.js'
-import PairedEventTableServer from './PairedEventTableServer.js'
+import { basename, join } from 'path'
+import Variables from './Variables.js'
+import EventBufferParser from './EventBufferParser.js'
 
-const httpServer = new Server(),
-    webSocketServer = new WebSocketServer({ noServer: true }),
-    servers = new Map()
+const httpServer = new Server()
+const variables = new Variables()
+const edrPath = '../../edr'
+
+new EventBufferParser(variables)
 
 httpServer.on('request', (request, response) => {
-    console.log(request.url)
+    console.log(`GET url: ${request.url}`)
+    const url = new URL(`http://localhost${request.url}`)
+    // console.log(url)
+    if (url.pathname === '/readdir') {
+        const path = url.searchParams.get('path')
+        if (!path) return
+        readdir(join(edrPath, path), { withFileTypes: true }, (err, files) => {
+            if (err) {
+                response.writeHead(404)
+                response.end()
+            } else {
+                response.writeHead(200)
+                if (path === '/') {
+                    response.end(
+                        files.map(file => file.isDirectory() ? file.name + '/' : file.name)
+                            .map(text => `<option>${text}</option>`).join('')
+                    )
+                } else {
+                    response.end(
+                        '<option>../</option>' + files.map(file => file.isDirectory() ? file.name + '/' : file.name)
+                            .map(text => `<option>${text}</option>`).join('')
+                    )
+                }
+            }
+        })
+        return
+    }
+    if (url.pathname.endsWith('.edr')) {
+        console.log(`pathname: ${url.pathname}, type: ${url.searchParams.get('type')}, offset: ${url.searchParams.get('offset')}`)
+        const rs = createReadStream(join(edrPath, url.pathname), { highWaterMark: 25 * 8 })
+        rs.on('data', chunk => {
+            const channelEvents = new Array(25)
+            for (let i = 0; i < chunk.length / 8; ++i) {
+                if (chunk[8 * i] === 0x5a) {
+                    const
+                        data1 = chunk[8 * i + 1],
+                        data2 = chunk[8 * i + 2],
+                        data3 = chunk[8 * i + 3],
+                        data4 = chunk[8 * i + 4],
+                        data5 = chunk[8 * i + 5],
+                        data6 = chunk[8 * i + 6],
+                        data7 = chunk[8 * i + 7],
+                        tof = ((data1 << 16) + (data2 << 8) + data3) * 25, /** time bin is 25 nsec */
+                        channel = data4 & 0b111,
+                        left = (data5 << 4) + (data6 >> 4),
+                        right = ((data6 & 0b1111) << 8) + data7
+
+                    channelEvents[i] = {
+                        channel: channel,
+                        tofInNanoseconds: tof,
+                        left: left,
+                        right: right
+                    }
+                } else if (chunk[8 * i] === 0x5b) {
+                    channelEvents[i] = {
+                        channel: Number.NaN,
+                        tofInNanoseconds: Number.NaN,
+                        left: Number.NaN,
+                        right: Number.NaN
+                    }
+                } else if (chunk[8 * i] === 0x5c) {
+                    channelEvents[i] = {
+                        channel: Number.NaN,
+                        tofInNanoseconds: Number.NaN,
+                        left: Number.NaN,
+                        right: Number.NaN
+                    }
+                } else {
+                    // unexpected
+                }
+            }
+            console.log(chunk.length)
+            // console.log(channelEvents[0])
+            response.end([
+                '<thead>',
+                '<tr>',
+                Object.keys(channelEvents[0]).map(key => `<th>${key}</th>`).join(''),
+                '</tr>',
+                '</thead>',
+                '<tbody align="right">',
+                channelEvents.map(obj => ['<tr>',
+                    Object.keys(obj).map(key => {
+                        /** @type {any} */
+                        const tmp = obj
+                        return `<td>${tmp[key].toLocaleString()}</td>`
+                    }).join(''),
+                    '</tr>'].join('')
+                ).join(''),
+                '</tbody>'
+            ].join(''))
+            rs.close()
+        })
+        return
+    }
     if (request.url?.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
             if (err) throw err
@@ -47,25 +140,4 @@ httpServer.on('request', (request, response) => {
             '</html>'
         ].join('\n'))
     }
-}).on('upgrade', (request, socket, head) => {
-    webSocketServer.handleUpgrade(request, socket, head, ws => {
-        if (request.url === '/ChannelEventTableClient.js')
-            servers.set(ws, new ChannelEventTableServer(ws))
-        if (request.url === '/PairedEventTableClient.js')
-            servers.set(ws, new PairedEventTableServer(ws))
-        if (request.url === '/NeutronEventTableClient.js')
-            servers.set(ws, new NeutronEventTableServer(ws))
-
-        ws.on('message', data => {
-            // console.log(`onmessage url:${request.url}`)
-
-            const arg = JSON.parse(data.toString())
-            servers.get(ws)?.variables.message.assign(arg)
-        })
-        ws.on('close', () => {
-            console.log(`a ws closed by the client url: ${request.url}`)
-
-            servers.delete(ws)
-        })
-    })
 }).listen(80)

@@ -80,8 +80,9 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.setAttribute('viewBox', '0 0 560 420')
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
-        
+
         const axes = element.firstChild
+        if (!axes) return
         console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));

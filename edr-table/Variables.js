@@ -1,15 +1,11 @@
 import ControllableNumber from './ControllableNumber.js'
 import ControllableString from './ControllableString.js'
-import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
 
 export default class {
-    /**
-     * @param {import('ws').WebSocket} webSocket 
-     */
-    constructor(webSocket) {
+    constructor() {
         /** @type {import('./ListenableObject.js').default<object>} */
         this.message = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Buffer>} */
@@ -43,10 +39,6 @@ export default class {
 
         this.edrPath = new ListenableString()
 
-        this.tableInnerHTML = new ElementString('tableInnerHTML', webSocket)
-        this.offsetValue = new ElementString('offsetValue', webSocket)
-        this.messageInnerText = new ElementString('messageInnerText', webSocket)
-        this.edrFileNamesInnerHTML = new ElementString('edrFileNamesInnerHTML', webSocket)
 
         this.edrReaderFileName = new ControllableString('edrReaderFileName', this.message)
     }
