@@ -2,11 +2,13 @@ import ChannelEventTableGetter from "./ChannelEventTableGetter.js";
 import FilesGetter from "./FilesGetter.js";
 import ChannelEventVariables from "./ChannelEventVariables.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
+import NumEventsGetter from "./NumEventsGetter.js";
 
 
 const variables = new ChannelEventVariables()
 new SelectDblclickHandler(variables)
 new ChannelEventTableGetter(variables)
+new NumEventsGetter(variables)
 new FilesGetter(variables)
     ;
 (element => {

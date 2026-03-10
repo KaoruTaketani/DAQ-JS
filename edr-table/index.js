@@ -1,4 +1,4 @@
-import { createReadStream, readdir, readFile } from 'fs'
+import { createReadStream, readdir, readFile, statSync } from 'fs'
 import { Server } from 'http'
 import { basename, join } from 'path'
 import Variables from './Variables.js'
@@ -40,73 +40,80 @@ httpServer.on('request', (request, response) => {
     }
     if (url.pathname.endsWith('.edr')) {
         console.log(`pathname: ${url.pathname}, type: ${url.searchParams.get('type')}, offset: ${url.searchParams.get('offset')}`)
-        const rs = createReadStream(join(edrPath, url.pathname), { highWaterMark: 25 * 8 })
-        rs.on('data', chunk => {
-            const channelEvents = new Array(25)
-            for (let i = 0; i < chunk.length / 8; ++i) {
-                if (chunk[8 * i] === 0x5a) {
-                    const
-                        data1 = chunk[8 * i + 1],
-                        data2 = chunk[8 * i + 2],
-                        data3 = chunk[8 * i + 3],
-                        data4 = chunk[8 * i + 4],
-                        data5 = chunk[8 * i + 5],
-                        data6 = chunk[8 * i + 6],
-                        data7 = chunk[8 * i + 7],
-                        tof = ((data1 << 16) + (data2 << 8) + data3) * 25, /** time bin is 25 nsec */
-                        channel = data4 & 0b111,
-                        left = (data5 << 4) + (data6 >> 4),
-                        right = ((data6 & 0b1111) << 8) + data7
+        if (url.searchParams.get('type') === 'channel') {
+            const rs = createReadStream(join(edrPath, url.pathname), { highWaterMark: 25 * 8 })
+            rs.on('data', chunk => {
+                const channelEvents = new Array(25)
+                for (let i = 0; i < chunk.length / 8; ++i) {
+                    if (chunk[8 * i] === 0x5a) {
+                        const
+                            data1 = chunk[8 * i + 1],
+                            data2 = chunk[8 * i + 2],
+                            data3 = chunk[8 * i + 3],
+                            data4 = chunk[8 * i + 4],
+                            data5 = chunk[8 * i + 5],
+                            data6 = chunk[8 * i + 6],
+                            data7 = chunk[8 * i + 7],
+                            tof = ((data1 << 16) + (data2 << 8) + data3) * 25, /** time bin is 25 nsec */
+                            channel = data4 & 0b111,
+                            left = (data5 << 4) + (data6 >> 4),
+                            right = ((data6 & 0b1111) << 8) + data7
 
-                    channelEvents[i] = {
-                        header:`0x5a`,
-                        channel: channel,
-                        tofInNanoseconds: tof,
-                        left: left,
-                        right: right
+                        channelEvents[i] = {
+                            header: `0x5a`,
+                            channel: channel,
+                            tofInNanoseconds: tof,
+                            left: left,
+                            right: right
+                        }
+                    } else if (chunk[8 * i] === 0x5b) {
+                        channelEvents[i] = {
+                            header: `0x5b`,
+                            channel: Number.NaN,
+                            tofInNanoseconds: Number.NaN,
+                            left: Number.NaN,
+                            right: Number.NaN
+                        }
+                    } else if (chunk[8 * i] === 0x5c) {
+                        channelEvents[i] = {
+                            header: `0x5c`,
+                            channel: Number.NaN,
+                            tofInNanoseconds: Number.NaN,
+                            left: Number.NaN,
+                            right: Number.NaN
+                        }
+                    } else {
+                        // unexpected
                     }
-                } else if (chunk[8 * i] === 0x5b) {
-                    channelEvents[i] = {
-                        header:`0x5b`,
-                        channel: Number.NaN,
-                        tofInNanoseconds: Number.NaN,
-                        left: Number.NaN,
-                        right: Number.NaN
-                    }
-                } else if (chunk[8 * i] === 0x5c) {
-                    channelEvents[i] = {
-                        header:`0x5c`,
-                        channel: Number.NaN,
-                        tofInNanoseconds: Number.NaN,
-                        left: Number.NaN,
-                        right: Number.NaN
-                    }
-                } else {
-                    // unexpected
                 }
-            }
-            console.log(chunk.length)
-            // console.log(channelEvents[0])
-            response.end([
-                '<thead>',
-                '<tr>',
-                Object.keys(channelEvents[0]).map(key => `<th>${key}</th>`).join(''),
-                '</tr>',
-                '</thead>',
-                '<tbody align="right">',
-                channelEvents.map(obj => ['<tr>',
-                    Object.keys(obj).map(key => {
-                        /** @type {any} */
-                        const tmp = obj
-                        return `<td>${tmp[key].toLocaleString()}</td>`
-                    }).join(''),
-                    '</tr>'].join('')
-                ).join(''),
-                '</tbody>'
-            ].join(''))
-            rs.close()
-        })
-        return
+                console.log(chunk.length)
+                // console.log(channelEvents[0])
+                response.end([
+                    '<thead>',
+                    '<tr>',
+                    Object.keys(channelEvents[0]).map(key => `<th>${key}</th>`).join(''),
+                    '</tr>',
+                    '</thead>',
+                    '<tbody align="right">',
+                    channelEvents.map(obj => ['<tr>',
+                        Object.keys(obj).map(key => {
+                            /** @type {any} */
+                            const tmp = obj
+                            return `<td>${tmp[key].toLocaleString()}</td>`
+                        }).join(''),
+                        '</tr>'].join('')
+                    ).join(''),
+                    '</tbody>'
+                ].join(''))
+                rs.close()
+            })
+            return
+        }
+        if (url.searchParams.get('type') === 'numEvents') {
+            const stat = statSync(join(edrPath, url.pathname))
+            response.end(`${(stat.size / 8).toLocaleString()} events`)
+            return
+        }
     }
     if (request.url?.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
