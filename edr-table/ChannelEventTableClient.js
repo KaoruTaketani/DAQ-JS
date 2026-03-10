@@ -40,6 +40,8 @@ variables.path.addListener(arg => { _path = arg })
         }
         if (!filename.endsWith('.edr')) return
 
+        variables.offset.assign(0)
+        variables.offsetValue.assign('0')
         variables.filePath.assign(_path === '/' ? `/${filename}` : `${_path}/${filename}`)
     })
     variables.selectElement.assign(element)
