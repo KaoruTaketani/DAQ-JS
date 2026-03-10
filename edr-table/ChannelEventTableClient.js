@@ -4,12 +4,15 @@ import ChannelEventVariables from "./ChannelEventVariables.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 
-
 const variables = new ChannelEventVariables()
 new SelectDblclickHandler(variables)
 new ChannelEventTableGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetter(variables)
+    ;
+/** @type {string} */
+let _path
+variables.path.addListener(arg => { _path = arg })
     ;
 (element => {
     element.type = 'number'
@@ -29,6 +32,16 @@ new FilesGetter(variables)
     element.style.position = 'absolute'
     element.style.width = '150px'
     element.style.height = `500px`
+    element.addEventListener('change', () => {
+        const filename = element.options[element.selectedIndex].innerText
+        if (filename.endsWith('/')) {
+            variables.divInnerText.assign('')
+            return
+        }
+        if (!filename.endsWith('.edr')) return
+
+        variables.filePath.assign(_path === '/' ? `/${filename}` : `${_path}/${filename}`)
+    })
     variables.selectElement.assign(element)
 })(document.body.appendChild(document.createElement('select')));
 
@@ -42,4 +55,6 @@ new FilesGetter(variables)
     variables.tableInnerText.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('table')));
 
+variables.offset.assign(0)
+variables.offsetValue.assign('0')
 variables.path.assign('/')

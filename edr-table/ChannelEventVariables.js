@@ -10,6 +10,7 @@ export default class {
         this.offset = new ListenableNumber()
 
         this.path = new ListenableString()
+        this.filePath = new ListenableString()
         this.divInnerText = new ListenableString()
         this.tableInnerText = new ListenableString()
         this.offsetValue = new ListenableString()

@@ -3,30 +3,24 @@ export default class {
      * @param {import('./ChannelEventVariables.js').default} variables 
      */
     constructor(variables) {
+        /** @type {number} */
+        this._offset
+        variables.offset.addListener(arg => {
+            this._offset = arg
+            this._operation()
+        })
         /** @type {string} */
-        this._path
-        variables.path.prependListener(arg => { this._path = arg })
-        /** @type {HTMLSelectElement} */
-        this._selectElement
-        variables.selectElement.addListener(arg => {
-            this._selectElement = arg
+        this._filePath
+        variables.filePath.addListener(arg => {
+            this._filePath = arg
             this._operation()
         })
         this._operation = () => {
-            this._selectElement.addEventListener('change', () => {
-                const filename = this._selectElement.options[this._selectElement.selectedIndex].innerText
-                if (filename.endsWith('/')) {
-                    variables.divInnerText.assign('')
-                    return
-                }
-                if (!filename.endsWith('.edr')) return
+            if (!this._filePath) return
 
-                const filePath = this._path === '/' ? `/${filename}` : `${this._path}/${filename}`
-
-                fetch(`${filePath}?type=channel&offset=0`).then(response => {
-                    response.text().then(text => {
-                        variables.tableInnerText.assign(text)
-                    })
+            fetch(`${this._filePath}?type=channel&offset=${this._offset}`).then(response => {
+                response.text().then(text => {
+                    variables.tableInnerText.assign(text)
                 })
             })
         }
