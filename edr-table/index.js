@@ -59,6 +59,7 @@ httpServer.on('request', (request, response) => {
                         right = ((data6 & 0b1111) << 8) + data7
 
                     channelEvents[i] = {
+                        header:`0x5a`,
                         channel: channel,
                         tofInNanoseconds: tof,
                         left: left,
@@ -66,6 +67,7 @@ httpServer.on('request', (request, response) => {
                     }
                 } else if (chunk[8 * i] === 0x5b) {
                     channelEvents[i] = {
+                        header:`0x5b`,
                         channel: Number.NaN,
                         tofInNanoseconds: Number.NaN,
                         left: Number.NaN,
@@ -73,6 +75,7 @@ httpServer.on('request', (request, response) => {
                     }
                 } else if (chunk[8 * i] === 0x5c) {
                     channelEvents[i] = {
+                        header:`0x5c`,
                         channel: Number.NaN,
                         tofInNanoseconds: Number.NaN,
                         left: Number.NaN,
