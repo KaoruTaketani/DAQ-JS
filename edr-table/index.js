@@ -89,6 +89,40 @@ httpServer.on('request', (request, response) => {
                     // this.variables.tofMaxInMilliseconds.assign(80)
                     // this.variables.tofDifferenceMaxInNanoseconds.assign(250)
                     // this.variables.tofDifferenceMinInNanoseconds.assign(-250)
+                    //
+                    // pulseHeight: left + right,
+                    // coordinateInPixels: ((left << 8) / (left + right)) >> 0
+                    //
+                    // if (this._channelEvent.channel === 0) this._channel0Event = this._channelEvent
+                    // if (this._channelEvent.channel === 1) this._channel1Event = this._channelEvent
+
+                    // if (!this._channel0Event) return
+                    // if (!this._channel1Event) return
+
+                    // variables.pairedEvent.assign({
+                    //     xCoordinateInPixels: this._channel0Event.coordinateInPixels,
+                    //     xPulseHeight: this._channel0Event.pulseHeight,
+                    //     xTOFInNanoseconds: this._channel0Event.tofInNanoseconds,
+                    //     yCoordinateInPixels: this._channel1Event.coordinateInPixels,
+                    //     yPulseHeight: this._channel1Event.pulseHeight,
+                    //     yTOFInNanoseconds: this._channel1Event.tofInNanoseconds
+                    // })
+                    
+                    // const dt = this._pairedEvent.xTOFInNanoseconds - this._pairedEvent.yTOFInNanoseconds
+                    // if (dt > this._tofDifferenceMaxInNanoseconds) return
+                    // if (dt < this._tofDifferenceMinInNanoseconds) return
+
+                    // const tof = (this._pairedEvent.xTOFInNanoseconds + this._pairedEvent.yTOFInNanoseconds) >> 1
+                    // if (tof > this._tofMaxInMilliseconds * 1_000_000) return
+
+                    // variables.neutronEvent.assign({
+                    //     tofInNanoseconds: tof,
+                    //     xCoordinateInPixels: this._pairedEvent.xCoordinateInPixels,
+                    //     yCoordinateInPixels: this._pairedEvent.yCoordinateInPixels,
+                    //     // channelEvent.pulse is 12bit, pairedEvent.pulse is sum of them.
+                    //     // to match the pulseHieghtHistogram's 10bit bints, divide here 2^4=16
+                    //     pulseheight: (this._pairedEvent.xPulseHeight + this._pairedEvent.yPulseHeight) / 16
+                    // })
 
                     response.end([
                         '<thead>',
