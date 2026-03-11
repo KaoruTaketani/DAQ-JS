@@ -1,14 +1,9 @@
-import { close, createReadStream, open, read, readdir, readFile, statSync } from 'fs'
+import { createReadStream, readdir, readFile, statSync } from 'fs'
 import { Server } from 'http'
 import { basename, join } from 'path'
-import EventBufferParser from './EventBufferParser.js'
-import Variables from './Variables.js'
 
 const httpServer = new Server()
-const variables = new Variables()
 const edrPath = '../../edr'
-
-new EventBufferParser(variables)
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
@@ -89,6 +84,11 @@ httpServer.on('request', (request, response) => {
                             // unexpected
                         }
                     }
+                    // necessary to make paired/neutron events from channel events
+                    // this.variables.neutronPositionBitLength.assign(10)
+                    // this.variables.tofMaxInMilliseconds.assign(80)
+                    // this.variables.tofDifferenceMaxInNanoseconds.assign(250)
+                    // this.variables.tofDifferenceMinInNanoseconds.assign(-250)
 
                     response.end([
                         '<thead>',
