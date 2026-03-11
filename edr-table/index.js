@@ -54,12 +54,14 @@ httpServer.on('request', (request, response) => {
                                 data7 = chunk[8 * i + 7],
                                 tof = ((data1 << 16) + (data2 << 8) + data3) * 25, /** time bin is 25 nsec */
                                 channel = data4 & 0b111,
+                                module = data4 >> 3,
                                 left = (data5 << 4) + (data6 >> 4),
                                 right = ((data6 & 0b1111) << 8) + data7
 
                             channelEvents[i] = {
                                 header: `0x5a`,
                                 channel: channel,
+                                module: module,
                                 tofInNanoseconds: tof,
                                 left: left,
                                 right: right
@@ -68,6 +70,7 @@ httpServer.on('request', (request, response) => {
                             channelEvents[i] = {
                                 header: `0x5b`,
                                 channel: Number.NaN,
+                                module: Number.NaN,
                                 tofInNanoseconds: Number.NaN,
                                 left: Number.NaN,
                                 right: Number.NaN
@@ -76,6 +79,7 @@ httpServer.on('request', (request, response) => {
                             channelEvents[i] = {
                                 header: `0x5c`,
                                 channel: Number.NaN,
+                                module: Number.NaN,
                                 tofInNanoseconds: Number.NaN,
                                 left: Number.NaN,
                                 right: Number.NaN
@@ -107,7 +111,7 @@ httpServer.on('request', (request, response) => {
                     //     yPulseHeight: this._channel1Event.pulseHeight,
                     //     yTOFInNanoseconds: this._channel1Event.tofInNanoseconds
                     // })
-                    
+
                     // const dt = this._pairedEvent.xTOFInNanoseconds - this._pairedEvent.yTOFInNanoseconds
                     // if (dt > this._tofDifferenceMaxInNanoseconds) return
                     // if (dt < this._tofDifferenceMinInNanoseconds) return
