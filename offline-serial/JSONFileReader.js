@@ -49,8 +49,9 @@ export default class extends Operator {
                         variables.neutronPositionMaxInMillimeters.assign(50)
                         variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
                         variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
-                        variables.upstreamSlitWidthInMillimeters.assign(2)
-                        variables.downstreamSlitWidthInMillimeters.assign(2)
+                        // followings are parameters
+                        // variables.upstreamSlitWidthInMillimeters.assign(2)
+                        // variables.downstreamSlitWidthInMillimeters.assign(2)
                         // followings are the triggers for some operators
                         variables.pulseHeightHistogramNumBins.assign(2 ** 10)
                         variables.tofMaxInMilliseconds.assign(80)

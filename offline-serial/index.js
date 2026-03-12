@@ -91,6 +91,7 @@ variables.hdf5Path.assign('../../hdf5/20250424')
 //     './42.json',
 //     './43.json'
 // ])
-variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
+// variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
+variables.jsonFileNames.assign(['0.json'])
 // variables.jsonFilePaths.assign(['./106.json'])
 
