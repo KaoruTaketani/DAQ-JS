@@ -9,24 +9,13 @@ new FilesRequestHandler(variables)
 const httpServer = new Server()
 const edrPath = '../../edr'
 variables.edrPath.assign(edrPath)
-// const isDigit = (/** @type {string} */c) => c >= '0' && c <= '9'
-// const numDigit = (/** @type {string} */c, /** @type {number} */ i) => {
-//     let j
-//     for (j = i; j < c.length; j++)
-//         if (!isDigit(c[j]))
-//             return j - i
-//     return j - i
-// }
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
     const url = new URL(`http://localhost${request.url}`)
     variables.response.assign(response)
     variables.url.assign(new URL(`http://localhost${request.url}`))
-    // console.log(url)
-    if (url.pathname === '/files') {
-        return
-    }
+
     if (url.pathname.endsWith('.edr')) {
         console.log(`pathname: ${url.pathname}, type: ${url.searchParams.get('type')}, offset: ${url.searchParams.get('offset')}`)
         if (url.searchParams.get('type') === 'channel') {
@@ -157,14 +146,16 @@ httpServer.on('request', (request, response) => {
             return
         }
     }
-    if (request.url?.endsWith('.js')) {
+    if (url.pathname.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
             if (err) throw err
 
             response.writeHead(200, { 'Content-Type': 'text/javascript' })
             response.end(data)
         })
-    } else if (request.url?.endsWith('.html')) {
+        return
+    }
+    if (url.pathname.endsWith('.html')) {
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
             '<html>',
@@ -177,7 +168,9 @@ httpServer.on('request', (request, response) => {
             '</body>',
             '</html>'
         ].join('\n'))
-    } else {
+        return
+    }
+    if (url.pathname === '/') {
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
             '<html>',
@@ -191,5 +184,6 @@ httpServer.on('request', (request, response) => {
             '</body>',
             '</html>'
         ].join('\n'))
+        return
     }
 }).listen(80)
