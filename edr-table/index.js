@@ -4,6 +4,14 @@ import { basename, join } from 'path'
 
 const httpServer = new Server()
 const edrPath = '../../edr'
+const isDigit = (/** @type {string} */c) => c >= '0' && c <= '9'
+const numDigit = (/** @type {string} */c, /** @type {number} */ i) => {
+    let j
+    for (j = i; j < c.length; j++)
+        if (!isDigit(c[j]))
+            return j - i
+    return j - i
+}
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
@@ -26,6 +34,27 @@ httpServer.on('request', (request, response) => {
                 } else {
                     response.end(
                         '<option>../</option>' + files.map(file => file.isDirectory() ? file.name + '/' : file.name)
+                        .sort((a, b) => {
+                                // 1. As long as both characters at a given position are not digits, the alphabetical order is followed.
+                                // 2. When there are two numbers and the amount of digits is not equal, the number with the least digits is the smallest.
+                                // 3. If the numbers have the same amount of digits, the alphabetical order is followed.            
+                                let i
+                                for (i = 0; i < a.length; i++) {
+                                    // 'b' can be a prefix of 'a'
+                                    if (!b[i]) return 1
+                                    if (isDigit(a[i]) && isDigit(b[i])) {
+                                        const nda = numDigit(a, i)
+                                        const ndb = numDigit(b, i)
+                                        if (nda === ndb) continue
+                                        return nda > ndb ? 1 : -1
+                                    } else {
+                                        // Compare alphabetic chars.
+                                        if (a[i] === b[i]) continue
+                                        return a[i] > b[i] ? 1 : -1
+                                    }
+                                }
+                                return b[i] ? -1 : 0
+                            })
                             .map(text => `<option>${text}</option>`).join('')
                     )
                 }

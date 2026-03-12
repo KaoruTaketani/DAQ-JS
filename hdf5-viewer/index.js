@@ -22,6 +22,7 @@ const numDigit = (/** @type {string} */c, /** @type {number} */ i) => {
             return j - i
     return j - i
 }
+
 httpServer.on('request', (request, response) => {
     if (request.method !== 'GET') return
 
