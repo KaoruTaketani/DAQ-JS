@@ -1,3 +1,4 @@
+import colon from "../lib/colon.js"
 import ContrastMaker from "./ContrastMaker.js"
 import ContrastRatioMaker from "./ContrastRatioMaker.js"
 import EDRReader from "./EDRReader.js"
@@ -92,6 +93,8 @@ variables.hdf5Path.assign('../../hdf5/20250424')
 //     './43.json'
 // ])
 // variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
-variables.jsonFileNames.assign(['0.json'])
+// variables.jsonFileNames.assign(['0.json'])
+// console.log(colon(0, 60))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 
