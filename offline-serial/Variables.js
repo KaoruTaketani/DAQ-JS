@@ -73,7 +73,6 @@ export default class {
         this.kickerPulseCount = new WritableNumber('kickerPulseCount', this.hdf5File)
         this.channel0Count = new WritableNumber('channel0Count', this.hdf5File)
         this.channel1Count = new WritableNumber('channel1Count', this.hdf5File)
-        this.pairedCount = new WritableNumber('pairedCount', this.hdf5File)
         this.neutronCount = new WritableNumber('neutronCount', this.hdf5File)
         this.filteredNeutronCount = new WritableNumber('filteredNeutronCount', this.hdf5File)
         // followings are parameters but fixed
