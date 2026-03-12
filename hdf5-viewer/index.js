@@ -1,11 +1,11 @@
 import { readdir, readFile } from 'fs'
 import { Server } from 'http'
 import { basename, join } from 'path'
-import imwrite from '../lib/imwrite.js'
-import imagesc from '../lib/imagesc.js'
-import max from '../lib/max.js'
-import linspace from '../lib/linspace.js'
 import axes from '../lib/axes.js'
+import imagesc from '../lib/imagesc.js'
+import imwrite from '../lib/imwrite.js'
+import linspace from '../lib/linspace.js'
+import max from '../lib/max.js'
 import stairs from '../lib/stairs.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
@@ -30,9 +30,13 @@ httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
     const url = new URL(`http://localhost${request.url}`)
     // console.log(url)
-    if (url.pathname === '/readdir') {
+    if (url.pathname === '/files') {
         const path = url.searchParams.get('path')
         if (!path) return
+        const extname = url.searchParams.get('extname')
+        if (!extname) return
+        if (extname !== '.h5') return
+
         readdir(join(hdf5Path, path), { withFileTypes: true }, (err, files) => {
             if (err) {
                 response.writeHead(404)

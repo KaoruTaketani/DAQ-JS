@@ -17,9 +17,13 @@ httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
     const url = new URL(`http://localhost${request.url}`)
     // console.log(url)
-    if (url.pathname === '/readdir') {
+    if (url.pathname === '/files') {
         const path = url.searchParams.get('path')
         if (!path) return
+        const extname = url.searchParams.get('extname')
+        if (!extname) return
+        if (extname !== 'edr') return
+        
         readdir(join(edrPath, path), { withFileTypes: true }, (err, files) => {
             if (err) {
                 response.writeHead(404)

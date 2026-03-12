@@ -13,7 +13,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            fetch("/readdir?path=" + this._path).then(response => {
+            fetch("/files?extname=h5&path=" + this._path).then(response => {
                 if (!response.ok) {
                     document.body.innerHTML = response.statusText
                 } else {
