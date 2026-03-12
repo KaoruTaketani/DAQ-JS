@@ -80,18 +80,18 @@ httpServer.on('request', (request, response) => {
             for (let i = 0; i < chunk.length / 8; ++i) {
                 if (chunk[8 * i] === 0x5a) {
                     const
-                        data1 = chunk[8 * i + 1],
-                        data2 = chunk[8 * i + 2],
-                        data3 = chunk[8 * i + 3],
-                        data4 = chunk[8 * i + 4],
-                        data5 = chunk[8 * i + 5],
-                        data6 = chunk[8 * i + 6],
-                        data7 = chunk[8 * i + 7],
-                        tof = ((data1 << 16) + (data2 << 8) + data3) * 25, /** time bin is 25 nsec */
-                        channel = data4 & 0b111,
-                        module = data4 >> 3,
-                        left = (data5 << 4) + (data6 >> 4),
-                        right = ((data6 & 0b1111) << 8) + data7
+                        byte1 = chunk[8 * i + 1],
+                        byte2 = chunk[8 * i + 2],
+                        byte3 = chunk[8 * i + 3],
+                        byte4 = chunk[8 * i + 4],
+                        byte5 = chunk[8 * i + 5],
+                        byte6 = chunk[8 * i + 6],
+                        byte7 = chunk[8 * i + 7],
+                        tof = ((byte1 << 16) + (byte2 << 8) + byte3) * 25, /** time bin is 25 nsec */
+                        channel = byte4 & 0b111,
+                        module = byte4 >> 3,
+                        left = (byte5 << 4) + (byte6 >> 4),
+                        right = ((byte6 & 0b1111) << 8) + byte7
 
                     channelEvents[i] = {
                         header: `0x5a`,
