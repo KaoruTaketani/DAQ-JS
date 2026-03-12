@@ -2,6 +2,7 @@ import { createReadStream, statSync } from 'fs'
 import { File, ready } from 'h5wasm/node'
 import { join } from 'path'
 import Operator from './Operator.js'
+import edrPath from './edrPath.js'
 
 export default class extends Operator {
     /**
@@ -23,20 +24,22 @@ export default class extends Operator {
         variables.horizontalProjectionHistograms.prependListener(arg => { this._horizontalProjectionHistograms = arg })
         /** @type {string[]} */
         this._jsonFilePaths
-        variables.jsonFilePaths.prependListener(arg => { this._jsonFilePaths = arg })
+        variables.jsonFileNames.prependListener(arg => { this._jsonFilePaths = arg })
         /** @type {string} */
-        this._edrFilePath
-        variables.edrFilePath.addListener(arg => {
-            this._edrFilePath = arg
+        this._edrFileName
+        variables.edrFileName.addListener(arg => {
+            this._edrFileName = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._edrFilePath) return
+            if (!this._edrFileName) return
 
-            const totalSize = statSync(this._edrFilePath).size,
+            const edrFilePath = join(edrPath(), this._edrFileName),
+                totalSize = statSync(edrFilePath).size,
                 startTime = Date.now()
+
             let processedSize = 0
-            createReadStream(this._edrFilePath, { highWaterMark: 32 * 1024 * 1024 })
+            createReadStream(edrFilePath, { highWaterMark: 32 * 1024 * 1024 })
                 .on('data', chunk => {
                     variables.eventBuffer.assign(/** @type {Buffer} */(chunk))
                     processedSize += chunk.length
@@ -52,7 +55,7 @@ export default class extends Operator {
                         hdf5File.close()
                         console.log(`hdf5 elapsedTime: ${Date.now() - startTime} ms`)
 
-                        variables.jsonFilePaths.assign(this._jsonFilePaths)
+                        variables.jsonFileNames.assign(this._jsonFilePaths)
                     })
                 })
         }

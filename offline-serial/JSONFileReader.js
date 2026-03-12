@@ -2,6 +2,7 @@ import { readFile } from "fs"
 import { File, ready } from 'h5wasm/node'
 import { basename, join } from 'path'
 import Operator from './Operator.js'
+import jsonPath from './jsonPath.js'
 
 export default class extends Operator {
     /**
@@ -13,17 +14,17 @@ export default class extends Operator {
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {string[]} */
-        this._jsonFilePaths
-        variables.jsonFilePaths.addListener(arg => {
-            this._jsonFilePaths = arg
+        this._jsonFileNames
+        variables.jsonFileNames.addListener(arg => {
+            this._jsonFileNames = arg
             this._operation()
         })
         this._operation = () => {
-            const path = this._jsonFilePaths.shift()
-            if (path === undefined) {
+            const name = this._jsonFileNames.shift()
+            if (name === undefined) {
                 console.log('done')
             } else {
-                readFile(path, 'utf8', (err, data) => {
+                readFile(join(jsonPath(), name), 'utf8', (err, data) => {
                     if (err) throw err
 
                     ready.then(() => {
@@ -59,13 +60,13 @@ export default class extends Operator {
                         variables.miezeFrequencyInKilohertz.assign(10)
 
                         const parameters = JSON.parse(data)
-                        variables.hdf5FileName.assign(basename(path, '.json') + '.h5')
+                        variables.hdf5FileName.assign(basename(name, '.json') + '.h5')
 
                         if (parameters.directBeamFileName) {
                             const directBeamHDF5File = new File(join(this._hdf5Path, parameters.directBeamFileName), 'r')
                             variables.directBeamHDF5File.assign(directBeamHDF5File)
                             directBeamHDF5File.close()
-                        }else{
+                        } else {
                             variables.directBeamHDF5File.assign(undefined)
                         }
                         variables.parameters.assign(parameters)

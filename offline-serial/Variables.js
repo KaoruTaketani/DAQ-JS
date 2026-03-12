@@ -29,7 +29,7 @@ export default class {
         /** @type {import('./ListenableObject.js').default<import('h5wasm').File|undefined>} */
         this.directBeamHDF5File = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<string[]>} */
-        this.jsonFilePaths = new ListenableObject()
+        this.jsonFileNames = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
 
@@ -108,6 +108,6 @@ export default class {
         this.downstreamFlipperOutput = new ParameterString('downstreamFlipperOutput', this.hdf5File, this.parameters)
         this.directBeamFileName = new ParameterString('directBeamFileName', this.hdf5File, this.parameters)
         /// edrFilePath must be the final listener
-        this.edrFilePath = new ParameterString('edrFilePath', this.hdf5File, this.parameters)
+        this.edrFileName = new ParameterString('edrFileName', this.hdf5File, this.parameters)
     }
 }
