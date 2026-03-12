@@ -76,7 +76,6 @@ export default class {
         this.pairedCount = new WritableNumber('pairedCount', this.hdf5File)
         this.neutronCount = new WritableNumber('neutronCount', this.hdf5File)
         this.filteredNeutronCount = new WritableNumber('filteredNeutronCount', this.hdf5File)
-        this.neutronCount = new WritableNumber('neutronCount', this.hdf5File)
         // followings are parameters but fixed
         this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', this.hdf5File)
         this.tofDifferenceMaxInNanoseconds = new WritableNumber('tofDiffrenceMaxInNanoseconds', this.hdf5File)
