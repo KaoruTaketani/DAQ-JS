@@ -31,7 +31,12 @@ new FilesGetterHDF5(variables)
 (element => {
     element.style.marginLeft = '208px'
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
-})(document.body.appendChild(document.createElement('p')))
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    element.style.marginLeft = '208px'
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
 
 const imageElement = document.createElement('img')
 imageElement.addEventListener('error', () => {
@@ -48,11 +53,6 @@ imageElement.addEventListener('load', () => {
     ctx.imageSmoothingEnabled = false
     ctx.drawImage(imageElement, 0, 0, canvasElement.width, canvasElement.height)
 });
-
-(element => {
-    element.style.marginLeft = '208px'
-    variables.divInnerText.addListener(arg => { element.innerText = arg })
-})(document.body.appendChild(document.createElement('div')));
 
 const canvasElement = document.body.appendChild(document.createElement('canvas'));
 (element => {

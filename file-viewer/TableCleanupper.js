@@ -10,10 +10,9 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._fileName.endsWith('/')) {
+            if (this._fileName.endsWith('/'))
                 variables.tableInnerText.assign('')
-                return
-            }
+
             variables.offset.assign(0)
             variables.offsetValue.assign('0')
         }

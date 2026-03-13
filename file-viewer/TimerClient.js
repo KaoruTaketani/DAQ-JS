@@ -30,7 +30,7 @@ new FilePathMaker(variables)
 (element => {
     element.size = 20
     element.style.position = 'absolute'
-    element.style.width = '150px'
+    element.style.width = '200px'
     element.style.height = `500px`
     element.addEventListener('change', () => {
         variables.fileName.assign(element.options[element.selectedIndex].innerText)
@@ -43,18 +43,16 @@ new FilePathMaker(variables)
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.path.addListener(arg => {
-        element.innerText = `path: ${arg}`
-    })
+    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
 (element => {
-    element.style.marginLeft = '158px'
+    element.style.marginLeft = '208px'
     variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
 (element => {
-    element.style.marginLeft = '158px'
+    element.style.marginLeft = '208px'
     variables.tableInnerText.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('table')));
 

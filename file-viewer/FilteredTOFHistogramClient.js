@@ -32,16 +32,12 @@ new FilteredTOFHistogramGetter(variables)
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.path.addListener(arg => {
-        element.innerText = `path: ${arg}`
-    })
+    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.divInnerText.addListener(arg => {
-        element.innerText = arg
-    })
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
 (element => {

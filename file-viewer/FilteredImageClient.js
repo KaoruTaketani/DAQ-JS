@@ -32,9 +32,7 @@ new FilteredImageGetter(variables)
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.path.addListener(arg => {
-        element.innerText = `path: ${arg}`
-    })
+    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
 (element => {
