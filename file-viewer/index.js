@@ -3,9 +3,12 @@ import { Server } from 'http'
 import { basename, join } from 'path'
 import Variables from './Variables.js'
 import FilesRequestHandler from './FilesRequestHandler.js'
+import EDRNumEventsRequestHandler from './EDRNumEventsRequestHandler.js'
 
 const variables = new Variables()
 new FilesRequestHandler(variables)
+new EDRNumEventsRequestHandler(variables)
+
 const httpServer = new Server()
 const edrPath = '../../edr'
 variables.edrPath.assign(edrPath)
@@ -138,11 +141,6 @@ httpServer.on('request', (request, response) => {
             // }).on('end', () => {
             //     console.log('end')
             // })
-            return
-        }
-        if (url.searchParams.get('type') === 'numEvents') {
-            const stat = statSync(join(edrPath, url.pathname))
-            response.end(`${(stat.size / 8).toLocaleString()} events`)
             return
         }
     }
