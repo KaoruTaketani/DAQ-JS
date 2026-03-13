@@ -11,7 +11,7 @@ export default class {
         })
         this._operation = () => {
             if (this._fileName.endsWith('/'))
-                variables.tableInnerText.assign('')
+                variables.tableInnerHTML.assign('')
 
             variables.offset.assign(0)
             variables.offsetValue.assign('0')

@@ -56,7 +56,7 @@ new FilePathMaker(variables)
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.tableInnerText.addListener(arg => { element.innerHTML = arg })
+    variables.tableInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('table')));
 
 variables.offset.assign(0)

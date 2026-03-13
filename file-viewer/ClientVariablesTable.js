@@ -7,7 +7,7 @@ export default class extends ClientVariables {
         super()
         this.offset = new ListenableNumber()
 
-        this.tableInnerText = new ListenableString()
+        this.tableInnerHTML = new ListenableString()
         this.offsetValue = new ListenableString()
     }
 }

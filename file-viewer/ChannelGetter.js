@@ -20,7 +20,7 @@ export default class {
 
             fetch(`${this._filePath}?type=channel&offset=${this._offset}`).then(response => {
                 response.text().then(text => {
-                    variables.tableInnerText.assign(text)
+                    variables.tableInnerHTML.assign(text)
                 })
             })
         }
