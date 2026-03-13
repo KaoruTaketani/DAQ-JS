@@ -1,11 +1,11 @@
-import FilesGetter from "./FilesGetter.js";
+import HDF5FilesGetter from "./HDF5FilesGetter.js";
 import FilteredTOFHistogramGetter from "./FilteredTOFHistogramGetter.js";
-import FilteredTOFHistogramVariables from "./FilteredTOFHistogramVariables.js";
+import ClientImageVariables from "./ClientImageVariables.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
 
-const variables = new FilteredTOFHistogramVariables()
+const variables = new ClientImageVariables()
 new SelectDblclickHandler(variables)
-new FilesGetter(variables)
+new HDF5FilesGetter(variables)
 new FilteredTOFHistogramGetter(variables)
     ;
 (element => {

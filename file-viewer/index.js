@@ -7,6 +7,7 @@ import FilesRequestHandler from './FilesRequestHandler.js'
 import NumEventsRequestHandler from './NumEventsRequestHandler.js'
 import Variables from './Variables.js'
 import FilteredImageRequestHandler from './FilteredImageRequestHandler.js'
+import FilteredTOFHistogramRequestHandler from './FilteredTOFHistogramRequestHandler.js'
 
 const variables = new Variables()
 new FilesRequestHandler(variables)
@@ -14,6 +15,7 @@ new ChannelRequestHandler(variables)
 new NumEventsRequestHandler(variables)
 new AttributesRequestHandler(variables)
 new FilteredImageRequestHandler(variables)
+new FilteredTOFHistogramRequestHandler(variables)
 
 const httpServer = new Server()
 variables.edrPath.assign('../../edr')

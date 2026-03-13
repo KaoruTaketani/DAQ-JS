@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./FilteredTOFHistogramVariables.js').default} variables 
+     * @param {import('./ClientImageVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
