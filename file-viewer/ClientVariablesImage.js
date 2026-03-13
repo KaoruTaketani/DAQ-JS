@@ -1,10 +1,15 @@
 import ListenableString from './ListenableString.js'
 import ClientVariables from './ClientVariables.js'
 import ListenableNumber from './ListenableNumber.js'
+import ListenableObject from './ListenableObject.js'
 
 export default class extends ClientVariables {
     constructor() {
         super()
+        /** @type {import('./ListenableObject.js').default<HTMLImageElement>} */
+        this.imageElement = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<CanvasRenderingContext2D>} */
+        this.canvasContext = new ListenableObject()
 
         this.xminInPixels = new ListenableNumber()
         this.yminInPixels = new ListenableNumber()
