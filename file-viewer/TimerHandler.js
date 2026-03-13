@@ -52,8 +52,8 @@ export default class {
                         byte3 = chunk[8 * i + 3],
                         byte4 = chunk[8 * i + 4],
                         byte5 = chunk[8 * i + 5],
-                        mlfTime = byte1 << 14 + byte2 << 6 + byte3 >> 2,
-                        subsecond = (byte3 & 0b11) << 13 + byte4 << 5 + byte5 >> 3
+                        mlfTime = (byte1 << 22) + (byte2 << 14) + (byte3 << 6) + (byte4 >> 2),
+                        subsecond = ((byte4 & 0b11) << 13) + (byte4 << 5) + (byte5 >> 3)
                     timerEvents[i] = {
                         header: `0x5c`,
                         mlfTime: mlfTime,
