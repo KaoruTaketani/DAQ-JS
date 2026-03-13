@@ -18,6 +18,7 @@ new FilteredTOFHistogramGetter(variables)
         element.style.top = `${window.scrollY + 8}px`
     }
     variables.selectElement.assign(element)
+    variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
@@ -38,7 +39,7 @@ new FilteredTOFHistogramGetter(variables)
     element.style.marginLeft = '208px'
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
-    element.setAttribute('viewBox','0 0 560 420')
+    element.setAttribute('viewBox', '0 0 560 420')
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
     })

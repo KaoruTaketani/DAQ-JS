@@ -39,7 +39,8 @@ variables.path.addListener(arg => { _path = arg })
     element.addEventListener('change', () => {
         variables.fileName.assign(element.options[element.selectedIndex].innerText)
     })
-    variables.selectElement.assign(element)
+    variables.selectElement.assign(element) // used by dblclick
+    variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {

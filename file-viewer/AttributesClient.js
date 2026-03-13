@@ -17,7 +17,8 @@ new FilesGetterHDF5(variables)
     window.onscroll = _ => {
         element.style.top = `${window.scrollY + 8}px`
     }
-    variables.selectElement.assign(element)
+    variables.selectElement.assign(element) // used by dblclick handler
+    variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {

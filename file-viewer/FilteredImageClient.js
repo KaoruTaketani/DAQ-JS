@@ -18,6 +18,7 @@ new FilteredImageGetter(variables)
         element.style.top = `${window.scrollY + 8}px`
     }
     variables.selectElement.assign(element)
+    variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {

@@ -17,7 +17,7 @@ export default class {
                 if (!response.ok) {
                     document.body.innerHTML = response.statusText
                 } else {
-                    response.text().then(text => { this._selectElement.innerHTML = text })
+                    response.text().then(text => {variables.selectInnerHTML.assign(text) })
                 }
             })
         }
