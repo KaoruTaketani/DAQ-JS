@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./ClientImageVariables.js').default} variables 
+     * @param {import('./ClientVariablesImage.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

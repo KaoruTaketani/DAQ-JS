@@ -1,9 +1,9 @@
 import FilteredImageGetter from "./FilteredImageGetter.js";
-import ClientImageVariables from "./ClientImageVariables.js";
+import ClientVariablesImage from "./ClientVariablesImage.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 
-const variables = new ClientImageVariables()
+const variables = new ClientVariablesImage()
 new SelectDblclickHandler(variables)
 new FilesGetterHDF5(variables)
 new FilteredImageGetter(variables)

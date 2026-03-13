@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./ClientTableVariables.js').default} variables 
+     * @param {import('./ClientVariablesTable.js').default} variables 
      */
     constructor(variables) {
         /** @type {number} */

@@ -1,10 +1,10 @@
 import ChannelGetterGetter from "./ChannelGetter.js";
-import ClientTableVariables from "./ClientTableVariables.js";
+import ClientVariablesTable from "./ClientVariablesTable.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
 
-const variables = new ClientTableVariables()
+const variables = new ClientVariablesTable()
 new SelectDblclickHandler(variables)
 new ChannelGetterGetter(variables)
 new NumEventsGetter(variables)
