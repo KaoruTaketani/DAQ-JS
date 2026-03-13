@@ -5,6 +5,7 @@ import ImageGetter from "./ImageGetter.js";
 import ImageCleanupper from "./ImageCleanupper.js";
 import PathMaker from "./PathMaker.js";
 import ImageDrawer from "./ImageDrawer.js";
+import CursorTextMaker from "./CursorTextMaker.js";
 
 const variables = new ClientVariablesImage()
 new PathMaker(variables)
@@ -13,6 +14,7 @@ new FilePathMaker(variables)
 new ImageCleanupper(variables)
 new ImageGetter(variables)
 new ImageDrawer(variables)
+new CursorTextMaker(variables)
     ;
 (element => {
     element.size = 20
@@ -78,6 +80,9 @@ new ImageDrawer(variables)
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
+    element.addEventListener('mousemove', ev => {
+        variables.cursorOffset.assign([ev.offsetX, ev.offsetY])
+    })
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
 
@@ -91,6 +96,14 @@ new ImageDrawer(variables)
             variables.xmaxInPixels.assign(parseInt(axes.dataset.xmaxInPixels))
         if (axes.dataset.ymaxInPixels)
             variables.ymaxInPixels.assign(parseInt(axes.dataset.ymaxInPixels))
+        if (axes.dataset.xminInData)
+            variables.xminInData.assign(parseFloat(axes.dataset.xminInData))
+        if (axes.dataset.yminInData)
+            variables.yminInData.assign(parseInt(axes.dataset.yminInData))
+        if (axes.dataset.xmaxInData)
+            variables.xmaxInData.assign(parseInt(axes.dataset.xmaxInData))
+        if (axes.dataset.ymaxInData)
+            variables.ymaxInData.assign(parseInt(axes.dataset.ymaxInData))
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
