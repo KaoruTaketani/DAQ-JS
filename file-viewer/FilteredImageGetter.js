@@ -28,8 +28,10 @@ export default class {
                     if (!response.ok) {
                         variables.divInnerText.assign('filteredImage was not found')
                         variables.svgInnerHTML.assign('')
+                        variables.imageSrc.assign('')
                     } else {
                         response.text().then(text => {
+                            variables.divInnerText.assign('')
                             variables.svgInnerHTML.assign(text)
                             fetch(`${filePath}?type=png&path=/filteredImage`).then(response => {
                                 response.text().then(text => {

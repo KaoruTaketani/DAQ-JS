@@ -27,8 +27,10 @@ export default class {
                 fetch(`${filePath}?type=svg&path=/filteredTOFHistogram`).then(response => {
                     if (!response.ok) {
                         variables.divInnerText.assign('filteredTOFHistogram was not found')
+                        variables.svgInnerHTML.assign('')
                     } else {
                         response.text().then(text => {
+                            variables.divInnerText.assign('')
                             variables.svgInnerHTML.assign(text)
                         })
                     }

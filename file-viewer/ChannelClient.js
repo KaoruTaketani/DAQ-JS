@@ -36,6 +36,7 @@ variables.path.addListener(arg => { _path = arg })
         const filename = element.options[element.selectedIndex].innerText
         if (filename.endsWith('/')) {
             variables.divInnerText.assign('')
+            variables.tableInnerText.assign('')
             return
         }
         if (!filename.endsWith('.edr')) return
