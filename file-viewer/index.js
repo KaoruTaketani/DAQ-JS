@@ -10,6 +10,7 @@ import FilteredImageHandler from './FilteredImageHandler.js'
 import FilteredTOFHistogramHandler from './FilteredTOFHistogramHandler.js'
 import TimerHandler from './TimerHandler.js'
 import KickerHandler from './KickerHandler.js'
+import ImageHandler from './ImageHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -20,6 +21,7 @@ new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new FilteredImageHandler(variables)
 new FilteredTOFHistogramHandler(variables)
+new ImageHandler(variables)
 
 const httpServer = new Server()
 variables.edrPath.assign('../../edr')
@@ -71,6 +73,7 @@ httpServer.on('request', (request, response) => {
             `    <p><a href="./NeutronClient.html">Neutron</a></p>`,
             `    <h2>HDF5</h2>`,
             `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
+            `    <p><a href="./ImageClient.html">Image</a></p>`,
             `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
             `    <p><a href="./FilteredTOFHistogramClient.html">Filtered TOF Histogram</a></p>`,
             '</body>',
