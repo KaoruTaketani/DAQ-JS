@@ -36,13 +36,13 @@ export default class {
                 if (chunk[8 * i] === 0x5a) {
                     timerEvents[i] = {
                         header: `0x5a`,
-                        mlfTime: Number.NaN,
+                        mlfTimeInSeconds: Number.NaN,
                         subsecond: Number.NaN
                     }
                 } else if (chunk[8 * i] === 0x5b) {
                     timerEvents[i] = {
                         header: `0x5b`,
-                        mlfTime: Number.NaN,
+                        mlfTimeInSeconds: Number.NaN,
                         subsecond: Number.NaN
                     }
                 } else if (chunk[8 * i] === 0x5c) {
@@ -56,7 +56,7 @@ export default class {
                         subsecond = ((byte4 & 0b11) << 13) + (byte4 << 5) + (byte5 >> 3)
                     timerEvents[i] = {
                         header: `0x5c`,
-                        mlfTime: mlfTime,
+                        mlfTimeInSeconds: mlfTime,
                         subsecond: subsecond
                     }
                 } else {

@@ -15,23 +15,10 @@ new TableCleanupper(variables)
 new FilePathMaker(variables)
     ;
 (element => {
-    element.type = 'number'
-    element.style.marginTop = '508px'
-    element.style.position = 'absolute'
-    element.min = '0'
-    variables.offsetValue.addListener(arg => { element.value = arg })
-    element.onchange = () => {
-        const value = parseInt(element.value)
-        if (!Number.isInteger(value)) return
-        variables.offset.assign(value)
-    }
-})(document.body.appendChild(document.createElement('input')));
-
-(element => {
     element.size = 20
     element.style.position = 'absolute'
     element.style.width = '200px'
-    element.style.height = `500px`
+    element.style.height = `${window.innerHeight - 8 * 2}px`
     element.addEventListener('change', () => {
         variables.fileName.assign(element.options[element.selectedIndex].innerText)
     })
@@ -40,6 +27,22 @@ new FilePathMaker(variables)
     })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
+
+(element => {
+    element.style.marginLeft = '208px'
+    element.appendChild(document.createTextNode('offset: '));
+    (element => {
+        element.type = 'number'
+        element.style.marginLeft = '8px'
+        element.min = '0'
+        element.addEventListener('change', () => {
+            const value = parseInt(element.value)
+            if (!Number.isInteger(value)) return
+            variables.offset.assign(value)
+        })
+        variables.offsetValue.addListener(arg => { element.value = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
 
 (element => {
     element.style.marginLeft = '208px'

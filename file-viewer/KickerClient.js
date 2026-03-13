@@ -18,7 +18,6 @@ new FilePathMaker(variables)
     element.size = 20
     element.style.position = 'absolute'
     element.style.width = '200px'
-    // element.style.height = `500px`
     element.style.height = `${window.innerHeight - 8 * 2}px`
     element.addEventListener('change', () => {
         variables.fileName.assign(element.options[element.selectedIndex].innerText)
@@ -30,7 +29,6 @@ new FilePathMaker(variables)
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
-    // element.style.display = 'block'
     element.style.marginLeft = '208px'
     element.appendChild(document.createTextNode('offset: '));
     (element => {
