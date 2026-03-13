@@ -9,6 +9,7 @@ export default class {
 
         this.selectInnerHTML = new ListenableString()
         this.path = new ListenableString()
+        this.directoryName = new ListenableString()
         this.fileName = new ListenableString()
         this.filePath = new ListenableString()
         this.divInnerText = new ListenableString()

@@ -1,11 +1,11 @@
 import AttributesGetter from "./AttributesGetter.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import SelectDblclickHandler from "./SelectDblclickHandler.js";
 import ClientVariables from "./ClientVariables.js";
 import FilePathMaker from "./FilePathMaker.js";
+import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import PathMaker from "./PathMaker.js";
 
 const variables = new ClientVariables()
-new SelectDblclickHandler(variables)
+new PathMaker(variables)
 new AttributesGetter(variables)
 new FilePathMaker(variables)
 new FilesGetterHDF5(variables)
@@ -22,15 +22,15 @@ new FilesGetterHDF5(variables)
     element.addEventListener('change', () => {
         variables.fileName.assign(element.options[element.selectedIndex].innerText)
     })
-    variables.selectElement.assign(element) // used by dblclick handler
+    element.addEventListener('dblclick', () => {
+        variables.directoryName.assign(element.options[element.selectedIndex].innerText)
+    })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.path.addListener(arg => {
-        element.innerText = `path: ${arg}`
-    })
+    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')))
 
 const imageElement = document.createElement('img')
@@ -51,9 +51,7 @@ imageElement.addEventListener('load', () => {
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.divInnerText.addListener(arg => {
-        element.innerText = arg
-    })
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
 const canvasElement = document.body.appendChild(document.createElement('canvas'));

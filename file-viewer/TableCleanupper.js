@@ -3,9 +3,6 @@ export default class {
      * @param {import('./ClientVariablesTable.js').default} variables 
      */
     constructor(variables) {
-        /** @type {HTMLSelectElement} */
-        this._selectElement
-        variables.selectElement.prependListener(arg => { this._selectElement = arg })
         /** @type {string} */
         this._fileName
         variables.fileName.addListener(arg => {
