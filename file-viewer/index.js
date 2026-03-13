@@ -9,11 +9,13 @@ import Variables from './Variables.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
 import FilteredTOFHistogramHandler from './FilteredTOFHistogramHandler.js'
 import TimerHandler from './TimerHandler.js'
+import KickerHandler from './KickerHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
 new ChannelHandler(variables)
 new TimerHandler(variables)
+new KickerHandler(variables)
 new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new FilteredImageHandler(variables)

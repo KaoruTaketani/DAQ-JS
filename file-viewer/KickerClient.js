@@ -1,4 +1,4 @@
-import ChannelGetter from "./ChannelGetter.js";
+import KickerGetter from "./KickerGetter.js";
 import ClientVariablesTable from "./ClientVariablesTable.js";
 import FilePathMaker from "./FilePathMaker.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
@@ -8,7 +8,7 @@ import TableCleanupper from "./TableCleanupper.js";
 
 const variables = new ClientVariablesTable()
 new PathMaker(variables)
-new ChannelGetter(variables)
+new KickerGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
 new TableCleanupper(variables)
