@@ -49,7 +49,7 @@ export default class {
                         byte5 = chunk[8 * i + 5],
                         byte6 = chunk[8 * i + 6],
                         byte7 = chunk[8 * i + 7],
-                        kickerId = byte3 << 32 + byte4 << 24 + byte5 << 16 + byte6 << 8+ byte7
+                        kickerId = (byte3 << 32) + (byte4 << 24) + (byte5 << 16) + (byte6 << 8) + byte7
                     timerEvents[i] = {
                         header: `0x5b`,
                         crate: byte1,
