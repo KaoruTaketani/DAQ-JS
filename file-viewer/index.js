@@ -6,12 +6,14 @@ import ChannelRequestHandler from './ChannelRequestHandler.js'
 import FilesRequestHandler from './FilesRequestHandler.js'
 import NumEventsRequestHandler from './NumEventsRequestHandler.js'
 import Variables from './Variables.js'
+import FilteredImageRequestHandler from './FilteredImageRequestHandler.js'
 
 const variables = new Variables()
 new FilesRequestHandler(variables)
 new ChannelRequestHandler(variables)
 new NumEventsRequestHandler(variables)
 new AttributesRequestHandler(variables)
+new FilteredImageRequestHandler(variables)
 
 const httpServer = new Server()
 variables.edrPath.assign('../../edr')
@@ -56,7 +58,7 @@ httpServer.on('request', (request, response) => {
             '</head>',
             '<body>',
             `    <h2>EDR</h2>`,
-            `    <p><a href="./ChannelEventTableClient.html">Channel</a></p>`,
+            `    <p><a href="./ChanneClient.html">Channel</a></p>`,
             `    <p><a href="./PairedEventTableClient.html">Paired</a></p>`,
             `    <p><a href="./NeutronEventTableClient.html">Neutron</a></p>`,
             `    <h2>HDF5</h2>`,

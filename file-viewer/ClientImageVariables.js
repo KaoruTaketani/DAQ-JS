@@ -1,7 +1,7 @@
 import ListenableString from './ListenableString.js'
-import OfflineVariables from './OfflineVariables.js'
+import ClientVariables from './ClientVariables.js'
 
-export default class extends OfflineVariables {
+export default class extends ClientVariables {
     constructor() {
         super()
 

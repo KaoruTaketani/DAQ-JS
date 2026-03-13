@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./FilteredImageVariables.js').default} variables 
+     * @param {import('./ClientImageVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
@@ -24,16 +24,6 @@ export default class {
 
                 const filePath = this._path === '/' ? `/${filename}` : `${this._path}/${filename}`
 
-                fetch(`${filePath}?type=png&path=/filteredImage`).then(response => {
-                    if (!response.ok) {
-                        variables.divInnerText.assign('filteredImage was not found')
-                        variables.imageSrc.assign('')
-                    } else {
-                        response.text().then(text => {
-                            variables.imageSrc.assign(text)
-                        })
-                    }
-                })
                 fetch(`${filePath}?type=svg&path=/filteredImage`).then(response => {
                     if (!response.ok) {
                         variables.divInnerText.assign('filteredImage was not found')
@@ -41,6 +31,11 @@ export default class {
                     } else {
                         response.text().then(text => {
                             variables.svgInnerHTML.assign(text)
+                            fetch(`${filePath}?type=png&path=/filteredImage`).then(response => {
+                                response.text().then(text => {
+                                    variables.imageSrc.assign(text)
+                                })
+                            })
                         })
                     }
                 })
