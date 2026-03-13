@@ -2,10 +2,14 @@ import FilteredImageGetter from "./FilteredImageGetter.js";
 import ClientVariablesImage from "./ClientVariablesImage.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import FilePathMaker from "./FilePathMaker.js";
+import ImageCleanupper from "./ImageCleanupper.js";
 
 const variables = new ClientVariablesImage()
 new SelectDblclickHandler(variables)
 new FilesGetterHDF5(variables)
+new FilePathMaker(variables)
+new ImageCleanupper(variables)
 new FilteredImageGetter(variables)
     ;
 (element => {
@@ -17,6 +21,9 @@ new FilteredImageGetter(variables)
     window.onscroll = _ => {
         element.style.top = `${window.scrollY + 8}px`
     }
+    element.addEventListener('change', () => {
+        variables.fileName.assign(element.options[element.selectedIndex].innerText)
+    })
     variables.selectElement.assign(element)
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));

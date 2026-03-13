@@ -2,10 +2,12 @@ import AttributesGetter from "./AttributesGetter.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
 import ClientVariables from "./ClientVariables.js";
+import FilePathMaker from "./FilePathMaker.js";
 
 const variables = new ClientVariables()
 new SelectDblclickHandler(variables)
 new AttributesGetter(variables)
+new FilePathMaker(variables)
 new FilesGetterHDF5(variables)
     ;
 (element => {
@@ -17,6 +19,9 @@ new FilesGetterHDF5(variables)
     window.onscroll = _ => {
         element.style.top = `${window.scrollY + 8}px`
     }
+    element.addEventListener('change', () => {
+        variables.fileName.assign(element.options[element.selectedIndex].innerText)
+    })
     variables.selectElement.assign(element) // used by dblclick handler
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
