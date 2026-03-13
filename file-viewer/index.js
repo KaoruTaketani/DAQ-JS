@@ -1,21 +1,21 @@
 import { readFile } from 'fs'
 import { Server } from 'http'
 import { basename } from 'path'
-import AttributesRequestHandler from './AttributesRequestHandler.js'
-import ChannelRequestHandler from './ChannelRequestHandler.js'
-import FilesRequestHandler from './FilesRequestHandler.js'
-import NumEventsRequestHandler from './NumEventsRequestHandler.js'
+import AttributesHandler from './AttributesHandler.js'
+import ChannelHandler from './ChannelHandler.js'
+import FilesHandler from './FilesHandler.js'
+import NumEventsHandler from './NumEventsHandler.js'
 import Variables from './Variables.js'
-import FilteredImageRequestHandler from './FilteredImageRequestHandler.js'
-import FilteredTOFHistogramRequestHandler from './FilteredTOFHistogramRequestHandler.js'
+import FilteredImageHandler from './FilteredImageHandler.js'
+import FilteredTOFHistogramHandler from './FilteredTOFHistogramHandler.js'
 
 const variables = new Variables()
-new FilesRequestHandler(variables)
-new ChannelRequestHandler(variables)
-new NumEventsRequestHandler(variables)
-new AttributesRequestHandler(variables)
-new FilteredImageRequestHandler(variables)
-new FilteredTOFHistogramRequestHandler(variables)
+new FilesHandler(variables)
+new ChannelHandler(variables)
+new NumEventsHandler(variables)
+new AttributesHandler(variables)
+new FilteredImageHandler(variables)
+new FilteredTOFHistogramHandler(variables)
 
 const httpServer = new Server()
 variables.edrPath.assign('../../edr')
