@@ -8,10 +8,12 @@ import NumEventsHandler from './NumEventsHandler.js'
 import Variables from './Variables.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
 import FilteredTOFHistogramHandler from './FilteredTOFHistogramHandler.js'
+import TimerHandler from './TimerHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
 new ChannelHandler(variables)
+new TimerHandler(variables)
 new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new FilteredImageHandler(variables)
@@ -60,7 +62,9 @@ httpServer.on('request', (request, response) => {
             '</head>',
             '<body>',
             `    <h2>EDR</h2>`,
-            `    <p><a href="./ChanneClient.html">Channel</a></p>`,
+            `    <p><a href="./TimerClient.html">Timer</a></p>`,
+            `    <p><a href="./KickerClient.html">Kicker</a></p>`,
+            `    <p><a href="./ChannelClient.html">Channel</a></p>`,
             `    <p><a href="./PairedClient.html">Paired</a></p>`,
             `    <p><a href="./NeutronClient.html">Neutron</a></p>`,
             `    <h2>HDF5</h2>`,
