@@ -1,16 +1,16 @@
 import { readFile } from 'fs'
 import { Server } from 'http'
 import { basename } from 'path'
-import EDRChannelRequestHandler from './EDRChannelRequestHandler.js'
-import EDRNumEventsRequestHandler from './EDRNumEventsRequestHandler.js'
-import FilesRequestHandler from './FilesRequestHandler.js'
-import Variables from './Variables.js'
 import AttributesRequestHandler from './AttributesRequestHandler.js'
+import ChannelRequestHandler from './ChannelRequestHandler.js'
+import FilesRequestHandler from './FilesRequestHandler.js'
+import NumEventsRequestHandler from './NumEventsRequestHandler.js'
+import Variables from './Variables.js'
 
 const variables = new Variables()
 new FilesRequestHandler(variables)
-new EDRNumEventsRequestHandler(variables)
-new EDRChannelRequestHandler(variables)
+new ChannelRequestHandler(variables)
+new NumEventsRequestHandler(variables)
 new AttributesRequestHandler(variables)
 
 const httpServer = new Server()
