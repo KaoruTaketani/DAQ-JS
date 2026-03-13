@@ -14,10 +14,6 @@ new FilesGetterEDR(variables)
 new TableCleanupper(variables)
 new FilePathMaker(variables)
     ;
-/** @type {string} */
-let _path
-variables.path.addListener(arg => { _path = arg })
-    ;
 (element => {
     element.type = 'number'
     element.style.marginTop = '508px'
@@ -42,6 +38,13 @@ variables.path.addListener(arg => { _path = arg })
     variables.selectElement.assign(element) // used by dblclick
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
+
+(element => {
+    element.style.marginLeft = '208px'
+    variables.path.addListener(arg => {
+        element.innerText = `path: ${arg}`
+    })
+})(document.body.appendChild(document.createElement('p')));
 
 (element => {
     element.style.marginLeft = '158px'
