@@ -4,6 +4,7 @@ import max from '../lib/max.js'
 import linspace from '../lib/linspace.js'
 import xlabel from '../lib/xlabel.js'
 import stairs from '../lib/stairs.js'
+// @ts-ignore
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
 

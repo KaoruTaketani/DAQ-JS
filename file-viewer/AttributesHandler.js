@@ -1,5 +1,6 @@
 import { join } from 'path'
 import Operator from './Operator.js'
+// @ts-ignore
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
 

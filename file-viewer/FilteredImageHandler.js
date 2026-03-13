@@ -4,6 +4,7 @@ import imagesc from '../lib/imagesc.js'
 import imwrite from '../lib/imwrite.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
+// @ts-ignore
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
 
@@ -42,7 +43,14 @@ export default class {
                 console.log(filteredImage.shape)
                 // console.log(filteredImage.value)
                 const startTime = Date.now()
-                imwrite(imagesc({ numBins: filteredImage.shape, binCounts: filteredImage.value })).then(buffer => {
+                /** @type {import('../lib/index.js').Histogram2D} */
+                const hist = {
+                    numBins: filteredImage.shape,
+                    binCounts: filteredImage.value,
+                    xBinLimits: [],
+                    yBinLimits: []
+                }
+                imwrite(imagesc(hist)).then(buffer => {
                     console.log(`elapsedTime: ${Date.now() - startTime}ms`)
                     this._response.writeHead(200, { 'Content-Type': 'application/base64' })
                     this._response.end(`data:image/png;base64,${buffer.toString('base64')}`)
