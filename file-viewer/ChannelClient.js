@@ -3,11 +3,11 @@ import ClientVariablesTable from "./ClientVariablesTable.js";
 import FilePathMaker from "./FilePathMaker.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
-import SelectDblclickHandler from "./SelectDblclickHandler.js";
+import PathMaker from "./PathMaker.js";
 import TableCleanupper from "./TableCleanupper.js";
 
 const variables = new ClientVariablesTable()
-new SelectDblclickHandler(variables)
+new PathMaker(variables)
 new ChannelGetterGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
@@ -35,7 +35,9 @@ new FilePathMaker(variables)
     element.addEventListener('change', () => {
         variables.fileName.assign(element.options[element.selectedIndex].innerText)
     })
-    variables.selectElement.assign(element) // used by dblclick
+    element.addEventListener('dblclick', () => {
+        variables.directoryName.assign(element.options[element.selectedIndex].innerText)
+    })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 

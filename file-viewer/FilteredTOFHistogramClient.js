@@ -1,12 +1,12 @@
+import ClientVariablesImage from "./ClientVariablesImage.js";
+import FilePathMaker from "./FilePathMaker.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import FilteredTOFHistogramGetter from "./FilteredTOFHistogramGetter.js";
-import ClientVariablesImage from "./ClientVariablesImage.js";
-import SelectDblclickHandler from "./SelectDblclickHandler.js";
-import FilePathMaker from "./FilePathMaker.js";
 import ImageCleanupper from "./ImageCleanupper.js";
+import PathMaker from "./PathMaker.js";
 
 const variables = new ClientVariablesImage()
-new SelectDblclickHandler(variables)
+new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new FilePathMaker(variables)
 new ImageCleanupper(variables)
@@ -24,7 +24,9 @@ new FilteredTOFHistogramGetter(variables)
     element.addEventListener('change', () => {
         variables.fileName.assign(element.options[element.selectedIndex].innerText)
     })
-    variables.selectElement.assign(element)
+    element.addEventListener('dblclick', () => {
+        variables.directoryName.assign(element.options[element.selectedIndex].innerText)
+    })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
