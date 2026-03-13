@@ -9,6 +9,7 @@ export default class {
         this.url = new ListenableObject()
 
         this.edrPath = new ListenableString()
+        this.hdf5Path = new ListenableString()
     }
 }
 

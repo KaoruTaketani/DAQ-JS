@@ -5,15 +5,17 @@ import EDRChannelRequestHandler from './EDRChannelRequestHandler.js'
 import EDRNumEventsRequestHandler from './EDRNumEventsRequestHandler.js'
 import FilesRequestHandler from './FilesRequestHandler.js'
 import Variables from './Variables.js'
+import AttributesRequestHandler from './AttributesRequestHandler.js'
 
 const variables = new Variables()
 new FilesRequestHandler(variables)
 new EDRNumEventsRequestHandler(variables)
 new EDRChannelRequestHandler(variables)
+new AttributesRequestHandler(variables)
 
 const httpServer = new Server()
-const edrPath = '../../edr'
-variables.edrPath.assign(edrPath)
+variables.edrPath.assign('../../edr')
+variables.hdf5Path.assign('../../hdf5')
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
@@ -57,6 +59,10 @@ httpServer.on('request', (request, response) => {
             `    <p><a href="./ChannelEventTableClient.html">Channel</a></p>`,
             `    <p><a href="./PairedEventTableClient.html">Paired</a></p>`,
             `    <p><a href="./NeutronEventTableClient.html">Neutron</a></p>`,
+            `    <h2>HDF5</h2>`,
+            `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
+            `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
+            `    <p><a href="./FilteredTOFHistogramClient.html">Filtered TOF Histogram</a></p>`,
             '</body>',
             '</html>'
         ].join('\n'))

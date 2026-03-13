@@ -9,6 +9,9 @@ export default class {
         /** @type {string} */
         this._edrPath
         variables.edrPath.prependListener(arg => { this._edrPath = arg })
+        /** @type {string} */
+        this._hdf5Path
+        variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {import('http').ServerResponse} */
         this._response
         variables.response.prependListener(arg => { this._response = arg })
@@ -33,9 +36,9 @@ export default class {
             if (!path) return
             const extname = this._url.searchParams.get('extname')
             if (!extname) return
-            if (extname !== 'edr') return
+            if (extname !== 'edr' && extname !== 'h5') return
 
-            const files = readdirSync(join(this._edrPath, path), { withFileTypes: true })
+            const files = readdirSync(join(extname === 'edr' ? this._edrPath : this._hdf5Path, path), { withFileTypes: true })
             this._response.writeHead(200)
             if (path === '/') {
                 this._response.end(

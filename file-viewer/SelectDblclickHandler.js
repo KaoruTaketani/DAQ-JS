@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./ChannelEventVariables.js').default} variables 
+     * @param {import('./ClientVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

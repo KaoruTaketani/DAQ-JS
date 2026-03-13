@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./ChannelEventVariables.js').default} variables 
+     * @param {import('./ClientVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {HTMLSelectElement} */
@@ -13,7 +13,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            fetch("/files?extname=edr&path=" + this._path).then(response => {
+            fetch("/files?extname=h5&path=" + this._path).then(response => {
                 if (!response.ok) {
                     document.body.innerHTML = response.statusText
                 } else {
