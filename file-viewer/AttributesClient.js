@@ -1,12 +1,12 @@
 import AttributesGetter from "./AttributesGetter.js";
-import HDF5FilesGetter from "./HDF5FilesGetter.js";
+import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
 import ClientVariables from "./ClientVariables.js";
 
 const variables = new ClientVariables()
 new SelectDblclickHandler(variables)
 new AttributesGetter(variables)
-new HDF5FilesGetter(variables)
+new FilesGetterHDF5(variables)
     ;
 (element => {
     element.size = 20
