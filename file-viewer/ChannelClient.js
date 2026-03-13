@@ -1,14 +1,18 @@
 import ChannelGetterGetter from "./ChannelGetter.js";
 import ClientVariablesTable from "./ClientVariablesTable.js";
+import FilePathMaker from "./FilePathMaker.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import SelectDblclickHandler from "./SelectDblclickHandler.js";
+import TableCleanupper from "./TableCleanupper.js";
 
 const variables = new ClientVariablesTable()
 new SelectDblclickHandler(variables)
 new ChannelGetterGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
+new TableCleanupper(variables)
+new FilePathMaker(variables)
     ;
 /** @type {string} */
 let _path
@@ -33,17 +37,7 @@ variables.path.addListener(arg => { _path = arg })
     element.style.width = '150px'
     element.style.height = `500px`
     element.addEventListener('change', () => {
-        const filename = element.options[element.selectedIndex].innerText
-        if (filename.endsWith('/')) {
-            variables.divInnerText.assign('')
-            variables.tableInnerText.assign('')
-            return
-        }
-        if (!filename.endsWith('.edr')) return
-
-        variables.offset.assign(0)
-        variables.offsetValue.assign('0')
-        variables.filePath.assign(_path === '/' ? `/${filename}` : `${_path}/${filename}`)
+        variables.fileName.assign(element.options[element.selectedIndex].innerText)
     })
     variables.selectElement.assign(element)
 })(document.body.appendChild(document.createElement('select')));
