@@ -44,7 +44,6 @@ new ImageDrawer(variables)
     })
 })(document.body.appendChild(document.createElement('div')));
 
-const canvasElement = document.body.appendChild(document.createElement('canvas'));
 (element => {
     element.style.marginLeft = '200px'
     element.style.marginTop = '50px'
@@ -54,12 +53,12 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     element.width = 400
     element.height = 300
 
-    const ctx = canvasElement.getContext('2d')
+    const ctx = element.getContext('2d')
     if (!ctx) throw new Error()
 
     ctx.imageSmoothingEnabled = false
     variables.canvasContext.assign(ctx)
-})(canvasElement);
+})(document.body.appendChild(document.createElement('canvas')));
 
 (element => {
     variables.imageSrc.addListener(arg => {

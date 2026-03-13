@@ -3,6 +3,7 @@ import FilePathMaker from "./FilePathMaker.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import FilteredImageGetter from "./FilteredImageGetter.js";
 import ImageCleanupper from "./ImageCleanupper.js";
+import ImageDrawer from "./ImageDrawer.js";
 import PathMaker from "./PathMaker.js";
 
 const variables = new ClientVariablesImage()
@@ -11,6 +12,7 @@ new FilesGetterHDF5(variables)
 new FilePathMaker(variables)
 new ImageCleanupper(variables)
 new FilteredImageGetter(variables)
+new ImageDrawer(variables)
     ;
 (element => {
     element.size = 20
@@ -42,7 +44,6 @@ new FilteredImageGetter(variables)
     })
 })(document.body.appendChild(document.createElement('div')));
 
-const canvasElement = document.body.appendChild(document.createElement('canvas'));
 (element => {
     element.style.marginLeft = '200px'
     element.style.marginTop = '50px'
@@ -51,29 +52,20 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
     // element.style.left='0'
     element.width = 400
     element.height = 300
-})(canvasElement);
+
+    const ctx = element.getContext('2d')
+    if (!ctx) throw new Error()
+
+    ctx.imageSmoothingEnabled = false
+    variables.canvasContext.assign(ctx)
+})(document.body.appendChild(document.createElement('canvas')));
 
 (element => {
     variables.imageSrc.addListener(arg => {
         element.src = arg
     })
-    element.addEventListener('error', () => {
-        console.log('image error')
-        const ctx = canvasElement.getContext('2d')
-        if (!ctx) throw new Error()
-
-        ctx.clearRect(0, 0, canvasElement.width, canvasElement.height)
-    });
     element.addEventListener('load', () => {
-        const ctx = canvasElement.getContext('2d')
-        if (!ctx) throw new Error()
-
-        ctx.imageSmoothingEnabled = false
-        // ctx.drawImage(element, 0, 0, canvasElement.width, canvasElement.height)
-        // ctx.drawImage(element, 0, 0)
-        // x:[73, 503], y: [374,32] can be obtained from axes.dataset.xMinInPixels
-        // ctx.drawImage(element, 73 * 400/560, 32 * 300/420)
-        ctx.drawImage(element, 73 * 400 / 560, 32 * 300 / 420, (503 - 73) * 400 / 560, (374 - 32) * 300 / 420)
+        variables.imageElement.assign(element)
     });
 })(document.createElement('img'));
 
@@ -90,11 +82,15 @@ const canvasElement = document.body.appendChild(document.createElement('canvas')
         element.innerHTML = arg
 
         const axes =/** @type {HTMLElement} */(element.firstElementChild)
-        console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
+        // console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
         if (axes.dataset.xminInPixels)
             variables.xminInPixels.assign(parseInt(axes.dataset.xminInPixels))
-
-
+        if (axes.dataset.yminInPixels)
+            variables.yminInPixels.assign(parseInt(axes.dataset.yminInPixels))
+        if (axes.dataset.xmaxInPixels)
+            variables.xmaxInPixels.assign(parseInt(axes.dataset.xmaxInPixels))
+        if (axes.dataset.ymaxInPixels)
+            variables.ymaxInPixels.assign(parseInt(axes.dataset.ymaxInPixels))
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
