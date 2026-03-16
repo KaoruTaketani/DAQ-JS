@@ -1,13 +1,11 @@
 import AttributesGetter from "./AttributesGetter.js";
-import ClientVariables from "./ClientVariables.js";
-import FilePathMaker from "./FilePathMaker.js";
+import ClientVariablesAttributes from "./ClientVariablesAttributes.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
 
-const variables = new ClientVariables()
+const variables = new ClientVariablesAttributes()
 new PathMaker(variables)
 new AttributesGetter(variables)
-new FilePathMaker(variables)
 new FilesGetterHDF5(variables)
     ;
 (element => {
@@ -16,11 +14,12 @@ new FilesGetterHDF5(variables)
     element.style.whiteSpace = 'pre-wrap'
     element.style.width = '200px'
     element.style.height = `${window.innerHeight - 8 * 2}px`
+    element.multiple = true
     window.onscroll = _ => {
         element.style.top = `${window.scrollY + 8}px`
     }
     element.addEventListener('change', () => {
-        variables.fileName.assign(element.options[element.selectedIndex].innerText)
+        variables.fileName.assign(Array.from(element.selectedOptions).map(option => option.innerText).filter(text => text.endsWith('.h5')).join(','))
     })
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
@@ -38,27 +37,9 @@ new FilesGetterHDF5(variables)
     variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
-const imageElement = document.createElement('img')
-imageElement.addEventListener('error', () => {
-    console.log('image error')
-    const ctx = canvasElement.getContext('2d')
-    if (!ctx) throw new Error()
-
-    ctx.clearRect(0, 0, canvasElement.width, canvasElement.height)
-})
-imageElement.addEventListener('load', () => {
-    const ctx = canvasElement.getContext('2d')
-    if (!ctx) throw new Error()
-
-    ctx.imageSmoothingEnabled = false
-    ctx.drawImage(imageElement, 0, 0, canvasElement.width, canvasElement.height)
-});
-
-const canvasElement = document.body.appendChild(document.createElement('canvas'));
 (element => {
-    element.style.marginLeft = '200px'
-    element.width = 512
-    element.height = 512
-})(canvasElement);
+    element.style.marginLeft = '208px'
+    variables.tableInnerHTML.addListener(arg => { element.innerHTML = arg })
+})(document.body.appendChild(document.createElement('table')));
 
 variables.path.assign('/')

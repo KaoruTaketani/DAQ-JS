@@ -23,18 +23,63 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._url.pathname.endsWith('.h5')) return
-            if (this._url.searchParams.get('type') !== 'attributes') return
+            if (this._url.pathname !== '/attributes') return
 
-            // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
-            let f = new h5wasm.File(join(this._hdf5Path, this._url.pathname), "r")
-            //     variables.hdf5File.assign(f)
-            const tmp = Object.keys(f.attrs).map(key => {
-                return `${key}: ${f.attrs[key].value}`
-            }).join('\n')
+            const path = this._url.searchParams.get('path')
+            if (!path) return
+            const fileName = this._url.searchParams.get('fileName')
+            if (!fileName) return
+            console.log(`path: ${path}, fileName: ${fileName}`)
+            if (fileName.split(',').length === 0) {
+                this._response.writeHead(200)
+                this._response.end('')
+                return
+            }
+            if (fileName.split(',').length === 1) {
+                // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
+                let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r")
+                //     variables.hdf5File.assign(f)
+                const tmp = Object.keys(f.attrs).map(key => {
+                    return `${key}: ${f.attrs[key].value}`
+                }).join('\n')
+                this._response.writeHead(200)
+                this._response.end(tmp)
+                f.close()
+                return
+            }
+            /** @type {any[]} */
+            const attributes = []
+            fileName.split(',').forEach(name => {
+                console.log(name)
+                // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
+                let f = new h5wasm.File(join(this._hdf5Path, path, name), "r")
+                //     variables.hdf5File.assign(f)
+                const tmp=Object.keys(f.attrs).map(key => [key, f.attrs[key].value])
+                // console.log(tmp)
+                attributes.push(Object.fromEntries(tmp))
+                // const tmp = Object.keys(f.attrs).map(key => {
+                //     return `${key}: ${f.attrs[key].value}`
+                // }).join('\n')
+                f.close()
+            })
             this._response.writeHead(200)
-            this._response.end(tmp)
-            f.close()
+            this._response.end([
+                '<thead>',
+                '<tr>',
+                Object.keys(attributes[0]).map(key => `<th>${key}</th>`).join(''),
+                '</tr>',
+                '</thead>',
+                '<tbody align="right">',
+                attributes.map(obj => ['<tr>',
+                    Object.keys(obj).map(key => {
+                        /** @type {any} */
+                        const tmp = obj
+                        return `<td>${tmp[key].toLocaleString()}</td>`
+                    }).join(''),
+                    '</tr>'].join('')
+                ).join(''),
+                '</tbody>'
+            ].join(''))
         }
     }
 }
