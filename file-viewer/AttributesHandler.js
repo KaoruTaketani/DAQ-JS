@@ -29,7 +29,7 @@ export default class extends Operator {
             if (!path) return
             const fileName = this._url.searchParams.get('fileName')
             if (!fileName) return
-            console.log(`path: ${path}, fileName: ${fileName}`)
+
             if (fileName.split(',').length === 0) {
                 this._response.writeHead(200)
                 this._response.end('')
@@ -47,10 +47,10 @@ export default class extends Operator {
                 f.close()
                 return
             }
+            const startTime=Date.now()
             /** @type {any[]} */
             const attributes = []
             fileName.split(',').forEach(name => {
-                console.log(name)
                 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
                 let f = new h5wasm.File(join(this._hdf5Path, path, name), "r")
                 //     variables.hdf5File.assign(f)
@@ -80,6 +80,7 @@ export default class extends Operator {
                 ).join(''),
                 '</tbody>'
             ].join(''))
+            console.log(`elapsedTime: ${Date.now()-startTime}ms`)
         }
     }
 }
