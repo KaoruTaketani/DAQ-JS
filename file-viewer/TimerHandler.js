@@ -37,13 +37,15 @@ export default class {
                     timerEvents[i] = {
                         header: `0x5a`,
                         mlfTimeInSeconds: Number.NaN,
-                        subsecond: Number.NaN
+                        subsecond: Number.NaN,
+                        microsecond: Number.NaN
                     }
                 } else if (chunk[8 * i] === 0x5b) {
                     timerEvents[i] = {
                         header: `0x5b`,
                         mlfTimeInSeconds: Number.NaN,
-                        subsecond: Number.NaN
+                        subsecond: Number.NaN,
+                        microsecond: Number.NaN
                     }
                 } else if (chunk[8 * i] === 0x5c) {
                     const
@@ -52,12 +54,16 @@ export default class {
                         byte3 = chunk[8 * i + 3],
                         byte4 = chunk[8 * i + 4],
                         byte5 = chunk[8 * i + 5],
+                        byte6 = chunk[8 * i + 6],
+                        byte7 = chunk[8 * i + 7],
                         mlfTime = (byte1 << 22) + (byte2 << 14) + (byte3 << 6) + (byte4 >> 2),
-                        subsecond = ((byte4 & 0b11) << 13) + (byte4 << 5) + (byte5 >> 3)
+                        subsecond = ((byte4 & 0b11) << 13) + (byte5 << 5) + (byte6 >> 3),
+                        microsecond = ((byte6 & 0b111) << 8) + byte7
                     timerEvents[i] = {
                         header: `0x5c`,
                         mlfTimeInSeconds: mlfTime,
-                        subsecond: subsecond
+                        subsecond: subsecond,
+                        microsecond: microsecond
                     }
                 } else {
                     // unexpected
