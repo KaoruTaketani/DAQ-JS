@@ -38,6 +38,14 @@ const dialogElement = document.createElement('dialog');
         element.size = 20
         element.style.width = '200px'
         element.multiple = true
+        element.addEventListener('change', () => {
+            const selectedIndexes = Array.from(element.selectedOptions).map(option => option.index)
+            console.log(selectedIndexes)
+            Array.from(tHead.rows[0].cells).forEach((cell, i) => {
+                if (i === 0) return
+                cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
+            })
+        })
         variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(element.appendChild(document.createElement('select')));
     (element => {
@@ -65,14 +73,15 @@ const dialogElement = document.createElement('dialog');
     variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
+/** @type {HTMLTableSectionElement} */
+let tHead
 (element => {
     element.style.marginLeft = '208px'
     variables.tableInnerHTML.addListener(arg => {
         element.innerHTML = arg
 
         if (!element.tHead) return
-        /** @type {HTMLTableSectionElement} */
-        const tHead = element.tHead
+        tHead = element.tHead
         console.log(tHead.rows[0])
         const tmp = Array.from(tHead.rows[0].cells)
             .filter(cell => cell.innerText !== '_name')
