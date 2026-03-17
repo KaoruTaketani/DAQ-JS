@@ -36,6 +36,9 @@ const dialogElement = document.createElement('dialog');
 (element => {
     (element => {
         element.size = 20
+        element.style.width = '200px'
+        element.multiple = true
+        variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(element.appendChild(document.createElement('select')));
     (element => {
         element.type = 'button'
@@ -67,14 +70,21 @@ const dialogElement = document.createElement('dialog');
     variables.tableInnerHTML.addListener(arg => {
         element.innerHTML = arg
 
-        const thead = element.firstElementChild
-        if (!thead) return
-        const tr = thead.firstElementChild
-        if (!tr) return
-        console.log(tr.childNodes)
-        Array.from(tr.children).forEach((/** @type {HTMLElement} */node) => {
-            console.log(node.innerText)
-        })
+        if (!element.tHead) return
+        /** @type {HTMLTableSectionElement} */
+        const tHead = element.tHead
+        console.log(tHead.rows[0])
+        const tmp = Array.from(tHead.rows[0].cells)
+            .filter(cell => cell.innerText !== '_name')
+            .map(cell => `<option selected>${cell.innerText}</option>`).join('')
+        variables.visibleInnerHTML.assign(tmp)
+
+        // const tr = thead.firstElementChild
+        // if (!tr) return
+        // console.log(tr.childNodes)
+        // Array.from(tr.children).forEach((/** @type {HTMLElement} */node) => {
+        //     console.log(node.innerText)
+        // })
     })
 })(document.body.appendChild(document.createElement('table')));
 

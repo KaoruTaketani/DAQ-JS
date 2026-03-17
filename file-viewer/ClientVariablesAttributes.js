@@ -6,6 +6,7 @@ export default class extends ClientVariables {
         super()
 
         this.tableInnerHTML = new ListenableString()
+        this.visibleInnerHTML = new ListenableString()
     }
 }
 
