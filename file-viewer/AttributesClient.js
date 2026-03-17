@@ -45,6 +45,12 @@ const dialogElement = document.createElement('dialog');
                 if (i === 0) return
                 cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
             })
+            Array.from(tBody.rows).forEach(row => {
+                Array.from(row.cells).forEach((cell, i) => {
+                    if (i === 0) return
+                    cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
+                })
+            })
         })
         variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(element.appendChild(document.createElement('select')));
@@ -75,6 +81,8 @@ const dialogElement = document.createElement('dialog');
 
 /** @type {HTMLTableSectionElement} */
 let tHead
+/** @type {HTMLTableSectionElement} */
+let tBody
 (element => {
     element.style.marginLeft = '208px'
     variables.tableInnerHTML.addListener(arg => {
@@ -82,6 +90,9 @@ let tHead
 
         if (!element.tHead) return
         tHead = element.tHead
+        if (!element.tBodies) return
+        tBody = element.tBodies[0]
+
         console.log(tHead.rows[0])
         const tmp = Array.from(tHead.rows[0].cells)
             .filter(cell => cell.innerText !== '_name')
