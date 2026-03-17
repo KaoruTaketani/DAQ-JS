@@ -32,6 +32,31 @@ new FilesGetterHDF5(variables)
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
+const dialogElement = document.createElement('dialog');
+(element => {
+    (element => {
+        element.size = 20
+    })(element.appendChild(document.createElement('select')));
+    (element => {
+        element.type = 'button'
+        element.value = 'close'
+        element.addEventListener('click', () => { dialogElement.close() })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(dialogElement));
+
+(element => {
+    element.style.marginLeft = '208px'
+    element.type = 'button'
+    element.value = 'visible'
+    element.addEventListener('click', () => { dialogElement.showModal() })
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    // element.style.marginLeft = '208px'
+    element.type = 'button'
+    element.value = 'download'
+})(document.body.appendChild(document.createElement('input')));
+
 (element => {
     element.style.marginLeft = '208px'
     variables.divInnerText.addListener(arg => { element.innerText = arg })
