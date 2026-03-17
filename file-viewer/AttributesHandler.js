@@ -47,14 +47,30 @@ export default class extends Operator {
                 f.close()
                 return
             }
-            const startTime=Date.now()
+            const startTime = Date.now()
+            const keys = new Set()
+            keys.add('_name')
+            fileName.split(',').forEach(name => {
+                // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
+                let f = new h5wasm.File(join(this._hdf5Path, path, name), "r")
+                Object.keys(f.attrs).forEach(key => { keys.add(key) })
+                f.close()
+            })
             /** @type {any[]} */
             const attributes = []
             fileName.split(',').forEach(name => {
                 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
                 let f = new h5wasm.File(join(this._hdf5Path, path, name), "r")
                 //     variables.hdf5File.assign(f)
-                const tmp=Object.keys(f.attrs).map(key => [key, f.attrs[key].value])
+                // const tmp = Object.keys(f.attrs).map(key => [key, f.attrs[key].value])
+                const tmp = new Map()
+                keys.forEach(key => {
+                    if (key === '_name') {
+                        tmp.set('_name', name)
+                    } else {
+                        tmp.set(key, f.attrs[key]?.value)
+                    }
+                })
                 // console.log(tmp)
                 attributes.push(Object.fromEntries(tmp))
                 // const tmp = Object.keys(f.attrs).map(key => {
@@ -74,13 +90,13 @@ export default class extends Operator {
                     Object.keys(obj).map(key => {
                         /** @type {any} */
                         const tmp = obj
-                        return `<td>${tmp[key].toLocaleString()}</td>`
+                        return Number.isInteger(tmp[key]) ? `<td>${tmp[key].toLocaleString()}</td>` : `<td>${tmp[key]}</td>`
                     }).join(''),
                     '</tr>'].join('')
                 ).join(''),
                 '</tbody>'
             ].join(''))
-            console.log(`elapsedTime: ${Date.now()-startTime}ms`)
+            console.log(`elapsedTime: ${Date.now() - startTime}ms`)
         }
     }
 }

@@ -39,7 +39,18 @@ new FilesGetterHDF5(variables)
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.tableInnerHTML.addListener(arg => { element.innerHTML = arg })
+    variables.tableInnerHTML.addListener(arg => {
+        element.innerHTML = arg
+
+        const thead = element.firstElementChild
+        if (!thead) return
+        const tr = thead.firstElementChild
+        if (!tr) return
+        console.log(tr.childNodes)
+        Array.from(tr.children).forEach((/** @type {HTMLElement} */node) => {
+            console.log(node.innerText)
+        })
+    })
 })(document.body.appendChild(document.createElement('table')));
 
 variables.path.assign('/')
