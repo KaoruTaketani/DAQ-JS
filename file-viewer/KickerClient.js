@@ -1,7 +1,6 @@
-import KickerGetter from "./KickerGetter.js";
 import ClientVariablesTable from "./ClientVariablesTable.js";
-import FilePathMaker from "./FilePathMaker.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
+import KickerGetter from "./KickerGetter.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
 import TableCleanupper from "./TableCleanupper.js";
@@ -12,7 +11,6 @@ new KickerGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
 new TableCleanupper(variables)
-new FilePathMaker(variables)
     ;
 (element => {
     element.size = 20
