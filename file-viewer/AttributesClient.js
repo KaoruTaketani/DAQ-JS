@@ -90,6 +90,11 @@ let tBody
 
         if (!element.tHead) return
         tHead = element.tHead
+
+        tHead.style.top = '0'
+        tHead.style.position = 'sticky'
+        tHead.style.backgroundColor = 'white'
+
         if (!element.tBodies) return
         tBody = element.tBodies[0]
 
