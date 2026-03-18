@@ -68,10 +68,28 @@ const dialogElement = document.createElement('dialog');
     element.addEventListener('click', () => { dialogElement.showModal() })
 })(document.body.appendChild(document.createElement('input')));
 
+const linkElement = document.createElement('a');
 (element => {
+    linkElement.setAttribute('download', `table.csv`)
+
     // element.style.marginLeft = '208px'
     element.type = 'button'
     element.value = 'download'
+    element.addEventListener('click', () => {
+        const header = Array.from(tHead.rows[0].cells)
+            .filter(cell => cell.style.display === '')
+            .map(cell => cell.innerText)
+            .join(',')
+        const data = Array.from(tBody.rows)
+            .map(row => Array.from(row.cells)
+                .filter(cell => cell.style.display === '')
+                .map(cell => cell.innerText.split(',').join('')).join(',')
+            ).join('\n')
+        // const buffer = new Buffer([header, data].join('\n'), 'utf-8')
+        // linkElement.href = `data:text/csv;base64,${buffer.toString('base64')}`
+        linkElement.href = `data:text/csv;base64,${btoa([header, data].join('\n'))}`
+        linkElement.click()
+    })
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
