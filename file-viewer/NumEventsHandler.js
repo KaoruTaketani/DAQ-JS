@@ -1,4 +1,4 @@
-import { statSync } from 'fs'
+import { existsSync, statSync } from 'fs'
 import { join } from 'path'
 
 export default class {
@@ -19,10 +19,22 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (!this._url.pathname.endsWith('.edr')) return
-            if (this._url.searchParams.get('type') !== 'numEvents') return
+            if (this._url.pathname !== '/numEvents') return
 
-            const stat = statSync(join(this._edrPath, this._url.pathname))
+            const path = this._url.searchParams.get('path')
+            if (!path) return
+            const fileName = this._url.searchParams.get('fileName')
+            if (!fileName) return
+
+            const filePath = join(this._edrPath, path, fileName)
+            if (!existsSync(filePath)) {
+                this._response.writeHead(404)
+                this._response.end()
+                return
+            }
+
+            const stat = statSync(filePath)
+            this._response.writeHead(200)
             this._response.end(`${(stat.size / 8).toLocaleString()} events`)
         }
     }
