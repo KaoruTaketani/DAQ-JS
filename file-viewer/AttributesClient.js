@@ -93,7 +93,7 @@ let tBody
         if (!element.tBodies) return
         tBody = element.tBodies[0]
 
-        console.log(tHead.rows[0])
+        // console.log(tHead.rows[0])
         const tmp = Array.from(tHead.rows[0].cells)
             .filter(cell => cell.innerText !== '_name')
             .map(cell => `<option selected>${cell.innerText}</option>`).join('')

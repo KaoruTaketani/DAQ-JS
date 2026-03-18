@@ -19,14 +19,17 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (!this._url.pathname.endsWith('.edr')) return
-            if (this._url.searchParams.get('type') !== 'channel') return
+            if (this._url.pathname !== '/channel') return
 
+            const path = this._url.searchParams.get('path')
+            if (!path) return
+            const fileName = this._url.searchParams.get('fileName')
+            if (!fileName) return
             const offsetValue = this._url.searchParams.get('offset')
             if (!offsetValue) return
             const offset = parseInt(offsetValue)
 
-            const fd = openSync(join(this._edrPath, this._url.pathname), 'r')
+            const fd = openSync(join(this._edrPath, path, fileName), 'r')
             const chunk = new Uint8Array(8 * 25)
             readSync(fd, chunk, 0, 8 * 25, 8 * offset)
             closeSync(fd)

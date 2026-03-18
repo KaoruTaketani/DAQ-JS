@@ -1,6 +1,5 @@
 import ChannelGetter from "./ChannelGetter.js";
 import ClientVariablesTable from "./ClientVariablesTable.js";
-import FilePathMaker from "./FilePathMaker.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
@@ -12,7 +11,6 @@ new ChannelGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
 new TableCleanupper(variables)
-new FilePathMaker(variables)
     ;
 (element => {
     element.size = 20
