@@ -71,7 +71,7 @@ export default class {
                 }
                 // console.log(filteredTOFHistogram.shape)
                 // console.log(filteredTOFHistogram.value)
-                const startTime = Date.now()
+                // const startTime = Date.now()
                 const widthInMillimeters = filteredImage.shape[0] / 1024 * 50
                 const heightInMillimeters = filteredImage.shape[1] / 1024 * 50
                 const ax = {
@@ -88,7 +88,7 @@ export default class {
                     xlabel(ax, 'width (mm)'),
                     ylabel(ax, 'height (mm)')
                 ].join(''))
-                console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+                // console.log(`elapsedTime: ${Date.now() - startTime}ms`)
             }
         }
     }

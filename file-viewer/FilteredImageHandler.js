@@ -29,18 +29,22 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (!this._url.pathname.endsWith('h5')) return
-            if (this._url.searchParams.get('path') !== '/filteredImage') return
+            if (this._url.pathname !== '/filteredImage') return
+
+            const path = this._url.searchParams.get('path')
+            if (!path) return
+            const fileName = this._url.searchParams.get('fileName')
+            if (!fileName) return
 
             if (this._url.searchParams.get('type') === 'png') {
-                let f = new h5wasm.File(join(this._hdf5Path, this._url.pathname), "r");
+                let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
                 const filteredImage = f.get('filteredImage')
                 if (!filteredImage) {
                     this._response.writeHead(404)
                     this._response.end()
                     return
                 }
-                console.log(filteredImage.shape)
+                // console.log(filteredImage.shape)
                 // console.log(filteredImage.value)
                 const startTime = Date.now()
                 /** @type {import('../lib/index.js').Histogram2D} */
@@ -58,7 +62,7 @@ export default class {
                 return
             }
             if (this._url.searchParams.get('type') === 'svg') {
-                let f = new h5wasm.File(join(this._hdf5Path, this._url.pathname), "r");
+                let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
                 const filteredImage = f.get('filteredImage')
                 if (!filteredImage) {
                     this._response.writeHead(404)
@@ -67,7 +71,7 @@ export default class {
                 }
                 // console.log(filteredTOFHistogram.shape)
                 // console.log(filteredTOFHistogram.value)
-                const startTime = Date.now()
+                // const startTime = Date.now()
                 const widthInMillimeters = filteredImage.shape[0] / 1024 * 50
                 const heightInMillimeters = filteredImage.shape[1] / 1024 * 50
                 const ax = {
@@ -84,7 +88,7 @@ export default class {
                     xlabel(ax, 'width (mm)'),
                     ylabel(ax, 'height (mm)')
                 ].join(''))
-                console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+                // console.log(`elapsedTime: ${Date.now() - startTime}ms`)
             }
         }
     }
