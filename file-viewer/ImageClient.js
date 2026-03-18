@@ -1,16 +1,14 @@
 import ClientVariablesImage from "./ClientVariablesImage.js";
-import FilePathMaker from "./FilePathMaker.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import ImageGetter from "./ImageGetter.js";
-import ImageCleanupper from "./ImageCleanupper.js";
-import PathMaker from "./PathMaker.js";
-import ImageDrawer from "./ImageDrawer.js";
 import CursorTextMaker from "./CursorTextMaker.js";
+import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import ImageCleanupper from "./ImageCleanupper.js";
+import ImageDrawer from "./ImageDrawer.js";
+import ImageGetter from "./ImageGetter.js";
+import PathMaker from "./PathMaker.js";
 
 const variables = new ClientVariablesImage()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
-new FilePathMaker(variables)
 new ImageCleanupper(variables)
 new ImageGetter(variables)
 new ImageDrawer(variables)

@@ -4,13 +4,16 @@ export default class {
      */
     constructor(variables) {
         /** @type {string} */
-        this._filePath
-        variables.filePath.addListener(arg => {
-            this._filePath = arg
+        this._path
+        variables.path.prependListener(arg => { this._path = arg })
+        /** @type {string} */
+        this._fileName
+        variables.fileName.addListener(arg => {
+            this._fileName = arg
             this._operation()
         })
         this._operation = () => {
-            fetch(`${this._filePath}?type=svg&path=/image`).then(response => {
+            fetch(`/image?path=${this._path}&fileName=${this._fileName}&type=svg`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign('image was not found')
                     variables.svgInnerHTML.assign('')
@@ -19,13 +22,17 @@ export default class {
                     response.text().then(text => {
                         variables.divInnerText.assign('')
                         variables.svgInnerHTML.assign(text)
-                        fetch(`${this._filePath}?type=png&path=/image`).then(response => {
+                        fetch(`/image?path=${this._path}&fileName=${this._fileName}&type=png`).then(response => {
                             response.text().then(text => {
                                 variables.imageSrc.assign(text)
                             })
                         })
                     })
                 }
+            }).catch(() => {
+                variables.divInnerText.assign('failed to get')
+                variables.svgInnerHTML.assign('')
+                variables.imageSrc.assign('')
             })
         }
     }
