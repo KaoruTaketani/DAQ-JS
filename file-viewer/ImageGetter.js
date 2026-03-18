@@ -13,6 +13,8 @@ export default class {
             this._operation()
         })
         this._operation = () => {
+            if (!this._fileName.endsWith('.h5')) return
+
             fetch(`/image?path=${this._path}&fileName=${this._fileName}&type=svg`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign('image was not found')

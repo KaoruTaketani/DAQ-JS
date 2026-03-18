@@ -4,13 +4,18 @@ export default class {
      */
     constructor(variables) {
         /** @type {string} */
-        this._filePath
-        variables.filePath.addListener(arg => {
-            this._filePath = arg
+        this._path
+        variables.path.prependListener(arg => { this._path = arg })
+        /** @type {string} */
+        this._fileName
+        variables.fileName.addListener(arg => {
+            this._fileName = arg
             this._operation()
         })
         this._operation = () => {
-            fetch(`${this._filePath}?type=svg&path=/filteredTOFHistogram`).then(response => {
+            if(!this._fileName.endsWith('.h5'))return
+
+            fetch(`/filteredTOFHistogram?path=${this._path}&fileName=${this._fileName}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign('filteredTOFHistogram was not found')
                     variables.svgInnerHTML.assign('')
@@ -20,6 +25,9 @@ export default class {
                         variables.svgInnerHTML.assign(text)
                     })
                 }
+            }).catch(() => {
+                variables.divInnerText.assign('failed to get')
+                variables.svgInnerHTML.assign('')
             })
         }
     }
