@@ -26,6 +26,9 @@ export default class {
                 response.text().then(text => {
                     variables.tableInnerHTML.assign(text)
                 })
+            }).catch(() => {
+                variables.divInnerText.assign('failed to get')
+                variables.tableInnerHTML.assign('')
             })
         }
     }
