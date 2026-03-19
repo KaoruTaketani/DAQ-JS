@@ -61,6 +61,7 @@ export default class extends Operator {
                         variables.miezeFrequencyInKilohertz.assign(10)
 
                         const parameters = JSON.parse(data)
+                        console.log(parameters)
                         variables.hdf5FileName.assign(basename(name, '.json') + '.h5')
 
                         if (parameters.directBeamFileName) {

@@ -1,6 +1,7 @@
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
+import ParameterArray from './ParameterArray.js'
 import ParameterNumber from './ParameterNumber.js'
 import ParameterString from './ParameterString.js'
 import ReadableNumberArray from './ReadableNumberArray.js'
@@ -88,6 +89,8 @@ export default class {
         this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
         this.neutronPositionMaxInMillimeters = new WritableNumber('neutronPositionMaxInMillimeters', this.hdf5File)
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
+
+        this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
 
         this.roiXInPixels = new ParameterNumber('roiXInPixels', this.hdf5File, this.parameters)
         this.roiYInPixels = new ParameterNumber('roiYInPixels', this.hdf5File, this.parameters)
