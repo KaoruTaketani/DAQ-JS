@@ -30,7 +30,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._url.pathname !== '/filteredTOFHistogram') return
+            if (this._url.pathname !== '/tofHistogram') return
 
             const response = this._responses.get(this._url)
             ok(response)
@@ -49,7 +49,7 @@ export default class {
             }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-            const filteredTOFHistogram = f.get('filteredTOFHistogram')
+            const filteredTOFHistogram = f.get('tofHistogram')
             if (!filteredTOFHistogram) {
                 response.writeHead(404)
                 response.end()

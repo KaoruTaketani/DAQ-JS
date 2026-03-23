@@ -1,6 +1,6 @@
 import ClientVariablesImage from "./ClientVariablesImage.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import FilteredTOFHistogramGetter from "./FilteredTOFHistogramGetter.js";
+import TOFHistogramGetter from "./TOFHistogramGetter.js";
 import ImageCleanupper from "./ImageCleanupper.js";
 import PathMaker from "./PathMaker.js";
 
@@ -8,7 +8,7 @@ const variables = new ClientVariablesImage()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new ImageCleanupper(variables)
-new FilteredTOFHistogramGetter(variables)
+new TOFHistogramGetter(variables)
     ;
 (element => {
     element.size = 20

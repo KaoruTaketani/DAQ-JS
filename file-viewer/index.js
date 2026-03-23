@@ -7,7 +7,7 @@ import FilesHandler from './FilesHandler.js'
 import NumEventsHandler from './NumEventsHandler.js'
 import Variables from './Variables.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
-import FilteredTOFHistogramHandler from './FilteredTOFHistogramHandler.js'
+import TOFHistogramHandler from './TOFHistogramHandler.js'
 import TimerHandler from './TimerHandler.js'
 import KickerHandler from './KickerHandler.js'
 import ImageHandler from './ImageHandler.js'
@@ -21,7 +21,7 @@ new KickerHandler(variables)
 new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new FilteredImageHandler(variables)
-new FilteredTOFHistogramHandler(variables)
+new TOFHistogramHandler(variables)
 new ImageHandler(variables)
 new RootHandler(variables)
 

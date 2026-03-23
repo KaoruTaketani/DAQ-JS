@@ -15,9 +15,9 @@ export default class {
         this._operation = () => {
             if(!this._fileName.endsWith('.h5'))return
 
-            fetch(`/filteredTOFHistogram?path=${this._path}&fileName=${this._fileName}`).then(response => {
+            fetch(`/tofHistogram?path=${this._path}&fileName=${this._fileName}`).then(response => {
                 if (!response.ok) {
-                    variables.divInnerText.assign('filteredTOFHistogram was not found')
+                    variables.divInnerText.assign('tofHistogram was not found')
                     variables.svgInnerHTML.assign('')
                 } else {
                     response.text().then(text => {

@@ -38,7 +38,7 @@ export default class {
                 `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
                 `    <p><a href="./ImageClient.html">Image</a></p>`,
                 `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
-                `    <p><a href="./FilteredTOFHistogramClient.html">Filtered TOF Histogram</a></p>`,
+                `    <p><a href="./TOFHistogramClient.html">TOF Histogram</a></p>`,
                 '</body>',
                 '</html>'
             ].join('\n'))
