@@ -10,7 +10,7 @@ import FilteredImageHandler from './FilteredImageHandler.js'
 import TOFHistogramHandler from './TOFHistogramHandler.js'
 import TimerHandler from './TimerHandler.js'
 import KickerHandler from './KickerHandler.js'
-import ImageHandler from './ImageHandler.js'
+import RawImageHandler from './RawImageHandler.js'
 import RootHandler from './RootHandler.js'
 
 const variables = new Variables()
@@ -22,7 +22,7 @@ new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new FilteredImageHandler(variables)
 new TOFHistogramHandler(variables)
-new ImageHandler(variables)
+new RawImageHandler(variables)
 new RootHandler(variables)
 
 const httpServer = new Server()

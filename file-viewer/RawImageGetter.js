@@ -15,16 +15,16 @@ export default class {
         this._operation = () => {
             if (!this._fileName.endsWith('.h5')) return
 
-            fetch(`/image?path=${this._path}&fileName=${this._fileName}&type=svg`).then(response => {
+            fetch(`/rawImage?path=${this._path}&fileName=${this._fileName}&type=svg`).then(response => {
                 if (!response.ok) {
-                    variables.divInnerText.assign('image was not found')
+                    variables.divInnerText.assign('raw image was not found')
                     variables.svgInnerHTML.assign('')
                     variables.imageSrc.assign('')
                 } else {
                     response.text().then(text => {
                         variables.divInnerText.assign('')
                         variables.svgInnerHTML.assign(text)
-                        fetch(`/image?path=${this._path}&fileName=${this._fileName}&type=png`).then(response => {
+                        fetch(`/rawImage?path=${this._path}&fileName=${this._fileName}&type=png`).then(response => {
                             response.text().then(text => {
                                 variables.imageSrc.assign(text)
                             })

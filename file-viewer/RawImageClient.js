@@ -3,7 +3,7 @@ import CursorTextMaker from "./CursorTextMaker.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import ImageCleanupper from "./ImageCleanupper.js";
 import ImageDrawer from "./ImageDrawer.js";
-import ImageGetter from "./ImageGetter.js";
+import ImageGetter from "./RawImageGetter.js";
 import PathMaker from "./PathMaker.js";
 
 const variables = new ClientVariablesImage()

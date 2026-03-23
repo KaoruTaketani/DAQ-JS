@@ -36,7 +36,7 @@ export default class {
                 `    <p><a href="./NeutronClient.html">Neutron</a></p>`,
                 `    <h2>HDF5</h2>`,
                 `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
-                `    <p><a href="./ImageClient.html">Image</a></p>`,
+                `    <p><a href="./RawImageClient.html">Raw Image</a></p>`,
                 `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
                 `    <p><a href="./TOFHistogramClient.html">TOF Histogram</a></p>`,
                 '</body>',
