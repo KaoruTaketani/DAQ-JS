@@ -1,4 +1,5 @@
 import { join } from 'path'
+import { ok } from 'assert'
 import axes from '../lib/axes.js'
 import imagesc from '../lib/imagesc.js'
 import imwrite from '../lib/imwrite.js'
@@ -19,9 +20,9 @@ export default class {
         /** @type {string} */
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
-        /** @type {import('http').ServerResponse} */
-        this._response
-        variables.response.prependListener(arg => { this._response = arg })
+        /** @type {Map<URL,import('http').ServerResponse>} */
+        this._responses
+        variables.responses.prependListener(arg => { this._responses = arg })
         /** @type {URL} */
         this._url
         variables.url.addListener(arg => {
@@ -31,17 +32,28 @@ export default class {
         this._operation = () => {
             if (this._url.pathname !== '/image') return
 
+            const response = this._responses.get(this._url)
+            ok(response)
+            this._responses.delete(this._url)
             const path = this._url.searchParams.get('path')
-            if (!path) return
+            if (!path) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) return
+            if (!fileName) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
 
             if (this._url.searchParams.get('type') === 'png') {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
                 const filteredImage = f.get('image')
                 if (!filteredImage) {
-                    this._response.writeHead(404)
-                    this._response.end()
+                    response.writeHead(404)
+                    response.end()
                     return
                 }
                 // console.log(filteredImage.shape)
@@ -56,8 +68,8 @@ export default class {
                 }
                 imwrite(imagesc(hist)).then(buffer => {
                     console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-                    this._response.writeHead(200, { 'Content-Type': 'application/base64' })
-                    this._response.end(`data:image/png;base64,${buffer.toString('base64')}`)
+                    response.writeHead(200, { 'Content-Type': 'application/base64' })
+                    response.end(`data:image/png;base64,${buffer.toString('base64')}`)
                 })
                 return
             }
@@ -65,8 +77,8 @@ export default class {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
                 const filteredImage = f.get('image')
                 if (!filteredImage) {
-                    this._response.writeHead(404)
-                    this._response.end()
+                    response.writeHead(404)
+                    response.end()
                     return
                 }
                 // console.log(filteredTOFHistogram.shape)
@@ -82,8 +94,8 @@ export default class {
                     xTickLabel: ['0', `${widthInMillimeters.toFixed(1)}`],
                     yTickLabel: ['0', `${heightInMillimeters.toFixed(1)}`]
                 }
-                this._response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-                this._response.end([
+                response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
+                response.end([
                     axes(ax),
                     xlabel(ax, 'width (mm)'),
                     ylabel(ax, 'height (mm)')

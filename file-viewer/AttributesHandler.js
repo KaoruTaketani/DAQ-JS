@@ -1,4 +1,5 @@
 import { join } from 'path'
+import { ok } from 'assert'
 import Operator from './Operator.js'
 // @ts-ignore
 const h5wasm = await import("h5wasm/node")
@@ -13,9 +14,9 @@ export default class extends Operator {
         /** @type {string} */
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
-        /** @type {import('http').ServerResponse} */
-        this._response
-        variables.response.prependListener(arg => { this._response = arg })
+        /** @type {Map<URL,import('http').ServerResponse>} */
+        this._responses
+        variables.responses.prependListener(arg => { this._responses = arg })
         /** @type {URL} */
         this._url
         variables.url.addListener(arg => {
@@ -25,25 +26,45 @@ export default class extends Operator {
         this._operation = () => {
             if (this._url.pathname !== '/attributes') return
 
+            const response = this._responses.get(this._url)
+            ok(response)
+            this._responses.delete(this._url)
             const path = this._url.searchParams.get('path')
-            if (!path) return
+            if (!path) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) return
+            if (!fileName) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
 
             if (fileName.split(',').length === 0) {
-                this._response.writeHead(200)
-                this._response.end('')
+                response.writeHead(200)
+                response.end()
                 return
             }
             if (fileName.split(',').length === 1) {
                 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r")
                 //     variables.hdf5File.assign(f)
+                // console.log('xxx')
                 const tmp = Object.keys(f.attrs).map(key => {
-                    return `${key}: ${f.attrs[key].value}`
+                    if (key === 'roiInMillimeters') {
+                        console.log(f.attrs[key])
+                        console.log(f.attrs[key].value)
+                    }
+                    if (Array.isArray(f.attrs[key].value)) {
+                        return `${key}: [${f.attrs[key].value}]`
+                    } else {
+                        return `${key}: ${f.attrs[key].value}`
+                    }
                 }).join('\n')
-                this._response.writeHead(200)
-                this._response.end(tmp)
+                response.writeHead(200)
+                response.end(tmp)
                 f.close()
                 return
             }
@@ -78,8 +99,8 @@ export default class extends Operator {
                 // }).join('\n')
                 f.close()
             })
-            this._response.writeHead(200)
-            this._response.end([
+            response.writeHead(200)
+            response.end([
                 '<thead>',
                 '<tr>',
                 Object.keys(attributes[0]).map(key => `<th>${key}</th>`).join(''),

@@ -1,4 +1,5 @@
-import { openSync, closeSync, readSync } from 'fs'
+import { ok } from 'assert'
+import { closeSync, openSync, readSync } from 'fs'
 import { join } from 'path'
 
 export default class {
@@ -9,9 +10,9 @@ export default class {
         /** @type {string} */
         this._edrPath
         variables.edrPath.prependListener(arg => { this._edrPath = arg })
-        /** @type {import('http').ServerResponse} */
-        this._response
-        variables.response.prependListener(arg => { this._response = arg })
+        /** @type {Map<URL,import('http').ServerResponse>} */
+        this._responses
+        variables.responses.prependListener(arg => { this._responses = arg })
         /** @type {URL} */
         this._url
         variables.url.addListener(arg => {
@@ -21,12 +22,27 @@ export default class {
         this._operation = () => {
             if (this._url.pathname !== '/timer') return
 
+            const response = this._responses.get(this._url)
+            ok(response)
+            this._responses.delete(this._url)
             const path = this._url.searchParams.get('path')
-            if (!path) return
+            if (!path) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) return
+            if (!fileName) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const offsetValue = this._url.searchParams.get('offset')
-            if (!offsetValue) return
+            if (!offsetValue) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const offset = parseInt(offsetValue)
 
             const fd = openSync(join(this._edrPath, path, fileName), 'r')
@@ -73,7 +89,7 @@ export default class {
                 }
             }
 
-            this._response.end([
+            response.end([
                 '<thead>',
                 '<tr>',
                 Object.keys(timerEvents[0]).map(key => `<th>${key}</th>`).join(''),

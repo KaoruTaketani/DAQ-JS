@@ -1,5 +1,6 @@
 import { readdirSync } from 'fs'
 import { join } from 'path'
+import { ok } from 'assert'
 
 export default class {
     /**
@@ -12,9 +13,9 @@ export default class {
         /** @type {string} */
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
-        /** @type {import('http').ServerResponse} */
-        this._response
-        variables.response.prependListener(arg => { this._response = arg })
+        /** @type {Map<URL,import('http').ServerResponse>} */
+        this._responses
+        variables.responses.prependListener(arg => { this._responses = arg })
         /** @type {URL} */
         this._url
         variables.url.addListener(arg => {
@@ -32,21 +33,36 @@ export default class {
         this._operation = () => {
             if (this._url.pathname !== '/files') return
 
+            const response = this._responses.get(this._url)
+            ok(response)
+            this._responses.delete(this._url)
             const path = this._url.searchParams.get('path')
-            if (!path) return
+            if (!path) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const extname = this._url.searchParams.get('extname')
-            if (!extname) return
-            if (extname !== 'edr' && extname !== 'h5') return
+            if (!extname) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
+            if (extname !== 'edr' && extname !== 'h5') {
+                response.writeHead(400)
+                response.end()
+                return
+            }
 
             const files = readdirSync(join(extname === 'edr' ? this._edrPath : this._hdf5Path, path), { withFileTypes: true })
-            this._response.writeHead(200)
+            response.writeHead(200)
             if (path === '/') {
-                this._response.end(
+                response.end(
                     files.map(file => file.isDirectory() ? file.name + '/' : file.name)
                         .map(text => `<option>${text}</option>`).join('')
                 )
             } else {
-                this._response.end(
+                response.end(
                     '<option>../</option>' + files.map(file => file.isDirectory() ? file.name + '/' : file.name)
                         .sort((a, b) => {
                             // 1. As long as both characters at a given position are not digits, the alphabetical order is followed.

@@ -24,15 +24,15 @@ new FilteredTOFHistogramHandler(variables)
 new ImageHandler(variables)
 
 const httpServer = new Server()
+const responses = new Map()
+variables.responses.assign(responses)
 variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
     const url = new URL(`http://localhost${request.url}`)
-    variables.response.assign(response)
-    variables.url.assign(url)
-    
+
     if (url.pathname.endsWith('.js')) {
         readFile(`.${request.url}`, 'utf8', (err, data) => {
             if (err) throw err
@@ -81,4 +81,7 @@ httpServer.on('request', (request, response) => {
         ].join('\n'))
         return
     }
+    responses.set(url, response)
+    // variables.response.assign(response)
+    variables.url.assign(url)
 }).listen(80)

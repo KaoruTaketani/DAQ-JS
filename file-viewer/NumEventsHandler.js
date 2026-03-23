@@ -1,5 +1,6 @@
 import { existsSync, statSync } from 'fs'
 import { join } from 'path'
+import { ok } from 'assert'
 
 export default class {
     /**
@@ -9,9 +10,9 @@ export default class {
         /** @type {string} */
         this._edrPath
         variables.edrPath.prependListener(arg => { this._edrPath = arg })
-        /** @type {import('http').ServerResponse} */
-        this._response
-        variables.response.prependListener(arg => { this._response = arg })
+        /** @type {Map<URL,import('http').ServerResponse>} */
+        this._responses
+        variables.responses.prependListener(arg => { this._responses = arg })
         /** @type {URL} */
         this._url
         variables.url.addListener(arg => {
@@ -21,21 +22,32 @@ export default class {
         this._operation = () => {
             if (this._url.pathname !== '/numEvents') return
 
+            const response = this._responses.get(this._url)
+            ok(response)
+            this._responses.delete(this._url)
             const path = this._url.searchParams.get('path')
-            if (!path) return
+            if (!path) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) return
+            if (!fileName) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
 
             const filePath = join(this._edrPath, path, fileName)
             if (!existsSync(filePath)) {
-                this._response.writeHead(404)
-                this._response.end()
+                response.writeHead(404)
+                response.end()
                 return
             }
 
             const stat = statSync(filePath)
-            this._response.writeHead(200)
-            this._response.end(`${(stat.size / 8).toLocaleString()} events`)
+            response.writeHead(200)
+            response.end(`${(stat.size / 8).toLocaleString()} events`)
         }
     }
 }
