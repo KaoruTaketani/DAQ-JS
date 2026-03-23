@@ -13,7 +13,8 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._fileName.split(',').length === 0) {
+            // ''.split(',').length is 1
+            if (this._fileName === '' || this._fileName.split(',').length === 0) {
                 variables.divInnerText.assign('')
                 variables.tableInnerHTML.assign('')
                 return
