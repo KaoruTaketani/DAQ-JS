@@ -14,7 +14,6 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._randomNumberGeneratorIsBusy) return
 
-            variables.histogramBinLimits.assign([0, 1])
             variables.histogramBinCounts.assign(new Uint32Array(10))
         }
     }
