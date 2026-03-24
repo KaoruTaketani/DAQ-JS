@@ -10,7 +10,8 @@ export default class {
         this.requestParams = new ListenableObject()
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
-        this.histogram = new ListenableObject()
+        this.histogramBinCounts = new ListenableObject()
+        this.histogramBinLimits = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
