@@ -12,28 +12,30 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => {
-            this._histogram = arg
+        this._histogramBinLimits
+        variables.histogramBinLimits.addListener(arg => { this._histogramBinLimits = arg })
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => {
+            this._histogramBinCounts = arg
             this._operation()
         })
         this._operation = () => {
-            const yMax = max(this._histogram.binCounts) === 0
-                ? 1 : max(this._histogram.binCounts),
-                xTick = linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1),
-            ax = {
-                xLim: this._histogram.binLimits,
-                yLim: [0, yMax],
-                xTick: xTick,
-                yTick: [0, yMax],
-                xTickLabel: xTick.map(x => x.toFixed(1)),
-                yTickLabel: ['0', `${yMax}`]
-            }
+            const yMax = max(this._histogramBinCounts) === 0
+                ? 1 : max(this._histogramBinCounts),
+                xTick = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1),
+                ax = {
+                    xLim: this._histogramBinLimits,
+                    yLim: [0, yMax],
+                    xTick: xTick,
+                    yTick: [0, yMax],
+                    xTickLabel: xTick.map(x => x.toFixed(1)),
+                    yTickLabel: ['0', `${yMax}`]
+                }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
                 xlabel(ax, 'random number'),
                 ylabel(ax, 'counts'),
-                stairs(ax, this._histogram)
+                stairs(ax, xTick, this._histogramBinCounts)
             ].join(''))
         }
     }

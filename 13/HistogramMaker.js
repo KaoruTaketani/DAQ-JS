@@ -6,17 +6,17 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => { this._histogram = arg })
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => { this._histogramBinCounts = arg })
         this._randomNumber
         variables.randomNumber.addListener(arg => {
             this._randomNumber = arg
             this._operation()
         })
         this._operation = () => {
-            const i = Math.floor((this._randomNumber * this._histogram.binCounts.length))
-            this._histogram.binCounts[i]++
-            variables.histogram.assign(this._histogram)
+            const i = Math.floor((this._randomNumber * this._histogramBinCounts.length))
+            this._histogramBinCounts[i]++
+            variables.histogramBinCounts.assign(this._histogramBinCounts)
         }
     }
 }

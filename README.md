@@ -113,12 +113,13 @@
 ## Graph
 ```mermaid
 graph TD;
-    histogram-->histogramSVGInnerHTML;
+    histogramBinCounts-->histogramSVGInnerHTML;
+    histogramBinLimits-->histogramSVGInnerHTML;
     %%httpServer-->elementValues;
     %%httpServer-->webSocketPathnames;
-    randomNumberGeneratorIsBusy-->histogram;
+    randomNumberGeneratorIsBusy-->histogramBinCounts;
     randomNumber-->randomNumberInnerText;
-    randomNumber-->histogram;
+    randomNumber-->histogramBinCounts;
     %%randomNumber-->timeSeries;
     %%randomNumberGeneratorIsBusy-->timeSeries;
     randomNumberGeneratorIsBusy-->startTime;
