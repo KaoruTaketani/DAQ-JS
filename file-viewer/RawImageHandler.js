@@ -50,7 +50,7 @@ export default class {
 
             if (this._url.searchParams.get('type') === 'png') {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-                const filteredImage = f.get('image')
+                const filteredImage = f.get('rawImage')
                 if (!filteredImage) {
                     response.writeHead(404)
                     response.end()
@@ -75,7 +75,7 @@ export default class {
             }
             if (this._url.searchParams.get('type') === 'svg') {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-                const filteredImage = f.get('image')
+                const filteredImage = f.get('rawImage')
                 if (!filteredImage) {
                     response.writeHead(404)
                     response.end()

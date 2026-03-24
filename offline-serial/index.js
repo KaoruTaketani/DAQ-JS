@@ -9,8 +9,6 @@ import FilteredImageMaker from "./FilteredImageMaker.js"
 import FilteredNeutronEventMaker from "./FilteredNeutronEventMaker.js"
 import FourierEnergyMaker from "./FourierEnergyMaker.js"
 import FourierTimeMaker from "./FourierTimeMaker.js"
-import ImageInitializer from "./ImageInitializer.js"
-import ImageMaker from "./ImageMaker.js"
 import JSONFileReader from "./JSONFileReader.js"
 import MomentumTransferMaker from "./MomentumTransferMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
@@ -21,6 +19,8 @@ import PhaseMaker from "./PhaseMaker.js"
 import PhaseShiftMaker from "./PhaseShiftMaker.js"
 import PulseHeightHistogramInitializer from "./PulseHeightHistogramInitializer.js"
 import PulseHeightHistogramMaker from "./PulseHeightHistogramMaker.js"
+import RawImageInitializer from "./RawImageInitializer.js"
+import RawImageMaker from "./RawImageMaker.js"
 import ReflectivityMaker from "./ReflectivityMaker.js"
 import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializer.js"
 import TOFDifferenceHistogramMaker from "./TOFDifferenceHistogramMaker.js"
@@ -39,8 +39,8 @@ new EDRReader(variables)
 new EventBufferParser(variables)
 new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
-new ImageInitializer(variables)
-new ImageMaker(variables)
+new RawImageInitializer(variables)
+new RawImageMaker(variables)
 new VerticalProjectionInitializer(variables)
 new VerticalProjectionMaker(variables)
 new FilteredNeutronEventMaker(variables)
@@ -93,8 +93,8 @@ variables.hdf5Path.assign('../../hdf5/20250424')
 //     './43.json'
 // ])
 // variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
-variables.jsonFileNames.assign(['0.json'])
+// variables.jsonFileNames.assign(['0.json'])
 // console.log(colon(0, 60))
-// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 

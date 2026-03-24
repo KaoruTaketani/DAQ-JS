@@ -8,8 +8,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {import('../lib/index.js').Histogram2D} */
-        this._image
-        variables.image.prependListener(arg => { this._image = arg })
+        this._rawImage
+        variables.rawImage.prependListener(arg => { this._rawImage = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
         this._neutronEvent
         variables.neutronEvent.addListener(arg => {
@@ -18,8 +18,8 @@ export default class extends Operator {
         })
         this._operation = () => {
             // sub2ind expects indexes to start frpm 1
-            this._image.binCounts[sub2ind(
-                this._image.numBins,
+            this._rawImage.binCounts[sub2ind(
+                this._rawImage.numBins,
                 this._neutronEvent.yCoordinateInPixels + 1,
                 this._neutronEvent.xCoordinateInPixels + 1
             )]++
