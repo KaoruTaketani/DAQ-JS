@@ -14,7 +14,6 @@ export default class {
         this.elementValues = new ListenableObject()
         this.histogramHDF5File = new ListenableObject()
         this.histogram = new WritableHistogram('histogram', this.histogramHDF5File)
-        this.timeSeries = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()

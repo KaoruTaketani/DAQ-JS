@@ -8,7 +8,7 @@ const downloadSVGButtonElement = document.createElement('input')
 
 downloadSVGButtonElement.onclick = () => {
     svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
-        `<svg xmlns="http://www.w3.org/2000/svg" >${histogramSVGElement.innerHTML}</svg>`
+        `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
     ))
     svgLinkElement.setAttribute('download', 'histogram.svg')
     svgLinkElement.click()
