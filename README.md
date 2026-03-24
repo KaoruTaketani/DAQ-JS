@@ -114,7 +114,7 @@
 ```mermaid
 graph TD;
     histogramBinCounts-->histogramSVGInnerHTML;
-    histogramBinLimits-->histogramSVGInnerHTML;
+    %%histogramBinLimits-->histogramSVGInnerHTML;
     %%httpServer-->elementValues;
     %%httpServer-->webSocketPathnames;
     randomNumberGeneratorIsBusy-->histogramBinCounts;
