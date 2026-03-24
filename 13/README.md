@@ -3,18 +3,18 @@
 HistogramSVGInnerHTMLMaker.js:
 ```js
 const ax = {
-    xLim: this._histogram.binLimits,
-    yLim: [0, max(this._histogram.binCounts)],
+    xLim: this._histogramBinLimits,
+    yLim: [0, max(this._histogramBinCounts)],
     xTick: linspace(0, 1, 11),
-    yTick: [0, max(this._histogram.binCounts)],
+    yTick: [0, max(this._histogramBinCounts)],
     xTickLabel: linspace(0, 1, 11).map(x => x.toFixed(1)),
-    yTickLabel: ['0', `${max(this._histogram.binCounts)}`]
+    yTickLabel: ['0', `${max(this._histogramBinCounts)}`]
 }
 variables.histogramSVGInnerHTML.assign([
     axes(ax),
     xlabel(ax, 'random number'),
     ylabel(ax, 'counts'),
-    stairs(ax, this._histogram)
+    stairs(ax, linspace(0, 1, 11), this._histogramBinCounts)
 ].join(''))
 ```
 

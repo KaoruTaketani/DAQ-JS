@@ -12,7 +12,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorIsBusy=true')
+        xhr.open('PUT', '/?randomNumberGeneratorIsBusy=true')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -28,7 +28,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorIsBusy=false')
+        xhr.open('PUT', '/?randomNumberGeneratorIsBusy=false')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
@@ -54,6 +54,7 @@ socket.onclose = () => {
     }
 })(document.body.appendChild(document.createElement('p')));
 
+const svgElement=document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 (element => {
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
@@ -66,22 +67,7 @@ socket.onclose = () => {
     innerHTMLSocket.onmessage = event => {
         element.innerHTML = event.data
     }
-})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
-
-(element => {
-    element.setAttribute('width', '400')
-    element.setAttribute('height', '300')
-    element.setAttribute('viewBox', '0 0 560 420')
-    url.pathname = 'timeSeriesSVGInnerHTML'
-    const innerHTMLSocket = new WebSocket(url)
-    innerHTMLSocket.onmessage = event => {
-        element.innerHTML = event.data
-    }
-})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
-
-
-
-
+})(document.body.appendChild(svgElement));
 
 const dialogElement = document.createElement('dialog')
 document.body.appendChild(dialogElement);
@@ -94,7 +80,7 @@ document.body.appendChild(dialogElement);
     const linkElement = document.createElement('a')
     element.onclick = () => {
         linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
-            `<svg xmlns="http://www.w3.org/2000/svg" >${element.innerHTML}</svg>`
+            `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
         ))
         linkElement.setAttribute('download', 'histogram.svg')
         linkElement.click()
