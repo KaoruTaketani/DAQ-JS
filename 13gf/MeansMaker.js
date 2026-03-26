@@ -10,8 +10,8 @@ export default class extends Operator {
         super()
         this._means
         variables.means.addListener(arg => { this._means = arg })
-        this._histogram
-        variables.histogram.addListener(arg => { this._histogram = arg })
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => { this._histogramBinCounts = arg })
         this._batchProcessorIsBusy
         variables.batchProcessorIsBusy.addListener(arg => { this._batchProcessorIsBusy = arg })
         this._randomNumberGeneratorIsBusy
@@ -21,10 +21,10 @@ export default class extends Operator {
         })
         this._operation = () => {
             if (!this._batchProcessorIsBusy) return
-            if (!this._histogram) return
+            if (!this._histogramBinCounts) return
             if (this._randomNumberGeneratorIsBusy) return
 
-            const m = mean(linspace(0.05, 0.95, 10), this._histogram.binCounts)
+            const m = mean(linspace(0.05, 0.95, 10), this._histogramBinCounts)
 
             this._means.push(m)
             variables.means.assign(this._means)
