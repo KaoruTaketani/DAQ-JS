@@ -4,32 +4,15 @@ import ElementBoolean from '../13/ElementBoolean.js'
 import ElementString from '../13/ElementString.js'
 import ListenableNumber from '../13/ListenableNumber.js'
 import ListenableObject from '../13/ListenableObject.js'
+import Variables from '../13ca/Variables.js'
 
-export default class {
+export default class extends Variables {
     constructor() {
-        this.httpServer = new ListenableObject()
-        this.requestParams = new ListenableObject()
-        this.webSocketPathnames = new ListenableObject()
-        this.elementValues = new ListenableObject()
-        this.histogramBinCounts = new ListenableObject()
-        this.histogramBinLimits = new ListenableObject()
-        this.timeSeries = new ListenableObject()
+        super()
 
-        this.randomNumber = new ListenableNumber()
-        this.startTime = new ListenableNumber()
+        this.readButtonDisabled = new ElementBoolean('/readButtonDisabled', this.elementValues, this.webSocketPathnames)
 
-        this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.requestParams)
-
-        this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
-        this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
-        this.readButtonDisabled = new ElementBoolean('/readButtonDisabled', this.elementValues, this.webSocketPathnames)        
-
-        this.influxReaderField = new ControllableString('influxReaderField',this.requestParams)
-
-        this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
-        this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)
-        this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
-        this.timeSeriesSVGInnerHTML = new ElementString('/timeSeriesSVGInnerHTML', this.elementValues, this.webSocketPathnames)
+        this.influxReaderField = new ControllableString('influxReaderField', this.requestParams)
     }
 }
 
