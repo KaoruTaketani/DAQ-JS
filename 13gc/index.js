@@ -10,9 +10,9 @@ import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import Comparator from '../13ga/Comparator.js'
 import PresetDisabledChanger from '../13ga/PresetDisabledChanger.js'
 import PresetValueChanger from '../13ga/PresetValueChanger.js'
-import RandomNumberGenerator from './RandomNumberGenerator.js'
-import RandomNumberInnerTextChanger from './RandomNumberInnerTextChanger.js'
-import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
+import RandomNumberGenerator from '../13gb/RandomNumberGenerator.js'
+import RandomNumberInnerTextChanger from '../13gb/RandomNumberInnerTextChanger.js'
+import HistogramSVGInnerHTMLMaker from '../13gb/HistogramSVGInnerHTMLMaker.js'
 import Variables from './Variables.js'
 import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
 import BatchProcessor from './BatchProcessor.js'
@@ -39,6 +39,7 @@ new BatchTableInnerHTMLMaker(variables)
 new BatchProcessor(variables)
 
 variables.httpServer.assign(new Server())
+variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorIsBusy.assign(false)
 variables.preset.assign(50)
 variables.batchParams.assign([
