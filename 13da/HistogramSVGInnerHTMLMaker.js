@@ -13,19 +13,25 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => {
-            this._histogram = arg
+        this._histogramBinLimits
+        variables.histogramBinLimits.addListener(arg => { this._histogramBinLimits = arg })
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => {
+            this._histogramBinCounts = arg
             this._operation()
         })
         this._operation = () => {
-            const yMax = max(this._histogram.binCounts) === 0
-                ? 1 : max(this._histogram.binCounts),
+            const yMax = max(this._histogramBinCounts) === 0
+                ? 1 : max(this._histogramBinCounts),
+                edges = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1),
                 ax = {
+                    // xLim: this._histogramBinLimits,
                     xLim: [0.4, 0.8],
                     yLim: [0, yMax],
+                    // xTick: xTick,
                     xTick: colon(0.4, 0.1, 0.8),
                     yTick: [0, yMax],
+                    // xTickLabel: xTick.map(x => x.toFixed(1)),
                     xTickLabel: colon(0.4, 0.1, 0.8).map(x => x.toFixed(1)),
                     yTickLabel: ['0', `${yMax}`]
                 }
@@ -33,7 +39,7 @@ export default class extends Operator {
                 axes(ax),
                 xlabel(ax, 'random number'),
                 ylabel(ax, 'counts'),
-                stairs(ax, this._histogram)
+                stairs(ax, edges, this._histogramBinCounts)
             ].join(''))
         }
     }
