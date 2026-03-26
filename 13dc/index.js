@@ -1,7 +1,7 @@
 import { Server } from 'http'
 import HistogramInitializer from '../13/HistogramInitializer.js'
 import HistogramMaker from '../13/HistogramMaker.js'
-import HistogramSVGInnerHTMLMaker from '../13ga/HistogramSVGInnerHTMLMaker.js'
+import HistogramSVGInnerHTMLMaker from '../13/HistogramSVGInnerHTMLMaker.js'
 import HTTPGetHandler from '../13/HTTPGetHandler.js'
 import HTTPPostHandler from './HTTPPostHandler.js'
 import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
@@ -30,5 +30,6 @@ new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
-variables.httpServer.assign(new Server()) 
+variables.httpServer.assign(new Server())
+variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorIsBusy.assign(false)
