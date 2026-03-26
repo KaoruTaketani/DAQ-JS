@@ -10,8 +10,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => { this._histogram = arg })
+        this._histogramXBinLimits
+        variables.histogramXBinLimits.addListener(arg => { this._histogramXBinLimits = arg })
+        this._histogramYBinLimits
+        variables.histogramYBinLimits.addListener(arg => { this._histogramYBinLimits = arg })
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => { this._histogramBinCounts = arg })
         this._randomNumber
         variables.randomNumber.addListener(arg => {
             this._randomNumber = arg
@@ -19,20 +23,20 @@ export default class extends Operator {
         })
         this._operation = () => {
             // console.log(this._randomNumber)
-            if (!isbetween(this._randomNumber[0], this._histogram.xBinLimits)) return
-            if (!isbetween(this._randomNumber[1], this._histogram.yBinLimits)) return
+            if (!isbetween(this._randomNumber[0], this._histogramXBinLimits)) return
+            if (!isbetween(this._randomNumber[1], this._histogramYBinLimits)) return
 
             // sub2ind expects indexes to start frpm 1
-            const r0 = rescale(this._randomNumber[0], this._histogram.xBinLimits),
-                r1 = rescale(this._randomNumber[1], this._histogram.yBinLimits),
+            const r0 = rescale(this._randomNumber[0], this._histogramXBinLimits),
+                r1 = rescale(this._randomNumber[1], this._histogramYBinLimits),
                 i = sub2ind(
-                    this._histogram.numBins,
-                    Math.floor(r1 * this._histogram.numBins[1]) + 1,
-                    Math.floor(r0 * this._histogram.numBins[0]) + 1
+                    this._histogramBinCounts.shape,
+                    Math.floor(r1 * this._histogramBinCounts.shape[1]) + 1,
+                    Math.floor(r0 * this._histogramBinCounts.shape[0]) + 1
                 )
-                // console.log(`numBins: [${this._histogram.numBins}], prod: ${prod(this._histogram.numBins)}, i ${i}`)
-            this._histogram.binCounts[i]++
-            variables.histogram.assign(this._histogram)
+            // console.log(`numBins: [${this._histogram.numBins}], prod: ${prod(this._histogram.numBins)}, i ${i}`)
+            this._histogramBinCounts.data[i]++
+            variables.histogramBinCounts.assign(this._histogramBinCounts)
         }
     }
 }

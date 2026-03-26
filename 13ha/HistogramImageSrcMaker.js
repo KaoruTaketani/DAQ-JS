@@ -9,14 +9,14 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => {
-            this._histogram = arg
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => {
+            this._histogramBinCounts = arg
             this._operation()
         })
         this._operation = throttle(() => {
             const startTime = Date.now()
-            imwrite(imagesc(this._histogram)).then(buffer => {
+            imwrite(imagesc(this._histogramBinCounts)).then(buffer => {
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
                 variables.histogramImageSrc.assign(`data:image/png;base64,${buffer.toString('base64')}`)
             })

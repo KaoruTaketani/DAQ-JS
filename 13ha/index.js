@@ -26,5 +26,7 @@ new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
-variables.httpServer.assign(new Server()) 
+variables.httpServer.assign(new Server())
+variables.histogramXBinLimits.assign([0, 16])
+variables.histogramYBinLimits.assign([0, 16])
 variables.randomNumberGeneratorIsBusy.assign(false)

@@ -47,6 +47,11 @@ export interface Image {
     height: number
 }
 
+export interface Dataset {
+    shape: number[]
+    data: Uint32Array
+}
+
 export interface Histogram {
     binLimits: number[]
     binCounts: Uint32Array
