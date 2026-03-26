@@ -6,11 +6,7 @@ export default class extends ListenableObject {
         this._name = name
         this._value
         hdf5File.addListener(arg => {
-            const dataset = arg.create_dataset({
-                name: this._name,
-                data: this._value.binCounts,
-                dtype: '<i'
-            })
+            arg.create_attribute(this._name, this._value, null, '<f8')
         })
     }
     assign(arg) {

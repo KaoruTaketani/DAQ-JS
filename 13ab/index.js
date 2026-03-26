@@ -11,7 +11,7 @@ import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import HDF5LinkHrefMaker from './HDF5LinkHrefMaker.js'
-import HistogramInitializer from './HistogramInitializer.js'
+import HistogramInitializer from '../13/HistogramInitializer.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
@@ -30,7 +30,6 @@ new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 new HDF5LinkHrefMaker(variables)
 
-variables.httpServer.assign(new Server()) 
+variables.httpServer.assign(new Server())
+variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorIsBusy.assign(false)
-variables.histogramBinLimitsMin.assign(0)
-variables.histogramBinLimitsMax.assign(1)

@@ -17,7 +17,7 @@ export default class extends Operator {
         this._operation = () => {
             const startTime = Date.now(),
                 file = new h5wasm.File('./histogram.h5', 'w')
-            variables.histogramHDF5File.assign(file)
+            variables.hdf5File.assign(file)
             file.close()
 
             readFile('./histogram.h5', (err, data) => {
