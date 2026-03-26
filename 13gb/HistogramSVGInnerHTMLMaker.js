@@ -9,21 +9,23 @@ import throttle from '../lib/throttle.js'
 
 export default class extends Operator {
     /**
-     * @param {import('../13hb/Variables.js').default} variables 
+     * @param {import('../13ga/Variables.js').default} variables 
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => {
-            this._histogram = arg
+        this._histogramBinLimits
+        variables.histogramBinLimits.addListener(arg => { this._histogramBinLimits = arg })
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => {
+            this._histogramBinCounts = arg
             this._operation()
         })
         this._operation = throttle(() => {
-            const yMax = max(this._histogram.binCounts) === 0
-                ? 1 : max(this._histogram.binCounts),
-                edges = linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], this._histogram.binCounts.length + 1),
+            const yMax = max(this._histogramBinCounts) === 0
+                ? 1 : max(this._histogramBinCounts),
+                edges = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1),
                 ax = {
-                    xLim: this._histogram.binLimits,
+                    xLim: this._histogramBinLimits,
                     yLim: [0, yMax],
                     xTick: edges,
                     yTick: [0, yMax],
@@ -34,7 +36,7 @@ export default class extends Operator {
                 axes(ax),
                 xlabel(ax, 'random number'),
                 ylabel(ax, 'counts'),
-                stairs(ax, this._histogram)
+                stairs(ax, edges, this._histogramBinCounts)
             ].join(''))
         }, 1000)
     }

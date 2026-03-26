@@ -14,7 +14,7 @@ import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import Comparator from '../13ga/Comparator.js'
 import PresetDisabledChanger from '../13ga/PresetDisabledChanger.js'
 import PresetValueChanger from '../13ga/PresetValueChanger.js'
-import Variables from './Variables.js'
+import Variables from '../13ga/Variables.js'
 
 const variables = new Variables()
 
@@ -34,6 +34,7 @@ new PresetValueChanger(variables)
 new PresetDisabledChanger(variables)
 new Comparator(variables)
 
-variables.httpServer.assign(new Server()) 
+variables.httpServer.assign(new Server())
+variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorIsBusy.assign(false)
 variables.preset.assign(50)
