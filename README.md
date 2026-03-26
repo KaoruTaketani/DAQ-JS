@@ -92,7 +92,7 @@
 
 [13.h.c Batch Processor](./13gc/README.md)
 
-[13.g.c Batch Stopper](./13gd/README.md)
+[13.g.d Batch Stopper](./13gd/README.md)
 
 [13.g.e Batch Editor](./13ge/README.md)
 
