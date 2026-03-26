@@ -9,13 +9,13 @@ export default class extends Operator {
         super()
         this._preset
         variables.preset.addListener(arg => { this._preset = arg })
-        this._histogram
-        variables.histogram.addListener(arg => {
-            this._histogram = arg
+        this._histogramBinCounts
+        variables.histogramBinCounts.addListener(arg => {
+            this._histogramBinCounts = arg
             this._operation()
         })
         this._operation = () => {
-            if (sum(this._histogram.binCounts) < this._preset) return
+            if (sum(this._histogramBinCounts) < this._preset) return
 
             variables.randomNumberGeneratorIsBusy.assign(false)
         }
