@@ -25,13 +25,10 @@ export default class extends Operator {
                 ? 1 : max(this._histogramBinCounts),
                 edges = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1),
                 ax = {
-                    // xLim: this._histogramBinLimits,
                     xLim: [0.4, 0.8],
                     yLim: [0, yMax],
-                    // xTick: xTick,
                     xTick: colon(0.4, 0.1, 0.8),
                     yTick: [0, yMax],
-                    // xTickLabel: xTick.map(x => x.toFixed(1)),
                     xTickLabel: colon(0.4, 0.1, 0.8).map(x => x.toFixed(1)),
                     yTickLabel: ['0', `${yMax}`]
                 }

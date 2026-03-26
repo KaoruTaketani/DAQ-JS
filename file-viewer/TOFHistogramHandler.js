@@ -60,13 +60,13 @@ export default class {
             const startTime = Date.now()
             const binCounts = filteredTOFHistogram.value
             const yMax = max(binCounts)
-            const xTick = linspace(0, binCounts.length, 8 + 1)
+            const edges = linspace(0, binCounts.length, 8 + 1)
             const ax = {
                 xLim: [0, binCounts.length],
                 yLim: [0, yMax],
-                xTick: xTick,
+                xTick: edges,
                 yTick: [0, yMax],
-                xTickLabel: xTick.map(x => x.toFixed()),
+                xTickLabel: edges.map(x => x.toFixed()),
                 yTickLabel: ['0', `${yMax}`]
             }
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })

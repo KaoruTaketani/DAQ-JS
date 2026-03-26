@@ -20,14 +20,14 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const xTick = linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], 11),
+            const edges = linspace(this._histogram.binLimits[0], this._histogram.binLimits[1], 11),
                 yTick = [-0.05, 0.0, 0.05],
                 ax = {
                     xLim: this._histogram.binLimits,
                     yLim: [-0.05, 0.05],
-                    xTick: xTick,
+                    xTick: edges,
                     yTick: yTick,
-                    xTickLabel: xTick.map(x => x.toFixed(1)),
+                    xTickLabel: edges.map(x => x.toFixed(1)),
                     yTickLabel: yTick.map(x => x.toFixed(1))
                 }
             // console.log(this._histogram.binCounts)

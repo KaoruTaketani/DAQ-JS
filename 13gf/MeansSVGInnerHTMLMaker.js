@@ -20,13 +20,13 @@ export default class extends Operator {
         })
         this._operation = () => {
             const yTick = [0, 0.5, 1],
-                xTick = this._presets,
+                edges = this._presets,
                 ax = {
                     xLim: bounds(this._presets),
                     yLim: bounds(yTick),
-                    xTick: xTick,
+                    xTick: edges,
                     yTick: yTick,
-                    xTickLabel: xTick.map(x => x.toFixed(0)),
+                    xTickLabel: edges.map(x => x.toFixed(0)),
                     yTickLabel: yTick.map(x => x.toFixed(1))
                 }
             variables.meansSVGInnerHTML.assign([

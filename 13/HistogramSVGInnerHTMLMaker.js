@@ -22,20 +22,20 @@ export default class extends Operator {
         this._operation = () => {
             const yMax = max(this._histogramBinCounts) === 0
                 ? 1 : max(this._histogramBinCounts),
-                xTick = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1),
+                edges = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1),
                 ax = {
                     xLim: this._histogramBinLimits,
                     yLim: [0, yMax],
-                    xTick: xTick,
+                    xTick: edges,
                     yTick: [0, yMax],
-                    xTickLabel: xTick.map(x => x.toFixed(1)),
+                    xTickLabel: edges.map(x => x.toFixed(1)),
                     yTickLabel: ['0', `${yMax}`]
                 }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
                 xlabel(ax, 'random number'),
                 ylabel(ax, 'counts'),
-                stairs(ax, xTick, this._histogramBinCounts)
+                stairs(ax, edges, this._histogramBinCounts)
             ].join(''))
         }
     }
