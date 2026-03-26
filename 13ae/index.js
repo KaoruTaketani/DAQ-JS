@@ -10,7 +10,7 @@ import RandomNumberInnerTextChanger from '../13/RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
-import Variables from '../13ca/Variables.js'
+import Variables from '../13/Variables.js'
 import HTTPGetHandler from './HTTPGetHandler.js'
 
 const variables = new Variables()
@@ -28,5 +28,6 @@ new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
-variables.httpServer.assign(new Server()) 
+variables.httpServer.assign(new Server())
+variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorIsBusy.assign(false)
