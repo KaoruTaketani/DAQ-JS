@@ -20,7 +20,9 @@ export default class extends ListenableObject {
                 arg.create_dataset({
                     name: this._name,
                     data: this._dataset.data,
-                    shape: this._dataset.shape
+                    shape: this._dataset.shape,
+                    chunks: this._dataset.shape,
+                    compression: 'gzip'
                 })
             }
         })
