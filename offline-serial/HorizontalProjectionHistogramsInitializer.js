@@ -39,12 +39,10 @@ export default class extends Operator {
 
             const size = [
                 this._tofMaxInMilliseconds * this._miezeFrequencyInKilohertz,
-                this._roiWidthInPixels]//,
-            // must be nanoseconds as used in maker
-            // dt = this._tofMaxInMilliseconds * 1_000_000 / size[0]
+                this._roiWidthInPixels]
 
-            variables.horizontalProjectionHistogramsXBinLimits.assign([0, this._roiWidthInPixels])
-            variables.horizontalProjectionHistogramsYBinLimits.assign([0, size[0]])
+            variables.horizontalProjectionHistogramsXBinLimitsInPixels.assign([0, this._roiWidthInPixels])
+            variables.horizontalProjectionHistogramsYBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
             variables.horizontalProjectionHistogramsBinCounts.assign({
                 shape: size,
                 data: new Uint32Array(prod(size))

@@ -48,24 +48,24 @@ export default class {
         this.rawImageYBinLimitsInPixels = new WritableArray('rawImageYBinLimitsInPixels', this.hdf5File)
         this.pulseHeightHistogramBinLimits = new WritableArray('pulseHeightHistogramBinLimits', this.hdf5File)
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
-        this.horizontalProjectionHistogramsXBinLimits = new WritableArray('horizontalProjectionHistogramsXBinLimits', this.hdf5File)
-        this.horizontalProjectionHistogramsYBinLimits = new WritableArray('horizontalProjectionHistogramsYBinLimits', this.hdf5File)
+        this.horizontalProjectionHistogramsXBinLimitsInPixels = new WritableArray('horizontalProjectionHistogramsXBinLimitsInPixels', this.hdf5File)
+        this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('horizontalProjectionHistogramsYBinLimitsInNanoseconds', this.hdf5File)
         this.filteredImageXBinLimitsInPixels = new WritableArray('filteredImageXBinLimitsInPixels', this.hdf5File)
         this.filteredImageYBinLimitsInPixels = new WritableArray('filteredImageYBinLimitsInPixels', this.hdf5File)
 
         // uint32
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
-        this.tofHistogramBinCounts = new WritableDataset('tofHistogram', this.hdf5File)
+        this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
-        this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogram', this.hdf5File)
+        this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.verticalProjection = new WritableDataset('verticalProjection', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
-        this.rawImageBinCounts = new WritableDataset('rawImage', this.hdf5File)
+        this.rawImageBinCounts = new WritableDataset('rawImageBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
-        this.filteredImageBinCounts = new WritableDataset('filteredImage', this.hdf5File)
+        this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.horizontalProjectionHistogramsBinCounts = new WritableDataset('horizontalProjectionHistogramsBinCounts', this.hdf5File)
 

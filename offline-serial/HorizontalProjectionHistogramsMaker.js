@@ -12,10 +12,10 @@ export default class extends Operator {
         variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
         /** @type {number[]} */
         this._horizontalProjectionHistogramsXBinLimits
-        variables.horizontalProjectionHistogramsXBinLimits.prependListener(arg => { this._horizontalProjectionHistogramsXBinLimits = arg })
+        variables.horizontalProjectionHistogramsXBinLimitsInPixels.prependListener(arg => { this._horizontalProjectionHistogramsXBinLimits = arg })
         /** @type {number[]} */
         this._horizontalProjectionHistogramsYBinLimits
-        variables.horizontalProjectionHistogramsYBinLimits.prependListener(arg => { this._horizontalProjectionHistogramsYBinLimits = arg })
+        variables.horizontalProjectionHistogramsYBinLimitsInNanoseconds.prependListener(arg => { this._horizontalProjectionHistogramsYBinLimits = arg })
         /** @type {import('../lib/index.js').Uint32Dataset} */
         this._horizontalProjectionHistogramsBinCounts
         variables.horizontalProjectionHistogramsBinCounts.prependListener(arg => { this._horizontalProjectionHistogramsBinCounts = arg })
@@ -26,12 +26,12 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const binWidth = (this._horizontalProjectionHistogramsYBinLimits[1] - this._horizontalProjectionHistogramsYBinLimits[0])
+            const binWidthInNanoseconds = (this._horizontalProjectionHistogramsYBinLimits[1] - this._horizontalProjectionHistogramsYBinLimits[0])
                 / this._horizontalProjectionHistogramsBinCounts.shape[0]
             // sub2ind expects indexes to start frpm 1
             this._horizontalProjectionHistogramsBinCounts.data[sub2ind(
                 this._horizontalProjectionHistogramsBinCounts.shape,
-                Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidth),
+                Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidthInNanoseconds),
                 this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels
             )]++
         }

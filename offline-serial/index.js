@@ -7,8 +7,13 @@ import EventBufferParser from "./EventBufferParser.js"
 import FilteredImageInitializer from "./FilteredImageInitializer.js"
 import FilteredImageMaker from "./FilteredImageMaker.js"
 import FilteredNeutronEventMaker from "./FilteredNeutronEventMaker.js"
+import FitFinder from "./FitFinder.js"
 import FourierEnergyMaker from "./FourierEnergyMaker.js"
 import FourierTimeMaker from "./FourierTimeMaker.js"
+import HorizontalProjectionHistogramsInitializer from "./HorizontalProjectionHistogramsInitializer.js"
+import HorizontalProjectionHistogramsMaker from "./HorizontalProjectionHistogramsMaker.js"
+import HorizontalProjectionMeansMaker from "./HorizontalProjectionMeansMaker.js"
+import HorizontalProjectionStandardDeviationsMaker from "./HorizontalProjectionStandardDeviationsMaker.js"
 import JSONFileReader from "./JSONFileReader.js"
 import MomentumTransferMaker from "./MomentumTransferMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
@@ -26,6 +31,8 @@ import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializ
 import TOFDifferenceHistogramMaker from "./TOFDifferenceHistogramMaker.js"
 import TOFHistogramInitializer from "./TOFHistogramInitializer.js"
 import TOFHistogramMaker from "./TOFHistogramMaker.js"
+import TOFImageInitializer from "./TOFImageInitializer.js"
+import TOFImageMaker from "./TOFImageMaker.js"
 import TOFMaker from "./TOFMaker.js"
 import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
@@ -49,15 +56,16 @@ new TOFHistogramMaker(variables)
 new ContrastMaker(variables)
 new PhaseMaker(variables)
 new NeutronRateMaker(variables)
-// new TOFImageInitializer(variables)
-// new TOFImageMaker(variables)
+// new NeutronPerPulseMaker(variables)
+new TOFImageInitializer(variables)
+new TOFImageMaker(variables)
 // new VerticalProjectionInitializer(variables)
 // new VerticalProjectionMaker(variables)
-// new HorizontalProjectionHistogramsInitializer(variables)
-// new HorizontalProjectionHistogramsMaker(variables)
-// new FitFinder(variables)
-// new HorizontalProjectionMeansMaker(variables)
-// new HorizontalProjectionStandardDeviationsMaker(variables)
+new HorizontalProjectionHistogramsInitializer(variables)
+new HorizontalProjectionHistogramsMaker(variables)
+new HorizontalProjectionMeansMaker(variables)
+new HorizontalProjectionStandardDeviationsMaker(variables)
+new FitFinder(variables)
 new ContrastRatioMaker(variables)
 new PhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
@@ -68,11 +76,10 @@ new WavelengthMaker(variables)
 new FourierTimeMaker(variables)
 new FourierEnergyMaker(variables)
 new MomentumTransferMaker(variables)
-// new NeutronPerPulseMaker(variables)
 new PulseHeightHistogramInitializer(variables)
 new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)
-// new TOFDifferenceHistogramMaker(variables)
+new TOFDifferenceHistogramMaker(variables)
 new JSONFileReader(variables)
 
 variables.hdf5Path.assign('../../hdf5/20250424')
