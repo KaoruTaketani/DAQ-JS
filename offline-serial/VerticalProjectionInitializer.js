@@ -13,8 +13,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.verticalProjection.assign({
-                shape: [0, 2 ** this._neutronPositionBitLength],
+            variables.verticalProjectionBinCounts.assign({
+                shape: [2 ** this._neutronPositionBitLength],
                 data: new Uint32Array(2 ** this._neutronPositionBitLength)
             })
         }
