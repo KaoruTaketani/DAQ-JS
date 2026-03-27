@@ -20,7 +20,7 @@ export default class extends Operator {
                     / dt
 
             variables.tofDifferenceHistogramBinCounts.assign({
-                shape:this._tofDifferenceHistogramBinLimitsInNanoseconds,
+                shape: [numBins],
                 data: new Uint32Array(numBins),
             })
         }
