@@ -1,5 +1,6 @@
 import Operator from './Operator.js'
 import sub2ind from '../lib/sub2ind.js'
+import diff from '../lib/diff.js'
 
 export default class extends Operator {
     /**
@@ -23,7 +24,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const binWidth = (this._tofImageZBinLimitsInNanoseconds[1] - this._tofImageZBinLimitsInNanoseconds[0])
+            const binWidth = diff(this._tofImageZBinLimitsInNanoseconds)[0]
                 / this._tofImage.shape[0],
                 [x, y, _w, _h] = this._roiInPixels
             // sub2ind expects indexes to start frpm 1

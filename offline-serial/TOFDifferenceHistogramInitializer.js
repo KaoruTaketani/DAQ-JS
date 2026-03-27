@@ -1,4 +1,5 @@
 import Operator from './Operator.js'
+import diff from '../lib/diff.js'
 
 export default class extends Operator {
     /**
@@ -16,7 +17,7 @@ export default class extends Operator {
             // dt must be 25ns, which is equal to the bin width of NEUNET output
             const dt = 25,
                 // when tmax=400ns & tmin=-400ns, nbin is 800/25=32
-                numBins = (this._tofDifferenceHistogramBinLimitsInNanoseconds[1] - this._tofDifferenceHistogramBinLimitsInNanoseconds[0])
+                numBins = diff(this._tofDifferenceHistogramBinLimitsInNanoseconds)[0]
                     / dt
 
             variables.tofDifferenceHistogramBinCounts.assign({

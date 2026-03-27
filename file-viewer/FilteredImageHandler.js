@@ -59,12 +59,10 @@ export default class {
                 // console.log(filteredImage.shape)
                 // console.log(filteredImage.value)
                 const startTime = Date.now()
-                /** @type {import('../lib/index.js').Histogram2D} */
+                /** @type {import('../lib/index.js').Uint32Dataset} */
                 const hist = {
-                    numBins: filteredImage.shape,
-                    binCounts: filteredImage.value,
-                    xBinLimits: [],
-                    yBinLimits: []
+                    shape: filteredImage.shape,
+                    data: filteredImage.value
                 }
                 imwrite(imagesc(hist)).then(buffer => {
                     console.log(`elapsedTime: ${Date.now() - startTime}ms`)
