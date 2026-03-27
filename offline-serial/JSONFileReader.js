@@ -28,13 +28,6 @@ export default class extends Operator {
                     if (err) throw err
 
                     ready.then(() => {
-                        // initialize followings as they trigger some operators
-                        // and initialize tof image 4 times
-                        variables.roiXInPixels.assign(0)
-                        variables.roiYInPixels.assign(0)
-                        variables.roiWidthInPixels.assign(0)
-                        variables.roiHeightInPixels.assign(0)
-
                         // initializers
                         variables.kickerPulseCount.assign(0)
                         variables.channel0Count.assign(0)

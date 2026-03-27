@@ -19,29 +19,23 @@ export default class extends Operator {
             this._miezeFrequencyInKilohertz = arg
             this._operation()
         })
-        /** @type {number} */
-        this._roiXInPixels
-        variables.roiXInPixels.addListener(arg => {
-            this._roiXInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._roiWidthInPixels
-        variables.roiWidthInPixels.addListener(arg => {
-            this._roiWidthInPixels = arg
+        /** @type {number[]} */
+        this._roiInPixels
+        variables.roiInPixels.addListener(arg => {
+            this._roiInPixels = arg
             this._operation()
         })
         this._operation = () => {
             if (!this._tofMaxInMilliseconds) return
             if (!this._miezeFrequencyInKilohertz) return
-            if (!this._roiWidthInPixels) return
-            if (!this._roiXInPixels) return
+            if (!this._roiInPixels) return
 
-            const size = [
-                this._tofMaxInMilliseconds * this._miezeFrequencyInKilohertz,
-                this._roiWidthInPixels]
+            const [_x, _y, w, _h] = this._roiInPixels,
+                size = [
+                    this._tofMaxInMilliseconds * this._miezeFrequencyInKilohertz,
+                    w]
 
-            variables.horizontalProjectionHistogramsXBinLimitsInPixels.assign([0, this._roiWidthInPixels])
+            variables.horizontalProjectionHistogramsXBinLimitsInPixels.assign([0, w])
             variables.horizontalProjectionHistogramsYBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
             variables.horizontalProjectionHistogramsBinCounts.assign({
                 shape: size,

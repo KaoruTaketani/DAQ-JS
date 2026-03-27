@@ -14,41 +14,21 @@ export default class extends Operator {
             this._tofMaxInMilliseconds = arg
             this._operation()
         })
-        /** @type {number} */
-        this._roiXInPixels
-        variables.roiXInPixels.addListener(arg => {
-            this._roiXInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._roiYInPixels
-        variables.roiYInPixels.addListener(arg => {
-            this._roiYInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._roiWidthInPixels
-        variables.roiWidthInPixels.addListener(arg => {
-            this._roiWidthInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._roiHeightInPixels
-        variables.roiHeightInPixels.addListener(arg => {
-            this._roiHeightInPixels = arg
+        /** @type {number[]} */
+        this._roiInPixels
+        variables.roiInPixels.addListener(arg => {
+            this._roiInPixels = arg
             this._operation()
         })
         this._operation = () => {
             if (!this._tofMaxInMilliseconds) return
-            if (!this._roiHeightInPixels) return
-            if (!this._roiWidthInPixels) return
-            if (!this._roiXInPixels) return
-            if (!this._roiYInPixels) return
+            if (!this._roiInPixels) return
 
-            const size = [
-                this._tofMaxInMilliseconds,
-                this._roiHeightInPixels,
-                this._roiWidthInPixels],
+            const [_x, _y, w, h] = this._roiInPixels,
+                size = [
+                    this._tofMaxInMilliseconds,
+                    h,
+                    w],
                 length = prod(size)//,
             // must be nanoseconds as used in maker
             //dt = size[0] * 1_000_000 / size[0]
@@ -56,8 +36,8 @@ export default class extends Operator {
             console.log(`t: ${size[0]}, h: ${size[1]}, w: ${size[2]} memory: ${(8 * length).toLocaleString()} bytes, heap_limit: ${getHeapStatistics().heap_size_limit.toLocaleString()} bytes`)
 
                 ,
-                variables.tofImageXBinLimitsInPixels.assign([0, this._roiWidthInPixels])
-            variables.tofImageYBinLimitsInPixels.assign([0, this._roiHeightInPixels])
+                variables.tofImageXBinLimitsInPixels.assign([0, w])
+            variables.tofImageYBinLimitsInPixels.assign([0, h])
             variables.tofImageZBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
             variables.tofImage.assign({
                 shape: size,

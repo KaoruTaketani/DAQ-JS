@@ -7,42 +7,19 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._roiXInPixels
-        variables.roiXInPixels.addListener(arg => {
-            this._roiXInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._roiYInPixels
-        variables.roiYInPixels.addListener(arg => {
-            this._roiYInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._roiWidthInPixels
-        variables.roiWidthInPixels.addListener(arg => {
-            this._roiWidthInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._roiHeightInPixels
-        variables.roiHeightInPixels.addListener(arg => {
-            this._roiHeightInPixels = arg
+        /** @type {number[]} */
+        this._roiInPixels
+        variables.roiInPixels.addListener(arg => {
+            this._roiInPixels = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._roiXInPixels) return
-            if (!this._roiYInPixels) return
-            if (!this._roiHeightInPixels) return
-            if (!this._roiWidthInPixels) return
+            const [x, y, w, h] = this._roiInPixels
 
-            const size = [
-                this._roiHeightInPixels,
-                this._roiWidthInPixels]
+            const size = [h, w]
 
-            variables.filteredImageXBinLimitsInPixels.assign([this._roiXInPixels, this._roiXInPixels + this._roiWidthInPixels])
-            variables.filteredImageYBinLimitsInPixels.assign([this._roiYInPixels, this._roiYInPixels + this._roiHeightInPixels])
+            variables.filteredImageXBinLimitsInPixels.assign([x, x + w])
+            variables.filteredImageYBinLimitsInPixels.assign([y, y + h])
             variables.filteredImageBinCounts.assign({
                 shape: size,
                 data: new Uint32Array(prod(size))

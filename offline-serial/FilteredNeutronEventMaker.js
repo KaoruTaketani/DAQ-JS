@@ -6,18 +6,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._roiXInPixels
-        variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
-        /** @type {number} */
-        this._roiYInPixels
-        variables.roiYInPixels.prependListener(arg => { this._roiYInPixels = arg })
-        /** @type {number} */
-        this._roiWidthInPixels
-        variables.roiWidthInPixels.prependListener(arg => { this._roiWidthInPixels = arg })
-        /** @type {number} */
-        this._roiHeightInPixels
-        variables.roiHeightInPixels.prependListener(arg => { this._roiHeightInPixels = arg })
+        /** @type {number[]} */
+        this._roiInPixels
+        variables.roiInPixels.prependListener(arg => { this._roiInPixels = arg })
         /** @type {number} */
         this._filteredNeutronCount
         variables.filteredNeutronCount.prependListener(arg => { this._filteredNeutronCount = arg })
@@ -27,12 +18,13 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const dx = this._neutronEvent.xCoordinateInPixels - this._roiXInPixels
-            const dy = this._neutronEvent.yCoordinateInPixels - this._roiYInPixels
+            const [x, y, w, h] = this._roiInPixels
+            const dx = this._neutronEvent.xCoordinateInPixels - x
+            const dy = this._neutronEvent.yCoordinateInPixels - y
             if (dx < 1) return
-            if (dx > this._roiWidthInPixels) return
+            if (dx > w) return
             if (dy < 1) return
-            if (dy > this._roiHeightInPixels) return
+            if (dy > h) return
 
             variables.filteredNeutronCount.assign(this._filteredNeutronCount + 1)
             variables.filteredNeutronEvent.assign(this._neutronEvent)

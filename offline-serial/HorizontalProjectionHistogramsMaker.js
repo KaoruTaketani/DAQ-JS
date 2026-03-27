@@ -7,9 +7,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._roiXInPixels
-        variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
+        /** @type {number[]} */
+        this._roiInPixels
+        variables.roiInPixels.prependListener(arg => { this._roiInPixels = arg })
         /** @type {number[]} */
         this._horizontalProjectionHistogramsXBinLimits
         variables.horizontalProjectionHistogramsXBinLimitsInPixels.prependListener(arg => { this._horizontalProjectionHistogramsXBinLimits = arg })
@@ -27,12 +27,13 @@ export default class extends Operator {
         })
         this._operation = () => {
             const binWidthInNanoseconds = (this._horizontalProjectionHistogramsYBinLimits[1] - this._horizontalProjectionHistogramsYBinLimits[0])
-                / this._horizontalProjectionHistogramsBinCounts.shape[0]
+                / this._horizontalProjectionHistogramsBinCounts.shape[0],
+                [x, _y, _w, _h] = this._roiInPixels
             // sub2ind expects indexes to start frpm 1
             this._horizontalProjectionHistogramsBinCounts.data[sub2ind(
                 this._horizontalProjectionHistogramsBinCounts.shape,
                 Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidthInNanoseconds),
-                this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels
+                this._filteredNeutronEvent.xCoordinateInPixels - x
             )]++
         }
     }

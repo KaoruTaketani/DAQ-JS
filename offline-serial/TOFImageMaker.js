@@ -7,12 +7,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._roiXInPixels
-        variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
-        /** @type {number} */
-        this._roiYInPixels
-        variables.roiYInPixels.prependListener(arg => { this._roiYInPixels = arg })
+        /** @type {number[]} */
+        this._roiInPixels
+        variables.roiInPixels.prependListener(arg => { this._roiInPixels = arg })
         /** @type {number[]} */
         this._tofImageZBinLimitsInNanoseconds
         variables.tofImageZBinLimitsInNanoseconds.prependListener(arg => { this._tofImageZBinLimitsInNanoseconds = arg })
@@ -27,13 +24,14 @@ export default class extends Operator {
         })
         this._operation = () => {
             const binWidth = (this._tofImageZBinLimitsInNanoseconds[1] - this._tofImageZBinLimitsInNanoseconds[0])
-                / this._tofImage.shape[0]
+                / this._tofImage.shape[0],
+                [x, y, _w, _h] = this._roiInPixels
             // sub2ind expects indexes to start frpm 1
             this._tofImage.data[sub2ind(
                 this._tofImage.shape,
                 Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidth),
-                this._filteredNeutronEvent.yCoordinateInPixels - this._roiYInPixels,
-                this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels
+                this._filteredNeutronEvent.yCoordinateInPixels - y,
+                this._filteredNeutronEvent.xCoordinateInPixels - x
             )]++
         }
     }
