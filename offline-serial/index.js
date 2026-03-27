@@ -12,6 +12,8 @@ import FourierEnergyMaker from "./FourierEnergyMaker.js"
 import FourierTimeMaker from "./FourierTimeMaker.js"
 import HorizontalProjectionHistogramsInitializer from "./HorizontalProjectionHistogramsInitializer.js"
 import HorizontalProjectionHistogramsMaker from "./HorizontalProjectionHistogramsMaker.js"
+import HorizontalProjectionInitializer from "./HorizontalProjectionInitializer.js"
+import HorizontalProjectionMaker from "./HorizontalProjectionMaker.js"
 import HorizontalProjectionMeansMaker from "./HorizontalProjectionMeansMaker.js"
 import HorizontalProjectionStandardDeviationsMaker from "./HorizontalProjectionStandardDeviationsMaker.js"
 import JSONFileReader from "./JSONFileReader.js"
@@ -50,6 +52,8 @@ new RawImageInitializer(variables)
 new RawImageMaker(variables)
 new VerticalProjectionInitializer(variables)
 new VerticalProjectionMaker(variables)
+new HorizontalProjectionInitializer(variables)
+new HorizontalProjectionMaker(variables)
 new FilteredNeutronEventMaker(variables)
 new FilteredImageInitializer(variables)
 new FilteredImageMaker(variables)

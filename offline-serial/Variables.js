@@ -63,6 +63,8 @@ export default class {
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.verticalProjectionBinCounts = new WritableDataset('verticalProjectionBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.horizontalProjectionBinCounts = new WritableDataset('horizontalProjectionBinCounts', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.rawImageBinCounts = new WritableDataset('rawImageBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File)
