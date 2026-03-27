@@ -1,8 +1,8 @@
 import ListenableObject from './ListenableObject.js'
-import { ok } from 'assert'
 
 /**
- * @extends ListenableObject<number[]|undefined>
+ * @template T
+ * @extends ListenableObject<T|undefined>
  */
 export default class extends ListenableObject {
     /**
@@ -18,9 +18,8 @@ export default class extends ListenableObject {
                 super.assign(undefined)
             } else {
                 const dataset = /** @type {import('h5wasm').Dataset} */(arg.get(this._name))
-                ok(dataset)
-                ok(dataset.dtype === '<f')
-                super.assign(/** @type {number[]}*/(dataset.value))
+
+                super.assign(dataset.data)
             }
         })
     }

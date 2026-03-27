@@ -1,6 +1,6 @@
-import WritableAttributeArray from './WritableAttributeArray.js'
+import WritableArray from './WritableArray.js'
 
-export default class extends WritableAttributeArray {
+export default class extends WritableArray {
     /**
      * @param {string} name
      * @param {import('./ListenableObject.js').default<import('h5wasm').File>} hdf5File 

@@ -16,13 +16,7 @@ export default class extends ListenableObject {
         this._value
         readable.addListener(arg => {
             if (this._value) {
-                arg.create_attribute(this._name, this._value, null, '<f')
-
-                // arg.create_dataset({
-                //     name: this._name,
-                //     data: this._value,
-                //     dtype: '<f'
-                // })
+                arg.create_attribute(this._name, this._value, null, '<f8')
             }
         })
     }

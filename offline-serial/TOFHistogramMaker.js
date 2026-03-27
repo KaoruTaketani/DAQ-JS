@@ -8,9 +8,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Histogram} */
-        this._tofHistogram
-        variables.tofHistogram.prependListener(arg => { this._tofHistogram = arg })
+        /** @type {import('../lib/index.js').Uint32Dataset} */
+        this._tofHistogramBinCounts
+        variables.tofHistogramBinCounts.prependListener(arg => { this._tofHistogramBinCounts = arg })
+        /** @type {number[]} */
+        this._tofHistogramBinLimitsInNanoseconds
+        variables.tofHistogramBinLimitsInNanoseconds.prependListener(arg => { this._tofHistogramBinLimitsInNanoseconds = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
         this._filteredNeutronEvent
         variables.filteredNeutronEvent.addListener(arg => {
@@ -18,11 +21,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!isbetween(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogram.binLimits)) return
+            if (!isbetween(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogramBinLimitsInNanoseconds)) return
 
-            const r = rescale(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogram.binLimits),
-                i = Math.floor(r * this._tofHistogram.binCounts.length)
-            this._tofHistogram.binCounts[i]++
+            const r = rescale(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogramBinLimitsInNanoseconds),
+                i = Math.floor(r * this._tofHistogramBinCounts.data.length)
+            this._tofHistogramBinCounts.data[i]++
         }
     }
 }

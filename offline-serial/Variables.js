@@ -4,12 +4,10 @@ import ListenableString from './ListenableString.js'
 import ParameterArray from './ParameterArray.js'
 import ParameterNumber from './ParameterNumber.js'
 import ParameterString from './ParameterString.js'
-import ReadableNumberArray from './ReadableNumberArray.js'
-import WritableHistogram from './WritableHistogram.js'
-import WritableHistogram2D from './WritableHistogram2D.js'
-import WritableHistogram3D from './WritableHistogram3D.js'
+import ReadableDataset from './ReadableDataset.js'
+import WritableArray from './WritableArray.js'
+import WritableDataset from './WritableDataset.js'
 import WritableNumber from './WritableNumber.js'
-import WritableNumberArray from './WritableNumberArray.js'
 
 export default class {
     constructor() {
@@ -34,40 +32,89 @@ export default class {
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
 
-        this.directBeamNeutronRate = new ReadableNumberArray('neutronRate', this.directBeamHDF5File)
-        this.directBeamContrast = new ReadableNumberArray('contrast', this.directBeamHDF5File)
-        this.directBeamPhase = new ReadableNumberArray('phase', this.directBeamHDF5File)
+        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.directBeamNeutronRate = new ReadableDataset('neutronRate', this.directBeamHDF5File)
+        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.directBeamContrast = new ReadableDataset('contrast', this.directBeamHDF5File)
+        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.directBeamPhase = new ReadableDataset('phase', this.directBeamHDF5File)
 
-        this.tofHistogram = new WritableHistogram('tofHistogram', this.hdf5File)
-        this.pulseHeightHistogram = new WritableHistogram('pulseHeightHistogram', this.hdf5File)
-        this.tofDifferenceHistogram = new WritableHistogram('tofDifferenceHistogram', this.hdf5File)
-        this.verticalProjection = new WritableHistogram('verticalProjection', this.hdf5File)
+        this.tofHistogramBinLimitsInNanoseconds = new WritableArray('tofHistogramBinLimitsInNanoseconds', this.hdf5File)
+        this.tofImageZBinLimitsInNanoseconds = new WritableArray('tofImageZBinLimitsInNanoseconds', this.hdf5File)
+        this.tofImageXBinLimitsInPixels = new WritableArray('tofImageXBinLimitsInPixels', this.hdf5File)
+        this.tofImageYBinLimitsInPixels = new WritableArray('tofImageYBinLimitsInPixels', this.hdf5File)
+        this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('tofDifferenceHistogramBinLimitsInNanoseconds', this.hdf5File)
+        this.rawImageXBinLimitsInPixels = new WritableArray('rawImageXBinLimitsInPixels', this.hdf5File)
+        this.rawImageYBinLimitsInPixels = new WritableArray('rawImageYBinLimitsInPixels', this.hdf5File)
+        this.pulseHeightHistogramBinLimits = new WritableArray('pulseHeightHistogramBinLimits', this.hdf5File)
+        this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
+        this.horizontalProjectionHistogramsXBinLimits = new WritableArray('horizontalProjectionHistogramsXBinLimits', this.hdf5File)
+        this.horizontalProjectionHistogramsYBinLimits = new WritableArray('horizontalProjectionHistogramsYBinLimits', this.hdf5File)
+        this.filteredImageXBinLimitsInPixels = new WritableArray('filteredImageXBinLimitsInPixels', this.hdf5File)
+        this.filteredImageYBinLimitsInPixels = new WritableArray('filteredImageYBinLimitsInPixels', this.hdf5File)
 
-        this.rawImage = new WritableHistogram2D('rawImage', this.hdf5File)
-        this.filteredImage = new WritableHistogram2D('filteredImage', this.hdf5File)
-        this.horizontalProjectionHistograms = new WritableHistogram2D('horizontalProjectionHistograms', this.hdf5File)
+        // uint32
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.tofHistogramBinCounts = new WritableDataset('tofHistogram', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogram', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.verticalProjection = new WritableDataset('verticalProjection', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.rawImageBinCounts = new WritableDataset('rawImage', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.filteredImageBinCounts = new WritableDataset('filteredImage', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        this.horizontalProjectionHistogramsBinCounts = new WritableDataset('horizontalProjectionHistogramsBinCounts', this.hdf5File)
 
-        this.tofImage = new WritableHistogram3D('tofImage', this.hdf5File)
+        // uint16
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16Dataset>} */
+        this.tofImage = new WritableDataset('tofImage', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16Dataset>} */
+        this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
 
-        this.neutronPerPulses = new WritableNumberArray('neutronPerPulses', this.hdf5File)
-        this.neutronRate = new WritableNumberArray('neutronRate', this.hdf5File)
-        this.tofInSeconds = new WritableNumberArray('tofInSeconds', this.hdf5File)
-        this.contrast = new WritableNumberArray('contrast', this.hdf5File)
-        this.phase = new WritableNumberArray('phase', this.hdf5File)
-        this.reflectivity = new WritableNumberArray('reflectivity', this.hdf5File)
-        this.contrastRatio = new WritableNumberArray('contrastRatio', this.hdf5File)
-        this.phaseShift = new WritableNumberArray('phaseShift', this.hdf5File)
-        this.velocityInMetersPerSeconds = new WritableNumberArray('velocityInMetersPerSeconds', this.hdf5File)
-        this.energyInMillielectronvolts = new WritableNumberArray('energyInMillielectronvolts', this.hdf5File)
-        this.wavelengthInAngstroms = new WritableNumberArray('wavelengthInAngstroms', this.hdf5File)
-        this.momentumTransferInInverseAngstroms = new WritableNumberArray('momentumTransferInInverseAngstroms', this.hdf5File)
-        this.fourierTimeInPicoseconds = new WritableNumberArray('fourierTimeInPicoseconds', this.hdf5File)
-        this.fourierEnergyInMillielectronvolts = new WritableNumberArray('fourierEnergyInMillielectronvolts', this.hdf5File)
-        this.heights = new WritableNumberArray('heights', this.hdf5File)
-        this.centers = new WritableNumberArray('centers', this.hdf5File)
-        this.widths = new WritableNumberArray('widths', this.hdf5File)
-        this.horizontalProjectionMeans = new WritableNumberArray('horizontalProjectionMeans', this.hdf5File)
-        this.horizontalProjectionStandardDeviations = new WritableNumberArray('horizontalProjectionStandardDeviations', this.hdf5File)
+        // float64
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.neutronRate = new WritableDataset('neutronRate', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.tofInSeconds = new WritableDataset('tofInSeconds', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.contrast = new WritableDataset('contrast', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.phase = new WritableDataset('phase', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.velocityInMetersPerSeconds = new WritableDataset('velocityInMetersPerSeconds', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.energyInMillielectronvolts = new WritableDataset('energyInMillielectronvolts', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.wavelengthInAngstroms = new WritableDataset('wavelengthInAngstroms', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.fourierTimeInPicoseconds = new WritableDataset('fourierTimeInPicoseconds', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.fourierEnergyInMillielectronvolts = new WritableDataset('fourierEnergyInMillielectronvolts', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.heights = new WritableDataset('heights', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.centers = new WritableDataset('centers', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.widths = new WritableDataset('widths', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.horizontalProjectionMeans = new WritableDataset('horizontalProjectionMeans', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        this.horizontalProjectionStandardDeviations = new WritableDataset('horizontalProjectionStandardDeviations', this.hdf5File)
+
+        // float64|undefined
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        this.reflectivity = new WritableDataset('reflectivity', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        this.contrastRatio = new WritableDataset('contrastRatio', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        this.phaseShift = new WritableDataset('phaseShift', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        this.momentumTransferInInverseAngstroms = new WritableDataset('momentumTransferInInverseAngstroms', this.hdf5File)
+
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
 
@@ -78,10 +125,6 @@ export default class {
         this.filteredNeutronCount = new WritableNumber('filteredNeutronCount', this.hdf5File)
         // followings are parameters but fixed
         this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', this.hdf5File)
-        this.tofDifferenceMaxInNanoseconds = new WritableNumber('tofDiffrenceMaxInNanoseconds', this.hdf5File)
-        this.tofDifferenceMinInNanoseconds = new WritableNumber('tofDiffrenceMinInNanoseconds', this.hdf5File)
-        this.tofDifferenceHistogramMaxInNanoseconds = new WritableNumber('tofDiffrenceHistogramMaxInNanoseconds', this.hdf5File)
-        this.tofDifferenceHistogramMinInNanoseconds = new WritableNumber('tofDiffrenceHistogramMinInNanoseconds', this.hdf5File)
         this.miezeFrequencyInKilohertz = new WritableNumber('miezeFrequencyInKilohertz', this.hdf5File)
         this.moderatorToSampleDistanceInMeters = new WritableNumber('moderatorToSampleDistanceInMeters', this.hdf5File)
         this.upstreamSlitToDownstreamSlitDistanceInMeters = new WritableNumber('upstreamSlitToDownstreamSlitDistanceInMeters', this.hdf5File)

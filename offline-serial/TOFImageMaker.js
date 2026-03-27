@@ -13,7 +13,10 @@ export default class extends Operator {
         /** @type {number} */
         this._roiYInPixels
         variables.roiYInPixels.prependListener(arg => { this._roiYInPixels = arg })
-        /** @type {import('../lib/index.js').Histogram3D} */
+        /** @type {number[]} */
+        this._tofImageZBinLimitsInNanoseconds
+        variables.tofImageZBinLimitsInNanoseconds.prependListener(arg => { this._tofImageZBinLimitsInNanoseconds = arg })
+        /** @type {import('../lib/index.js').Uint16Dataset} */
         this._tofImage
         variables.tofImage.prependListener(arg => { this._tofImage = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
@@ -23,11 +26,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const binWidth = (this._tofImage.zBinLimits[1] - this._tofImage.zBinLimits[0])
-                / this._tofImage.numBins[0]
+            const binWidth = (this._tofImageZBinLimitsInNanoseconds[1] - this._tofImageZBinLimitsInNanoseconds[0])
+                / this._tofImage.shape[0]
             // sub2ind expects indexes to start frpm 1
-            this._tofImage.binCounts[sub2ind(
-                this._tofImage.numBins,
+            this._tofImage.data[sub2ind(
+                this._tofImage.shape,
                 Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidth),
                 this._filteredNeutronEvent.yCoordinateInPixels - this._roiYInPixels,
                 this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels

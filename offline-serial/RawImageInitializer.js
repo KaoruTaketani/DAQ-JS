@@ -18,11 +18,12 @@ export default class extends Operator {
                 2 ** this._neutronPositionBitLength,
                 2 ** this._neutronPositionBitLength]
 
-            variables.rawImage.assign({
-                numBins: size,
-                binCounts: new Uint32Array(prod(size)),
-                xBinLimits: [0, 2 ** this._neutronPositionBitLength],
-                yBinLimits: [0, 2 ** this._neutronPositionBitLength]
+            variables.rawImageXBinLimitsInPixels.assign([0, 2 ** this._neutronPositionBitLength])
+            variables.rawImageYBinLimitsInPixels.assign([0, 2 ** this._neutronPositionBitLength])
+
+            variables.rawImageBinCounts.assign({
+                shape: size,
+                data: new Uint32Array(prod(size))
             })
         }
     }

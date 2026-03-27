@@ -41,11 +41,11 @@ export default class extends Operator {
                 this._roiHeightInPixels,
                 this._roiWidthInPixels]
 
-            variables.filteredImage.assign({
-                numBins: size,
-                binCounts: new Uint32Array(prod(size)),
-                xBinLimits: [this._roiXInPixels, this._roiXInPixels + this._roiWidthInPixels],
-                yBinLimits: [this._roiYInPixels, this._roiYInPixels + this._roiHeightInPixels]
+            variables.filteredImageXBinLimitsInPixels.assign([this._roiXInPixels, this._roiXInPixels + this._roiWidthInPixels])
+            variables.filteredImageYBinLimitsInPixels.assign([this._roiYInPixels, this._roiYInPixels + this._roiHeightInPixels])
+            variables.filteredImageBinCounts.assign({
+                shape: size,
+                data: new Uint32Array(prod(size))
             })
         }
     }

@@ -12,22 +12,23 @@ export default class extends Operator {
         /** @type {number} */
         this._miezeFrequencyInKilohertz
         variables.miezeFrequencyInKilohertz.prependListener(arg => { this._miezeFrequencyInKilohertz = arg })
-        /** @type {number[]} */
+        /** @type {import('../lib/index.js').Float64Dataset} */
         this._wavelengthInAngstroms
         variables.wavelengthInAngstroms.addListener(arg => {
             this._wavelengthInAngstroms = arg
             this._operation()
         })
         this._operation = () => {
-            variables.fourierTimeInPicoseconds.assign(
-                this._wavelengthInAngstroms.map(lambda => {
+            variables.fourierTimeInPicoseconds.assign({
+                shape: this._wavelengthInAngstroms.shape,
+                data: this._wavelengthInAngstroms.data.map(lambda => {
                     /** see @FourierTime */
                     const nu = this._miezeFrequencyInKilohertz,
                         L = this._cameraLengthInMeters
 
                     return 0.0063896926 * L * nu * lambda ** 3
                 })
-            )
+            })
         }
     }
 }

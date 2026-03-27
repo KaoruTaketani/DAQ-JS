@@ -1,3 +1,4 @@
+import isbetween from '../lib/isbetween.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -9,12 +10,9 @@ export default class extends Operator {
         /** @type {number} */
         this._tofMaxInMilliseconds
         variables.tofMaxInMilliseconds.prependListener(arg => { this._tofMaxInMilliseconds = arg })
-        /** @type {number} */
-        this._tofDifferenceMaxInNanoseconds
-        variables.tofDifferenceMaxInNanoseconds.prependListener(arg => { this._tofDifferenceMaxInNanoseconds = arg })
-        /** @type {number} */
-        this._tofDifferenceMinInNanoseconds
-        variables.tofDifferenceMinInNanoseconds.prependListener(arg => { this._tofDifferenceMinInNanoseconds = arg })
+        /** @type {number[]} */
+        this._tofDifferenceLimitsInNanoseconds
+        variables.tofDifferenceLimitsInNanoseconds.prependListener(arg => { this._tofDifferenceLimitsInNanoseconds = arg })
         /** @type {number} */
         this._neutronCount
         variables.neutronCount.prependListener(arg => { this._neutronCount = arg })
@@ -27,8 +25,7 @@ export default class extends Operator {
             if (!this._pairedEvent) return
 
             const dt = this._pairedEvent.xTOFInNanoseconds - this._pairedEvent.yTOFInNanoseconds
-            if (dt > this._tofDifferenceMaxInNanoseconds) return
-            if (dt < this._tofDifferenceMinInNanoseconds) return
+            if (!isbetween(dt, this._tofDifferenceLimitsInNanoseconds)) return
 
             const tof = (this._pairedEvent.xTOFInNanoseconds + this._pairedEvent.yTOFInNanoseconds) >> 1
             if (tof > this._tofMaxInMilliseconds * 1_000_000) return

@@ -14,8 +14,8 @@ export default class extends Operator {
         })
         this._operation = () => {
             variables.verticalProjection.assign({
-                binLimits: [0, 2 ** this._neutronPositionBitLength],
-                binCounts: new Uint32Array(2 ** this._neutronPositionBitLength)
+                shape: [0, 2 ** this._neutronPositionBitLength],
+                data: new Uint32Array(2 ** this._neutronPositionBitLength)
             })
         }
     }

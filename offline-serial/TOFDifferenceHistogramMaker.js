@@ -8,12 +8,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._tofDifferenceHistogramMinInNanoseconds
-        variables.tofDifferenceHistogramMinInNanoseconds.prependListener(arg => { this._tofDifferenceHistogramMinInNanoseconds = arg })
-        /** @type {import('../lib/index.js').Histogram} */
-        this._tofDifferenceHistogram
-        variables.tofDifferenceHistogram.prependListener(arg => { this._tofDifferenceHistogram = arg })
+        /** @type {number[]} */
+        this._tofDifferenceHistogramBinLimitsInNanoseconds
+        variables.tofDifferenceHistogramBinLimitsInNanoseconds.prependListener(arg => { this._tofDifferenceHistogramBinLimitsInNanoseconds = arg })
+        /** @type {import('../lib/index.js').Uint32Dataset} */
+        this._tofDifferenceHistogramBinCounts
+        variables.tofDifferenceHistogramBinCounts.prependListener(arg => { this._tofDifferenceHistogramBinCounts = arg })
         /** @type {import('../lib/index.js').PairedEvent} */
         this._pairedEvent
         variables.pairedEvent.addListener(arg => {
@@ -23,12 +23,12 @@ export default class extends Operator {
         this._operation = () => {
             this._operation = () => {
                 const dt = this._pairedEvent.xTOFInNanoseconds - this._pairedEvent.yTOFInNanoseconds
-                if (!isbetween(dt, this._tofDifferenceHistogram.binLimits)) return
+                if (!isbetween(dt, this._tofDifferenceHistogramBinLimitsInNanoseconds)) return
 
-                const r = rescale(dt, this._tofDifferenceHistogram.binLimits),
-                    i = Math.floor(r * this._tofDifferenceHistogram.binCounts.length)
+                const r = rescale(dt, this._tofDifferenceHistogramBinLimitsInNanoseconds),
+                    i = Math.floor(r * this._tofDifferenceHistogramBinCounts.data.length)
 
-                this._tofDifferenceHistogram.binCounts[i]++
+                this._tofDifferenceHistogramBinCounts.data[i]++
             }
         }
     }

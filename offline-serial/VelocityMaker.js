@@ -12,20 +12,21 @@ export default class extends Operator {
         /** @type {number} */
         this._cameraLengthInMeters
         variables.cameraLengthInMeters.prependListener(arg => { this._cameraLengthInMeters = arg })
-        /** @type {number[]} */
+        /** @type {import('../lib/index.js').Float64Dataset} */
         this._tofInSeconds
         variables.tofInSeconds.addListener(arg => {
             this._tofInSeconds = arg
             this._operation()
         })
         this._operation = () => {
-            variables.velocityInMetersPerSeconds.assign(
-                this._tofInSeconds.map(tof => {
+            variables.velocityInMetersPerSeconds.assign({
+                shape: this._tofInSeconds.shape,
+                data: this._tofInSeconds.data.map(tof => {
                     const l1 = this._moderatorToSampleDistanceInMeters,
                         l2 = this._cameraLengthInMeters
                     return (l1 + l2) / tof
                 })
-            )
+            })
         }
     }
 }

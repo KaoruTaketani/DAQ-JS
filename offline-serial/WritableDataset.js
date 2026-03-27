@@ -1,7 +1,8 @@
 import ListenableObject from './ListenableObject.js'
 
 /**
- * @extends ListenableObject<import('../lib/index.js').Histogram2D>
+ * @template T
+ * @extends ListenableObject<T>
  */
 export default class extends ListenableObject {
     /**
@@ -12,26 +13,24 @@ export default class extends ListenableObject {
         super()
         /** @type {string} */
         this._name = name
-        /** @type {import('../lib/index.js').Histogram2D} */
-        this._value
+        /** @type {T} */
+        this._dataset
         hdf5File.addListener(arg => {
-            if (this._value) {
+            if (this._dataset) {
                 arg.create_dataset({
                     name: this._name,
-                    data: this._value.binCounts,
-                    shape: this._value.numBins,
-                    chunks: this._value.numBins,
-                    compression: 'gzip'
+                    data: this._dataset.data,
+                    shape: this._dataset.shape
                 })
             }
         })
     }
     /**
      * @override
-     * @param {import('../lib/index.js').Histogram2D} arg 
+     * @param {T} arg 
      */
     assign(arg) {
         super.assign(arg)
-        this._value = arg
+        this._dataset = arg
     }
 }

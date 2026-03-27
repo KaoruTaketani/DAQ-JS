@@ -43,11 +43,11 @@ export default class extends Operator {
             // must be nanoseconds as used in maker
             // dt = this._tofMaxInMilliseconds * 1_000_000 / size[0]
 
-            variables.horizontalProjectionHistograms.assign({
-                numBins: size,
-                binCounts: new Uint32Array(prod(size)),
-                xBinLimits: [0, this._roiWidthInPixels],
-                yBinLimits: [0, size[0]]
+            variables.horizontalProjectionHistogramsXBinLimits.assign([0, this._roiWidthInPixels])
+            variables.horizontalProjectionHistogramsYBinLimits.assign([0, size[0]])
+            variables.horizontalProjectionHistogramsBinCounts.assign({
+                shape: size,
+                data: new Uint32Array(prod(size))
             })
         }
     }

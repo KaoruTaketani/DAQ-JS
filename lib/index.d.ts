@@ -47,9 +47,19 @@ export interface Image {
     height: number
 }
 
-export interface Dataset {
+export interface Uint16Dataset {
+    shape: number[]
+    data: Uint16Array
+}
+
+export interface Uint32Dataset {
     shape: number[]
     data: Uint32Array
+}
+
+export interface Float64Dataset {
+    shape: number[]
+    data: Float64Array
 }
 
 export interface Histogram {

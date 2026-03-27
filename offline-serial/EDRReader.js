@@ -16,12 +16,12 @@ export default class extends Operator {
         /** @type {string} */
         this._hdf5FileName
         variables.hdf5FileName.prependListener(arg => { this._hdf5FileName = arg })
-        /** @type {import('../lib/index.js').Histogram} */
-        this._tofHistogram
-        variables.tofHistogram.prependListener(arg => { this._tofHistogram = arg })
-        /** @type {import('../lib/index.js').Histogram2D} */
-        this._horizontalProjectionHistograms
-        variables.horizontalProjectionHistograms.prependListener(arg => { this._horizontalProjectionHistograms = arg })
+        /** @type {import('../lib/index.js').Uint32Dataset} */
+        this._tofHistogramBinCounts
+        variables.tofHistogramBinCounts.prependListener(arg => { this._tofHistogramBinCounts = arg })
+        /** @type {import('../lib/index.js').Uint32Dataset} */
+        this._horizontalProjectionHistogramsBinCounts
+        variables.horizontalProjectionHistogramsBinCounts.prependListener(arg => { this._horizontalProjectionHistogramsBinCounts = arg })
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFileNames.prependListener(arg => { this._jsonFilePaths = arg })
@@ -46,8 +46,8 @@ export default class extends Operator {
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
-                    variables.tofHistogram.assign(this._tofHistogram)
-                    variables.horizontalProjectionHistograms.assign(this._horizontalProjectionHistograms)
+                    variables.tofHistogramBinCounts.assign(this._tofHistogramBinCounts)
+                    variables.horizontalProjectionHistogramsBinCounts.assign(this._horizontalProjectionHistogramsBinCounts)
 
                     ready.then(() => {
                         const hdf5File = new File(join(this._hdf5Path, this._hdf5FileName), 'w')

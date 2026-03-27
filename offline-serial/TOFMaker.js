@@ -17,9 +17,14 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const dt = 0.001 / this._miezeFrequencyInKilohertz
+            const dt = 0.001 / this._miezeFrequencyInKilohertz,
+                T = (0.001 * this._tofMaxInMilliseconds) / dt,
+                length = T - 1
 
-            variables.tofInSeconds.assign(colon(dt / 2, dt, 0.001 * this._tofMaxInMilliseconds - dt / 2))
+            variables.tofInSeconds.assign({
+                shape: [length],
+                data: new Float64Array(colon(dt / 2, dt, T - dt / 2))
+            })
         }
     }
 }

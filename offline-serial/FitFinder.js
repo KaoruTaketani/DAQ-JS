@@ -11,20 +11,20 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Histogram2D} */
-        this._tofImageHorizontalProjections
-        variables.horizontalProjectionHistograms.addListener(arg => {
-            this._tofImageHorizontalProjections = arg
+        /** @type {import('../lib/index.js').Uint32Dataset} */
+        this._tofImageHorizontalProjectionsBinCounts
+        variables.horizontalProjectionHistogramsBinCounts.addListener(arg => {
+            this._tofImageHorizontalProjectionsBinCounts = arg
             this._operation()
         })
         this._operation = () => {
-            const numBins = this._tofImageHorizontalProjections.numBins,
-                heights = new Array(numBins[0]).fill(0),
-                centers = new Array(numBins[0]).fill(0),
-                widths = new Array(numBins[0]).fill(0)
+            const numBins = this._tofImageHorizontalProjectionsBinCounts.shape,
+                heights = new Float64Array(numBins[0]),
+                centers = new Float64Array(numBins[0]),
+                widths = new Float64Array(numBins[0])
 
             for (let i = 0; i < numBins[0]; ++i) {
-                const s = this._tofImageHorizontalProjections.binCounts.slice(i * numBins[1], (i + 1) * numBins[1]),
+                const s = this._tofImageHorizontalProjectionsBinCounts.data.slice(i * numBins[1], (i + 1) * numBins[1]),
                     _mean = sum(s.map((s, i) => s * i)) / sum(s),
                     _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1))
                 if (sum(s) < 300) {
@@ -45,9 +45,18 @@ export default class extends Operator {
                 widths[i] = r[2]
                 // }
             }
-            variables.heights.assign(heights)
-            variables.centers.assign(centers)
-            variables.widths.assign(widths)
+            variables.heights.assign({
+                shape: [numBins[0]],
+                data: heights
+            })
+            variables.centers.assign({
+                shape: [numBins[0]],
+                data: centers
+            })
+            variables.widths.assign({
+                shape: [numBins[0]],
+                data: widths
+            })
         }
     }
 }

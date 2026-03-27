@@ -13,9 +13,9 @@ export default class extends Operator {
         /** @type {number} */
         this._roiYInPixels
         variables.roiYInPixels.prependListener(arg => { this._roiYInPixels = arg })
-        /** @type {import('../lib/index.js').Histogram2D} */
-        this._filteredImage
-        variables.filteredImage.prependListener(arg => { this._filteredImage = arg })
+        /** @type {import('../lib/index.js').Uint32Dataset} */
+        this._filteredImageBinCounts
+        variables.filteredImageBinCounts.prependListener(arg => { this._filteredImageBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
         this._filteredNeutronEvent
         variables.filteredNeutronEvent.addListener(arg => {
@@ -23,8 +23,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            this._filteredImage.binCounts[sub2ind(
-                this._filteredImage.numBins,
+            this._filteredImageBinCounts.data[sub2ind(
+                this._filteredImageBinCounts.shape,
                 this._filteredNeutronEvent.yCoordinateInPixels - this._roiYInPixels,
                 this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels
             )]++

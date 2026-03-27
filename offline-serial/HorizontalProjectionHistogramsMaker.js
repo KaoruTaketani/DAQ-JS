@@ -10,9 +10,15 @@ export default class extends Operator {
         /** @type {number} */
         this._roiXInPixels
         variables.roiXInPixels.prependListener(arg => { this._roiXInPixels = arg })
-        /** @type {import('../lib/index.js').Histogram2D} */
-        this._horizontalProjectionHistograms
-        variables.horizontalProjectionHistograms.prependListener(arg => { this._horizontalProjectionHistograms = arg })
+        /** @type {number[]} */
+        this._horizontalProjectionHistogramsXBinLimits
+        variables.horizontalProjectionHistogramsXBinLimits.prependListener(arg => { this._horizontalProjectionHistogramsXBinLimits = arg })
+        /** @type {number[]} */
+        this._horizontalProjectionHistogramsYBinLimits
+        variables.horizontalProjectionHistogramsYBinLimits.prependListener(arg => { this._horizontalProjectionHistogramsYBinLimits = arg })
+        /** @type {import('../lib/index.js').Uint32Dataset} */
+        this._horizontalProjectionHistogramsBinCounts
+        variables.horizontalProjectionHistogramsBinCounts.prependListener(arg => { this._horizontalProjectionHistogramsBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
         this._filteredNeutronEvent
         variables.filteredNeutronEvent.addListener(arg => {
@@ -20,11 +26,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const binWidth = (this._horizontalProjectionHistograms.yBinLimits[1] - this._horizontalProjectionHistograms.yBinLimits[0])
-                / this._horizontalProjectionHistograms.numBins[0]
+            const binWidth = (this._horizontalProjectionHistogramsYBinLimits[1] - this._horizontalProjectionHistogramsYBinLimits[0])
+                / this._horizontalProjectionHistogramsBinCounts.shape[0]
             // sub2ind expects indexes to start frpm 1
-            this._horizontalProjectionHistograms.binCounts[sub2ind(
-                this._horizontalProjectionHistograms.numBins,
+            this._horizontalProjectionHistogramsBinCounts.data[sub2ind(
+                this._horizontalProjectionHistogramsBinCounts.shape,
                 Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidth),
                 this._filteredNeutronEvent.xCoordinateInPixels - this._roiXInPixels
             )]++

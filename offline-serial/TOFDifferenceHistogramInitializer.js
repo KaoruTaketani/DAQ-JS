@@ -6,31 +6,22 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._tofDifferenceHistogramMinInNanoseconds
-        variables.tofDifferenceHistogramMinInNanoseconds.addListener(arg => {
-            this._tofDifferenceHistogramMinInNanoseconds = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._tofDifferenceHistogramMaxInNanoseconds
-        variables.tofDifferenceHistogramMaxInNanoseconds.addListener(arg => {
-            this._tofDifferenceHistogramMaxInNanoseconds = arg
+        /** @type {number[]} */
+        this._tofDifferenceHistogramBinLimitsInNanoseconds
+        variables.tofDifferenceHistogramBinLimitsInNanoseconds.addListener(arg => {
+            this._tofDifferenceHistogramBinLimitsInNanoseconds = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._tofDifferenceHistogramMaxInNanoseconds) return
-            if (!this._tofDifferenceHistogramMinInNanoseconds) return
-
             // dt must be 25ns, which is equal to the bin width of NEUNET output
             const dt = 25,
                 // when tmax=400ns & tmin=-400ns, nbin is 800/25=32
-                numBins = (this._tofDifferenceHistogramMaxInNanoseconds - this._tofDifferenceHistogramMinInNanoseconds)
+                numBins = (this._tofDifferenceHistogramBinLimitsInNanoseconds[1] - this._tofDifferenceHistogramBinLimitsInNanoseconds[0])
                     / dt
 
-            variables.tofDifferenceHistogram.assign({
-                binCounts: new Uint32Array(numBins),
-                binLimits: [this._tofDifferenceHistogramMinInNanoseconds, this._tofDifferenceHistogramMaxInNanoseconds]
+            variables.tofDifferenceHistogramBinCounts.assign({
+                shape:this._tofDifferenceHistogramBinLimitsInNanoseconds,
+                data: new Uint32Array(numBins),
             })
         }
     }

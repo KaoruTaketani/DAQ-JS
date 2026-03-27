@@ -6,7 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Histogram} */
+        /** @type {import('../lib/index.js').Uint32Dataset} */
         this._verticalProjection
         variables.verticalProjection.prependListener(arg => { this._verticalProjection = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
@@ -17,7 +17,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             // sub2ind expects indexes to start frpm 1
-            this._verticalProjection.binCounts[
+            this._verticalProjection.data[
                 this._neutronEvent.yCoordinateInPixels + 1
             ]++
         }

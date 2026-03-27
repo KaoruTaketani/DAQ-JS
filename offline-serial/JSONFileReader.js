@@ -42,8 +42,7 @@ export default class extends Operator {
                         variables.neutronCount.assign(0)
                         variables.filteredNeutronCount.assign(0)
                         // parameters not defined in json
-                        variables.tofDifferenceMinInNanoseconds.assign(-250)
-                        variables.tofDifferenceMaxInNanoseconds.assign(250)
+                        variables.tofDifferenceLimitsInNanoseconds.assign([-250, 250])
                         variables.moderatorToSampleDistanceInMeters.assign(23.76)
                         variables.cameraLengthInMeters.assign(1.755)
                         variables.neutronPositionMaxInMillimeters.assign(50)
@@ -55,8 +54,7 @@ export default class extends Operator {
                         // followings are the triggers for some operators
                         variables.pulseHeightHistogramNumBins.assign(2 ** 10)
                         variables.tofMaxInMilliseconds.assign(80)
-                        variables.tofDifferenceHistogramMinInNanoseconds.assign(-400)
-                        variables.tofDifferenceHistogramMaxInNanoseconds.assign(400)
+                        variables.tofDifferenceHistogramBinLimitsInNanoseconds.assign([-400, 400])
                         variables.neutronPositionBitLength.assign(10)
                         variables.miezeFrequencyInKilohertz.assign(10)
 

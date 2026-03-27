@@ -8,7 +8,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number[]} */
+        /** @type {import('../lib/index.js').Float64Dataset} */
         this._wavelengthInAngstroms
         variables.wavelengthInAngstroms.prependListener(arg => { this._wavelengthInAngstroms = arg })
         /** @type {number} */
@@ -22,16 +22,17 @@ export default class extends Operator {
             // and the incident angle is parameter number
             ok(this._wavelengthInAngstroms)
 
-            if(this._incidentAngleInDegrees){
-                variables.momentumTransferInInverseAngstroms.assign(
-                    this._wavelengthInAngstroms.map(lambda => {
+            if (this._incidentAngleInDegrees) {
+                variables.momentumTransferInInverseAngstroms.assign({
+                    shape: this._wavelengthInAngstroms.shape,
+                    data: this._wavelengthInAngstroms.data.map(lambda => {
                         /** see @MomentumTransferAmplitude */
                         const theta = deg2rad(this._incidentAngleInDegrees)
-    
+
                         return 4 * Math.PI * Math.sin(theta) / lambda
                     })
-                )    
-            }else{
+                })
+            } else {
                 variables.momentumTransferInInverseAngstroms.assign(undefined)
             }
         }
