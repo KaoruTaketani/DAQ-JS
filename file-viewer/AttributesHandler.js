@@ -89,7 +89,28 @@ export default class extends Operator {
                     if (key === '_name') {
                         tmp.set('_name', name)
                     } else {
-                        tmp.set(key, f.attrs[key]?.value)
+                        const value = f.attrs[key]?.value,
+                            shape = f.attrs[key]?.shape,
+                            dtype = f.attrs[key]?.dtype
+
+                        if (!value) {
+                            tmp.set(key, value)
+                        } else {
+                            if (shape) {
+                                if (shape.length === 1) {
+                                    tmp.set(key, '[' + value.map((/** @type {number} */v) => v.toString()).join(' ') + ']')
+                                } else {
+                                    if (dtype === '<i') tmp.set(key, value.toLocaleString())
+                                    if (dtype === '<f') tmp.set(key, value.toString())
+                                }
+                            } else {
+                                if (dtype === 'S') tmp.set(key, value)
+                            }
+                        }
+                        // tmp.set(key, f.attrs[key]?.value)
+                        // if (name === '0.h5') {
+                        //     console.log(`key: ${key} dtype: ${f.attrs[key]?.dtype}, shape: ${f.attrs[key]?.shape}, value: ${f.attrs[key]?.value}`)
+                        // }
                     }
                 })
                 // console.log(tmp)
@@ -107,14 +128,11 @@ export default class extends Operator {
                 '</tr>',
                 '</thead>',
                 '<tbody align="right">',
-                attributes.map(obj => ['<tr>',
-                    Object.keys(obj).map(key => {
-                        /** @type {any} */
-                        const tmp = obj
-                        return Number.isInteger(tmp[key]) ? `<td>${tmp[key].toLocaleString()}</td>` : `<td>${tmp[key]}</td>`
-                    }).join(''),
-                    '</tr>'].join('')
-                ).join(''),
+                attributes.map(obj => [
+                    '<tr>',
+                    Object.keys(obj).map(key => `<td>${obj[key]}</td>`).join(''),
+                    '</tr>'
+                ].join('')).join(''),
                 '</tbody>'
             ].join(''))
             console.log(`elapsedTime: ${Date.now() - startTime}ms`)
