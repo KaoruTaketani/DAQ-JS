@@ -7,6 +7,7 @@ import ParameterString from './ParameterString.js'
 import ReadableDataset from './ReadableDataset.js'
 import WritableArray from './WritableArray.js'
 import WritableDataset from './WritableDataset.js'
+import WritableInt32 from './WritableInt32.js'
 import WritableNumber from './WritableNumber.js'
 
 export default class {
@@ -122,29 +123,29 @@ export default class {
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
 
-        this.kickerPulseCount = new WritableNumber('kickerPulseCount', '<i', this.hdf5File)
-        this.channel0Count = new WritableNumber('channel0Count', '<i', this.hdf5File)
-        this.channel1Count = new WritableNumber('channel1Count', '<i', this.hdf5File)
-        this.neutronCount = new WritableNumber('neutronCount', '<i', this.hdf5File)
-        this.filteredNeutronCount = new WritableNumber('filteredNeutronCount', '<i', this.hdf5File)
+        this.kickerPulseCount = new WritableInt32('kickerPulseCount', this.hdf5File)
+        this.channel0Count = new WritableInt32('channel0Count', this.hdf5File)
+        this.channel1Count = new WritableInt32('channel1Count', this.hdf5File)
+        this.neutronCount = new WritableInt32('neutronCount', this.hdf5File)
+        this.filteredNeutronCount = new WritableInt32('filteredNeutronCount', this.hdf5File)
         // followings are parameters but fixed
-        this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', '<f8', this.hdf5File)
-        this.miezeFrequencyInKilohertz = new WritableNumber('miezeFrequencyInKilohertz', '<f8', this.hdf5File)
-        this.moderatorToSampleDistanceInMeters = new WritableNumber('moderatorToSampleDistanceInMeters', '<f8', this.hdf5File)
-        this.upstreamSlitToDownstreamSlitDistanceInMeters = new WritableNumber('upstreamSlitToDownstreamSlitDistanceInMeters', '<f8', this.hdf5File)
-        this.downstreamSlitToSampleDistanceInMeters = new WritableNumber('downstreamSlitToSampleDistanceInMeters', '<f8', this.hdf5File)
-        this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', '<f8', this.hdf5File)
-        this.neutronPositionMaxInMillimeters = new WritableNumber('neutronPositionMaxInMillimeters', '<f8', this.hdf5File)
-        this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', '<f8', this.hdf5File)
+        this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', this.hdf5File)
+        this.miezeFrequencyInKilohertz = new WritableNumber('miezeFrequencyInKilohertz', this.hdf5File)
+        this.moderatorToSampleDistanceInMeters = new WritableNumber('moderatorToSampleDistanceInMeters', this.hdf5File)
+        this.upstreamSlitToDownstreamSlitDistanceInMeters = new WritableNumber('upstreamSlitToDownstreamSlitDistanceInMeters', this.hdf5File)
+        this.downstreamSlitToSampleDistanceInMeters = new WritableNumber('downstreamSlitToSampleDistanceInMeters', this.hdf5File)
+        this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
+        this.neutronPositionMaxInMillimeters = new WritableNumber('neutronPositionMaxInMillimeters', this.hdf5File)
+        this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
 
         this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
         this.roiInPixels = new ParameterArray('roiInPixels', this.hdf5File, this.parameters)
 
-        this.incidentAngleInDegrees = new ParameterNumber('incidentAngleInDegrees', '<f8', this.hdf5File, this.parameters)
-        this.frequencyVectorLength = new ParameterNumber('frequencyVectorLength', '<f8', this.hdf5File, this.parameters)
-        this.upstreamSlitWidthInMillimeters = new ParameterNumber('upstreamSlitWidthInMillimeters', '<f8', this.hdf5File, this.parameters)
-        this.downstreamSlitWidthInMillimeters = new ParameterNumber('downstreamSlitWidthInMillimeters', '<f8', this.hdf5File, this.parameters)
-        this.sampleTemperatureInKelvins = new ParameterNumber('sampleTemperatureInKelvins', '<f8', this.hdf5File, this.parameters)
+        this.incidentAngleInDegrees = new ParameterNumber('incidentAngleInDegrees', this.hdf5File, this.parameters)
+        this.frequencyVectorLength = new ParameterNumber('frequencyVectorLength', this.hdf5File, this.parameters)
+        this.upstreamSlitWidthInMillimeters = new ParameterNumber('upstreamSlitWidthInMillimeters', this.hdf5File, this.parameters)
+        this.downstreamSlitWidthInMillimeters = new ParameterNumber('downstreamSlitWidthInMillimeters', this.hdf5File, this.parameters)
+        this.sampleTemperatureInKelvins = new ParameterNumber('sampleTemperatureInKelvins', this.hdf5File, this.parameters)
 
         this.hdf5FileName = new ListenableString()
         this.hdf5Path = new ListenableString()
