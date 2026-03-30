@@ -37,10 +37,8 @@ export default class extends Operator {
             variables.channel1Count.assign(0)
             variables.neutronCount.assign(0)
             variables.image.assign({
-                xBinLimits: [0, 256],
-                yBinLimits: [0, 256],
-                numBins: [256, 256],
-                binCounts: new Uint32Array(256 * 256)
+                shape: [256, 256],
+                data: new Uint32Array(256 * 256)
             })
 
             // if use NEUNETReaderDataHandler, commentout folloing line

@@ -16,7 +16,7 @@ export default class {
         this.webSocketPathnames = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Map<string,boolean|string>>} */
         this.elementValues = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Histogram>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.tofHistogram = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('net').Socket>} */
         this.neunetReaderSocket = new ListenableObject()
@@ -30,7 +30,7 @@ export default class {
         this.pairedEvent = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').NeutronEvent>} */
         this.neutronEvent = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Histogram2D>} */
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Uint32Dataset>} */
         this.image = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('fs').WriteStream>} */
         this.edrStream = new ListenableObject()

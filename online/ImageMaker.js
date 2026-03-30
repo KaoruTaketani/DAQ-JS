@@ -7,7 +7,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Histogram2D} */
+        /** @type {import('../lib/index.js').Uint32Dataset} */
         this._image
         variables.image.prependListener(arg => { this._image = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
@@ -17,8 +17,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            this._image.binCounts[sub2ind(
-                this._image.numBins,
+            this._image.data[sub2ind(
+                this._image.shape,
                 this._neutronEvent.yCoordinateInPixels,
                 this._neutronEvent.xCoordinateInPixels
             )]++

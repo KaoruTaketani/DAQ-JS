@@ -4,7 +4,7 @@ import sub2ind from '../lib/sub2ind.js'
 
 /**
  * @param {import('../lib/index.js').Axes} ax
- * @param {import('../lib/index.js').Histogram2D} C
+ * @param {import('../lib/index.js').Uint32Dataset} C
  * @returns {Promise<Buffer>}
  */
 export default (
@@ -12,14 +12,14 @@ export default (
     C
 ) => new Promise((resolve, reject) => {
     ok(ax.zLim)
-    const width = C.numBins[1],
-        height = C.numBins[0],
+    const width = C.shape[1],
+        height = C.shape[0],
         c = new Array(height * (width + 1)).fill(0)
     for (let j = 0; j < height; ++j) {
         for (let i = 1; i < width + 1; ++i) {
             // c[j * (width + 1)] is filter type, which is zero
             c[j * (width + 1) + i] = Math.floor(
-                255 * C.binCounts[sub2ind(C.numBins, j, i)]
+                255 * C.data[sub2ind(C.shape, j, i)]
                 / ax.zLim[1]
             )
         }
