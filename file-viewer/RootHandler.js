@@ -46,6 +46,7 @@ export default class {
                 `    <p><a href="./HorizontalProjectionStandardDeviationsClient.html">Horizontal Projection Standard Deviations</a></p>`,
                 `    <p><a href="./NeutronRateClient.html">Neutron Rate</a></p>`,
                 `    <p><a href="./PhaseClient.html">Phase</a></p>`,
+                `    <p><a href="./PulseHeightHistogramClient.html">Pulse Height Histogram</a></p>`,
                 `    <p><a href="./RawImageClient.html">Raw Image</a></p>`,
                 `    <p><a href="./TOFHistogramClient.html">TOF Histogram</a></p>`,
                 '</body>',

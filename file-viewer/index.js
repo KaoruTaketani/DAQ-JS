@@ -21,6 +21,7 @@ import HorizontalProjectionMeansHandler from './HorizontalProjectionMeansHandler
 import HorizontalProjectionStandardDeviationsHandler from './HorizontalProjectionStandardDeviationsHandler.js'
 import NeutronRateHandler from './NeutronRateHandler.js'
 import PhaseHandler from './PhaseHandler.js'
+import PulseHeightHistogramHandler from './PulseHeightHistogramHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -42,6 +43,8 @@ new HorizontalProjectionMeansHandler(variables)
 new HorizontalProjectionStandardDeviationsHandler(variables)
 new NeutronRateHandler(variables)
 new PhaseHandler(variables)
+new PulseHeightHistogramHandler(variables)
+
 
 
 const httpServer = new Server()
