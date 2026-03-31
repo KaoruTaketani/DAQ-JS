@@ -48,6 +48,7 @@ export default class {
                 `    <p><a href="./PhaseClient.html">Phase</a></p>`,
                 `    <p><a href="./PulseHeightHistogramClient.html">Pulse Height Histogram</a></p>`,
                 `    <p><a href="./RawImageClient.html">Raw Image</a></p>`,
+                `    <p><a href="./TOFDifferenceHistogramClient.html">TOF Difference Histogram</a></p>`,
                 `    <p><a href="./TOFHistogramClient.html">TOF Histogram</a></p>`,
                 '</body>',
                 '</html>'

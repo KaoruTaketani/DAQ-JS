@@ -22,6 +22,7 @@ import HorizontalProjectionStandardDeviationsHandler from './HorizontalProjectio
 import NeutronRateHandler from './NeutronRateHandler.js'
 import PhaseHandler from './PhaseHandler.js'
 import PulseHeightHistogramHandler from './PulseHeightHistogramHandler.js'
+import TOFDifferenceHistogramHandler from './TOFDifferenceHistogramHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -44,7 +45,7 @@ new HorizontalProjectionStandardDeviationsHandler(variables)
 new NeutronRateHandler(variables)
 new PhaseHandler(variables)
 new PulseHeightHistogramHandler(variables)
-
+new TOFDifferenceHistogramHandler(variables)
 
 
 const httpServer = new Server()
