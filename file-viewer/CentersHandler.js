@@ -57,7 +57,7 @@ export default class {
             // console.log(filteredTOFHistogram.shape)
             // console.log(filteredTOFHistogram.value)
             const startTime = Date.now()
-            const y = Array.from(centers.value)
+            const y = centers.value
             const x = colon(1, y.length)
             const yMax = max(y)
             const xTick = linspace(0, y.length, 8 + 1)
