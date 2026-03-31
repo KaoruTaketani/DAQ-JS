@@ -14,7 +14,7 @@ export default class extends ListenableString {
         hdf5File.addListener(arg => {
             if (!this._value) return
 
-            arg.create_attribute(this._name, this._value, null, '<S')
+            arg.create_attribute(this._name, this._value)
         })
     }
     /**

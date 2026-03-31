@@ -58,7 +58,7 @@ export default class extends Operator {
                     //     console.log(f.attrs[key].value)
                     // }
                     if (Array.isArray(f.attrs[key].value)) {
-                        return `${key}: [${f.attrs[key].value.map(v=>v.toString()).join(' ')}]`
+                        return `${key}: [${f.attrs[key].value.map(v => v.toString()).join(' ')}]`
                     } else {
                         return `${key}: ${f.attrs[key].value}`
                     }
@@ -96,6 +96,11 @@ export default class extends Operator {
                         if (!value) {
                             tmp.set(key, value)
                         } else {
+                            // string
+                            if (dtype === 'S') {
+                                tmp.set(key, value)
+                                return
+                            }
                             if (shape) {
                                 if (shape.length === 1) {
                                     tmp.set(key, '[' + value.map((/** @type {number} */v) => v.toString()).join(' ') + ']')
@@ -109,9 +114,6 @@ export default class extends Operator {
                                     // Float64
                                     if (dtype === '<d') tmp.set(key, value.toString())
                                 }
-                            } else {
-                                // string
-                                if (dtype === 'S') tmp.set(key, value)
                             }
                         }
                     }
