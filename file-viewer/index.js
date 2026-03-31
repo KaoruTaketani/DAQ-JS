@@ -15,6 +15,7 @@ import RootHandler from './RootHandler.js'
 import CentersHandler from './CentersHandler.js'
 import ContrastHandler from './ContrastHandler.js'
 import HeightsHandler from './HeightsHandler.js'
+import HorizontalProjectionHandler from './HorizontalProjectionHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -30,6 +31,7 @@ new RootHandler(variables)
 new CentersHandler(variables)
 new ContrastHandler(variables)
 new HeightsHandler(variables)
+new HorizontalProjectionHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()

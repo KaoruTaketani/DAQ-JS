@@ -40,6 +40,7 @@ export default class {
                 `    <p><a href="./ContrastClient.html">Contrast</a></p>`,
                 `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
                 `    <p><a href="./HeightsClient.html">Heights</a></p>`,
+                `    <p><a href="./HorizontalProjectionClient.html">Horizontal Projection</a></p>`,
                 `    <p><a href="./RawImageClient.html">Raw Image</a></p>`,
                 `    <p><a href="./TOFHistogramClient.html">TOF Histogram</a></p>`,
                 '</body>',
