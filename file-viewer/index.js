@@ -14,6 +14,7 @@ import RawImageHandler from './RawImageHandler.js'
 import RootHandler from './RootHandler.js'
 import CentersHandler from './CentersHandler.js'
 import ContrastHandler from './ContrastHandler.js'
+import HeightsHandler from './HeightsHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -28,6 +29,7 @@ new RawImageHandler(variables)
 new RootHandler(variables)
 new CentersHandler(variables)
 new ContrastHandler(variables)
+new HeightsHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
