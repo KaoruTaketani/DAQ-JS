@@ -14,6 +14,7 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._batchProcessorIsBusy) return
 
+            variables.meanErrors.assign([])
             variables.means.assign([])
         }
     }

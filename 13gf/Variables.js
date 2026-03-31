@@ -18,6 +18,7 @@ export default class {
         this.batchResolve = new ListenableObject()
         this.batchReject = new ListenableObject()
         this.means = new ListenableObject()
+        this.meanErrors = new ListenableObject()
         this.presets = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()

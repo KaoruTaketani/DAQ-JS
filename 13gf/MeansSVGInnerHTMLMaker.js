@@ -4,6 +4,7 @@ import bounds from '../lib/bounds.js'
 import scatter from '../lib/scatter.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
+import errorbar from '../lib/errorbar.js'
 
 export default class extends Operator {
     /**
@@ -13,12 +14,15 @@ export default class extends Operator {
         super()
         this._presets
         variables.presets.addListener(arg => { this._presets = arg })
+        this._meanErrors
+        variables.meanErrors.addListener(arg => { this._meanErrors = arg })
         this._means
         variables.means.addListener(arg => {
             this._means = arg
             this._operation()
         })
         this._operation = () => {
+            console.log(this._meanErrors)
             const yTick = [0, 0.5, 1],
                 edges = this._presets,
                 ax = {
@@ -33,7 +37,8 @@ export default class extends Operator {
                 axes(ax),
                 xlabel(ax, 'preset'),
                 ylabel(ax, 'mean'),
-                scatter(ax, this._presets.filter((_, i) => i < this._means.length), this._means),
+                scatter(ax, this._presets.filter((_, i) => i < this._means.length), this._means), ,
+                errorbar(ax, this._presets.filter((_, i) => i < this._means.length), this._means, this._meanErrors)
             ].join(''))
         }
     }
