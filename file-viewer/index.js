@@ -18,6 +18,7 @@ import HeightsHandler from './HeightsHandler.js'
 import HorizontalProjectionHandler from './HorizontalProjectionHandler.js'
 import HorizontalProjectionHistogramsHandler from './HorizontalProjectionHistogramsHandler.js'
 import HorizontalProjectionMeansHandler from './HorizontalProjectionMeansHandler.js'
+import HorizontalProjectionStandardDeviationsHandler from './HorizontalProjectionStandardDeviationsHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -36,6 +37,8 @@ new HeightsHandler(variables)
 new HorizontalProjectionHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
 new HorizontalProjectionMeansHandler(variables)
+new HorizontalProjectionStandardDeviationsHandler(variables)
+
 
 const httpServer = new Server()
 const responses = new Map()
