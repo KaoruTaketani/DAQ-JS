@@ -9,6 +9,8 @@ export default class extends WritableArray {
     constructor(name, hdf5File, parameters) {
         super(name, hdf5File)
         parameters.addListener(arg => {
+            super.assign(undefined)
+
             Object.entries(arg).forEach(([key, value]) => {
                 if (key !== this._name) return
 
