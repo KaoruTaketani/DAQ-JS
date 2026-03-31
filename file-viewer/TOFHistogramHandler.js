@@ -5,6 +5,7 @@ import max from '../lib/max.js'
 import linspace from '../lib/linspace.js'
 import xlabel from '../lib/xlabel.js'
 import stairs from '../lib/stairs.js'
+import colon from '../lib/colon.js'
 // @ts-ignore
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
@@ -49,8 +50,8 @@ export default class {
             }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-            const filteredTOFHistogram = f.get('tofHistogram')
-            if (!filteredTOFHistogram) {
+            const dataset = f.get('tofHistogramBinCounts')
+            if (!dataset) {
                 response.writeHead(404)
                 response.end()
                 return
@@ -58,11 +59,12 @@ export default class {
             // console.log(filteredTOFHistogram.shape)
             // console.log(filteredTOFHistogram.value)
             const startTime = Date.now()
-            const binCounts = filteredTOFHistogram.value
-            const yMax = max(binCounts)
-            const edges = linspace(0, binCounts.length, 8 + 1)
+            const y = dataset.value
+            const x = colon(0, y.length)
+            const yMax = max(y)
+            const edges = linspace(0, y.length, 8 + 1)
             const ax = {
-                xLim: [0, binCounts.length],
+                xLim: [0, y.length],
                 yLim: [0, yMax],
                 xTick: edges,
                 yTick: [0, yMax],
@@ -73,7 +75,7 @@ export default class {
             response.end([
                 axes(ax),
                 xlabel(ax, 'tof (ch)'),
-                stairs(ax, { binLimits: [0, binCounts.length], binCounts: binCounts })
+                stairs(ax, x, y)
             ].join(''))
             console.log(`elapsedTime: ${Date.now() - startTime}ms`)
         }
