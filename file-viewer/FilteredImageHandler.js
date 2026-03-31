@@ -50,8 +50,8 @@ export default class {
 
             if (this._url.searchParams.get('type') === 'png') {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-                const filteredImage = f.get('filteredImage')
-                if (!filteredImage) {
+                const dataset = f.get('filteredImageBinCounts')
+                if (!dataset) {
                     response.writeHead(404)
                     response.end()
                     return
@@ -61,8 +61,8 @@ export default class {
                 const startTime = Date.now()
                 /** @type {import('../lib/index.js').Uint32Dataset} */
                 const hist = {
-                    shape: filteredImage.shape,
-                    data: filteredImage.value
+                    shape: dataset.shape,
+                    data: dataset.value
                 }
                 imwrite(imagesc(hist)).then(buffer => {
                     console.log(`elapsedTime: ${Date.now() - startTime}ms`)
@@ -73,8 +73,8 @@ export default class {
             }
             if (this._url.searchParams.get('type') === 'svg') {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-                const filteredImage = f.get('filteredImage')
-                if (!filteredImage) {
+                const dataset = f.get('filteredImageBinCounts')
+                if (!dataset) {
                     response.writeHead(404)
                     response.end()
                     return
@@ -82,8 +82,8 @@ export default class {
                 // console.log(filteredTOFHistogram.shape)
                 // console.log(filteredTOFHistogram.value)
                 // const startTime = Date.now()
-                const widthInMillimeters = filteredImage.shape[0] / 1024 * 50
-                const heightInMillimeters = filteredImage.shape[1] / 1024 * 50
+                const widthInMillimeters = dataset.shape[0] / 1024 * 50
+                const heightInMillimeters = dataset.shape[1] / 1024 * 50
                 const ax = {
                     xLim: [0, widthInMillimeters],
                     yLim: [0, heightInMillimeters],
