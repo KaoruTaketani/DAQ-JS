@@ -19,6 +19,7 @@ import HorizontalProjectionHandler from './HorizontalProjectionHandler.js'
 import HorizontalProjectionHistogramsHandler from './HorizontalProjectionHistogramsHandler.js'
 import HorizontalProjectionMeansHandler from './HorizontalProjectionMeansHandler.js'
 import HorizontalProjectionStandardDeviationsHandler from './HorizontalProjectionStandardDeviationsHandler.js'
+import NeutronRateHandler from './NeutronRateHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -38,6 +39,7 @@ new HorizontalProjectionHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
 new HorizontalProjectionMeansHandler(variables)
 new HorizontalProjectionStandardDeviationsHandler(variables)
+new NeutronRateHandler(variables)
 
 
 const httpServer = new Server()
