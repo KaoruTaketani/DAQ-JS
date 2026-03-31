@@ -12,6 +12,7 @@ import TimerHandler from './TimerHandler.js'
 import KickerHandler from './KickerHandler.js'
 import RawImageHandler from './RawImageHandler.js'
 import RootHandler from './RootHandler.js'
+import CentersHandler from './CentersHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -24,6 +25,7 @@ new FilteredImageHandler(variables)
 new TOFHistogramHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
+new CentersHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
