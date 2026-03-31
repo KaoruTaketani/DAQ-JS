@@ -53,12 +53,12 @@ export default class extends Operator {
                 //     variables.hdf5File.assign(f)
                 // console.log('xxx')
                 const tmp = Object.keys(f.attrs).map(key => {
-                    if (key === 'roiInMillimeters') {
-                        console.log(f.attrs[key])
-                        console.log(f.attrs[key].value)
-                    }
+                    // if (key === 'roiInMillimeters') {
+                    //     console.log(f.attrs[key])
+                    //     console.log(f.attrs[key].value)
+                    // }
                     if (Array.isArray(f.attrs[key].value)) {
-                        return `${key}: [${f.attrs[key].value}]`
+                        return `${key}: [${f.attrs[key].value.map(v=>v.toString()).join(' ')}]`
                     } else {
                         return `${key}: ${f.attrs[key].value}`
                     }
@@ -100,24 +100,23 @@ export default class extends Operator {
                                 if (shape.length === 1) {
                                     tmp.set(key, '[' + value.map((/** @type {number} */v) => v.toString()).join(' ') + ']')
                                 } else {
+                                    // Int32
                                     if (dtype === '<i') tmp.set(key, value.toLocaleString())
+                                    // Uint32
+                                    if (dtype === '<I') tmp.set(key, value.toLocaleString())
+                                    // Float32
                                     if (dtype === '<f') tmp.set(key, value.toString())
+                                    // Float64
+                                    if (dtype === '<d') tmp.set(key, value.toString())
                                 }
                             } else {
+                                // string
                                 if (dtype === 'S') tmp.set(key, value)
                             }
                         }
-                        // tmp.set(key, f.attrs[key]?.value)
-                        // if (name === '0.h5') {
-                        //     console.log(`key: ${key} dtype: ${f.attrs[key]?.dtype}, shape: ${f.attrs[key]?.shape}, value: ${f.attrs[key]?.value}`)
-                        // }
                     }
                 })
-                // console.log(tmp)
                 attributes.push(Object.fromEntries(tmp))
-                // const tmp = Object.keys(f.attrs).map(key => {
-                //     return `${key}: ${f.attrs[key].value}`
-                // }).join('\n')
                 f.close()
             })
             response.writeHead(200)

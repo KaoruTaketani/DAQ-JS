@@ -16,7 +16,7 @@ export default class extends ListenableObject {
         this._value
         readable.addListener(arg => {
             if (this._value) {
-                arg.create_attribute(this._name, this._value, null, '<f8')
+                arg.create_attribute(this._name, new Float64Array(this._value))
             }
         })
     }
