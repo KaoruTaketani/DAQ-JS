@@ -103,7 +103,7 @@ export default class extends Operator {
                             }
                             if (shape) {
                                 if (shape.length === 1) {
-                                    tmp.set(key, '[' + value.map((/** @type {number} */v) => v.toString()).join(' ') + ']')
+                                    tmp.set(key, '"' + value.map((/** @type {number} */v) => v.toString()).join(' ') + '"')
                                 } else {
                                     // Int32
                                     if (dtype === '<i') tmp.set(key, `"${value.toLocaleString()}"`)

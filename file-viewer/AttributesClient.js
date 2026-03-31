@@ -83,7 +83,9 @@ const linkElement = document.createElement('a');
         const data = Array.from(tBody.rows)
             .map(row => Array.from(row.cells)
                 .filter(cell => cell.style.display === '')
-                .map(cell => cell.innerText.split(',').join('')).join(',')
+                // .map(cell => cell.innerText.split(',').join('')).join(',')
+                .map(cell => cell.innerText)
+                .join(',')
             ).join('\n')
         // const buffer = new Buffer([header, data].join('\n'), 'utf-8')
         // linkElement.href = `data:text/csv;base64,${buffer.toString('base64')}`
