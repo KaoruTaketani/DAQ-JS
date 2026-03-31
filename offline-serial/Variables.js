@@ -24,8 +24,10 @@ export default class {
         this.neutronEvent = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').NeutronEvent>} */
         this.filteredNeutronEvent = new ListenableObject()
+        // @ts-ignore
         /** @type {import('./ListenableObject.js').default<import('h5wasm').File>} */
         this.hdf5File = new ListenableObject()
+        // @ts-ignore
         /** @type {import('./ListenableObject.js').default<import('h5wasm').File|undefined>} */
         this.directBeamHDF5File = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<string[]>} */

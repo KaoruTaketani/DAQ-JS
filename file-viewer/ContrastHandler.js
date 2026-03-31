@@ -1,11 +1,11 @@
-import { ok } from 'assert'
 import { join } from 'path'
+import { ok } from 'assert'
 import axes from '../lib/axes.js'
-import colon from '../lib/colon.js'
-import line from '../lib/line.js'
-import linspace from '../lib/linspace.js'
 import max from '../lib/max.js'
+import linspace from '../lib/linspace.js'
 import xlabel from '../lib/xlabel.js'
+import line from '../lib/line.js'
+import colon from '../lib/colon.js'
 // @ts-ignore
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
@@ -28,7 +28,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._url.pathname !== '/centers') return
+            if (this._url.pathname !== '/contrast') return
 
             const response = this._responses.get(this._url)
             ok(response)
@@ -47,8 +47,8 @@ export default class {
             }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-            const centers = f.get('centers')
-            if (!centers) {
+            const contrastDataset = f.get('contrast')
+            if (!contrastDataset) {
                 response.writeHead(404)
                 response.end()
                 return
@@ -56,7 +56,7 @@ export default class {
             // console.log(filteredTOFHistogram.shape)
             // console.log(filteredTOFHistogram.value)
             const startTime = Date.now()
-            const y = centers.value
+            const y = contrastDataset.value
             const x = colon(1, y.length)
             const yMax = max(y)
             const xTick = linspace(0, y.length, 8 + 1)
@@ -73,7 +73,7 @@ export default class {
             // console.log(yData)
             response.end([
                 axes(ax),
-                xlabel(ax, 'horizontal coordinate (ch)'),
+                xlabel(ax, 'tof (ch)'),
                 line(ax, x, y)
             ].join(''))
             console.log(`elapsedTime: ${Date.now() - startTime}ms`)

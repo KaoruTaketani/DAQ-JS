@@ -58,7 +58,7 @@ export default class extends Operator {
                     //     console.log(f.attrs[key].value)
                     // }
                     if (Array.isArray(f.attrs[key].value)) {
-                        return `${key}: [${f.attrs[key].value.map(v => v.toString()).join(' ')}]`
+                        return `${key}: [${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]`
                     } else {
                         return `${key}: ${f.attrs[key].value}`
                     }

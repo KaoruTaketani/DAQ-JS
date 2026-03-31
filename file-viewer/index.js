@@ -13,6 +13,7 @@ import KickerHandler from './KickerHandler.js'
 import RawImageHandler from './RawImageHandler.js'
 import RootHandler from './RootHandler.js'
 import CentersHandler from './CentersHandler.js'
+import ContrastHandler from './ContrastHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -26,6 +27,7 @@ new TOFHistogramHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
 new CentersHandler(variables)
+new ContrastHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
