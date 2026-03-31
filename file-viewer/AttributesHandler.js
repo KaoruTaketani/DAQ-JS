@@ -101,9 +101,9 @@ export default class extends Operator {
                                     tmp.set(key, '[' + value.map((/** @type {number} */v) => v.toString()).join(' ') + ']')
                                 } else {
                                     // Int32
-                                    if (dtype === '<i') tmp.set(key, value.toLocaleString())
+                                    if (dtype === '<i') tmp.set(key, `"${value.toLocaleString()}"`)
                                     // Uint32
-                                    if (dtype === '<I') tmp.set(key, value.toLocaleString())
+                                    if (dtype === '<I') tmp.set(key, `"${value.toLocaleString()}"`)
                                     // Float32
                                     if (dtype === '<f') tmp.set(key, value.toString())
                                     // Float64
