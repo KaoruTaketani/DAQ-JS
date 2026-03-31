@@ -51,6 +51,7 @@ export default class {
                 `    <p><a href="./TOFDifferenceHistogramClient.html">TOF Difference Histogram</a></p>`,
                 `    <p><a href="./TOFHistogramClient.html">TOF Histogram</a></p>`,
                 `    <p><a href="./VerticalProjectionClient.html">Vertical Projection</a></p>`,
+                `    <p><a href="./WidthsClient.html">Widths</a></p>`,
                 '</body>',
                 '</html>'
             ].join('\n'))

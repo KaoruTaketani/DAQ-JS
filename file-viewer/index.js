@@ -24,6 +24,7 @@ import PhaseHandler from './PhaseHandler.js'
 import PulseHeightHistogramHandler from './PulseHeightHistogramHandler.js'
 import TOFDifferenceHistogramHandler from './TOFDifferenceHistogramHandler.js'
 import VerticalProjectionHandler from './VerticalProjectionHandler.js'
+import WidthsHandler from './WidthsHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -48,6 +49,7 @@ new PhaseHandler(variables)
 new PulseHeightHistogramHandler(variables)
 new TOFDifferenceHistogramHandler(variables)
 new VerticalProjectionHandler(variables)
+new WidthsHandler(variables)
 
 
 
