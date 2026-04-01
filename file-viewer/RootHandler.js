@@ -37,6 +37,7 @@ export default class {
                 `    <h2>HDF5</h2>`,
                 `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
                 `    <p><a href="./CentersClient.html">Centers</a></p>`,
+                `    <p><a href="./CentersByVelocityClient.html">Centers by Velocity</a></p>`,
                 `    <p><a href="./ContrastClient.html">Contrast</a></p>`,
                 `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
                 `    <p><a href="./HeightsClient.html">Heights</a></p>`,

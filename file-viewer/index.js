@@ -25,6 +25,7 @@ import PulseHeightHistogramHandler from './PulseHeightHistogramHandler.js'
 import TOFDifferenceHistogramHandler from './TOFDifferenceHistogramHandler.js'
 import VerticalProjectionHandler from './VerticalProjectionHandler.js'
 import WidthsHandler from './WidthsHandler.js'
+import CentersByVelocityHandler from './CentersByVelocityHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -50,7 +51,7 @@ new PulseHeightHistogramHandler(variables)
 new TOFDifferenceHistogramHandler(variables)
 new VerticalProjectionHandler(variables)
 new WidthsHandler(variables)
-
+new CentersByVelocityHandler(variables)
 
 
 const httpServer = new Server()
