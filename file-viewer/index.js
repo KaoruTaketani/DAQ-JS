@@ -27,6 +27,7 @@ import VerticalProjectionHandler from './VerticalProjectionHandler.js'
 import WidthsHandler from './WidthsHandler.js'
 import CentersByVelocityHandler from './CentersByVelocityHandler.js'
 import CentersByEnergyHandler from './CentersByEnergyHandler.js'
+import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -54,6 +55,7 @@ new VerticalProjectionHandler(variables)
 new WidthsHandler(variables)
 new CentersByVelocityHandler(variables)
 new CentersByEnergyHandler(variables)
+new CentersByWavelengthHandler(variables)
 
 
 
