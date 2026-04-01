@@ -38,6 +38,7 @@ export default class {
                 `    <p><a href="./AttributesClient.html">Attributes</a></p>`,
                 `    <p><a href="./CentersClient.html">Centers</a></p>`,
                 `    <p><a href="./CentersByVelocityClient.html">Centers by Velocity</a></p>`,
+                `    <p><a href="./CentersByEnergyClient.html">Centers by Energy</a></p>`,
                 `    <p><a href="./ContrastClient.html">Contrast</a></p>`,
                 `    <p><a href="./FilteredImageClient.html">Filtered Image</a></p>`,
                 `    <p><a href="./HeightsClient.html">Heights</a></p>`,

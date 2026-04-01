@@ -29,7 +29,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._url.pathname !== '/centersByVelocity') return
+            if (this._url.pathname !== '/centersByEnergy') return
 
             const response = this._responses.get(this._url)
             ok(response)
@@ -54,7 +54,7 @@ export default class {
                 response.end()
                 return
             }
-            const velocity = f.get('velocityInMetersPerSeconds')
+            const velocity = f.get('energyInMillielectronvolts')
             if (!velocity) {
                 response.writeHead(404)
                 response.end()
@@ -68,7 +68,7 @@ export default class {
             const x = Array.from(velocity.value)
             const dx = diff(x)
             const yMax = max(y)
-            const xMax = x[0] + dx[0]// x[0] is the maximu energy
+            const xMax = x[0] + dx[0]// x[0] is the maximu velocity
             const xTick = linspace(0, xMax, 8 + 1)
             const ax = {
                 xLim: [0, xMax],
@@ -83,7 +83,7 @@ export default class {
             // console.log(yData)
             response.end([
                 axes(ax),
-                xlabel(ax, 'neutron velocity (m/s)'),
+                xlabel(ax, 'neutron energy (meV)'),
                 scatter(ax, x, y)
             ].join(''))
             console.log(`elapsedTime: ${Date.now() - startTime}ms`)
