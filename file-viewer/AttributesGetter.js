@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./ClientVariablesAttributes.js').default} variables 
+     * @param {import('./AttributesVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

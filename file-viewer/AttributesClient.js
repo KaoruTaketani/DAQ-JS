@@ -1,9 +1,9 @@
 import AttributesGetter from "./AttributesGetter.js";
-import ClientVariablesAttributes from "./ClientVariablesAttributes.js";
+import AttributesVariables from "./AttributesVariables.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
 
-const variables = new ClientVariablesAttributes()
+const variables = new AttributesVariables()
 new PathMaker(variables)
 new AttributesGetter(variables)
 new FilesGetterHDF5(variables)
