@@ -51,18 +51,22 @@ export default class extends Operator {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r")
                 //     variables.hdf5File.assign(f)
                 // console.log('xxx')
-                const tmp = Object.keys(f.attrs).map(key => {
+                let tmp = '<table>'
+                tmp += Object.keys(f.attrs).map(key => {
                     // if (key === 'roiInMillimeters') {
                     //     console.log(f.attrs[key])
                     //     console.log(f.attrs[key].value)
                     // }
                     // console.log(f.attrs[key])
                     if (Array.isArray(f.attrs[key].value)) {
-                        return `${key}: [${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]`
+                        // return `${key}: [${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]`
+                        return `<tr><th>${key}</th><td>[${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]</td></tr>`
                     } else {
-                        return `${key}: ${f.attrs[key].value}`
+                        // return `${key}: ${f.attrs[key].value}`
+                        return `<tr><th>${key}</th><td>${f.attrs[key].value}</td></tr>`
                     }
                 }).join('\n')
+                tmp+='</table>'
                 response.writeHead(200)
                 response.end(tmp)
                 f.close()
