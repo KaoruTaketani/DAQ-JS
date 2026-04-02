@@ -147,7 +147,7 @@ httpServer.on('request', (request, response) => {
             return
         }
 
-        if (url.pathname === 'AttributesClient.html') {
+        if (url.pathname === '/AttributesClient.html') {
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
                 '<html>',
