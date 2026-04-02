@@ -91,6 +91,7 @@ svgPathnames.set('/WidthsClient.html', '/widths')
 const tablePathnames = new Map()
 tablePathnames.set('/TimerClient.html', '/timer')
 tablePathnames.set('/KickerClient.html', '/kicker')
+tablePathnames.set('/ChannelClient.html', '/channel')
 
 
 httpServer.on('request', (request, response) => {
