@@ -5,9 +5,8 @@ import linspace from '../lib/linspace.js'
 import max from '../lib/max.js'
 import scatter from '../lib/scatter.js'
 import xlabel from '../lib/xlabel.js'
-// @ts-ignore
-const h5wasm = await import("h5wasm/node")
-await h5wasm.ready
+import h5wasm from "h5wasm/node"
+await h5wasm.ready;
 
 export default class {
     /**

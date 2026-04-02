@@ -6,9 +6,8 @@ import linspace from '../lib/linspace.js'
 import xlabel from '../lib/xlabel.js'
 import stairs from '../lib/stairs.js'
 import colon from '../lib/colon.js'
-// @ts-ignore
-const h5wasm = await import("h5wasm/node")
-await h5wasm.ready
+import h5wasm from "h5wasm/node"
+await h5wasm.ready;
 
 export default class {
     /**
@@ -50,7 +49,8 @@ export default class {
             }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-            const dataset = f.get('tofHistogramBinCounts')
+            /** @type {import('h5wasm').Dataset|null} */
+            const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('tofHistogramBinCounts'))
             if (!dataset) {
                 response.writeHead(404)
                 response.end()
@@ -59,7 +59,8 @@ export default class {
             // console.log(filteredTOFHistogram.shape)
             // console.log(filteredTOFHistogram.value)
             const startTime = Date.now()
-            const y = dataset.value
+            /** @type {Uint32Array} */
+            const y =/** @type {Uint32Array} */ (dataset.value)
             const x = colon(0, y.length)
             const yMax = max(y)
             const edges = linspace(0, y.length, 8 + 1)

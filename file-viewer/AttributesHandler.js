@@ -1,9 +1,8 @@
 import { join } from 'path'
 import { ok } from 'assert'
 import Operator from './Operator.js'
-// @ts-ignore
-const h5wasm = await import("h5wasm/node")
-await h5wasm.ready
+import h5wasm from "h5wasm/node"
+await h5wasm.ready;
 
 export default class extends Operator {
     /**
@@ -104,7 +103,7 @@ export default class extends Operator {
                             }
                             if (shape) {
                                 if (shape.length === 1) {
-                                    tmp.set(key, '"' + value.map((/** @type {number} */v) => v.toString()).join(' ') + '"')
+                                    tmp.set(key, '"' +/** @type {number[]} */ (value).map((/** @type {number} */v) => v.toString()).join(' ') + '"')
                                 } else {
                                     // Int32
                                     if (dtype === '<i') tmp.set(key, `"${value.toLocaleString()}"`)

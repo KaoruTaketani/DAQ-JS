@@ -1,15 +1,12 @@
 import { ok } from 'assert'
+import h5wasm from "h5wasm/node"
 import { join } from 'path'
 import axes from '../lib/axes.js'
-import colon from '../lib/colon.js'
-import scatter from '../lib/scatter.js'
 import linspace from '../lib/linspace.js'
 import max from '../lib/max.js'
+import scatter from '../lib/scatter.js'
 import xlabel from '../lib/xlabel.js'
-import diff from '../lib/diff.js'
-// @ts-ignore
-const h5wasm = await import("h5wasm/node")
-await h5wasm.ready
+await h5wasm.ready;
 
 export default class {
     /**
@@ -48,13 +45,15 @@ export default class {
             }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-            let centers = f.get('centers')
+            /** @type {import('h5wasm').Dataset|null} */
+            let centers = /** @type {import('h5wasm').Dataset|null} */(f.get('centers'))
             if (!centers) {
                 response.writeHead(404)
                 response.end()
                 return
             }
-            const velocity = f.get('velocityInMetersPerSeconds')
+            /** @type {import('h5wasm').Dataset|null} */
+            const velocity = /** @type {import('h5wasm').Dataset|null} */(f.get('velocityInMetersPerSeconds'))
             if (!velocity) {
                 response.writeHead(404)
                 response.end()
@@ -64,11 +63,10 @@ export default class {
             // console.log(filteredTOFHistogram.shape)
             // console.log(filteredTOFHistogram.value)
             const startTime = Date.now()
-            const y = (/** @type {import('h5wasm').Dataset} */centers).value
-            const x = Array.from(velocity.value)
-            const dx = diff(x)
+            const y = /** @type {Float64Array} */(centers.value)
+            const x = /** @type {Float64Array} */(velocity.value)
             const yMax = max(y)
-            const xMax = x[0] + dx[0]// x[0] is the maximu energy
+            const xMax = x[0] // x[0] is the maximu energy
             const xTick = linspace(0, xMax, 8 + 1)
             const ax = {
                 xLim: [0, xMax],
@@ -84,7 +82,7 @@ export default class {
             response.end([
                 axes(ax),
                 xlabel(ax, 'neutron velocity (m/s)'),
-                scatter(ax, x, y)
+                scatter(ax, Array.from(x), y)
             ].join(''))
             console.log(`elapsedTime: ${Date.now() - startTime}ms`)
         }

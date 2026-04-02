@@ -5,9 +5,8 @@ import imagesc from '../lib/imagesc.js'
 import imwrite from '../lib/imwrite.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
-// @ts-ignore
-const h5wasm = await import("h5wasm/node")
-await h5wasm.ready
+import h5wasm from "h5wasm/node"
+await h5wasm.ready;
 
 export default class {
     /**
@@ -50,7 +49,8 @@ export default class {
 
             if (this._url.searchParams.get('type') === 'png') {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-                const dataset = f.get('horizontalProjectionHistogramsBinCounts')
+                /** @type {import('h5wasm').Dataset|null} */
+                const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('horizontalProjectionHistogramsBinCounts'))
                 if (!dataset) {
                     response.writeHead(404)
                     response.end()
@@ -61,8 +61,8 @@ export default class {
                 const startTime = Date.now()
                 /** @type {import('../lib/index.js').Uint32Dataset} */
                 const hist = {
-                    shape: dataset.shape,
-                    data: dataset.value
+                    shape:/** @type {number[]} */ (dataset.shape),
+                    data:/** @type {Uint32Array} */ (dataset.value)
                 }
                 imwrite(imagesc(hist)).then(buffer => {
                     console.log(`elapsedTime: ${Date.now() - startTime}ms`)
@@ -73,7 +73,8 @@ export default class {
             }
             if (this._url.searchParams.get('type') === 'svg') {
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-                const filteredImage = f.get('horizontalProjectionHistogramsBinCounts')
+                /** @type {import('h5wasm').Dataset|null} */
+                const filteredImage = /** @type {import('h5wasm').Dataset|null} */(f.get('horizontalProjectionHistogramsBinCounts'))
                 if (!filteredImage) {
                     response.writeHead(404)
                     response.end()
@@ -82,8 +83,8 @@ export default class {
                 // console.log(filteredTOFHistogram.shape)
                 // console.log(filteredTOFHistogram.value)
                 // const startTime = Date.now()
-                const widthInMillimeters = filteredImage.shape[0] / 1024 * 50
-                const heightInMillimeters = filteredImage.shape[1] / 1024 * 50
+                const widthInMillimeters =/** @type {number[]} */ (filteredImage.shape)[0] / 1024 * 50
+                const heightInMillimeters =/** @type {number[]} */ (filteredImage.shape)[1] / 1024 * 50
                 const ax = {
                     xLim: [0, widthInMillimeters],
                     yLim: [0, heightInMillimeters],

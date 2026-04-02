@@ -6,9 +6,8 @@ import linspace from '../lib/linspace.js'
 import xlabel from '../lib/xlabel.js'
 import line from '../lib/line.js'
 import colon from '../lib/colon.js'
-// @ts-ignore
-const h5wasm = await import("h5wasm/node")
-await h5wasm.ready
+import h5wasm from "h5wasm/node"
+await h5wasm.ready;
 
 export default class {
     /**
@@ -47,7 +46,8 @@ export default class {
             }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-            const heightsDataset = f.get('heights')
+            /** @type {import('h5wasm').Dataset|null} */
+            const heightsDataset =/** @type {import('h5wasm').Dataset|null} */ (f.get('heights'))
             if (!heightsDataset) {
                 response.writeHead(404)
                 response.end()
@@ -56,7 +56,8 @@ export default class {
             // console.log(filteredTOFHistogram.shape)
             // console.log(filteredTOFHistogram.value)
             const startTime = Date.now()
-            const y = heightsDataset.value
+            /** @type {Float64Array} */
+            const y =/** @type {Float64Array} */ (heightsDataset.value)
             const x = colon(1, y.length)
             const yMax = max(y)
             const xTick = linspace(0, y.length, 8 + 1)

@@ -5,9 +5,8 @@ import imagesc from '../lib/imagesc.js'
 import imwrite from '../lib/imwrite.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
-// @ts-ignore
-const h5wasm = await import("h5wasm/node")
-await h5wasm.ready
+import h5wasm from "h5wasm/node"
+await h5wasm.ready;
 
 export default class {
     /**
