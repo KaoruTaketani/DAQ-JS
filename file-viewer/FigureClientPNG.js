@@ -2,15 +2,15 @@ import CursorTextMaker from "./CursorTextMaker.js";
 import FigureGetterPNG from "./FigureGetterPNG.js";
 import FigureVariablesPNG from "./FigureVariablesPNG.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import ImageCleanupper from "./ImageCleanupper.js";
-import ImageDrawer from "./ImageDrawer.js";
+import FigureCleanupperPNG from "./FigureCleanupperPNG.js";
+import PNGDrawer from "./PNGDrawer.js";
 import PathMaker from "./PathMaker.js";
 
 const variables = new FigureVariablesPNG()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
-new ImageCleanupper(variables)
-new ImageDrawer(variables)
+new FigureCleanupperPNG(variables)
+new PNGDrawer(variables)
 new FigureGetterPNG(variables)
 new CursorTextMaker(variables)
     ;

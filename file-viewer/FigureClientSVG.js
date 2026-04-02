@@ -1,13 +1,13 @@
-import ClientVariablesImage from "./ClientVariablesImage.js";
+import FigureCleanupperSVG from "./FigureCleanupperSVG.js";
 import FigureGetterSVG from "./FigureGetterSVG.js";
+import FigureVariablesSVG from "./FigureVariablesSVG.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import ImageCleanupper from "./ImageCleanupper.js";
 import PathMaker from "./PathMaker.js";
 
-const variables = new ClientVariablesImage()
+const variables = new FigureVariablesSVG()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
-new ImageCleanupper(variables)
+new FigureCleanupperSVG(variables)
 new FigureGetterSVG(variables)
     ;
 (element => {

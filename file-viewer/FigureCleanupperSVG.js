@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./ClientVariablesImage.js').default} variables 
+     * @param {import('./FigureVariablesSVG').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
@@ -10,11 +10,8 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._fileName.endsWith('/')) {
+            if (this._fileName.endsWith('/'))
                 variables.svgInnerHTML.assign('')
-                variables.imageSrc.assign('')
-                return
-            }
         }
     }
 }

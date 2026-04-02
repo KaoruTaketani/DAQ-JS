@@ -1,7 +1,7 @@
 import CentersByEnergyGetter from "./CentersByEnergyGetter.js";
 import ClientVariablesImage from "./ClientVariablesImage.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import ImageCleanupper from "./ImageCleanupper.js";
+import ImageCleanupper from "./FigureCleanupperPNG.js";
 import PathMaker from "./PathMaker.js";
 
 const variables = new ClientVariablesImage()
