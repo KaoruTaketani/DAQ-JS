@@ -22,7 +22,9 @@ export default class {
             if (!this._fileName) return
             if (!this._fileName.endsWith('.edr')) return
 
-            fetch(`/timer?path=${this._path}&fileName=${this._fileName}&offset=${this._offset}`).then(response => {
+            // @ts-ignore
+            const pathname = window.pathname
+            fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}&offset=${this._offset}`).then(response => {
                 response.text().then(text => {
                     variables.tableInnerHTML.assign(text)
                 })

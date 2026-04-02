@@ -88,6 +88,9 @@ svgPathnames.set('/TOFHistogramClient.html', '/tofHistogram')
 svgPathnames.set('/VerticalProjectionClient.html', '/verticalProjection')
 svgPathnames.set('/WidthsClient.html', '/widths')
 
+const tablePathnames = new Map()
+tablePathnames.set('/TimerClient.html', '/timer')
+
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
@@ -157,18 +160,27 @@ httpServer.on('request', (request, response) => {
             ].join('\n'))
             return
         }
-        response.writeHead(200, { 'Content-Type': 'text/html' })
-        response.end([
-            '<html>',
-            '<head>',
-            '    <meta charset="utf-8">',
-            '</head>',
-            '<body>',
-            `    <script type="module" src="./${basename(url.pathname, '.html')}.js">`,
-            `    </script>`,
-            '</body>',
-            '</html>'
-        ].join('\n'))
+
+        if (tablePathnames.has(url.pathname)) {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end([
+                '<html>',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '<body>',
+                `    <script>`,
+                `        window.pathname="${tablePathnames.get(url.pathname)}"`,
+                `    </script>`,
+                `    <script type="module" src="./TableClient.js">`,
+                `    </script>`,
+                '</body>',
+                '</html>'
+            ].join('\n'))
+            return
+        }
+        response.writeHead(404)
+        response.end()
         return
     }
     responses.set(url, response)

@@ -3,11 +3,11 @@ import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
 import TableCleanupper from "./TableCleanupper.js";
-import TimerGetter from "./TimerGetter.js";
+import TableGetter from "./TableGetter.js";
 
 const variables = new ClientVariablesTable()
 new PathMaker(variables)
-new TimerGetter(variables)
+new TableGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
 new TableCleanupper(variables)
