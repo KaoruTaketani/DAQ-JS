@@ -53,8 +53,8 @@ export default class {
                 response.end()
                 return
             }
-            /** @type {import('h5wasm').Dataset} */
-            const velocity =/** @type {import('h5wasm').Dataset} */ (f.get('wavelengthInAngstroms'))
+            /** @type {import('h5wasm').Dataset|null} */
+            const velocity =/** @type {import('h5wasm').Dataset|null} */ (f.get('wavelengthInAngstroms'))
             if (!velocity) {
                 response.writeHead(404)
                 response.end()
@@ -62,11 +62,6 @@ export default class {
             }
             /** @type {Float64Array} */
             const velocityData = /** @type {Float64Array} */(velocity.value)
-            if (!velocityData) {
-                response.writeHead(404)
-                response.end()
-                return
-            }
             /** @type {Float64Array} */
             const y = /** @type {Float64Array} */(centers.value)
 
