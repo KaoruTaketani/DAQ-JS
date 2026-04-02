@@ -1,9 +1,9 @@
-import ListenableString from './ListenableString.js'
-import ClientVariables from './ClientVariables.js'
+import FigureVariablesSVG from './FigureVariablesSVG.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
+import ListenableString from './ListenableString.js'
 
-export default class extends ClientVariables {
+export default class extends FigureVariablesSVG {
     constructor() {
         super()
         /** @type {import('./ListenableObject.js').default<HTMLImageElement>} */
@@ -23,7 +23,6 @@ export default class extends ClientVariables {
         this.ymaxInData = new ListenableNumber()
 
         this.imageSrc = new ListenableString()
-        this.svgInnerHTML = new ListenableString()
     }
 }
 

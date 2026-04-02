@@ -15,7 +15,9 @@ export default class {
         this._operation = () => {
             if(!this._fileName.endsWith('.h5'))return
 
-            fetch(`/widths?path=${this._path}&fileName=${this._fileName}`).then(response => {
+            // @ts-ignore
+            const pathname=window.pathname
+            fetch(`/${pathname}?path=${this._path}&fileName=${this._fileName}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign('tofHistogram was not found')
                     variables.svgInnerHTML.assign('')
