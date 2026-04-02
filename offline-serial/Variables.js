@@ -102,7 +102,7 @@ export default class {
         this.contrastRatio = new WritableDataset('contrastRatio', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray|undefined>} */
         this.phaseShift = new WritableDataset('phaseShift', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray|undefined>} */
+        /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.momentumTransferInInverseAngstroms = new WritableDataset('momentumTransferInInverseAngstroms', this.hdf5File)
 
         // WritableArray
