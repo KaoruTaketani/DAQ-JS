@@ -17,7 +17,7 @@ export default class {
 
             // @ts-ignore
             const pathname=window.pathname
-            fetch(`/${pathname}?path=${this._path}&fileName=${this._fileName}`).then(response => {
+            fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign('tofHistogram was not found')
                     variables.svgInnerHTML.assign('')

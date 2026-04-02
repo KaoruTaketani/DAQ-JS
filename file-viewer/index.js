@@ -66,11 +66,12 @@ variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
 
 const pngPathnames = new Map()
-pngPathnames.set('/RawImageClient.html', 'rawImage')
-pngPathnames.set('/FilteredImageClient.html', 'filteredImage')
+pngPathnames.set('/RawImageClient.html', '/rawImage')
+pngPathnames.set('/FilteredImageClient.html', '/filteredImage')
 
 const svgPathnames = new Map()
-svgPathnames.set('/WidthsClient.html', 'widths')
+svgPathnames.set('/VerticalProjectionClient.html', '/verticalProjection')
+svgPathnames.set('/WidthsClient.html', '/widths')
 
 
 httpServer.on('request', (request, response) => {
