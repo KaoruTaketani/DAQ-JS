@@ -58,15 +58,36 @@ export default class extends Operator {
                     //     console.log(f.attrs[key].value)
                     // }
                     // console.log(f.attrs[key])
-                    if (Array.isArray(f.attrs[key].value)) {
-                        // return `${key}: [${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]`
-                        return `<tr><th>${key}</th><td>[${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]</td></tr>`
-                    } else {
-                        // return `${key}: ${f.attrs[key].value}`
-                        return `<tr><th>${key}</th><td>${f.attrs[key].value}</td></tr>`
+                    // if (Array.isArray(f.attrs[key].value)) {
+                    //     // return `${key}: [${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]`
+                    //     return `<tr><th>${key}</th><td>[${f.attrs[key].value.map((/** @type {any} */v) => v.toString()).join(' ')}]</td></tr>`
+                    // } else {
+                    //     // return `${key}: ${f.attrs[key].value}`
+                    //     return `<tr><th>${key}</th><td>${f.attrs[key].value}</td></tr>`
+                    // }
+                    const value = f.attrs[key]?.value,
+                        shape = f.attrs[key]?.shape,
+                        dtype = f.attrs[key]?.dtype
+
+                    if (dtype === 'S') {
+                        return `<tr><th>${key}</th><td>${value}</td></tr>`
+                    }
+                    if (shape) {
+                        if (shape.length === 1) {
+                            return `<tr><th>${key}</th><td>[${/** @type {number[]} */ (value).map((/** @type {number} */v) => v.toString()).join(' ')}]</td></tr>`
+                        } else {
+                            // Int32
+                            if (dtype === '<i') return `<tr><th>${key}</th><td>${value?.toLocaleString()}</td></tr>`
+                            // Uint32
+                            if (dtype === '<I') return `<tr><th>${key}</th><td>${value?.toLocaleString()}</td></tr>`
+                            // Float32
+                            if (dtype === '<f') return `<tr><th>${key}</th><td>${value?.toString()}</td></tr>`
+                            // Float64
+                            if (dtype === '<d') return `<tr><th>${key}</th><td>${value?.toString()}</td></tr>`
+                        }
                     }
                 }).join('\n')
-                tmp+='</table>'
+                tmp += '</table>'
                 response.writeHead(200)
                 response.end(tmp)
                 f.close()
