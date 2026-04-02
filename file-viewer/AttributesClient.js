@@ -134,3 +134,4 @@ let tBody
 })(document.body.appendChild(document.createElement('table')));
 
 variables.path.assign('/')
+

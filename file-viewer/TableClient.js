@@ -1,11 +1,11 @@
-import ClientVariablesTable from "./ClientVariablesTable.js";
+import TableVariables from "./TableVariables.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
 import TableCleanupper from "./TableCleanupper.js";
 import TableGetter from "./TableGetter.js";
 
-const variables = new ClientVariablesTable()
+const variables = new TableVariables()
 new PathMaker(variables)
 new TableGetter(variables)
 new NumEventsGetter(variables)
