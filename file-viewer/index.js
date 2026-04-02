@@ -65,6 +65,9 @@ variables.responses.assign(responses)
 variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
 
+const pathnames = new Map()
+pathnames.set('/RawImageClient.html', 'rawImage')
+
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
     const url = new URL(`http://localhost${request.url}`)
@@ -79,7 +82,8 @@ httpServer.on('request', (request, response) => {
         return
     }
     if (url.pathname.endsWith('.html')) {
-        if (url.pathname === '/RawImageClient.html') {
+        console.log(pathnames.has(url.pathname))
+        if (pathnames.has(url.pathname)) {
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
                 '<html>',
@@ -88,7 +92,7 @@ httpServer.on('request', (request, response) => {
                 '</head>',
                 '<body>',
                 `    <script>`,
-                `        window.pathname="rawImage"`,
+                `        window.pathname="${pathnames.get(url.pathname)}"`,
                 `    </script>`,
                 `    <script type="module" src="./FigureClient.js">`,
                 `    </script>`,
