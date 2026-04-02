@@ -70,6 +70,7 @@ pngPathnames.set('/RawImageClient.html', '/rawImage')
 pngPathnames.set('/FilteredImageClient.html', '/filteredImage')
 
 const svgPathnames = new Map()
+svgPathnames.set('/TOFHistogramClient.html', '/tofHistogram')
 svgPathnames.set('/VerticalProjectionClient.html', '/verticalProjection')
 svgPathnames.set('/WidthsClient.html', '/widths')
 
