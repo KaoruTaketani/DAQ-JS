@@ -65,9 +65,9 @@ variables.responses.assign(responses)
 variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
 
-const pathnames = new Map()
-pathnames.set('/RawImageClient.html', 'rawImage')
-pathnames.set('/FilteredImageClient.html', 'filteredImage')
+const pngPathnames = new Map()
+pngPathnames.set('/RawImageClient.html', 'rawImage')
+pngPathnames.set('/FilteredImageClient.html', 'filteredImage')
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
@@ -83,8 +83,8 @@ httpServer.on('request', (request, response) => {
         return
     }
     if (url.pathname.endsWith('.html')) {
-        console.log(pathnames.has(url.pathname))
-        if (pathnames.has(url.pathname)) {
+        console.log(pngPathnames.has(url.pathname))
+        if (pngPathnames.has(url.pathname)) {
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
                 '<html>',
@@ -93,9 +93,9 @@ httpServer.on('request', (request, response) => {
                 '</head>',
                 '<body>',
                 `    <script>`,
-                `        window.pathname="${pathnames.get(url.pathname)}"`,
+                `        window.pathname="${pngPathnames.get(url.pathname)}"`,
                 `    </script>`,
-                `    <script type="module" src="./FigureClient.js">`,
+                `    <script type="module" src="./FigureClientPNG.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
