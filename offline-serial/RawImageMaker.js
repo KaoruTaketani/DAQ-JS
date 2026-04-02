@@ -7,7 +7,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._rawImage
         variables.rawImageBinCounts.prependListener(arg => { this._rawImage = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */

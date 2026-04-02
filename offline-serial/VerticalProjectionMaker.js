@@ -6,7 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._verticalProjectionBinCounts
         variables.verticalProjectionBinCounts.prependListener(arg => { this._verticalProjectionBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */

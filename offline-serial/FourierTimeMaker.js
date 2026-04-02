@@ -12,7 +12,7 @@ export default class extends Operator {
         /** @type {number} */
         this._miezeFrequencyInKilohertz
         variables.miezeFrequencyInKilohertz.prependListener(arg => { this._miezeFrequencyInKilohertz = arg })
-        /** @type {import('../lib/index.js').Float64Dataset} */
+        /** @type {import('../lib/index.js').Float64NDArray} */
         this._wavelengthInAngstroms
         variables.wavelengthInAngstroms.addListener(arg => {
             this._wavelengthInAngstroms = arg

@@ -12,7 +12,7 @@ export default class extends Operator {
         /** @type {number} */
         this._kickerPulseCount
         variables.kickerPulseCount.prependListener(arg => { this._kickerPulseCount = arg })
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._tofHistogramBinCounts
         variables.tofHistogramBinCounts.addListener(arg => {
             this._tofHistogramBinCounts = arg

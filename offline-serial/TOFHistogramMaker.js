@@ -8,7 +8,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._tofHistogramBinCounts
         variables.tofHistogramBinCounts.prependListener(arg => { this._tofHistogramBinCounts = arg })
         /** @type {number[]} */

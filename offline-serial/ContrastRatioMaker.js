@@ -7,10 +7,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64Dataset|undefined} */
+        /** @type {import('../lib/index.js').Float64NDArray|undefined} */
         this._directBeamContrast
         variables.directBeamContrast.prependListener(arg => { this._directBeamContrast = arg })
-        /** @type {import('../lib/index.js').Float64Dataset} */
+        /** @type {import('../lib/index.js').Float64NDArray} */
         this._contrast
         variables.contrast.addListener(arg => {
             this._contrast = arg

@@ -14,7 +14,7 @@ export default class extends Operator {
         /** @type {number[]} */
         this._tofImageZBinLimitsInNanoseconds
         variables.tofImageZBinLimitsInNanoseconds.prependListener(arg => { this._tofImageZBinLimitsInNanoseconds = arg })
-        /** @type {import('../lib/index.js').Uint16Dataset} */
+        /** @type {import('../lib/index.js').Uint16NDArray} */
         this._tofImage
         variables.tofImage.prependListener(arg => { this._tofImage = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */

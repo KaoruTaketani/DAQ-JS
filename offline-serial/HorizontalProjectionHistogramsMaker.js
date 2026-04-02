@@ -17,7 +17,7 @@ export default class extends Operator {
         /** @type {number[]} */
         this._horizontalProjectionHistogramsYBinLimits
         variables.horizontalProjectionHistogramsYBinLimitsInNanoseconds.prependListener(arg => { this._horizontalProjectionHistogramsYBinLimits = arg })
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._horizontalProjectionHistogramsBinCounts
         variables.horizontalProjectionHistogramsBinCounts.prependListener(arg => { this._horizontalProjectionHistogramsBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */

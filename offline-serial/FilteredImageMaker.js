@@ -10,7 +10,7 @@ export default class extends Operator {
         /** @type {number[]} */
         this._roiInPixels
         variables.roiInPixels.prependListener(arg => { this._roiInPixels = arg })
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._filteredImageBinCounts
         variables.filteredImageBinCounts.prependListener(arg => { this._filteredImageBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */

@@ -7,10 +7,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64Dataset|undefined} */
+        /** @type {import('../lib/index.js').Float64NDArray|undefined} */
         this._directBeamNeutronRate
         variables.directBeamNeutronRate.prependListener(arg => { this._directBeamNeutronRate = arg })
-        /** @type {import('../lib/index.js').Float64Dataset} */
+        /** @type {import('../lib/index.js').Float64NDArray} */
         this._neutronRate
         variables.neutronRate.addListener(arg => {
             this._neutronRate = arg

@@ -59,7 +59,7 @@ export default class {
                 // console.log(filteredImage.shape)
                 // console.log(filteredImage.value)
                 const startTime = Date.now()
-                /** @type {import('../lib/index.js').Uint32Dataset} */
+                /** @type {import('../lib/index.js').Uint32NDArray} */
                 const hist = {
                     shape: /** @type {number[]} */(dataset.shape),
                     data: /** @type {Uint32Array} */ (dataset.value)

@@ -11,7 +11,7 @@ export default class extends Operator {
         /** @type {number[]} */
         this._tofDifferenceHistogramBinLimitsInNanoseconds
         variables.tofDifferenceHistogramBinLimitsInNanoseconds.prependListener(arg => { this._tofDifferenceHistogramBinLimitsInNanoseconds = arg })
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._tofDifferenceHistogramBinCounts
         variables.tofDifferenceHistogramBinCounts.prependListener(arg => { this._tofDifferenceHistogramBinCounts = arg })
         /** @type {import('../lib/index.js').PairedEvent} */

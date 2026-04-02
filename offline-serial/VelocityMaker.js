@@ -12,7 +12,7 @@ export default class extends Operator {
         /** @type {number} */
         this._cameraLengthInMeters
         variables.cameraLengthInMeters.prependListener(arg => { this._cameraLengthInMeters = arg })
-        /** @type {import('../lib/index.js').Float64Dataset} */
+        /** @type {import('../lib/index.js').Float64NDArray} */
         this._tofInSeconds
         variables.tofInSeconds.addListener(arg => {
             this._tofInSeconds = arg

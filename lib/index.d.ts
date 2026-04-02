@@ -52,17 +52,17 @@ export interface NDArray {
     data: TypedArray
 }
 
-export interface Uint16Dataset {
+export interface Uint16NDArray {
     shape: number[]
     data: Uint16Array
 }
 
-export interface Uint32Dataset {
+export interface Uint32NDArray {
     shape: number[]
     data: Uint32Array
 }
 
-export interface Float64Dataset {
+export interface Float64NDArray {
     shape: number[]
     data: Float64Array
 }

@@ -8,7 +8,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64Dataset} */
+        /** @type {import('../lib/index.js').Float64NDArray} */
         this._wavelengthInAngstroms
         variables.wavelengthInAngstroms.prependListener(arg => { this._wavelengthInAngstroms = arg })
         /** @type {number} */

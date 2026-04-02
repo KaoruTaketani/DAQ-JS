@@ -11,7 +11,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Uint32Dataset} */
+        /** @type {import('../lib/index.js').Uint32NDArray} */
         this._tofImageHorizontalProjectionsBinCounts
         variables.horizontalProjectionHistogramsBinCounts.addListener(arg => {
             this._tofImageHorizontalProjectionsBinCounts = arg

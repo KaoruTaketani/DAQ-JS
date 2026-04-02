@@ -4,7 +4,7 @@ import sub2ind from '../lib/sub2ind.js'
 
 /**
  * @param {import('../lib/index.js').Axes} ax
- * @param {import('../lib/index.js').Uint32Dataset} C
+ * @param {import('../lib/index.js').Uint32NDArray} C
  * @returns {Promise<Buffer>}
  */
 export default (

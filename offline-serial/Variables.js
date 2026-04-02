@@ -33,76 +33,76 @@ export default class {
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
 
-        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.directBeamNeutronRate = new ReadableDataset('neutronRate', this.directBeamHDF5File)
-        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.directBeamContrast = new ReadableDataset('contrast', this.directBeamHDF5File)
-        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.directBeamPhase = new ReadableDataset('phase', this.directBeamHDF5File)
 
 
         // uint32
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.verticalProjectionBinCounts = new WritableDataset('verticalProjectionBinCounts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.horizontalProjectionBinCounts = new WritableDataset('horizontalProjectionBinCounts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.rawImageBinCounts = new WritableDataset('rawImageBinCounts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.horizontalProjectionHistogramsBinCounts = new WritableDataset('horizontalProjectionHistogramsBinCounts', this.hdf5File)
 
         // uint16
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16NDArray>} */
         this.tofImage = new WritableDataset('tofImage', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16NDArray>} */
         this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
 
         // float64
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.neutronRate = new WritableDataset('neutronRate', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.tofInSeconds = new WritableDataset('tofInSeconds', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.contrast = new WritableDataset('contrast', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.phase = new WritableDataset('phase', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.velocityInMetersPerSeconds = new WritableDataset('velocityInMetersPerSeconds', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.energyInMillielectronvolts = new WritableDataset('energyInMillielectronvolts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.wavelengthInAngstroms = new WritableDataset('wavelengthInAngstroms', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.fourierTimeInPicoseconds = new WritableDataset('fourierTimeInPicoseconds', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.fourierEnergyInMillielectronvolts = new WritableDataset('fourierEnergyInMillielectronvolts', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.heights = new WritableDataset('heights', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.centers = new WritableDataset('centers', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.widths = new WritableDataset('widths', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.horizontalProjectionMeans = new WritableDataset('horizontalProjectionMeans', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.horizontalProjectionStandardDeviations = new WritableDataset('horizontalProjectionStandardDeviations', this.hdf5File)
 
         // float64|undefined
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray|undefined>} */
         this.reflectivity = new WritableDataset('reflectivity', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray|undefined>} */
         this.contrastRatio = new WritableDataset('contrastRatio', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray|undefined>} */
         this.phaseShift = new WritableDataset('phaseShift', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64Dataset|undefined>} */
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray|undefined>} */
         this.momentumTransferInInverseAngstroms = new WritableDataset('momentumTransferInInverseAngstroms', this.hdf5File)
 
         // WritableArray

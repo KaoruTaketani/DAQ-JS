@@ -6,7 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64Dataset} */
+        /** @type {import('../lib/index.js').Float64NDArray} */
         this._fourierTimeInPicoseconds
         variables.fourierTimeInPicoseconds.addListener(arg => {
             this._fourierTimeInPicoseconds = arg

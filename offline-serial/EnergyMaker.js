@@ -6,7 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64Dataset} */
+        /** @type {import('../lib/index.js').Float64NDArray} */
         this._velocityInMetersPerSeconds
         variables.velocityInMetersPerSeconds.addListener(arg => {
             this._velocityInMetersPerSeconds = arg
