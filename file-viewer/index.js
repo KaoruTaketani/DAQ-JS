@@ -71,15 +71,15 @@ pngPathnames.set('/HorizontalProjectionHistogramsClient.html', '/horizontalProje
 pngPathnames.set('/RawImageClient.html', '/rawImage')
 
 const svgPathnames = new Map()
-svgPathnames.set('/CentersClient.html','/centers')
-svgPathnames.set('/CentersByEnergyClient.html','/centersByEnergy')
-svgPathnames.set('/CentersByVelocityClient.html','/centersByVelocity')
-svgPathnames.set('/CentersByWavelengthClient.html','/centersByWavelength')
-svgPathnames.set('/ContrastClient.html','/contrast')
-svgPathnames.set('/HeightsClient.html','/heights')
-svgPathnames.set('/HorizontalProjectionClient.html','/horizontalProjection')
-svgPathnames.set('/HorizontalProjectionMeansClient.html','/horizontalProjectionMeans')
-svgPathnames.set('/HorizontalProjectionStandardDeviationsClient.html','/horizontalProjectionStandardDeviations')
+svgPathnames.set('/CentersClient.html', '/centers')
+svgPathnames.set('/CentersByEnergyClient.html', '/centersByEnergy')
+svgPathnames.set('/CentersByVelocityClient.html', '/centersByVelocity')
+svgPathnames.set('/CentersByWavelengthClient.html', '/centersByWavelength')
+svgPathnames.set('/ContrastClient.html', '/contrast')
+svgPathnames.set('/HeightsClient.html', '/heights')
+svgPathnames.set('/HorizontalProjectionClient.html', '/horizontalProjection')
+svgPathnames.set('/HorizontalProjectionMeansClient.html', '/horizontalProjectionMeans')
+svgPathnames.set('/HorizontalProjectionStandardDeviationsClient.html', '/horizontalProjectionStandardDeviations')
 svgPathnames.set('/NeutronRateClient.html', '/neutronRate')
 svgPathnames.set('/PhaseClient.html', '/phase')
 svgPathnames.set('/PulseHeightHistogramClient.html', '/pulseHeightHistogram')
@@ -142,6 +142,21 @@ httpServer.on('request', (request, response) => {
             return
         }
 
+        if (url.pathname === 'AttributesClient.html') {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end([
+                '<html>',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '<body>',
+                `    <script type="module" src="./AttributesClient.js">`,
+                `    </script>`,
+                '</body>',
+                '</html>'
+            ].join('\n'))
+            return
+        }
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
             '<html>',
