@@ -27,7 +27,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._url.pathname !== '/pulseHeightHistogramBinCounts') return
+            if (this._url.pathname !== '/pulseHeightHistogram') return
 
             const response = this._responses.get(this._url)
             ok(response)

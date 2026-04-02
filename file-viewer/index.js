@@ -66,10 +66,11 @@ variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
 
 const pngPathnames = new Map()
-pngPathnames.set('/RawImageClient.html', '/rawImage')
 pngPathnames.set('/FilteredImageClient.html', '/filteredImage')
+pngPathnames.set('/RawImageClient.html', '/rawImage')
 
 const svgPathnames = new Map()
+svgPathnames.set('/PulseHeightHistogramClient.html', '/pulseHeightHistogram')
 svgPathnames.set('/TOFDifferenceHistogramClient.html', '/tofDifferenceHistogram')
 svgPathnames.set('/TOFHistogramClient.html', '/tofHistogram')
 svgPathnames.set('/VerticalProjectionClient.html', '/verticalProjection')
