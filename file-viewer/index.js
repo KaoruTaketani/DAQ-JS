@@ -1,33 +1,32 @@
 import { readFile } from 'fs'
 import { Server } from 'http'
-import { basename } from 'path'
 import AttributesHandler from './AttributesHandler.js'
-import ChannelHandler from './ChannelHandler.js'
-import FilesHandler from './FilesHandler.js'
-import NumEventsHandler from './NumEventsHandler.js'
-import Variables from './Variables.js'
-import FilteredImageHandler from './FilteredImageHandler.js'
-import TOFHistogramHandler from './TOFHistogramHandler.js'
-import TimerHandler from './TimerHandler.js'
-import KickerHandler from './KickerHandler.js'
-import RawImageHandler from './RawImageHandler.js'
-import RootHandler from './RootHandler.js'
+import CentersByEnergyHandler from './CentersByEnergyHandler.js'
+import CentersByVelocityHandler from './CentersByVelocityHandler.js'
+import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 import CentersHandler from './CentersHandler.js'
+import ChannelHandler from './ChannelHandler.js'
 import ContrastHandler from './ContrastHandler.js'
+import FilesHandler from './FilesHandler.js'
+import FilteredImageHandler from './FilteredImageHandler.js'
 import HeightsHandler from './HeightsHandler.js'
 import HorizontalProjectionHandler from './HorizontalProjectionHandler.js'
 import HorizontalProjectionHistogramsHandler from './HorizontalProjectionHistogramsHandler.js'
 import HorizontalProjectionMeansHandler from './HorizontalProjectionMeansHandler.js'
 import HorizontalProjectionStandardDeviationsHandler from './HorizontalProjectionStandardDeviationsHandler.js'
+import KickerHandler from './KickerHandler.js'
 import NeutronRateHandler from './NeutronRateHandler.js'
+import NumEventsHandler from './NumEventsHandler.js'
 import PhaseHandler from './PhaseHandler.js'
 import PulseHeightHistogramHandler from './PulseHeightHistogramHandler.js'
+import RawImageHandler from './RawImageHandler.js'
+import RootHandler from './RootHandler.js'
 import TOFDifferenceHistogramHandler from './TOFDifferenceHistogramHandler.js'
+import TOFHistogramHandler from './TOFHistogramHandler.js'
+import TimerHandler from './TimerHandler.js'
+import Variables from './Variables.js'
 import VerticalProjectionHandler from './VerticalProjectionHandler.js'
 import WidthsHandler from './WidthsHandler.js'
-import CentersByVelocityHandler from './CentersByVelocityHandler.js'
-import CentersByEnergyHandler from './CentersByEnergyHandler.js'
-import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -182,7 +181,7 @@ httpServer.on('request', (request, response) => {
             return
         }
         response.writeHead(404)
-        response.end()
+        response.end(`${url.pathname} was not found`)
         return
     }
     responses.set(url, response)
