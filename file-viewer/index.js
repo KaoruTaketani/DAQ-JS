@@ -67,6 +67,7 @@ variables.hdf5Path.assign('../../hdf5')
 
 const pathnames = new Map()
 pathnames.set('/RawImageClient.html', 'rawImage')
+pathnames.set('/FilteredImageClient.html', 'filteredImage')
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
