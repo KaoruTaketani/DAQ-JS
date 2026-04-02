@@ -79,6 +79,24 @@ httpServer.on('request', (request, response) => {
         return
     }
     if (url.pathname.endsWith('.html')) {
+        if (url.pathname === '/RawImageClient.html') {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end([
+                '<html>',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '<body>',
+                `    <script>`,
+                `        window.pathname="rawImage"`,
+                `    </script>`,
+                `    <script type="module" src="./FigureClient.js">`,
+                `    </script>`,
+                '</body>',
+                '</html>'
+            ].join('\n'))
+            return
+        }
         response.writeHead(200, { 'Content-Type': 'text/html' })
         response.end([
             '<html>',
