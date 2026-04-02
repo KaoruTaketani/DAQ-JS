@@ -1,12 +1,10 @@
 import { ok } from 'assert'
 import { join } from 'path'
 import axes from '../lib/axes.js'
-import colon from '../lib/colon.js'
-import scatter from '../lib/scatter.js'
 import linspace from '../lib/linspace.js'
 import max from '../lib/max.js'
+import scatter from '../lib/scatter.js'
 import xlabel from '../lib/xlabel.js'
-import diff from '../lib/diff.js'
 // @ts-ignore
 const h5wasm = await import("h5wasm/node")
 await h5wasm.ready
@@ -48,27 +46,36 @@ export default class {
             }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
-            let centers = f.get('centers')
+            /** @type {import('h5wasm').Dataset} */
+            const centers = /** @type {import('h5wasm').Dataset} */(f.get('centers'))
             if (!centers) {
                 response.writeHead(404)
                 response.end()
                 return
             }
-            const velocity = f.get('wavelengthInAngstroms')
+            /** @type {import('h5wasm').Dataset} */
+            const velocity =/** @type {import('h5wasm').Dataset} */ (f.get('wavelengthInAngstroms'))
             if (!velocity) {
                 response.writeHead(404)
                 response.end()
                 return
             }
+            /** @type {Float64Array} */
+            const velocityData = /** @type {Float64Array} */(velocity.value)
+            if (!velocityData) {
+                response.writeHead(404)
+                response.end()
+                return
+            }
+            /** @type {Float64Array} */
+            const y = /** @type {Float64Array} */(centers.value)
 
             // console.log(filteredTOFHistogram.shape)
             // console.log(filteredTOFHistogram.value)
             const startTime = Date.now()
-            const y = (/** @type {import('h5wasm').Dataset} */centers).value
-            const x = Array.from(velocity.value)
-            const dx = diff(x)
+            const x = Array.from(velocityData)
             const yMax = max(y)
-            const xMax = x.at(-1) + dx[0]// x.at(-1) is the maximu wavelength
+            const xMax = velocityData[velocityData.length - 1]// x.at(-1) is the max wavelength
             const xTick = linspace(0, xMax, 8 + 1)
             const ax = {
                 xLim: [0, xMax],

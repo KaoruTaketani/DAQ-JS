@@ -16,5 +16,5 @@
         "noUnusedParameters": true,
         // "baseUrl": "."
     },
-    "exclude": []
+    "exclude": ["node_modules"]
 }
