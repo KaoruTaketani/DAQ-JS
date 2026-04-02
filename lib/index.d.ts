@@ -47,6 +47,11 @@ export interface Image {
     height: number
 }
 
+export interface NDArray {
+    shape: number[]
+    data: TypedArray
+}
+
 export interface Uint16Dataset {
     shape: number[]
     data: Uint16Array
