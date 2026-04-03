@@ -41,15 +41,15 @@ new FigureGetterSVG(variables)
         element.type = 'checkbox'
         // element.checked = true
         element.addEventListener('click', () => {
-            xMinElement.disabled = !element.checked
-            xMaxElement.disabled = !element.checked
-            yMinElement.disabled = !element.checked
-            yMaxElement.disabled = !element.checked
+            xminElement.disabled = !element.checked
+            xmaxElement.disabled = !element.checked
+            yminElement.disabled = !element.checked
+            ymaxElement.disabled = !element.checked
         })
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('label')));
 
-const xMinElement = document.createElement('input');
+const xminElement = document.createElement('input');
 (element => {
     element.style.marginLeft = '8px'
     element.appendChild(document.createTextNode('xmin'));
@@ -64,10 +64,10 @@ const xMinElement = document.createElement('input');
         //     variables.offset.assign(value)
         // })
         // variables.offsetValue.addListener(arg => { element.value = arg })
-    })(element.appendChild(xMinElement));
+    })(element.appendChild(xminElement));
 })(document.body.appendChild(document.createElement('label')));
 
-const xMaxElement = document.createElement('input');
+const xmaxElement = document.createElement('input');
 (element => {
     element.style.marginLeft = '8px'
     element.appendChild(document.createTextNode('xmax'));
@@ -82,10 +82,10 @@ const xMaxElement = document.createElement('input');
         //     variables.offset.assign(value)
         // })
         // variables.offsetValue.addListener(arg => { element.value = arg })
-    })(element.appendChild(xMaxElement));
+    })(element.appendChild(xmaxElement));
 })(document.body.appendChild(document.createElement('label')));
 
-const yMinElement = document.createElement('input');
+const yminElement = document.createElement('input');
 (element => {
     element.style.marginLeft = '8px'
     element.appendChild(document.createTextNode('ymin'));
@@ -100,10 +100,10 @@ const yMinElement = document.createElement('input');
         //     variables.offset.assign(value)
         // })
         // variables.offsetValue.addListener(arg => { element.value = arg })
-    })(element.appendChild(yMinElement));
+    })(element.appendChild(yminElement));
 })(document.body.appendChild(document.createElement('label')));
 
-const yMaxElement = document.createElement('input');
+const ymaxElement = document.createElement('input');
 (element => {
     element.style.marginLeft = '8px'
     element.appendChild(document.createTextNode('ymax'));
@@ -118,7 +118,7 @@ const yMaxElement = document.createElement('input');
         //     variables.offset.assign(value)
         // })
         // variables.offsetValue.addListener(arg => { element.value = arg })
-    })(element.appendChild(yMaxElement));
+    })(element.appendChild(ymaxElement));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {
@@ -133,6 +133,14 @@ const yMaxElement = document.createElement('input');
     element.setAttribute('viewBox', '0 0 560 420')
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
+
+        const axes =/** @type {HTMLElement} */(element.firstElementChild)
+        // console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
+        if (axes.dataset.xminInData) xminElement.value = axes.dataset.xminInData
+        if (axes.dataset.xmaxInData) xmaxElement.value = axes.dataset.xmaxInData
+        if (axes.dataset.yminInData) yminElement.value = axes.dataset.yminInData
+        if (axes.dataset.ymaxInData) ymaxElement.value = axes.dataset.ymaxInData
+
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
