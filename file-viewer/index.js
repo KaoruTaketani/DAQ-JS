@@ -65,32 +65,32 @@ variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
 
 const pngPathnames = new Map()
-pngPathnames.set('/FilteredImageClient.html', '/filteredImage')
-pngPathnames.set('/HorizontalProjectionHistogramsClient.html', '/horizontalProjectionHistograms')
-pngPathnames.set('/RawImageClient.html', '/rawImage')
+pngPathnames.set('/FilteredImage.html', '/filteredImage')
+pngPathnames.set('/HorizontalProjectionHistograms.html', '/horizontalProjectionHistograms')
+pngPathnames.set('/RawImage.html', '/rawImage')
 
 const svgPathnames = new Map()
-svgPathnames.set('/CentersClient.html', '/centers')
-svgPathnames.set('/CentersByEnergyClient.html', '/centersByEnergy')
-svgPathnames.set('/CentersByVelocityClient.html', '/centersByVelocity')
-svgPathnames.set('/CentersByWavelengthClient.html', '/centersByWavelength')
-svgPathnames.set('/ContrastClient.html', '/contrast')
-svgPathnames.set('/HeightsClient.html', '/heights')
-svgPathnames.set('/HorizontalProjectionClient.html', '/horizontalProjection')
-svgPathnames.set('/HorizontalProjectionMeansClient.html', '/horizontalProjectionMeans')
-svgPathnames.set('/HorizontalProjectionStandardDeviationsClient.html', '/horizontalProjectionStandardDeviations')
-svgPathnames.set('/NeutronRateClient.html', '/neutronRate')
-svgPathnames.set('/PhaseClient.html', '/phase')
-svgPathnames.set('/PulseHeightHistogramClient.html', '/pulseHeightHistogram')
-svgPathnames.set('/TOFDifferenceHistogramClient.html', '/tofDifferenceHistogram')
-svgPathnames.set('/TOFHistogramClient.html', '/tofHistogram')
-svgPathnames.set('/VerticalProjectionClient.html', '/verticalProjection')
-svgPathnames.set('/WidthsClient.html', '/widths')
+svgPathnames.set('/Centers.html', '/centers')
+svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
+svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
+svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
+svgPathnames.set('/Contrast.html', '/contrast')
+svgPathnames.set('/Heights.html', '/heights')
+svgPathnames.set('/HorizontalProjection.html', '/horizontalProjection')
+svgPathnames.set('/HorizontalProjectionMeans.html', '/horizontalProjectionMeans')
+svgPathnames.set('/HorizontalProjectionStandardDeviations.html', '/horizontalProjectionStandardDeviations')
+svgPathnames.set('/NeutronRate.html', '/neutronRate')
+svgPathnames.set('/Phase.html', '/phase')
+svgPathnames.set('/PulseHeightHistogram.html', '/pulseHeightHistogram')
+svgPathnames.set('/TOFDifferenceHistogram.html', '/tofDifferenceHistogram')
+svgPathnames.set('/TOFHistogram.html', '/tofHistogram')
+svgPathnames.set('/VerticalProjection.html', '/verticalProjection')
+svgPathnames.set('/Widths.html', '/widths')
 
 const tablePathnames = new Map()
-tablePathnames.set('/TimerClient.html', '/timer')
-tablePathnames.set('/KickerClient.html', '/kicker')
-tablePathnames.set('/ChannelClient.html', '/channel')
+tablePathnames.set('/Timer.html', '/timer')
+tablePathnames.set('/Kicker.html', '/kicker')
+tablePathnames.set('/Channel.html', '/channel')
 
 
 httpServer.on('request', (request, response) => {
@@ -146,7 +146,7 @@ httpServer.on('request', (request, response) => {
             return
         }
 
-        if (url.pathname === '/AttributesClient.html') {
+        if (url.pathname === '/Attributes.html') {
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
                 '<html>',
