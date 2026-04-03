@@ -62,11 +62,6 @@ export interface Uint32NDArray {
     data: Uint32Array
 }
 
-export interface Float64NDArray {
-    shape: number[]
-    data: Float64Array
-}
-
 export interface Histogram {
     binLimits: number[]
     binCounts: Uint32Array

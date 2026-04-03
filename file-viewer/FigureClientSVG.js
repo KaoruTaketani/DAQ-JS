@@ -35,6 +35,83 @@ new FigureGetterSVG(variables)
 
 (element => {
     element.style.marginLeft = '208px'
+    element.appendChild(document.createTextNode('custom? '));
+    (element => {
+        // element.style.marginLeft = '208px'
+        element.type = 'checkbox'
+        // element.checked = true
+        element.addEventListener('click', () => {
+            
+        })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('xmin'));
+    (element => {
+        // element.type = 'number'
+        element.style.marginLeft = '8px'
+        // element.min = '0'
+        // element.addEventListener('change', () => {
+        //     const value = parseInt(element.value)
+        //     if (!Number.isInteger(value)) return
+        //     variables.offset.assign(value)
+        // })
+        // variables.offsetValue.addListener(arg => { element.value = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('xmax'));
+    (element => {
+        // element.type = 'number'
+        element.style.marginLeft = '8px'
+        // element.min = '0'
+        // element.addEventListener('change', () => {
+        //     const value = parseInt(element.value)
+        //     if (!Number.isInteger(value)) return
+        //     variables.offset.assign(value)
+        // })
+        // variables.offsetValue.addListener(arg => { element.value = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('ymin'));
+    (element => {
+        // element.type = 'number'
+        element.style.marginLeft = '8px'
+        // element.min = '0'
+        // element.addEventListener('change', () => {
+        //     const value = parseInt(element.value)
+        //     if (!Number.isInteger(value)) return
+        //     variables.offset.assign(value)
+        // })
+        // variables.offsetValue.addListener(arg => { element.value = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('ymax'));
+    (element => {
+        // element.type = 'number'
+        element.style.marginLeft = '8px'
+        // element.min = '0'
+        // element.addEventListener('change', () => {
+        //     const value = parseInt(element.value)
+        //     if (!Number.isInteger(value)) return
+        //     variables.offset.assign(value)
+        // })
+        // variables.offsetValue.addListener(arg => { element.value = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '208px'
     variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
