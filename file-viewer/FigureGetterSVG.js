@@ -6,6 +6,21 @@ export default class {
         /** @type {string} */
         this._path
         variables.path.prependListener(arg => { this._path = arg })
+        /** @type {boolean} */
+        this._customChecked
+        variables.customChecked.prependListener(arg => { this._customChecked = arg })
+        /** @type {string} */
+        this._xminValue
+        variables.xminValue.prependListener(arg => { this._xminValue = arg })
+        /** @type {string} */
+        this._xmaxValue
+        variables.xmaxValue.prependListener(arg => { this._xmaxValue = arg })
+        /** @type {string} */
+        this._yminValue
+        variables.yminValue.prependListener(arg => { this._yminValue = arg })
+        /** @type {string} */
+        this._ymaxValue
+        variables.ymaxValue.prependListener(arg => { this._ymaxValue = arg })
         /** @type {string} */
         this._fileName
         variables.fileName.addListener(arg => {
@@ -13,24 +28,42 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if(!this._fileName.endsWith('.h5'))return
+            if (!this._fileName.endsWith('.h5')) return
 
             // @ts-ignore
-            const pathname=window.pathname
-            fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}`).then(response => {
-                if (!response.ok) {
-                    variables.divInnerText.assign('tofHistogram was not found')
+            const pathname = window.pathname
+
+            if (!this._customChecked) {
+                fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}`).then(response => {
+                    if (!response.ok) {
+                        variables.divInnerText.assign('tofHistogram was not found')
+                        variables.svgInnerHTML.assign('')
+                    } else {
+                        response.text().then(text => {
+                            variables.divInnerText.assign('')
+                            variables.svgInnerHTML.assign(text)
+                        })
+                    }
+                }).catch(() => {
+                    variables.divInnerText.assign('failed to get')
                     variables.svgInnerHTML.assign('')
-                } else {
-                    response.text().then(text => {
-                        variables.divInnerText.assign('')
-                        variables.svgInnerHTML.assign(text)
-                    })
-                }
-            }).catch(() => {
-                variables.divInnerText.assign('failed to get')
-                variables.svgInnerHTML.assign('')
-            })
+                })
+            } else {
+                fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}&xLim=${this._xminValue}&xLim=${this._xmaxValue}&yLim=${this._yminValue}&yLim=${this._ymaxValue}`).then(response => {
+                    if (!response.ok) {
+                        variables.divInnerText.assign('tofHistogram was not found')
+                        variables.svgInnerHTML.assign('')
+                    } else {
+                        response.text().then(text => {
+                            variables.divInnerText.assign('')
+                            variables.svgInnerHTML.assign(text)
+                        })
+                    }
+                }).catch(() => {
+                    variables.divInnerText.assign('failed to get')
+                    variables.svgInnerHTML.assign('')
+                })
+            }
         }
     }
 }
