@@ -14,10 +14,9 @@ export default class extends Operator {
         })
         this._operation = () => {
             variables.pulseHeightHistogramBinLimits.assign([0, 1024])
-            variables.pulseHeightHistogramBinCounts.assign({
-                shape: [this._pulseHeightHistogramNumBins],
-                data: new Uint32Array(this._pulseHeightHistogramNumBins)
-            })
+            variables.pulseHeightHistogramBinCounts.assign(
+                new Uint32Array(this._pulseHeightHistogramNumBins)
+            )
         }
     }
 }

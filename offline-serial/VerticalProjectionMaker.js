@@ -6,7 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Uint32NDArray} */
+        /** @type {Uint32Array} */
         this._verticalProjectionBinCounts
         variables.verticalProjectionBinCounts.prependListener(arg => { this._verticalProjectionBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
@@ -16,7 +16,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            this._verticalProjectionBinCounts.data[
+            this._verticalProjectionBinCounts[
                 this._neutronEvent.yCoordinateInPixels 
             ]++
         }

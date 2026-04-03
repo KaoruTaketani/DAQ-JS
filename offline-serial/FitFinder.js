@@ -45,18 +45,9 @@ export default class extends Operator {
                 widths[i] = r[2]
                 // }
             }
-            variables.heights.assign({
-                shape: [numBins[0]],
-                data: heights
-            })
-            variables.centers.assign({
-                shape: [numBins[0]],
-                data: centers
-            })
-            variables.widths.assign({
-                shape: [numBins[0]],
-                data: widths
-            })
+            variables.heights.assign(heights)
+            variables.centers.assign(centers)
+            variables.widths.assign(widths)
         }
     }
 }

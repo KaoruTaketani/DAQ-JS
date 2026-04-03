@@ -6,20 +6,19 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64NDArray} */
+        /** @type {Float64Array} */
         this._velocityInMetersPerSeconds
         variables.velocityInMetersPerSeconds.addListener(arg => {
             this._velocityInMetersPerSeconds = arg
             this._operation()
         })
         this._operation = () => {
-            variables.energyInMillielectronvolts.assign({
-                shape: this._velocityInMetersPerSeconds.shape,
-                data: this._velocityInMetersPerSeconds.data.map(v => {
+            variables.energyInMillielectronvolts.assign(
+                this._velocityInMetersPerSeconds.map(v => {
                     /** see @NeutronEnergyByVelocity */
                     return 5.227e-6 * v ** 2
                 })
-            })
+            )
         }
     }
 }

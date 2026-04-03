@@ -12,26 +12,25 @@ export default class extends Operator {
         /** @type {number} */
         this._kickerPulseCount
         variables.kickerPulseCount.prependListener(arg => { this._kickerPulseCount = arg })
-        /** @type {import('../lib/index.js').Uint32NDArray} */
+        /** @type {Uint32Array} */
         this._tofHistogramBinCounts
         variables.tofHistogramBinCounts.addListener(arg => {
             this._tofHistogramBinCounts = arg
             this._operation()
         })
         this._operation = () => {
-            if (this._tofHistogramBinCounts.data.reduce((a, b) => a + b, 0) === 0) return
+            if (this._tofHistogramBinCounts.reduce((a, b) => a + b, 0) === 0) return
 
             const numBins = this._frequencyVectorLength,
-                length = this._tofHistogramBinCounts.data.length / numBins
+                length = this._tofHistogramBinCounts.length / numBins
 
-            variables.neutronRate.assign({
-                shape: [length],
-                data: new Float64Array(length).map((_, i) => {
-                    const s = this._tofHistogramBinCounts.data.slice(i * numBins, (i + 1) * numBins)
+            variables.neutronRate.assign(
+                new Float64Array(length).map((_, i) => {
+                    const s = this._tofHistogramBinCounts.slice(i * numBins, (i + 1) * numBins)
                     const b = s.reduce((a, b) => a + b, 0)
                     return b / this._kickerPulseCount
                 })
-            })
+            )
         }
     }
 }

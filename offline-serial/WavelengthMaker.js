@@ -6,20 +6,19 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64NDArray} */
+        /** @type {Float64Array} */
         this._energyInMillielectronvolts
         variables.energyInMillielectronvolts.addListener(arg => {
             this._energyInMillielectronvolts = arg
             this._operation()
         })
         this._operation = () => {
-            variables.wavelengthInAngstroms.assign({
-                shape: this._energyInMillielectronvolts.shape,
-                data: this._energyInMillielectronvolts.data.map(k => {
+            variables.wavelengthInAngstroms.assign(
+                this._energyInMillielectronvolts.map(k => {
                     /** see @NeutronWavelengthByEnergy */
                     return 9.044568 / Math.sqrt(k)
                 })
-            })
+            )
         }
     }
 }

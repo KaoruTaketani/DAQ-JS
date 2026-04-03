@@ -16,7 +16,7 @@ export default class extends Operator {
         /** @type {string} */
         this._hdf5FileName
         variables.hdf5FileName.prependListener(arg => { this._hdf5FileName = arg })
-        /** @type {import('../lib/index.js').Uint32NDArray} */
+        /** @type {Uint32Array} */
         this._tofHistogramBinCounts
         variables.tofHistogramBinCounts.prependListener(arg => { this._tofHistogramBinCounts = arg })
         /** @type {import('../lib/index.js').Uint32NDArray} */

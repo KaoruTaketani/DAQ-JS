@@ -24,10 +24,7 @@ export default class extends Operator {
 
                 stds[i] = std(colon(1, numBins[1]), weights)
             }
-            variables.horizontalProjectionStandardDeviations.assign({
-                shape: [numBins[0]],
-                data: stds
-            })
+            variables.horizontalProjectionStandardDeviations.assign(stds)
         }
     }
 }

@@ -26,10 +26,9 @@ export default class extends Operator {
             } else {
                 this._neutronPerPulse.push(this._neutronCount - this._previousCount)
                 this._previousCount = this._neutronCount
-                variables.neutronPerPulses.assign({
-                    shape: [this._neutronPerPulse.length],
-                    data: new Uint16Array(this._neutronPerPulse)
-                })
+                variables.neutronPerPulses.assign(
+                    new Uint16Array(this._neutronPerPulse)
+                )
             }
         }
     }

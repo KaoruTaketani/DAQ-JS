@@ -7,7 +7,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Uint32NDArray} */
+        /** @type {Uint32Array} */
         this._pulseHeightHistogram
         variables.pulseHeightHistogramBinCounts.prependListener(arg => { this._pulseHeightHistogram = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
@@ -19,9 +19,9 @@ export default class extends Operator {
         this._operation = () => {
             this._operation = () => {
                 const id = Math.floor(this._neutronEvent.pulseheight)
-                ok(id < this._pulseHeightHistogram.data.length)
+                ok(id < this._pulseHeightHistogram.length)
 
-                this._pulseHeightHistogram.data[id]++
+                this._pulseHeightHistogram[id]++
             }
         }
     }

@@ -8,7 +8,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64NDArray} */
+        /** @type {Float64Array} */
         this._wavelengthInAngstroms
         variables.wavelengthInAngstroms.prependListener(arg => { this._wavelengthInAngstroms = arg })
         /** @type {number} */
@@ -24,7 +24,7 @@ export default class extends Operator {
 
             if (this._incidentAngleInDegrees) {
                 variables.momentumTransferInInverseAngstroms.assign(
-                    this._wavelengthInAngstroms.data.map(lambda => {
+                    this._wavelengthInAngstroms.map(lambda => {
                         /** see @MomentumTransferAmplitude */
                         const theta = deg2rad(this._incidentAngleInDegrees)
 

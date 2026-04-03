@@ -7,10 +7,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64NDArray|undefined} */
+        /** @type {Float64Array|undefined} */
         this._directBeamPhase
         variables.directBeamPhase.prependListener(arg => { this._directBeamPhase = arg })
-        /** @type {import('../lib/index.js').Float64NDArray} */
+        /** @type {Float64Array} */
         this._phase
         variables.phase.addListener(arg => {
             this._phase = arg
@@ -20,15 +20,14 @@ export default class extends Operator {
             if (!this._directBeamPhase) {
                 variables.phaseShift.assign(undefined)
             } else {
-                ok(this._phase.data.length === this._directBeamPhase.data.length)
+                ok(this._phase.length === this._directBeamPhase.length)
 
-                variables.phaseShift.assign({
-                    shape: this._phase.shape,
-                    data: new Float64Array(this._phase.shape[0]).map((_, i) => {
+                variables.phaseShift.assign(
+                    new Float64Array(this._phase.length).map((_, i) => {
                         ok(this._directBeamPhase)
-                        return this._phase.data[i] - this._directBeamPhase.data[i]
+                        return this._phase[i] - this._directBeamPhase[i]
                     })
-                })
+                )
             }
         }
     }

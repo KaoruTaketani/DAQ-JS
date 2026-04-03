@@ -20,10 +20,9 @@ export default class extends Operator {
                 numBins = diff(this._tofDifferenceHistogramBinLimitsInNanoseconds)[0]
                     / dt
 
-            variables.tofDifferenceHistogramBinCounts.assign({
-                shape: [numBins],
-                data: new Uint32Array(numBins),
-            })
+            variables.tofDifferenceHistogramBinCounts.assign(
+                new Uint32Array(numBins),
+            )
         }
     }
 }

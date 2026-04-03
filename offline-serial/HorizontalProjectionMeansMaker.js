@@ -23,10 +23,7 @@ export default class extends Operator {
 
                 means[i] = mean(colon(1, numBins[1]), weights)
             }
-            variables.horizontalProjectionMeans.assign({
-                shape: [numBins[0]],
-                data: means
-            })
+            variables.horizontalProjectionMeans.assign(means)
         }
     }
 }

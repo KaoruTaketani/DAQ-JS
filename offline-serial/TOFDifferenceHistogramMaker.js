@@ -11,7 +11,7 @@ export default class extends Operator {
         /** @type {number[]} */
         this._tofDifferenceHistogramBinLimitsInNanoseconds
         variables.tofDifferenceHistogramBinLimitsInNanoseconds.prependListener(arg => { this._tofDifferenceHistogramBinLimitsInNanoseconds = arg })
-        /** @type {import('../lib/index.js').Uint32NDArray} */
+        /** @type {Uint32Array} */
         this._tofDifferenceHistogramBinCounts
         variables.tofDifferenceHistogramBinCounts.prependListener(arg => { this._tofDifferenceHistogramBinCounts = arg })
         /** @type {import('../lib/index.js').PairedEvent} */
@@ -26,9 +26,9 @@ export default class extends Operator {
                 if (!isbetween(dt, this._tofDifferenceHistogramBinLimitsInNanoseconds)) return
 
                 const r = rescale(dt, this._tofDifferenceHistogramBinLimitsInNanoseconds),
-                    i = Math.floor(r * this._tofDifferenceHistogramBinCounts.data.length)
+                    i = Math.floor(r * this._tofDifferenceHistogramBinCounts.length)
 
-                this._tofDifferenceHistogramBinCounts.data[i]++
+                this._tofDifferenceHistogramBinCounts[i]++
             }
         }
     }

@@ -19,7 +19,14 @@ export default class extends ListenableObject {
             } else {
                 const dataset = /** @type {import('h5wasm').Dataset} */(arg.get(this._name))
 
-                super.assign(dataset.data)
+                if (dataset.shape.length > 1) {
+                    super.assign({
+                        shape: dataset.shape,
+                        data: dataset.value
+                    })
+                } else {
+                    super.assign(dataset.value)
+                }
             }
         })
     }

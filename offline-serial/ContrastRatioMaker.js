@@ -7,10 +7,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64NDArray|undefined} */
+        /** @type {Float64Array|undefined} */
         this._directBeamContrast
         variables.directBeamContrast.prependListener(arg => { this._directBeamContrast = arg })
-        /** @type {import('../lib/index.js').Float64NDArray} */
+        /** @type {Float64Array} */
         this._contrast
         variables.contrast.addListener(arg => {
             this._contrast = arg
@@ -20,19 +20,18 @@ export default class extends Operator {
             if (!this._directBeamContrast) {
                 variables.contrastRatio.assign(undefined)
             } else {
-                ok(this._contrast.data.length === this._directBeamContrast.data.length)
+                ok(this._contrast.length === this._directBeamContrast.length)
 
-                variables.contrastRatio.assign({
-                    shape: [this._contrast.data.length],
-                    data: new Float64Array(this._contrast.data.length).map((_, i) => {
+                variables.contrastRatio.assign(
+                    new Float64Array(this._contrast.length).map((_, i) => {
                         ok(this._directBeamContrast)
-                        return Number.isNaN(this._contrast.data[i])
-                            || Number.isNaN(this._directBeamContrast.data[i])
-                            || this._directBeamContrast.data[i] === 0
+                        return Number.isNaN(this._contrast[i])
+                            || Number.isNaN(this._directBeamContrast[i])
+                            || this._directBeamContrast[i] === 0
                             ? NaN
-                            : this._contrast.data[i] / this._directBeamContrast.data[i]
+                            : this._contrast[i] / this._directBeamContrast[i]
                     })
-                })
+                )
             }
         }
     }

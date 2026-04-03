@@ -7,10 +7,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64NDArray|undefined} */
+        /** @type {Float64Array|undefined} */
         this._directBeamNeutronRate
         variables.directBeamNeutronRate.prependListener(arg => { this._directBeamNeutronRate = arg })
-        /** @type {import('../lib/index.js').Float64NDArray} */
+        /** @type {Float64Array} */
         this._neutronRate
         variables.neutronRate.addListener(arg => {
             this._neutronRate = arg
@@ -20,18 +20,17 @@ export default class extends Operator {
             if (!this._directBeamNeutronRate) {
                 variables.reflectivity.assign(undefined)
             } else {
-                ok(this._neutronRate.data.length === this._directBeamNeutronRate.data.length)
+                ok(this._neutronRate.length === this._directBeamNeutronRate.length)
 
-                variables.reflectivity.assign({
-                    shape: this._neutronRate.shape,
-                    data: new Float64Array(this._neutronRate.shape[0]).map((_, i) => {
+                variables.reflectivity.assign(
+                    new Float64Array(this._neutronRate.length).map((_, i) => {
                         ok(this._directBeamNeutronRate)
-                        const rate = this._neutronRate.data[i]
-                        const directRate = this._directBeamNeutronRate.data[i]
+                        const rate = this._neutronRate[i]
+                        const directRate = this._directBeamNeutronRate[i]
 
                         return directRate === 0 ? NaN : rate / directRate
                     })
-                })
+                )
             }
         }
     }

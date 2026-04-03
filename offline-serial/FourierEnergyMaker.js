@@ -6,21 +6,20 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {import('../lib/index.js').Float64NDArray} */
+        /** @type {Float64Array} */
         this._fourierTimeInPicoseconds
         variables.fourierTimeInPicoseconds.addListener(arg => {
             this._fourierTimeInPicoseconds = arg
             this._operation()
         })
         this._operation = () => {
-            variables.fourierEnergyInMillielectronvolts.assign({
-                shape: this._fourierTimeInPicoseconds.shape,
-                data: this._fourierTimeInPicoseconds.data.map(t => {
+            variables.fourierEnergyInMillielectronvolts.assign(
+                this._fourierTimeInPicoseconds.map(t => {
                     /** see @FourierEnergy */
 
                     return 4.13567 / t
                 })
-            })
+            )
         }
     }
 }

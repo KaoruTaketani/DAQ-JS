@@ -21,10 +21,7 @@ export default class extends Operator {
                 totalInSeconds = (0.001 * this._tofMaxInMilliseconds),
                 tofInSeconds = colon(stepInSeconds / 2, stepInSeconds, totalInSeconds - stepInSeconds / 2)
 
-            variables.tofInSeconds.assign({
-                shape: [tofInSeconds.length],
-                data: new Float64Array(tofInSeconds)
-            })
+            variables.tofInSeconds.assign(new Float64Array(tofInSeconds))
         }
     }
 }
