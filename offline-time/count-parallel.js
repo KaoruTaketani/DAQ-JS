@@ -21,6 +21,8 @@ Promise.all(
         })
     }))
 ).then(() => {
+    performance.mark('online')
+    console.log(`all online ${performance.measure('', 'start', 'online').duration}ms`)
     Promise.all(
         workers.map((worker, index) => new Promise(resolve => {
             worker.on('exit', () => {
@@ -30,8 +32,12 @@ Promise.all(
             })
         }))
     ).then(() => {
-        console.log('all exit')
+        performance.mark('exit')
+        console.log(`all exit ${performance.measure('', 'online', 'exit').duration}ms`)
     })
+    // this is less than 1ms
+    // performance.mark('online2')
+    // console.log(`all listener ${performance.measure('', 'online', 'online2').duration}ms`)
     workers.forEach(worker => worker.terminate())
 })
 // workers.forEach((_, index) => {
