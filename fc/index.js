@@ -2,8 +2,6 @@ import { createReadStream, readFile } from 'fs';
 import { createInterface } from 'readline';
 import { ok } from 'assert'
 import colon from '../lib/colon.js'
-import prod from '../lib/prod.js';
-import fliplr from '../lib/fliplr.js';
 const h5wasm = await import("h5wasm/node");
 await h5wasm.ready;
 
@@ -11,6 +9,7 @@ await h5wasm.ready;
 // https://gitlab.com/epw/q-e/-/blob/develop/EPW/ZG/src/ZG.f90
 //
 const startTime = Date.now()
+const basename = 'aluminum'
 let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
@@ -34,7 +33,7 @@ let ir2 // r2 index
 let ir3 // r3 index
 let i_frc = 0 // index for forceConstants
 createInterface({
-    input: createReadStream(`../../fc/aluminum.fc`, { encoding: 'utf8' })
+    input: createReadStream(`../../fc/${basename}.fc`, { encoding: 'utf8' })
     // output: channel
 }).on('line', line => {
     if (i === 0) {
@@ -89,17 +88,17 @@ createInterface({
         if ((j % (nr1 * nr2 * nr3 + 1)) === 0) {
             // console.log(i)
             // console.log(line)
-            const data = line.split(' ').filter(s => s.length > 0)
-            pa = parseInt(data[0])
-            pb = parseInt(data[1])
-            ia = parseInt(data[2])
-            ib = parseInt(data[3])
-            console.log([pa, pb, ia, ib])
+            // const data = line.split(' ').filter(s => s.length > 0)
+            // pa = parseInt(data[0])
+            // pb = parseInt(data[1])
+            // ia = parseInt(data[2])
+            // ib = parseInt(data[3])
+            // console.log([pa, pb, ia, ib])
         } else {
             const data = line.split(' ').filter(s => s.length > 0)
-            ir1 = parseInt(data[0])
-            ir2 = parseInt(data[1])
-            ir3 = parseInt(data[2])
+            // ir1 = parseInt(data[0])
+            // ir2 = parseInt(data[1])
+            // ir3 = parseInt(data[2])
             forceConstans[i_frc] = parseFloat(data[3])
             i_frc++
             // console.log(parseFloat(data[3]))
@@ -107,7 +106,7 @@ createInterface({
     }
     i++
 }).on('close', () => {
-    const f = new h5wasm.File(`aluminum.h5`, 'w')
+    const f = new h5wasm.File(`${basename}.h5`, 'w')
     f.create_attribute('numAtomTypes', numAtomTypes, null, '<i')
     f.create_attribute('numAtoms', numAtoms, null, '<i')
     f.create_attribute('bravaisLatticeIndex', bravaisLatticeIndex, null, '<i')
