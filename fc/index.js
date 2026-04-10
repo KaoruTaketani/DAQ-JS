@@ -9,15 +9,15 @@ await h5wasm.ready;
 // https://gitlab.com/epw/q-e/-/blob/develop/EPW/ZG/src/ZG.f90
 //
 const startTime = Date.now()
-const basename = 'aluminum'
-// const basename = 'silicon'
+// const basename = 'aluminum'
+const basename = 'silicon'
 let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
 let cellParameters = new Float64Array(6) // celldm(6)
-let fundamentalVector1 = new Float64Array(3) // a1(3)
-let fundamentalVector2 = new Float64Array(3) // a2(3)
-let fundamentalVector3 = new Float64Array(3) // a3(3)
+let fundamentalVector1InAngstroms = new Float64Array(3) // a1(3)
+let fundamentalVector2InAngstroms = new Float64Array(3) // a2(3)
+let fundamentalVector3InAngstroms = new Float64Array(3) // a3(3)
 let atomNames // atm
 let atomMassesInAtomicMassUnit // amass_from_file / amu_ry
 let atomTypeIndex // ityp
@@ -67,21 +67,28 @@ createInterface({
         //
         if (bravaisLatticeIndex === 2) {
             // fcc
-            const term = cellParameters[0] / 2
-            fundamentalVector1[0] = -term // a1(1)
-            fundamentalVector1[2] = term // a1(3)
-            fundamentalVector2[1] = term //  a2(2)
-            fundamentalVector2[2] = term // a2(3)
-            fundamentalVector3[0] = -term // a3(1)
-            fundamentalVector3[1] = term // a3(2)
+            //
+            // https://gitlab.com/epw/q-e/-/blob/develop/Modules/constants.f90
+            //
+            const BOHR_RADIUS_SI = 0.529177210903E-10 // m
+            const BOHR_RADIUS_CM = BOHR_RADIUS_SI * 100.0
+            const BOHR_RADIUS_ANGS = BOHR_RADIUS_CM * 1.0E8
+            const term = (cellParameters[0] * BOHR_RADIUS_ANGS) / 2
+
+            fundamentalVector1InAngstroms[0] = -term // a1(1)
+            fundamentalVector1InAngstroms[2] = term // a1(3)
+            fundamentalVector2InAngstroms[1] = term //  a2(2)
+            fundamentalVector2InAngstroms[2] = term // a2(3)
+            fundamentalVector3InAngstroms[0] = -term // a3(1)
+            fundamentalVector3InAngstroms[1] = term // a3(2)
         }
     }
     if (colon(1, numAtomTypes).includes(i)) {
         //
         // https://gitlab.com/epw/q-e/-/blob/develop/Modules/constants.f90
         //
-        const AMU_SI           = 1.66053906660E-27 // kg
-        const ELECTRONMASS_SI  = 9.1093837015E-31 // kg
+        const AMU_SI = 1.66053906660E-27 // kg
+        const ELECTRONMASS_SI = 9.1093837015E-31 // kg
         const AMU_AU = AMU_SI / ELECTRONMASS_SI
         const AMU_RY = AMU_AU / 2
 
@@ -198,9 +205,9 @@ createInterface({
     f.create_attribute('numAtoms', numAtoms, null, '<i')
     f.create_attribute('bravaisLatticeIndex', bravaisLatticeIndex, null, '<i')
     f.create_attribute('cellParameters', cellParameters)
-    f.create_attribute('fundamentalVector1', fundamentalVector1)
-    f.create_attribute('fundamentalVector2', fundamentalVector2)
-    f.create_attribute('fundamentalVector3', fundamentalVector3)
+    f.create_attribute('fundamentalVector1InAngstroms', fundamentalVector1InAngstroms)
+    f.create_attribute('fundamentalVector2InAngstroms', fundamentalVector2InAngstroms)
+    f.create_attribute('fundamentalVector3InAngstroms', fundamentalVector3InAngstroms)
     f.create_attribute('atomNames', atomNames)
     f.create_attribute('atomMassesInAtomicMassUnits', atomMassesInAtomicMassUnit)
     f.create_dataset({
