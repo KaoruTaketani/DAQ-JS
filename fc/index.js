@@ -9,18 +9,20 @@ await h5wasm.ready;
 // https://gitlab.com/epw/q-e/-/blob/develop/EPW/ZG/src/ZG.f90
 //
 const startTime = Date.now()
-const basename = 'aluminum'
-// const basename = 'silicon'
+// const basename = 'aluminum'
+const basename = 'silicon'
 let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
-let cellParameters = new Array(6) // celldm(6)
+let cellParameters = new Float64Array(6) // celldm(6)
 let atomNames // atm
 let atomMassesIn // amass_from_file
 let atomTypeIndex // ityp
 let atomCoordinatesIn // tau
 let forceConstans // frc
 let hasZstar // has_zstar
+let dielectricConstant//epsil
+let bornEffectiveCharges//zeu
 
 let i = 0
 let nr1 // number of r1 points?
@@ -34,6 +36,7 @@ let ir1 // r1 index
 let ir2 // r2 index
 let ir3 // r3 index
 let i_frc = 0 // index for forceConstants
+let i_zeu = 0 // index for bornEffectiveCharges
 createInterface({
     input: createReadStream(`../../fc/${basename}.fc`, { encoding: 'utf8' })
     // output: channel
@@ -52,10 +55,10 @@ createInterface({
 
         ok(bravaisLatticeIndex !== 0)
         // if bravaisLatticeIndex is 0, the file has at(3,3)
-        atomMassesIn = new Array(numAtomTypes)
+        atomMassesIn = new Float64Array(numAtomTypes)
         atomNames = new Array(numAtomTypes)
-        atomTypeIndex = new Array(numAtoms)
-        atomCoordinatesIn = new Array(3 * numAtoms)
+        atomTypeIndex = new Int32Array(numAtoms)
+        atomCoordinatesIn = new Float64Array(3 * numAtoms)
     }
     if (colon(1, numAtomTypes).includes(i)) {
 
@@ -76,6 +79,10 @@ createInterface({
     if (i === numAtoms + numAtomTypes + 1) {
         hasZstar = line === ' T'
         console.log(`hasZstar: ${hasZstar}`)
+        if (hasZstar) {
+            dielectricConstant = new Float64Array(3 * 3)
+            bornEffectiveCharges = new Float64Array(numAtoms * 3 * 3)
+        }
     }
     if (!hasZstar) {
         if (i === numAtoms + numAtomTypes + 2) {
@@ -85,7 +92,7 @@ createInterface({
             nr2 = parseInt(data[1])
             nr3 = parseInt(data[2])
 
-            forceConstans = new Array(3 * 3 * numAtoms * numAtoms * nr1 * nr2 * nr3)
+            forceConstans = new Float64Array(3 * 3 * numAtoms * numAtoms * nr1 * nr2 * nr3)
         }
         if (i > numAtoms + numAtomTypes + 2) {
             const j = i - (numAtoms + numAtomTypes + 3)
@@ -109,7 +116,57 @@ createInterface({
             }
         }
     } else {
+        if (colon(1, 3).includes(i - numAtomTypes - numAtoms - 1)) {
+            const j = (i - numAtomTypes - numAtoms - 1) - 1
+            const data = line.split(' ').filter(s => s.length > 0)
+            dielectricConstant[3 * j] = parseFloat(data[0])
+            dielectricConstant[3 * j + 1] = parseFloat(data[1])
+            dielectricConstant[3 * j + 2] = parseFloat(data[2])
+        }
+        if (colon(1, 4 * numAtoms).includes(i - numAtomTypes - numAtoms - 4)) {
+            // console.log(`${j} ${line}`)
+            const j = (i - numAtomTypes - numAtoms - 4) - 1
+            // console.log(j,line)
+            if (j % 4 === 0) {
+                // console.log(line)
+            } else {
+                const data = line.split(' ').filter(s => s.length > 0)
+                bornEffectiveCharges[3 * i_zeu] = parseFloat(data[0])
+                bornEffectiveCharges[3 * i_zeu + 1] = parseFloat(data[1])
+                bornEffectiveCharges[3 * i_zeu + 2] = parseFloat(data[2])
+                i_zeu++
+            }
+        }
+        if (i === numAtoms + numAtomTypes + 2 + 3 + 4 * numAtoms) {
+            const data = line.split(' ').filter(s => s.length > 0)
+            console.log(data)
+            nr1 = parseInt(data[0])
+            nr2 = parseInt(data[1])
+            nr3 = parseInt(data[2])
 
+            forceConstans = new Float64Array(3 * 3 * numAtoms * numAtoms * nr1 * nr2 * nr3)
+        }
+        if (i > numAtoms + numAtomTypes + 2 + 3 + 4 * numAtoms) {
+            const j = i - (numAtoms + numAtomTypes + 2 + 3 + 4 * numAtoms+1)
+            if ((j % (nr1 * nr2 * nr3 + 1)) === 0) {
+                // console.log(i)
+                // console.log(line)
+                // const data = line.split(' ').filter(s => s.length > 0)
+                // pa = parseInt(data[0])
+                // pb = parseInt(data[1])
+                // ia = parseInt(data[2])
+                // ib = parseInt(data[3])
+                // console.log([pa, pb, ia, ib])
+            } else {
+                const data = line.split(' ').filter(s => s.length > 0)
+                // ir1 = parseInt(data[0])
+                // ir2 = parseInt(data[1])
+                // ir3 = parseInt(data[2])
+                forceConstans[i_frc] = parseFloat(data[3])
+                i_frc++
+                // console.log(parseFloat(data[3]))
+            }
+        }
     }
     i++
 }).on('close', () => {
@@ -126,6 +183,17 @@ createInterface({
         shape: [numAtoms, 3],
         chunks: [numAtoms, 3],
         compression: 'gzip'
+    })
+    // if (dielectricConstant) f.create_attribute('dielectricConstant', dielectricConstant)
+    if (dielectricConstant) f.create_dataset({
+        name: 'dielectricConstant',
+        data: dielectricConstant,
+        shape: [3, 3]
+    })
+    if (bornEffectiveCharges) f.create_dataset({
+        name: 'bornEffectiveCharges',
+        data: bornEffectiveCharges,
+        shape: [numAtoms, 3, 3]
     })
     f.create_dataset({
         name: 'forceConstants',
