@@ -10,6 +10,7 @@ await h5wasm.ready;
 //
 const startTime = Date.now()
 const basename = 'aluminum'
+// const basename = 'silicon'
 let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
@@ -19,6 +20,7 @@ let atomMassesIn // amass_from_file
 let atomTypeIndex // ityp
 let atomCoordinatesIn // tau
 let forceConstans // frc
+let hasZstar // has_zstar
 
 let i = 0
 let nr1 // number of r1 points?
@@ -72,37 +74,42 @@ createInterface({
         atomCoordinatesIn[3 * j + 2] = parseFloat(data[4])
     }
     if (i === numAtoms + numAtomTypes + 1) {
-        console.log(line === ' F')
+        hasZstar = line === ' T'
+        console.log(`hasZstar: ${hasZstar}`)
     }
-    if (i === numAtoms + numAtomTypes + 2) {
-        const data = line.split(' ').filter(s => s.length > 0)
-        console.log(data)
-        nr1 = parseInt(data[0])
-        nr2 = parseInt(data[1])
-        nr3 = parseInt(data[2])
-
-        forceConstans = new Array(3 * 3 * numAtoms * numAtoms * nr1 * nr2 * nr3)
-    }
-    if (i > numAtoms + numAtomTypes + 2) {
-        const j = i - (numAtoms + numAtomTypes + 3)
-        if ((j % (nr1 * nr2 * nr3 + 1)) === 0) {
-            // console.log(i)
-            // console.log(line)
-            // const data = line.split(' ').filter(s => s.length > 0)
-            // pa = parseInt(data[0])
-            // pb = parseInt(data[1])
-            // ia = parseInt(data[2])
-            // ib = parseInt(data[3])
-            // console.log([pa, pb, ia, ib])
-        } else {
+    if (!hasZstar) {
+        if (i === numAtoms + numAtomTypes + 2) {
             const data = line.split(' ').filter(s => s.length > 0)
-            // ir1 = parseInt(data[0])
-            // ir2 = parseInt(data[1])
-            // ir3 = parseInt(data[2])
-            forceConstans[i_frc] = parseFloat(data[3])
-            i_frc++
-            // console.log(parseFloat(data[3]))
+            console.log(data)
+            nr1 = parseInt(data[0])
+            nr2 = parseInt(data[1])
+            nr3 = parseInt(data[2])
+
+            forceConstans = new Array(3 * 3 * numAtoms * numAtoms * nr1 * nr2 * nr3)
         }
+        if (i > numAtoms + numAtomTypes + 2) {
+            const j = i - (numAtoms + numAtomTypes + 3)
+            if ((j % (nr1 * nr2 * nr3 + 1)) === 0) {
+                // console.log(i)
+                // console.log(line)
+                // const data = line.split(' ').filter(s => s.length > 0)
+                // pa = parseInt(data[0])
+                // pb = parseInt(data[1])
+                // ia = parseInt(data[2])
+                // ib = parseInt(data[3])
+                // console.log([pa, pb, ia, ib])
+            } else {
+                const data = line.split(' ').filter(s => s.length > 0)
+                // ir1 = parseInt(data[0])
+                // ir2 = parseInt(data[1])
+                // ir3 = parseInt(data[2])
+                forceConstans[i_frc] = parseFloat(data[3])
+                i_frc++
+                // console.log(parseFloat(data[3]))
+            }
+        }
+    } else {
+
     }
     i++
 }).on('close', () => {
