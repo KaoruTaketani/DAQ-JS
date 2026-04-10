@@ -15,8 +15,11 @@ let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
 let cellParameters = new Float64Array(6) // celldm(6)
+let fundamentalVector1 = new Float64Array(3) // a1(3)
+let fundamentalVector2 = new Float64Array(3) // a2(3)
+let fundamentalVector3 = new Float64Array(3) // a3(3)
 let atomNames // atm
-let atomMassesIn // amass_from_file
+let atomMassesInAtomicMassUnit // amass_from_file / amu_ry
 let atomTypeIndex // ityp
 let atomCoordinatesIn // tau
 let forceConstans // frc
@@ -55,16 +58,36 @@ createInterface({
 
         ok(bravaisLatticeIndex !== 0)
         // if bravaisLatticeIndex is 0, the file has at(3,3)
-        atomMassesIn = new Float64Array(numAtomTypes)
+        atomMassesInAtomicMassUnit = new Float64Array(numAtomTypes)
         atomNames = new Array(numAtomTypes)
         atomTypeIndex = new Int32Array(numAtoms)
         atomCoordinatesIn = new Float64Array(3 * numAtoms)
+        //
+        // https://gitlab.com/epw/q-e/-/blob/develop/Modules/latgen.f90
+        //
+        if (bravaisLatticeIndex === 2) {
+            // fcc
+            const term = cellParameters[0] / 2
+            fundamentalVector1[0] = -term // a1(1)
+            fundamentalVector1[2] = term // a1(3)
+            fundamentalVector2[1] = term //  a2(2)
+            fundamentalVector2[2] = term // a2(3)
+            fundamentalVector3[0] = -term // a3(1)
+            fundamentalVector3[1] = term // a3(2)
+        }
     }
     if (colon(1, numAtomTypes).includes(i)) {
+        //
+        // https://gitlab.com/epw/q-e/-/blob/develop/Modules/constants.f90
+        //
+        const AMU_SI           = 1.66053906660E-27 // kg
+        const ELECTRONMASS_SI  = 9.1093837015E-31 // kg
+        const AMU_AU = AMU_SI / ELECTRONMASS_SI
+        const AMU_RY = AMU_AU / 2
 
         const data = line.split("'")
         atomNames[i - 1] = data[1]
-        atomMassesIn[i - 1] = parseFloat(data[2])
+        atomMassesInAtomicMassUnit[i - 1] = parseFloat(data[2]) / AMU_RY
         // console.log(data)
     }
     if (colon(1, numAtoms).includes(i - numAtomTypes)) {
@@ -147,7 +170,7 @@ createInterface({
             forceConstans = new Float64Array(3 * 3 * numAtoms * numAtoms * nr1 * nr2 * nr3)
         }
         if (i > numAtoms + numAtomTypes + 2 + 3 + 4 * numAtoms) {
-            const j = i - (numAtoms + numAtomTypes + 2 + 3 + 4 * numAtoms+1)
+            const j = i - (numAtoms + numAtomTypes + 2 + 3 + 4 * numAtoms + 1)
             if ((j % (nr1 * nr2 * nr3 + 1)) === 0) {
                 // console.log(i)
                 // console.log(line)
@@ -175,8 +198,11 @@ createInterface({
     f.create_attribute('numAtoms', numAtoms, null, '<i')
     f.create_attribute('bravaisLatticeIndex', bravaisLatticeIndex, null, '<i')
     f.create_attribute('cellParameters', cellParameters)
+    f.create_attribute('fundamentalVector1', fundamentalVector1)
+    f.create_attribute('fundamentalVector2', fundamentalVector2)
+    f.create_attribute('fundamentalVector3', fundamentalVector3)
     f.create_attribute('atomNames', atomNames)
-    f.create_attribute('atomMassesIn', atomMassesIn)
+    f.create_attribute('atomMassesInAtomicMassUnits', atomMassesInAtomicMassUnit)
     f.create_dataset({
         name: 'atomCoordinatesIn',
         data: atomCoordinatesIn,
