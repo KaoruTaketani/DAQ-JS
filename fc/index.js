@@ -9,8 +9,8 @@ await h5wasm.ready;
 // https://gitlab.com/epw/q-e/-/blob/develop/EPW/ZG/src/ZG.f90
 //
 const startTime = Date.now()
-// const basename = 'aluminum'
-const basename = 'silicon'
+const basename = 'aluminum'
+// const basename = 'silicon'
 let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
@@ -21,7 +21,7 @@ let fundamentalVector3 = new Float64Array(3) // a3(3)
 let atomNames // atm
 let atomMassesInAtomicMassUnit // amass_from_file / amu_ry
 let atomTypeIndex // ityp
-let atomCoordinatesIn // tau
+let atomPositionCoefficients // tau
 let forceConstans // frc
 let hasZstar // has_zstar
 let dielectricConstant//epsil
@@ -61,7 +61,7 @@ createInterface({
         atomMassesInAtomicMassUnit = new Float64Array(numAtomTypes)
         atomNames = new Array(numAtomTypes)
         atomTypeIndex = new Int32Array(numAtoms)
-        atomCoordinatesIn = new Float64Array(3 * numAtoms)
+        atomPositionCoefficients = new Float64Array(3 * numAtoms)
         //
         // https://gitlab.com/epw/q-e/-/blob/develop/Modules/latgen.f90
         //
@@ -95,9 +95,9 @@ createInterface({
         const j = i - numAtomTypes - 1
         console.log(data)
         atomTypeIndex[j] = parseInt(data[1])
-        atomCoordinatesIn[3 * j] = parseFloat(data[2])
-        atomCoordinatesIn[3 * j + 1] = parseFloat(data[3])
-        atomCoordinatesIn[3 * j + 2] = parseFloat(data[4])
+        atomPositionCoefficients[3 * j] = parseFloat(data[2])
+        atomPositionCoefficients[3 * j + 1] = parseFloat(data[3])
+        atomPositionCoefficients[3 * j + 2] = parseFloat(data[4])
     }
     if (i === numAtoms + numAtomTypes + 1) {
         hasZstar = line === ' T'
@@ -204,8 +204,8 @@ createInterface({
     f.create_attribute('atomNames', atomNames)
     f.create_attribute('atomMassesInAtomicMassUnits', atomMassesInAtomicMassUnit)
     f.create_dataset({
-        name: 'atomCoordinatesIn',
-        data: atomCoordinatesIn,
+        name: 'atomPositionCoefficients',
+        data: atomPositionCoefficients,
         shape: [numAtoms, 3],
         chunks: [numAtoms, 3],
         compression: 'gzip'
