@@ -18,7 +18,7 @@ export default class {
                 variables.tableInnerHTML.assign('')
                 return
             }
-            fetch(`/attributes?path=${this._path}&fileName=${this._fileName}`).then(response => {
+            fetch(`/attributes?path=${this._path}&${this._fileName}`).then(response => {
                 response.text().then(text => {
                     variables.tableInnerHTML.assign(text)
                 })

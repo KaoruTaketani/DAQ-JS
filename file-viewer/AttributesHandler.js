@@ -34,21 +34,21 @@ export default class extends Operator {
                 response.end()
                 return
             }
-            const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) {
+            const fileNames = this._url.searchParams.getAll('fileName')
+            if (!fileNames) {
                 response.writeHead(400)
                 response.end()
                 return
             }
 
-            if (fileName.split(',').length === 0) {
+            if (fileNames.length === 0) {
                 response.writeHead(200)
                 response.end()
                 return
             }
-            if (fileName.split(',').length === 1) {
+            if (fileNames.length === 1) {
                 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
-                let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r")
+                let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r")
                 //     variables.hdf5File.assign(f)
                 // console.log('xxx')
                 let tmp = '<table>'
@@ -96,7 +96,7 @@ export default class extends Operator {
             const startTime = Date.now()
             const keys = new Set()
             keys.add('_name')
-            fileName.split(',').forEach(name => {
+            fileNames.forEach(name => {
                 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
                 let f = new h5wasm.File(join(this._hdf5Path, path, name), "r")
                 Object.keys(f.attrs).forEach(key => { keys.add(key) })
@@ -104,7 +104,7 @@ export default class extends Operator {
             })
             /** @type {any[]} */
             const attributes = []
-            fileName.split(',').forEach(name => {
+            fileNames.forEach(name => {
                 // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
                 let f = new h5wasm.File(join(this._hdf5Path, path, name), "r")
                 //     variables.hdf5File.assign(f)

@@ -19,7 +19,7 @@ new FilesGetterHDF5(variables)
         element.style.top = `${window.scrollY + 8}px`
     }
     element.addEventListener('change', () => {
-        variables.fileName.assign(Array.from(element.selectedOptions).map(option => option.innerText).filter(text => text.endsWith('.h5')).join(','))
+        variables.fileName.assign(Array.from(element.selectedOptions).map(option => `fileName=${option.innerText}`).filter(text => text.endsWith('.h5')).join('&'))
     })
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
