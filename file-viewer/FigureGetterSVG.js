@@ -21,20 +21,21 @@ export default class {
         /** @type {string} */
         this._ymaxValue
         variables.ymaxValue.prependListener(arg => { this._ymaxValue = arg })
-        /** @type {string} */
-        this._fileName
-        variables.fileName.addListener(arg => {
-            this._fileName = arg
+        /** @type {string[]} */
+        this._fileNames
+        variables.fileNames.addListener(arg => {
+            this._fileNames = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._fileName.endsWith('.h5')) return
+            if (this._fileNames.length !== 1) return
+            if (!this._fileNames[0].endsWith('.h5')) return
 
             // @ts-ignore
             const pathname = window.pathname
 
             if (!this._customChecked) {
-                fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}`).then(response => {
+                fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
                     if (!response.ok) {
                         variables.divInnerText.assign('tofHistogram was not found')
                         variables.svgInnerHTML.assign('')
@@ -49,7 +50,7 @@ export default class {
                     variables.svgInnerHTML.assign('')
                 })
             } else {
-                fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}&xLim=${this._xminValue}&xLim=${this._xmaxValue}&yLim=${this._yminValue}&yLim=${this._ymaxValue}`).then(response => {
+                fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&xLim=${this._xminValue}&xLim=${this._xmaxValue}&yLim=${this._yminValue}&yLim=${this._ymaxValue}`).then(response => {
                     if (!response.ok) {
                         variables.divInnerText.assign('tofHistogram was not found')
                         variables.svgInnerHTML.assign('')

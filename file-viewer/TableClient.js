@@ -18,7 +18,7 @@ new TableCleanupper(variables)
     element.style.width = '200px'
     element.style.height = `${window.innerHeight - 8 * 2}px`
     element.addEventListener('change', () => {
-        variables.fileName.assign(element.options[element.selectedIndex].innerText)
+        variables.fileNames.assign([element.options[element.selectedIndex].innerText])
     })
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)

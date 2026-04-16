@@ -12,19 +12,20 @@ export default class {
             this._offset = arg
             this._operation()
         })
-        /** @type {string} */
-        this._fileName
-        variables.fileName.addListener(arg => {
-            this._fileName = arg
+        /** @type {string[]} */
+        this._fileNames
+        variables.fileNames.addListener(arg => {
+            this._fileNames = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._fileName) return
-            if (!this._fileName.endsWith('.edr')) return
+            if (!this._fileNames) return
+            if (this._fileNames.length !== 1) return
+            if (!this._fileNames[0].endsWith('.edr')) return
 
             // @ts-ignore
             const pathname = window.pathname
-            fetch(`${pathname}?path=${this._path}&fileName=${this._fileName}&offset=${this._offset}`).then(response => {
+            fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&offset=${this._offset}`).then(response => {
                 response.text().then(text => {
                     variables.tableInnerHTML.assign(text)
                 })

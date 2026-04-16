@@ -19,12 +19,13 @@ new CursorTextMaker(variables)
     element.style.position = 'absolute'
     element.style.whiteSpace = 'pre-wrap'
     element.style.width = '200px'
+    element.multiple = true
     element.style.height = `${window.innerHeight - 8 * 2}px`
     window.onscroll = _ => {
         element.style.top = `${window.scrollY + 8}px`
     }
     element.addEventListener('change', () => {
-        variables.fileName.assign(element.options[element.selectedIndex].innerText)
+        variables.fileNames.assign(Array.from(element.selectedOptions).map(option => option.innerText))
     })
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
