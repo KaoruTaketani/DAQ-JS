@@ -38,14 +38,15 @@ export default class {
                 response.end()
                 return
             }
-            const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) {
+            /** @type {string[]} */
+            const fileNames = this._url.searchParams.getAll('fileName')
+            if (fileNames.length !== 1) {
                 response.writeHead(400)
                 response.end()
                 return
             }
 
-            let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
+            let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
             /** @type {import('h5wasm').Dataset|null} */
             const centers =/** @type {import('h5wasm').Dataset|null} */ (f.get('centers'))
             if (!centers) {
@@ -65,7 +66,7 @@ export default class {
                 const y =/** @type {Float64Array} */ (centers.value)
                 const x = colon(1, y.length)
                 const xLim = xLimValues.map(v => parseFloat(v))
-                const xTick = linspace(xLim[0],xLim[1], 8 + 1)
+                const xTick = linspace(xLim[0], xLim[1], 8 + 1)
                 const yLim = yLimValues.map(v => parseFloat(v))
                 const ax = {
                     xLim: xLim,

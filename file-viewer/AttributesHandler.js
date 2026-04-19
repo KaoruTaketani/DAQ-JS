@@ -34,13 +34,8 @@ export default class extends Operator {
                 response.end()
                 return
             }
+            /** @type {string[]} */
             const fileNames = this._url.searchParams.getAll('fileName')
-            if (!fileNames) {
-                response.writeHead(400)
-                response.end()
-                return
-            }
-
             if (fileNames.length === 0) {
                 response.writeHead(200)
                 response.end()

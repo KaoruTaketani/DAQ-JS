@@ -31,14 +31,15 @@ export default class {
                 response.end()
                 return
             }
-            const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) {
+            /** @type {string[]} */
+            const fileNames = this._url.searchParams.getAll('fileName')
+            if (fileNames.length!==1) {
                 response.writeHead(400)
                 response.end()
                 return
             }
 
-            const filePath = join(this._edrPath, path, fileName)
+            const filePath = join(this._edrPath, path, fileNames[0])
             if (!existsSync(filePath)) {
                 response.writeHead(404)
                 response.end()

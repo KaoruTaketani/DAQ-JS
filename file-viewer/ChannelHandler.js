@@ -31,8 +31,9 @@ export default class {
                 response.end()
                 return
             }
-            const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) {
+            /** @type {string[]} */
+            const fileNames = this._url.searchParams.getAll('fileName')
+            if (fileNames.length !== 1) {
                 response.writeHead(400)
                 response.end()
                 return
@@ -45,7 +46,7 @@ export default class {
             }
             const offset = parseInt(offsetValue)
 
-            const fd = openSync(join(this._edrPath, path, fileName), 'r')
+            const fd = openSync(join(this._edrPath, path, fileNames[0]), 'r')
             const chunk = new Uint8Array(8 * 25)
             readSync(fd, chunk, 0, 8 * 25, 8 * offset)
             closeSync(fd)

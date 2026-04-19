@@ -40,15 +40,16 @@ export default class {
                 response.end()
                 return
             }
-            const fileName = this._url.searchParams.get('fileName')
-            if (!fileName) {
+            /** @type {string[]} */
+            const fileNames = this._url.searchParams.getAll('fileName')
+            if (fileNames.length!==1) {
                 response.writeHead(400)
                 response.end()
                 return
             }
 
             if (this._url.searchParams.get('type') === 'png') {
-                let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
+                let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
                 /** @type {import('h5wasm').Dataset|null} */
                 const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('rawImageBinCounts'))
                 if (!dataset) {
@@ -72,7 +73,7 @@ export default class {
                 return
             }
             if (this._url.searchParams.get('type') === 'svg') {
-                let f = new h5wasm.File(join(this._hdf5Path, path, fileName), "r");
+                let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
 
                 /** @type {import('h5wasm').Dataset|null} */
                 const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('rawImageBinCounts'))
