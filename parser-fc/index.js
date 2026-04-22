@@ -217,7 +217,11 @@ createInterface({
     // f.create_attribute('fundamentalVector2InAngstroms', fundamentalVector2InAngstroms)
     // f.create_attribute('fundamentalVector3InAngstroms', fundamentalVector3InAngstroms)
     f.create_attribute('atomNames', atomNames)
-    f.create_attribute('atomMassesInAtomicMassUnits', atomMassesInAtomicMassUnit)
+    // f.create_attribute('atomMassesInAtomicMassUnits', atomMassesInAtomicMassUnit)
+    f.create_dataset({
+        name: 'atomMassesInAtomicMassUnits',
+        data: atomMassesInAtomicMassUnit
+    })
     f.create_dataset({
         name: 'atomPositionCoefficients',
         data: atomPositionCoefficients,
