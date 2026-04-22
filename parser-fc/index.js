@@ -9,15 +9,16 @@ await h5wasm.ready;
 // https://gitlab.com/epw/q-e/-/blob/develop/EPW/ZG/src/ZG.f90
 //
 const startTime = Date.now()
-// const basename = 'aluminum'
-const basename = 'silicon'
+const basename = 'aluminum'
+// const basename = 'silicon'
 let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
 let cellParameters = new Float64Array(6) // celldm(6)
-let fundamentalVector1InAngstroms = new Float64Array(3) // a1(3)
-let fundamentalVector2InAngstroms = new Float64Array(3) // a2(3)
-let fundamentalVector3InAngstroms = new Float64Array(3) // a3(3)
+// let fundamentalVector1InAngstroms = new Float64Array(3) // a1(3)
+// let fundamentalVector2InAngstroms = new Float64Array(3) // a2(3)
+// let fundamentalVector3InAngstroms = new Float64Array(3) // a3(3)
+let fundamentalVectorsInAngstroms = new Float64Array(3 * 3)
 let atomNames // atm
 let atomMassesInAtomicMassUnit // amass_from_file / amu_ry
 let atomTypeIndex // ityp
@@ -75,12 +76,19 @@ createInterface({
             const BOHR_RADIUS_ANGS = BOHR_RADIUS_CM * 1.0E8
             const term = (cellParameters[0] * BOHR_RADIUS_ANGS) / 2
 
-            fundamentalVector1InAngstroms[0] = -term // a1(1)
-            fundamentalVector1InAngstroms[2] = term // a1(3)
-            fundamentalVector2InAngstroms[1] = term //  a2(2)
-            fundamentalVector2InAngstroms[2] = term // a2(3)
-            fundamentalVector3InAngstroms[0] = -term // a3(1)
-            fundamentalVector3InAngstroms[1] = term // a3(2)
+            // fundamentalVector1InAngstroms[0] = -term // a1(1)
+            // fundamentalVector1InAngstroms[2] = term // a1(3)
+            // fundamentalVector2InAngstroms[1] = term //  a2(2)
+            // fundamentalVector2InAngstroms[2] = term // a2(3)
+            // fundamentalVector3InAngstroms[0] = -term // a3(1)
+            // fundamentalVector3InAngstroms[1] = term // a3(2)
+
+            fundamentalVectorsInAngstroms[0 * 3 + 0] = -term // a1(1)
+            fundamentalVectorsInAngstroms[0 * 3 + 2] = term // a1(3)
+            fundamentalVectorsInAngstroms[1 * 3 + 1] = term //  a2(2)
+            fundamentalVectorsInAngstroms[1 * 3 + 2] = term // a2(3)
+            fundamentalVectorsInAngstroms[2 * 3 + 0] = -term // a3(1)
+            fundamentalVectorsInAngstroms[2 * 3 + 1] = term // a3(2)
         }
     }
     if (colon(1, numAtomTypes).includes(i)) {
@@ -205,9 +213,9 @@ createInterface({
     f.create_attribute('numAtoms', numAtoms, null, '<i')
     f.create_attribute('bravaisLatticeIndex', bravaisLatticeIndex, null, '<i')
     f.create_attribute('cellParameters', cellParameters)
-    f.create_attribute('fundamentalVector1InAngstroms', fundamentalVector1InAngstroms)
-    f.create_attribute('fundamentalVector2InAngstroms', fundamentalVector2InAngstroms)
-    f.create_attribute('fundamentalVector3InAngstroms', fundamentalVector3InAngstroms)
+    // f.create_attribute('fundamentalVector1InAngstroms', fundamentalVector1InAngstroms)
+    // f.create_attribute('fundamentalVector2InAngstroms', fundamentalVector2InAngstroms)
+    // f.create_attribute('fundamentalVector3InAngstroms', fundamentalVector3InAngstroms)
     f.create_attribute('atomNames', atomNames)
     f.create_attribute('atomMassesInAtomicMassUnits', atomMassesInAtomicMassUnit)
     f.create_dataset({
@@ -215,6 +223,13 @@ createInterface({
         data: atomPositionCoefficients,
         shape: [numAtoms, 3],
         chunks: [numAtoms, 3],
+        compression: 'gzip'
+    })
+    f.create_dataset({
+        name: 'fundamentalVectorsInAngstroms',
+        data: fundamentalVectorsInAngstroms,
+        shape: [3, 3],
+        chunks: [3, 3],
         compression: 'gzip'
     })
     // if (dielectricConstant) f.create_attribute('dielectricConstant', dielectricConstant)
