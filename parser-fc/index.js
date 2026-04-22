@@ -15,9 +15,6 @@ let numAtomTypes // ntyp
 let numAtoms // nat
 let bravaisLatticeIndex // ibrav
 let cellParameters = new Float64Array(6) // celldm(6)
-// let fundamentalVector1InAngstroms = new Float64Array(3) // a1(3)
-// let fundamentalVector2InAngstroms = new Float64Array(3) // a2(3)
-// let fundamentalVector3InAngstroms = new Float64Array(3) // a3(3)
 let fundamentalVectorsInAngstroms = new Float64Array(3 * 3)
 let atomNames // atm
 let atomMassesInAtomicMassUnit // amass_from_file / amu_ry
@@ -29,16 +26,16 @@ let dielectricConstant//epsil
 let bornEffectiveCharges//zeu
 
 let i = 0
-let nr1 // number of r1 points?
-let nr2 // number of r2 points?
-let nr3 // number of r3 points?
+let nr1 // number of ir1 points
+let nr2 // number of ir2 points
+let nr3 // number of ir3 points
 let pa // atom A polarization index
 let pb // atom B polarization index
 let ia // atom A atom index
 let ib // atom B atom index
-let ir1 // r1 index
-let ir2 // r2 index
-let ir3 // r3 index
+let ir1 // cell index 1 used to identify atoms in difference cells
+let ir2 // cell index 2 used to identify atoms in difference cells
+let ir3 // cell index 3 used to identify atoms in difference cells
 let i_frc = 0 // index for forceConstants
 let i_zeu = 0 // index for bornEffectiveCharges
 createInterface({
@@ -75,13 +72,6 @@ createInterface({
             const BOHR_RADIUS_CM = BOHR_RADIUS_SI * 100.0
             const BOHR_RADIUS_ANGS = BOHR_RADIUS_CM * 1.0E8
             const term = (cellParameters[0] * BOHR_RADIUS_ANGS) / 2
-
-            // fundamentalVector1InAngstroms[0] = -term // a1(1)
-            // fundamentalVector1InAngstroms[2] = term // a1(3)
-            // fundamentalVector2InAngstroms[1] = term //  a2(2)
-            // fundamentalVector2InAngstroms[2] = term // a2(3)
-            // fundamentalVector3InAngstroms[0] = -term // a3(1)
-            // fundamentalVector3InAngstroms[1] = term // a3(2)
 
             fundamentalVectorsInAngstroms[0 * 3 + 0] = -term // a1(1)
             fundamentalVectorsInAngstroms[0 * 3 + 2] = term // a1(3)
@@ -209,15 +199,7 @@ createInterface({
     i++
 }).on('close', () => {
     const f = new h5wasm.File(`${basename}.h5`, 'w')
-    // f.create_attribute('numAtomTypes', numAtomTypes, null, '<i')
-    // f.create_attribute('numAtoms', numAtoms, null, '<i')
-    // f.create_attribute('bravaisLatticeIndex', bravaisLatticeIndex, null, '<i')
-    // f.create_attribute('cellParameters', cellParameters)
-    // f.create_attribute('fundamentalVector1InAngstroms', fundamentalVector1InAngstroms)
-    // f.create_attribute('fundamentalVector2InAngstroms', fundamentalVector2InAngstroms)
-    // f.create_attribute('fundamentalVector3InAngstroms', fundamentalVector3InAngstroms)
     f.create_attribute('atomNames', atomNames)
-    // f.create_attribute('atomMassesInAtomicMassUnits', atomMassesInAtomicMassUnit)
     f.create_dataset({
         name: 'atomMassesInAtomicMassUnits',
         data: atomMassesInAtomicMassUnit
@@ -236,7 +218,6 @@ createInterface({
         chunks: [3, 3],
         compression: 'gzip'
     })
-    // if (dielectricConstant) f.create_attribute('dielectricConstant', dielectricConstant)
     if (dielectricConstant) f.create_dataset({
         name: 'dielectricConstant',
         data: dielectricConstant,
