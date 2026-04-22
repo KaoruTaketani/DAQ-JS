@@ -209,10 +209,10 @@ createInterface({
     i++
 }).on('close', () => {
     const f = new h5wasm.File(`${basename}.h5`, 'w')
-    f.create_attribute('numAtomTypes', numAtomTypes, null, '<i')
-    f.create_attribute('numAtoms', numAtoms, null, '<i')
-    f.create_attribute('bravaisLatticeIndex', bravaisLatticeIndex, null, '<i')
-    f.create_attribute('cellParameters', cellParameters)
+    // f.create_attribute('numAtomTypes', numAtomTypes, null, '<i')
+    // f.create_attribute('numAtoms', numAtoms, null, '<i')
+    // f.create_attribute('bravaisLatticeIndex', bravaisLatticeIndex, null, '<i')
+    // f.create_attribute('cellParameters', cellParameters)
     // f.create_attribute('fundamentalVector1InAngstroms', fundamentalVector1InAngstroms)
     // f.create_attribute('fundamentalVector2InAngstroms', fundamentalVector2InAngstroms)
     // f.create_attribute('fundamentalVector3InAngstroms', fundamentalVector3InAngstroms)
