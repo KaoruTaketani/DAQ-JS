@@ -13,8 +13,6 @@ export default class extends Variables {
         this.batchParams = new ListenableObject()
         this.batchResolve = new ListenableObject()
 
-        this.randomNumber = new ListenableNumber()
-
         // overwrite defined in ../13ga/Variables.js
         this.randomNumberGeneratorIsBusy = new BatchBoolean('randomNumberGeneratorIsBusy', this.requestParams, this.batchResolve)
         this.batchProcessorIsBusy = new ControllableBoolean('batchProcessorIsBusy', this.requestParams, this.batchResolve)
