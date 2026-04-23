@@ -5,36 +5,12 @@ import ListenableNumber from '../13/ListenableNumber.js'
 import ListenableObject from '../13/ListenableObject.js'
 import ControllableNumber from '../13gc/ControllableNumber.js'
 import BatchBoolean from '../13gd/BatchBoolean.js'
+import Variables from '../13gd/Variables.js'
 
-export default class {
+export default class extends Variables {
     constructor() {
-        this.httpServer = new ListenableObject()
-        this.requestParams = new ListenableObject()
-        this.webSocketPathnames = new ListenableObject()
-        this.elementValues = new ListenableObject()
-        this.histogramBinCounts = new ListenableObject()
-        this.histogramBinLimits = new ListenableObject()
-        this.batchParams = new ListenableObject()
-        this.batchResolve = new ListenableObject()
-        this.batchReject = new ListenableObject()
+        super()
 
-        this.randomNumber = new ListenableNumber()
-
-        this.batchProcessorIsBusy = new ControllableBoolean('batchProcessorIsBusy', this.requestParams, this.batchResolve)
-        this.randomNumberGeneratorIsBusy = new BatchBoolean('randomNumberGeneratorIsBusy', this.requestParams, this.batchResolve)
-
-        this.preset = new ControllableNumber('preset', this.requestParams, this.batchResolve)
-
-        this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
-        this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
-        this.presetDisabled = new ElementBoolean('/presetDisabled', this.elementValues, this.webSocketPathnames)
-        this.batchStartButtonDisabled = new ElementBoolean('/batchStartButtonDisabled', this.elementValues, this.webSocketPathnames)
-        this.batchStopButtonDisabled = new ElementBoolean('/batchStopButtonDisabled', this.elementValues, this.webSocketPathnames)
-
-        this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
-        this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
-        this.batchTableInnerHTML = new ElementString('/batchTableInnerHTML', this.elementValues, this.webSocketPathnames)
-        this.presetValue = new ElementString('/presetValue', this.elementValues, this.webSocketPathnames)
         this.textAreaValue = new ElementString('/textAreaValue', this.elementValues, this.webSocketPathnames)
     }
 }
