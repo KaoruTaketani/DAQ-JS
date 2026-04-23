@@ -12,7 +12,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT', '/?randomNumberGeneratorIsBusy=true')
+        xhr.open('PUT','/?randomNumberGetterIsBusy=true')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -28,7 +28,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT', '/?randomNumberGeneratorIsBusy=false')
+        xhr.open('PUT','/?randomNumberGetterIsBusy=false')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
@@ -39,21 +39,29 @@ socket.onclose = () => {
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
-    element.width = 256
-    element.height = 256
-    const imageElement = new Image()
-    imageElement.onload = () => {
-        const ctx = element.getContext("2d")
-        if (!ctx) return
-        ctx.imageSmoothingEnabled = false
-        ctx.drawImage(imageElement, 0, 0, 256, 256)
+    url.pathname = 'startTimeInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
     }
-    url.pathname = 'histogramImageSrc'
-    const srcSocket = new WebSocket(url)
-    srcSocket.onmessage = event => {
-        console.log('data')
-        imageElement.src = event.data
-    }
-})(document.body.appendChild(document.createElement('canvas')));
+})(document.body.appendChild(document.createElement('p')));
 
+(element => {
+    url.pathname = 'randomNumberInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300')
+    element.setAttribute('viewBox', '0 0 560 420')
+    url.pathname = 'histogramSVGInnerHTML'
+    const innerHTMLSocket = new WebSocket(url)
+    innerHTMLSocket.onmessage = event => {
+        element.innerHTML = event.data
+    }
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 

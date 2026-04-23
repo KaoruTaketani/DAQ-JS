@@ -8,10 +8,8 @@ import Variables from '../13/Variables.js'
 export default class extends Variables {
     constructor() {
         super()
-        this.histogramXBinLimits = new ListenableObject()
-        this.histogramYBinLimits = new ListenableObject()
-        
-        this.histogramImageSrc = new ElementString('/histogramImageSrc', this.elementValues, this.webSocketPathnames)
+
+        this.randomNumberGetterIsBusy = new ControllableBoolean('randomNumberGetterIsBusy', this.requestParams)
     }
 }
 

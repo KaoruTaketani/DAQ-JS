@@ -6,15 +6,18 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._randomNumberGetterIsBusy
-        variables.randomNumberGetterIsBusy.addListener(arg => {
-            this._randomNumberGetterIsBusy = arg
+        this._randomNumberGeneratorIsBusy
+        variables.randomNumberGeneratorIsBusy.addListener(arg => {
+            this._randomNumberGeneratorIsBusy = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._randomNumberGetterIsBusy) return
+            if (!this._randomNumberGeneratorIsBusy) return
 
-            variables.histogramBinCounts.assign(new Uint32Array(10))
+            variables.histogramBinCounts.assign({
+                shape: [16, 16],
+                data: new Uint32Array(16 * 16)
+            })
         }
     }
 }
