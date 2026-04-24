@@ -54,13 +54,13 @@ export default class {
                 response.end()
                 return
             }
-            const xLimValues = this._url.searchParams.getAll('xLim')
-            const yLimValues = this._url.searchParams.getAll('yLim')
             const startTime = Date.now()
             /** @type {Float64Array} */
             const y =/** @type {Float64Array} */ (centers.value)
             const x = colon(1, y.length)
 
+            const xLimValues = this._url.searchParams.getAll('xLim')
+            const yLimValues = this._url.searchParams.getAll('yLim')
             const xLim = xLimValues.length === 2
                 ? xLimValues.map(v => parseFloat(v))
                 : [0, y.length]
