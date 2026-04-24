@@ -28,6 +28,7 @@ import Variables from './Variables.js'
 import VerticalProjectionHandler from './VerticalProjectionHandler.js'
 import WidthsHandler from './WidthsHandler.js'
 import PairedHandler from './PairedHandler.js'
+import NeutronHandler from './NeutronHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -57,7 +58,7 @@ new CentersByVelocityHandler(variables)
 new CentersByEnergyHandler(variables)
 new CentersByWavelengthHandler(variables)
 new PairedHandler(variables)
-
+new NeutronHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
@@ -93,6 +94,7 @@ tablePathnames.set('/Timer.html', '/timer')
 tablePathnames.set('/Kicker.html', '/kicker')
 tablePathnames.set('/Channel.html', '/channel')
 tablePathnames.set('/Paired.html', '/paired')
+tablePathnames.set('/Neutron.html', '/neutron')
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
