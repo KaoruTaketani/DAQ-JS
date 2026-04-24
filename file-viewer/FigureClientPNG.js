@@ -14,6 +14,7 @@ new PNGDrawer(variables)
 new FigureGetterPNG(variables)
 new CursorTextMaker(variables)
     ;
+const listboxElement = document.createElement('select');
 (element => {
     element.size = 20
     element.style.position = 'absolute'
@@ -31,7 +32,7 @@ new CursorTextMaker(variables)
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
     })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
-})(document.body.appendChild(document.createElement('select')));
+})(document.body.appendChild(listboxElement));
 
 (element => {
     element.style.marginLeft = '208px'
@@ -72,11 +73,100 @@ let svgInnerHTML
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
+    // element.style.marginLeft = '208px'
+    element.appendChild(document.createTextNode('custom? '));
+    (element => {
+        // element.style.marginLeft = '208px'
+        element.type = 'checkbox'
+        // element.checked = true
+        element.addEventListener('click', () => {
+            variables.customChecked.assign(element.checked)
+
+            variables.xminDisabled.assign(!element.checked)
+            variables.xmaxDisabled.assign(!element.checked)
+            variables.yminDisabled.assign(!element.checked)
+            variables.ymaxDisabled.assign(!element.checked)
+        })
+        variables.customChecked.addListener(arg => { element.checked = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('xmin'));
+    (element => {
+        element.type = 'number'
+        element.style.marginLeft = '8px'
+        element.disabled = true
+        // element.min = '0'
+        element.addEventListener('change', () => {
+            variables.xminValue.assign(element.value)
+            listboxElement.dispatchEvent(new Event('change'))
+        })
+        variables.xminValue.addListener(arg => { element.value = arg })
+        variables.xminDisabled.addListener(arg => { element.disabled = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('xmax'));
+    (element => {
+        element.type = 'number'
+        element.style.marginLeft = '8px'
+        element.disabled = true
+        // element.min = '0'
+        element.addEventListener('change', () => {
+            variables.xmaxValue.assign(element.value)
+            listboxElement.dispatchEvent(new Event('change'))
+        })
+        variables.xmaxValue.addListener(arg => { element.value = arg })
+        variables.xmaxDisabled.addListener(arg => { element.disabled = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('ymin'));
+    (element => {
+        element.type = 'number'
+        element.style.marginLeft = '8px'
+        element.disabled = true
+        // element.min = '0'
+        element.addEventListener('change', () => {
+            variables.yminValue.assign(element.value)
+            listboxElement.dispatchEvent(new Event('change'))
+        })
+        variables.yminValue.addListener(arg => { element.value = arg })
+        variables.yminDisabled.addListener(arg => { element.disabled = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    element.style.marginLeft = '8px'
+    element.appendChild(document.createTextNode('ymax'));
+    (element => {
+        element.type = 'number'
+        element.style.marginLeft = '8px'
+        element.disabled = true
+        // element.min = '0'
+        element.addEventListener('change', () => {
+            variables.ymaxValue.assign(element.value)
+            listboxElement.dispatchEvent(new Event('change'))
+        })
+        variables.ymaxValue.addListener(arg => { element.value = arg })
+        variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
     element.style.marginLeft = '208px'
     variables.divInnerText.addListener(arg => {
         element.innerText = arg
     })
 })(document.body.appendChild(document.createElement('div')));
+
+
 
 (element => {
     element.style.marginLeft = '200px'
@@ -129,14 +219,22 @@ let svgInnerHTML
             variables.xmaxInPixels.assign(parseInt(axes.dataset.xmaxInPixels))
         if (axes.dataset.ymaxInPixels)
             variables.ymaxInPixels.assign(parseInt(axes.dataset.ymaxInPixels))
-        if (axes.dataset.xminInData)
+        if (axes.dataset.xminInData) {
             variables.xminInData.assign(parseFloat(axes.dataset.xminInData))
-        if (axes.dataset.yminInData)
+            variables.xminValue.assign(axes.dataset.xminInData)
+        }
+        if (axes.dataset.yminInData) {
             variables.yminInData.assign(parseInt(axes.dataset.yminInData))
-        if (axes.dataset.xmaxInData)
+            variables.yminValue.assign(axes.dataset.yminInData)
+        }
+        if (axes.dataset.xmaxInData) {
             variables.xmaxInData.assign(parseInt(axes.dataset.xmaxInData))
-        if (axes.dataset.ymaxInData)
+            variables.xmaxValue.assign(axes.dataset.xmaxInData)
+        }
+        if (axes.dataset.ymaxInData) {
             variables.ymaxInData.assign(parseInt(axes.dataset.ymaxInData))
+            variables.ymaxValue.assign(axes.dataset.ymaxInData)
+        }
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 

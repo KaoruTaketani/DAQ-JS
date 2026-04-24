@@ -27,7 +27,7 @@ export default class {
                     response.text().then(text => {
                         variables.divInnerText.assign('')
                         variables.svgInnerHTML.assign(text)
-                        fetch(`/rawImage?path=${this._path}&fileName=${this._fileNames[0]}&type=png`).then(response => {
+                        fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&type=png`).then(response => {
                             response.text().then(text => {
                                 variables.imageSrc.assign(text)
                             })
