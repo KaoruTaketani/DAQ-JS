@@ -28,14 +28,14 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._fileNames.length !== 1) return
+            // if (this._fileNames.length !== 1) return
             if (!this._fileNames[0].endsWith('.h5')) return
 
             // @ts-ignore
             const pathname = window.pathname
 
             if (!this._customChecked) {
-                fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
+                fetch(`${pathname}?path=${this._path}&${this._fileNames.map(fileName=>`fileName=${fileName}`).join('&')}`).then(response => {
                     if (!response.ok) {
                         variables.divInnerText.assign('tofHistogram was not found')
                         variables.svgInnerHTML.assign('')
@@ -50,7 +50,7 @@ export default class {
                     variables.svgInnerHTML.assign('')
                 })
             } else {
-                fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&xLim=${this._xminValue}&xLim=${this._xmaxValue}&yLim=${this._yminValue}&yLim=${this._ymaxValue}`).then(response => {
+                fetch(`${pathname}?path=${this._path}&${this._fileNames.map(fileName=>`fileName=${fileName}`).join('&')}&xLim=${this._xminValue}&xLim=${this._xmaxValue}&yLim=${this._yminValue}&yLim=${this._ymaxValue}`).then(response => {
                     if (!response.ok) {
                         variables.divInnerText.assign('tofHistogram was not found')
                         variables.svgInnerHTML.assign('')
