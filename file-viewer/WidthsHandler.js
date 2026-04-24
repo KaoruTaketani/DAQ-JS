@@ -46,32 +46,32 @@ export default class {
                 return
             }
 
+            const startTime = Date.now()
             let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
             /** @type {import('h5wasm').Dataset|null} */
             const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('widths'))
-            if (!dataset) {
-                response.writeHead(404)
-                response.end()
-                return
-            }
-            // console.log(filteredTOFHistogram.shape)
-            // console.log(filteredTOFHistogram.value)
-            const startTime = Date.now()
+            ok (dataset) 
             const y =/** @type {Float64Array} */ (dataset.value)
             const x = colon(1, y.length)
-            const yMax = max(y)
-            const xTick = linspace(0, y.length, 8 + 1)
+
+            const xLimValues = this._url.searchParams.getAll('xLim')
+            const yLimValues = this._url.searchParams.getAll('yLim')
+            const xLim = xLimValues.length === 2
+                ? xLimValues.map(v => parseFloat(v))
+                : [0, y.length]
+            const yLim = yLimValues.length === 2
+                ? yLimValues.map(v => parseFloat(v))
+                : [0, max(y)]
+            const xTick = linspace(xLim[0], xLim[1], 8 + 1)
             const ax = {
-                xLim: [0, y.length],
-                yLim: [0, yMax],
+                xLim: xLim,
+                yLim: yLim,
                 xTick: xTick,
-                yTick: [0, yMax],
+                yTick: yLim,
                 xTickLabel: xTick.map(x => x.toFixed()),
-                yTickLabel: ['0', `${yMax.toFixed()}`]
+                yTickLabel: yLim.map(y => y.toString())
             }
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-            // console.log(colon(1, yData.length))
-            // console.log(yData)
             response.end([
                 axes(ax),
                 xlabel(ax, 'tof (ch)'),
