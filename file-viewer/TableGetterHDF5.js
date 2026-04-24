@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./AttributesVariables.js').default} variables 
+     * @param {import('./TableVariablesHDF5.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
