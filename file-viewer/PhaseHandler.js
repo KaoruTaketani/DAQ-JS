@@ -39,38 +39,38 @@ export default class {
             }
             /** @type {string[]} */
             const fileNames = this._url.searchParams.getAll('fileName')
-            if (fileNames.length!==1) {
+            if (fileNames.length !== 1) {
                 response.writeHead(400)
                 response.end()
                 return
             }
 
+            const startTime = Date.now()
             let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
             /** @type {import('h5wasm').Dataset|null} */
             const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('phase'))
-            if (!dataset) {
-                response.writeHead(404)
-                response.end()
-                return
-            }
-            // console.log(filteredTOFHistogram.shape)
-            // console.log(filteredTOFHistogram.value)
-            const startTime = Date.now()
+            ok(dataset)
             /** @type {Float64Array} */
             const y = /** @type {Float64Array} */(dataset.value)
             const x = colon(1, y.length)
-            const xTick = linspace(0, y.length, 8 + 1)
+            const xLimValues = this._url.searchParams.getAll('xLim')
+            const yLimValues = this._url.searchParams.getAll('yLim')
+            const xLim = xLimValues.length === 2
+                ? xLimValues.map(v => parseFloat(v))
+                : [0, y.length]
+            const yLim = yLimValues.length === 2
+                ? yLimValues.map(v => parseFloat(v))
+                : [-Math.PI, Math.PI]
+            const xTick = linspace(xLim[0], xLim[1], 8 + 1)
             const ax = {
-                xLim: [0, y.length],
-                yLim: [-Math.PI, Math.PI],
+                xLim: xLim,
+                yLim: yLim,
                 xTick: xTick,
-                yTick: [-Math.PI, 0, Math.PI],
+                yTick: yLim,
                 xTickLabel: xTick.map(x => x.toFixed()),
-                yTickLabel: ['-Pi', '0', `Pi`]
+                yTickLabel: yLim.map(y => y.toString())
             }
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-            // console.log(colon(1, yData.length))
-            // console.log(yData)
             response.end([
                 axes(ax),
                 xlabel(ax, 'tof (ch)'),
