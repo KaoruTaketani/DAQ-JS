@@ -66,20 +66,25 @@ export default class {
             const startTime = Date.now()
             const y = /** @type {Float64Array} */(centers.value)
             const x = /** @type {Float64Array} */(velocity.value)
-            const yMax = max(y)
-            const xMax = x[0] // x[0] is the maximu energy
-            const xTick = linspace(0, xMax, 8 + 1)
+
+            const xLimValues = this._url.searchParams.getAll('xLim')
+            const yLimValues = this._url.searchParams.getAll('yLim')
+            const xLim = xLimValues.length === 2
+                ? xLimValues.map(v => parseFloat(v))
+                : [0, x[0]]// x[0] is the maximu velocity
+            const yLim = yLimValues.length === 2
+                ? yLimValues.map(v => parseFloat(v))
+                : [0, max(y)]
+            const xTick = linspace(xLim[0], xLim[1], 8 + 1)
             const ax = {
-                xLim: [0, xMax],
-                yLim: [0, yMax],
+                xLim: xLim,
+                yLim: yLim,
                 xTick: xTick,
-                yTick: [0, yMax],
+                yTick: yLim,
                 xTickLabel: xTick.map(x => x.toFixed()),
-                yTickLabel: ['0', `${yMax.toFixed()}`]
+                yTickLabel: yLim.map(y => y.toString())
             }
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-            // console.log(colon(1, yData.length))
-            // console.log(yData)
             response.end([
                 axes(ax),
                 xlabel(ax, 'neutron velocity (m/s)'),

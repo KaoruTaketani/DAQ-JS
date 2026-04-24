@@ -69,7 +69,7 @@ export default class {
             const yLimValues = this._url.searchParams.getAll('yLim')
             const xLim = xLimValues.length === 2
                 ? xLimValues.map(v => parseFloat(v))
-                : [0, x[0]]// x[0] is the maximu velocity
+                : [0, x[0]]// x[0] is the maximu energy
             const yLim = yLimValues.length === 2
                 ? yLimValues.map(v => parseFloat(v))
                 : [0, max(y)]
