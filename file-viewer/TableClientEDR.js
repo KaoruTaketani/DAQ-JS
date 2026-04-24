@@ -1,13 +1,13 @@
-import TableVariables from "./TableVariables.js";
+import TableVariablesEDR from "./TableVariablesEDR.js";
 import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
 import TableCleanupper from "./TableCleanupper.js";
-import TableGetter from "./TableGetter.js";
+import TableGetterEDR from "./TableGetterEDR.js";
 
-const variables = new TableVariables()
+const variables = new TableVariablesEDR()
 new PathMaker(variables)
-new TableGetter(variables)
+new TableGetterEDR(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
 new TableCleanupper(variables)

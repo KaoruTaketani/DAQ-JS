@@ -176,7 +176,7 @@ httpServer.on('request', (request, response) => {
                 `    <script>`,
                 `        window.pathname="${tablePathnames.get(url.pathname)}"`,
                 `    </script>`,
-                `    <script type="module" src="./TableClient.js">`,
+                `    <script type="module" src="./TableClientEDR.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
