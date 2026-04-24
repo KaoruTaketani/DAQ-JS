@@ -43,35 +43,37 @@ export default class {
             }
             /** @type {string[]} */
             const fileNames = this._url.searchParams.getAll('fileName')
-            if (fileNames.length!==1) {
+            if (fileNames.length !== 1) {
                 response.writeHead(400)
                 response.end()
                 return
             }
 
+            const startTime = Date.now()
             let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
             /** @type {import('h5wasm').Dataset|null} */
             const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('tofHistogramBinCounts'))
-            if (!dataset) {
-                response.writeHead(404)
-                response.end()
-                return
-            }
-            // console.log(filteredTOFHistogram.shape)
-            // console.log(filteredTOFHistogram.value)
-            const startTime = Date.now()
+            ok(dataset)
             /** @type {Uint32Array} */
             const y =/** @type {Uint32Array} */ (dataset.value)
             const x = colon(0, y.length)
-            const yMax = max(y)
-            const edges = linspace(0, y.length, 8 + 1)
+
+            const xLimValues = this._url.searchParams.getAll('xLim')
+            const yLimValues = this._url.searchParams.getAll('yLim')
+            const xLim = xLimValues.length === 2
+                ? xLimValues.map(v => parseFloat(v))
+                : [0, y.length]
+            const yLim = yLimValues.length === 2
+                ? yLimValues.map(v => parseFloat(v))
+                : [0, max(y)]
+            const xTick = linspace(xLim[0], xLim[1], 8 + 1)
             const ax = {
-                xLim: [0, y.length],
-                yLim: [0, yMax],
-                xTick: edges,
-                yTick: [0, yMax],
-                xTickLabel: edges.map(x => x.toFixed()),
-                yTickLabel: ['0', `${yMax}`]
+                xLim: xLim,
+                yLim: yLim,
+                xTick: xTick,
+                yTick: yLim,
+                xTickLabel: xTick.map(x => x.toFixed()),
+                yTickLabel: yLim.map(y => y.toString())
             }
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
             response.end([
