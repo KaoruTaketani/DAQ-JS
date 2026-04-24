@@ -27,6 +27,7 @@ import TimerHandler from './TimerHandler.js'
 import Variables from './Variables.js'
 import VerticalProjectionHandler from './VerticalProjectionHandler.js'
 import WidthsHandler from './WidthsHandler.js'
+import PairedHandler from './PairedHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -55,7 +56,7 @@ new WidthsHandler(variables)
 new CentersByVelocityHandler(variables)
 new CentersByEnergyHandler(variables)
 new CentersByWavelengthHandler(variables)
-
+new PairedHandler(variables)
 
 
 const httpServer = new Server()
@@ -91,7 +92,7 @@ const tablePathnames = new Map()
 tablePathnames.set('/Timer.html', '/timer')
 tablePathnames.set('/Kicker.html', '/kicker')
 tablePathnames.set('/Channel.html', '/channel')
-
+tablePathnames.set('/Paired.html', '/paired')
 
 httpServer.on('request', (request, response) => {
     console.log(`GET url: ${request.url}`)
