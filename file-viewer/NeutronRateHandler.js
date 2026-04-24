@@ -47,33 +47,33 @@ export default class {
             }
 
             if (fileNames.length === 1) {
+                const startTime = Date.now()
                 let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
                 /** @type {import('h5wasm').Dataset|null} */
                 const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('neutronRate'))
-                if (!dataset) {
-                    response.writeHead(404)
-                    response.end()
-                    return
-                }
-                // console.log(filteredTOFHistogram.shape)
-                // console.log(filteredTOFHistogram.value)
-                const startTime = Date.now()
+                ok(dataset)
                 /** @type {Float64Array} */
                 const y = /** @type {Float64Array} */(dataset.value)
                 const x = colon(1, y.length)
-                const yMax = max(y)
-                const xTick = linspace(0, y.length, 8 + 1)
+
+                const xLimValues = this._url.searchParams.getAll('xLim')
+                const yLimValues = this._url.searchParams.getAll('yLim')
+                const xLim = xLimValues.length === 2
+                    ? xLimValues.map(v => parseFloat(v))
+                    : [0, y.length]
+                const yLim = yLimValues.length === 2
+                    ? yLimValues.map(v => parseFloat(v))
+                    : [0, max(y)]
+                const xTick = linspace(xLim[0], xLim[1], 8 + 1)
                 const ax = {
-                    xLim: [0, y.length],
-                    yLim: [0, yMax],
+                    xLim: xLim,
+                    yLim: yLim,
                     xTick: xTick,
-                    yTick: [0, yMax],
+                    yTick: yLim,
                     xTickLabel: xTick.map(x => x.toFixed()),
-                    yTickLabel: ['0', `${yMax.toFixed()}`]
+                    yTickLabel: yLim.map(y => y.toString())
                 }
                 response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-                // console.log(colon(1, yData.length))
-                // console.log(yData)
                 response.end([
                     axes(ax),
                     xlabel(ax, 'tof (ch)'),
@@ -82,6 +82,7 @@ export default class {
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
             } else {
                 // two files
+                const startTime = Date.now()
                 let f0 = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r")
                 let f1 = new h5wasm.File(join(this._hdf5Path, path, fileNames[1]), "r")
                 /** @type {import('h5wasm').Dataset|null} */
@@ -90,28 +91,31 @@ export default class {
                 /** @type {import('h5wasm').Dataset|null} */
                 const dataset1 = /** @type {import('h5wasm').Dataset|null} */(f1.get('neutronRate'))
                 ok(dataset1)
-                // console.log(filteredTOFHistogram.shape)
-                // console.log(filteredTOFHistogram.value)
-                const startTime = Date.now()
                 /** @type {Float64Array} */
                 const y0 = /** @type {Float64Array} */(dataset0.value)
                 /** @type {Float64Array} */
                 const y1 = /** @type {Float64Array} */(dataset1.value)
                 ok(y0.length === y1.length)
                 const x = colon(1, y0.length)
-                const yMax = Math.max(max(y0), max(y1))
-                const xTick = linspace(0, y0.length, 8 + 1)
+
+                const xLimValues = this._url.searchParams.getAll('xLim')
+                const yLimValues = this._url.searchParams.getAll('yLim')
+                const xLim = xLimValues.length === 2
+                    ? xLimValues.map(v => parseFloat(v))
+                    : [0, y0.length]
+                const yLim = yLimValues.length === 2
+                    ? yLimValues.map(v => parseFloat(v))
+                    : [0, Math.max(max(y0), max(y1))]
+                const xTick = linspace(xLim[0], xLim[1], 8 + 1)
                 const ax = {
-                    xLim: [0, y0.length],
-                    yLim: [0, yMax],
+                    xLim: xLim,
+                    yLim: yLim,
                     xTick: xTick,
-                    yTick: [0, yMax],
+                    yTick: yLim,
                     xTickLabel: xTick.map(x => x.toFixed()),
-                    yTickLabel: ['0', `${yMax.toFixed()}`]
+                    yTickLabel: yLim.map(y => y.toString())
                 }
                 response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-                // console.log(colon(1, yData.length))
-                // console.log(yData)
                 response.end([
                     axes(ax),
                     xlabel(ax, 'tof (ch)'),
