@@ -101,6 +101,12 @@ httpServer.on('request', (request, response) => {
     const url = new URL(`http://localhost${request.url}`)
 
     if (url.pathname.endsWith('.js')) {
+        if (url.pathname === '/Client.js') {
+
+            response.writeHead(404)
+            response.end('')
+            return
+        }
         readFile(`.${request.url}`, 'utf8', (err, data) => {
             if (err) throw err
 
@@ -110,7 +116,6 @@ httpServer.on('request', (request, response) => {
         return
     }
     if (url.pathname.endsWith('.html')) {
-
         if (pngPathnames.has(url.pathname)) {
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
