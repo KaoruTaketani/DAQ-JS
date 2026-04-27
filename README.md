@@ -60,8 +60,6 @@
 
 [13.d.b Log Plot](./13db/README.md)
 
-[13.d.c Plot Dialog](./13dc/README.md)
-
 13.e API
 
 [13.e.a BlockList](./13ea/README.md)
