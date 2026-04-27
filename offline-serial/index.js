@@ -16,6 +16,7 @@ import HorizontalProjectionInitializer from "./HorizontalProjectionInitializer.j
 import HorizontalProjectionMaker from "./HorizontalProjectionMaker.js"
 import HorizontalProjectionMeansMaker from "./HorizontalProjectionMeansMaker.js"
 import HorizontalProjectionStandardDeviationsMaker from "./HorizontalProjectionStandardDeviationsMaker.js"
+import ImageBinWidthCalculator from "./ImageBinWidthCalculator.js"
 import JSONFileReader from "./JSONFileReader.js"
 import MomentumTransferMaker from "./MomentumTransferMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
@@ -29,6 +30,7 @@ import PulseHeightHistogramMaker from "./PulseHeightHistogramMaker.js"
 import RawImageInitializer from "./RawImageInitializer.js"
 import RawImageMaker from "./RawImageMaker.js"
 import ReflectivityMaker from "./ReflectivityMaker.js"
+import ROIInPixelsMaker from "./ROIInPixelsMaker.js"
 import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializer.js"
 import TOFDifferenceHistogramMaker from "./TOFDifferenceHistogramMaker.js"
 import TOFHistogramInitializer from "./TOFHistogramInitializer.js"
@@ -84,6 +86,8 @@ new PulseHeightHistogramInitializer(variables)
 new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)
 new TOFDifferenceHistogramMaker(variables)
+new ImageBinWidthCalculator(variables)
+new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
 variables.hdf5Path.assign('../../hdf5/20250424')
@@ -104,9 +108,9 @@ variables.hdf5Path.assign('../../hdf5/20250424')
 //     './43.json'
 // ])
 // variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
-// variables.jsonFileNames.assign(['0.json'])
+variables.jsonFileNames.assign(['0.json'])
 // variables.jsonFileNames.assign(['35.json'])
 // console.log(colon(0, 60))
-variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 

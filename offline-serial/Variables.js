@@ -122,8 +122,9 @@ export default class {
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
         this.horizontalProjectionHistogramsXBinLimitsInPixels = new WritableArray('horizontalProjectionHistogramsXBinLimitsInPixels', this.hdf5File)
         this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('horizontalProjectionHistogramsYBinLimitsInNanoseconds', this.hdf5File)
-        this.filteredImageXBinLimitsInPixels = new WritableArray('filteredImageXBinLimitsInPixels', this.hdf5File)
-        this.filteredImageYBinLimitsInPixels = new WritableArray('filteredImageYBinLimitsInPixels', this.hdf5File)
+        this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageXBinLimitsInMillimeters', this.hdf5File)
+        this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageYBinLimitsInMillimeters', this.hdf5File)
+        this.roiInPixels = new WritableArray('roiInPixels', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
 
@@ -141,9 +142,9 @@ export default class {
         this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
         this.neutronPositionMaxInMillimeters = new WritableNumber('neutronPositionMaxInMillimeters', this.hdf5File)
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
+        this.imageBinWidthInMillimeters = new WritableNumber('imageBinWidthInMillimeters', this.hdf5File)
 
         this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
-        this.roiInPixels = new ParameterArray('roiInPixels', this.hdf5File, this.parameters)
 
         this.incidentAngleInDegrees = new ParameterNumber('incidentAngleInDegrees', this.hdf5File, this.parameters)
         this.frequencyVectorLength = new ParameterNumber('frequencyVectorLength', this.hdf5File, this.parameters)

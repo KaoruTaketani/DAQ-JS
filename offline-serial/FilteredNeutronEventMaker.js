@@ -1,3 +1,4 @@
+import isbetween from '../lib/isbetween.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -21,10 +22,8 @@ export default class extends Operator {
             const [x, y, w, h] = this._roiInPixels
             const dx = this._neutronEvent.xCoordinateInPixels - x
             const dy = this._neutronEvent.yCoordinateInPixels - y
-            if (dx < 1) return
-            if (dx > w) return
-            if (dy < 1) return
-            if (dy > h) return
+            if (!isbetween(dx, [0, w])) return
+            if (!isbetween(dy, [0, h])) return
 
             variables.filteredNeutronCount.assign(this._filteredNeutronCount + 1)
             variables.filteredNeutronEvent.assign(this._neutronEvent)
