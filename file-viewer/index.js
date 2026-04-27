@@ -107,12 +107,21 @@ httpServer.on('request', (request, response) => {
             response.end('')
             return
         }
-        readFile(`.${request.url}`, 'utf8', (err, data) => {
-            if (err) throw err
+        if (url.pathname.startsWith('/lib/')) {
+            readFile(`../${request.url}`, 'utf8', (err, data) => {
+                if (err) throw err
 
-            response.writeHead(200, { 'Content-Type': 'text/javascript' })
-            response.end(data)
-        })
+                response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                response.end(data)
+            })
+        } else {
+            readFile(`.${request.url}`, 'utf8', (err, data) => {
+                if (err) throw err
+
+                response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                response.end(data)
+            })
+        }
         return
     }
     if (url.pathname.endsWith('.html')) {

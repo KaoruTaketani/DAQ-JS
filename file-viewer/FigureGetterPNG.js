@@ -1,3 +1,7 @@
+import axes from '../lib/axes.js'
+import xlabel from '../lib/xlabel.js'
+import ylabel from '../lib/ylabel.js'
+
 export default class {
     /**
      * @param {import('./FigureVariablesPNG.js').default} variables 
@@ -34,51 +38,38 @@ export default class {
             // @ts-ignore
             const pathname = window.pathname
 
-            if (!this._customChecked) {
-                fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&type=svg`).then(response => {
-                    if (!response.ok) {
-                        variables.divInnerText.assign('raw image was not found')
-                        variables.svgInnerHTML.assign('')
-                        variables.imageSrc.assign('')
-                    } else {
-                        response.text().then(text => {
-                            variables.divInnerText.assign('')
-                            variables.svgInnerHTML.assign(text)
-                            fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&type=png`).then(response => {
-                                response.text().then(text => {
-                                    variables.imageSrc.assign(text)
-                                })
-                            })
-                        })
-                    }
-                }).catch(() => {
-                    variables.divInnerText.assign('failed to get')
+            fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
+                if (!response.ok) {
+                    variables.divInnerText.assign('raw image was not found')
                     variables.svgInnerHTML.assign('')
                     variables.imageSrc.assign('')
-                })
-            } else {
-                fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&type=svg&xLim=${this._xminValue}&xLim=${this._xmaxValue}&yLim=${this._yminValue}&yLim=${this._ymaxValue}`).then(response => {
-                    if (!response.ok) {
-                        variables.divInnerText.assign('raw image was not found')
-                        variables.svgInnerHTML.assign('')
-                        variables.imageSrc.assign('')
-                    } else {
-                        response.text().then(text => {
-                            variables.divInnerText.assign('')
-                            variables.svgInnerHTML.assign(text)
-                            fetch(`${pathname}?path=${this._path}&fileName=${this._fileNames[0]}&type=png`).then(response => {
-                                response.text().then(text => {
-                                    variables.imageSrc.assign(text)
-                                })
-                            })
-                        })
-                    }
-                }).catch(() => {
-                    variables.divInnerText.assign('failed to get')
-                    variables.svgInnerHTML.assign('')
-                    variables.imageSrc.assign('')
-                })
-            }
+                } else {
+                    response.text().then(text => {
+                        variables.divInnerText.assign('')
+                        const data = JSON.parse(text)
+
+                        const ax = {
+                            xLim: data.xLim,
+                            yLim: data.yLim,
+                            xTick: data.xLim,
+                            yTick: data.yLim,
+                            xTickLabel: data.xLim.map((/** @type {number} */x) => x.toFixed()),
+                            yTickLabel: data.yLim.map((/** @type {number} */y) => y.toFixed())
+                        }
+                        variables.svgInnerHTML.assign([
+                            axes(ax),
+                            xlabel(ax, 'width (mm)'),
+                            ylabel(ax, 'height (mm)')
+                        ].join(''))
+                        variables.imageSrc.assign(data.imageSrc)
+                    })
+                }
+            }).catch(() => {
+                variables.divInnerText.assign('failed to get')
+                variables.svgInnerHTML.assign('')
+                variables.imageSrc.assign('')
+            })
         }
     }
 }
+
