@@ -54,11 +54,11 @@
 
 [13.c.b InfluxDB](./13cb/README.md)
 
-13.d Plot
+13.d Axes
 
-[13.d.a Plot Range](./13da/README.md)
+[13.d.a Axes Limits](./13da/README.md)
 
-[13.d.b Log Plot](./13db/README.md)
+[13.d.b Log Scale](./13db/README.md)
 
 13.e API
 
