@@ -1,34 +1,60 @@
 [home](../README.md)
 
-Client.js:
+### before
+HTTPRequestHandler.js:
 ```js
-histogramSVGElement.onmousemove = ev => {
-    const axes = histogramSVGElement.firstChild
-
-    const xInPixels = ev.offsetX * 560 / 400
-    const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
-        / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
-    const xInData = Number(axes.dataset.xminInData)
-        + xInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
-
-    const yInPixels = ev.offsetY * 420 / 300
-    const yInNormalized = (axes.dataset.yminInPixels - yInPixels)
-        / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
-    const yInData = Number(axes.dataset.yminInData)
-        + yInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
-
-    if (xInNormalized < 0 || xInNormalized > 1) {
-        cursorElement.innerText = `cursor: undefined`
+if (request.url === '/') {
+    response.writeHead(200, { 'Content-Type': 'text/html' })
+        response.end([
+            '<html>',
+            '<head>',
+            '    <meta charset="utf-8">',
+            '</head>',
+            '<body>',
+            `    <script type="module" src="./RandomNumberGeneratorClient.js">`,
+            `    </script>`,
+            '</body>',
+            '</html>'
+        ].join('\n'))
         return
-    }
-    if (yInNormalized < 0 || yInNormalized > 1) {
-        cursorElement.innerText = `cursor: undefined`
-        return
-    }
-
-    cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
 }
 ```
+
+### after
+HTTPRequestHandler.js:
+```js
+if (request.url === '/') {
+    response.writeHead(200, { 'Content-Type': 'text/html' })
+        response.end([
+            '<html>',
+            '<head>',
+            '    <meta charset="utf-8">',
+            '</head>',
+            '<body>',
+            `    <p><a href="./RandomNumberGeneratorClient.html">RandomNumberGenerator</a></p>`,
+            `    <p><a href="./HistogramMakerClient.html">HistogramMaker</a></p>`,
+            '</body>',
+            '</html>'
+        ].join('\n'))
+        return
+    }
+if (request.url.endsWith('.html')) {
+    response.writeHead(200, { 'Content-Type': 'text/html' })
+    response.end([
+        '<html>',
+        '<head>',
+        '    <meta charset="utf-8">',
+        '</head>',
+        '<body>',
+        `    <script type="module" src="./${basename(request.url, '.html')}.js">`,
+        `    </script>`,
+        '</body>',
+        '</html>'
+    ].join('\n'))
+    return
+}
+```
+
 ## How to run the sample code in this folder
 1. open a terminal
 1. change directory to this folder

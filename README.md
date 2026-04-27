@@ -34,11 +34,7 @@
 
 [13.a.b Download HDF5](./13ab/README.md)
 
-[13.a.c Cursor Coordinate](./13ac/README.md)
-
-[13.a.d Overlay](./13ad/README.md)
-
-[13.a.e Multi Page](./13cc/README.md)
+[13.a.c Multi Page](./13ac/README.md)
 
 13.b Prepend Listener
 
@@ -59,6 +55,10 @@
 [13.d.a Axes Limits](./13da/README.md)
 
 [13.d.b Log Scale](./13db/README.md)
+
+[13.d.c Cursor Coordinate](./13ac/README.md)
+
+[13.d.d Overlay](./13ad/README.md)
 
 13.e API
 

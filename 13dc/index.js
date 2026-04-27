@@ -2,16 +2,16 @@ import { Server } from 'http'
 import HistogramInitializer from '../13/HistogramInitializer.js'
 import HistogramMaker from '../13/HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from '../13/HistogramSVGInnerHTMLMaker.js'
-import HTTPPutHandler from '../13/HTTPPutHandler.js'
+import HTTPGetHandler from '../13/HTTPGetHandler.js'
 import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
 import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'
+import HTTPPutHandler from '../13/HTTPPutHandler.js'
 import RandomNumberGenerator from '../13/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13/RandomNumberInnerTextChanger.js'
 import StartButtonDisabledChanger from '../13/StartButtonDisabledChanger.js'
 import StartTimeInnerTextChanger from '../13/StartTimeInnerTextChanger.js'
 import StopButtonDisabledChanger from '../13/StopButtonDisabledChanger.js'
 import Variables from '../13/Variables.js'
-import HTTPGetHandler from './HTTPGetHandler.js'
 
 const variables = new Variables()
 
