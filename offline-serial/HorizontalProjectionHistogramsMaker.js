@@ -12,9 +12,6 @@ export default class extends Operator {
         this._roiInPixels
         variables.roiInPixels.prependListener(arg => { this._roiInPixels = arg })
         /** @type {number[]} */
-        this._horizontalProjectionHistogramsXBinLimits
-        variables.horizontalProjectionHistogramsXBinLimitsInPixels.prependListener(arg => { this._horizontalProjectionHistogramsXBinLimits = arg })
-        /** @type {number[]} */
         this._horizontalProjectionHistogramsYBinLimits
         variables.horizontalProjectionHistogramsYBinLimitsInNanoseconds.prependListener(arg => { this._horizontalProjectionHistogramsYBinLimits = arg })
         /** @type {import('../lib/index.js').Uint32NDArray} */
@@ -28,13 +25,13 @@ export default class extends Operator {
         })
         this._operation = () => {
             const binWidthInNanoseconds = diff(this._horizontalProjectionHistogramsYBinLimits)[0]
-                / this._horizontalProjectionHistogramsBinCounts.shape[0],
-                [x, _y, _w, _h] = this._roiInPixels
+                / this._horizontalProjectionHistogramsBinCounts.shape[0]
+
             // sub2ind expects indexes to start frpm 1
             this._horizontalProjectionHistogramsBinCounts.data[sub2ind(
                 this._horizontalProjectionHistogramsBinCounts.shape,
                 Math.floor(this._filteredNeutronEvent.tofInNanoseconds / binWidthInNanoseconds),
-                this._filteredNeutronEvent.xCoordinateInPixels - x
+                this._filteredNeutronEvent.xCoordinateInPixels - this._roiInPixels[0]
             )]++
         }
     }

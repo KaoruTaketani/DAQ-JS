@@ -8,6 +8,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
+        this._imageBinWidthInMillimeters
+        variables.imageBinWidthInMillimeters.prependListener(arg => { this._imageBinWidthInMillimeters = arg })
+        /** @type {number} */
         this._tofMaxInMilliseconds
         variables.tofMaxInMilliseconds.addListener(arg => {
             this._tofMaxInMilliseconds = arg
@@ -30,12 +33,12 @@ export default class extends Operator {
             if (!this._miezeFrequencyInKilohertz) return
             if (!this._roiInPixels) return
 
-            const [_x, _y, w, _h] = this._roiInPixels,
+            const [x, _y, w, _h] = this._roiInPixels,
                 size = [
                     this._tofMaxInMilliseconds * this._miezeFrequencyInKilohertz,
                     w]
 
-            variables.horizontalProjectionHistogramsXBinLimitsInPixels.assign([0, w])
+            variables.horizontalProjectionHistogramsXBinLimitsInMillimeters.assign([x, x + w].map(v => v * this._imageBinWidthInMillimeters))
             variables.horizontalProjectionHistogramsYBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
             variables.horizontalProjectionHistogramsBinCounts.assign({
                 shape: size,

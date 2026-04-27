@@ -120,7 +120,7 @@ export default class {
         this.rawImageYBinLimitsInPixels = new WritableArray('rawImageYBinLimitsInPixels', this.hdf5File)
         this.pulseHeightHistogramBinLimits = new WritableArray('pulseHeightHistogramBinLimits', this.hdf5File)
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
-        this.horizontalProjectionHistogramsXBinLimitsInPixels = new WritableArray('horizontalProjectionHistogramsXBinLimitsInPixels', this.hdf5File)
+        this.horizontalProjectionHistogramsXBinLimitsInMillimeters = new WritableArray('horizontalProjectionHistogramsXBinLimitsInMillimeters', this.hdf5File)
         this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('horizontalProjectionHistogramsYBinLimitsInNanoseconds', this.hdf5File)
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageXBinLimitsInMillimeters', this.hdf5File)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageYBinLimitsInMillimeters', this.hdf5File)
