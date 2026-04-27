@@ -42,7 +42,7 @@ export default class {
             }
             /** @type {string[]} */
             const fileNames = this._url.searchParams.getAll('fileName')
-            if (fileNames.length!==1) {
+            if (fileNames.length !== 1) {
                 response.writeHead(400)
                 response.end()
                 return
@@ -82,18 +82,29 @@ export default class {
                     response.end()
                     return
                 }
-                // console.log(filteredTOFHistogram.shape)
-                // console.log(filteredTOFHistogram.value)
-                // const startTime = Date.now()
-                const widthInMillimeters = /** @type {number[]} */(dataset.shape)[0] / 1024 * 50
-                const heightInMillimeters = /** @type {number[]} */(dataset.shape)[1] / 1024 * 50
+                /** @type {number[]} */
+                const xLim = this._url.searchParams.getAll('xLim').map(v => parseFloat(v))
+                if (xLim.length === 0) {
+                    const v =/** @type {Float64Array} */(f.attrs['rawImageXBinLimitsInMillimeters'].value)
+                    ok(v)
+                    xLim.push(v[0])
+                    xLim.push(v[1])
+                }
+                /** @type {number[]} */
+                const yLim = this._url.searchParams.getAll('yLim').map(v => parseFloat(v))
+                if (yLim.length === 0) {
+                    const v =/** @type {Float64Array} */(f.attrs['rawImageYBinLimitsInMillimeters'].value)
+                    ok(v)
+                    yLim.push(v[0])
+                    yLim.push(v[1])
+                }
                 const ax = {
-                    xLim: [0, widthInMillimeters],
-                    yLim: [0, heightInMillimeters],
-                    xTick: [0, widthInMillimeters],
-                    yTick: [0, heightInMillimeters],
-                    xTickLabel: ['0', `${widthInMillimeters.toFixed(1)}`],
-                    yTickLabel: ['0', `${heightInMillimeters.toFixed(1)}`]
+                    xLim: xLim,
+                    yLim: yLim,
+                    xTick: xLim,
+                    yTick: yLim,
+                    xTickLabel: xLim.map(x => x.toFixed()),
+                    yTickLabel: yLim.map(y => y.toFixed())
                 }
                 response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
                 response.end([
