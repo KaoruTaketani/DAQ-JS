@@ -190,6 +190,9 @@ let svgInnerHTML
     })
     element.addEventListener('load', () => {
         variables.imageElement.assign(element)
+        variables.divInnerText.assign(`width: ${element.width}, height: ${element.height}`)
+        variables.pngWidthInPixels.assign(element.width)
+        variables.pngHeightInPixels.assign(element.height)
     });
 })(document.createElement('img'));
 

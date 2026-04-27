@@ -21,6 +21,8 @@ export default class extends FigureVariablesSVG {
         this.yminInData = new ListenableNumber()
         this.xmaxInData = new ListenableNumber()
         this.ymaxInData = new ListenableNumber()
+        this.pngWidthInPixels = new ListenableNumber()
+        this.pngHeightInPixels = new ListenableNumber()
 
         this.imageSrc = new ListenableString()
     }
