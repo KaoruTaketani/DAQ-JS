@@ -8,6 +8,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
+        this._neutronPositionMaxInMillimeters
+        variables.neutronPositionMaxInMillimeters.prependListener(arg => { this._neutronPositionMaxInMillimeters = arg })
+        /** @type {number} */
         this._neutronPositionBitLength
         variables.neutronPositionBitLength.addListener(arg => {
             this._neutronPositionBitLength = arg
@@ -18,8 +21,8 @@ export default class extends Operator {
                 2 ** this._neutronPositionBitLength,
                 2 ** this._neutronPositionBitLength]
 
-            variables.rawImageXBinLimitsInPixels.assign([0, 2 ** this._neutronPositionBitLength])
-            variables.rawImageYBinLimitsInPixels.assign([0, 2 ** this._neutronPositionBitLength])
+            variables.rawImageXBinLimitsInMillimeters.assign([0, this._neutronPositionMaxInMillimeters])
+            variables.rawImageYBinLimitsInMillimeters.assign([0, this._neutronPositionMaxInMillimeters])
 
             variables.rawImageBinCounts.assign({
                 shape: size,
