@@ -14,6 +14,18 @@ export default class {
         this._imageElement
         variables.imageElement.prependListener(arg => { this._imageElement = arg })
         /** @type {number} */
+        this._pngXMaxInMillimeters
+        variables.pngXMaxInMillimeters.prependListener(arg => { this._pngXMaxInMillimeters = arg })
+        /** @type {number} */
+        this._pngXMinInMillimeters
+        variables.pngXMinInMillimeters.prependListener(arg => { this._pngXMinInMillimeters = arg })
+        /** @type {number} */
+        this._pngYMaxInMillimeters
+        variables.pngYMaxInMillimeters.prependListener(arg => { this._pngYMaxInMillimeters = arg })
+        /** @type {number} */
+        this._pngYMinInMillimeters
+        variables.pngYMinInMillimeters.prependListener(arg => { this._pngYMinInMillimeters = arg })
+        /** @type {number} */
         this._pngHeightInPixels
         variables.pngHeightInPixels.addListener(arg => {
             this._pngHeightInPixels = arg
@@ -77,8 +89,23 @@ export default class {
             // xMaxInPixels = xMinInPixels + (axes.parentWidth ?? 560) * (axes.innerWidth ?? 0.775),
             // yMaxInPixels = yMinInPixels - (axes.parentHeight ?? 420) * (axes.innerHeight ?? 0.815),
 
+            // this._canvasContext.drawImage(
+            //     this._imageElement,
+            //     (560 * 0.13) * 400 / 560,
+            //     (420 * (1 - 0.11 - 0.815)) * 300 / 420,
+            //     (560 * 0.775) * 400 / 560,
+            //     (420 * 0.815) * 300 / 420
+            // )
+            // calculate pixels cit from the original 1024x1024 image
+            const dx = this._pngXMaxInMillimeters - this._pngXMinInMillimeters,
+                xmin = parseFloat(this._xminValue),
+                xmax = parseFloat(this._xmaxValue)
             this._canvasContext.drawImage(
                 this._imageElement,
+                this._pngWidthInPixels * xmin / dx,
+                0,
+                this._pngWidthInPixels * (xmax - xmin) / dx,
+                this._pngHeightInPixels,
                 (560 * 0.13) * 400 / 560,
                 (420 * (1 - 0.11 - 0.815)) * 300 / 420,
                 (560 * 0.775) * 400 / 560,
