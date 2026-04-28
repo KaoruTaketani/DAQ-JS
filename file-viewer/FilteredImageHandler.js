@@ -1,11 +1,8 @@
-import { join } from 'path'
 import { ok } from 'assert'
-import axes from '../lib/axes.js'
+import h5wasm from "h5wasm/node"
+import { join } from 'path'
 import imagesc from '../lib/imagesc.js'
 import imwrite from '../lib/imwrite.js'
-import xlabel from '../lib/xlabel.js'
-import ylabel from '../lib/ylabel.js'
-import h5wasm from "h5wasm/node"
 await h5wasm.ready;
 
 export default class {
@@ -48,60 +45,30 @@ export default class {
                 return
             }
 
-            if (this._url.searchParams.get('type') === 'png') {
-                let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
-                /** @type {import('h5wasm').Dataset|null} */
-                const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('filteredImageBinCounts'))
-                if (!dataset) {
-                    response.writeHead(404)
-                    response.end()
-                    return
-                }
-                // console.log(filteredImage.shape)
-                // console.log(filteredImage.value)
-                const startTime = Date.now()
-                /** @type {import('../lib/index.js').Uint32NDArray} */
-                const hist = {
-                    shape:/** @type {number[]} */ (dataset.shape),
-                    data:/** @type {Uint32Array} */ (dataset.value)
-                }
-                imwrite(imagesc(hist)).then(buffer => {
-                    console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-                    response.writeHead(200, { 'Content-Type': 'application/base64' })
-                    response.end(`data:image/png;base64,${buffer.toString('base64')}`)
-                })
+            let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
+            /** @type {import('h5wasm').Dataset|null} */
+            const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('filteredImageBinCounts'))
+            if (!dataset) {
+                response.writeHead(404)
+                response.end()
                 return
             }
-            if (this._url.searchParams.get('type') === 'svg') {
-                let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
-                /** @type {import('h5wasm').Dataset|null} */
-                const dataset =/** @type {import('h5wasm').Dataset|null} */ (f.get('filteredImageBinCounts'))
-                if (!dataset) {
-                    response.writeHead(404)
-                    response.end()
-                    return
-                }
-                // console.log(filteredTOFHistogram.shape)
-                // console.log(filteredTOFHistogram.value)
-                // const startTime = Date.now()
-                const widthInMillimeters =/** @type {number[]} */ (dataset.shape)[0] / 1024 * 50
-                const heightInMillimeters =/** @type {number[]} */ (dataset.shape)[1] / 1024 * 50
-                const ax = {
-                    xLim: [0, widthInMillimeters],
-                    yLim: [0, heightInMillimeters],
-                    xTick: [0, widthInMillimeters],
-                    yTick: [0, heightInMillimeters],
-                    xTickLabel: ['0', `${widthInMillimeters.toFixed(1)}`],
-                    yTickLabel: ['0', `${heightInMillimeters.toFixed(1)}`]
-                }
-                response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-                response.end([
-                    axes(ax),
-                    xlabel(ax, 'width (mm)'),
-                    ylabel(ax, 'height (mm)')
-                ].join(''))
-                // console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+
+            const startTime = Date.now()
+            /** @type {import('../lib/index.js').Uint32NDArray} */
+            const hist = {
+                shape:/** @type {number[]} */ (dataset.shape),
+                data:/** @type {Uint32Array} */ (dataset.value)
             }
+            imwrite(imagesc(hist)).then(buffer => {
+                console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+                response.writeHead(200, { 'Content-Type': 'application/base64' })
+                response.end(JSON.stringify({
+                    xLimInMillimeters: f.attrs['filteredImageXBinLimitsInMillimeters'].value,
+                    yLimInMillimeters: f.attrs['filteredImageYBinLimitsInMillimeters'].value,
+                    imageSrc: `data:image/png;base64,${buffer.toString('base64')}`
+                }))
+            })
         }
     }
 }

@@ -106,10 +106,10 @@ export default class {
                 dy = this._pngYMaxInMillimeters - this._pngYMinInMillimeters,
                 ymin = parseFloat(this._yminValue),
                 ymax = parseFloat(this._ymaxValue),
-                ymaxInNormalized = ymax / dy
+                ymaxInNormalized = (ymax - this._pngYMinInMillimeters) / dy
             this._canvasContext.drawImage(
                 this._imageElement,
-                this._pngWidthInPixels * xmin / dx,
+                this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
                 this._pngHeightInPixels * (1 - ymaxInNormalized),
                 this._pngWidthInPixels * (xmax - xmin) / dx,
                 this._pngHeightInPixels * (ymax - ymin) / dy,
