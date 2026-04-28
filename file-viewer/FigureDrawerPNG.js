@@ -97,15 +97,22 @@ export default class {
             //     (420 * 0.815) * 300 / 420
             // )
             // calculate pixels cit from the original 1024x1024 image
+            // bottom y value of axes ges smaller but
+            // bottom y value of drawImage gets larger
+            // normalized coordinate is useful
             const dx = this._pngXMaxInMillimeters - this._pngXMinInMillimeters,
                 xmin = parseFloat(this._xminValue),
-                xmax = parseFloat(this._xmaxValue)
+                xmax = parseFloat(this._xmaxValue),
+                dy = this._pngYMaxInMillimeters - this._pngYMinInMillimeters,
+                ymin = parseFloat(this._yminValue),
+                ymax = parseFloat(this._ymaxValue),
+                ymaxInNormalized = ymax / dy
             this._canvasContext.drawImage(
                 this._imageElement,
                 this._pngWidthInPixels * xmin / dx,
-                0,
+                this._pngHeightInPixels * (1 - ymaxInNormalized),
                 this._pngWidthInPixels * (xmax - xmin) / dx,
-                this._pngHeightInPixels,
+                this._pngHeightInPixels * (ymax - ymin) / dy,
                 (560 * 0.13) * 400 / 560,
                 (420 * (1 - 0.11 - 0.815)) * 300 / 420,
                 (560 * 0.775) * 400 / 560,
