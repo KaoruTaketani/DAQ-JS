@@ -65,10 +65,8 @@ export default class {
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
                 response.writeHead(200, { 'Content-Type': 'application/base64' })
                 response.end(JSON.stringify({
-                    xLim: [0, 50],
-                    yLim: [0, 50],
-                    xLabel: 'width (mm)',
-                    yLabel: 'height (mm)',
+                    xLimInMillimeters: [0, 50],
+                    yLimInMillimeters: [0, 50],
                     imageSrc: `data:image/png;base64,${buffer.toString('base64')}`
                 }))
             })

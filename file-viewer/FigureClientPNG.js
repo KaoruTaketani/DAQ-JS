@@ -1,20 +1,19 @@
 import CursorTextMaker from "./CursorTextMaker.js";
+import FigureCleanupperPNG from "./FigureCleanupperPNG.js";
+import FigureDrawerPNG from "./FigureDrawerPNG.js";
 import FigureGetterPNG from "./FigureGetterPNG.js";
 import FigureVariablesPNG from "./FigureVariablesPNG.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import FigureCleanupperPNG from "./FigureCleanupperPNG.js";
-import PNGDrawer from "./PNGDrawer.js";
 import PathMaker from "./PathMaker.js";
 
 const variables = new FigureVariablesPNG()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new FigureCleanupperPNG(variables)
-new PNGDrawer(variables)
+new FigureDrawerPNG(variables)
 new FigureGetterPNG(variables)
 new CursorTextMaker(variables)
     ;
-const listboxElement = document.createElement('select');
 (element => {
     element.size = 20
     element.style.position = 'absolute'
@@ -32,7 +31,7 @@ const listboxElement = document.createElement('select');
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
     })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
-})(document.body.appendChild(listboxElement));
+})(document.body.appendChild(document.createElement('select')));
 
 (element => {
     element.style.marginLeft = '208px'
@@ -101,7 +100,6 @@ let svgInnerHTML
         // element.min = '0'
         element.addEventListener('change', () => {
             variables.xminValue.assign(element.value)
-            listboxElement.dispatchEvent(new Event('change'))
         })
         variables.xminValue.addListener(arg => { element.value = arg })
         variables.xminDisabled.addListener(arg => { element.disabled = arg })
@@ -118,7 +116,6 @@ let svgInnerHTML
         // element.min = '0'
         element.addEventListener('change', () => {
             variables.xmaxValue.assign(element.value)
-            listboxElement.dispatchEvent(new Event('change'))
         })
         variables.xmaxValue.addListener(arg => { element.value = arg })
         variables.xmaxDisabled.addListener(arg => { element.disabled = arg })
@@ -135,7 +132,6 @@ let svgInnerHTML
         // element.min = '0'
         element.addEventListener('change', () => {
             variables.yminValue.assign(element.value)
-            listboxElement.dispatchEvent(new Event('change'))
         })
         variables.yminValue.addListener(arg => { element.value = arg })
         variables.yminDisabled.addListener(arg => { element.disabled = arg })
@@ -152,7 +148,6 @@ let svgInnerHTML
         // element.min = '0'
         element.addEventListener('change', () => {
             variables.ymaxValue.assign(element.value)
-            listboxElement.dispatchEvent(new Event('change'))
         })
         variables.ymaxValue.addListener(arg => { element.value = arg })
         variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
@@ -222,22 +217,14 @@ let svgInnerHTML
             variables.xmaxInPixels.assign(parseInt(axes.dataset.xmaxInPixels))
         if (axes.dataset.ymaxInPixels)
             variables.ymaxInPixels.assign(parseInt(axes.dataset.ymaxInPixels))
-        if (axes.dataset.xminInData) {
+        if (axes.dataset.xminInData)
             variables.xminInData.assign(parseFloat(axes.dataset.xminInData))
-            variables.xminValue.assign(axes.dataset.xminInData)
-        }
-        if (axes.dataset.yminInData) {
+        if (axes.dataset.yminInData)
             variables.yminInData.assign(parseInt(axes.dataset.yminInData))
-            variables.yminValue.assign(axes.dataset.yminInData)
-        }
-        if (axes.dataset.xmaxInData) {
+        if (axes.dataset.xmaxInData)
             variables.xmaxInData.assign(parseInt(axes.dataset.xmaxInData))
-            variables.xmaxValue.assign(axes.dataset.xmaxInData)
-        }
-        if (axes.dataset.ymaxInData) {
+        if (axes.dataset.ymaxInData)
             variables.ymaxInData.assign(parseInt(axes.dataset.ymaxInData))
-            variables.ymaxValue.assign(axes.dataset.ymaxInData)
-        }
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 

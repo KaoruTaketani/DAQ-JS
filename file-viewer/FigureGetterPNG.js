@@ -1,7 +1,3 @@
-import axes from '../lib/axes.js'
-import xlabel from '../lib/xlabel.js'
-import ylabel from '../lib/ylabel.js'
-
 export default class {
     /**
      * @param {import('./FigureVariablesPNG.js').default} variables 
@@ -48,19 +44,14 @@ export default class {
                         variables.divInnerText.assign('')
                         const data = JSON.parse(text)
 
-                        const ax = {
-                            xLim: data.xLim,
-                            yLim: data.yLim,
-                            xTick: data.xLim,
-                            yTick: data.yLim,
-                            xTickLabel: data.xLim.map((/** @type {number} */x) => x.toFixed()),
-                            yTickLabel: data.yLim.map((/** @type {number} */y) => y.toFixed())
-                        }
-                        variables.svgInnerHTML.assign([
-                            axes(ax),
-                            xlabel(ax, 'width (mm)'),
-                            ylabel(ax, 'height (mm)')
-                        ].join(''))
+                        variables.pngXMinInMillimeters.assign(data.xLimInMillimeters[0])
+                        variables.pngXMaxInMillimeters.assign(data.xLimInMillimeters[1])
+                        variables.pngYMinInMillimeters.assign(data.yLimInMillimeters[0])
+                        variables.pngYMaxInMillimeters.assign(data.yLimInMillimeters[1])
+                        variables.xminValue.assign(data.xLimInMillimeters[0].toString())
+                        variables.xmaxValue.assign(data.xLimInMillimeters[1].toString())
+                        variables.yminValue.assign(data.yLimInMillimeters[0].toString())
+                        variables.ymaxValue.assign(data.yLimInMillimeters[1].toString())
                         variables.imageSrc.assign(data.imageSrc)
                     })
                 }
