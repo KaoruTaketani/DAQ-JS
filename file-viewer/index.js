@@ -29,6 +29,9 @@ import VerticalProjectionHandler from './VerticalProjectionHandler.js'
 import WidthsHandler from './WidthsHandler.js'
 import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
+import ContrastRatioHandler from './ContrastRatioHandler.js'
+import PhaseShiftHandler from './PhaseShiftHandler.js'
+import ReflectivityHandler from './ReflectivityHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -59,6 +62,9 @@ new CentersByEnergyHandler(variables)
 new CentersByWavelengthHandler(variables)
 new PairedHandler(variables)
 new NeutronHandler(variables)
+new ContrastRatioHandler(variables)
+new PhaseShiftHandler(variables)
+new ReflectivityHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
@@ -88,6 +94,9 @@ svgPathnames.set('/TOFDifferenceHistogram.html', '/tofDifferenceHistogram')
 svgPathnames.set('/TOFHistogram.html', '/tofHistogram')
 svgPathnames.set('/VerticalProjection.html', '/verticalProjection')
 svgPathnames.set('/Widths.html', '/widths')
+svgPathnames.set('/ContrastRatio.html', '/contrastRatio')
+svgPathnames.set('/Reflectivity.html', '/reflectivity')
+svgPathnames.set('/PhaseShift.html', '/phaseShift')
 
 const tablePathnames = new Map()
 tablePathnames.set('/Timer.html', '/timer')

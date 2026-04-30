@@ -55,6 +55,9 @@ export default class {
                 `    <p><a href="./TOFHistogram.html">TOF Histogram</a></p>`,
                 `    <p><a href="./VerticalProjection.html">Vertical Projection</a></p>`,
                 `    <p><a href="./Widths.html">Widths</a></p>`,
+                `    <p><a href="./Reflectivity.html">Reflectivity</a></p>`,
+                `    <p><a href="./PhaseShift.html">Phase Shift</a></p>`,
+                `    <p><a href="./ContrastRatio.html">Contraast Ratio</a></p>`,
                 '</body>',
                 '</html>'
             ].join('\n'))
