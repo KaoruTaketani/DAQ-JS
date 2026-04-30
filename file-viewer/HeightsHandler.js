@@ -48,11 +48,15 @@ export default class {
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
             /** @type {import('h5wasm').Dataset|null} */
-            const heightsDataset =/** @type {import('h5wasm').Dataset|null} */ (f.get('heights'))
-            ok (heightsDataset)
+            const dataset =/** @type {import('h5wasm').Dataset|null} */ (f.get('heights'))
+            if (!dataset) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const startTime = Date.now()
             /** @type {Float64Array} */
-            const y =/** @type {Float64Array} */ (heightsDataset.value)
+            const y =/** @type {Float64Array} */ (dataset.value)
             const x = colon(1, y.length)
 
             const xLimValues = this._url.searchParams.getAll('xLim')

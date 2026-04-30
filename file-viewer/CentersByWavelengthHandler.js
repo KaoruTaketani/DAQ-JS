@@ -53,14 +53,14 @@ export default class {
                 return
             }
             /** @type {import('h5wasm').Dataset|null} */
-            const velocity =/** @type {import('h5wasm').Dataset|null} */ (f.get('wavelengthInAngstroms'))
-            if (!velocity) {
+            const wavelength =/** @type {import('h5wasm').Dataset|null} */ (f.get('wavelengthInAngstroms'))
+            if (!wavelength) {
                 response.writeHead(404)
                 response.end()
                 return
             }
             /** @type {Float64Array} */
-            const x = /** @type {Float64Array} */(velocity.value)
+            const x = /** @type {Float64Array} */(wavelength.value)
             /** @type {Float64Array} */
             const y = /** @type {Float64Array} */(centers.value)
 

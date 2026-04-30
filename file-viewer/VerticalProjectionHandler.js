@@ -50,7 +50,11 @@ export default class {
             let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
             /** @type {import('h5wasm').Dataset|null} */
             const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('verticalProjectionBinCounts'))
-            ok(dataset)
+            if (!dataset) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
             const y = /** @type {Uint32Array} */(dataset.value)
             const x = colon(0, y.length)
 
