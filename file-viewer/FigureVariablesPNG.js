@@ -12,6 +12,7 @@ export default class extends FigureVariablesSVG {
         this.canvasContext = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<number[]>} */
         this.cursorOffset = new ListenableObject()
+        this.dataset = new ListenableObject()
 
         this.xminInPixels = new ListenableNumber()
         this.yminInPixels = new ListenableNumber()

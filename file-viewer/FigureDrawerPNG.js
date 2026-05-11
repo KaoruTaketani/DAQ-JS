@@ -2,6 +2,7 @@ import axes from '../lib/axes.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
 import imcrop from '../lib/imcrop.js'
+import imagesc from '../lib/imagesc.js'
 
 export default class {
     /**
@@ -26,6 +27,8 @@ export default class {
         /** @type {number} */
         this._pngYMinInMillimeters
         variables.pngYMinInMillimeters.prependListener(arg => { this._pngYMinInMillimeters = arg })
+        this._dataset
+        variables.dataset.prependListener(arg => { this._dataset = arg })
         /** @type {number} */
         this._pngHeightInPixels
         variables.pngHeightInPixels.addListener(arg => {
@@ -119,7 +122,23 @@ export default class {
             //     (560 * 0.775) * 400 / 560,
             //     (420 * 0.815) * 300 / 420
             // )
-            imcrop(this._imageElement, [
+
+            // imcrop(this._imageElement, [
+            //     this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
+            //     this._pngHeightInPixels * (1 - ymaxInNormalized),
+            //     this._pngWidthInPixels * (xmax - xmin) / dx,
+            //     this._pngHeightInPixels * (ymax - ymin) / dy
+            // ]).then(im => {
+            //     this._canvasContext.drawImage(
+            //         im,
+            //         (560 * 0.13) * 400 / 560,
+            //         (420 * (1 - 0.11 - 0.815)) * 300 / 420,
+            //         (560 * 0.775) * 400 / 560,
+            //         (420 * 0.815) * 300 / 420
+            //     )
+            // })
+console.log(this._dataset)
+            imcrop(imagesc(this._dataset), [
                 this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
                 this._pngHeightInPixels * (1 - ymaxInNormalized),
                 this._pngWidthInPixels * (xmax - xmin) / dx,

@@ -1,8 +1,13 @@
+import imagesc from '../lib/imagesc.js'
+
 export default class {
     /**
      * @param {import('./FigureVariablesPNG.js').default} variables 
      */
     constructor(variables) {
+        /** @type {CanvasRenderingContext2D} */
+        this._canvasContext
+        variables.canvasContext.prependListener(arg => { this._canvasContext = arg })
         /** @type {boolean} */
         this._customChecked
         variables.customChecked.prependListener(arg => { this._customChecked = arg })
@@ -42,6 +47,15 @@ export default class {
                 } else {
                     response.text().then(text => {
                         variables.divInnerText.assign('')
+                        // data contains 
+                        // xLimInMillimeters: [0, 50],
+                        // yLimInMillimeters: [0, 50],
+                        // and
+                        // imageSrc: /** @type {string} */
+                        // or
+                        // shape: /** @type {number[]} */
+                        // data: /** @type {Uint32Array} */
+
                         const data = JSON.parse(text)
 
                         variables.pngXMinInMillimeters.assign(data.xLimInMillimeters[0])
@@ -52,7 +66,15 @@ export default class {
                         variables.xmaxValue.assign(data.xLimInMillimeters[1].toString())
                         variables.yminValue.assign(data.yLimInMillimeters[0].toString())
                         variables.ymaxValue.assign(data.yLimInMillimeters[1].toString())
-                        variables.imageSrc.assign(data.imageSrc)
+                        // variables.imageSrc.assign(data.imageSrc)
+                        console.log(data)
+                        variables.dataset.assign({
+                            shape: /** @type {number[]} */(data.shape),
+                            data: new Uint32Array(JSON.parse(data.data))
+                        })
+                        variables.divInnerText.assign(`width: ${data.shape[1]}, height: ${data.shape[0]}`)
+                        variables.pngWidthInPixels.assign(data.shape[1])
+                        variables.pngHeightInPixels.assign(data.shape[0])
                     })
                 }
             }).catch(() => {
