@@ -75,6 +75,8 @@ export default class {
             response.end(JSON.stringify({
                 xLimInMillimeters: [0, 50],
                 yLimInMillimeters: [0, 50],
+                xlabel: 'width (mm)',
+                ylabel: 'height (mm)',
                 shape: /** @type {number[]} */(dataset.shape),
                 data: JSON.stringify(Array.from(/** @type {Uint32Array} */(dataset.value)))
             }))

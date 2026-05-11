@@ -12,6 +12,12 @@ export default class {
         /** @type {CanvasRenderingContext2D} */
         this._canvasContext
         variables.canvasContext.prependListener(arg => { this._canvasContext = arg })
+        /** @type {string} */
+        this._xlabel
+        variables.xlabel.prependListener(arg => { this._xlabel = arg })
+        /** @type {string} */
+        this._ylabel
+        variables.ylabel.prependListener(arg => { this._xlabel = arg })
         /** @type {number} */
         this._pngXMaxInMillimeters
         variables.pngXMaxInMillimeters.prependListener(arg => { this._pngXMaxInMillimeters = arg })
@@ -134,7 +140,7 @@ export default class {
             //         (420 * 0.815) * 300 / 420
             //     )
             // })
-console.log(this._dataset)
+            console.log(this._dataset)
             imcrop(imagesc(this._dataset), [
                 this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
                 this._pngHeightInPixels * (1 - ymaxInNormalized),

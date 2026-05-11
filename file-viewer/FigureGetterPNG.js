@@ -44,6 +44,8 @@ export default class {
 
                         const data = JSON.parse(text)
 
+                        variables.xlabel.assign(data.xlabel)
+                        variables.ylabel.assign(data.ylabel)
                         variables.pngXMinInMillimeters.assign(data.xLimInMillimeters[0])
                         variables.pngXMaxInMillimeters.assign(data.xLimInMillimeters[1])
                         variables.pngYMinInMillimeters.assign(data.yLimInMillimeters[0])

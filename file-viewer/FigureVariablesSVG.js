@@ -16,6 +16,8 @@ export default class extends ClientVariables {
         this.xmaxValue = new ListenableString()
         this.yminValue = new ListenableString()
         this.ymaxValue = new ListenableString()
+        this.xlabel = new ListenableString()
+        this.ylabel = new ListenableString()
         this.svgInnerHTML = new ListenableString()
     }
 }
