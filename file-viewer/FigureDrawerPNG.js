@@ -1,6 +1,7 @@
 import axes from '../lib/axes.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
+import imcrop from '../lib/imcrop.js'
 
 export default class {
     /**
@@ -107,17 +108,31 @@ export default class {
                 ymin = parseFloat(this._yminValue),
                 ymax = parseFloat(this._ymaxValue),
                 ymaxInNormalized = (ymax - this._pngYMinInMillimeters) / dy
-            this._canvasContext.drawImage(
-                this._imageElement,
+            // this._canvasContext.drawImage(
+            //     this._imageElement,
+            //     this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
+            //     this._pngHeightInPixels * (1 - ymaxInNormalized),
+            //     this._pngWidthInPixels * (xmax - xmin) / dx,
+            //     this._pngHeightInPixels * (ymax - ymin) / dy,
+            //     (560 * 0.13) * 400 / 560,
+            //     (420 * (1 - 0.11 - 0.815)) * 300 / 420,
+            //     (560 * 0.775) * 400 / 560,
+            //     (420 * 0.815) * 300 / 420
+            // )
+            imcrop(this._imageElement, [
                 this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
                 this._pngHeightInPixels * (1 - ymaxInNormalized),
                 this._pngWidthInPixels * (xmax - xmin) / dx,
-                this._pngHeightInPixels * (ymax - ymin) / dy,
-                (560 * 0.13) * 400 / 560,
-                (420 * (1 - 0.11 - 0.815)) * 300 / 420,
-                (560 * 0.775) * 400 / 560,
-                (420 * 0.815) * 300 / 420
-            )
+                this._pngHeightInPixels * (ymax - ymin) / dy
+            ]).then(im => {
+                this._canvasContext.drawImage(
+                    im,
+                    (560 * 0.13) * 400 / 560,
+                    (420 * (1 - 0.11 - 0.815)) * 300 / 420,
+                    (560 * 0.775) * 400 / 560,
+                    (420 * 0.815) * 300 / 420
+                )
+            })
         }
     }
 }
