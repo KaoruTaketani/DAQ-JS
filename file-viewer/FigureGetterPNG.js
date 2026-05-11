@@ -1,5 +1,3 @@
-import imagesc from '../lib/imagesc.js'
-
 export default class {
     /**
      * @param {import('./FigureVariablesPNG.js').default} variables 
@@ -14,18 +12,6 @@ export default class {
         /** @type {string} */
         this._path
         variables.path.prependListener(arg => { this._path = arg })
-        /** @type {string} */
-        this._xminValue
-        variables.xminValue.prependListener(arg => { this._xminValue = arg })
-        /** @type {string} */
-        this._xmaxValue
-        variables.xmaxValue.prependListener(arg => { this._xmaxValue = arg })
-        /** @type {string} */
-        this._yminValue
-        variables.yminValue.prependListener(arg => { this._yminValue = arg })
-        /** @type {string} */
-        this._ymaxValue
-        variables.ymaxValue.prependListener(arg => { this._ymaxValue = arg })
         /** @type {string[]} */
         this._fileNames
         variables.fileNames.addListener(arg => {

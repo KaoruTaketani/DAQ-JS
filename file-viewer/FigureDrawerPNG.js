@@ -12,9 +12,6 @@ export default class {
         /** @type {CanvasRenderingContext2D} */
         this._canvasContext
         variables.canvasContext.prependListener(arg => { this._canvasContext = arg })
-        /** @type {HTMLImageElement} */
-        this._imageElement
-        variables.imageElement.prependListener(arg => { this._imageElement = arg })
         /** @type {number} */
         this._pngXMaxInMillimeters
         variables.pngXMaxInMillimeters.prependListener(arg => { this._pngXMaxInMillimeters = arg })

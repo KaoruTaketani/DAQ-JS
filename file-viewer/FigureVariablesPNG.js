@@ -7,8 +7,6 @@ import ListenableString from './ListenableString.js'
 export default class extends FigureVariablesSVG {
     constructor() {
         super()
-        /** @type {import('./ListenableObject.js').default<HTMLImageElement>} */
-        this.imageElement = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<CanvasRenderingContext2D>} */
         this.canvasContext = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<number[]>} */

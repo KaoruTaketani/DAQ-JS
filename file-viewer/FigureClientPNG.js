@@ -215,18 +215,6 @@ let svgInnerHTML
 })(document.body.appendChild(canvasElement));
 
 (element => {
-    variables.imageSrc.addListener(arg => {
-        element.src = arg
-    })
-    element.addEventListener('load', () => {
-        variables.imageElement.assign(element)
-        variables.divInnerText.assign(`width: ${element.width}, height: ${element.height}`)
-        variables.pngWidthInPixels.assign(element.width)
-        variables.pngHeightInPixels.assign(element.height)
-    });
-})(document.createElement('img'));
-
-(element => {
     element.style.marginLeft = '200px'
     element.style.marginTop = '50px'
     element.style.position = 'absolute'
