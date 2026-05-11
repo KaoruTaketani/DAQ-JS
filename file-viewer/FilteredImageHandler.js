@@ -64,8 +64,8 @@ export default class {
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
                 response.writeHead(200, { 'Content-Type': 'application/base64' })
                 response.end(JSON.stringify({
-                    xLimInMillimeters: f.attrs['filteredImageXBinLimitsInMillimeters'].value,
-                    yLimInMillimeters: f.attrs['filteredImageYBinLimitsInMillimeters'].value,
+                    xLimInData: f.attrs['filteredImageXBinLimitsInMillimeters'].value,
+                    yLimInData: f.attrs['filteredImageYBinLimitsInMillimeters'].value,
                     imageSrc: `data:image/png;base64,${buffer.toString('base64')}`
                 }))
             })

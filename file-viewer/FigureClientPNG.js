@@ -85,6 +85,8 @@ let svgInnerHTML
             variables.xmaxDisabled.assign(!element.checked)
             variables.yminDisabled.assign(!element.checked)
             variables.ymaxDisabled.assign(!element.checked)
+            variables.cminDisabled.assign(!element.checked)
+            variables.cmaxDisabled.assign(!element.checked)
         })
         variables.customChecked.addListener(arg => { element.checked = arg })
     })(element.appendChild(document.createElement('input')));

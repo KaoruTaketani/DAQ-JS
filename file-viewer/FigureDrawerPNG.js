@@ -19,17 +19,17 @@ export default class {
         this._ylabel
         variables.ylabel.prependListener(arg => { this._xlabel = arg })
         /** @type {number} */
-        this._pngXMaxInMillimeters
-        variables.pngXMaxInMillimeters.prependListener(arg => { this._pngXMaxInMillimeters = arg })
+        this._pngXMaxInData
+        variables.pngXMaxInData.prependListener(arg => { this._pngXMaxInData = arg })
         /** @type {number} */
-        this._pngXMinInMillimeters
-        variables.pngXMinInMillimeters.prependListener(arg => { this._pngXMinInMillimeters = arg })
+        this._pngXMinInData
+        variables.pngXMinInData.prependListener(arg => { this._pngXMinInData = arg })
         /** @type {number} */
-        this._pngYMaxInMillimeters
-        variables.pngYMaxInMillimeters.prependListener(arg => { this._pngYMaxInMillimeters = arg })
+        this._pngYMaxInData
+        variables.pngYMaxInData.prependListener(arg => { this._pngYMaxInData = arg })
         /** @type {number} */
-        this._pngYMinInMillimeters
-        variables.pngYMinInMillimeters.prependListener(arg => { this._pngYMinInMillimeters = arg })
+        this._pngYMinInData
+        variables.pngYMinInData.prependListener(arg => { this._pngYMinInData = arg })
         this._dataset
         variables.dataset.prependListener(arg => { this._dataset = arg })
         /** @type {number} */
@@ -68,6 +68,18 @@ export default class {
             this._ymaxValue = arg
             this._operation()
         })
+        /** @type {string} */
+        this._cminValue
+        variables.cminValue.addListener(arg => {
+            this._cminValue = arg
+            this._operation()
+        })
+        /** @type {string} */
+        this._cmaxValue
+        variables.cmaxValue.addListener(arg => {
+            this._cmaxValue = arg
+            this._operation()
+        })
         this._operation = () => {
             if (!this._pngHeightInPixels) return
             if (!this._pngWidthInPixels) return
@@ -75,6 +87,8 @@ export default class {
             if (!this._xmaxValue) return
             if (!this._yminValue) return
             if (!this._ymaxValue) return
+            if (!this._cminValue) return
+            if (!this._cmaxValue) return
 
             const ax = {
                 xLim: [parseFloat(this._xminValue), parseFloat(this._xmaxValue)],
@@ -107,13 +121,15 @@ export default class {
             // bottom y value of axes ges smaller but
             // bottom y value of drawImage gets larger
             // normalized coordinate is useful
-            const dx = this._pngXMaxInMillimeters - this._pngXMinInMillimeters,
+            const dx = this._pngXMaxInData - this._pngXMinInData,
                 xmin = parseFloat(this._xminValue),
                 xmax = parseFloat(this._xmaxValue),
-                dy = this._pngYMaxInMillimeters - this._pngYMinInMillimeters,
+                dy = this._pngYMaxInData - this._pngYMinInData,
                 ymin = parseFloat(this._yminValue),
                 ymax = parseFloat(this._ymaxValue),
-                ymaxInNormalized = (ymax - this._pngYMinInMillimeters) / dy
+                ymaxInNormalized = (ymax - this._pngYMinInData) / dy,
+                cmin = parseFloat(this._cminValue),
+                cmax = parseFloat(this._cmaxValue)
             // this._canvasContext.drawImage(
             //     this._imageElement,
             //     this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
@@ -140,9 +156,9 @@ export default class {
             //         (420 * 0.815) * 300 / 420
             //     )
             // })
-            console.log(this._dataset)
-            imcrop(imagesc(this._dataset), [
-                this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
+            // console.log(this._dataset)
+            imcrop(imagesc(this._dataset, [cmin, cmax]), [
+                this._pngWidthInPixels * (xmin - this._pngXMinInData) / dx,
                 this._pngHeightInPixels * (1 - ymaxInNormalized),
                 this._pngWidthInPixels * (xmax - xmin) / dx,
                 this._pngHeightInPixels * (ymax - ymin) / dy

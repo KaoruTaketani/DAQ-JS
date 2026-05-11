@@ -1,3 +1,5 @@
+import bounds from '../lib/bounds.js'
+
 export default class {
     /**
      * @param {import('./FigureVariablesPNG.js').default} variables 
@@ -46,20 +48,23 @@ export default class {
 
                         variables.xlabel.assign(data.xlabel)
                         variables.ylabel.assign(data.ylabel)
-                        variables.pngXMinInMillimeters.assign(data.xLimInMillimeters[0])
-                        variables.pngXMaxInMillimeters.assign(data.xLimInMillimeters[1])
-                        variables.pngYMinInMillimeters.assign(data.yLimInMillimeters[0])
-                        variables.pngYMaxInMillimeters.assign(data.yLimInMillimeters[1])
-                        variables.xminValue.assign(data.xLimInMillimeters[0].toString())
-                        variables.xmaxValue.assign(data.xLimInMillimeters[1].toString())
-                        variables.yminValue.assign(data.yLimInMillimeters[0].toString())
-                        variables.ymaxValue.assign(data.yLimInMillimeters[1].toString())
+                        variables.pngXMinInData.assign(data.xLimInData[0])
+                        variables.pngXMaxInData.assign(data.xLimInData[1])
+                        variables.pngYMinInData.assign(data.yLimInData[0])
+                        variables.pngYMaxInData.assign(data.yLimInData[1])
+                        variables.xminValue.assign(data.xLimInData[0].toString())
+                        variables.xmaxValue.assign(data.xLimInData[1].toString())
+                        variables.yminValue.assign(data.yLimInData[0].toString())
+                        variables.ymaxValue.assign(data.yLimInData[1].toString())
                         // variables.imageSrc.assign(data.imageSrc)
-                        console.log(data)
-                        variables.dataset.assign({
+                        const dataset = {
                             shape: /** @type {number[]} */(data.shape),
                             data: new Uint32Array(JSON.parse(data.data))
-                        })
+                        }
+                        variables.dataset.assign(dataset)
+                        const clim = bounds(dataset.data)
+                        variables.cminValue.assign(clim[0].toString())
+                        variables.cmaxValue.assign(clim[1].toString())
                         variables.divInnerText.assign(`width: ${data.shape[1]}, height: ${data.shape[0]}`)
                         variables.pngWidthInPixels.assign(data.shape[1])
                         variables.pngHeightInPixels.assign(data.shape[0])

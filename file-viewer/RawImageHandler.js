@@ -73,8 +73,8 @@ export default class {
             // console.log(dataset.value)
             response.writeHead(200, { 'Content-Type': 'application/base64' })
             response.end(JSON.stringify({
-                xLimInMillimeters: [0, 50],
-                yLimInMillimeters: [0, 50],
+                xLimInData: [0, 50],
+                yLimInData: [0, 50],
                 xlabel: 'width (mm)',
                 ylabel: 'height (mm)',
                 shape: /** @type {number[]} */(dataset.shape),
