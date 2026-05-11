@@ -1,4 +1,5 @@
 import FigureVariablesSVG from './FigureVariablesSVG.js'
+import ListenableBoolean from './ListenableBoolean.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
@@ -13,6 +14,9 @@ export default class extends FigureVariablesSVG {
         /** @type {import('./ListenableObject.js').default<number[]>} */
         this.cursorOffset = new ListenableObject()
         this.dataset = new ListenableObject()
+
+        this.cminDisabled = new ListenableBoolean()
+        this.cmaxDisabled = new ListenableBoolean()
 
         this.xminInPixels = new ListenableNumber()
         this.yminInPixels = new ListenableNumber()
@@ -29,6 +33,8 @@ export default class extends FigureVariablesSVG {
         this.pngXMaxInMillimeters = new ListenableNumber()
         this.pngYMaxInMillimeters = new ListenableNumber()
 
+        this.cminValue = new ListenableString()
+        this.cmaxValue = new ListenableString()
         this.imageSrc = new ListenableString()
     }
 }
