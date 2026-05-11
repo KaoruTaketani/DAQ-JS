@@ -90,69 +90,158 @@ let svgInnerHTML
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('label')));
 
-(element => {
-    element.style.marginLeft = '8px'
-    element.appendChild(document.createTextNode('xmin'));
-    (element => {
-        element.type = 'number'
-        element.style.marginLeft = '8px'
-        element.disabled = true
-        // element.min = '0'
-        element.addEventListener('change', () => {
-            variables.xminValue.assign(element.value)
-        })
-        variables.xminValue.addListener(arg => { element.value = arg })
-        variables.xminDisabled.addListener(arg => { element.disabled = arg })
-    })(element.appendChild(document.createElement('input')));
-})(document.body.appendChild(document.createElement('label')));
+// (element => {
+//     element.style.marginLeft = '8px'
+//     element.appendChild(document.createTextNode('xmin'));
+//     (element => {
+//         element.type = 'number'
+//         element.style.marginLeft = '8px'
+//         element.disabled = true
+//         // element.min = '0'
+//         element.addEventListener('change', () => {
+//             variables.xminValue.assign(element.value)
+//         })
+//         variables.xminValue.addListener(arg => { element.value = arg })
+//         variables.xminDisabled.addListener(arg => { element.disabled = arg })
+//     })(element.appendChild(document.createElement('input')));
+// })(document.body.appendChild(document.createElement('label')));
+
+// (element => {
+//     element.style.marginLeft = '8px'
+//     element.appendChild(document.createTextNode('xmax'));
+//     (element => {
+//         element.type = 'number'
+//         element.style.marginLeft = '8px'
+//         element.disabled = true
+//         // element.min = '0'
+//         element.addEventListener('change', () => {
+//             variables.xmaxValue.assign(element.value)
+//         })
+//         variables.xmaxValue.addListener(arg => { element.value = arg })
+//         variables.xmaxDisabled.addListener(arg => { element.disabled = arg })
+//     })(element.appendChild(document.createElement('input')));
+// })(document.body.appendChild(document.createElement('label')));
 
 (element => {
-    element.style.marginLeft = '8px'
-    element.appendChild(document.createTextNode('xmax'));
+    element.style.display = 'inline-block';
+
     (element => {
-        element.type = 'number'
+        element.innerText = 'xlim';
+    })(element.appendChild(document.createElement('legend')));
+
+    (element => {
         element.style.marginLeft = '8px'
-        element.disabled = true
-        // element.min = '0'
-        element.addEventListener('change', () => {
-            variables.xmaxValue.assign(element.value)
-        })
-        variables.xmaxValue.addListener(arg => { element.value = arg })
-        variables.xmaxDisabled.addListener(arg => { element.disabled = arg })
-    })(element.appendChild(document.createElement('input')));
-})(document.body.appendChild(document.createElement('label')));
+        element.style.display = 'flex'
+        element.style.flexDirection = 'column'
+        element.appendChild(document.createTextNode('xmin'));
+        (element => {
+            element.type = 'number'
+            element.style.marginLeft = '8px'
+            element.disabled = true
+            // element.min = '0'
+            element.addEventListener('change', () => {
+                variables.xminValue.assign(element.value)
+            })
+            variables.xminValue.addListener(arg => { element.value = arg })
+            variables.xminDisabled.addListener(arg => { element.disabled = arg })
+        })(element.appendChild(document.createElement('input')));
+    })(element.appendChild(document.createElement('label')));
+
+    (element => {
+        element.style.marginLeft = '8px'
+        element.style.display = 'flex'
+        element.style.flexDirection = 'column'
+        element.appendChild(document.createTextNode('xmax'));
+        (element => {
+            element.type = 'number'
+            element.style.marginLeft = '8px'
+            element.disabled = true
+            // element.min = '0'
+            element.addEventListener('change', () => {
+                variables.xmaxValue.assign(element.value)
+            })
+            variables.xmaxValue.addListener(arg => { element.value = arg })
+            variables.xmaxDisabled.addListener(arg => { element.disabled = arg })
+        })(element.appendChild(document.createElement('input')));
+    })(element.appendChild(document.createElement('label')));
+
+})(document.body.appendChild(document.createElement('fieldset')));
+
+// (element => {
+//     element.style.marginLeft = '8px'
+//     element.appendChild(document.createTextNode('ymin'));
+//     (element => {
+//         element.type = 'number'
+//         element.style.marginLeft = '8px'
+//         element.disabled = true
+//         // element.min = '0'
+//         element.addEventListener('change', () => {
+//             variables.yminValue.assign(element.value)
+//         })
+//         variables.yminValue.addListener(arg => { element.value = arg })
+//         variables.yminDisabled.addListener(arg => { element.disabled = arg })
+//     })(element.appendChild(document.createElement('input')));
+// })(document.body.appendChild(document.createElement('label')));
+
+// (element => {
+//     element.style.marginLeft = '8px'
+//     element.appendChild(document.createTextNode('ymax'));
+//     (element => {
+//         element.type = 'number'
+//         element.style.marginLeft = '8px'
+//         element.disabled = true
+//         // element.min = '0'
+//         element.addEventListener('change', () => {
+//             variables.ymaxValue.assign(element.value)
+//         })
+//         variables.ymaxValue.addListener(arg => { element.value = arg })
+//         variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
+//     })(element.appendChild(document.createElement('input')));
+// })(document.body.appendChild(document.createElement('label')));
 
 (element => {
-    element.style.marginLeft = '8px'
-    element.appendChild(document.createTextNode('ymin'));
-    (element => {
-        element.type = 'number'
-        element.style.marginLeft = '8px'
-        element.disabled = true
-        // element.min = '0'
-        element.addEventListener('change', () => {
-            variables.yminValue.assign(element.value)
-        })
-        variables.yminValue.addListener(arg => { element.value = arg })
-        variables.yminDisabled.addListener(arg => { element.disabled = arg })
-    })(element.appendChild(document.createElement('input')));
-})(document.body.appendChild(document.createElement('label')));
+    element.style.display = 'inline-block';
 
-(element => {
-    element.style.marginLeft = '8px'
-    element.appendChild(document.createTextNode('ymax'));
     (element => {
-        element.type = 'number'
+        element.innerText = 'ylim';
+    })(element.appendChild(document.createElement('legend')));
+
+    (element => {
         element.style.marginLeft = '8px'
-        element.disabled = true
-        // element.min = '0'
-        element.addEventListener('change', () => {
-            variables.ymaxValue.assign(element.value)
-        })
-        variables.ymaxValue.addListener(arg => { element.value = arg })
-        variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
-    })(element.appendChild(document.createElement('input')));
-})(document.body.appendChild(document.createElement('label')));
+        element.style.display = 'flex'
+        element.style.flexDirection = 'column'
+        element.appendChild(document.createTextNode('ymin'));
+        (element => {
+            element.type = 'number'
+            element.style.marginLeft = '8px'
+            element.disabled = true
+            // element.min = '0'
+            element.addEventListener('change', () => {
+                variables.yminValue.assign(element.value)
+            })
+            variables.yminValue.addListener(arg => { element.value = arg })
+            variables.yminDisabled.addListener(arg => { element.disabled = arg })
+        })(element.appendChild(document.createElement('input')));
+    })(element.appendChild(document.createElement('label')));
+
+    (element => {
+        element.style.marginLeft = '8px'
+        element.style.display = 'flex'
+        element.style.flexDirection = 'column'
+        element.appendChild(document.createTextNode('ymax'));
+        (element => {
+            element.type = 'number'
+            element.style.marginLeft = '8px'
+            element.disabled = true
+            // element.min = '0'
+            element.addEventListener('change', () => {
+                variables.ymaxValue.assign(element.value)
+            })
+            variables.ymaxValue.addListener(arg => { element.value = arg })
+            variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
+        })(element.appendChild(document.createElement('input')));
+    })(element.appendChild(document.createElement('label')));
+})(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
     element.style.marginLeft = '208px'
