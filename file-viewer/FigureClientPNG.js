@@ -157,6 +157,39 @@ let svgInnerHTML
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
+    element.style.display = 'inline-block';
+
+    (element => {
+        element.innerText = 'clim';
+    })(element.appendChild(document.createElement('legend')));
+
+    (element => {
+        element.type = 'number'
+        element.style.display = 'flex'
+        element.style.width = '100px'
+        element.disabled = true
+        element.addEventListener('change', () => {
+            variables.cminValue.assign(element.value)
+        })
+        variables.cminValue.addListener(arg => { element.value = arg })
+        variables.cminDisabled.addListener(arg => { element.disabled = arg })
+    })(element.appendChild(document.createElement('input')));
+
+    (element => {
+        element.type = 'number'
+        element.style.display = 'flex'
+        element.style.marginTop = '8px'
+        element.style.width = '100px'
+        element.disabled = true
+        element.addEventListener('change', () => {
+            variables.cmaxValue.assign(element.value)
+        })
+        variables.cmaxValue.addListener(arg => { element.value = arg })
+        variables.cmaxDisabled.addListener(arg => { element.disabled = arg })
+    })(element.appendChild(document.createElement('input')));
+})(document.body.appendChild(document.createElement('fieldset')));
+
+(element => {
     element.style.marginLeft = '208px'
     variables.divInnerText.addListener(arg => {
         element.innerText = arg
