@@ -32,6 +32,7 @@ import NeutronHandler from './NeutronHandler.js'
 import ContrastRatioHandler from './ContrastRatioHandler.js'
 import PhaseShiftHandler from './PhaseShiftHandler.js'
 import ReflectivityHandler from './ReflectivityHandler.js'
+import GraphHandler from './GraphHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -65,6 +66,7 @@ new NeutronHandler(variables)
 new ContrastRatioHandler(variables)
 new PhaseShiftHandler(variables)
 new ReflectivityHandler(variables)
+new GraphHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
@@ -165,6 +167,22 @@ httpServer.on('request', (request, response) => {
                 `        window.pathname="${svgPathnames.get(url.pathname)}"`,
                 `    </script>`,
                 `    <script type="module" src="./FigureClientSVG.js">`,
+                `    </script>`,
+                '</body>',
+                '</html>'
+            ].join('\n'))
+            return
+        }
+
+        if (url.pathname === '/Graph.html') {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end([
+                '<html>',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '<body>',
+                `    <script type="module" src="./FigureClientGraph.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
