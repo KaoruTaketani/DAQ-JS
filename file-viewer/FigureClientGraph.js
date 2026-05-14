@@ -84,7 +84,8 @@ const listboxElement = document.createElement('select');
             'horizontalProjectionStandardDeviations',
             'neutronRate',
             'phase',
-            'pulseHeightHistogramBinCounts'
+            'pulseHeightHistogramBinCounts',
+            'tofDifferenceHistogramBinCounts'
         ].forEach(key => {
             element.add(new Option(key))
         })

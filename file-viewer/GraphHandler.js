@@ -73,7 +73,7 @@ export default class extends Operator {
             }
 
             const y = Array.from(/** @type {Float64Array} */(dataset.value))
-            const x = colon(1, y.length)
+            const x = colon(ykey === 'tofDifferenceHistogramBinCounts' ? 0 : 1, y.length)
             f.close()
 
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })

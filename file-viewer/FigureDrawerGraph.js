@@ -1,5 +1,6 @@
 import axes from '../lib/axes.js'
 import line from '../lib/line.js'
+import stairs from '../lib/stairs.js'
 import xlabel from '../lib/xlabel.js'
 
 export default class {
@@ -13,6 +14,9 @@ export default class {
         /** @type {string} */
         this._ylabel
         variables.ylabel.prependListener(arg => { this._xlabel = arg })
+        /** @type {string} */
+        this._ykeyText
+        variables.ykeyText.prependListener(arg => { this._ykeyText = arg })
         /** @type {number[]} */
         this._xDataset
         variables.xDataset.prependListener(arg => { this._xDataset = arg })
@@ -60,7 +64,9 @@ export default class {
             variables.svgInnerHTML.assign([
                 axes(ax),
                 xlabel(ax, 'horizontal coordinate (ch)'),
-                line(ax, this._xDataset, this._yDataset)
+                this._ykeyText === 'tofDifferenceHistogramBinCounts' ?
+                    stairs(ax, this._xDataset, this._yDataset) :
+                    line(ax, this._xDataset, this._yDataset)
             ].join(''))
         }
     }
