@@ -37,7 +37,6 @@ export default class {
                 `    <h2>HDF5</h2>`,
                 `    <p><a href="./Attributes.html">Attributes</a></p>`,
                 `    <p><a href="./Graph.html">Graph</a></p>`,
-                `    <p><a href="./CentersByWavelength.html">Centers by Wavelength</a></p>`,
                 `    <p><a href="./FilteredImage.html">Filtered Image</a></p>`,                
                 `    <p><a href="./HorizontalProjectionHistograms.html">Horizontal Projection Histograms</a></p>`,
                 `    <p><a href="./RawImage.html">Raw Image</a></p>`,

@@ -1,7 +1,6 @@
 import { readFile } from 'fs'
 import { Server } from 'http'
 import AttributesHandler from './AttributesHandler.js'
-import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 import ChannelHandler from './ChannelHandler.js'
 import FilesHandler from './FilesHandler.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
@@ -27,7 +26,6 @@ new FilteredImageHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
-new CentersByWavelengthHandler(variables)
 new PairedHandler(variables)
 new NeutronHandler(variables)
 new GraphHandler(variables)
@@ -42,9 +40,6 @@ const pngPathnames = new Map()
 pngPathnames.set('/FilteredImage.html', '/filteredImage')
 pngPathnames.set('/HorizontalProjectionHistograms.html', '/horizontalProjectionHistograms')
 pngPathnames.set('/RawImage.html', '/rawImage')
-
-const svgPathnames = new Map()
-svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
 const tablePathnames = new Map()
 tablePathnames.set('/Timer.html', '/timer')
@@ -94,25 +89,6 @@ httpServer.on('request', (request, response) => {
                 `        window.pathname="${pngPathnames.get(url.pathname)}"`,
                 `    </script>`,
                 `    <script type="module" src="./FigureClientPNG.js">`,
-                `    </script>`,
-                '</body>',
-                '</html>'
-            ].join('\n'))
-            return
-        }
-
-        if (svgPathnames.has(url.pathname)) {
-            response.writeHead(200, { 'Content-Type': 'text/html' })
-            response.end([
-                '<html>',
-                '<head>',
-                '    <meta charset="utf-8">',
-                '</head>',
-                '<body>',
-                `    <script>`,
-                `        window.pathname="${svgPathnames.get(url.pathname)}"`,
-                `    </script>`,
-                `    <script type="module" src="./FigureClientSVG.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
