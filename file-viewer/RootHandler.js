@@ -37,7 +37,6 @@ export default class {
                 `    <h2>HDF5</h2>`,
                 `    <p><a href="./Attributes.html">Attributes</a></p>`,
                 `    <p><a href="./Graph.html">Graph</a></p>`,
-                `    <p><a href="./Centers.html">Centers</a></p>`,
                 `    <p><a href="./CentersByEnergy.html">Centers by Energy</a></p>`,
                 `    <p><a href="./CentersByVelocity.html">Centers by Velocity</a></p>`,
                 `    <p><a href="./CentersByWavelength.html">Centers by Wavelength</a></p>`,
