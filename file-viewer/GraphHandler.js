@@ -1,13 +1,8 @@
-import { join } from 'path'
-import { ok } from 'assert'
-import Operator from './Operator.js'
-import h5wasm from "h5wasm/node"
-import linspace from '../lib/linspace.js';
-import max from '../lib/max.js';
+import { ok } from 'assert';
+import h5wasm from "h5wasm/node";
+import { join } from 'path';
 import colon from '../lib/colon.js';
-import axes from '../lib/axes.js';
-import xlabel from '../lib/xlabel.js';
-import line from '../lib/line.js';
+import Operator from './Operator.js';
 await h5wasm.ready;
 
 export default class extends Operator {
@@ -49,7 +44,7 @@ export default class extends Operator {
             if (xkey !== '_calculated_') {
                 response.writeHead(400)
                 response.end()
-                
+
                 return
             }
             const ykey = this._url.searchParams.get('ykey')
@@ -73,39 +68,19 @@ export default class extends Operator {
             if (!dataset) {
                 response.writeHead(404)
                 response.end()
+            f.close()
                 return
             }
-            console.log(`xkey:${xkey},ykey:${ykey},dataset:${dataset}`)
 
-            /** @type {Float64Array} */
-            const y =/** @type {Float64Array} */ (dataset.value)
+            const y = Array.from(/** @type {Float64Array} */(dataset.value))
             const x = colon(1, y.length)
-
-            const xLimValues = this._url.searchParams.getAll('xLim')
-            const yLimValues = this._url.searchParams.getAll('yLim')
-            const xLim = xLimValues.length === 2
-                ? xLimValues.map(v => parseFloat(v))
-                : [0, y.length]
-            const yLim = yLimValues.length === 2
-                ? yLimValues.map(v => parseFloat(v))
-                : [0, max(y)]
-            const xTick = linspace(xLim[0], xLim[1], 8 + 1)
-            const ax = {
-                xLim: xLim,
-                yLim: yLim,
-                xTick: xTick,
-                yTick: yLim,
-                xTickLabel: xTick.map(x => x.toFixed()),
-                yTickLabel: yLim.map(y => y.toString())
-            }
-            response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-            response.end([
-                axes(ax),
-                xlabel(ax, 'horizontal coordinate (ch)'),
-                line(ax, x, y)
-            ].join(''))
             f.close()
 
+            response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
+            response.end(JSON.stringify({
+                x: x,
+                y: y
+            }))
         }
     }
 }

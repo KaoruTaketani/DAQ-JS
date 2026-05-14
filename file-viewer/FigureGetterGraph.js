@@ -1,3 +1,5 @@
+import bounds from '../lib/bounds.js'
+
 export default class {
     /**
      * @param {import('./FigureVariablesGraph.js').default} variables 
@@ -51,8 +53,17 @@ export default class {
                     variables.svgInnerHTML.assign('')
                 } else {
                     response.text().then(text => {
+                        const data = JSON.parse(text)
+console.log(data)
                         variables.divInnerText.assign('')
-                        variables.svgInnerHTML.assign(text)
+                        variables.xDataset.assign(data.x)
+                        variables.yDataset.assign(data.y)
+                        const xlim = bounds(data.x)
+                        variables.xminValue.assign(xlim[0].toString())
+                        variables.xmaxValue.assign(xlim[1].toString())
+                        const ylim = bounds(data.y)
+                        variables.yminValue.assign(ylim[0].toString())
+                        variables.ymaxValue.assign(ylim[1].toString())
                     })
                 }
             }).catch(() => {

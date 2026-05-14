@@ -5,6 +5,8 @@ import ListenableString from './ListenableString.js'
 export default class {
     constructor() {
         this.fileNames = new ListenableObject()
+        this.yDataset = new ListenableObject()
+        this.xDataset = new ListenableObject()
 
         this.selectInnerHTML = new ListenableString()
         this.path = new ListenableString()

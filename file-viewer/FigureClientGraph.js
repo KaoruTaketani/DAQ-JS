@@ -1,4 +1,5 @@
 import FigureCleanupperSVG from "./FigureCleanupperSVG.js";
+import FigureDrawerGraph from "./FigureDrawerGraph.js";
 import FigureGetterGraph from "./FigureGetterGraph.js";
 import FigureVariablesGraph from "./FigureVariablesGraph.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
@@ -8,6 +9,7 @@ const variables = new FigureVariablesGraph()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new FigureCleanupperSVG(variables)
+new FigureDrawerGraph(variables)
 new FigureGetterGraph(variables)
     ;
 const listboxElement = document.createElement('select');
@@ -146,7 +148,6 @@ const listboxElement = document.createElement('select');
         // element.min = '0'
         element.addEventListener('change', () => {
             variables.yminValue.assign(element.value)
-            listboxElement.dispatchEvent(new Event('change'))
         })
         variables.yminValue.addListener(arg => { element.value = arg })
         variables.yminDisabled.addListener(arg => { element.disabled = arg })
@@ -161,7 +162,6 @@ const listboxElement = document.createElement('select');
         // element.min = '0'
         element.addEventListener('change', () => {
             variables.ymaxValue.assign(element.value)
-            listboxElement.dispatchEvent(new Event('change'))
         })
         variables.ymaxValue.addListener(arg => { element.value = arg })
         variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
@@ -181,15 +181,6 @@ const listboxElement = document.createElement('select');
     element.setAttribute('viewBox', '0 0 560 420')
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
-
-        // variables.customChecked.assign(false)
-        const axes =/** @type {HTMLElement} */(element.firstElementChild)
-        // console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
-        if (axes.dataset.xminInData) variables.xminValue.assign(axes.dataset.xminInData)
-        if (axes.dataset.xmaxInData) variables.xmaxValue.assign(axes.dataset.xmaxInData)
-        if (axes.dataset.yminInData) variables.yminValue.assign(axes.dataset.yminInData)
-        if (axes.dataset.ymaxInData) variables.ymaxValue.assign(axes.dataset.ymaxInData)
-
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
