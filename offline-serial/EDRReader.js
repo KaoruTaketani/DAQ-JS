@@ -2,7 +2,6 @@ import { createReadStream, statSync } from 'fs'
 import { File, ready } from 'h5wasm/node'
 import { join } from 'path'
 import Operator from './Operator.js'
-import edrPath from './edrPath.js'
 
 export default class extends Operator {
     /**
@@ -10,6 +9,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {string} */
+        this._edrPath
+        variables.edrPath.prependListener(arg => { this._edrPath = arg })
         /** @type {string} */
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
@@ -34,7 +36,7 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._edrFileName) return
 
-            const edrFilePath = join(edrPath(), this._edrFileName),
+            const edrFilePath = join(this._edrPath, this._edrFileName),
                 totalSize = statSync(edrFilePath).size,
                 startTime = Date.now()
 

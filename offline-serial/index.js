@@ -90,7 +90,9 @@ new ImageBinWidthCalculator(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
+// edit jsonPath.js to set jsonPath
 variables.hdf5Path.assign('../../hdf5/20250424')
+variables.edrPath.assign('../../edr/20250424')
 // variables.jsonFilePaths.assign([
 //     './104.json',
 //     './104_16.json',

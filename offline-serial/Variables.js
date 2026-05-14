@@ -154,6 +154,7 @@ export default class {
 
         this.hdf5FileName = new ListenableString()
         this.hdf5Path = new ListenableString()
+        this.edrPath = new ListenableString()
 
         this.comment = new ParameterString('comment', this.hdf5File, this.parameters)
         this.upstreamFlipperOutput = new ParameterString('upstreamFlipperOutput', this.hdf5File, this.parameters)
