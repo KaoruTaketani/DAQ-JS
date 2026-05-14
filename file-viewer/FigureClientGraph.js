@@ -86,7 +86,8 @@ const listboxElement = document.createElement('select');
             'phase',
             'pulseHeightHistogramBinCounts',
             'tofDifferenceHistogramBinCounts',
-            'tofHistogramBinCounts'
+            'tofHistogramBinCounts',
+            'verticalProjectionBinCounts'
         ].forEach(key => {
             element.add(new Option(key))
         })

@@ -14,7 +14,6 @@ import RawImageHandler from './RawImageHandler.js'
 import RootHandler from './RootHandler.js'
 import TimerHandler from './TimerHandler.js'
 import Variables from './Variables.js'
-import VerticalProjectionHandler from './VerticalProjectionHandler.js'
 import WidthsHandler from './WidthsHandler.js'
 import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
@@ -34,7 +33,6 @@ new FilteredImageHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
-new VerticalProjectionHandler(variables)
 new WidthsHandler(variables)
 new CentersByVelocityHandler(variables)
 new CentersByEnergyHandler(variables)
@@ -62,7 +60,6 @@ svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
-svgPathnames.set('/VerticalProjection.html', '/verticalProjection')
 svgPathnames.set('/Widths.html', '/widths')
 svgPathnames.set('/ContrastRatio.html', '/contrastRatio')
 svgPathnames.set('/Reflectivity.html', '/reflectivity')
