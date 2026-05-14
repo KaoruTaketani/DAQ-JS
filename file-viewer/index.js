@@ -9,7 +9,6 @@ import FilesHandler from './FilesHandler.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
 import HorizontalProjectionHistogramsHandler from './HorizontalProjectionHistogramsHandler.js'
 import KickerHandler from './KickerHandler.js'
-import NeutronRateHandler from './NeutronRateHandler.js'
 import NumEventsHandler from './NumEventsHandler.js'
 import PhaseHandler from './PhaseHandler.js'
 import PulseHeightHistogramHandler from './PulseHeightHistogramHandler.js'
@@ -40,7 +39,6 @@ new TOFHistogramHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
-new NeutronRateHandler(variables)
 new PhaseHandler(variables)
 new PulseHeightHistogramHandler(variables)
 new TOFDifferenceHistogramHandler(variables)
@@ -72,7 +70,6 @@ svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
-svgPathnames.set('/NeutronRate.html', '/neutronRate')
 svgPathnames.set('/Phase.html', '/phase')
 svgPathnames.set('/PulseHeightHistogram.html', '/pulseHeightHistogram')
 svgPathnames.set('/TOFDifferenceHistogram.html', '/tofDifferenceHistogram')
