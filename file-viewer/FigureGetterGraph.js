@@ -49,7 +49,7 @@ export default class {
 
             fetch(`/graph?xkey=${this._xkeyText}&ykey=${this._ykeyText}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
                 if (!response.ok) {
-                    variables.divInnerText.assign('tofHistogram was not found')
+                    variables.divInnerText.assign(`${this._xkeyText} or ${this._ykeyText} was not found in ${this._fileNames[0]}`)
                     variables.svgInnerHTML.assign('')
                 } else {
                     response.text().then(text => {

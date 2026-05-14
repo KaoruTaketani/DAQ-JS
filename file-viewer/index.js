@@ -7,7 +7,6 @@ import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 import ChannelHandler from './ChannelHandler.js'
 import FilesHandler from './FilesHandler.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
-import HorizontalProjectionHandler from './HorizontalProjectionHandler.js'
 import HorizontalProjectionHistogramsHandler from './HorizontalProjectionHistogramsHandler.js'
 import HorizontalProjectionMeansHandler from './HorizontalProjectionMeansHandler.js'
 import HorizontalProjectionStandardDeviationsHandler from './HorizontalProjectionStandardDeviationsHandler.js'
@@ -42,7 +41,6 @@ new FilteredImageHandler(variables)
 new TOFHistogramHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
-new HorizontalProjectionHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
 new HorizontalProjectionMeansHandler(variables)
 new HorizontalProjectionStandardDeviationsHandler(variables)
@@ -78,7 +76,6 @@ svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
-svgPathnames.set('/HorizontalProjection.html', '/horizontalProjection')
 svgPathnames.set('/HorizontalProjectionMeans.html', '/horizontalProjectionMeans')
 svgPathnames.set('/HorizontalProjectionStandardDeviations.html', '/horizontalProjectionStandardDeviations')
 svgPathnames.set('/NeutronRate.html', '/neutronRate')

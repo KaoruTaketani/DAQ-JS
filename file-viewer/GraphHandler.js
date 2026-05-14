@@ -68,7 +68,7 @@ export default class extends Operator {
             if (!dataset) {
                 response.writeHead(404)
                 response.end()
-            f.close()
+                f.close()
                 return
             }
 
