@@ -5,7 +5,6 @@ import CentersByEnergyHandler from './CentersByEnergyHandler.js'
 import CentersByVelocityHandler from './CentersByVelocityHandler.js'
 import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 import ChannelHandler from './ChannelHandler.js'
-import ContrastHandler from './ContrastHandler.js'
 import FilesHandler from './FilesHandler.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
 import HeightsHandler from './HeightsHandler.js'
@@ -44,7 +43,6 @@ new FilteredImageHandler(variables)
 new TOFHistogramHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
-new ContrastHandler(variables)
 new HeightsHandler(variables)
 new HorizontalProjectionHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
@@ -81,7 +79,7 @@ const svgPathnames = new Map()
 svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
-svgPathnames.set('/Contrast.html', '/contrast')
+
 svgPathnames.set('/Heights.html', '/heights')
 svgPathnames.set('/HorizontalProjection.html', '/horizontalProjection')
 svgPathnames.set('/HorizontalProjectionMeans.html', '/horizontalProjectionMeans')

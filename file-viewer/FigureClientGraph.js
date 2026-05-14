@@ -74,11 +74,10 @@ const listboxElement = document.createElement('select');
         element.style.width = '200px'
         element.addEventListener('change', () => {
             variables.ykeyText.assign(element.options[element.selectedIndex].text)
+        });
+        ['centers', 'contrast'].forEach(key => {
+            element.add(new Option(key))
         })
-        element.innerHTML = [
-            '<option>centers</option>',
-            '<option>tofHistogram</option>'
-        ].join('')
         element.value = ''
     })(element.appendChild(document.createElement('select')));
 })(document.body.appendChild(document.createElement('fieldset')));

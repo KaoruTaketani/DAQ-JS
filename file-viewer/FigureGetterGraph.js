@@ -54,7 +54,7 @@ export default class {
                 } else {
                     response.text().then(text => {
                         const data = JSON.parse(text)
-console.log(data)
+
                         variables.divInnerText.assign('')
                         variables.xDataset.assign(data.x)
                         variables.yDataset.assign(data.y)
