@@ -59,12 +59,12 @@ const listboxElement = document.createElement('select');
         // }
         element.addEventListener('change', () => {
             variables.xkeyText.assign(element.options[element.selectedIndex].text)
-        })
-        element.innerHTML = [
-            '<option>_calculated_</option>',
-            '<option>energyInMillielectronvolts</option>',
-            '<option>tofInNanoseconds</option>'
-        ].join('')
+        });
+        [
+            '_calculated_',
+            'tofInSeconds',
+            'energyInMillielectronvolts'
+        ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));
 
@@ -92,9 +92,7 @@ const listboxElement = document.createElement('select');
             'reflectivity',
             'contrastRatio',
             'phaseShift'
-        ].forEach(key => {
-            element.add(new Option(key))
-        })
+        ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));
 })(document.body.appendChild(document.createElement('fieldset')));

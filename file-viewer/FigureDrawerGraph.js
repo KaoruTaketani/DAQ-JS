@@ -1,5 +1,6 @@
 import axes from '../lib/axes.js'
 import line from '../lib/line.js'
+import scatter from '../lib/scatter.js'
 import stairs from '../lib/stairs.js'
 import xlabel from '../lib/xlabel.js'
 
@@ -14,6 +15,9 @@ export default class {
         /** @type {string} */
         this._ylabel
         variables.ylabel.prependListener(arg => { this._xlabel = arg })
+        /** @type {string} */
+        this._xkeyText
+        variables.xkeyText.prependListener(arg => { this._xkeyText = arg })
         /** @type {string} */
         this._ykeyText
         variables.ykeyText.prependListener(arg => { this._ykeyText = arg })
@@ -61,13 +65,21 @@ export default class {
                 xTickLabel: [this._xminValue, this._xmaxValue],
                 yTickLabel: [this._yminValue, this._ymaxValue]
             }
-            variables.svgInnerHTML.assign([
-                axes(ax),
-                xlabel(ax, 'horizontal coordinate (ch)'),
-                this._ykeyText === 'tofDifferenceHistogramBinCounts' ?
-                    stairs(ax, this._xDataset, this._yDataset) :
-                    line(ax, this._xDataset, this._yDataset)
-            ].join(''))
+            if (this._xkeyText === '_calculated_') {
+                variables.svgInnerHTML.assign([
+                    axes(ax),
+                    xlabel(ax, 'horizontal coordinate (ch)'),
+                    this._ykeyText === 'tofDifferenceHistogramBinCounts' ?
+                        stairs(ax, this._xDataset, this._yDataset) :
+                        line(ax, this._xDataset, this._yDataset)
+                ].join(''))
+            } else {
+                variables.svgInnerHTML.assign([
+                    axes(ax),
+                    xlabel(ax, 'horizontal coordinate (ch)'),
+                    scatter(ax, this._xDataset, this._yDataset)
+                ].join(''))
+            }
         }
     }
 }
