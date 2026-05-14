@@ -16,7 +16,6 @@ import TimerHandler from './TimerHandler.js'
 import Variables from './Variables.js'
 import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
-import PhaseShiftHandler from './PhaseShiftHandler.js'
 import GraphHandler from './GraphHandler.js'
 
 const variables = new Variables()
@@ -35,7 +34,6 @@ new CentersByEnergyHandler(variables)
 new CentersByWavelengthHandler(variables)
 new PairedHandler(variables)
 new NeutronHandler(variables)
-new PhaseShiftHandler(variables)
 new GraphHandler(variables)
 
 const httpServer = new Server()
@@ -53,8 +51,6 @@ const svgPathnames = new Map()
 svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
-
-svgPathnames.set('/PhaseShift.html', '/phaseShift')
 
 const tablePathnames = new Map()
 tablePathnames.set('/Timer.html', '/timer')

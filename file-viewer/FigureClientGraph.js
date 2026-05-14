@@ -90,7 +90,8 @@ const listboxElement = document.createElement('select');
             'verticalProjectionBinCounts',
             'widths',
             'reflectivity',
-            'contrastRatio'
+            'contrastRatio',
+            'phaseShift'
         ].forEach(key => {
             element.add(new Option(key))
         })
