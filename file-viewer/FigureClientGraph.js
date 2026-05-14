@@ -89,7 +89,8 @@ const listboxElement = document.createElement('select');
             'tofHistogramBinCounts',
             'verticalProjectionBinCounts',
             'widths',
-            'reflectivity'
+            'reflectivity',
+            'contrastRatio'
         ].forEach(key => {
             element.add(new Option(key))
         })

@@ -16,7 +16,6 @@ import TimerHandler from './TimerHandler.js'
 import Variables from './Variables.js'
 import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
-import ContrastRatioHandler from './ContrastRatioHandler.js'
 import PhaseShiftHandler from './PhaseShiftHandler.js'
 import GraphHandler from './GraphHandler.js'
 
@@ -36,7 +35,6 @@ new CentersByEnergyHandler(variables)
 new CentersByWavelengthHandler(variables)
 new PairedHandler(variables)
 new NeutronHandler(variables)
-new ContrastRatioHandler(variables)
 new PhaseShiftHandler(variables)
 new GraphHandler(variables)
 
@@ -56,7 +54,6 @@ svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
-svgPathnames.set('/ContrastRatio.html', '/contrastRatio')
 svgPathnames.set('/PhaseShift.html', '/phaseShift')
 
 const tablePathnames = new Map()
