@@ -1,7 +1,6 @@
 import { readFile } from 'fs'
 import { Server } from 'http'
 import AttributesHandler from './AttributesHandler.js'
-import CentersByEnergyHandler from './CentersByEnergyHandler.js'
 import CentersByVelocityHandler from './CentersByVelocityHandler.js'
 import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 import ChannelHandler from './ChannelHandler.js'
@@ -30,7 +29,6 @@ new RawImageHandler(variables)
 new RootHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
 new CentersByVelocityHandler(variables)
-new CentersByEnergyHandler(variables)
 new CentersByWavelengthHandler(variables)
 new PairedHandler(variables)
 new NeutronHandler(variables)
@@ -48,7 +46,6 @@ pngPathnames.set('/HorizontalProjectionHistograms.html', '/horizontalProjectionH
 pngPathnames.set('/RawImage.html', '/rawImage')
 
 const svgPathnames = new Map()
-svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
