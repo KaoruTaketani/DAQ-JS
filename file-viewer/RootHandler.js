@@ -42,7 +42,6 @@ export default class {
                 `    <p><a href="./CentersByWavelength.html">Centers by Wavelength</a></p>`,
                 `    <p><a href="./FilteredImage.html">Filtered Image</a></p>`,                
                 `    <p><a href="./HorizontalProjectionHistograms.html">Horizontal Projection Histograms</a></p>`,
-                `    <p><a href="./HorizontalProjectionStandardDeviations.html">Horizontal Projection Standard Deviations</a></p>`,
                 `    <p><a href="./NeutronRate.html">Neutron Rate</a></p>`,
                 `    <p><a href="./Phase.html">Phase</a></p>`,
                 `    <p><a href="./PulseHeightHistogram.html">Pulse Height Histogram</a></p>`,
