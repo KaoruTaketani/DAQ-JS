@@ -85,7 +85,8 @@ const listboxElement = document.createElement('select');
             'neutronRate',
             'phase',
             'pulseHeightHistogramBinCounts',
-            'tofDifferenceHistogramBinCounts'
+            'tofDifferenceHistogramBinCounts',
+            'tofHistogramBinCounts'
         ].forEach(key => {
             element.add(new Option(key))
         })

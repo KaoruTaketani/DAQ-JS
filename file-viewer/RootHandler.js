@@ -43,7 +43,6 @@ export default class {
                 `    <p><a href="./FilteredImage.html">Filtered Image</a></p>`,                
                 `    <p><a href="./HorizontalProjectionHistograms.html">Horizontal Projection Histograms</a></p>`,
                 `    <p><a href="./RawImage.html">Raw Image</a></p>`,
-                `    <p><a href="./TOFHistogram.html">TOF Histogram</a></p>`,
                 `    <p><a href="./VerticalProjection.html">Vertical Projection</a></p>`,
                 `    <p><a href="./Widths.html">Widths</a></p>`,
                 `    <p><a href="./Reflectivity.html">Reflectivity</a></p>`,

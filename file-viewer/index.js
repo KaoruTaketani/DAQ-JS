@@ -12,7 +12,6 @@ import KickerHandler from './KickerHandler.js'
 import NumEventsHandler from './NumEventsHandler.js'
 import RawImageHandler from './RawImageHandler.js'
 import RootHandler from './RootHandler.js'
-import TOFHistogramHandler from './TOFHistogramHandler.js'
 import TimerHandler from './TimerHandler.js'
 import Variables from './Variables.js'
 import VerticalProjectionHandler from './VerticalProjectionHandler.js'
@@ -32,7 +31,6 @@ new KickerHandler(variables)
 new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new FilteredImageHandler(variables)
-new TOFHistogramHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
@@ -64,7 +62,6 @@ svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
-svgPathnames.set('/TOFHistogram.html', '/tofHistogram')
 svgPathnames.set('/VerticalProjection.html', '/verticalProjection')
 svgPathnames.set('/Widths.html', '/widths')
 svgPathnames.set('/ContrastRatio.html', '/contrastRatio')
