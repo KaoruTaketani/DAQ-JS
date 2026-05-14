@@ -11,6 +11,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {string} */
+        this._projectName
+        variables.projectName.prependListener(arg => { this._projectName = arg })
+        /** @type {string} */
         this._hdf5Path
         variables.hdf5Path.prependListener(arg => { this._hdf5Path = arg })
         /** @type {string[]} */
@@ -24,7 +27,7 @@ export default class extends Operator {
             if (name === undefined) {
                 console.log('done')
             } else {
-                readFile(join(jsonPath(), name), 'utf8', (err, data) => {
+                readFile(join(jsonPath(), this._projectName, name), 'utf8', (err, data) => {
                     if (err) throw err
 
                     ready.then(() => {
@@ -56,7 +59,7 @@ export default class extends Operator {
                         variables.hdf5FileName.assign(basename(name, '.json') + '.h5')
 
                         if (parameters.directBeamFileName) {
-                            const directBeamHDF5File = new File(join(this._hdf5Path, parameters.directBeamFileName), 'r')
+                            const directBeamHDF5File = new File(join(this._hdf5Path, this._projectName, parameters.directBeamFileName), 'r')
                             variables.directBeamHDF5File.assign(directBeamHDF5File)
                             directBeamHDF5File.close()
                         } else {

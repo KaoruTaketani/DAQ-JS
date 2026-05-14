@@ -10,6 +10,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {string} */
+        this._projectName
+        variables.projectName.prependListener(arg => { this._projectName = arg })
+        /** @type {string} */
         this._edrPath
         variables.edrPath.prependListener(arg => { this._edrPath = arg })
         /** @type {string} */
@@ -36,7 +39,7 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._edrFileName) return
 
-            const edrFilePath = join(this._edrPath, this._edrFileName),
+            const edrFilePath = join(this._edrPath, this._projectName, this._edrFileName),
                 totalSize = statSync(edrFilePath).size,
                 startTime = Date.now()
 
@@ -52,7 +55,7 @@ export default class extends Operator {
                     variables.horizontalProjectionHistogramsBinCounts.assign(this._horizontalProjectionHistogramsBinCounts)
 
                     ready.then(() => {
-                        const hdf5File = new File(join(this._hdf5Path, this._hdf5FileName), 'w')
+                        const hdf5File = new File(join(this._hdf5Path, this._projectName, this._hdf5FileName), 'w')
                         variables.hdf5File.assign(hdf5File)
                         hdf5File.close()
                         console.log(`hdf5 elapsedTime: ${Date.now() - startTime} ms`)

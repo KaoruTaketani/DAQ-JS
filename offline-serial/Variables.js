@@ -152,6 +152,7 @@ export default class {
         this.downstreamSlitWidthInMillimeters = new ParameterNumber('downstreamSlitWidthInMillimeters', this.hdf5File, this.parameters)
         this.sampleTemperatureInKelvins = new ParameterNumber('sampleTemperatureInKelvins', this.hdf5File, this.parameters)
 
+        this.projectName = new ListenableString()
         this.hdf5FileName = new ListenableString()
         this.hdf5Path = new ListenableString()
         this.edrPath = new ListenableString()
