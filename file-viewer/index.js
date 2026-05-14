@@ -7,7 +7,6 @@ import CentersByWavelengthHandler from './CentersByWavelengthHandler.js'
 import ChannelHandler from './ChannelHandler.js'
 import FilesHandler from './FilesHandler.js'
 import FilteredImageHandler from './FilteredImageHandler.js'
-import HeightsHandler from './HeightsHandler.js'
 import HorizontalProjectionHandler from './HorizontalProjectionHandler.js'
 import HorizontalProjectionHistogramsHandler from './HorizontalProjectionHistogramsHandler.js'
 import HorizontalProjectionMeansHandler from './HorizontalProjectionMeansHandler.js'
@@ -43,7 +42,6 @@ new FilteredImageHandler(variables)
 new TOFHistogramHandler(variables)
 new RawImageHandler(variables)
 new RootHandler(variables)
-new HeightsHandler(variables)
 new HorizontalProjectionHandler(variables)
 new HorizontalProjectionHistogramsHandler(variables)
 new HorizontalProjectionMeansHandler(variables)
@@ -80,7 +78,6 @@ svgPathnames.set('/CentersByEnergy.html', '/centersByEnergy')
 svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
-svgPathnames.set('/Heights.html', '/heights')
 svgPathnames.set('/HorizontalProjection.html', '/horizontalProjection')
 svgPathnames.set('/HorizontalProjectionMeans.html', '/horizontalProjectionMeans')
 svgPathnames.set('/HorizontalProjectionStandardDeviations.html', '/horizontalProjectionStandardDeviations')

@@ -75,7 +75,9 @@ const listboxElement = document.createElement('select');
         element.addEventListener('change', () => {
             variables.ykeyText.assign(element.options[element.selectedIndex].text)
         });
-        ['centers', 'contrast'].forEach(key => {
+        [
+            'centers', 'contrast', 'heights'
+        ].forEach(key => {
             element.add(new Option(key))
         })
         element.value = ''
