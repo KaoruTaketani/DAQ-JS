@@ -63,7 +63,8 @@ const listboxElement = document.createElement('select');
         [
             '_calculated_',
             'tofInSeconds',
-            'energyInMillielectronvolts'
+            'energyInMillielectronvolts',
+            'velocityInMetersPerSeconds'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));
