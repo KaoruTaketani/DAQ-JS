@@ -18,7 +18,6 @@ import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
 import ContrastRatioHandler from './ContrastRatioHandler.js'
 import PhaseShiftHandler from './PhaseShiftHandler.js'
-import ReflectivityHandler from './ReflectivityHandler.js'
 import GraphHandler from './GraphHandler.js'
 
 const variables = new Variables()
@@ -39,7 +38,6 @@ new PairedHandler(variables)
 new NeutronHandler(variables)
 new ContrastRatioHandler(variables)
 new PhaseShiftHandler(variables)
-new ReflectivityHandler(variables)
 new GraphHandler(variables)
 
 const httpServer = new Server()
@@ -59,7 +57,6 @@ svgPathnames.set('/CentersByVelocity.html', '/centersByVelocity')
 svgPathnames.set('/CentersByWavelength.html', '/centersByWavelength')
 
 svgPathnames.set('/ContrastRatio.html', '/contrastRatio')
-svgPathnames.set('/Reflectivity.html', '/reflectivity')
 svgPathnames.set('/PhaseShift.html', '/phaseShift')
 
 const tablePathnames = new Map()

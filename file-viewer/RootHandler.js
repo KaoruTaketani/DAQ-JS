@@ -43,7 +43,6 @@ export default class {
                 `    <p><a href="./FilteredImage.html">Filtered Image</a></p>`,                
                 `    <p><a href="./HorizontalProjectionHistograms.html">Horizontal Projection Histograms</a></p>`,
                 `    <p><a href="./RawImage.html">Raw Image</a></p>`,
-                `    <p><a href="./Reflectivity.html">Reflectivity</a></p>`,
                 `    <p><a href="./PhaseShift.html">Phase Shift</a></p>`,
                 `    <p><a href="./ContrastRatio.html">Contraast Ratio</a></p>`,
                 '</body>',
