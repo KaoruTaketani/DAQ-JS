@@ -76,7 +76,8 @@ const listboxElement = document.createElement('select');
             variables.ykeyText.assign(element.options[element.selectedIndex].text)
         });
         [
-            'centers', 'contrast', 'heights','horizontalProjectionBinCounts'
+            'centers', 'contrast', 'heights', 'horizontalProjectionBinCounts',
+            'horizontalProjectionMeans'
         ].forEach(key => {
             element.add(new Option(key))
         })
