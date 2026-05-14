@@ -1,4 +1,4 @@
-import FigureCleanupperSVG from "./FigureCleanupperSVG.js";
+import FigureCleanupperGraph from "./FigureCleanupperGraph.js";
 import FigureDrawerGraph from "./FigureDrawerGraph.js";
 import FigureGetterGraph from "./FigureGetterGraph.js";
 import FigureVariablesGraph from "./FigureVariablesGraph.js";
@@ -8,7 +8,7 @@ import PathMaker from "./PathMaker.js";
 const variables = new FigureVariablesGraph()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
-new FigureCleanupperSVG(variables)
+new FigureCleanupperGraph(variables)
 new FigureDrawerGraph(variables)
 new FigureGetterGraph(variables)
     ;

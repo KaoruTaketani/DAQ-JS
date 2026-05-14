@@ -1,10 +1,10 @@
-import FigureVariablesSVG from './FigureVariablesSVG.js'
+import FigureVariables from './FigureVariables.js'
 import ListenableBoolean from './ListenableBoolean.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
 
-export default class extends FigureVariablesSVG {
+export default class extends FigureVariables {
     constructor() {
         super()
         /** @type {import('./ListenableObject.js').default<CanvasRenderingContext2D>} */
