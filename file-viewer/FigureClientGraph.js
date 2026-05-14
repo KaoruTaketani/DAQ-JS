@@ -83,7 +83,8 @@ const listboxElement = document.createElement('select');
             'horizontalProjectionMeans',
             'horizontalProjectionStandardDeviations',
             'neutronRate',
-            'phase'
+            'phase',
+            'pulseHeightHistogramBinCounts'
         ].forEach(key => {
             element.add(new Option(key))
         })
@@ -146,7 +147,7 @@ const listboxElement = document.createElement('select');
     element.style.display = 'inline-block';
 
     (element => {
-        element.innerText = 'xlim';
+        element.innerText = 'ylim';
     })(element.appendChild(document.createElement('legend')));
 
     (element => {
