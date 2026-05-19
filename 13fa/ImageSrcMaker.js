@@ -1,7 +1,8 @@
 import Operator from '../13/Operator.js'
 import imwrite from '../lib/imwrite.js'
 import imagesc from '../lib/imagesc.js'
-import throttle from '../lib/throttle.js'
+import peaks from '../lib/peaks.js'
+import colon from '../lib/colon.js'
 
 export default class extends Operator {
     /**
@@ -9,18 +10,18 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogramBinCounts
-        variables.histogramBinCounts.addListener(arg => {
-            this._histogramBinCounts = arg
+        variables.httpServer.addListener(_ => {
             this._operation()
         })
-        this._operation = throttle(() => {
+        this._operation = () => {
             const startTime = Date.now()
-            imwrite(imagesc(this._histogramBinCounts)).then(buffer => {
+            const Z = peaks(colon(-1, 0.25, 1))
+
+            imwrite(imagesc(Z, [0, 4])).then(buffer => {
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-                variables.histogramImageSrc.assign(`data:image/png;base64,${buffer.toString('base64')}`)
+                variables.imageSrc.assign(`data:image/png;base64,${buffer.toString('base64')}`)
             })
-        },500)
+        }
     }
 }
 

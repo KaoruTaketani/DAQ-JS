@@ -11,6 +11,7 @@ export default class extends Variables {
         this.histogramXBinLimits = new ListenableObject()
         this.histogramYBinLimits = new ListenableObject()
         
+        this.imageSrc = new ElementString('/imageSrc', this.elementValues, this.webSocketPathnames)
         this.histogramImageSrc = new ElementString('/histogramImageSrc', this.elementValues, this.webSocketPathnames)
     }
 }
