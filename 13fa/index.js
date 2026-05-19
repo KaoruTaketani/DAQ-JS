@@ -15,3 +15,5 @@ new HTTPUpgradeHandler(variables)
 new ImageSrcMaker(variables)
 
 variables.httpServer.assign(new Server())
+variables.cmin.assign(0)
+variables.cmax.assign(4)

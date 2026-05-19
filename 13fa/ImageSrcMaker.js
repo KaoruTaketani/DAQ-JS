@@ -10,14 +10,24 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        variables.httpServer.addListener(_ => {
+        this._cmax
+        variables.cmax.addListener(arg => {
+            this._cmax = arg
+            this._operation()
+        })
+        this._cmin
+        variables.cmin.addListener(arg => {
+            this._cmin = arg
             this._operation()
         })
         this._operation = () => {
+            if (this._cmax === undefined) return
+            if (this._cmin === undefined) return
+
             const startTime = Date.now()
             const Z = peaks(colon(-1, 0.25, 1))
 
-            imwrite(imagesc(Z, [0, 4])).then(buffer => {
+            imwrite(imagesc(Z, [this._cmin, this._cmax])).then(buffer => {
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)
                 variables.imageSrc.assign(`data:image/png;base64,${buffer.toString('base64')}`)
             })

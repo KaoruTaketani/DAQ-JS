@@ -6,7 +6,10 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const divElement = document.body.appendChild(document.createElement('div'));
+const divElement = document.createElement('div');
+(element => {
+    element.innerText = `red: undefined, green: undefined, blue: undefined, alpha: undefined`
+})(document.body.appendChild(divElement));
 
 (element => {
     element.width = 256
