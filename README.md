@@ -72,7 +72,7 @@
 
 [13.f.a Img Element](./1fha/README.md)
 
-[13.f.b Canvas Value](./13fb/README.md)
+[13.f.b Canvas Element](./13fb/README.md)
 
 [13.f.c Cursor Value](./13fc/README.md)
 
