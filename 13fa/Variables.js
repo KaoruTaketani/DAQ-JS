@@ -8,11 +8,8 @@ import Variables from '../13/Variables.js'
 export default class extends Variables {
     constructor() {
         super()
-        this.histogramXBinLimits = new ListenableObject()
-        this.histogramYBinLimits = new ListenableObject()
         
         this.imageSrc = new ElementString('/imageSrc', this.elementValues, this.webSocketPathnames)
-        this.histogramImageSrc = new ElementString('/histogramImageSrc', this.elementValues, this.webSocketPathnames)
     }
 }
 

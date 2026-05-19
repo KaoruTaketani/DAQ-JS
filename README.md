@@ -70,13 +70,15 @@
 
 13.f Image
 
-[13.f.a Image](./1fha/README.md)
+[13.f.a Img Element](./1fha/README.md)
 
-[13.f.b Cursor Value](./13fb/README.md)
+[13.f.b Canvas Value](./13fb/README.md)
 
-[13.f.c Color Limits](./13fc/README.md)
+[13.f.c Cursor Value](./13fc/README.md)
 
-[13.f.d Log Scale](./13fd/README.md)
+[13.f.d Color Limits](./13fd/README.md)
+
+[13.f.e Log Scale](./13fe/README.md)
 
 13.g Scanner
 
