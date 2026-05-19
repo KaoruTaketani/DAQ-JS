@@ -76,9 +76,9 @@
 
 [13.f.c Cursor Value](./13fc/README.md)
 
-[13.f.d Color Limits](./13fd/README.md)
+[13.f.d Log Scale](./13fd/README.md)
 
-[13.f.e Log Scale](./13fe/README.md)
+[13.f.e Color Limits](./13fe/README.md)
 
 13.g Scanner
 
