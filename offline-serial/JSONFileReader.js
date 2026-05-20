@@ -47,7 +47,8 @@ export default class extends Operator {
                         // followings are the triggers for some operators
                         variables.pulseHeightHistogramNumBins.assign(2 ** 10)
                         variables.tofMaxInMilliseconds.assign(80)
-                        variables.tofDifferenceHistogramBinLimitsInNanoseconds.assign([-400, 400])
+                        // must be 25ns, which is equal to the bin width of NEUNET output
+                        variables.tofResolutionInNanoseconds.assign(25)
                         variables.neutronPositionBitLength.assign(10)
                         variables.miezeFrequencyInKilohertz.assign(10)
 

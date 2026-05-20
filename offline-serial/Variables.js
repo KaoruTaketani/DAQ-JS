@@ -136,6 +136,7 @@ export default class {
         this.neutronCount = new WritableInt32('neutronCount', this.hdf5File)
         this.filteredNeutronCount = new WritableInt32('filteredNeutronCount', this.hdf5File)
         // followings are parameters but fixed
+        this.tofResolutionInNanoseconds = new WritableNumber('tofResolutionInNanoseconds', this.hdf5File)
         this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', this.hdf5File)
         this.miezeFrequencyInKilohertz = new WritableNumber('miezeFrequencyInKilohertz', this.hdf5File)
         this.moderatorToSampleDistanceInMeters = new WritableNumber('moderatorToSampleDistanceInMeters', this.hdf5File)

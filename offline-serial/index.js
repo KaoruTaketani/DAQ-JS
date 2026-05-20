@@ -91,7 +91,7 @@ new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
 // edit jsonPath.js to set jsonPath
-variables.projectName.assign('20240000')
+variables.projectName.assign('20250424')
 variables.hdf5Path.assign('../../hdf5/')
 variables.edrPath.assign('../../edr/')
 // variables.jsonFilePaths.assign([
@@ -111,9 +111,9 @@ variables.edrPath.assign('../../edr/')
 //     './43.json'
 // ])
 // variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
-variables.jsonFileNames.assign(['104.json'])
+// variables.jsonFileNames.assign(['104.json'])
 // variables.jsonFileNames.assign(['35.json'])
 // console.log(colon(0, 60))
-// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 
