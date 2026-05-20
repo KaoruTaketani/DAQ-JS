@@ -1,12 +1,9 @@
 import { readFile } from 'fs'
 import { Server } from 'http'
 import AttributesHandler from './AttributesHandler.js'
-import ChannelHandler from './ChannelHandler.js'
 import FilesHandler from './FilesHandler.js'
-import KickerHandler from './KickerHandler.js'
 import NumEventsHandler from './NumEventsHandler.js'
 import RootHandler from './RootHandler.js'
-import TimerHandler from './TimerHandler.js'
 import Variables from './Variables.js'
 import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
@@ -17,9 +14,6 @@ import TableHandler from './TableHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
-new ChannelHandler(variables)
-new TimerHandler(variables)
-new KickerHandler(variables)
 new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new RootHandler(variables)
@@ -37,9 +31,6 @@ variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
 
 const tablePathnames = new Map()
-tablePathnames.set('/Timer.html', '/timer')
-tablePathnames.set('/Kicker.html', '/kicker')
-tablePathnames.set('/Channel.html', '/channel')
 tablePathnames.set('/Paired.html', '/paired')
 tablePathnames.set('/Neutron.html', '/neutron')
 
