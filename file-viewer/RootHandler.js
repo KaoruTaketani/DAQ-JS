@@ -34,6 +34,7 @@ export default class {
                 `    <p><a href="./Channel.html">Channel</a></p>`,
                 `    <p><a href="./Paired.html">Paired</a></p>`,
                 `    <p><a href="./Neutron.html">Neutron</a></p>`,
+                `    <p><a href="./Table.html">Table</a></p>`,
                 `    <h2>HDF5</h2>`,
                 `    <p><a href="./Attributes.html">Attributes</a></p>`,
                 `    <p><a href="./Graph.html">Graph</a></p>`,

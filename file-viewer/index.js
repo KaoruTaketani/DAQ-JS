@@ -13,6 +13,7 @@ import NeutronHandler from './NeutronHandler.js'
 import GraphHandler from './GraphHandler.js'
 import WaveformHandler from './WaveformHandler.js'
 import ImageHandler from './ImageHandler.js'
+import TableHandler from './TableHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -27,6 +28,7 @@ new NeutronHandler(variables)
 new GraphHandler(variables)
 new WaveformHandler(variables)
 new ImageHandler(variables)
+new TableHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
@@ -127,6 +129,22 @@ httpServer.on('request', (request, response) => {
                 '</head>',
                 '<body>',
                 `    <script type="module" src="./TableClientHDF5.js">`,
+                `    </script>`,
+                '</body>',
+                '</html>'
+            ].join('\n'))
+            return
+        }
+
+        if (url.pathname === '/Table.html') {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end([
+                '<html>',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '<body>',
+                `    <script type="module" src="./TableClient.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
