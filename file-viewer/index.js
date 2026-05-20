@@ -14,6 +14,7 @@ import Variables from './Variables.js'
 import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
 import GraphHandler from './GraphHandler.js'
+import WaveformHandler from './WaveformHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -29,6 +30,7 @@ new HorizontalProjectionHistogramsHandler(variables)
 new PairedHandler(variables)
 new NeutronHandler(variables)
 new GraphHandler(variables)
+new WaveformHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
@@ -105,6 +107,22 @@ httpServer.on('request', (request, response) => {
                 '</head>',
                 '<body>',
                 `    <script type="module" src="./FigureClientGraph.js">`,
+                `    </script>`,
+                '</body>',
+                '</html>'
+            ].join('\n'))
+            return
+        }
+
+        if (url.pathname === '/Waveform.html') {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end([
+                '<html>',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '<body>',
+                `    <script type="module" src="./FigureClientWaveform.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
