@@ -17,7 +17,7 @@ export default class {
         variables.xlabel.prependListener(arg => { this._xlabel = arg })
         /** @type {string} */
         this._ylabel
-        variables.ylabel.prependListener(arg => { this._xlabel = arg })
+        variables.ylabel.prependListener(arg => { this._ylabel = arg })
         /** @type {number} */
         this._pngXMaxInData
         variables.pngXMaxInData.prependListener(arg => { this._pngXMaxInData = arg })

@@ -59,24 +59,7 @@ export default class {
                 response.end()
                 return
             }
-            // console.log(filteredImage.shape)
-            // console.log(filteredImage.value)
-            // const startTime = Date.now()
-            // /** @type {import('../lib/index.js').Uint32NDArray} */
-            // const hist = {
-            //     shape: /** @type {number[]} */(dataset.shape),
-            //     data: /** @type {Uint32Array} */ (dataset.value)
-            // }
-            // imwrite(imagesc(hist)).then(buffer => {
-            //     console.log(`elapsedTime: ${Date.now() - startTime}ms`)
-            //     response.writeHead(200, { 'Content-Type': 'application/base64' })
-            //     response.end(JSON.stringify({
-            //         xLimInMillimeters: [0, 50],
-            //         yLimInMillimeters: [0, 50],
-            //         imageSrc: `data:image/png;base64,${buffer.toString('base64')}`
-            //     }))
-            // })
-            // console.log(dataset.value)
+
             let xlabel
             let ylabel
             let xKey = ''
@@ -87,6 +70,19 @@ export default class {
                 xlabel = 'coordinate (mm)'
                 ylabel = 'coordinate (mm)'
             }
+            if (key === 'filteredImage') {
+                xKey = key + 'XBinLimitsInMillimeters'
+                yKey = key + 'YBinLimitsInMillimeters'
+                xlabel = 'coordinate (mm)'
+                ylabel = 'coordinate (mm)'
+            }
+            if (key === 'horizontalProjectionHistograms') {
+                xKey = key + 'XBinLimitsInMillimeters'
+                yKey = key + 'YBinLimitsInNanoseconds'
+                xlabel = 'coordinate (mm)'
+                ylabel = 'tof (ns)'
+            }
+
             if (xKey === '') {
                 response.writeHead(404)
                 response.end()
