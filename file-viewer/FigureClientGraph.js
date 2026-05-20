@@ -61,7 +61,7 @@ const listboxElement = document.createElement('select');
             variables.xkeyText.assign(element.options[element.selectedIndex].text)
         });
         [
-            'tofInSeconds',
+            'tofInMilliseconds',
             'energyInMillielectronvolts',
             'velocityInMetersPerSeconds',
             'wavelengthInAngstroms'

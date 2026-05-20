@@ -13,17 +13,17 @@ export default class extends Operator {
         this._cameraLengthInMeters
         variables.cameraLengthInMeters.prependListener(arg => { this._cameraLengthInMeters = arg })
         /** @type {Float64Array} */
-        this._tofInSeconds
-        variables.tofInSeconds.addListener(arg => {
-            this._tofInSeconds = arg
+        this._tofInMilliseconds
+        variables.tofInMilliseconds.addListener(arg => {
+            this._tofInMilliseconds = arg
             this._operation()
         })
         this._operation = () => {
             variables.velocityInMetersPerSeconds.assign(
-                this._tofInSeconds.map(tof => {
+                this._tofInMilliseconds.map(tof => {
                     const l1 = this._moderatorToSampleDistanceInMeters,
                         l2 = this._cameraLengthInMeters
-                    return (l1 + l2) / tof
+                    return (l1 + l2) / (0.001 * tof)
                 })
             )
         }

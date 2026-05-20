@@ -65,7 +65,7 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.neutronRate = new WritableDataset('neutronRate', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
-        this.tofInSeconds = new WritableDataset('tofInSeconds', this.hdf5File)
+        this.tofInMilliseconds = new WritableDataset('tofInMilliseconds', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.contrast = new WritableDataset('contrast', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */

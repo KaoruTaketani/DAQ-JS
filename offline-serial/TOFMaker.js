@@ -17,11 +17,10 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            const stepInSeconds = 0.001 / this._miezeFrequencyInKilohertz,
-                totalInSeconds = (0.001 * this._tofMaxInMilliseconds),
-                tofInSeconds = colon(stepInSeconds / 2, stepInSeconds, totalInSeconds - stepInSeconds / 2)
+            const stepInMilliseconds = 1 / this._miezeFrequencyInKilohertz,
+                tofInMilliseconds = colon(stepInMilliseconds / 2, stepInMilliseconds, this._tofMaxInMilliseconds - stepInMilliseconds / 2)
 
-            variables.tofInSeconds.assign(new Float64Array(tofInSeconds))
+            variables.tofInMilliseconds.assign(new Float64Array(tofInMilliseconds))
         }
     }
 }
