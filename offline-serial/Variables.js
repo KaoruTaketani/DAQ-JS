@@ -111,6 +111,8 @@ export default class {
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units
+        this.horizontalProjectionBinLimitsInMillimeters = new WritableArray('horizontalProjectionBinLimitsInMillimeters', this.hdf5File)
+        this.verticalProjectionBinLimitsInMillimeters = new WritableArray('verticalProjectionBinLimitsInMillimeters', this.hdf5File)
         this.tofHistogramBinLimitsInNanoseconds = new WritableArray('tofHistogramBinLimitsInNanoseconds', this.hdf5File)
         this.tofImageZBinLimitsInNanoseconds = new WritableArray('tofImageZBinLimitsInNanoseconds', this.hdf5File)
         this.tofImageXBinLimitsInPixels = new WritableArray('tofImageXBinLimitsInPixels', this.hdf5File)
