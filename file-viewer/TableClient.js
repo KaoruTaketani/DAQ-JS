@@ -53,7 +53,9 @@ new TableCleanupper(variables)
         [
             '0x5a',
             '0x5b',
-            '0x5c'
+            '0x5c',
+            '0x5a:pair',
+            '0x5a:neutron'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));
