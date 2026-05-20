@@ -7,6 +7,7 @@ socket.onclose = () => {
 }
 
 (element => {
+    element.style.display = 'flex'
     element.innerText = 'isLog';
     (element => {
         element.type = 'checkbox'
