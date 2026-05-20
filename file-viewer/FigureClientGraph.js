@@ -61,7 +61,6 @@ const listboxElement = document.createElement('select');
             variables.xkeyText.assign(element.options[element.selectedIndex].text)
         });
         [
-            '_calculated_',
             'tofInSeconds',
             'energyInMillielectronvolts',
             'velocityInMetersPerSeconds',
@@ -81,15 +80,10 @@ const listboxElement = document.createElement('select');
             'centers',
             'contrast',
             'heights',
-            'horizontalProjectionBinCounts',
             'horizontalProjectionMeans',
             'horizontalProjectionStandardDeviations',
             'neutronRate',
             'phase',
-            'pulseHeightHistogramBinCounts',
-            'tofDifferenceHistogramBinCounts',
-            'tofHistogramBinCounts',
-            'verticalProjectionBinCounts',
             'widths',
             'reflectivity',
             'contrastRatio',

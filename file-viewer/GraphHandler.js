@@ -1,7 +1,6 @@
 import { ok } from 'assert';
 import h5wasm from "h5wasm/node";
 import { join } from 'path';
-import colon from '../lib/colon.js';
 import Operator from './Operator.js';
 await h5wasm.ready;
 
@@ -58,50 +57,30 @@ export default class extends Operator {
             // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
             let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r")
 
-            if (xkey === '_calculated_') {
-                /** @type {import('h5wasm').Dataset|null} */
-                const dataset =/** @type {import('h5wasm').Dataset|null} */ (f.get(ykey))
-                if (!dataset) {
-                    response.writeHead(404)
-                    response.end()
-                    f.close()
-                    return
-                }
-                const y = Array.from(/** @type {Float64Array} */(dataset.value))
-                const x = colon(ykey === 'tofDifferenceHistogramBinCounts' ? 0 : 1, y.length)
+            /** @type {import('h5wasm').Dataset|null} */
+            const datasetY =/** @type {import('h5wasm').Dataset|null} */ (f.get(ykey))
+            if (!datasetY) {
+                response.writeHead(404)
+                response.end()
                 f.close()
-
-                response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-                response.end(JSON.stringify({
-                    x: x,
-                    y: y
-                }))
-            } else {
-                /** @type {import('h5wasm').Dataset|null} */
-                const datasetY =/** @type {import('h5wasm').Dataset|null} */ (f.get(ykey))
-                if (!datasetY) {
-                    response.writeHead(404)
-                    response.end()
-                    f.close()
-                    return
-                }
-                const datasetX =/** @type {import('h5wasm').Dataset|null} */ (f.get(xkey))
-                if (!datasetX) {
-                    response.writeHead(404)
-                    response.end()
-                    f.close()
-                    return
-                }
-                const y = Array.from(/** @type {Float64Array} */(datasetY.value))
-                const x = Array.from(/** @type {Float64Array} */(datasetX.value))
-                f.close()
-
-                response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
-                response.end(JSON.stringify({
-                    x: x,
-                    y: y
-                }))
+                return
             }
+            const datasetX =/** @type {import('h5wasm').Dataset|null} */ (f.get(xkey))
+            if (!datasetX) {
+                response.writeHead(404)
+                response.end()
+                f.close()
+                return
+            }
+            const y = Array.from(/** @type {Float64Array} */(datasetY.value))
+            const x = Array.from(/** @type {Float64Array} */(datasetX.value))
+            f.close()
+
+            response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
+            response.end(JSON.stringify({
+                x: x,
+                y: y
+            }))
         }
     }
 }

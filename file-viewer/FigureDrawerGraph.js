@@ -1,8 +1,6 @@
 import axes from '../lib/axes.js'
-import line from '../lib/line.js'
 import scatter from '../lib/scatter.js'
-import stairs from '../lib/stairs.js'
-import xlabel from '../lib/xlabel.js'
+import line from '../lib/line.js'
 
 export default class {
     /**
@@ -65,21 +63,11 @@ export default class {
                 xTickLabel: [this._xminValue, this._xmaxValue],
                 yTickLabel: [this._yminValue, this._ymaxValue]
             }
-            if (this._xkeyText === '_calculated_') {
-                variables.svgInnerHTML.assign([
-                    axes(ax),
-                    xlabel(ax, 'horizontal coordinate (ch)'),
-                    this._ykeyText === 'tofDifferenceHistogramBinCounts' ?
-                        stairs(ax, this._xDataset, this._yDataset) :
-                        line(ax, this._xDataset, this._yDataset)
-                ].join(''))
-            } else {
-                variables.svgInnerHTML.assign([
-                    axes(ax),
-                    xlabel(ax, 'horizontal coordinate (ch)'),
-                    scatter(ax, this._xDataset, this._yDataset)
-                ].join(''))
-            }
+            variables.svgInnerHTML.assign([
+                axes(ax),
+                scatter(ax, this._xDataset, this._yDataset),
+                line(ax, this._xDataset, this._yDataset)
+            ].join(''))
         }
     }
 }
