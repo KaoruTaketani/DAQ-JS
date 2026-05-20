@@ -15,6 +15,7 @@ import PairedHandler from './PairedHandler.js'
 import NeutronHandler from './NeutronHandler.js'
 import GraphHandler from './GraphHandler.js'
 import WaveformHandler from './WaveformHandler.js'
+import ImageHandler from './ImageHandler.js'
 
 const variables = new Variables()
 new FilesHandler(variables)
@@ -31,6 +32,7 @@ new PairedHandler(variables)
 new NeutronHandler(variables)
 new GraphHandler(variables)
 new WaveformHandler(variables)
+new ImageHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
@@ -123,6 +125,22 @@ httpServer.on('request', (request, response) => {
                 '</head>',
                 '<body>',
                 `    <script type="module" src="./FigureClientWaveform.js">`,
+                `    </script>`,
+                '</body>',
+                '</html>'
+            ].join('\n'))
+            return
+        }
+
+        if (url.pathname === '/Image.html') {
+            response.writeHead(200, { 'Content-Type': 'text/html' })
+            response.end([
+                '<html>',
+                '<head>',
+                '    <meta charset="utf-8">',
+                '</head>',
+                '<body>',
+                `    <script type="module" src="./FigureClientImage.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'

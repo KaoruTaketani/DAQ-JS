@@ -1,0 +1,88 @@
+import bounds from '../lib/bounds.js'
+
+export default class {
+    /**
+     * @param {import('./FigureVariablesPNG.js').default} variables 
+     */
+    constructor(variables) {
+        /** @type {CanvasRenderingContext2D} */
+        this._canvasContext
+        variables.canvasContext.prependListener(arg => { this._canvasContext = arg })
+        /** @type {boolean} */
+        this._customChecked
+        variables.customChecked.prependListener(arg => { this._customChecked = arg })
+        /** @type {string} */
+        this._path
+        variables.path.prependListener(arg => { this._path = arg })
+        /** @type {string} */
+        this._keyText
+        variables.keyText.addListener(arg => {
+            this._keyText = arg
+            this._operation()
+        })
+        /** @type {string[]} */
+        this._fileNames
+        variables.fileNames.addListener(arg => {
+            this._fileNames = arg
+            this._operation()
+        })
+        this._operation = () => {
+            if (!this._keyText) return
+            if (this._fileNames.length !== 1) return
+            if (!this._fileNames[0].endsWith('.h5')) return
+
+            // @ts-ignore
+            const pathname = window.pathname
+
+            fetch(`/image?path=${this._path}&fileName=${this._fileNames[0]}&key=${this._keyText}`).then(response => {
+                if (!response.ok) {
+                    variables.divInnerText.assign('raw image was not found')
+                    variables.svgInnerHTML.assign('')
+                    variables.imageSrc.assign('')
+                } else {
+                    response.text().then(text => {
+                        variables.divInnerText.assign('')
+                        // data contains 
+                        // xLimInMillimeters: [0, 50],
+                        // yLimInMillimeters: [0, 50],
+                        // and
+                        // imageSrc: /** @type {string} */
+                        // or
+                        // shape: /** @type {number[]} */
+                        // data: /** @type {Uint32Array} */
+
+                        const data = JSON.parse(text)
+
+                        variables.xlabel.assign(data.xlabel)
+                        variables.ylabel.assign(data.ylabel)
+                        variables.pngXMinInData.assign(data.xLimInData[0])
+                        variables.pngXMaxInData.assign(data.xLimInData[1])
+                        variables.pngYMinInData.assign(data.yLimInData[0])
+                        variables.pngYMaxInData.assign(data.yLimInData[1])
+                        variables.xminValue.assign(data.xLimInData[0].toString())
+                        variables.xmaxValue.assign(data.xLimInData[1].toString())
+                        variables.yminValue.assign(data.yLimInData[0].toString())
+                        variables.ymaxValue.assign(data.yLimInData[1].toString())
+                        // variables.imageSrc.assign(data.imageSrc)
+                        const dataset = {
+                            shape: /** @type {number[]} */(data.shape),
+                            data: new Uint32Array(JSON.parse(data.data))
+                        }
+                        variables.dataset.assign(dataset)
+                        const clim = bounds(dataset.data)
+                        variables.cminValue.assign(clim[0].toString())
+                        variables.cmaxValue.assign(clim[1].toString())
+                        variables.divInnerText.assign(`width: ${data.shape[1]}, height: ${data.shape[0]}`)
+                        variables.pngWidthInPixels.assign(data.shape[1])
+                        variables.pngHeightInPixels.assign(data.shape[0])
+                    })
+                }
+            }).catch(() => {
+                variables.divInnerText.assign('failed to get')
+                variables.svgInnerHTML.assign('')
+                variables.imageSrc.assign('')
+            })
+        }
+    }
+}
+

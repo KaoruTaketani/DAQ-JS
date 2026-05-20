@@ -34,6 +34,7 @@ export default class extends FigureVariables {
         this.cminValue = new ListenableString()
         this.cmaxValue = new ListenableString()
         this.imageSrc = new ListenableString()
+        this.keyText = new ListenableString()
     }
 }
 

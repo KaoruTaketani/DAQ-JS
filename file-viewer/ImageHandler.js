@@ -1,6 +1,6 @@
-import { ok } from 'assert'
-import h5wasm from "h5wasm/node"
-import { join } from 'path'
+import { ok } from 'assert';
+import h5wasm from "h5wasm/node";
+import { join } from 'path';
 await h5wasm.ready;
 
 export default class {
@@ -24,7 +24,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._url.pathname !== '/rawImage') return
+            if (this._url.pathname !== '/image') return
 
             const response = this._responses.get(this._url)
             ok(response)
@@ -42,10 +42,18 @@ export default class {
                 response.end()
                 return
             }
+            /** @type {string|null} */
+            const key = this._url.searchParams.get('key')
+            if (!key) {
+                response.writeHead(400)
+                response.end()
+                return
+            }
 
             let f = new h5wasm.File(join(this._hdf5Path, path, fileNames[0]), "r");
             /** @type {import('h5wasm').Dataset|null} */
-            const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('rawImageBinCounts'))
+            const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key + 'BinCounts'))
+            // const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('rawImageBinCounts'))
             if (!dataset) {
                 response.writeHead(404)
                 response.end()
@@ -69,15 +77,54 @@ export default class {
             //     }))
             // })
             // console.log(dataset.value)
+            let xlabel
+            let ylabel
+            let xKey = ''
+            let yKey = ''
+            if (key === 'rawImage') {
+                xKey = key + 'XBinLimitsInMillimeters'
+                yKey = key + 'YBinLimitsInMillimeters'
+                xlabel = 'coordinate (mm)'
+                ylabel = 'coordinate (mm)'
+            }
+            if (xKey === '') {
+                response.writeHead(404)
+                response.end()
+                f.close()
+                return
+            }
+            const xlims = /** @type {number[]} */(f.attrs[xKey].value)
+            if (xlims.length !== 2) {
+                response.writeHead(404)
+                response.end()
+                f.close()
+                return
+            }
+            if (yKey === '') {
+                response.writeHead(404)
+                response.end()
+                f.close()
+                return
+            }
+            const ylims = /** @type {number[]} */(f.attrs[yKey].value)
+            if (ylims.length !== 2) {
+                response.writeHead(404)
+                response.end()
+                f.close()
+                return
+            }
+
             response.writeHead(200, { 'Content-Type': 'application/base64' })
             response.end(JSON.stringify({
-                xLimInData: [0, 50],
-                yLimInData: [0, 50],
-                xlabel: 'width (mm)',
-                ylabel: 'height (mm)',
+                xLimInData: xlims,
+                yLimInData: ylims,
+                xlabel: xlabel,
+                ylabel: ylabel,
                 shape: /** @type {number[]} */(dataset.shape),
                 data: JSON.stringify(Array.from(/** @type {Uint32Array} */(dataset.value)))
             }))
+            // must be closed after response.end
+            f.close()
             // console.log(JSON.stringify(dataset.value))
         }
     }
