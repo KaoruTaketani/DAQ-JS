@@ -3,11 +3,8 @@ import { Server } from 'http'
 import AttributesHandler from './AttributesHandler.js'
 import ChannelHandler from './ChannelHandler.js'
 import FilesHandler from './FilesHandler.js'
-import FilteredImageHandler from './FilteredImageHandler.js'
-import HorizontalProjectionHistogramsHandler from './HorizontalProjectionHistogramsHandler.js'
 import KickerHandler from './KickerHandler.js'
 import NumEventsHandler from './NumEventsHandler.js'
-import RawImageHandler from './RawImageHandler.js'
 import RootHandler from './RootHandler.js'
 import TimerHandler from './TimerHandler.js'
 import Variables from './Variables.js'
@@ -24,10 +21,7 @@ new TimerHandler(variables)
 new KickerHandler(variables)
 new NumEventsHandler(variables)
 new AttributesHandler(variables)
-new FilteredImageHandler(variables)
-new RawImageHandler(variables)
 new RootHandler(variables)
-new HorizontalProjectionHistogramsHandler(variables)
 new PairedHandler(variables)
 new NeutronHandler(variables)
 new GraphHandler(variables)
@@ -39,11 +33,6 @@ const responses = new Map()
 variables.responses.assign(responses)
 variables.edrPath.assign('../../edr')
 variables.hdf5Path.assign('../../hdf5')
-
-const pngPathnames = new Map()
-pngPathnames.set('/FilteredImage.html', '/filteredImage')
-pngPathnames.set('/HorizontalProjectionHistograms.html', '/horizontalProjectionHistograms')
-pngPathnames.set('/RawImage.html', '/rawImage')
 
 const tablePathnames = new Map()
 tablePathnames.set('/Timer.html', '/timer')
@@ -81,25 +70,6 @@ httpServer.on('request', (request, response) => {
         return
     }
     if (url.pathname.endsWith('.html')) {
-        if (pngPathnames.has(url.pathname)) {
-            response.writeHead(200, { 'Content-Type': 'text/html' })
-            response.end([
-                '<html>',
-                '<head>',
-                '    <meta charset="utf-8">',
-                '</head>',
-                '<body>',
-                `    <script>`,
-                `        window.pathname="${pngPathnames.get(url.pathname)}"`,
-                `    </script>`,
-                `    <script type="module" src="./FigureClientPNG.js">`,
-                `    </script>`,
-                '</body>',
-                '</html>'
-            ].join('\n'))
-            return
-        }
-
         if (url.pathname === '/Graph.html') {
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
