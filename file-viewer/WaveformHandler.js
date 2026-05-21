@@ -97,7 +97,6 @@ export default class extends Operator {
                 return
             }
             const x = linspace(lims[0], lims[1], y.length + 1)
-            f.close()
 
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
             response.end(JSON.stringify({
@@ -105,7 +104,7 @@ export default class extends Operator {
                 y: y,
                 xlabel: xlabel
             }))
-
+            f.close()
         }
     }
 }

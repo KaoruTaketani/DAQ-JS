@@ -74,13 +74,13 @@ export default class extends Operator {
             }
             const y = Array.from(/** @type {Float64Array} */(datasetY.value))
             const x = Array.from(/** @type {Float64Array} */(datasetX.value))
-            f.close()
 
             response.writeHead(200, { 'Content-Type': 'image/svg+xml' })
             response.end(JSON.stringify({
                 x: x,
                 y: y
             }))
+            f.close()
         }
     }
 }
