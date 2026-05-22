@@ -33,41 +33,12 @@ new CursorTextMaker(variables)
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
-(element => {
-    element.style.marginLeft = '208px'
-    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
-})(document.body.appendChild(document.createElement('p')));
-
-
-(element => {
-    element.style.display = 'inline-block';
-    element.style.marginLeft = '200px';
-
-    (element => {
-        element.innerText = 'key';
-    })(element.appendChild(document.createElement('legend')));
-
-    (element => {
-        element.style.display = 'flex'
-        element.style.marginTop = '8px'
-        element.style.width = '200px'
-        element.addEventListener('change', () => {
-            variables.keyText.assign(element.options[element.selectedIndex].text)
-        });
-        [
-            'rawImage',
-            'filteredImage',
-            'horizontalProjectionHistograms'
-        ].forEach(key => { element.add(new Option(key)) })
-        element.value = ''
-    })(element.appendChild(document.createElement('select')));
-})(document.body.appendChild(document.createElement('fieldset')));
-
 const linkElement = document.createElement('a');
 const canvasElement = document.createElement('canvas')
 /** @type {string} */
 let svgInnerHTML
 (element => {
+    element.style.marginLeft = '208px'
     linkElement.setAttribute('download', `image.svg`)
 
     element.style.marginLeft = '208px'
@@ -97,25 +68,41 @@ let svgInnerHTML
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
-    // element.style.marginLeft = '208px'
-    element.appendChild(document.createTextNode('custom? '));
-    (element => {
-        // element.style.marginLeft = '208px'
-        element.type = 'checkbox'
-        // element.checked = true
-        element.addEventListener('click', () => {
-            variables.customChecked.assign(element.checked)
+    element.style.display='inline-block'
+    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
+})(document.body.appendChild(document.createElement('p')));
 
-            variables.xminDisabled.assign(!element.checked)
-            variables.xmaxDisabled.assign(!element.checked)
-            variables.yminDisabled.assign(!element.checked)
-            variables.ymaxDisabled.assign(!element.checked)
-            variables.cminDisabled.assign(!element.checked)
-            variables.cmaxDisabled.assign(!element.checked)
-        })
-        variables.customChecked.addListener(arg => { element.checked = arg })
-    })(element.appendChild(document.createElement('input')));
-})(document.body.appendChild(document.createElement('label')));
+(element => {
+    element.style.marginLeft = '208px'
+    variables.divInnerText.addListener(arg => {
+        element.innerText = arg
+    })
+})(document.body.appendChild(document.createElement('div')));
+
+(element => {
+    element.style.display = 'inline-block';
+    element.style.marginLeft = '200px';
+
+    (element => {
+        element.innerText = 'key';
+    })(element.appendChild(document.createElement('legend')));
+
+    (element => {
+        element.style.display = 'flex'
+        element.style.marginTop = '8px'
+        element.style.width = '200px'
+        element.addEventListener('change', () => {
+            variables.keyText.assign(element.options[element.selectedIndex].text)
+        });
+        [
+            'rawImage',
+            'filteredImage',
+            'horizontalProjectionHistograms'
+        ].forEach(key => { element.add(new Option(key)) })
+        element.value = ''
+    })(element.appendChild(document.createElement('select')));
+})(document.body.appendChild(document.createElement('fieldset')));
+
 
 (element => {
     element.style.display = 'inline-block';
@@ -133,7 +120,6 @@ let svgInnerHTML
             variables.xminValue.assign(element.value)
         })
         variables.xminValue.addListener(arg => { element.value = arg })
-        variables.xminDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
 
     (element => {
@@ -146,7 +132,6 @@ let svgInnerHTML
             variables.xmaxValue.assign(element.value)
         })
         variables.xmaxValue.addListener(arg => { element.value = arg })
-        variables.xmaxDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
@@ -166,7 +151,6 @@ let svgInnerHTML
             variables.yminValue.assign(element.value)
         })
         variables.yminValue.addListener(arg => { element.value = arg })
-        variables.yminDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
 
     (element => {
@@ -179,7 +163,6 @@ let svgInnerHTML
             variables.ymaxValue.assign(element.value)
         })
         variables.ymaxValue.addListener(arg => { element.value = arg })
-        variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
@@ -216,14 +199,10 @@ let svgInnerHTML
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
+
 (element => {
     element.style.marginLeft = '208px'
-    variables.divInnerText.addListener(arg => {
-        element.innerText = arg
-    })
 })(document.body.appendChild(document.createElement('div')));
-
-
 
 (element => {
     element.style.marginLeft = '200px'

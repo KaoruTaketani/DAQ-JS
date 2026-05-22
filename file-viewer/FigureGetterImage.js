@@ -8,9 +8,6 @@ export default class {
         /** @type {CanvasRenderingContext2D} */
         this._canvasContext
         variables.canvasContext.prependListener(arg => { this._canvasContext = arg })
-        /** @type {boolean} */
-        this._customChecked
-        variables.customChecked.prependListener(arg => { this._customChecked = arg })
         /** @type {string} */
         this._path
         variables.path.prependListener(arg => { this._path = arg })
