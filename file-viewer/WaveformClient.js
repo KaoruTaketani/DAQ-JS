@@ -32,11 +32,29 @@ const listboxElement = document.createElement('select');
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(listboxElement));
 
+const linkElement = document.createElement('a');
 (element => {
     element.style.marginLeft = '208px'
+    linkElement.setAttribute('download', `table.csv`)
+
+    // element.style.marginLeft = '208px'
+    element.type = 'button'
+    element.value = 'download'
+    element.addEventListener('click', () => {
+        // linkElement.href = `data:text/csv;base64,${btoa([header, data].join('\n'))}`
+        // linkElement.click()
+    })
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    element.style.display='inline-block'
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
+(element => {
+    element.style.marginLeft = '208px'
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
 
 (element => {
     element.style.display = 'inline-block';
@@ -126,10 +144,6 @@ const listboxElement = document.createElement('select');
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
-(element => {
-    element.style.marginLeft = '208px'
-    variables.divInnerText.addListener(arg => { element.innerText = arg })
-})(document.body.appendChild(document.createElement('div')));
 
 (element => {
     element.style.marginLeft = '208px'
