@@ -111,7 +111,7 @@ httpServer.on('request', (request, response) => {
                 '    <meta charset="utf-8">',
                 '</head>',
                 '<body>',
-                `    <script type="module" src="./TableClientHDF5.js">`,
+                `    <script type="module" src="./AttributesClient.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'

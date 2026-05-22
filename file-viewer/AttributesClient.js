@@ -1,9 +1,9 @@
 import TableGetterHDF5 from "./TableGetterHDF5.js";
-import TableVariablesHDF5 from "./TableVariablesHDF5.js";
+import AttributesVariables from "./AttributesVariables.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
 
-const variables = new TableVariablesHDF5()
+const variables = new AttributesVariables()
 new PathMaker(variables)
 new TableGetterHDF5(variables)
 new FilesGetterHDF5(variables)
