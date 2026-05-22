@@ -108,7 +108,6 @@ const listboxElement = document.createElement('select');
     (element => {
         element.type = 'number'
         element.style.width = '100px'
-        element.disabled = true
         element.addEventListener('change', () => {
             variables.xminValue.assign(element.value)
         })
@@ -120,7 +119,6 @@ const listboxElement = document.createElement('select');
         element.style.display = 'flex'
         element.style.marginTop = '8px'
         element.style.width = '100px'
-        element.disabled = true
         element.addEventListener('change', () => {
             variables.xmaxValue.assign(element.value)
         })
@@ -138,8 +136,6 @@ const listboxElement = document.createElement('select');
     (element => {
         element.type = 'number'
         element.style.width = '100px'
-        element.disabled = true
-        // element.min = '0'
         element.addEventListener('change', () => {
             variables.yminValue.assign(element.value)
         })
@@ -151,8 +147,6 @@ const listboxElement = document.createElement('select');
         element.style.display = 'flex'
         element.style.marginTop = '8px'
         element.style.width = '100px'
-        element.disabled = true
-        // element.min = '0'
         element.addEventListener('change', () => {
             variables.ymaxValue.assign(element.value)
         })
