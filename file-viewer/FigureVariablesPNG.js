@@ -1,5 +1,4 @@
 import FigureVariables from './FigureVariables.js'
-import ListenableBoolean from './ListenableBoolean.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
@@ -12,9 +11,6 @@ export default class extends FigureVariables {
         /** @type {import('./ListenableObject.js').default<number[]>} */
         this.cursorOffset = new ListenableObject()
         this.dataset = new ListenableObject()
-
-        this.cminDisabled = new ListenableBoolean()
-        this.cmaxDisabled = new ListenableBoolean()
 
         this.xminInPixels = new ListenableNumber()
         this.yminInPixels = new ListenableNumber()
