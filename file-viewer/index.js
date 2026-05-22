@@ -79,7 +79,7 @@ httpServer.on('request', (request, response) => {
                 '    <meta charset="utf-8">',
                 '</head>',
                 '<body>',
-                `    <script type="module" src="./FigureClientWaveform.js">`,
+                `    <script type="module" src="./WaveformClient.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'

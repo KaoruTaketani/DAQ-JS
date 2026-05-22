@@ -1,16 +1,16 @@
 import FigureCleanupperGraph from "./FigureCleanupperGraph.js";
-import FigureDrawerWaveform from "./FigureDrawerWaveform.js";
-import FigureGetterWaveform from "./FigureGetterWaveform.js";
-import FigureVariablesWaveform from "./FigureVariablesWaveform.js";
+import WaveformDrawer from "./WaveformDrawer.js";
+import WaveformGetter from "./WaveformGetter.js";
+import WaveformVariables from "./WaveformVariables.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
 
-const variables = new FigureVariablesWaveform()
+const variables = new WaveformVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new FigureCleanupperGraph(variables)
-new FigureDrawerWaveform(variables)
-new FigureGetterWaveform(variables)
+new WaveformDrawer(variables)
+new WaveformGetter(variables)
     ;
 const listboxElement = document.createElement('select');
 (element => {
