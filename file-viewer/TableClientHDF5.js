@@ -94,11 +94,6 @@ const linkElement = document.createElement('a');
     })
 })(document.body.appendChild(document.createElement('input')));
 
-(element => {
-    element.style.marginLeft = '208px'
-    variables.divInnerText.addListener(arg => { element.innerText = arg })
-})(document.body.appendChild(document.createElement('div')));
-
 /** @type {HTMLTableSectionElement} */
 let tHead
 /** @type {HTMLTableSectionElement} */
