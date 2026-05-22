@@ -1,11 +1,11 @@
-import AttributesGetterHDF5 from "./AttributesGetter.js";
+import AttributesGetter from "./AttributesGetter.js";
 import AttributesVariables from "./AttributesVariables.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
 
 const variables = new AttributesVariables()
 new PathMaker(variables)
-new AttributesGetterHDF5(variables)
+new AttributesGetter(variables)
 new FilesGetterHDF5(variables)
     ;
 (element => {
@@ -26,11 +26,6 @@ new FilesGetterHDF5(variables)
     })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
-
-(element => {
-    element.style.marginLeft = '208px'
-    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
-})(document.body.appendChild(document.createElement('p')));
 
 const dialogElement = document.createElement('dialog');
 (element => {
@@ -93,6 +88,11 @@ const linkElement = document.createElement('a');
         linkElement.click()
     })
 })(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    element.style.display='inline-block'
+    variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
+})(document.body.appendChild(document.createElement('p')));
 
 /** @type {HTMLTableSectionElement} */
 let tHead
