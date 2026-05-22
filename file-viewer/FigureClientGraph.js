@@ -37,6 +37,10 @@ const listboxElement = document.createElement('select');
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
+(element => {
+    element.style.marginLeft = '208px'
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
 
 (element => {
     element.style.display = 'inline-block';
@@ -93,24 +97,6 @@ const listboxElement = document.createElement('select');
     })(element.appendChild(document.createElement('select')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
-(element => {
-    // element.style.marginLeft = '208px'
-    element.appendChild(document.createTextNode('custom? '));
-    (element => {
-        // element.style.marginLeft = '208px'
-        element.type = 'checkbox'
-        // element.checked = true
-        element.addEventListener('click', () => {
-            variables.customChecked.assign(element.checked)
-
-            variables.xminDisabled.assign(!element.checked)
-            variables.xmaxDisabled.assign(!element.checked)
-            variables.yminDisabled.assign(!element.checked)
-            variables.ymaxDisabled.assign(!element.checked)
-        })
-        variables.customChecked.addListener(arg => { element.checked = arg })
-    })(element.appendChild(document.createElement('input')));
-})(document.body.appendChild(document.createElement('label')));
 
 (element => {
     element.style.display = 'inline-block';
@@ -127,7 +113,6 @@ const listboxElement = document.createElement('select');
             variables.xminValue.assign(element.value)
         })
         variables.xminValue.addListener(arg => { element.value = arg })
-        variables.xminDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
 
     (element => {
@@ -140,7 +125,6 @@ const listboxElement = document.createElement('select');
             variables.xmaxValue.assign(element.value)
         })
         variables.xmaxValue.addListener(arg => { element.value = arg })
-        variables.xmaxDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
@@ -160,7 +144,6 @@ const listboxElement = document.createElement('select');
             variables.yminValue.assign(element.value)
         })
         variables.yminValue.addListener(arg => { element.value = arg })
-        variables.yminDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
 
     (element => {
@@ -174,15 +157,8 @@ const listboxElement = document.createElement('select');
             variables.ymaxValue.assign(element.value)
         })
         variables.ymaxValue.addListener(arg => { element.value = arg })
-        variables.ymaxDisabled.addListener(arg => { element.disabled = arg })
     })(element.appendChild(document.createElement('input')));
-
 })(document.body.appendChild(document.createElement('fieldset')));
-
-(element => {
-    element.style.marginLeft = '208px'
-    variables.divInnerText.addListener(arg => { element.innerText = arg })
-})(document.body.appendChild(document.createElement('div')));
 
 (element => {
     element.style.marginLeft = '208px'
