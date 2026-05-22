@@ -5,7 +5,7 @@ import FilesHandler from './FilesHandler.js'
 import NumEventsHandler from './NumEventsHandler.js'
 import RootHandler from './RootHandler.js'
 import Variables from './Variables.js'
-import GraphHandler from './GraphHandler.js'
+import XYHandler from './XYHandler.js'
 import WaveformHandler from './WaveformHandler.js'
 import ImageHandler from './ImageHandler.js'
 import TableHandler from './TableHandler.js'
@@ -15,7 +15,7 @@ new FilesHandler(variables)
 new NumEventsHandler(variables)
 new AttributesHandler(variables)
 new RootHandler(variables)
-new GraphHandler(variables)
+new XYHandler(variables)
 new WaveformHandler(variables)
 new ImageHandler(variables)
 new TableHandler(variables)

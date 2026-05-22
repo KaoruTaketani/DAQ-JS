@@ -23,7 +23,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (this._url.pathname !== '/graph') return
+            if (this._url.pathname !== '/xy') return
 
             const response = this._responses.get(this._url)
             ok(response)

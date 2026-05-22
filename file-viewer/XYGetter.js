@@ -44,7 +44,7 @@ export default class {
             if (this._fileNames.length !== 1) return
             if (!this._fileNames[0].endsWith('.h5')) return
 
-            fetch(`/graph?xkey=${this._xkeyText}&ykey=${this._ykeyText}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
+            fetch(`/xy?xkey=${this._xkeyText}&ykey=${this._ykeyText}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign(`${this._xkeyText} or ${this._ykeyText} was not found in ${this._fileNames[0]}`)
                     variables.svgInnerHTML.assign('')
