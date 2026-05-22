@@ -1,11 +1,8 @@
 export default class {
     /**
-     * @param {import('./FigureVariablesPNG.js').default} variables 
+     * @param {import('./FigureVariables.js').default} variables 
      */
     constructor(variables) {
-        /** @type {CanvasRenderingContext2D} */
-        this._canvasContext
-        variables.canvasContext.prependListener(arg => { this._canvasContext = arg })
         /** @type {number} */
         this._xminInPixels
         variables.xminInPixels.prependListener(arg => { this._xminInPixels = arg })
