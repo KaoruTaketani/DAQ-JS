@@ -2,7 +2,7 @@ import bounds from '../lib/bounds.js'
 
 export default class {
     /**
-     * @param {import('./FigureVariablesGraph.js').default} variables 
+     * @param {import('./XYVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

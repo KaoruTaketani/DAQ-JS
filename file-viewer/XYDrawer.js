@@ -4,7 +4,7 @@ import line from '../lib/line.js'
 
 export default class {
     /**
-     * @param {import('./FigureVariablesGraph.js').default} variables 
+     * @param {import('./XYVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

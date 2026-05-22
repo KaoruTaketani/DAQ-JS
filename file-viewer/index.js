@@ -55,7 +55,7 @@ httpServer.on('request', (request, response) => {
         return
     }
     if (url.pathname.endsWith('.html')) {
-        if (url.pathname === '/Graph.html') {
+        if (url.pathname === '/XY.html') {
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
                 '<html>',
@@ -63,7 +63,7 @@ httpServer.on('request', (request, response) => {
                 '    <meta charset="utf-8">',
                 '</head>',
                 '<body>',
-                `    <script type="module" src="./FigureClientGraph.js">`,
+                `    <script type="module" src="./XYClient.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'

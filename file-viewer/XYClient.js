@@ -1,18 +1,18 @@
 import CursorTextMaker from "./CursorTextMaker.js";
 import FigureCleanupperGraph from "./FigureCleanupperGraph.js";
-import FigureDrawerGraph from "./FigureDrawerGraph.js";
-import FigureGetterGraph from "./FigureGetterGraph.js";
-import FigureVariablesGraph from "./FigureVariablesGraph.js";
+import XYDrawer from "./XYDrawer.js";
+import XYGetter from "./XYGetter.js";
+import XYVariables from "./XYVariables.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
 
-const variables = new FigureVariablesGraph()
+const variables = new XYVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new CursorTextMaker(variables)
 new FigureCleanupperGraph(variables)
-new FigureDrawerGraph(variables)
-new FigureGetterGraph(variables)
+new XYDrawer(variables)
+new XYGetter(variables)
     ;
 const listboxElement = document.createElement('select');
 (element => {
