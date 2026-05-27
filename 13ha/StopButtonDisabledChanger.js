@@ -6,13 +6,16 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._randomNumberGetterIsBusy
-        variables.randomNumberGetterIsBusy.addListener(arg => {
-            this._randomNumberGetterIsBusy = arg
+        this._randomNumberGetterDestinationState
+        variables.randomNumberGetterDestinationState.addListener(arg => {
+            this._randomNumberGetterDestinationState = arg
             this._operation()
         })
         this._operation = () => {
-            variables.stopButtonDisabled.assign(!this._randomNumberGetterIsBusy)
+            if (this._randomNumberGetterDestinationState === 'busy')
+                variables.stopButtonDisabled.assign(false)
+            if (this._randomNumberGetterDestinationState === 'idle')
+                variables.stopButtonDisabled.assign(true)
         }
     }
 }

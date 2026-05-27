@@ -9,25 +9,36 @@ export default class extends Operator {
         super()
         this._batchParams
         variables.batchParams.addListener(arg => { this._batchParams = arg })
-        this._batchProcessorIsBusy
-        variables.batchProcessorIsBusy.addListener(arg => {
-            this._batchProcessorIsBusy = arg
+        this._batchProcessorDestinationState
+        variables.batchProcessorDestinationState.addListener(arg => {
+            this._batchProcessorDestinationState = arg
             this._operation()
         })
+        this._state = 'idle'
         this._operation = () => {
-            if (!this._batchProcessorIsBusy) return
-
-            this._batchParams.reduce((previous, params) => previous.then(() =>
-                new Promise(resolve => {
-                    const p = new URLSearchParams(params)
-                    ok(p.size === 1)
-                    variables.batchResolve.assign(resolve)
-                    variables.requestParams.assign(new URLSearchParams(params))
-                })
-            ), Promise.resolve()).then(()=>{
-                variables.batchResolve.assign(undefined)
-                variables.batchProcessorIsBusy.assign(false)
-            })
+            if (this._state === 'idle') {
+                if (this._batchProcessorDestinationState === 'busy') {
+                    this._batchParams.reduce((previous, params) => previous.then(() =>
+                        new Promise(resolve => {
+                            const p = new URLSearchParams(params)
+                            ok(p.size === 1)
+                            variables.batchResolve.assign(resolve)
+                            variables.requestParams.assign(new URLSearchParams(params))
+                        })
+                    ), Promise.resolve()).then(() => {
+                        variables.batchResolve.assign(undefined)
+                        variables.batchProcessorDestinationState.assign('idle')
+                    })
+                    this._state = this._batchProcessorDestinationState
+                }
+                return
+            }
+            if (this._state === 'busy') {
+                if (this._batchProcessorDestinationState === 'idle') {
+                    this._state = this._batchProcessorDestinationState
+                }
+                return
+            }
         }
     }
 }

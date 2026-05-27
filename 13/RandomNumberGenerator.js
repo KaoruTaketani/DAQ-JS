@@ -6,19 +6,29 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._randomNumberGeneratorIsBusy
-        variables.randomNumberGeneratorIsBusy.addListener(arg => {
-            this._randomNumberGeneratorIsBusy = arg
+        this._randomNumberGeneratorDestinationState
+        variables.randomNumberGeneratorDestinationState.addListener(arg => {
+            this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })
         this._interval
+        this._state = 'idle'
         this._operation = () => {
-            if (this._randomNumberGeneratorIsBusy) {
-                this._interval = setInterval(() => {
-                    variables.randomNumber.assign(Math.random())
-                }, 1000)
-            } else {
-                clearInterval(this._interval)
+            if (this._state === 'idle') {
+                if (this._randomNumberGeneratorDestinationState === 'busy') {
+                    this._interval = setInterval(() => {
+                        variables.randomNumber.assign(Math.random())
+                    }, 1000)
+                    this._state = this._randomNumberGeneratorDestinationState
+                }
+                return
+            }
+            if (this._state === 'busy') {
+                if (this._randomNumberGeneratorDestinationState === 'idle') {
+                    clearInterval(this._interval)
+                    this._state = this._randomNumberGeneratorDestinationState
+                }
+                return
             }
         }
     }

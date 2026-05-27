@@ -44,18 +44,18 @@ new TextAreaValueChanger(variables)
 
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])
-variables.randomNumberGeneratorIsBusy.assign(false)
+variables.randomNumberGeneratorDestinationState.assign('idle')
 variables.preset.assign(50)
-variables.batchProcessorIsBusy.assign(false)
+variables.batchProcessorDestinationState.assign(false)
 variables.batchParams.assign([
     'preset=10',
-    'randomNumberGeneratorIsBusy=true',
+    'randomNumberGeneratorDestinationState=busy',
     'preset=20',
-    'randomNumberGeneratorIsBusy=true',
+    'randomNumberGeneratorDestinationState=busy',
     'preset=30',
-    'randomNumberGeneratorIsBusy=true',
+    'randomNumberGeneratorDestinationState=busy',
     'preset=40',
-    'randomNumberGeneratorIsBusy=true',
+    'randomNumberGeneratorDestinationState=busy',
     'preset=50',
-    'randomNumberGeneratorIsBusy=true'
+    'randomNumberGeneratorDestinationState=busy'
 ])

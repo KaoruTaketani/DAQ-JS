@@ -12,7 +12,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGetterIsBusy=true')
+        xhr.open('PUT','/?randomNumberGetterDestinationState=busy')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -28,7 +28,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGetterIsBusy=false')
+        xhr.open('PUT','/?randomNumberGetterDestinationState=idle')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'

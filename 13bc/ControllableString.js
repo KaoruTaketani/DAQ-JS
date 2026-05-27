@@ -1,4 +1,4 @@
-import ListenableString from '../13/ListenableString.js'
+import ListenableString from './ListenableString.js'
 
 export default class extends ListenableString {
     constructor(key, message) {

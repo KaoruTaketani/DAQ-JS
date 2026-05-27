@@ -30,4 +30,4 @@ new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])
-variables.randomNumberGetterIsBusy.assign(false)
+variables.randomNumberGetterDestinationState.assign(false)

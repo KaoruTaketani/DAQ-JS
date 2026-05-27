@@ -33,4 +33,4 @@ new StartTimeInnerTextChanger(variables)
 new PeakFinder(variables)
 
 variables.httpServer.assign(new Server()) 
-variables.randomNumberGeneratorIsBusy.assign(false)
+variables.randomNumberGeneratorDestinationState.assign('idle')

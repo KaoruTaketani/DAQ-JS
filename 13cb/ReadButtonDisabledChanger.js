@@ -12,13 +12,16 @@ export default class extends Operator {
         super()
         this._timeSeries
         variables.timeSeries.addListener(arg => { this._timeSeries })
-        this._randomNumberGeneratorIsBusy
-        variables.randomNumberGeneratorIsBusy.addListener(arg => {
-            this._randomNumberGeneratorIsBusy = arg
+        this._randomNumberGeneratorDestinationState
+        variables.randomNumberGeneratorDestinationState.addListener(arg => {
+            this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })
         this._operation = () => {
-            variables.readButtonDisabled.assign(this._randomNumberGeneratorIsBusy)
+            if (this._randomNumberGeneratorDestinationState === 'busy')
+                variables.readButtonDisabled.assign(true)
+            if (this._randomNumberGeneratorDestinationState === 'idle')
+                variables.readButtonDisabled.assign(false)
         }
     }
 }

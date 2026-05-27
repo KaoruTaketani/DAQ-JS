@@ -1,4 +1,4 @@
-import ControllableBoolean from './ControllableBoolean.js'
+import ControllableString from './ControllableString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ElementBoolean from './ElementBoolean.js'
@@ -14,7 +14,7 @@ export default class {
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
-        this.randomNumberGeneratorIsBusy = new ControllableBoolean('randomNumberGeneratorIsBusy', this.requestParams)
+        this.randomNumberGeneratorDestinationState = new ControllableString('randomNumberGeneratorDestinationState', this.requestParams)
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)

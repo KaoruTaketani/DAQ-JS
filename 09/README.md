@@ -7,12 +7,12 @@ index.js:
 const randomNumber = new ListenableNumber()
 const httpServer = new ListenableObject()
 const webSocketServer = new ListenableObject()
-const randomNumberGeneratorIsBusy = new ListenableBoolean()
+const randomNumberGeneratorDestinationState = new ListenableString()
 
 new HTTPServerRequestHandler(httpServer)
 new HTTPServerSetupper(httpServer)
 new HTTPServerUpgradeHandler(httpServer, webSocketServer)
-new RandomNumberGenerator(randomNumberGeneratorIsBusy, randomNumber)
+new RandomNumberGenerator(randomNumberGeneratorDestinationState, randomNumber)
 new RandomNumberInnerTextChanger(randomNumber, webSocketServer)
 new WebSocketServerMaker(httpServer, webSocketServer)
 ```
@@ -20,7 +20,7 @@ new WebSocketServerMaker(httpServer, webSocketServer)
 ### after
 Variables.js:
 ```js
-import ListenableBoolean from './ListenableBoolean.js'
+import ListenableString from './ListenableString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 
@@ -31,7 +31,7 @@ export default class {
 
         this.randomNumber = new ListenableNumber()
 
-        this.randomNumberGeneratorIsBusy = new ListenableBoolean()
+        this.randomNumberGeneratorDestinationState = new ListenableString()
     }
 }
 ```

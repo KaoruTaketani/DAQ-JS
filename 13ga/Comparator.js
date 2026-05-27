@@ -17,7 +17,7 @@ export default class extends Operator {
         this._operation = () => {
             if (sum(this._histogramBinCounts) < this._preset) return
 
-            variables.randomNumberGeneratorIsBusy.assign(false)
+            variables.randomNumberGeneratorDestinationState.assign('idle')
         }
     }
 }

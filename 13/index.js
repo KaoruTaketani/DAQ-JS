@@ -1,5 +1,5 @@
 import { Server } from 'http'
-import HTTPPutHandler from '../12/HTTPPutHandler.js'
+import HTTPPutHandler from './HTTPPutHandler.js'
 import HistogramInitializer from './HistogramInitializer.js'
 import HistogramMaker from './HistogramMaker.js'
 import HistogramSVGInnerHTMLMaker from './HistogramSVGInnerHTMLMaker.js'
@@ -32,4 +32,4 @@ new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])
-variables.randomNumberGeneratorIsBusy.assign(false)
+variables.randomNumberGeneratorDestinationState.assign('idle')

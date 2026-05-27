@@ -2,7 +2,7 @@
 
 RandomNumberGetter.js
 ```js
- if (this._randomNumberGeneratorIsBusy) {
+ if (this._randomNumberGetterIsBusy) {
     this._socket = new Socket()
     this._socket.setEncoding('utf8')
     this._socket.on('data', data => {

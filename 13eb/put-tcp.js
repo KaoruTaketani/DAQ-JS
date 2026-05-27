@@ -7,7 +7,7 @@ const client = connect({
     host: 'localhost'
 }, () => {
     client.write([
-        'PUT /?randomNumberGeneratorIsBusy=true HTTP/1.1',
+        'PUT /?randomNumberGeneratorDestinationState=busy HTTP/1.1',
         'Host: localhost',
         'Connection: Close',
         `Content-Length: ${body.length}`,

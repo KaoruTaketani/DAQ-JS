@@ -29,4 +29,4 @@ new StopButtonDisabledChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server()) 
-variables.randomNumberGetterIsBusy.assign(false)
+variables.randomNumberGetterDestinationState.assign('idle')

@@ -1,7 +1,7 @@
-import ListenableBoolean from '../10/ListenableBoolean.js'
 import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
+import ListenableString from './ListenableString.js'
 
 export default class {
     constructor() {
@@ -9,7 +9,7 @@ export default class {
         this.webSocketPathnames = new ListenableObject()
         this.elementValues = new ListenableObject()
 
-        this.randomNumberGeneratorIsBusy = new ListenableBoolean()
+        this.randomNumberGeneratorDestinationState = new ListenableString()
 
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()

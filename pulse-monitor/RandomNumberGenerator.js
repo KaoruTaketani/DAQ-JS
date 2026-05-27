@@ -10,15 +10,15 @@ export default class extends Operator {
         super()
         this._histogram
         variables.histogram.addListener(arg => { this._histogram = arg })
-        this._randomNumberGeneratorIsBusy
-        variables.randomNumberGeneratorIsBusy.addListener(arg => {
-            this._randomNumberGeneratorIsBusy = arg
+        this._randomNumberGeneratorDestinationState
+        variables.randomNumberGeneratorDestinationState.addListener(arg => {
+            this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })
         this._ws
         this._worker
         this._operation = () => {
-            if (this._randomNumberGeneratorIsBusy) {
+            if (this._randomNumberGeneratorDestinationState === 'busy') {
                 this._ws = createWriteStream('Acq-IntClk-DigRef-Loop.bin')
                 this._worker = new Worker('./Acq-IntClk-DigRef-Worker.js')
 

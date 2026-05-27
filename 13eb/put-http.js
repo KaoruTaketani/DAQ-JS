@@ -3,7 +3,7 @@ import { request } from 'http'
 const req = request(
     {
         host: 'localhost',
-        path: `/?randomNumberGeneratorIsBusy=true`,
+        path: `/?randomNumberGeneratorDestinationState=busy`,
         method: 'PUT',
     },
     res => {

@@ -8,13 +8,13 @@ export default class extends Operator {
         super()
         this._timeSeries
         variables.timeSeries.addListener(arg => { this._timeSeries = arg })
-        this._randomNumberGeneratorIsBusy
-        variables.randomNumberGeneratorIsBusy.addListener(arg => {
-            this._randomNumberGeneratorIsBusy = arg
+        this._randomNumberGeneratorDestinationState
+        variables.randomNumberGeneratorDestinationState.addListener(arg => {
+            this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._randomNumberGeneratorIsBusy) return
+            if (this._randomNumberGeneratorDestinationState !== 'busy') return
 
             variables.timeSeries.assign({
                 time: new Array(16).fill(Number.NaN),

@@ -28,15 +28,15 @@ export default class extends Operator {
             variables.presets.assign([10, 20, 30, 40, 50])
             variables.batchParams.assign([
                 'preset=10',
-                'randomNumberGeneratorIsBusy=true',
+                'randomNumberGeneratorDestinationState=busy',
                 'preset=20',
-                'randomNumberGeneratorIsBusy=true',
+                'randomNumberGeneratorDestinationState=busy',
                 'preset=30',
-                'randomNumberGeneratorIsBusy=true',
+                'randomNumberGeneratorDestinationState=busy',
                 'preset=40',
-                'randomNumberGeneratorIsBusy=true',
+                'randomNumberGeneratorDestinationState=busy',
                 'preset=50',
-                'randomNumberGeneratorIsBusy=true'
+                'randomNumberGeneratorDestinationState=busy'
             ])
         }
     }

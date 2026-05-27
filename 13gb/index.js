@@ -36,5 +36,5 @@ new Comparator(variables)
 
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])
-variables.randomNumberGeneratorIsBusy.assign(false)
+variables.randomNumberGeneratorDestinationState.assign('idle')
 variables.preset.assign(50)

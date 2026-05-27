@@ -5,7 +5,7 @@ separate the previous code to multiple files
 index.js:
 ```js
 import { Server } from 'http'
-import ListenableBoolean from './ListenableBoolean.js'
+import ListenableString from './ListenableString.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
@@ -18,16 +18,16 @@ import WebSocketServerMaker from './WebSocketServerMaker.js'
 const randomNumber = new ListenableNumber()
 const httpServer = new ListenableObject()
 const webSocketServer = new ListenableObject()
-const randomNumberGeneratorIsBusy = new ListenableBoolean()
+const randomNumberGeneratorDestinationState = new ListenableString()
 
 new HTTPServerRequestHandler(httpServer)
 new HTTPServerSetupper(httpServer)
 new HTTPServerUpgradeHandler(httpServer, webSocketServer)
-new RandomNumberGenerator(randomNumberGeneratorIsBusy, randomNumber)
+new RandomNumberGenerator(randomNumberGeneratorDestinationState, randomNumber)
 new RandomNumberInnerTextChanger(randomNumber, webSocketServer)
 new WebSocketServerMaker(httpServer, webSocketServer)
 
-randomNumberGeneratorIsBusy.assign(true)
+randomNumberGeneratorDestinationState.assign('busy')
 httpServer.assign(new Server()) 
 ```
 
@@ -45,21 +45,31 @@ RandomNumberGenerator.js:
 import Operator from './Operator.js'
 
 export default class extends Operator {
-    constructor(randomNumberGeneratorIsBusy,randomNumber) {
+    constructor(randomNumberGeneratorDestinationState,randomNumber) {
         super()
-        this._randomNumberGeneratorIsBusy
-        randomNumberGeneratorIsBusy.addListener(arg => {
-            this._randomNumberGeneratorIsBusy = arg
+        this._randomNumberGeneratorDestinationState
+        randomNumberGeneratorDestinationState.addListener(arg => {
+            this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })
         this._interval
+        this._state = 'idle'
         this._operation = () => {
-            if (this._randomNumberGeneratorIsBusy) {
-                this._interval = setInterval(() => {
-                    randomNumber.assign(Math.random())
-                }, 1000)
-            } else {
-                clearInterval(this._interval)
+            if (this._state === 'idle') {
+                if (this._randomNumberGeneratorDestinationState === 'busy') {
+                    this._interval = setInterval(() => {
+                        randomNumber.assign(Math.random())
+                    }, 1000)
+                    this._state = this._randomNumberGeneratorDestinationState
+                }
+                return
+            }
+            if (this._state === 'busy') {
+                if (this._randomNumberGeneratorDestinationState === 'idle') {
+                    clearInterval(this._interval)
+                    this._state = this._randomNumberGeneratorDestinationState
+                }
+                return
             }
         }
     }

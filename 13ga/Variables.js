@@ -1,4 +1,4 @@
-import ControllableBoolean from '../13/ControllableBoolean.js'
+import ControllableBoolean from '../13/ControllableString.js'
 import ElementBoolean from '../13/ElementBoolean.js'
 import ElementString from '../13/ElementString.js'
 import ListenableNumber from '../13/ListenableNumber.js'

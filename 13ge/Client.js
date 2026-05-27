@@ -17,7 +17,7 @@ socket.onclose = () => {
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT', '/?randomNumberGeneratorIsBusy=true')
+            xhr.open('PUT', '/?randomNumberGeneratorDestinationState=busy')
             xhr.send()
         }
         url.pathname = 'startButtonDisabled'
@@ -33,7 +33,7 @@ socket.onclose = () => {
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT', '/?randomNumberGeneratorIsBusy=false')
+            xhr.open('PUT', '/?randomNumberGeneratorDestinationState=idle')
             xhr.send()
         }
         url.pathname = 'stopButtonDisabled'
@@ -87,7 +87,7 @@ socket.onclose = () => {
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT', '/?batchProcessorIsBusy=true')
+            xhr.open('PUT', '/?batchProcessorDestinationState=busy')
             xhr.send()
         }
         url.pathname = 'batchStartButtonDisabled'
@@ -103,7 +103,7 @@ socket.onclose = () => {
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT', '/?batchProcessorIsBusy=false')
+            xhr.open('PUT', '/?batchProcessorDestinationState=idle')
             xhr.send()
         }
         url.pathname = 'batchStopButtonDisabled'

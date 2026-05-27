@@ -1,6 +1,6 @@
-import ListenableBoolean from './ListenableBoolean.js'
 import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
+import ListenableString from './ListenableString.js'
 
 export default class {
     constructor() {
@@ -9,7 +9,7 @@ export default class {
 
         this.randomNumber = new ListenableNumber()
 
-        this.randomNumberGeneratorIsBusy = new ListenableBoolean()
+        this.randomNumberGeneratorDestinationState = new ListenableString()
     }
 }
 

@@ -19,4 +19,4 @@ new StartTimeChanger(variables)
 new StartTimeInnerTextChanger(variables)
 
 variables.httpServer.assign(new Server()) 
-variables.randomNumberGeneratorIsBusy.assign(true)
+variables.randomNumberGeneratorDestinationState.assign('busy')
