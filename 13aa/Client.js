@@ -39,6 +39,20 @@ socket.onclose = () => {
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
+    element.type = 'button'
+    element.value = 'download svg'
+    element.style.width = '130px'
+    const linkElement = document.createElement('a')
+    element.onclick = () => {
+        linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
+            `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
+        ))
+        linkElement.setAttribute('download', 'histogram.svg')
+        linkElement.click()
+    }
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
     url.pathname = 'startTimeInnerText'
     const innerTextSocket = new WebSocket(url)
     innerTextSocket.onmessage = event => {
@@ -68,35 +82,3 @@ const svgElement=document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         element.innerHTML = event.data
     }
 })(document.body.appendChild(svgElement));
-
-const dialogElement = document.createElement('dialog')
-document.body.appendChild(dialogElement);
-
-(element => {
-    element.type = 'button'
-    element.value = 'download svg'
-    element.style.width = '130px'
-    element.style.display = 'block'
-    const linkElement = document.createElement('a')
-    element.onclick = () => {
-        linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
-            `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
-        ))
-        linkElement.setAttribute('download', 'histogram.svg')
-        linkElement.click()
-    }
-})(dialogElement.appendChild(document.createElement('input')));
-
-(element => {
-    element.type = 'button'
-    element.value = 'close'
-    element.style.width = '130px'
-    element.style.display = 'block'
-    element.onclick = () => {
-        dialogElement.close()
-    }
-})(dialogElement.appendChild(document.createElement('input')));
-
-
-
-
