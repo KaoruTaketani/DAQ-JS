@@ -5,6 +5,7 @@ import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
 import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'
 import ImageSrcMaker from './ImageSrcMaker.js'
 import Variables from '../13fd/Variables.js'
+import ZscaleInnerHTMLMaker from './ZscaleInnerHTMLMaker.js'
 
 const variables = new Variables()
 
@@ -13,8 +14,9 @@ new HTTPPutHandler(variables)
 new HTTPServerSetupper(variables)
 new HTTPUpgradeHandler(variables)
 new ImageSrcMaker(variables)
+new ZscaleInnerHTMLMaker(variables)
 
 variables.httpServer.assign(new Server())
 variables.cmin.assign(0.1)
 variables.cmax.assign(4.0)
-variables.isLog.assign(true)
+variables.zscale.assign('log')

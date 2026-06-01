@@ -8,16 +8,21 @@ socket.onclose = () => {
 
 (element => {
     element.style.display = 'flex'
-    element.innerText = 'isLog';
+    element.style.marginBottom = '8px'
+    element.innerText = 'zscale';
     (element => {
-        element.type = 'checkbox'
-        element.checked = true
         element.onchange = () => {
+            const arg = element.options[element.selectedIndex].innerText
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT', `/?isLog=${element.checked}`)
+            xhr.open('PUT', `/?zscale=${arg}`)
             xhr.send()
         }
-    })(element.appendChild(document.createElement('input')));
+        url.pathname = 'zscaleInnerHTML'
+        const srcSocket = new WebSocket(url)
+        srcSocket.onmessage = event => {
+            element.innerHTML = event.data
+        }
+    })(element.appendChild(document.createElement('select')));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {

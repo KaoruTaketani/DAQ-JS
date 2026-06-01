@@ -10,13 +10,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._isLog
         this._cmax
         variables.cmax.addListener(arg => { this._cmax = arg })
         this._cmin
         variables.cmin.addListener(arg => { this._cmin = arg })
-        variables.isLog.addListener(arg => {
-            this._isLog = arg
+        this._zscale
+        variables.zscale.addListener(arg => {
+            this._zscale = arg
             this._operation()
         })
         this._operation = () => {
@@ -26,7 +26,7 @@ export default class extends Operator {
             const startTime = Date.now()
             const Z = peaks(colon(-1, 0.25, 1))
 
-            if (this._isLog) {
+            if (this._zscale === 'log') {
                 imwrite(imagesc({ shape: Z.shape, data: Z.data.map(v => Math.log10(v)) }, [this._cmin, this._cmax].map(v => Math.log10(v)))).then(buffer => {
                     console.log(`elapsedTime: ${Date.now() - startTime}ms`)
                     variables.imageSrc.assign(`data:image/png;base64,${buffer.toString('base64')}`)
