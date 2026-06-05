@@ -2,7 +2,7 @@ import ListenableString from '../13/ListenableString.js'
 
 export default class extends ListenableString {
     constructor(key, requestParams, batchResolve) {
-        super(key, requestParams)
+        super()
         this._onceListeners = []
         this._batchResolve
         batchResolve.addListener(arg => { this._batchResolve = arg })
