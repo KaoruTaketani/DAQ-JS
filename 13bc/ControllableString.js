@@ -1,9 +1,9 @@
 import ListenableString from './ListenableString.js'
 
 export default class extends ListenableString {
-    constructor(key, message) {
+    constructor(key, requestParams) {
         super()
-        message.addListener(arg => {
+        requestParams.addListener(arg => {
             if (!arg.has(key)) return
 
             super.assign(arg.get(key))
