@@ -86,7 +86,7 @@
 
 [13.g.b Throttle](./13gb/README.md)
 
-[13.h.c Batch Processor](./13gc/README.md)
+[13.g.c Batch Processor](./13gc/README.md)
 
 [13.g.d Batch Stopper](./13gd/README.md)
 
