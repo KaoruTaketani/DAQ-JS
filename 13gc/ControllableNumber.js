@@ -1,11 +1,11 @@
 import ListenableNumber from '../13/ListenableNumber.js'
 
 export default class extends ListenableNumber {
-    constructor(key, message, batchResolve) {
+    constructor(key, requestParams, batchResolve) {
         super()
         this._batchResolve
         batchResolve.addListener(arg => { this._batchResolve = arg })
-        message.addListener(arg => {
+        requestParams.addListener(arg => {
             if (!arg.has(key)) return
 
             const value = parseFloat(arg.get(key))
