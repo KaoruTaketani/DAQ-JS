@@ -43,7 +43,7 @@ export default class extends Operator {
                         if (typeof value === 'string')
                             ws.send(value)
                         if (typeof value === 'boolean')
-                            ws.send(value.toString())
+                            ws.send(value ? 'true' : '')
                     })
                 })
             })

@@ -17,13 +17,13 @@ socket.onclose = () => {
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT','/?stopChannel=2')
+            xhr.open('PUT', '/?stopChannel=2')
             xhr.send()
         }
         url.pathname = 'stopButtonDisabled'
         const disabledSocket = new WebSocket(url)
-        disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-            element.disabled = JSON.parse(event.data)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data
         }
     })(element.appendChild(document.createElement('input')));
 

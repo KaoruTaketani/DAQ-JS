@@ -46,7 +46,7 @@ this._webSocketServer.handleUpgrade(request, socket, head, ws => {
         if (typeof value === 'string')
             ws.send(value)
         if (typeof value === 'boolean')
-            ws.send(value.toString())
+            ws.send(value ? 'true' : '')
     })
 })
 ```

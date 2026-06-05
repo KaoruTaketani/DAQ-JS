@@ -20,7 +20,7 @@ export default class {
         this._webSocketPathnames.forEach((pathname, ws) => {
             if (this._pathname !== pathname) return
 
-            ws.send(JSON.stringify(arg))
+            ws.send(arg ? 'true' : '')
         })
     }
 }

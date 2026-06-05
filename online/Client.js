@@ -17,8 +17,8 @@ const startButtonElement = document.createElement('input');
     }
     url.pathname = 'startButtonDisabled'
     const disabledSocket = new WebSocket(url)
-    disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-        element.disabled = JSON.parse(event.data)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data
     }
 
 })(document.body.appendChild(startButtonElement));
@@ -33,8 +33,8 @@ const startButtonElement = document.createElement('input');
     }
     url.pathname = 'stopButtonDisabled'
     const disabledSocket = new WebSocket(url)
-    disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-        element.disabled = JSON.parse(event.data)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data
     }
 })(document.body.appendChild(document.createElement('input')));
 
@@ -47,13 +47,13 @@ const startButtonElement = document.createElement('input');
         }
         url.pathname = 'usePresetChecked'
         const checkedSocket = new WebSocket(url)
-        checkedSocket.onmessage = (/** @type {MessageEvent} */event) => {
-            element.checked = JSON.parse(event.data)
+        checkedSocket.onmessage = event => {
+            element.checked = event.data
         }
         url.pathname = 'usePresetDisabled'
         const disabledSocket = new WebSocket(url)
-        disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-            element.disabled = JSON.parse(event.data)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data
         }
     })(element.appendChild(document.createElement('input')));
     element.style.display = 'block'
@@ -78,8 +78,8 @@ const startButtonElement = document.createElement('input');
     }
     url.pathname = 'presetDisabled'
     const dsiabledSocket = new WebSocket(url)
-    dsiabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-        element.disabled = JSON.parse(event.data)
+    dsiabledSocket.onmessage = event => {
+        element.disabled = event.data
     }
     url.pathname = 'presetValue'
     const valueSocket = new WebSocket(url)
@@ -96,8 +96,8 @@ const startButtonElement = document.createElement('input');
         }
         url.pathname = 'saveToEDRDisabled'
         const disabledSocket = new WebSocket(url)
-        disabledSocket.onmessage = (/** @type {MessageEvent} */event) => {
-            element.disabled = JSON.parse(event.data)
+        disabledSocket.onmessage = event => {
+            element.disabled = event.data
         }
     })(element.appendChild(document.createElement('input')));
     element.style.display = 'block'
