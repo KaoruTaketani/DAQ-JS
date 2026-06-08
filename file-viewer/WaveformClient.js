@@ -34,8 +34,8 @@ const listboxElement = document.createElement('select');
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(listboxElement));
 
-const linkElement = document.createElement('a');
 (element => {
+const linkElement = document.createElement('a');
     element.style.marginLeft = '208px'
     linkElement.setAttribute('download', `table.csv`)
 
