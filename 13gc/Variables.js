@@ -3,7 +3,7 @@ import ElementString from '../13/ElementString.js'
 import ListenableNumber from '../13/ListenableNumber.js'
 import ListenableObject from '../13/ListenableObject.js'
 import ControllableNumber from './ControllableNumber.js'
-import BatchString from './BatchString.js'
+import DestinationString from './DestinationString.js'
 import ControllableString from './ControllableString.js'
 import Variables from '../13ga/Variables.js'
 
@@ -14,7 +14,7 @@ export default class extends Variables {
         this.batchResolve = new ListenableObject()
 
         // overwrite defined in ../13ga/Variables.js
-        this.randomNumberGeneratorDestinationState = new BatchString('randomNumberGeneratorDestinationState', this.requestParams, this.batchResolve)
+        this.randomNumberGeneratorDestinationState = new DestinationString('randomNumberGeneratorDestinationState', this.requestParams, this.batchResolve)
         this.batchProcessorDestinationState = new ControllableString('batchProcessorDestinationState', this.requestParams, this.batchResolve)
 
         // overwrite defined in ../13/Variables.js
