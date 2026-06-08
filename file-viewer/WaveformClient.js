@@ -14,7 +14,6 @@ new FigureCleanupperGraph(variables)
 new WaveformDrawer(variables)
 new WaveformGetter(variables)
     ;
-const listboxElement = document.createElement('select');
 (element => {
     element.size = 20
     element.style.position = 'absolute'
@@ -32,10 +31,10 @@ const listboxElement = document.createElement('select');
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
     })
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
-})(document.body.appendChild(listboxElement));
+})(document.body.appendChild(document.createElement('select')));
 
 (element => {
-const linkElement = document.createElement('a');
+    const linkElement = document.createElement('a');
     element.style.marginLeft = '208px'
     linkElement.setAttribute('download', `table.csv`)
 
