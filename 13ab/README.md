@@ -2,23 +2,21 @@
 
 Client.js:
 ```js
-const downloadHDF5ButtonElement = document.createElement('input')
-downloadHDF5ButtonElement.type = 'button'
-downloadHDF5ButtonElement.value = 'download hdf5'
-downloadHDF5ButtonElement.style.width = '130px'
-downloadHDF5ButtonElement.style.display = 'block'
-dialogElement.appendChild(downloadHDF5ButtonElement)
-
-const hdf5LinkElement = document.createElement('a')
-url.pathname = 'hdf5LinkHref'
-const hdf5LinkHrefSocket = new WebSocket(url)
-hdf5LinkHrefSocket.onmessage = event => {
-    hdf5LinkElement.href = event.data
-}
-downloadHDF5ButtonElement.onclick = () => {
-    hdf5LinkElement.setAttribute('download', 'histogram.h5')
-    hdf5LinkElement.click()
-}
+(element => {
+    element.type = 'button'
+    element.value = 'download hdf5'
+    element.style.width = '130px'
+    const linkElement = document.createElement('a')
+    url.pathname = 'hdf5LinkHref'
+    const hrefSocket = new WebSocket(url)
+    hrefSocket.onmessage = event => {
+        linkElement.href = event.data
+    }
+    element.onclick = () => {
+        linkElement.setAttribute('download', 'histogram.h5')
+        linkElement.click()
+    }
+})(document.body.appendChild(document.createElement('input')));
 ```
 
 WritableFloat.js:

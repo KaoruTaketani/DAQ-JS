@@ -2,17 +2,19 @@
 
 Client.js:
 ```js
-const svgLinkElement = document.createElement('a')
-
-const downloadSVGButtonElement = document.createElement('input')
-
-downloadSVGButtonElement.onclick = () => {
-    svgLinkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
-        `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
-    ))
-    svgLinkElement.setAttribute('download', 'histogram.svg')
-    svgLinkElement.click()
-}
+(element => {
+    element.type = 'button'
+    element.value = 'download svg'
+    element.style.width = '130px'
+    const linkElement = document.createElement('a')
+    element.onclick = () => {
+        linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
+            `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
+        ))
+        linkElement.setAttribute('download', 'histogram.svg')
+        linkElement.click()
+    }
+})(document.body.appendChild(document.createElement('input')));
 ```
 
 
