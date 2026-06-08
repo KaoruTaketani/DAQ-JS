@@ -10,20 +10,16 @@ export default class extends ListenableString {
             if (!arg.has(key)) return
 
             super.assign(arg.get(key))
-            if (this._batchResolve) this.addOnceListener(() => {
+            if (this._batchResolve) this._onceListeners.push(() => {
                 this._batchResolve()
             })
         })
-    }
-    addOnceListener(onceListener) {
-        this._onceListeners.push(onceListener)
     }
     assign(arg) {
         super.assign(arg)
         this._onceListeners.forEach(onceListener => { onceListener(arg) })
         this._onceListeners.splice(0)
     }
-
 }
 
 
