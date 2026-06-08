@@ -63,8 +63,8 @@ const dialogElement = document.createElement('dialog');
     element.addEventListener('click', () => { dialogElement.showModal() })
 })(document.body.appendChild(document.createElement('input')));
 
-const linkElement = document.createElement('a');
 (element => {
+    const linkElement = document.createElement('a');
     linkElement.setAttribute('download', `table.csv`)
 
     // element.style.marginLeft = '208px'
@@ -90,7 +90,7 @@ const linkElement = document.createElement('a');
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
-    element.style.display='inline-block'
+    element.style.display = 'inline-block'
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
