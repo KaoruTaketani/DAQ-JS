@@ -38,11 +38,11 @@ new CursorTextMaker(variables)
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
-const linkElement = document.createElement('a');
 const canvasElement = document.createElement('canvas')
 /** @type {string} */
 let svgInnerHTML
 (element => {
+    const linkElement = document.createElement('a');
     linkElement.setAttribute('download', `image.svg`)
 
     element.style.marginLeft = '208px'
