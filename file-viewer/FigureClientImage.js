@@ -33,11 +33,11 @@ new CursorTextMaker(variables)
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
-const linkElement = document.createElement('a');
 const canvasElement = document.createElement('canvas')
 /** @type {string} */
 let svgInnerHTML
 (element => {
+    const linkElement = document.createElement('a');
     element.style.marginLeft = '208px'
     linkElement.setAttribute('download', `image.svg`)
 
@@ -68,7 +68,7 @@ let svgInnerHTML
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
-    element.style.display='inline-block'
+    element.style.display = 'inline-block'
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
