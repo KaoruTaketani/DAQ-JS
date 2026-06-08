@@ -13,7 +13,6 @@ export default class extends Variables {
         // overwrites are necessary to for ControllableBoolean/BatchBoolean/ControllableNumber?
         this.batchParams = new ListenableObject()
         this.batchResolve = new ListenableObject()
-        this.batchReject = new ListenableObject()
 
         this.batchProcessorDestinationState = new ControllableString('batchProcessorDestinationState', this.requestParams, this.batchResolve)
         // overwrite defined in ../13gc/Variables.js

@@ -9,13 +9,12 @@ export default class extends Operator {
         super()
         this._batchParams
         variables.batchParams.addListener(arg => { this._batchParams = arg })
-        this._batchReject
-        variables.batchReject.addListener(arg => { this._batchReject = arg })
         this._batchProcessorDestinationState
         variables.batchProcessorDestinationState.addListener(arg => {
             this._batchProcessorDestinationState = arg
             this._operation()
         })
+        this._batchReject
         this._state = 'idle'
         this._operation = () => {
             if (this._state === 'idle') {
@@ -24,18 +23,18 @@ export default class extends Operator {
                         new Promise((resolve, reject) => {
                             const p = new URLSearchParams(params)
                             ok(p.size === 1)
-                            variables.batchReject.assign(reject)
+                            this._batchReject = reject
                             variables.batchResolve.assign(resolve)
                             variables.requestParams.assign(new URLSearchParams(params))
                         })
                     ), Promise.resolve()).then(() => {
                         console.log('finished')
-                        variables.batchReject.assign(undefined)
+                        this._batchReject = undefined
                         variables.batchResolve.assign(undefined)
                         variables.batchProcessorDestinationState.assign('idle')
                     }).catch(() => {
                         console.log('stopped')
-                        variables.batchReject.assign(undefined)
+                        this._batchReject = undefined
                         variables.batchResolve.assign(undefined)
                         variables.batchProcessorDestinationState.assign('idle')
                     })
