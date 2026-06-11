@@ -13,10 +13,8 @@ export default class extends Operator {
         })
         this._operation = () => {
             let tbody = ''
-            this._batchParams.forEach(params => {
-                new URLSearchParams(params).forEach((value, key) => {
-                    tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
-                })
+            Array.from(this._batchParams.entries()).forEach(params => {
+                tbody += `<tr><td>${params[0]}</td><td>${params[1]}</td></tr>\n`
             })
 
             variables.batchTableInnerHTML.assign([
