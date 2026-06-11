@@ -7,6 +7,8 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        this._batchResolve
+        variables.batchResolve.addListener(arg => { this._batchResolve = arg })
         this._batchParams
         variables.batchParams.addListener(arg => { this._batchParams = arg })
         this._batchProcessorDestinationState
@@ -18,15 +20,22 @@ export default class extends Operator {
         this._operation = () => {
             if (this._state === 'idle') {
                 if (this._batchProcessorDestinationState === 'busy') {
-                    this._batchParams.reduce((previous, params) => previous.then(() =>
+                    const ng = Array.from(this._batchParams.keys())
+                        .filter(key => !this._batchResolve.has(key))
+                    if (ng.length > 0) return
+
+                    Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
                         new Promise(resolve => {
-                            const p = new URLSearchParams(params)
-                            ok(p.size === 1)
-                            variables.batchResolve.assign(resolve)
-                            variables.requestParams.assign(new URLSearchParams(params))
+                            const [key, value] = params
+                            if (this._batchResolve.get(key) === null) {
+                                variables.requestParams.assign(new URLSearchParams([params]))
+                                resolve()
+                            } else {
+                                this._batchResolve.set(key, resolve)
+                                variables.requestParams.assign(new URLSearchParams([params]))
+                            }
                         })
                     ), Promise.resolve()).then(() => {
-                        variables.batchResolve.assign(undefined)
                         variables.batchProcessorDestinationState.assign('idle')
                     })
                     this._state = this._batchProcessorDestinationState

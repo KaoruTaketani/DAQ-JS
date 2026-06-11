@@ -1,11 +1,10 @@
 import ElementBoolean from '../13/ElementBoolean.js'
 import ElementString from '../13/ElementString.js'
-import ListenableNumber from '../13/ListenableNumber.js'
 import ListenableObject from '../13/ListenableObject.js'
-import ControllableNumber from './ControllableNumber.js'
-import DestinationString from './DestinationString.js'
-import ControllableString from './ControllableString.js'
 import Variables from '../13ga/Variables.js'
+import BatchNumber from './BatchNumber.js'
+import BatchString from './BatchString.js'
+import DestinationString from './DestinationString.js'
 
 export default class extends Variables {
     constructor() {
@@ -15,10 +14,10 @@ export default class extends Variables {
 
         // overwrite defined in ../13ga/Variables.js
         this.randomNumberGeneratorDestinationState = new DestinationString('randomNumberGeneratorDestinationState', this.requestParams, this.batchResolve)
-        this.batchProcessorDestinationState = new ControllableString('batchProcessorDestinationState', this.requestParams, this.batchResolve)
+        this.batchProcessorDestinationState = new BatchString('batchProcessorDestinationState', this.requestParams, this.batchResolve)
 
         // overwrite defined in ../13/Variables.js
-        this.preset = new ControllableNumber('preset', this.requestParams, this.batchResolve)
+        this.preset = new BatchNumber('preset', this.requestParams, this.batchResolve)
 
         this.batchStartButtonDisabled = new ElementBoolean('/batchStartButtonDisabled', this.elementValues, this.webSocketPathnames)
 
