@@ -12,7 +12,7 @@ export default class extends ControllableString {
     }
     assign(arg) {
         super.assign(arg)
-        if (this._batchResolve?.has(this._key)) {
+        if (this._batchResolve?.get(this._key)) {
             this._batchResolve.get(this._key)()
             this._batchResolve.set(this._key, undefined)
         }

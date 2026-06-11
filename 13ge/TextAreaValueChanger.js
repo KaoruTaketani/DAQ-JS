@@ -12,7 +12,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.textAreaValue.assign(this._batchParams.join('\n'))
+            variables.textAreaValue.assign(this._batchParams.toString())
         }
     }
 }

@@ -26,7 +26,7 @@ export default class extends Operator {
             if (this._presetStart > this._presetStop) return
 
             variables.presets.assign([10, 20, 30, 40, 50])
-            variables.batchParams.assign([
+            variables.batchParams.assign(new URLSearchParams([
                 'preset=10',
                 'randomNumberGeneratorDestinationState=busy',
                 'preset=20',
@@ -37,7 +37,7 @@ export default class extends Operator {
                 'randomNumberGeneratorDestinationState=busy',
                 'preset=50',
                 'randomNumberGeneratorDestinationState=busy'
-            ])
+            ].join('&')))
         }
     }
 }

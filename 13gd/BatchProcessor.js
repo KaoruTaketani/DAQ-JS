@@ -21,6 +21,7 @@ export default class extends Operator {
         this._operation = () => {
             if (this._state === 'idle') {
                 if (this._batchProcessorDestinationState === 'busy') {
+                    console.log(this._batchResolve.keys())
                     const ng = Array.from(this._batchParams.keys())
                         .filter(key => !this._batchResolve.has(key))
                     if (ng.length > 0) return
@@ -50,7 +51,7 @@ export default class extends Operator {
             }
             if (this._state === 'busy') {
                 if (this._batchProcessorDestinationState === 'idle') {
-                    if (this._batchReject) this._batchReject()
+                    this._batchReject()
 
                     this._state = this._batchProcessorDestinationState
                 }
