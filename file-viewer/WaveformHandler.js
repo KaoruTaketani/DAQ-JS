@@ -62,26 +62,32 @@ export default class extends Operator {
             }
             const y = Array.from(/** @type {Float64Array} */(dataset.value))
             let xlabel
+            let groupPath
             let attrKey = ''
             if (key === 'horizontalProjection') {
-                attrKey = key + 'BinLimitsInMillimeters'
+                groupPath = key + 'BinCounts'
+                attrKey = 'binLimitsInMillimeters'
+                xlabel = 'coordinate (mm)'
+            }
+            if (key === 'verticalProjection') {
+                groupPath = key + 'BinCounts'
+                attrKey = 'binLimitsInMillimeters'
                 xlabel = 'coordinate (mm)'
             }
             if (key === 'pulseHeightHistogram') {
-                attrKey = key + 'BinLimits'
+                groupPath = key + 'BinCounts'
+                attrKey = 'binLimits'
                 xlabel = 'pulse height'
             }
             if (key === 'tofHistogram') {
-                attrKey = key + 'BinLimitsInNanoseconds'
+                groupPath = key + 'BinCounts'
+                attrKey = 'binLimitsInNanoseconds'
                 xlabel = 'tof (ns)'
             }
             if (key === 'tofDifferenceHistogram') {
-                attrKey = key + 'BinLimitsInNanoseconds'
+                groupPath = key + 'BinCounts'
+                attrKey = 'binLimitsInNanoseconds'
                 xlabel = 'tof (ns)'
-            }
-            if (key === 'verticalProjection') {
-                attrKey = key + 'BinLimitsInMillimeters'
-                xlabel = 'coordinate (mm)'
             }
             if (attrKey === '') {
                 response.writeHead(404)
@@ -89,7 +95,7 @@ export default class extends Operator {
                 f.close()
                 return
             }
-            const lims = /** @type {number[]} */(f.attrs[attrKey].value)
+            const lims = /** @type {number[]} */(f.get(groupPath).attrs[attrKey].value)
             if (lims.length !== 2) {
                 response.writeHead(404)
                 response.end()
