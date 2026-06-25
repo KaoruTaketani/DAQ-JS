@@ -62,23 +62,27 @@ export default class {
 
             let xlabel
             let ylabel
+            let groupPath
             let xKey = ''
             let yKey = ''
             if (key === 'rawImage') {
-                xKey = key + 'XBinLimitsInMillimeters'
-                yKey = key + 'YBinLimitsInMillimeters'
+                groupPath = key + 'BinCounts'
+                xKey = 'xBinLimitsInMillimeters'
+                yKey = 'yBinLimitsInMillimeters'
                 xlabel = 'coordinate (mm)'
                 ylabel = 'coordinate (mm)'
             }
             if (key === 'filteredImage') {
-                xKey = key + 'XBinLimitsInMillimeters'
-                yKey = key + 'YBinLimitsInMillimeters'
+                groupPath = key + 'BinCounts'
+                xKey = 'xBinLimitsInMillimeters'
+                yKey = 'yBinLimitsInMillimeters'
                 xlabel = 'coordinate (mm)'
                 ylabel = 'coordinate (mm)'
             }
             if (key === 'horizontalProjectionHistograms') {
-                xKey = key + 'XBinLimitsInMillimeters'
-                yKey = key + 'YBinLimitsInNanoseconds'
+                groupPath = key + 'BinCounts'
+                xKey = 'xBinLimitsInMillimeters'
+                yKey = 'yBinLimitsInNanoseconds'
                 xlabel = 'coordinate (mm)'
                 ylabel = 'tof (ns)'
             }
@@ -89,7 +93,7 @@ export default class {
                 f.close()
                 return
             }
-            const xlims = /** @type {number[]} */(f.attrs[xKey].value)
+            const xlims = /** @type {number[]} */(f.get(groupPath).attrs[xKey].value)
             if (xlims.length !== 2) {
                 response.writeHead(404)
                 response.end()
@@ -102,7 +106,7 @@ export default class {
                 f.close()
                 return
             }
-            const ylims = /** @type {number[]} */(f.attrs[yKey].value)
+            const ylims = /** @type {number[]} */(f.get(groupPath).attrs[yKey].value)
             if (ylims.length !== 2) {
                 response.writeHead(404)
                 response.end()
