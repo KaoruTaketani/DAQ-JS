@@ -147,7 +147,7 @@ export default class {
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
         this.imageBinWidthInMillimeters = new WritableNumber('imageBinWidthInMillimeters', this.hdf5File)
 
-        this.roiInMillimeters = new ParameterArray('', 'roiInMillimeters', this.hdf5File, this.parameters)
+        this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
 
         this.incidentAngleInDegrees = new ParameterNumber('incidentAngleInDegrees', this.hdf5File, this.parameters)
         this.frequencyVectorLength = new ParameterNumber('frequencyVectorLength', this.hdf5File, this.parameters)
