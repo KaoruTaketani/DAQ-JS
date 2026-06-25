@@ -39,7 +39,7 @@ export default class extends Operator {
                 variables.tofImageXBinLimitsInPixels.assign([0, w])
             variables.tofImageYBinLimitsInPixels.assign([0, h])
             variables.tofImageZBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
-            variables.tofImage.assign({
+            variables.tofImageBinCounts.assign({
                 shape: size,
                 data: new Uint16Array(length)
             })

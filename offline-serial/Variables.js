@@ -56,7 +56,7 @@ export default class {
 
         // uint16ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16NDArray>} */
-        this.tofImage = new WritableDataset('tofImage', this.hdf5File)
+        this.tofImageBinCounts = new WritableDataset('tofImageBinCounts', this.hdf5File)
         // uint16array
         /** @type {import('./WritableDataset.js').default<Uint16Array>} */
         this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
@@ -111,21 +111,21 @@ export default class {
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units
-        this.horizontalProjectionBinLimitsInMillimeters = new WritableArray('', 'horizontalProjectionBinLimitsInMillimeters', this.hdf5File)
-        this.verticalProjectionBinLimitsInMillimeters = new WritableArray('', 'verticalProjectionBinLimitsInMillimeters', this.hdf5File)
+        this.horizontalProjectionBinLimitsInMillimeters = new WritableArray('horizontalProjectionBinCounts', 'binLimitsInMillimeters', this.hdf5File)
+        this.verticalProjectionBinLimitsInMillimeters = new WritableArray('verticalProjectionBinCounts', 'binLimitsInMillimeters', this.hdf5File)
         this.tofHistogramBinLimitsInNanoseconds = new WritableArray('tofHistogramBinCounts', 'binLimitsInNanoseconds', this.hdf5File)
-        this.tofImageZBinLimitsInNanoseconds = new WritableArray('', 'tofImageZBinLimitsInNanoseconds', this.hdf5File)
-        this.tofImageXBinLimitsInPixels = new WritableArray('', 'tofImageXBinLimitsInPixels', this.hdf5File)
-        this.tofImageYBinLimitsInPixels = new WritableArray('', 'tofImageYBinLimitsInPixels', this.hdf5File)
-        this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('', 'tofDifferenceHistogramBinLimitsInNanoseconds', this.hdf5File)
-        this.rawImageXBinLimitsInMillimeters = new WritableArray('', 'rawImageXBinLimitsInMillimeters', this.hdf5File)
-        this.rawImageYBinLimitsInMillimeters = new WritableArray('', 'rawImageYBinLimitsInMillimeters', this.hdf5File)
-        this.pulseHeightHistogramBinLimits = new WritableArray('', 'pulseHeightHistogramBinLimits', this.hdf5File)
+        this.tofImageZBinLimitsInNanoseconds = new WritableArray('tofImageBinCounts', 'zBinLimitsInNanoseconds', this.hdf5File)
+        this.tofImageXBinLimitsInPixels = new WritableArray('tofImageBinCounts', 'xBinLimitsInPixels', this.hdf5File)
+        this.tofImageYBinLimitsInPixels = new WritableArray('tofImageBinCounts', 'yBinLimitsInPixels', this.hdf5File)
+        this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('tofDifferenceHistogramBinCounts', 'binLimitsInNanoseconds', this.hdf5File)
+        this.rawImageXBinLimitsInMillimeters = new WritableArray('rawImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
+        this.rawImageYBinLimitsInMillimeters = new WritableArray('rawImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
+        this.pulseHeightHistogramBinLimits = new WritableArray('pulseHeightHistogramBinCounts', 'binLimits', this.hdf5File)
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('', 'tofDiffrenceLimitsInNanoseconds', this.hdf5File)
-        this.horizontalProjectionHistogramsXBinLimitsInMillimeters = new WritableArray('', 'horizontalProjectionHistogramsXBinLimitsInMillimeters', this.hdf5File)
-        this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('', 'horizontalProjectionHistogramsYBinLimitsInNanoseconds', this.hdf5File)
-        this.filteredImageXBinLimitsInMillimeters = new WritableArray('', 'filteredImageXBinLimitsInMillimeters', this.hdf5File)
-        this.filteredImageYBinLimitsInMillimeters = new WritableArray('', 'filteredImageYBinLimitsInMillimeters', this.hdf5File)
+        this.horizontalProjectionHistogramsXBinLimitsInMillimeters = new WritableArray('horizontalProjectionHistogramsBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
+        this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('horizontalProjectionHistogramsBinCounts', 'yBinLimitsInNanoseconds', this.hdf5File)
+        this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
+        this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
         this.roiInPixels = new WritableArray('', 'roiInPixels', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
