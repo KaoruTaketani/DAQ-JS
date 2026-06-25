@@ -5,28 +5,24 @@ import ListenableObject from './ListenableObject.js'
  */
 export default class extends ListenableObject {
     /**
+     * @param {string} path
      * @param {string} name
      * @param {import('./ListenableObject.js').default<import('h5wasm').File>} readable 
      */
-    constructor(name, readable) {
+    constructor(path, name, readable) {
         super()
-        /** @type {string} */
-        this._name = name
         /** @type {number[]|undefined} */
         this._value
         readable.addListener(arg => {
             if (this._value) {
-                if (this._name.includes('/')) {
-                    let group
-                    group = arg.get(this._name.split('/')[0])
-                    if (group === null) {
-                        console.log('not exist')
-                        group = arg.create_group(this._name.split('/')[0])
-                    }
-                    group.create_attribute(this._name.split('/')[1], new Float64Array(this._value))
-                    return
+                if (path === '') {
+                    arg.create_attribute(name, new Float64Array(this._value))
+                } else {
+                    /** @type {import('h5wasm').Group} */
+                    const group = /** @type {import('h5wasm').Group} */(arg.get(path))
+                    // assuming the group has been already created by writable dataset
+                    group.create_attribute(name, new Float64Array(this._value))
                 }
-                arg.create_attribute(this._name, new Float64Array(this._value))
             }
         })
     }
