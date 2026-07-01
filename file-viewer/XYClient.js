@@ -67,8 +67,9 @@ new XYGetter(variables)
         });
         [
             'tofInMilliseconds',
-            'energyInMillielectronvolts',
             'velocityInMetersPerSeconds',
+            'wavenumberInInverseAngstroms',
+            'energyInMillielectronvolts',
             'wavelengthInAngstroms'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
