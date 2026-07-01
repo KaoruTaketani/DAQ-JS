@@ -43,6 +43,7 @@ import VelocityMaker from "./VelocityMaker.js"
 import VerticalProjectionInitializer from "./VerticalProjectionInitializer.js"
 import VerticalProjectionMaker from "./VerticalProjectionMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
+import WavenumberMaker from "./WavenumberMaker.js"
 
 const variables = new Variables()
 
@@ -77,6 +78,7 @@ new PhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
 new TOFMaker(variables)
 new VelocityMaker(variables)
+new WavenumberMaker(variables)
 new EnergyMaker(variables)
 new WavelengthMaker(variables)
 new FourierTimeMaker(variables)
@@ -112,8 +114,8 @@ variables.edrPath.assign('../../edr/')
 // ])
 // variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
 // variables.jsonFileNames.assign(['104.json'])
-variables.jsonFileNames.assign(['0.json'])
+// variables.jsonFileNames.assign(['0.json'])
 // console.log(colon(0, 60))
-// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 

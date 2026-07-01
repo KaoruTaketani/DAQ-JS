@@ -75,6 +75,8 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.energyInMillielectronvolts = new WritableDataset('energyInMillielectronvolts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        this.wavenumberInInverseAngstroms = new WritableDataset('wavenumberInInverseAngstroms', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.wavelengthInAngstroms = new WritableDataset('wavelengthInAngstroms', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.fourierTimeInPicoseconds = new WritableDataset('fourierTimeInPicoseconds', this.hdf5File)

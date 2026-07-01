@@ -1,0 +1,24 @@
+import Operator from './Operator.js'
+
+export default class extends Operator {
+    /**
+     * @param {import('./Variables.js').default} variables 
+     */
+    constructor(variables) {
+        super()
+        /** @type {Float64Array} */
+        this._velocityInMetersPerSeconds
+        variables.velocityInMetersPerSeconds.addListener(arg => {
+            this._velocityInMetersPerSeconds = arg
+            this._operation()
+        })
+        this._operation = () => {
+            variables.wavenumberInInverseAngstroms.assign(
+                this._velocityInMetersPerSeconds.map(v => {
+                    /** see @NeutronWavenumber */
+                    return 0.00158825 * v
+                })
+            )
+        }
+    }
+}
