@@ -32,6 +32,8 @@ export default class {
         this.jsonFileNames = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<number[]>} */
+        this.roiInPixels = new ListenableObject()
 
 
 
@@ -128,7 +130,6 @@ export default class {
         this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('horizontalProjectionHistogramsBinCounts', 'yBinLimitsInNanoseconds', this.hdf5File)
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
-        this.roiInPixels = new WritableArray('', 'roiInPixels', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
 
