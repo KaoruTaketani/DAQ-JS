@@ -56,7 +56,11 @@ httpServer.on('request', (request, response) => {
         return
     }
     if (url.pathname.endsWith('.html')) {
-        if (url.pathname === '/Slit.html') {
+        if (url.pathname === '/Slit.html' ||
+            url.pathname === '/Attributes.html' ||
+            url.pathname === '/Table.html' ||
+            url.pathname === '/Waveform.html' ||
+            url.pathname === '/XY.html') {
             console.log(basename(url.pathname, '.html'))
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
@@ -66,37 +70,6 @@ httpServer.on('request', (request, response) => {
                 '</head>',
                 '<body>',
                 `    <script type="module" src="./${basename(url.pathname, '.html')}Client.js">`,
-                `    </script>`,
-                '</body>',
-                '</html>'
-            ].join('\n'))
-            return
-        }
-        if (url.pathname === '/XY.html') {
-            response.writeHead(200, { 'Content-Type': 'text/html' })
-            response.end([
-                '<html>',
-                '<head>',
-                '    <meta charset="utf-8">',
-                '</head>',
-                '<body>',
-                `    <script type="module" src="./XYClient.js">`,
-                `    </script>`,
-                '</body>',
-                '</html>'
-            ].join('\n'))
-            return
-        }
-
-        if (url.pathname === '/Waveform.html') {
-            response.writeHead(200, { 'Content-Type': 'text/html' })
-            response.end([
-                '<html>',
-                '<head>',
-                '    <meta charset="utf-8">',
-                '</head>',
-                '<body>',
-                `    <script type="module" src="./WaveformClient.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
@@ -113,38 +86,6 @@ httpServer.on('request', (request, response) => {
                 '</head>',
                 '<body>',
                 `    <script type="module" src="./FigureClientImage.js">`,
-                `    </script>`,
-                '</body>',
-                '</html>'
-            ].join('\n'))
-            return
-        }
-
-        if (url.pathname === '/Attributes.html') {
-            response.writeHead(200, { 'Content-Type': 'text/html' })
-            response.end([
-                '<html>',
-                '<head>',
-                '    <meta charset="utf-8">',
-                '</head>',
-                '<body>',
-                `    <script type="module" src="./AttributesClient.js">`,
-                `    </script>`,
-                '</body>',
-                '</html>'
-            ].join('\n'))
-            return
-        }
-
-        if (url.pathname === '/Table.html') {
-            response.writeHead(200, { 'Content-Type': 'text/html' })
-            response.end([
-                '<html>',
-                '<head>',
-                '    <meta charset="utf-8">',
-                '</head>',
-                '<body>',
-                `    <script type="module" src="./TableClient.js">`,
                 `    </script>`,
                 '</body>',
                 '</html>'
