@@ -56,7 +56,6 @@ httpServer.on('request', (request, response) => {
             url.pathname === '/Waveform.html' ||
             url.pathname === '/Image.html' ||
             url.pathname === '/XY.html') {
-            console.log(basename(url.pathname, '.html'))
             response.writeHead(200, { 'Content-Type': 'text/html' })
             response.end([
                 '<html>',
