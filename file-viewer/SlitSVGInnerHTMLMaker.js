@@ -106,13 +106,14 @@ export default class {
                 const areaTrap = t1[1] < t2[1]
                     ? h * (t2[1] - t1[1] + b2[1] - t2[1])
                     : h * (t1[1] - t2[1] + b2[1] - t1[1])
+                /** @type {number[]} */
                 const t = linspace(tTick[0], tTick[tTick.length - 1], 100)
-                const [func, _] = gauss1
+                /** @type {function} */
+                const func = gauss1[0]
                 // see @NormalDistributionPDF for conversing parameters for gauss1
                 const s = stdTrap
                 const b = areaTrap
-                const c = Math.SQRT2 * (stdTrap / Math.sqrt(areaTrap)) ** (3 / 2)
-                // const i = t.map(t => func(t, [h, 0.0, std]))
+                /** @type {number[]} */
                 const i = t.map(t => func(t, [
                     b / Math.sqrt(2 * Math.PI) / s,
                     0.0,
@@ -134,12 +135,13 @@ export default class {
                         line(ax2, [b2[1], b2[1]], iTick, { color: 'red' })
                     ].join(''))
                     variables.tableInnerHTML.assign([
+                        '<thead>',
+                        '<tr><th></th><th>trapezoid</th><th>gauss</th></tr>',
+                        '</thead>',
                         '<tbody>',
-                        `<tr><th>gaussian mean (mm)</th><td>${gaussianMean.toFixed(3)}</td></tr>`,
-                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td></tr>`,
-                        `<tr><th>gaussian area (arb. unit)</th><td>${gaussianArea.toFixed(3)}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td></tr>`,
-                        `<tr><th>gaussian std (mm)</th><td>${gaussianStd.toFixed(3)}</td></tr>`,
+                        `<tr><th>mean (mm)</th><td>0</td><td>${gaussianMean.toFixed(3)}</td></tr>`,
+                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td><td>${gaussianArea.toFixed(3)}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td><td>${gaussianStd.toFixed(3)}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 } else {
@@ -155,12 +157,13 @@ export default class {
                         line(ax2, [b2[1], b2[1]], iTick, { color: 'red' })
                     ].join(''))
                     variables.tableInnerHTML.assign([
+                        '<thead>',
+                        '<tr><th></th><th>trapezoid</th><th>gauss</th></tr>',
+                        '</thead>',
                         '<tbody>',
-                        `<tr><th>gaussian mean (mm)</th><td>${gaussianMean.toFixed(3)}</td></tr>`,
-                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td></tr>`,
-                        `<tr><th>gaussian area (arb. unit)</th><td>${gaussianArea.toFixed(3)}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td></tr>`,
-                        `<tr><th>gaussian std (mm)</th><td>${gaussianStd.toFixed(3)}</td></tr>`,
+                        `<tr><th>mean (mm)</th><td>0</td><td>${gaussianMean.toFixed(3)}</td></tr>`,
+                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td><td>${gaussianArea.toFixed(3)}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td><td>${gaussianStd.toFixed(3)}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 }
