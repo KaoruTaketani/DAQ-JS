@@ -10,6 +10,8 @@ import polyfit from '../lib/polyfit.js'
 import polyval from '../lib/polyval.js'
 import linspace from '../lib/linspace.js'
 import gauss1 from '../lib/gauss1.js'
+import trapz from '../lib/trapz.js'
+import std from '../lib/std.js'
 
 export default class {
     /**
@@ -99,13 +101,24 @@ export default class {
                 }
                 // see @TrapezoidalDistributionStandardDeviation
                 // the result does not depends on the t1,t2 order
-                const std = Math.sqrt(((t2[1] - t1[1]) ** 2 + (b1[1] - b2[1]) ** 2) / 24)
-                const area = t1[1] < t2[1]
+                const stdTrap = Math.sqrt(((t2[1] - t1[1]) ** 2 + (b1[1] - b2[1]) ** 2) / 24)
+                const areaTrap = t1[1] < t2[1]
                     ? h * (t2[1] - t1[1] + b2[1] - t2[1])
                     : h * (t1[1] - t2[1] + b2[1] - t1[1])
                 const t = linspace(tTick[0], tTick[tTick.length - 1], 100)
                 const [func, _] = gauss1
-                const i = t.map(t => func(t, [h, 0.0, std]))
+                // see @NormalDistributionPDF for conversing parameters for gauss1
+                const s = stdTrap
+                const b = areaTrap
+                const c = Math.SQRT2 * (stdTrap / Math.sqrt(areaTrap)) ** (3 / 2)
+                // const i = t.map(t => func(t, [h, 0.0, std]))
+                const i = t.map(t => func(t, [
+                    b * Math.sqrt(b) / Math.sqrt(2 * Math.PI) / s,
+                    0.0,
+                    Math.SQRT2 * s / Math.sqrt(b)
+                ]))
+                const gaussianArea = trapz(t, i)
+                const gaussianStd = std(t, i)
                 if (t1[1] < t2[1]) {
                     variables.beamSVGInnerHTML.assign([
                         axes(ax2),
@@ -120,8 +133,10 @@ export default class {
                     ].join(''))
                     variables.tableInnerHTML.assign([
                         '<tbody>',
-                        `<tr><th>area (arb. unit)</th><td>${area.toFixed(3)}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${std.toFixed(3)}</td></tr>`,
+                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td></tr>`,
+                        `<tr><th>gaussian area (arb. unit)</th><td>${gaussianArea.toFixed(3)}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td></tr>`,
+                        `<tr><th>gaussian std (mm)</th><td>${gaussianStd.toFixed(3)}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 } else {
@@ -138,8 +153,10 @@ export default class {
                     ].join(''))
                     variables.tableInnerHTML.assign([
                         '<tbody>',
-                        `<tr><th>area (arb. unit)</th><td>${area.toFixed(3)}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${std.toFixed(3)}</td></tr>`,
+                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td></tr>`,
+                        `<tr><th>gaussian area (arb. unit)</th><td>${gaussianArea.toFixed(3)}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td></tr>`,
+                        `<tr><th>gaussian std (mm)</th><td>${gaussianStd.toFixed(3)}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 }
