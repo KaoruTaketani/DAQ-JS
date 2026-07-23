@@ -8,6 +8,8 @@ import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
 import polyfit from '../lib/polyfit.js'
 import polyval from '../lib/polyval.js'
+import linspace from '../lib/linspace.js'
+import gauss1 from '../lib/gauss1.js'
 
 export default class {
     /**
@@ -101,11 +103,15 @@ export default class {
                 const area = t1[1] < t2[1]
                     ? h * (t2[1] - t1[1] + b2[1] - t2[1])
                     : h * (t1[1] - t2[1] + b2[1] - t1[1])
+                const t = linspace(tTick[0], tTick[tTick.length - 1], 100)
+                const [func, _] = gauss1
+                const i = t.map(t => func(t, [h, 0.0, std]))
                 if (t1[1] < t2[1]) {
                     variables.beamSVGInnerHTML.assign([
                         axes(ax2),
                         xlabel(ax2, 'transverse (mm)'),
                         ylabel(ax2, 'intensity (arb. unit)'),
+                        line(ax2, t, i, { lineStyle: '--' }),
                         line(ax2, [b1[1], t1[1], t2[1], b2[1]], [0, h, h, 0]),
                         line(ax2, [t1[1], t1[1]], iTick, { color: 'blue' }),
                         line(ax2, [t2[1], t2[1]], iTick, { color: 'blue' }),
@@ -123,6 +129,7 @@ export default class {
                         axes(ax2),
                         xlabel(ax2, 'transverse (mm)'),
                         ylabel(ax2, 'intensity (arb. unit)'),
+                        line(ax2, t, i, { lineStyle: '--' }),
                         line(ax2, [b1[1], t2[1], t1[1], b2[1]], [0, h, h, 0]),
                         line(ax2, [t1[1], t1[1]], iTick, { color: 'blue' }),
                         line(ax2, [t2[1], t2[1]], iTick, { color: 'blue' }),
