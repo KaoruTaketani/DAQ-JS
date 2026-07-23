@@ -9,6 +9,8 @@ export default class  {
         this.upstreamSlitWidthInMillimeters = new ListenableString()
         this.downstreamSlitWidthInMillimeters = new ListenableString()
 
+        this.tableInnerHTML = new ListenableString()
+
         this.setupSVGInnerHTML = new ListenableString()
         this.beamSVGInnerHTML = new ListenableString()
     }

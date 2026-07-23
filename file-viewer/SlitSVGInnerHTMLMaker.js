@@ -50,17 +50,17 @@ export default class {
                 w2 = parseFloat(this._downstreamSlitWidthInMillimeters)
 
             if (Number.isNaN(l1) || Number.isNaN(l2) || Number.isNaN(w1) || Number.isNaN(w2)) {
-                variables.setupSVGInnerHTML.assign(axes(ax))
+                console.log(l1, l2, w1, w2)
             } else {
-                const xTick = colon(-4, 1, 3),
-                    yTick = colon(-3, 1, 3),
+                const lTick = colon(-4, 1, 3),
+                    tTick = colon(-3, 1, 3),
                     ax = {
-                        xLim: bounds(xTick),
-                        yLim: bounds(yTick),
-                        xTick: xTick,
-                        yTick: yTick,
-                        xTickLabel: xTick.map(x => x.toFixed()),
-                        yTickLabel: yTick.map(y => y.toFixed())
+                        xLim: bounds(lTick),
+                        yLim: bounds(tTick),
+                        xTick: lTick,
+                        yTick: tTick,
+                        xTickLabel: lTick.map(l => l.toFixed()),
+                        yTickLabel: tTick.map(t => t.toFixed())
                     }
                 const b2 = polyval(polyfit([-l1, 0], [-w1 / 2, w2 / 2], 1), [-l1, l2]),
                     b1 = polyval(polyfit([-l1, 0], [w1 / 2, -w2 / 2], 1), [-l1, l2]),
@@ -75,25 +75,25 @@ export default class {
                     line(ax, [-l1, l2], b2, { color: 'red' }),
                     line(ax, [-l1, l2], t1, { color: 'blue' }),
                     line(ax, [-l1, l2], t2, { color: 'blue' }),
-                    line(ax, [-l1, -l1], [min(yTick), -w1 / 2]),
-                    line(ax, [-l1, -l1], [w1 / 2, max(yTick)]),
-                    line(ax, [0, 0], [min(yTick), -w2 / 2]),
-                    line(ax, [0, 0], [w2 / 2, max(yTick)]),
-                    line(ax, [l2, l2], [min(yTick), max(yTick)])
+                    line(ax, [-l1, -l1], [min(tTick), -w1 / 2]),
+                    line(ax, [-l1, -l1], [w1 / 2, max(tTick)]),
+                    line(ax, [0, 0], [min(tTick), -w2 / 2]),
+                    line(ax, [0, 0], [w2 / 2, max(tTick)]),
+                    line(ax, [l2, l2], [min(tTick), max(tTick)])
                 ].join(''))
 
                 // evaluate the anglular width at the coordinate on the detector
-                const tmp = 1e3 * Math.atan2(w1 * 1e-3, l1 + l2)
+                const iTick = [0, 1e3 * Math.atan2(w1 * 1e-3, l1 + l2)]
                 const h = t1[1] < t2[1]
-                    ? tmp
+                    ? iTick[1]
                     : 1e3 * Math.atan2(w2 * 1e-3, l2)
                 const ax2 = {
-                    xLim: bounds(yTick),
-                    yLim: [0, tmp],
-                    xTick: yTick,
-                    yTick: [0, tmp],
-                    xTickLabel: yTick.map(y => y.toFixed()),
-                    yTickLabel: ['0', tmp.toFixed(2)]
+                    xLim: bounds(tTick),
+                    yLim: iTick,
+                    xTick: tTick,
+                    yTick: iTick,
+                    xTickLabel: tTick.map(t => t.toFixed()),
+                    yTickLabel: iTick.map(y => y.toFixed(2))
                 }
                 if (t1[1] < t2[1]) {
                     variables.beamSVGInnerHTML.assign([
@@ -101,10 +101,16 @@ export default class {
                         xlabel(ax2, 'transverse (mm)'),
                         ylabel(ax2, 'intensity (arb. unit)'),
                         line(ax2, [b1[1], t1[1], t2[1], b2[1]], [0, h, h, 0]),
-                        line(ax2, [t1[1], t1[1]], [0, w1 + 1], { color: 'blue' }),
-                        line(ax2, [t2[1], t2[1]], [0, w1 + 1], { color: 'blue' }),
-                        line(ax2, [b1[1], b1[1]], [0, w1 + 1], { color: 'red' }),
-                        line(ax2, [b2[1], b2[1]], [0, w1 + 1], { color: 'red' })
+                        line(ax2, [t1[1], t1[1]], iTick, { color: 'blue' }),
+                        line(ax2, [t2[1], t2[1]], iTick, { color: 'blue' }),
+                        line(ax2, [b1[1], b1[1]], iTick, { color: 'red' }),
+                        line(ax2, [b2[1], b2[1]], iTick, { color: 'red' })
+                    ].join(''))
+                    variables.tableInnerHTML.assign([
+                        '<tbody>',
+                        `<tr><th>area (arb. unit)</th><td>${h * (t2[1] - t1[1] + b2[1] - t2[1])}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>3.2</td></tr>`,
+                        '</tbody>'
                     ].join(''))
                 } else {
                     variables.beamSVGInnerHTML.assign([
@@ -112,10 +118,16 @@ export default class {
                         xlabel(ax2, 'transverse (mm)'),
                         ylabel(ax2, 'intensity (arb. unit)'),
                         line(ax2, [b1[1], t2[1], t1[1], b2[1]], [0, h, h, 0]),
-                        line(ax2, [t1[1], t1[1]], [0, w1 + 1], { color: 'blue' }),
-                        line(ax2, [t2[1], t2[1]], [0, w1 + 1], { color: 'blue' }),
-                        line(ax2, [b1[1], b1[1]], [0, w1 + 1], { color: 'red' }),
-                        line(ax2, [b2[1], b2[1]], [0, w1 + 1], { color: 'red' })
+                        line(ax2, [t1[1], t1[1]], iTick, { color: 'blue' }),
+                        line(ax2, [t2[1], t2[1]], iTick, { color: 'blue' }),
+                        line(ax2, [b1[1], b1[1]], iTick, { color: 'red' }),
+                        line(ax2, [b2[1], b2[1]], iTick, { color: 'red' })
+                    ].join(''))
+                    variables.tableInnerHTML.assign([
+                        '<tbody>',
+                        `<tr><th>area (arb. unit)</th><td>${h * (t1[1] - t2[1] + b2[1] - t1[1])}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>3.2</td></tr>`,
+                        '</tbody>'
                     ].join(''))
                 }
             }

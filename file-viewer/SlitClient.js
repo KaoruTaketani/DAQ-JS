@@ -71,6 +71,15 @@ new SlitSVGInnerHTMLMaker(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
+    element.style.display = 'inline'
+    variables.tableInnerHTML.addListener(arg => {
+        element.innerHTML = arg
+    })
+})(document.body.appendChild(document.createElement('table')));
+
+
+
+(element => {
     element.style.display = 'block'
 
     element.setAttribute('width', '400')
