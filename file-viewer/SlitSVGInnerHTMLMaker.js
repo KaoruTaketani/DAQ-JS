@@ -12,6 +12,7 @@ import linspace from '../lib/linspace.js'
 import gauss1 from '../lib/gauss1.js'
 import trapz from '../lib/trapz.js'
 import std from '../lib/std.js'
+import mean from '../lib/mean.js'
 
 export default class {
     /**
@@ -113,12 +114,13 @@ export default class {
                 const c = Math.SQRT2 * (stdTrap / Math.sqrt(areaTrap)) ** (3 / 2)
                 // const i = t.map(t => func(t, [h, 0.0, std]))
                 const i = t.map(t => func(t, [
-                    b * Math.sqrt(b) / Math.sqrt(2 * Math.PI) / s,
+                    b / Math.sqrt(2 * Math.PI) / s,
                     0.0,
-                    Math.SQRT2 * s / Math.sqrt(b)
+                    Math.SQRT2 * s
                 ]))
                 const gaussianArea = trapz(t, i)
                 const gaussianStd = std(t, i)
+                const gaussianMean = mean(t, i)
                 if (t1[1] < t2[1]) {
                     variables.beamSVGInnerHTML.assign([
                         axes(ax2),
@@ -133,6 +135,7 @@ export default class {
                     ].join(''))
                     variables.tableInnerHTML.assign([
                         '<tbody>',
+                        `<tr><th>gaussian mean (mm)</th><td>${gaussianMean.toFixed(3)}</td></tr>`,
                         `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td></tr>`,
                         `<tr><th>gaussian area (arb. unit)</th><td>${gaussianArea.toFixed(3)}</td></tr>`,
                         `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td></tr>`,
@@ -153,6 +156,7 @@ export default class {
                     ].join(''))
                     variables.tableInnerHTML.assign([
                         '<tbody>',
+                        `<tr><th>gaussian mean (mm)</th><td>${gaussianMean.toFixed(3)}</td></tr>`,
                         `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td></tr>`,
                         `<tr><th>gaussian area (arb. unit)</th><td>${gaussianArea.toFixed(3)}</td></tr>`,
                         `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td></tr>`,
