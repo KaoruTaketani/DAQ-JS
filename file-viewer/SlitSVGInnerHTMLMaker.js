@@ -98,6 +98,9 @@ export default class {
                 // see @TrapezoidalDistributionStandardDeviation
                 // the result does not depends on the t1,t2 order
                 const std = Math.sqrt(((t2[1] - t1[1]) ** 2 + (b1[1] - b2[1]) ** 2) / 24)
+                const area = t1[1] < t2[1]
+                    ? h * (t2[1] - t1[1] + b2[1] - t2[1])
+                    : h * (t1[1] - t2[1] + b2[1] - t1[1])
                 if (t1[1] < t2[1]) {
                     variables.beamSVGInnerHTML.assign([
                         axes(ax2),
@@ -111,8 +114,8 @@ export default class {
                     ].join(''))
                     variables.tableInnerHTML.assign([
                         '<tbody>',
-                        `<tr><th>area (arb. unit)</th><td>${h * (t2[1] - t1[1] + b2[1] - t2[1])}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${std}</td></tr>`,
+                        `<tr><th>area (arb. unit)</th><td>${area.toFixed(3)}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${std.toFixed(3)}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 } else {
@@ -128,8 +131,8 @@ export default class {
                     ].join(''))
                     variables.tableInnerHTML.assign([
                         '<tbody>',
-                        `<tr><th>area (arb. unit)</th><td>${h * (t1[1] - t2[1] + b2[1] - t1[1])}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${std}</td></tr>`,
+                        `<tr><th>area (arb. unit)</th><td>${area.toFixed(3)}</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${std.toFixed(3)}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 }
