@@ -6,6 +6,8 @@ import min from '../lib/min.js'
 import max from '../lib/max.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
+import polyfit from '../lib/polyfit.js'
+import polyval from '../lib/polyval.js'
 
 export default class {
     /**
@@ -60,10 +62,15 @@ export default class {
             if (Number.isNaN(l1) || Number.isNaN(l2) || Number.isNaN(w1) || Number.isNaN(w2)) {
                 variables.svgInnerHTML.assign(axes(ax))
             } else {
+                const [c0, c1] = polyfit([-l1, 0], [w1 / 2, -w2 / 2], 1)
+                console.log(c1 * l1 + c0)
                 variables.svgInnerHTML.assign([
                     axes(ax),
                     xlabel(ax, 'longitudinal (m)'),
                     ylabel(ax, 'transverse (mm)'),
+                    line(ax, [-l1, 0], [w1 / 2, -w2 / 2], { color: 'red' }),
+                    line(ax, [0, l2], [-w2 / 2, c1 * l1 + c0], { color: 'blue' }),
+                    line(ax, [-l1, l2], polyval(polyfit([-l1, 0], [-w1 / 2, w2 / 2], 1), [-l1, l2]), { lineStyle: '--' }),
                     line(ax, [-l1, -l1], [min(yTick), -w1 / 2]),
                     line(ax, [-l1, -l1], [w1 / 2, max(yTick)]),
                     line(ax, [0, 0], [min(yTick), -w2 / 2]),
