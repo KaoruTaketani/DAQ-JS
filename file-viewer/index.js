@@ -54,6 +54,7 @@ httpServer.on('request', (request, response) => {
             url.pathname === '/Attributes.html' ||
             url.pathname === '/Table.html' ||
             url.pathname === '/Waveform.html' ||
+            url.pathname === '/Image.html' ||
             url.pathname === '/XY.html') {
             console.log(basename(url.pathname, '.html'))
             response.writeHead(200, { 'Content-Type': 'text/html' })
@@ -69,26 +70,10 @@ httpServer.on('request', (request, response) => {
                 '</html>'
             ].join('\n'))
             return
+        } else {
+            response.writeHead(404)
+            response.end(`${url.pathname} was not found`)
         }
-
-        if (url.pathname === '/Image.html') {
-            response.writeHead(200, { 'Content-Type': 'text/html' })
-            response.end([
-                '<html>',
-                '<head>',
-                '    <meta charset="utf-8">',
-                '</head>',
-                '<body>',
-                `    <script type="module" src="./FigureClientImage.js">`,
-                `    </script>`,
-                '</body>',
-                '</html>'
-            ].join('\n'))
-            return
-        }
-
-        response.writeHead(404)
-        response.end(`${url.pathname} was not found`)
         return
     }
     responses.set(url, response)
