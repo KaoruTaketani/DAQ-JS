@@ -44,39 +44,80 @@ export default class {
             if (!this._upstreamSlitWidthInMillimeters) return
             if (!this._downstreamSlitWidthInMillimeters) return
 
-            const xTick = colon(-4, 1, 3),
-                yTick = colon(-3, 1, 3)
-            const ax = {
-                xLim: bounds(xTick),
-                yLim: bounds(yTick),
-                xTick: xTick,
-                yTick: yTick,
-                xTickLabel: xTick.map(x => x.toFixed()),
-                yTickLabel: yTick.map(y => y.toFixed())
-            }
             const l1 = parseFloat(this._upstreamSlitToDownstreamSlitDistanceInMeters),
                 l2 = parseFloat(this._downstreamSlitToDetectorDistanceInMeters),
                 w1 = parseFloat(this._upstreamSlitWidthInMillimeters),
                 w2 = parseFloat(this._downstreamSlitWidthInMillimeters)
-            console.log(l1, l2, w1, w2)
+
             if (Number.isNaN(l1) || Number.isNaN(l2) || Number.isNaN(w1) || Number.isNaN(w2)) {
-                variables.svgInnerHTML.assign(axes(ax))
+                variables.setupSVGInnerHTML.assign(axes(ax))
             } else {
-                const [c0, c1] = polyfit([-l1, 0], [w1 / 2, -w2 / 2], 1)
-                console.log(c1 * l1 + c0)
-                variables.svgInnerHTML.assign([
+                const xTick = colon(-4, 1, 3),
+                    yTick = colon(-3, 1, 3),
+                    ax = {
+                        xLim: bounds(xTick),
+                        yLim: bounds(yTick),
+                        xTick: xTick,
+                        yTick: yTick,
+                        xTickLabel: xTick.map(x => x.toFixed()),
+                        yTickLabel: yTick.map(y => y.toFixed())
+                    }
+                const b2 = polyval(polyfit([-l1, 0], [-w1 / 2, w2 / 2], 1), [-l1, l2]),
+                    b1 = polyval(polyfit([-l1, 0], [w1 / 2, -w2 / 2], 1), [-l1, l2]),
+                    t1 = polyval(polyfit([-l1, 0], [-w1 / 2, -w2 / 2], 1), [-l1, l2]),
+                    t2 = polyval(polyfit([-l1, 0], [w1 / 2, w2 / 2], 1), [-l1, l2])
+
+                variables.setupSVGInnerHTML.assign([
                     axes(ax),
                     xlabel(ax, 'longitudinal (m)'),
                     ylabel(ax, 'transverse (mm)'),
-                    line(ax, [-l1, 0], [w1 / 2, -w2 / 2], { color: 'red' }),
-                    line(ax, [0, l2], [-w2 / 2, c1 * l1 + c0], { color: 'blue' }),
-                    line(ax, [-l1, l2], polyval(polyfit([-l1, 0], [-w1 / 2, w2 / 2], 1), [-l1, l2]), { lineStyle: '--' }),
+                    line(ax, [-l1, l2], b1, { color: 'red' }),
+                    line(ax, [-l1, l2], b2, { color: 'red' }),
+                    line(ax, [-l1, l2], t1, { color: 'blue' }),
+                    line(ax, [-l1, l2], t2, { color: 'blue' }),
                     line(ax, [-l1, -l1], [min(yTick), -w1 / 2]),
                     line(ax, [-l1, -l1], [w1 / 2, max(yTick)]),
                     line(ax, [0, 0], [min(yTick), -w2 / 2]),
                     line(ax, [0, 0], [w2 / 2, max(yTick)]),
                     line(ax, [l2, l2], [min(yTick), max(yTick)])
                 ].join(''))
+
+                // evaluate the anglular width at the coordinate on the detector
+                const tmp = 1e3 * Math.atan2(w1 * 1e-3, l1 + l2)
+                const h = t1[1] < t2[1]
+                    ? tmp
+                    : 1e3 * Math.atan2(w2 * 1e-3, l2)
+                const ax2 = {
+                    xLim: bounds(yTick),
+                    yLim: [0, tmp],
+                    xTick: yTick,
+                    yTick: [0, tmp],
+                    xTickLabel: yTick.map(y => y.toFixed()),
+                    yTickLabel: ['0', tmp.toFixed(2)]
+                }
+                if (t1[1] < t2[1]) {
+                    variables.beamSVGInnerHTML.assign([
+                        axes(ax2),
+                        xlabel(ax2, 'transverse (mm)'),
+                        ylabel(ax2, 'intensity (arb. unit)'),
+                        line(ax2, [b1[1], t1[1], t2[1], b2[1]], [0, h, h, 0]),
+                        line(ax2, [t1[1], t1[1]], [0, w1 + 1], { color: 'blue' }),
+                        line(ax2, [t2[1], t2[1]], [0, w1 + 1], { color: 'blue' }),
+                        line(ax2, [b1[1], b1[1]], [0, w1 + 1], { color: 'red' }),
+                        line(ax2, [b2[1], b2[1]], [0, w1 + 1], { color: 'red' })
+                    ].join(''))
+                } else {
+                    variables.beamSVGInnerHTML.assign([
+                        axes(ax2),
+                        xlabel(ax2, 'transverse (mm)'),
+                        ylabel(ax2, 'intensity (arb. unit)'),
+                        line(ax2, [b1[1], t2[1], t1[1], b2[1]], [0, h, h, 0]),
+                        line(ax2, [t1[1], t1[1]], [0, w1 + 1], { color: 'blue' }),
+                        line(ax2, [t2[1], t2[1]], [0, w1 + 1], { color: 'blue' }),
+                        line(ax2, [b1[1], b1[1]], [0, w1 + 1], { color: 'red' }),
+                        line(ax2, [b2[1], b2[1]], [0, w1 + 1], { color: 'red' })
+                    ].join(''))
+                }
             }
         }
     }
