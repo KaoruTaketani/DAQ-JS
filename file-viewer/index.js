@@ -32,12 +32,6 @@ httpServer.on('request', (request, response) => {
     const url = new URL(`http://localhost${request.url}`)
 
     if (url.pathname.endsWith('.js')) {
-        if (url.pathname === '/Client.js') {
-
-            response.writeHead(404)
-            response.end('')
-            return
-        }
         if (url.pathname.startsWith('/lib/')) {
             readFile(`../${request.url}`, 'utf8', (err, data) => {
                 if (err) throw err
