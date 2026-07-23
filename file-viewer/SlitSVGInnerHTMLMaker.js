@@ -95,6 +95,9 @@ export default class {
                     xTickLabel: tTick.map(t => t.toFixed()),
                     yTickLabel: iTick.map(y => y.toFixed(2))
                 }
+                // see @TrapezoidalDistributionStandardDeviation
+                // the result does not depends on the t1,t2 order
+                const std = Math.sqrt(((t2[1] - t1[1]) ** 2 + (b1[1] - b2[1]) ** 2) / 24)
                 if (t1[1] < t2[1]) {
                     variables.beamSVGInnerHTML.assign([
                         axes(ax2),
@@ -109,7 +112,7 @@ export default class {
                     variables.tableInnerHTML.assign([
                         '<tbody>',
                         `<tr><th>area (arb. unit)</th><td>${h * (t2[1] - t1[1] + b2[1] - t2[1])}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>3.2</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${std}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 } else {
@@ -126,7 +129,7 @@ export default class {
                     variables.tableInnerHTML.assign([
                         '<tbody>',
                         `<tr><th>area (arb. unit)</th><td>${h * (t1[1] - t2[1] + b2[1] - t1[1])}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>3.2</td></tr>`,
+                        `<tr><th>std (mm)</th><td>${std}</td></tr>`,
                         '</tbody>'
                     ].join(''))
                 }
