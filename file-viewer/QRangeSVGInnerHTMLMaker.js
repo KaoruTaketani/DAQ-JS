@@ -96,8 +96,8 @@ export default class {
             variables.sampleWidthInMillimeters.assign((ws * 1_000).toFixed())
             variables.setupSVGInnerHTML.assign([
                 axes(ax),
-                xlabel(ax, 'longitudinal (m)'),
-                ylabel(ax, 'transverse (m)'),
+                xlabel(ax, 'x (m)'),
+                ylabel(ax, 'z (m)'),
                 line(ax, [ccx + cwm / 2 * sint, ccx - cwm / 2 * sint], [ccz - cwm / 2 * cost, ccz + cwm / 2 * cost]),//camera
                 line(ax, [-1, 0, ccx], [Math.tan(thetaRad), 0, ccz]),
                 line(ax, [-ws / 2, ws / 2], [0, 0])//sample
