@@ -1,173 +1,166 @@
+import axes from '../lib/axes.js'
 import bounds from '../lib/bounds.js'
 import colon from '../lib/colon.js'
-import axes from '../lib/axes.js'
 import line from '../lib/line.js'
-import min from '../lib/min.js'
-import max from '../lib/max.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
-import polyfit from '../lib/polyfit.js'
-import polyval from '../lib/polyval.js'
+import deg2rad from '../lib/deg2rad.js'
 import linspace from '../lib/linspace.js'
-import gauss1 from '../lib/gauss1.js'
-import trapz from '../lib/trapz.js'
-import std from '../lib/std.js'
-import mean from '../lib/mean.js'
 
 export default class {
     /**
-     * @param {import('./SlitVariables.js').default} variables 
+     * @param {import('./QRangeVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
-        this._upstreamSlitToDownstreamSlitDistanceInMeters
-        variables.upstreamSlitToDownstreamSlitDistanceInMeters.addListener(arg => {
-            this._upstreamSlitToDownstreamSlitDistanceInMeters = arg
+        this._tofMaxInMilliseconds
+        variables.tofMaxInMilliseconds.addListener(arg => {
+            this._tofMaxInMilliseconds = arg
             this._operation()
         })
         /** @type {string} */
-        this._downstreamSlitToDetectorDistanceInMeters
-        variables.downstreamSlitToDetectorDistanceInMeters.addListener(arg => {
-            this._downstreamSlitToDetectorDistanceInMeters = arg
+        this._tofMinInMilliseconds
+        variables.tofMinInMilliseconds.addListener(arg => {
+            this._tofMinInMilliseconds = arg
             this._operation()
         })
         /** @type {string} */
-        this._upstreamSlitWidthInMillimeters
-        variables.upstreamSlitWidthInMillimeters.addListener(arg => {
-            this._upstreamSlitWidthInMillimeters = arg
+        this._cameraLengthInMeters
+        variables.cameraLengthInMeters.addListener(arg => {
+            this._cameraLengthInMeters = arg
             this._operation()
         })
         /** @type {string} */
-        this._downstreamSlitWidthInMillimeters
-        variables.downstreamSlitWidthInMillimeters.addListener(arg => {
-            this._downstreamSlitWidthInMillimeters = arg
+        this._moderatorToSampleDistanceInMeters
+        variables.moderatorToSampleDistanceInMeters.addListener(arg => {
+            this._moderatorToSampleDistanceInMeters = arg
+            this._operation()
+        })
+        /** @type {string} */
+        this._incidentAngleInDegrees
+        variables.incidentAngleInDegrees.addListener(arg => {
+            this._incidentAngleInDegrees = arg
+            this._operation()
+        })
+        /** @type {string} */
+        this._cameraWidthInMillimeters
+        variables.cameraWidthInMillimeters.addListener(arg => {
+            this._cameraWidthInMillimeters = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._upstreamSlitToDownstreamSlitDistanceInMeters) return
-            if (!this._downstreamSlitToDetectorDistanceInMeters) return
-            if (!this._upstreamSlitWidthInMillimeters) return
-            if (!this._downstreamSlitWidthInMillimeters) return
+            if (!this._cameraWidthInMillimeters) return
+            if (!this._tofMaxInMilliseconds) return
+            if (!this._tofMinInMilliseconds) return
+            if (!this._cameraLengthInMeters) return
+            if (!this._moderatorToSampleDistanceInMeters) return
+            if (!this._incidentAngleInDegrees) return
 
-            const l1 = parseFloat(this._upstreamSlitToDownstreamSlitDistanceInMeters),
-                l2 = parseFloat(this._downstreamSlitToDetectorDistanceInMeters),
-                w1 = parseFloat(this._upstreamSlitWidthInMillimeters),
-                w2 = parseFloat(this._downstreamSlitWidthInMillimeters)
+            const t2 = parseFloat(this._tofMaxInMilliseconds),
+                t1 = parseFloat(this._tofMinInMilliseconds),
+                l2 = parseFloat(this._cameraLengthInMeters),
+                l1 = parseFloat(this._moderatorToSampleDistanceInMeters),
+                thetaDeg = parseFloat(this._incidentAngleInDegrees),
+                cw = parseFloat(this._cameraWidthInMillimeters)
 
-            if (Number.isNaN(l1) || Number.isNaN(l2) || Number.isNaN(w1) || Number.isNaN(w2)) {
-                console.log(l1, l2, w1, w2)
-            } else {
-                const lTick = colon(-4, 1, 3),
-                    tTick = colon(-3, 1, 3),
-                    ax = {
-                        xLim: bounds(lTick),
-                        yLim: bounds(tTick),
-                        xTick: lTick,
-                        yTick: tTick,
-                        xTickLabel: lTick.map(l => l.toFixed()),
-                        yTickLabel: tTick.map(t => t.toFixed())
-                    }
-                const b2 = polyval(polyfit([-l1, 0], [-w1 / 2, w2 / 2], 1), [-l1, l2]),
-                    b1 = polyval(polyfit([-l1, 0], [w1 / 2, -w2 / 2], 1), [-l1, l2]),
-                    t1 = polyval(polyfit([-l1, 0], [-w1 / 2, -w2 / 2], 1), [-l1, l2]),
-                    t2 = polyval(polyfit([-l1, 0], [w1 / 2, w2 / 2], 1), [-l1, l2])
-
-                variables.setupSVGInnerHTML.assign([
-                    axes(ax),
-                    xlabel(ax, 'longitudinal (m)'),
-                    ylabel(ax, 'transverse (mm)'),
-                    line(ax, [-l1, l2], b1, { color: 'red' }),
-                    line(ax, [-l1, l2], b2, { color: 'red' }),
-                    line(ax, [-l1, l2], t1, { color: 'blue' }),
-                    line(ax, [-l1, l2], t2, { color: 'blue' }),
-                    line(ax, [-l1, -l1], [min(tTick), -w1 / 2]),
-                    line(ax, [-l1, -l1], [w1 / 2, max(tTick)]),
-                    line(ax, [0, 0], [min(tTick), -w2 / 2]),
-                    line(ax, [0, 0], [w2 / 2, max(tTick)]),
-                    line(ax, [l2, l2], [min(tTick), max(tTick)])
-                ].join(''))
-
-                // evaluate the anglular width at the coordinate on the detector
-                const iTick = [0, 1e3 * Math.atan2(w1 * 1e-3, l1 + l2)]
-                const h = t1[1] < t2[1]
-                    ? iTick[1]
-                    : 1e3 * Math.atan2(w2 * 1e-3, l2)
-                const ax2 = {
-                    xLim: bounds(tTick),
-                    yLim: iTick,
-                    xTick: tTick,
-                    yTick: iTick,
-                    xTickLabel: tTick.map(t => t.toFixed()),
-                    yTickLabel: iTick.map(y => y.toFixed(2))
-                }
-                // see @TrapezoidalDistributionStandardDeviation
-                // the result does not depends on the t1,t2 order
-                const stdTrap = Math.sqrt(((t2[1] - t1[1]) ** 2 + (b1[1] - b2[1]) ** 2) / 24)
-                const areaTrap = t1[1] < t2[1]
-                    ? h * (t2[1] - t1[1] + b2[1] - t2[1])
-                    : h * (t1[1] - t2[1] + b2[1] - t1[1])
-                /** @type {number[]} */
-                const t = linspace(tTick[0], tTick[tTick.length - 1], 100)
-                /** @type {function} */
-                const func = gauss1[0]
-                // see @NormalDistributionPDF for conversing parameters for gauss1
-                const s = stdTrap
-                const b = areaTrap
-                /** @type {number[]} */
-                const i = t.map(t => func(t, [
-                    b / Math.sqrt(2 * Math.PI) / s,
-                    0.0,
-                    Math.SQRT2 * s
-                ]))
-                const gaussianArea = trapz(t, i)
-                const gaussianStd = std(t, i)
-                const gaussianMean = mean(t, i)
-                if (t1[1] < t2[1]) {
-                    variables.beamSVGInnerHTML.assign([
-                        axes(ax2),
-                        xlabel(ax2, 'transverse (mm)'),
-                        ylabel(ax2, 'intensity (arb. unit)'),
-                        line(ax2, t, i, { lineStyle: '--' }),
-                        line(ax2, [b1[1], t1[1], t2[1], b2[1]], [0, h, h, 0]),
-                        line(ax2, [t1[1], t1[1]], iTick, { color: 'blue' }),
-                        line(ax2, [t2[1], t2[1]], iTick, { color: 'blue' }),
-                        line(ax2, [b1[1], b1[1]], iTick, { color: 'red' }),
-                        line(ax2, [b2[1], b2[1]], iTick, { color: 'red' })
-                    ].join(''))
-                    variables.tableInnerHTML.assign([
-                        '<thead>',
-                        '<tr><th></th><th>trapezoid</th><th>gauss</th></tr>',
-                        '</thead>',
-                        '<tbody>',
-                        `<tr><th>mean (mm)</th><td>0</td><td>${gaussianMean.toFixed(3)}</td></tr>`,
-                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td><td>${gaussianArea.toFixed(3)}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td><td>${gaussianStd.toFixed(3)}</td></tr>`,
-                        '</tbody>'
-                    ].join(''))
-                } else {
-                    variables.beamSVGInnerHTML.assign([
-                        axes(ax2),
-                        xlabel(ax2, 'transverse (mm)'),
-                        ylabel(ax2, 'intensity (arb. unit)'),
-                        line(ax2, t, i, { lineStyle: '--' }),
-                        line(ax2, [b1[1], t2[1], t1[1], b2[1]], [0, h, h, 0]),
-                        line(ax2, [t1[1], t1[1]], iTick, { color: 'blue' }),
-                        line(ax2, [t2[1], t2[1]], iTick, { color: 'blue' }),
-                        line(ax2, [b1[1], b1[1]], iTick, { color: 'red' }),
-                        line(ax2, [b2[1], b2[1]], iTick, { color: 'red' })
-                    ].join(''))
-                    variables.tableInnerHTML.assign([
-                        '<thead>',
-                        '<tr><th></th><th>trapezoid</th><th>gauss</th></tr>',
-                        '</thead>',
-                        '<tbody>',
-                        `<tr><th>mean (mm)</th><td>0</td><td>${gaussianMean.toFixed(3)}</td></tr>`,
-                        `<tr><th>area (arb. unit)</th><td>${areaTrap.toFixed(3)}</td><td>${gaussianArea.toFixed(3)}</td></tr>`,
-                        `<tr><th>std (mm)</th><td>${stdTrap.toFixed(3)}</td><td>${gaussianStd.toFixed(3)}</td></tr>`,
-                        '</tbody>'
-                    ].join(''))
-                }
+            if (Number.isNaN(l1) ||
+                Number.isNaN(l2) ||
+                Number.isNaN(t1) ||
+                Number.isNaN(t2) ||
+                Number.isNaN(cw) ||
+                Number.isNaN(thetaDeg)) {
+                console.log('parse failed')
+                return
             }
+
+            const xTick = colon(-1, 1, 3),
+                zTick = colon(-0.1, 0.05, 0.1),
+                ax = {
+                    xLim: bounds(xTick),
+                    yLim: bounds(zTick),
+                    xTick: xTick,
+                    yTick: zTick,
+                    xTickLabel: xTick.map(v => v.toFixed()),
+                    yTickLabel: zTick.map(v => v.toFixed(2))
+                }
+
+            const thetaRad = deg2rad(thetaDeg),
+                cost = Math.cos(thetaRad),
+                sint = Math.sin(thetaRad),
+                cwm = cw * 0.001, // camera width in meters
+                ccx = l2 * cost, // camera coordinate x
+                ccz = l2 * sint, //camera coordinate z
+                phiRad = cwm / 2 / l2, // acceptable angle
+                ws = 0.0762 // substrate width in meters
+
+            variables.sampleWidthInMillimeters.assign((ws * 1_000).toFixed())
+            variables.setupSVGInnerHTML.assign([
+                axes(ax),
+                xlabel(ax, 'longitudinal (m)'),
+                ylabel(ax, 'transverse (m)'),
+                line(ax, [ccx + cwm / 2 * sint, ccx - cwm / 2 * sint], [ccz - cwm / 2 * cost, ccz + cwm / 2 * cost]),//camera
+                line(ax, [-1, 0, ccx], [Math.tan(thetaRad), 0, ccz]),
+                line(ax, [-ws / 2, ws / 2], [0, 0])//sample
+            ].join(''))
+
+            // see @NeutronWavelengthByTimeOfFlight
+            const w1 = 3.956 * t1 / (l1 + l2),
+                w2 = 3.956 * t2 / (l1 + l2)
+
+            variables.wavelengthMinInAngstroms.assign(w1.toFixed(2))
+            variables.wavelengthMaxInAngstroms.assign(w2.toFixed(2))
+
+            const qxTick = colon(-0.0025, 0.0005, 0.001),
+                qzTick = colon(0, 0.05, 0.20)
+            const ax2 = {
+                xLim: bounds(qxTick),
+                yLim: bounds(qzTick),
+                xTick: qxTick,
+                yTick: qzTick,
+                xTickLabel: qxTick.map(t => t.toFixed(4)),
+                yTickLabel: qzTick.map(y => y.toFixed(2))
+            }
+            const
+                qx1 = linspace(w1, w2).map(w => this.qx(thetaRad, thetaRad + phiRad, w)),
+                qz1 = linspace(w1, w2).map(w => this.qz(thetaRad, thetaRad + phiRad, w)),
+                //
+                qx2 = linspace(w1, w2).map(w => this.qx(thetaRad, thetaRad - phiRad, w)),
+                qz2 = linspace(w1, w2).map(w => this.qz(thetaRad, thetaRad - phiRad, w)),
+                //
+                qx3 = linspace(-phiRad, phiRad).map(p => this.qx(thetaRad, thetaRad + p, w1)),
+                qz3 = linspace(-phiRad, phiRad).map(p => this.qz(thetaRad, thetaRad + p, w1)),
+                //
+                qx4 = linspace(-phiRad, phiRad).map(p => this.qx(thetaRad, thetaRad + p, w2)),
+                qz4 = linspace(-phiRad, phiRad).map(p => this.qz(thetaRad, thetaRad + p, w2))
+            //
+            // line(ax,qx1,qz1)
+            variables.beamSVGInnerHTML.assign([
+                axes(ax2),
+                xlabel(ax2, 'Qx (1/Å)'),
+                ylabel(ax2, 'Qz (1/Å)'),
+                line(ax2, qx1, qz1),
+                line(ax2, qx2, qz2),
+                line(ax2, qx3, qz3),
+                line(ax2, qx4, qz4)
+            ].join(''))
         }
+    }
+    /**
+     * @param {number} i 
+     * @param {number} e 
+     * @param {number} w 
+     * @returns {number}
+     */
+    qx(i, e, w) {
+        return Math.PI / w * (i - e) * (i + e)
+    }
+    /**
+     * @param {number} i 
+     * @param {number} e 
+     * @param {number} w 
+     * @returns {number}
+     */
+    qz(i, e, w) {
+        return 2 * Math.PI / w * (e + i)
     }
 }
