@@ -51,6 +51,7 @@ httpServer.on('request', (request, response) => {
     }
     if (url.pathname.endsWith('.html')) {
         if (url.pathname === '/Slit.html' ||
+            url.pathname === '/QRange.html' ||
             url.pathname === '/Attributes.html' ||
             url.pathname === '/Table.html' ||
             url.pathname === '/Waveform.html' ||
