@@ -71,7 +71,7 @@ new SlitSVGInnerHTMLMaker(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
-    element.style.display = 'inline'
+    // element.style.display = 'inline'
     variables.tableInnerHTML.addListener(arg => {
         element.innerHTML = arg
     })
@@ -80,7 +80,7 @@ new SlitSVGInnerHTMLMaker(variables)
 
 
 (element => {
-    element.style.display = 'block'
+    element.style.display = 'inline-block'
 
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
@@ -91,7 +91,7 @@ new SlitSVGInnerHTMLMaker(variables)
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 (element => {
-    // element.style.display = 'block'
+    element.style.display = 'inline-block'
 
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
