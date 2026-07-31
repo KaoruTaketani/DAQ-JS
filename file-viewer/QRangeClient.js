@@ -154,7 +154,7 @@ new QRangeSVGInnerHTMLMaker(variables);
 
 
 (element => {
-    element.style.display = 'block'
+    element.style.display = 'inline-block'
 
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
@@ -165,7 +165,7 @@ new QRangeSVGInnerHTMLMaker(variables);
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 (element => {
-    // element.style.display = 'block'
+    element.style.display = 'inline-block'
 
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')

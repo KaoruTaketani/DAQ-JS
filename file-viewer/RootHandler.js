@@ -37,7 +37,7 @@ export default class {
                 `    <p><a href="./Image.html">Image</a></p>`,
                 `    <h2>Calculator</h2>`,
                 `    <p><a href="./Slit.html">Slit</a></p>`,
-                `    <p><a href="./QRange.html">QRange</a></p>`,
+                `    <p><a href="./QRange.html">Q Range</a></p>`,
                 '</body>',
                 '</html>'
             ].join('\n'))
