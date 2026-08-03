@@ -1,7 +1,7 @@
-import FigureVariables from './FigureVariables.js'
+import SVGVariables from './SVGVariables.js'
 import ListenableString from './ListenableString.js'
 
-export default class extends FigureVariables {
+export default class extends SVGVariables {
     constructor() {
         super()
 

@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./FigureVariables.js').default} variables 
+     * @param {import('./SVGVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {number} */
