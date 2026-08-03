@@ -32,22 +32,17 @@ new WaveformGetter(variables)
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
-    /** @type {string} */
-    let svgInnerHTML
-    variables.svgInnerHTML.addListener(arg => { svgInnerHTML = arg })
     const linkElement = document.createElement('a');
+    variables.svgInnerHTML.addListener(arg => {
+        linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
+            `<svg xmlns="http://www.w3.org/2000/svg" >${arg}</svg>`
+        ))
+        linkElement.setAttribute('download', `waveform.svg`)
+    })
     element.style.marginLeft = '208px'
-
-    // element.style.marginLeft = '208px'
     element.type = 'button'
     element.value = 'download'
     element.addEventListener('click', () => {
-        // linkElement.href = `data:text/csv;base64,${btoa([header, data].join('\n'))}`
-        // linkElement.click()
-        linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
-            `<svg xmlns="http://www.w3.org/2000/svg" >${svgInnerHTML}</svg>`
-        ))
-        linkElement.setAttribute('download', `waveform.svg`)
         linkElement.click()
     })
 })(document.body.appendChild(document.createElement('input')));
