@@ -34,8 +34,6 @@ export default class {
                 return
             }
 
-            // @ts-ignore
-            const pathname = window.pathname
             fetch(`/table?path=${this._path}&fileName=${this._fileNames[0]}&offset=${this._offset}&header=${this._headerText}`).then(response => {
                 response.text().then(text => {
                     variables.tableInnerHTML.assign(text)

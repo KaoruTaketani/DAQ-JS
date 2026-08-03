@@ -251,5 +251,3 @@ let svgInnerHTML
 
 variables.path.assign('/')
 
-// @ts-ignore
-console.log(window.pathname)
