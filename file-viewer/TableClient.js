@@ -3,9 +3,9 @@ import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
 import TableCleanupper from "./TableCleanupper.js";
 import TableGetter from "./TableGetter.js";
-import TableVariablesEDR from "./TableVariablesEDR.js";
+import TableVariables from "./TableVariables.js";
 
-const variables = new TableVariablesEDR()
+const variables = new TableVariables()
 new PathMaker(variables)
 new TableGetter(variables)
 new NumEventsGetter(variables)

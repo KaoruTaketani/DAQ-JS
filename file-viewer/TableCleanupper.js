@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./TableVariablesEDR.js').default} variables 
+     * @param {import('./TableVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string[]} */
