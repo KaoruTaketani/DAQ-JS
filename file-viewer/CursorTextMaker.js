@@ -27,6 +27,9 @@ export default class {
         /** @type {number} */
         this._ymaxInData
         variables.ymaxInData.prependListener(arg => { this._ymaxInData = arg })
+        /** @type {string} */
+        this._svgInnerHTML
+        variables.svgInnerHTML.prependListener(arg => { this._svgInnerHTML = arg })
         /** @type {number[]} */
         this._cursorOffset
         variables.cursorOffset.addListener(arg => {
@@ -34,6 +37,8 @@ export default class {
             this._operation()
         })
         this._operation = () => {
+            if (this._svgInnerHTML === '') return
+
             // svs size is [400, 300] and its viewBox is [560,420]
             const xInPixels = this._cursorOffset[0] * 560 / 400
             const xInNormalized = (xInPixels - this._xminInPixels)
@@ -48,7 +53,7 @@ export default class {
                 + yInNormalized * (this._ymaxInData - this._yminInData)
 
             if (xInNormalized < 0 || xInNormalized > 1) {
-               variables.divInnerText.assign(`cursor: undefined`) 
+                variables.divInnerText.assign(`cursor: undefined`)
                 return
             }
             if (yInNormalized < 0 || yInNormalized > 1) {
