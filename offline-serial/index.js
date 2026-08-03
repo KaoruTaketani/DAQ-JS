@@ -16,7 +16,7 @@ import HorizontalProjectionInitializer from "./HorizontalProjectionInitializer.j
 import HorizontalProjectionMaker from "./HorizontalProjectionMaker.js"
 import HorizontalProjectionMeansMaker from "./HorizontalProjectionMeansMaker.js"
 import HorizontalProjectionStandardDeviationsMaker from "./HorizontalProjectionStandardDeviationsMaker.js"
-import ImageBinWidthCalculator from "./ImageBinWidthCalculator.js"
+import CameraPixelSizeCalculator from "./CameraPixelSizeCalculator.js"
 import JSONFileReader from "./JSONFileReader.js"
 import MomentumTransferMaker from "./MomentumTransferMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
@@ -88,7 +88,7 @@ new PulseHeightHistogramInitializer(variables)
 new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)
 new TOFDifferenceHistogramMaker(variables)
-new ImageBinWidthCalculator(variables)
+new CameraPixelSizeCalculator(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 

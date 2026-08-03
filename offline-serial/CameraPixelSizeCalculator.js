@@ -22,10 +22,10 @@ export default class extends Operator {
             if (!this._neutronPositionBitLength) return
             if (!this._cameraSizeInMillimeters) return
 
-            variables.imageBinWidthInMillimeters.assign(
-                this._cameraSizeInMillimeters[0]
-                / 2 ** this._neutronPositionBitLength
-            )
+            variables.cameraPixelSizeInMillimeters.assign([
+                this._cameraSizeInMillimeters[0] / 2 ** this._neutronPositionBitLength,
+                this._cameraSizeInMillimeters[1] / 2 ** this._neutronPositionBitLength
+            ])
         }
     }
 }

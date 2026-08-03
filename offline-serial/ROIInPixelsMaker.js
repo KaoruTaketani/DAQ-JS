@@ -6,9 +6,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._imageBinWidthInMillimeters
-        variables.imageBinWidthInMillimeters.prependListener(arg => { this._imageBinWidthInMillimeters = arg })
+        /** @type {number[]} */
+        this._cameraPixelSizeInMillimeters
+        variables.cameraPixelSizeInMillimeters.prependListener(arg => { this._cameraPixelSizeInMillimeters = arg })
         /** @type {number[]} */
         this._roiInMillimeters
         variables.roiInMillimeters.addListener(arg => {
@@ -17,7 +17,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             variables.roiInPixels.assign(
-                this._roiInMillimeters.map(v => Math.floor(v / this._imageBinWidthInMillimeters))
+                this._roiInMillimeters.map(v => Math.floor(v / this._cameraPixelSizeInMillimeters[0]))
             )
         }
     }
