@@ -6,7 +6,7 @@ import imagesc from '../lib/imagesc.js'
 
 export default class {
     /**
-     * @param {import('./FigureVariablesPNG.js').default} variables 
+     * @param {import('./ImageVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {CanvasRenderingContext2D} */

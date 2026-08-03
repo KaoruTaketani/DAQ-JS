@@ -1,17 +1,17 @@
 import CursorTextMaker from "./CursorTextMaker.js";
 import FigureCleanupperPNG from "./FigureCleanupperPNG.js";
-import FigureDrawerImage from "./FigureDrawerImage.js";
-import FigureGetterImage from "./FigureGetterImage.js";
-import FigureVariablesPNG from "./FigureVariablesPNG.js";
+import ImageDrawer from "./ImageDrawer.js";
+import ImageGetter from "./ImageGetter.js";
+import ImageVariables from "./ImageVariables.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
 
-const variables = new FigureVariablesPNG()
+const variables = new ImageVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new FigureCleanupperPNG(variables)
-new FigureDrawerImage(variables)
-new FigureGetterImage(variables)
+new ImageDrawer(variables)
+new ImageGetter(variables)
 new CursorTextMaker(variables)
     ;
 (element => {
