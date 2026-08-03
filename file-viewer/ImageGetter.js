@@ -37,7 +37,6 @@ export default class {
                 if (!response.ok) {
                     variables.divInnerText.assign('raw image was not found')
                     variables.svgInnerHTML.assign('')
-                    variables.imageSrc.assign('')
                 } else {
                     response.text().then(text => {
                         variables.divInnerText.assign('')
@@ -79,7 +78,6 @@ export default class {
             }).catch(() => {
                 variables.divInnerText.assign('failed to get')
                 variables.svgInnerHTML.assign('')
-                variables.imageSrc.assign('')
             })
         }
     }
