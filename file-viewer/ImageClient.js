@@ -1,5 +1,4 @@
 import CursorTextMaker from "./CursorTextMaker.js";
-import FigureCleanupperPNG from "./FigureCleanupperPNG.js";
 import ImageDrawer from "./ImageDrawer.js";
 import ImageGetter from "./ImageGetter.js";
 import ImageVariables from "./ImageVariables.js";
@@ -9,7 +8,6 @@ import PathMaker from "./PathMaker.js";
 const variables = new ImageVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
-new FigureCleanupperPNG(variables)
 new ImageDrawer(variables)
 new ImageGetter(variables)
 new CursorTextMaker(variables)
@@ -227,6 +225,8 @@ let svgInnerHTML
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
         svgInnerHTML = arg
+
+        if (arg === '') return
 
         const axes =/** @type {HTMLElement} */(element.firstElementChild)
         // console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
