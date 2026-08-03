@@ -35,7 +35,10 @@ export default class {
         this._operation = () => {
             if (!this._keyText) return
             if (this._fileNames.length !== 1) return
-            if (!this._fileNames[0].endsWith('.h5')) return
+            if (!this._fileNames[0].endsWith('.h5')) {
+                variables.svgInnerHTML.assign('')
+                return
+            }
 
             fetch(`/waveform?key=${this._keyText}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
                 if (!response.ok) {

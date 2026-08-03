@@ -1,16 +1,14 @@
 import CursorTextMaker from "./CursorTextMaker.js";
-import FigureCleanupperGraph from "./FigureCleanupperGraph.js";
+import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import PathMaker from "./PathMaker.js";
 import XYDrawer from "./XYDrawer.js";
 import XYGetter from "./XYGetter.js";
 import XYVariables from "./XYVariables.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import PathMaker from "./PathMaker.js";
 
 const variables = new XYVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new CursorTextMaker(variables)
-new FigureCleanupperGraph(variables)
 new XYDrawer(variables)
 new XYGetter(variables)
     ;
@@ -166,6 +164,8 @@ new XYGetter(variables)
     })
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
+
+        if (arg === '') return
 
         const axes =/** @type {HTMLElement} */(element.firstElementChild)
         // console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)

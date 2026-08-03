@@ -26,14 +26,12 @@ export default class {
         this._operation = () => {
             if (!this._keyText) return
             if (this._fileNames.length !== 1) return
-
-            if (this._fileNames[0] === '../') {
+            if (!this._fileNames[0].endsWith('.h5')) {
                 variables.svgInnerHTML.assign('')
                 // see canvas size in  ImageClient.js
                 this._canvasContext.clearRect(0, 0, 400, 300)
                 return
             }
-            if (!this._fileNames[0].endsWith('.h5')) return
 
             fetch(`/image?path=${this._path}&fileName=${this._fileNames[0]}&key=${this._keyText}`).then(response => {
                 if (!response.ok) {

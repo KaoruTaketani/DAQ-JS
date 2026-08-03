@@ -1,16 +1,14 @@
-import FigureCleanupperGraph from "./FigureCleanupperGraph.js";
+import CursorTextMaker from "./CursorTextMaker.js";
+import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import PathMaker from "./PathMaker.js";
 import WaveformDrawer from "./WaveformDrawer.js";
 import WaveformGetter from "./WaveformGetter.js";
 import WaveformVariables from "./WaveformVariables.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
-import PathMaker from "./PathMaker.js";
-import CursorTextMaker from "./CursorTextMaker.js";
 
 const variables = new WaveformVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new CursorTextMaker(variables)
-new FigureCleanupperGraph(variables)
 new WaveformDrawer(variables)
 new WaveformGetter(variables)
     ;
@@ -150,6 +148,8 @@ new WaveformGetter(variables)
     })
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
+
+        if (arg === '') return
 
         const axes =/** @type {HTMLElement} */(element.firstElementChild)
         // console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
