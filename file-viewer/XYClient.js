@@ -32,7 +32,23 @@ new XYGetter(variables)
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
+    const linkElement = document.createElement('a');
+    variables.svgInnerHTML.addListener(arg => {
+        linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
+            `<svg xmlns="http://www.w3.org/2000/svg" >${arg}</svg>`
+        ))
+        linkElement.setAttribute('download', `waveform.svg`)
+    })
     element.style.marginLeft = '208px'
+    element.type = 'button'
+    element.value = 'download'
+    element.addEventListener('click', () => {
+        linkElement.click()
+    })
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    element.style.display = 'inline-block'
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
