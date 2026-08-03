@@ -84,7 +84,8 @@ new XYGetter(variables)
             'velocityInMetersPerSeconds',
             'wavenumberInInverseAngstroms',
             'energyInMillielectronvolts',
-            'wavelengthInAngstroms'
+            'wavelengthInAngstroms',
+            'momentumTransferInInverseAngstroms'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));
