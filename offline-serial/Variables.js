@@ -131,7 +131,7 @@ export default class {
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
         // followings are the attributes in the root folder
-        this.cameraSizeInMillimeters = new WritableArray('', 'cameraSizeInMillimeters', this.hdf5File)
+        this.cameraImageSizeInMillimeters = new WritableArray('', 'cameraImageSizeInMillimeters', this.hdf5File)
         this.cameraPixelSizeInMillimeters = new WritableArray('', 'cameraPixelSizeInMillimeters', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()

@@ -7,8 +7,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number[]} */
-        this._cameraSizeInMillimeters
-        variables.cameraSizeInMillimeters.prependListener(arg => { this._cameraSizeInMillimeters = arg })
+        this._cameraImageSizeInMillimeters
+        variables.cameraImageSizeInMillimeters.prependListener(arg => { this._cameraImageSizeInMillimeters = arg })
         /** @type {number} */
         this._neutronPositionBitLength
         variables.neutronPositionBitLength.addListener(arg => {
@@ -16,7 +16,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.horizontalProjectionBinLimitsInMillimeters.assign([0, this._cameraSizeInMillimeters[0]])
+            variables.horizontalProjectionBinLimitsInMillimeters.assign([0, this._cameraImageSizeInMillimeters[0]])
             variables.horizontalProjectionBinCounts.assign(
                 new Uint32Array(2 ** this._neutronPositionBitLength)
             )

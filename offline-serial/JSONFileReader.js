@@ -41,7 +41,7 @@ export default class extends Operator {
                         variables.tofDifferenceLimitsInNanoseconds.assign([-250, 250])
                         variables.moderatorToSampleDistanceInMeters.assign(23.76)
                         variables.cameraLengthInMeters.assign(1.755)
-                        variables.cameraSizeInMillimeters.assign([50, 50])
+                        variables.cameraImageSizeInMillimeters.assign([50, 50])
                         variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
                         variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
                         // followings are the triggers for some operators
