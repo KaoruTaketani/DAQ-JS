@@ -1,5 +1,4 @@
 import Operator from './Operator.js'
-import prod from '../lib/prod.js'
 
 export default class extends Operator {
     /**
@@ -7,10 +6,10 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._neutronPositionMaxInMillimeters
-        variables.neutronPositionMaxInMillimeters.addListener(arg => {
-            this._neutronPositionMaxInMillimeters = arg
+        /** @type {number[]} */
+        this._cameraSizeInMillimeters
+        variables.cameraSizeInMillimeters.addListener(arg => {
+            this._cameraSizeInMillimeters = arg
             this._operation()
         })
         /** @type {number} */
@@ -21,10 +20,10 @@ export default class extends Operator {
         })
         this._operation = () => {
             if (!this._neutronPositionBitLength) return
-            if (!this._neutronPositionMaxInMillimeters) return
+            if (!this._cameraSizeInMillimeters) return
 
             variables.imageBinWidthInMillimeters.assign(
-                this._neutronPositionMaxInMillimeters
+                this._cameraSizeInMillimeters[0]
                 / 2 ** this._neutronPositionBitLength
             )
         }

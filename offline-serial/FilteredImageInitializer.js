@@ -8,9 +8,6 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
-        this._neutronPositionMaxInMillimeters
-        variables.neutronPositionMaxInMillimeters.prependListener(arg => { this._neutronPositionMaxInMillimeters = arg })
-        /** @type {number} */
         this._neutronPositionBitLength
         variables.neutronPositionBitLength.prependListener(arg => { this._neutronPositionBitLength = arg })
         /** @type {number} */

@@ -130,6 +130,8 @@ export default class {
         this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('horizontalProjectionHistogramsBinCounts', 'yBinLimitsInNanoseconds', this.hdf5File)
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
+        // followings are the attributes in the root folder
+        this.cameraSizeInMillimeters = new WritableArray('','cameraSizeInMillimeters', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
 
@@ -146,7 +148,6 @@ export default class {
         this.upstreamSlitToDownstreamSlitDistanceInMeters = new WritableNumber('upstreamSlitToDownstreamSlitDistanceInMeters', this.hdf5File)
         this.downstreamSlitToSampleDistanceInMeters = new WritableNumber('downstreamSlitToSampleDistanceInMeters', this.hdf5File)
         this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
-        this.neutronPositionMaxInMillimeters = new WritableNumber('neutronPositionMaxInMillimeters', this.hdf5File)
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
         this.imageBinWidthInMillimeters = new WritableNumber('imageBinWidthInMillimeters', this.hdf5File)
 
