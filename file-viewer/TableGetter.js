@@ -28,7 +28,11 @@ export default class {
             if (!this._headerText) return
             if (!this._fileNames) return
             if (this._fileNames.length !== 1) return
-            if (!this._fileNames[0].endsWith('.edr')) return
+            if (!this._fileNames[0].endsWith('.edr')) {
+                variables.tableInnerHTML.assign('')
+                variables.offsetValue.assign('0')
+                return
+            }
 
             // @ts-ignore
             const pathname = window.pathname

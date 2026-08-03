@@ -14,7 +14,10 @@ export default class {
         })
         this._operation = () => {
             if (this._fileNames.length !== 1) return
-            if (!this._fileNames[0].endsWith('.edr')) return
+            if (!this._fileNames[0].endsWith('.edr')) {
+                variables.divInnerText.assign('')
+                return
+            }
 
             fetch(`/numEvents?path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
                 if (!response.ok) {

@@ -1,7 +1,6 @@
 import FilesGetterEDR from "./FilesGetterEDR.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
-import TableCleanupper from "./TableCleanupper.js";
 import TableGetter from "./TableGetter.js";
 import TableVariables from "./TableVariables.js";
 
@@ -10,7 +9,6 @@ new PathMaker(variables)
 new TableGetter(variables)
 new NumEventsGetter(variables)
 new FilesGetterEDR(variables)
-new TableCleanupper(variables)
     ;
 (element => {
     element.size = 20
