@@ -32,9 +32,11 @@ new WaveformGetter(variables)
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
+    /** @type {string} */
+    let svgInnerHTML
+    variables.svgInnerHTML.addListener(arg => { svgInnerHTML = arg })
     const linkElement = document.createElement('a');
     element.style.marginLeft = '208px'
-    linkElement.setAttribute('download', `table.csv`)
 
     // element.style.marginLeft = '208px'
     element.type = 'button'
@@ -42,6 +44,11 @@ new WaveformGetter(variables)
     element.addEventListener('click', () => {
         // linkElement.href = `data:text/csv;base64,${btoa([header, data].join('\n'))}`
         // linkElement.click()
+        linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
+            `<svg xmlns="http://www.w3.org/2000/svg" >${svgInnerHTML}</svg>`
+        ))
+        linkElement.setAttribute('download', `waveform.svg`)
+        linkElement.click()
     })
 })(document.body.appendChild(document.createElement('input')));
 
@@ -136,7 +143,6 @@ new WaveformGetter(variables)
         variables.ymaxValue.addListener(arg => { element.value = arg })
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
-
 
 (element => {
     element.style.marginLeft = '208px'
