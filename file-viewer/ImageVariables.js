@@ -17,6 +17,7 @@ export default class extends SVGVariables {
         this.pngYMaxInData = new ListenableNumber()
 
         this.canvasDataURL = new ListenableString()
+        this.cScale = new ListenableString()
         this.cminValue = new ListenableString()
         this.cmaxValue = new ListenableString()
         this.keyText = new ListenableString()

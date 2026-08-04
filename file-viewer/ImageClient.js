@@ -183,6 +183,17 @@ new CursorTextMaker(variables)
     })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
+(element => {
+    // element.style.display = 'flex'
+    element.innerText = 'clog';
+    (element => {
+        element.type = 'checkbox'
+        element.addEventListener('change', () => {
+            variables.cScale.assign(element.checked ? 'log' : 'linear')
+        })
+    })(element.appendChild(document.createElement('input')))
+})(document.body.appendChild(document.createElement('label')));
+
 
 (element => {
     element.style.marginLeft = '208px'

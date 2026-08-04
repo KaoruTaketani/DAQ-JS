@@ -32,6 +32,12 @@ export default class {
         variables.pngYMinInData.prependListener(arg => { this._pngYMinInData = arg })
         this._dataset
         variables.dataset.prependListener(arg => { this._dataset = arg })
+        /** @type {string} */
+        this._cScale
+        variables.cScale.addListener(arg => {
+            this._cScale = arg
+            this._operation()
+        })
         /** @type {number} */
         this._pngHeightInPixels
         variables.pngHeightInPixels.addListener(arg => {
