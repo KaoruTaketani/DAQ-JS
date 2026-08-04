@@ -165,6 +165,28 @@ new XYGetter(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
+    // element.style.display='block'
+    element.innerText = 'xlog';
+    (element => {
+        element.type = 'checkbox'
+        element.addEventListener('change', () => {
+            variables.xScale.assign(element.checked ? 'log' : 'linear')
+        })
+    })(element.appendChild(document.createElement('input')))
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
+    // element.style.display = 'flex'
+    element.innerText = 'ylog';
+    (element => {
+        element.type = 'checkbox'
+        element.addEventListener('change', () => {
+            variables.yScale.assign(element.checked ? 'log' : 'linear')
+        })
+    })(element.appendChild(document.createElement('input')))
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
     element.style.marginLeft = '208px'
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')

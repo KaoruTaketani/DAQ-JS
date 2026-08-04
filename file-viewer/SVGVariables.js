@@ -25,6 +25,7 @@ export default class extends ClientVariables {
         this.xmaxValue = new ListenableString()
         this.yminValue = new ListenableString()
         this.ymaxValue = new ListenableString()
+        this.xScale = new ListenableString()
         this.yScale = new ListenableString()
         this.xlabel = new ListenableString()
         this.ylabel = new ListenableString()
