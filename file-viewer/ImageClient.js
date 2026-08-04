@@ -31,10 +31,21 @@ new CursorTextMaker(variables)
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
-const canvasElement = document.createElement('canvas')
-/** @type {string} */
-let svgInnerHTML
+
 (element => {
+    /** @type {string} */
+    let svgInnerHTML
+    variables.svgInnerHTML.prependListener(arg => { svgInnerHTML = arg })
+    // svg is always updated before canvas
+    variables.canvasDataURL.addListener(arg => {
+        linkElement.href = `data:image/svg+xml;base64,${btoa([
+            '<svg xmlns="http://www.w3.org/2000/svg" >',
+            svgInnerHTML,
+            // `<image width="400" height="300" href="${canvasElement.toDataURL()}" />`,
+            `<image width="560" height="420" href="${arg}" />`,
+            '</svg>'
+        ].join(''))}`
+    })
     const linkElement = document.createElement('a');
     element.style.marginLeft = '208px'
     linkElement.setAttribute('download', `image.svg`)
@@ -54,13 +65,13 @@ let svgInnerHTML
         //     ).join('\n')
         // const buffer = new Buffer([header, data].join('\n'), 'utf-8')
         // linkElement.href = `data:text/csv;base64,${buffer.toString('base64')}`
-        linkElement.href = `data:image/svg+xml;base64,${btoa([
-            '<svg xmlns="http://www.w3.org/2000/svg" >',
-            svgInnerHTML,
-            // `<image width="400" height="300" href="${canvasElement.toDataURL()}" />`,
-            `<image width="560" height="420" href="${canvasElement.toDataURL()}" />`,
-            '</svg>'
-        ].join(''))}`
+        // linkElement.href = `data:image/svg+xml;base64,${btoa([
+        //     '<svg xmlns="http://www.w3.org/2000/svg" >',
+        //     svgInnerHTML,
+        //     // `<image width="400" height="300" href="${canvasElement.toDataURL()}" />`,
+        //     `<image width="560" height="420" href="${canvasElement.toDataURL()}" />`,
+        //     '</svg>'
+        // ].join(''))}`
         linkElement.click()
     })
 })(document.body.appendChild(document.createElement('input')));
@@ -208,7 +219,7 @@ let svgInnerHTML
 
     ctx.imageSmoothingEnabled = false
     variables.canvasContext.assign(ctx)
-})(document.body.appendChild(canvasElement));
+})(document.body.appendChild(document.createElement('canvas')));
 
 (element => {
     element.style.marginLeft = '200px'
@@ -224,7 +235,6 @@ let svgInnerHTML
     })
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
-        svgInnerHTML = arg
 
         if (arg === '') return
 

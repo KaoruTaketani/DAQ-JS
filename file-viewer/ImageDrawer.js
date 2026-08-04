@@ -170,6 +170,7 @@ export default class {
                     (560 * 0.775) * 400 / 560,
                     (420 * 0.815) * 300 / 420
                 )
+                variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
             })
         }
     }

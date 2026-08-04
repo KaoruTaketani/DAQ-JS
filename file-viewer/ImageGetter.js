@@ -30,6 +30,7 @@ export default class {
                 variables.svgInnerHTML.assign('')
                 // see canvas size in  ImageClient.js
                 this._canvasContext.clearRect(0, 0, 400, 300)
+                variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
                 return
             }
 
