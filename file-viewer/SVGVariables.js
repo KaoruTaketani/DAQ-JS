@@ -9,6 +9,7 @@ export default class extends ClientVariables {
 
         /** @type {import('./ListenableObject.js').default<number[]>} */
         this.cursorOffset = new ListenableObject()
+        this.axesElement = new ListenableObject()
         this.dataset = new ListenableObject()
 
         this.xminInPixels = new ListenableNumber()
