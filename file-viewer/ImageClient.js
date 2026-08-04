@@ -43,7 +43,6 @@ new CursorTextMaker(variables)
         linkElement.href = `data:image/svg+xml;base64,${btoa([
             '<svg xmlns="http://www.w3.org/2000/svg" >',
             svgInnerHTML,
-            // `<image width="400" height="300" href="${canvasElement.toDataURL()}" />`,
             `<image width="560" height="420" href="${arg}" />`,
             '</svg>'
         ].join(''))}`
@@ -56,24 +55,6 @@ new CursorTextMaker(variables)
     element.type = 'button'
     element.value = 'download'
     element.addEventListener('click', () => {
-        // const header = Array.from(tHead.rows[0].cells)
-        //     .filter(cell => cell.style.display === '')
-        //     .map(cell => cell.innerText)
-        //     .join(',')
-        // const data = Array.from(tBody.rows)
-        //     .map(row => Array.from(row.cells)
-        //         .filter(cell => cell.style.display === '')
-        //         .map(cell => cell.innerText.split(',').join('')).join(',')
-        //     ).join('\n')
-        // const buffer = new Buffer([header, data].join('\n'), 'utf-8')
-        // linkElement.href = `data:text/csv;base64,${buffer.toString('base64')}`
-        // linkElement.href = `data:image/svg+xml;base64,${btoa([
-        //     '<svg xmlns="http://www.w3.org/2000/svg" >',
-        //     svgInnerHTML,
-        //     // `<image width="400" height="300" href="${canvasElement.toDataURL()}" />`,
-        //     `<image width="560" height="420" href="${canvasElement.toDataURL()}" />`,
-        //     '</svg>'
-        // ].join(''))}`
         linkElement.click()
     })
 })(document.body.appendChild(document.createElement('input')));

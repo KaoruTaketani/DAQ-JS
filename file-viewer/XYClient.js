@@ -1,3 +1,4 @@
+import AxesParametersParser from "./AxesParametersParser.js";
 import CursorTextMaker from "./CursorTextMaker.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
@@ -9,6 +10,7 @@ const variables = new XYVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new CursorTextMaker(variables)
+new AxesParametersParser(variables)
 new XYDrawer(variables)
 new XYGetter(variables)
     ;
@@ -66,16 +68,7 @@ new XYGetter(variables)
     })(element.appendChild(document.createElement('legend')));
 
     (element => {
-        // element.size = 20
-        // element.style.position = 'absolute'
-        // element.style.whiteSpace = 'pre-wrap'
-        // element.style.left = '200px'
         element.style.width = '200px'
-        // element.multiple = true
-        // element.style.height = `${window.innerHeight - 8 * 2}px`
-        // window.onscroll = _ => {
-        //     element.style.top = `${window.scrollY + 8}px`
-        // }
         element.addEventListener('change', () => {
             variables.xkeyText.assign(element.options[element.selectedIndex].text)
         });
@@ -181,27 +174,7 @@ new XYGetter(variables)
     })
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
-
-        if (arg === '') return
-
-        const axes =/** @type {HTMLElement} */(element.firstElementChild)
-        // console.log(`x: [${axes.dataset.xminInPixels}, ${axes.dataset.xmaxInPixels}], y: [${axes.dataset.yminInPixels}, ${axes.dataset.ymaxInPixels}]`)
-        if (axes.dataset.xminInPixels)
-            variables.xminInPixels.assign(parseInt(axes.dataset.xminInPixels))
-        if (axes.dataset.yminInPixels)
-            variables.yminInPixels.assign(parseInt(axes.dataset.yminInPixels))
-        if (axes.dataset.xmaxInPixels)
-            variables.xmaxInPixels.assign(parseInt(axes.dataset.xmaxInPixels))
-        if (axes.dataset.ymaxInPixels)
-            variables.ymaxInPixels.assign(parseInt(axes.dataset.ymaxInPixels))
-        if (axes.dataset.xminInData)
-            variables.xminInData.assign(parseFloat(axes.dataset.xminInData))
-        if (axes.dataset.yminInData)
-            variables.yminInData.assign(parseInt(axes.dataset.yminInData))
-        if (axes.dataset.xmaxInData)
-            variables.xmaxInData.assign(parseInt(axes.dataset.xmaxInData))
-        if (axes.dataset.ymaxInData)
-            variables.ymaxInData.assign(parseInt(axes.dataset.ymaxInData))
+        variables.axesElement.assign(element.firstElementChild)
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
