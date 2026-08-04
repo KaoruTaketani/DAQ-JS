@@ -142,6 +142,16 @@ new WaveformGetter(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
+    element.innerText = 'ylog';
+    (element => {
+        element.type = 'checkbox'
+        element.addEventListener('change', () => {
+            variables.yScale.assign(element.checked ? 'log' : 'linear')
+        })
+    })(element.appendChild(document.createElement('input')))
+})(document.body.appendChild(document.createElement('label')));
+
+(element => {
     element.style.marginLeft = '208px'
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')

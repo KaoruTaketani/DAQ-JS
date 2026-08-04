@@ -17,6 +17,12 @@ export default class {
         this._yDataset
         variables.yDataset.prependListener(arg => { this._yDataset = arg })
         /** @type {string} */
+        this._yScale
+        variables.yScale.addListener(arg => {
+            this._yScale = arg
+            this._operation()
+        })
+        /** @type {string} */
         this._xminValue
         variables.xminValue.addListener(arg => {
             this._xminValue = arg
@@ -52,7 +58,8 @@ export default class {
                 xTick: [parseFloat(this._xminValue), parseFloat(this._xmaxValue)],
                 yTick: [parseFloat(this._yminValue), parseFloat(this._ymaxValue)],
                 xTickLabel: [this._xminValue, this._xmaxValue],
-                yTickLabel: [this._yminValue, this._ymaxValue]
+                yTickLabel: [this._yminValue, this._ymaxValue],
+                yScale: this._yScale
             }
             variables.svgInnerHTML.assign([
                 axes(ax),
