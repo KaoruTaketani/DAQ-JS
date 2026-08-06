@@ -163,7 +163,15 @@ export default class {
             //     )
             // })
             // console.log(this._dataset)
-            imcrop(imagesc(this._dataset, [cmin, cmax]), [
+
+            const clim = this._cScale === 'log'
+                ? [Math.log10(cmin), Math.log10(cmax)]
+                : [cmin, cmax]
+            const dataset = this._cScale === 'log'
+                ? { shape: this._dataset.shape, data: new Uint32Array(this._dataset.data).map(v => Math.log10(v)) }
+                : { shape: this._dataset.shape, data: this._dataset.data }
+
+            imcrop(imagesc(dataset, clim), [
                 this._pngWidthInPixels * (xmin - this._pngXMinInData) / dx,
                 this._pngHeightInPixels * (1 - ymaxInNormalized),
                 this._pngWidthInPixels * (xmax - xmin) / dx,
