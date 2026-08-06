@@ -1,4 +1,4 @@
-import CursorTextMaker from "./CursorTextMaker.js";
+import CursorValueTextMaker from "./CursorValueTextMaker.js";
 import ImageDrawer from "./ImageDrawer.js";
 import ImageGetter from "./ImageGetter.js";
 import ImageVariables from "./ImageVariables.js";
@@ -12,7 +12,7 @@ new FilesGetterHDF5(variables)
 new ImageDrawer(variables)
 new ImageGetter(variables)
 new AxesParametersParser(variables)
-new CursorTextMaker(variables)
+new CursorValueTextMaker(variables)
     ;
 (element => {
     element.size = 20
