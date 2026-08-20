@@ -6,14 +6,11 @@
 
 <body>
     <p id="message">random number is NaN</p>
+    <input id="button" type="button" value="generate">
     <script type="module">
         const messageElement = document.getElementById('message')
-
-        const buttonElement = document.createElement('input')
-        buttonElement.type = 'button'
-        buttonElement.value = 'generate'
-        buttonElement.style.width = '100px'
-        document.body.appendChild(buttonElement)
+        const buttonElement = document.getElementById('button')
+        
         buttonElement.addEventListener('click', () => {
             messageElement.innerText = `random number is ${Math.random()}`
         })
