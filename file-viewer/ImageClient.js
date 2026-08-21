@@ -2,7 +2,7 @@ import getCurrentPoint from "../lib/getCurrentPoint.js";
 import getXLim from "../lib/getXLim.js";
 import getYLim from "../lib/getYLim.js";
 import isbetween from "../lib/isbetween.js";
-import CursorValueTextMaker from "./CursorValueTextMaker.js";
+import ImageDivMaker from "./ImageDivMaker.js";
 import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import ImageDrawer from "./ImageDrawer.js";
 import ImageGetter from "./ImageGetter.js";
@@ -14,7 +14,7 @@ new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new ImageDrawer(variables)
 new ImageGetter(variables)
-new CursorValueTextMaker(variables)
+new ImageDivMaker(variables)
     ;
 (element => {
     element.size = 20
@@ -237,7 +237,7 @@ new CursorValueTextMaker(variables)
             return
         }
 
-        variables.currentPoint.assign([x,y])
+        variables.currentPoint.assign([x, y])
         // trigger CursorValueTextMaker by assigning offset
         // so must be assigned after assigning currentPoint
         variables.cursorOffset.assign([ev.offsetX, ev.offsetY])

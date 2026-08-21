@@ -26,6 +26,7 @@ export default class {
         })
         this._operation = () => {
             const imageData = this._canvasContext.getImageData(this._cursorOffset[0], this._cursorOffset[1], 1, 1),
+                pixelValue = imageData.data[0],
                 cmin = parseFloat(this._cminValue),
                 cmax = parseFloat(this._cmaxValue)
             if (Number.isNaN(cmin)) return
@@ -34,7 +35,7 @@ export default class {
             const clim = this._cScale === 'log'
                 ? [Math.log10(cmin), Math.log10(cmax)]
                 : [cmin, cmax]
-            const c = clim[0] + imageData.data[0] / 255 * (clim[1] - clim[0])
+            const c = clim[0] + pixelValue / 255 * (clim[1] - clim[0])
 
             variables.divInnerText.assign(`cursor: {x: ${this._currentPoint[0]}, y: ${this._currentPoint[1]}, c: ${c}}`)
         }
