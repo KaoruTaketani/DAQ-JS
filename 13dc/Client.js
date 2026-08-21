@@ -79,7 +79,6 @@ document.body.appendChild(cursorElement);
 
         if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
             cursorElement.innerText = `cursor: undefined`
-            return
         } else {
             cursorElement.innerText = `cursor: {x: ${x}, y: ${y}}`
         }
