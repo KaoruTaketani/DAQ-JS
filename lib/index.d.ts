@@ -90,12 +90,8 @@ export interface Axes {
     yTick: number[]
     xTickLabel: string[]
     yTickLabel: string[]
-    parentWidth?: number
-    parentHeight?: number
-    innerLeft?: number
-    innerBottom?: number
-    innerWidth?: number
-    innerHeight?: number
+    viewBox?: number[]
+    position?: number[]
     xTickLabelGapOffset?: number
     yTickLabelGapOffset?: number
     xLabelGapOffset?: number
