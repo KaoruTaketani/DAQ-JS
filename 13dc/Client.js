@@ -1,5 +1,6 @@
 import polyfit from './polyfit.js'
 import polyval from './polyval.js'
+import isbetween from './isbetween.js'
 
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
@@ -90,16 +91,12 @@ document.body.appendChild(cursorElement);
             [yInNormalized]
         )[0];
 
-        if (xInNormalized < 0 || xInNormalized > 1) {
+        if (!isbetween(xInData, xLim) || !isbetween(yInData, yLim)) {
             cursorElement.innerText = `cursor: undefined`
             return
+        } else {
+            cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
         }
-        if (yInNormalized < 0 || yInNormalized > 1) {
-            cursorElement.innerText = `cursor: undefined`
-            return
-        }
-
-        cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
     }
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
