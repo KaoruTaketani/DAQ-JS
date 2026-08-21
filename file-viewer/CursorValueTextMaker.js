@@ -3,9 +3,6 @@ export default class {
      * @param {import('./ImageVariables.js').default} variables 
      */
     constructor(variables) {
-        /** @type {string} */
-        this._svgInnerHTML
-        variables.svgInnerHTML.prependListener(arg => { this._svgInnerHTML = arg })
         /** @type {CanvasRenderingContext2D} */
         this._canvasContext
         variables.canvasContext.prependListener(arg => { this._canvasContext = arg })
@@ -15,15 +12,12 @@ export default class {
         /** @type {string} */
         this._cminValue
         variables.cminValue.prependListener(arg => { this._cminValue = arg })
+        /** @type {string} */
+        this._cScale
+        variables.cScale.prependListener(arg => { this._cScale = arg })
         /** @type {number[]} */
         this._currentPoint
         variables.currentPoint.prependListener(arg => { this._currentPoint = arg })
-        /** @type {string} */
-        this._cScale
-        variables.cScale.addListener(arg => {
-            this._cScale = arg
-            this._operation()
-        })
         /** @type {number[]} */
         this._cursorOffset
         variables.cursorOffset.addListener(arg => {
@@ -31,8 +25,6 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (this._svgInnerHTML === '') return
-
             const imageData = this._canvasContext.getImageData(this._cursorOffset[0], this._cursorOffset[1], 1, 1),
                 cmin = parseFloat(this._cminValue),
                 cmax = parseFloat(this._cmaxValue)
