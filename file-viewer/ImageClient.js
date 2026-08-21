@@ -1,17 +1,19 @@
+import getCurrentPoint from "../lib/getCurrentPoint.js";
+import getXLim from "../lib/getXLim.js";
+import getYLim from "../lib/getYLim.js";
+import isbetween from "../lib/isbetween.js";
 import CursorValueTextMaker from "./CursorValueTextMaker.js";
+import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import ImageDrawer from "./ImageDrawer.js";
 import ImageGetter from "./ImageGetter.js";
 import ImageVariables from "./ImageVariables.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
 import PathMaker from "./PathMaker.js";
-import AxesParametersParser from "./AxesParametersParser.js";
 
 const variables = new ImageVariables()
 new PathMaker(variables)
 new FilesGetterHDF5(variables)
 new ImageDrawer(variables)
 new ImageGetter(variables)
-new AxesParametersParser(variables)
 new CursorValueTextMaker(variables)
     ;
 (element => {
@@ -225,11 +227,23 @@ new CursorValueTextMaker(variables)
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
     element.addEventListener('mousemove', ev => {
+        if (!element.firstChild) return
+
+        const [x, y] = getCurrentPoint(/** @type {HTMLElement} */(element.firstChild), ev)
+        const xLim = getXLim(/** @type {HTMLElement} */(element.firstChild))
+        const yLim = getYLim(/** @type {HTMLElement} */(element.firstChild))
+        if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
+            variables.divInnerText.assign(`cursor: undefined`)
+            return
+        }
+
+        variables.currentPoint.assign([x,y])
+        // trigger CursorValueTextMaker by assigning offset
+        // so must be assigned after assigning currentPoint
         variables.cursorOffset.assign([ev.offsetX, ev.offsetY])
     })
     variables.svgInnerHTML.addListener(arg => {
         element.innerHTML = arg
-        variables.axesElement.assign(element.firstElementChild)
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 

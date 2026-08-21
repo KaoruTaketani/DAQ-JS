@@ -8,6 +8,7 @@ export default class extends SVGVariables {
         super()
         /** @type {import('./ListenableObject.js').default<CanvasRenderingContext2D>} */
         this.canvasContext = new ListenableObject()
+        this.currentPoint = new ListenableObject()
 
         this.pngWidthInPixels = new ListenableNumber()
         this.pngHeightInPixels = new ListenableNumber()

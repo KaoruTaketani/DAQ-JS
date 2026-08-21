@@ -39,6 +39,9 @@ export default class {
         /** @type {string} */
         this._cminValue
         variables.cminValue.prependListener(arg => { this._cminValue = arg })
+        /** @type {number[]} */
+        this._currentPoint
+        variables.currentPoint.prependListener(arg => { this._currentPoint = arg })
         /** @type {string} */
         this._cScale
         variables.cScale.addListener(arg => {
@@ -54,28 +57,6 @@ export default class {
         this._operation = () => {
             if (this._svgInnerHTML === '') return
 
-            // svs size is [400, 300] and its viewBox is [560,420]
-            const xInPixels = this._cursorOffset[0] * 560 / 400
-            const xInNormalized = (xInPixels - this._xminInPixels)
-                / (this._xmaxInPixels - this._xminInPixels)
-            const xInData = this._xminInData
-                + xInNormalized * (this._xmaxInData - this._xminInData)
-
-            const yInPixels = this._cursorOffset[1] * 420 / 300
-            const yInNormalized = (this._yminInPixels - yInPixels)
-                / (this._yminInPixels - this._ymaxInPixels)
-            const yInData = this._yminInData
-                + yInNormalized * (this._ymaxInData - this._yminInData)
-
-            if (xInNormalized < 0 || xInNormalized > 1) {
-                variables.divInnerText.assign(`cursor: undefined`)
-                return
-            }
-            if (yInNormalized < 0 || yInNormalized > 1) {
-                variables.divInnerText.assign(`cursor: undefined`)
-                return
-            }
-            // the above code is duplicated in CursorTextMaker.js
             const imageData = this._canvasContext.getImageData(this._cursorOffset[0], this._cursorOffset[1], 1, 1),
                 cmin = parseFloat(this._cminValue),
                 cmax = parseFloat(this._cmaxValue)
@@ -87,7 +68,7 @@ export default class {
                 : [cmin, cmax]
             const c = clim[0] + imageData.data[0] / 255 * (clim[1] - clim[0])
 
-            variables.divInnerText.assign(`cursor: {x: ${xInData}, y: ${yInData}, c: ${c}}`)
+            variables.divInnerText.assign(`cursor: {x: ${this._currentPoint[0]}, y: ${this._currentPoint[1]}, c: ${c}}`)
         }
     }
 }
