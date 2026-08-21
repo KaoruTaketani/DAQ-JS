@@ -1,3 +1,4 @@
+import ListenableString from './ListenableString.js'
 import getCurrentPoint from './getCurrentPoint.js'
 import getXLim from './getXLim.js'
 import getYLim from './getYLim.js'
@@ -10,6 +11,8 @@ const socket = new WebSocket(url)
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
+const variables = {}
+variables.divInnerText = new ListenableString();
 
 (element => {
     element.type = 'button'
@@ -59,11 +62,10 @@ socket.onclose = () => {
     }
 })(document.body.appendChild(document.createElement('p')));
 
-const cursorElement = document.createElement('p')
-cursorElement.innerText = 'cursor: undefined'
-document.body.appendChild(cursorElement);
-
-
+(element => {
+    element.innerText = 'cursor: undefined'
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
 
 (overlayElement => {
     overlayElement.setAttribute('width', '400')
@@ -88,9 +90,9 @@ document.body.appendChild(cursorElement);
                 const yLim = getYLim(element.firstChild)
 
                 if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
-                    cursorElement.innerText = `cursor: undefined`
+                    variables.divInnerText.assign(`cursor: undefined`) 
                 } else {
-                    cursorElement.innerText = `cursor: {x: ${x}, y: ${y}}`
+                    variables.divInnerText.assign(`cursor: {x: ${x}, y: ${y}}`)
                 }
 
                 lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
