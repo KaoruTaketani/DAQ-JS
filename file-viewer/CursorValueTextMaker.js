@@ -3,30 +3,6 @@ export default class {
      * @param {import('./ImageVariables.js').default} variables 
      */
     constructor(variables) {
-        /** @type {number} */
-        this._xminInPixels
-        variables.xminInPixels.prependListener(arg => { this._xminInPixels = arg })
-        /** @type {number} */
-        this._yminInPixels
-        variables.yminInPixels.prependListener(arg => { this._yminInPixels = arg })
-        /** @type {number} */
-        this._xmaxInPixels
-        variables.xmaxInPixels.prependListener(arg => { this._xmaxInPixels = arg })
-        /** @type {number} */
-        this._ymaxInPixels
-        variables.ymaxInPixels.prependListener(arg => { this._ymaxInPixels = arg })
-        /** @type {number} */
-        this._xminInData
-        variables.xminInData.prependListener(arg => { this._xminInData = arg })
-        /** @type {number} */
-        this._yminInData
-        variables.yminInData.prependListener(arg => { this._yminInData = arg })
-        /** @type {number} */
-        this._xmaxInData
-        variables.xmaxInData.prependListener(arg => { this._xmaxInData = arg })
-        /** @type {number} */
-        this._ymaxInData
-        variables.ymaxInData.prependListener(arg => { this._ymaxInData = arg })
         /** @type {string} */
         this._svgInnerHTML
         variables.svgInnerHTML.prependListener(arg => { this._svgInnerHTML = arg })

@@ -136,33 +136,6 @@ export default class {
                 ymaxInNormalized = (ymax - this._pngYMinInData) / dy,
                 cmin = parseFloat(this._cminValue),
                 cmax = parseFloat(this._cmaxValue)
-            // this._canvasContext.drawImage(
-            //     this._imageElement,
-            //     this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
-            //     this._pngHeightInPixels * (1 - ymaxInNormalized),
-            //     this._pngWidthInPixels * (xmax - xmin) / dx,
-            //     this._pngHeightInPixels * (ymax - ymin) / dy,
-            //     (560 * 0.13) * 400 / 560,
-            //     (420 * (1 - 0.11 - 0.815)) * 300 / 420,
-            //     (560 * 0.775) * 400 / 560,
-            //     (420 * 0.815) * 300 / 420
-            // )
-
-            // imcrop(this._imageElement, [
-            //     this._pngWidthInPixels * (xmin - this._pngXMinInMillimeters) / dx,
-            //     this._pngHeightInPixels * (1 - ymaxInNormalized),
-            //     this._pngWidthInPixels * (xmax - xmin) / dx,
-            //     this._pngHeightInPixels * (ymax - ymin) / dy
-            // ]).then(im => {
-            //     this._canvasContext.drawImage(
-            //         im,
-            //         (560 * 0.13) * 400 / 560,
-            //         (420 * (1 - 0.11 - 0.815)) * 300 / 420,
-            //         (560 * 0.775) * 400 / 560,
-            //         (420 * 0.815) * 300 / 420
-            //     )
-            // })
-            // console.log(this._dataset)
 
             const clim = this._cScale === 'log'
                 ? [Math.log10(cmin), Math.log10(cmax)]
