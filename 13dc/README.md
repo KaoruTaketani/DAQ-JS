@@ -3,30 +3,15 @@
 Client.js:
 ```js
 histogramSVGElement.onmousemove = ev => {
-    const axes = histogramSVGElement.firstChild
+    const [x, y] = getCurrentPoint(element.firstChild, ev)
+    const xLim = getXLim(element.firstChild)
+    const yLim = getYLim(element.firstChild)
 
-    const xInPixels = ev.offsetX * 560 / 400
-    const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
-        / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
-    const xInData = Number(axes.dataset.xminInData)
-        + xInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
-
-    const yInPixels = ev.offsetY * 420 / 300
-    const yInNormalized = (axes.dataset.yminInPixels - yInPixels)
-        / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
-    const yInData = Number(axes.dataset.yminInData)
-        + yInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
-
-    if (xInNormalized < 0 || xInNormalized > 1) {
+    if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
         cursorElement.innerText = `cursor: undefined`
-        return
+    } else {
+        cursorElement.innerText = `cursor: {x: ${x}, y: ${y}}`
     }
-    if (yInNormalized < 0 || yInNormalized > 1) {
-        cursorElement.innerText = `cursor: undefined`
-        return
-    }
-
-    cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
 }
 ```
 ## How to run the sample code in this folder
