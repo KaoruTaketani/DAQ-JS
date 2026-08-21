@@ -1,3 +1,8 @@
+import getCurrentPoint from './getCurrentPoint.js'
+import getXLim from './getXLim.js'
+import getYLim from './getYLim.js'
+import isbetween from './isbetween.js'
+
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
 url.pathname = ''
@@ -12,7 +17,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=busy')
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=busy')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -27,8 +32,8 @@ socket.onclose = () => {
     element.value = 'stop'
     element.style.width = '130px'
     element.onclick = () => {
-        const xhr=new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=idle')
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=idle')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
@@ -78,48 +83,16 @@ document.body.appendChild(cursorElement);
                 element.innerHTML = event.data
             }
             element.onmousemove = ev => {
-                const axes = element.firstChild
+                const [x, y] = getCurrentPoint(element.firstChild, ev)
+                const xLim = getXLim(element.firstChild)
+                const yLim = getYLim(element.firstChild)
 
-                const xInPixels = ev.offsetX * 560 / 400
-                const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
-                    / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
-                const xInData = Number(axes.dataset.xminInData)
-                    + xInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
-
-                const yInPixels = ev.offsetY * 420 / 300
-                const yInNormalized = (axes.dataset.yminInPixels - yInPixels)
-                    / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
-                const yInData = Number(axes.dataset.yminInData)
-                    + yInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
-
-                if (xInNormalized < 0 || xInNormalized > 1) {
+                if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
                     cursorElement.innerText = `cursor: undefined`
-                    return
+                } else {
+                    cursorElement.innerText = `cursor: {x: ${x}, y: ${y}}`
                 }
-                if (yInNormalized < 0 || yInNormalized > 1) {
-                    cursorElement.innerText = `cursor: undefined`
-                    return
-                }
-                const points = element.lastChild.getAttribute('points')
 
-                const i = points.split(' ')
-                    .map(point => parseFloat(point))
-                    .filter(x => x <= xInPixels)
-                    .length
-                const point = points.split(' ')[i]
-                const xStairInPixels = parseFloat(point.split(',')[0])
-                const xStairInNormalized = (xStairInPixels - axes.dataset.xminInPixels)
-                    / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
-                const xStairInData = Number(axes.dataset.xminInData)
-                    + xStairInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
-
-                const yStairInPixels = parseFloat(point.split(',')[1])
-                const yStairInNormalized = (axes.dataset.yminInPixels - yStairInPixels)
-                    / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
-                const yStairInData = Number(axes.dataset.yminInData)
-                    + yStairInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
-
-                cursorElement.innerText = `upperEdge: ${xStairInData}, binCount: ${yStairInData}`
                 lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
             }
         })(foreignElement.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
