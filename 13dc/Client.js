@@ -1,5 +1,6 @@
-import polyfit from './polyfit.js'
-import polyval from './polyval.js'
+import getCurrentPoint from './getCurrentPoint.js'
+import getXLim from './getXLim.js'
+import getYLim from './getYLim.js'
 import isbetween from './isbetween.js'
 
 const url = new URL(import.meta.url)
@@ -72,30 +73,15 @@ document.body.appendChild(cursorElement);
         element.innerHTML = event.data
     }
     element.onmousemove = ev => {
-        const axes = element.firstChild
+        const [x, y] = getCurrentPoint(element.firstChild, ev)
+        const xLim = getXLim(element.firstChild)
+        const yLim = getYLim(element.firstChild)
 
-
-        const position = axes.dataset.position.split(' ').map(s => parseFloat(s))
-        const xLim = axes.dataset.xLim.split(' ').map(s => parseFloat(s))
-        const yLim = axes.dataset.yLim.split(' ').map(s => parseFloat(s))
-
-        const xInNormalized = ev.offsetX / 400
-        const xInData = polyval(
-            polyfit([position[0], position[0] + position[2]], xLim, 1),
-            [xInNormalized]
-        )[0];
-
-        const yInNormalized = 1 - ev.offsetY / 300
-        const yInData = polyval(
-            polyfit([position[1], position[1] + position[3]], yLim, 1),
-            [yInNormalized]
-        )[0];
-
-        if (!isbetween(xInData, xLim) || !isbetween(yInData, yLim)) {
+        if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
             cursorElement.innerText = `cursor: undefined`
             return
         } else {
-            cursorElement.innerText = `cursor: {x: ${xInData}, y: ${yInData}}`
+            cursorElement.innerText = `cursor: {x: ${x}, y: ${y}}`
         }
     }
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
