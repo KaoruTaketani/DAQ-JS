@@ -1,3 +1,6 @@
+import polyfit from './polyfit.js'
+import polyval from './polyval.js'
+
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
 url.pathname = ''
@@ -11,8 +14,8 @@ socket.onclose = () => {
     element.value = 'start'
     element.style.width = '130px'
     element.onclick = () => {
-        const xhr=new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=busy')
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=busy')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -27,8 +30,8 @@ socket.onclose = () => {
     element.value = 'stop'
     element.style.width = '130px'
     element.onclick = () => {
-        const xhr=new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=idle')
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=idle')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
@@ -70,17 +73,22 @@ document.body.appendChild(cursorElement);
     element.onmousemove = ev => {
         const axes = element.firstChild
 
-        const xInPixels = ev.offsetX * 560 / 400
-        const xInNormalized = (xInPixels - axes.dataset.xminInPixels)
-            / (axes.dataset.xmaxInPixels - axes.dataset.xminInPixels)
-        const xInData = Number(axes.dataset.xminInData)
-            + xInNormalized * (axes.dataset.xmaxInData - axes.dataset.xminInData)
 
-        const yInPixels = ev.offsetY * 420 / 300
-        const yInNormalized = (axes.dataset.yminInPixels - yInPixels)
-            / (axes.dataset.yminInPixels - axes.dataset.ymaxInPixels)
-        const yInData = Number(axes.dataset.yminInData)
-            + yInNormalized * (axes.dataset.ymaxInData - axes.dataset.yminInData)
+        const position = axes.dataset.position.split(' ').map(s => parseFloat(s))
+        const xLim = axes.dataset.xLim.split(' ').map(s => parseFloat(s))
+        const yLim = axes.dataset.yLim.split(' ').map(s => parseFloat(s))
+
+        const xInNormalized = ev.offsetX / 400
+        const xInData = polyval(
+            polyfit([position[0], position[0] + position[2]], xLim, 1),
+            [xInNormalized]
+        )[0];
+
+        const yInNormalized = 1 - ev.offsetY / 300
+        const yInData = polyval(
+            polyfit([position[1], position[1] + position[3]], yLim, 1),
+            [yInNormalized]
+        )[0];
 
         if (xInNormalized < 0 || xInNormalized > 1) {
             cursorElement.innerText = `cursor: undefined`
