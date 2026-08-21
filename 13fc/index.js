@@ -1,5 +1,5 @@
 import { Server } from 'http'
-import HTTPGetHandler from '../13/HTTPGetHandler.js'
+import HTTPGetHandler from '../13dc/HTTPGetHandler.js'
 import HTTPPutHandler from '../13/HTTPPutHandler.js'
 import HTTPServerSetupper from '../13/HTTPServerSetupper.js'
 import HTTPUpgradeHandler from '../13/HTTPUpgradeHandler.js'

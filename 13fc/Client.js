@@ -1,3 +1,5 @@
+import ListenableString from './ListenableString.js'
+
 const url = new URL(import.meta.url)
 url.protocol = 'ws:'
 url.pathname = ''
@@ -5,11 +7,13 @@ const socket = new WebSocket(url)
 socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
+const variables = {}
+variables.divInnerText = new ListenableString();
 
-const divElement = document.createElement('div');
 (element => {
     element.innerText = `red: undefined, green: undefined, blue: undefined, alpha: undefined`
-})(document.body.appendChild(divElement));
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
 
 (element => {
     element.width = 256
@@ -35,7 +39,7 @@ const divElement = document.createElement('div');
         const pixel = ctx.getImageData(x, y, 1, 1);
         const data = pixel.data;
 
-        divElement.innerText = `red: ${data[0]}, green: ${data[1]}, blue: ${data[2]}, alpha: ${data[3]}`
+        variables.divInnerText.assign(`red: ${data[0]}, green: ${data[1]}, blue: ${data[2]}, alpha: ${data[3]}`)
     })
 })(document.body.appendChild(document.createElement('canvas')));
 
