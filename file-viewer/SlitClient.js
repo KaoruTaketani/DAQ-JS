@@ -1,8 +1,8 @@
-import SlitSVGInnerHTMLMaker from "./SlitSVGInnerHTMLMaker.js";
+import SlitDrawer from "./SlitDrawer.js";
 import SlitVariables from "./SlitVariables.js";
 
 const variables = new SlitVariables()
-new SlitSVGInnerHTMLMaker(variables)
+new SlitDrawer(variables)
     ;
 (element => {
     element.style.display = 'inline-block';

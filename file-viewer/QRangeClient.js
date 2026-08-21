@@ -1,8 +1,8 @@
-import QRangeSVGInnerHTMLMaker from "./QRangeSVGInnerHTMLMaker.js";
+import QRangeDrawer from "./QRangeDrawer.js";
 import QrangeVariables from "./QRangeVariables.js";
 
 const variables = new QrangeVariables()
-new QRangeSVGInnerHTMLMaker(variables);
+new QRangeDrawer(variables);
 
 (element => {
     (element => {
