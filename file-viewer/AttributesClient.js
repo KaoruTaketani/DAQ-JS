@@ -27,40 +27,40 @@ new FilesGetterHDF5(variables)
     variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
-const dialogElement = document.createElement('dialog');
 (element => {
-    (element => {
-        element.size = 20
-        element.style.width = '200px'
-        element.multiple = true
-        element.addEventListener('change', () => {
-            const selectedIndexes = Array.from(element.selectedOptions).map(option => option.index)
-            console.log(selectedIndexes)
-            Array.from(tHead.rows[0].cells).forEach((cell, i) => {
-                if (i === 0) return
-                cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
-            })
-            Array.from(tBody.rows).forEach(row => {
-                Array.from(row.cells).forEach((cell, i) => {
-                    if (i === 0) return
-                    cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
-                })
-            })
-        })
-        variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
-    })(element.appendChild(document.createElement('select')));
-    (element => {
-        element.type = 'button'
-        element.value = 'close'
-        element.addEventListener('click', () => { dialogElement.close() })
-    })(element.appendChild(document.createElement('input')));
-})(document.body.appendChild(dialogElement));
-
-(element => {
+    const dialogElement = document.createElement('dialog');
     element.style.marginLeft = '208px'
     element.type = 'button'
     element.value = 'visible'
-    element.addEventListener('click', () => { dialogElement.showModal() })
+    element.addEventListener('click', () => { dialogElement.showModal() });
+
+    (element => {
+        (element => {
+            element.size = 20
+            element.style.width = '200px'
+            element.multiple = true
+            element.addEventListener('change', () => {
+                const selectedIndexes = Array.from(element.selectedOptions).map(option => option.index)
+                console.log(selectedIndexes)
+                Array.from(tHead.rows[0].cells).forEach((cell, i) => {
+                    if (i === 0) return
+                    cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
+                })
+                Array.from(tBody.rows).forEach(row => {
+                    Array.from(row.cells).forEach((cell, i) => {
+                        if (i === 0) return
+                        cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
+                    })
+                })
+            })
+            variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
+        })(element.appendChild(document.createElement('select')));
+        (element => {
+            element.type = 'button'
+            element.value = 'close'
+            element.addEventListener('click', () => { dialogElement.close() })
+        })(element.appendChild(document.createElement('input')));
+    })(document.body.appendChild(dialogElement));
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
