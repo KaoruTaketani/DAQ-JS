@@ -74,9 +74,7 @@ socket.onclose = () => {
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
-    element.ondblclick = () => {
-        dialogElement.showModal()
-    }
+
     url.pathname = 'histogramSVGInnerHTML'
     const innerHTMLSocket = new WebSocket(url)
     innerHTMLSocket.onmessage = event => {
