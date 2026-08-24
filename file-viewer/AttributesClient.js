@@ -116,23 +116,7 @@ new FilesGetterHDF5(variables)
 
 (element => {
     element.style.marginLeft = '208px'
-    variables.tableInnerHTML.addListener(arg => {
-        element.innerHTML = arg
-
-        variables.tHeadElement.assign(element.tHead)
-        variables.tBodyElement.assign(element.tBodies[0])
-
-        if (!element.tHead) return
-
-        element.tHead.style.top = '0'
-        element.tHead.style.position = 'sticky'
-        element.tHead.style.backgroundColor = 'white'
-
-        const visibleInnerHTML = Array.from(element.tHead.rows[0].cells)
-            .filter(cell => cell.innerText !== '_name')
-            .map(cell => `<option selected>${cell.innerText}</option>`).join('')
-        variables.visibleInnerHTML.assign(visibleInnerHTML)
-    })
+    variables.tableElement.assign(element)
 })(document.body.appendChild(document.createElement('table')));
 
 variables.path.assign('/')
