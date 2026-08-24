@@ -33,20 +33,10 @@ new FilesGetterHDF5(variables)
     element.type = 'button'
     element.value = 'visible'
     element.addEventListener('click', () => { dialogElement.showModal() });
+
     /** @type {HTMLTableSectionElement} */
     let tHeadElement;
-    variables.tHeadElement.addListener(arg => {
-        tHeadElement = arg
-
-        tHeadElement.style.top = '0'
-        tHeadElement.style.position = 'sticky'
-        tHeadElement.style.backgroundColor = 'white'
-
-        const tmp = Array.from(tHeadElement.rows[0].cells)
-            .filter(cell => cell.innerText !== '_name')
-            .map(cell => `<option selected>${cell.innerText}</option>`).join('')
-        variables.visibleInnerHTML.assign(tmp)
-    });
+    variables.tHeadElement.addListener(arg => { tHeadElement = arg });
     /** @type {HTMLTableSectionElement} */
     let tBodyElement;
     variables.tBodyElement.addListener(arg => { tBodyElement = arg });
@@ -54,10 +44,13 @@ new FilesGetterHDF5(variables)
     (element => {
         element.size = 20
         element.style.width = '200px'
+        element.style.display = 'flex'
+        element.style.justifyContent = 'center'
         element.multiple = true
+
         element.addEventListener('change', () => {
             const selectedIndexes = Array.from(element.selectedOptions).map(option => option.index)
-            console.log(selectedIndexes)
+
             Array.from(tHeadElement.rows[0].cells).forEach((cell, i) => {
                 if (i === 0) return
                 cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
@@ -74,6 +67,10 @@ new FilesGetterHDF5(variables)
     (element => {
         element.type = 'button'
         element.value = 'close'
+        element.style.display = 'flex'
+        element.style.width = '200px'
+        element.style.marginTop = '10px'
+
         element.addEventListener('click', () => { dialogElement.close() })
     })(dialogElement.appendChild(document.createElement('input')));
 
@@ -82,30 +79,32 @@ new FilesGetterHDF5(variables)
 (element => {
     const linkElement = document.createElement('a');
     linkElement.setAttribute('download', `table.csv`)
+
     /** @type {HTMLTableSectionElement} */
     let tHeadElement;
     variables.tHeadElement.addListener(arg => { tHeadElement = arg });
     /** @type {HTMLTableSectionElement} */
     let tBodyElement;
     variables.tBodyElement.addListener(arg => { tBodyElement = arg });
-    // element.style.marginLeft = '208px'
+
     element.type = 'button'
     element.value = 'download'
     element.addEventListener('click', () => {
-        const header = Array.from(tHeadElement.rows[0].cells)
+        if (!tHeadElement) return
+        if (!tBodyElement) return
+
+        const csvHeader = Array.from(tHeadElement.rows[0].cells)
             .filter(cell => cell.style.display === '')
             .map(cell => cell.innerText)
             .join(',')
-        const data = Array.from(tBodyElement.rows)
+        const csvBody = Array.from(tBodyElement.rows)
             .map(row => Array.from(row.cells)
                 .filter(cell => cell.style.display === '')
-                // .map(cell => cell.innerText.split(',').join('')).join(',')
                 .map(cell => cell.innerText)
                 .join(',')
             ).join('\n')
-        // const buffer = new Buffer([header, data].join('\n'), 'utf-8')
-        // linkElement.href = `data:text/csv;base64,${buffer.toString('base64')}`
-        linkElement.href = `data:text/csv;base64,${btoa([header, data].join('\n'))}`
+
+        linkElement.href = `data:text/csv;base64,${btoa([csvHeader, csvBody].join('\n'))}`
         linkElement.click()
     })
 })(document.body.appendChild(document.createElement('input')));
@@ -120,30 +119,19 @@ new FilesGetterHDF5(variables)
     variables.tableInnerHTML.addListener(arg => {
         element.innerHTML = arg
 
-        if (!element.tHead) return
-        // tHead = element.tHead
         variables.tHeadElement.assign(element.tHead)
-
-        // tHead.style.top = '0'
-        // tHead.style.position = 'sticky'
-        // tHead.style.backgroundColor = 'white'
-
-        if (!element.tBodies) return
-        // tBody = element.tBodies[0]
         variables.tBodyElement.assign(element.tBodies[0])
 
-        // console.log(tHead.rows[0])
-        // const tmp = Array.from(tHead.rows[0].cells)
-        //     .filter(cell => cell.innerText !== '_name')
-        //     .map(cell => `<option selected>${cell.innerText}</option>`).join('')
-        // variables.visibleInnerHTML.assign(tmp)
+        if (!element.tHead) return
 
-        // const tr = thead.firstElementChild
-        // if (!tr) return
-        // console.log(tr.childNodes)
-        // Array.from(tr.children).forEach((/** @type {HTMLElement} */node) => {
-        //     console.log(node.innerText)
-        // })
+        element.tHead.style.top = '0'
+        element.tHead.style.position = 'sticky'
+        element.tHead.style.backgroundColor = 'white'
+
+        const visibleInnerHTML = Array.from(element.tHead.rows[0].cells)
+            .filter(cell => cell.innerText !== '_name')
+            .map(cell => `<option selected>${cell.innerText}</option>`).join('')
+        variables.visibleInnerHTML.assign(visibleInnerHTML)
     })
 })(document.body.appendChild(document.createElement('table')));
 
