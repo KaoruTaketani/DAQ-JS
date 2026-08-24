@@ -28,7 +28,8 @@ new FilesGetterHDF5(variables)
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
-    const dialogElement = document.createElement('dialog');
+    // const dialogElement = document.createElement('dialog');
+    const dialogElement = document.body.appendChild(document.createElement('dialog'))
     element.style.marginLeft = '208px'
     element.type = 'button'
     element.value = 'visible'
@@ -52,32 +53,31 @@ new FilesGetterHDF5(variables)
     variables.tBodyElement.addListener(arg => { tBodyElement = arg });
 
     (element => {
-        (element => {
-            element.size = 20
-            element.style.width = '200px'
-            element.multiple = true
-            element.addEventListener('change', () => {
-                const selectedIndexes = Array.from(element.selectedOptions).map(option => option.index)
-                console.log(selectedIndexes)
-                Array.from(tHeadElement.rows[0].cells).forEach((cell, i) => {
+        element.size = 20
+        element.style.width = '200px'
+        element.multiple = true
+        element.addEventListener('change', () => {
+            const selectedIndexes = Array.from(element.selectedOptions).map(option => option.index)
+            console.log(selectedIndexes)
+            Array.from(tHeadElement.rows[0].cells).forEach((cell, i) => {
+                if (i === 0) return
+                cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
+            })
+            Array.from(tBodyElement.rows).forEach(row => {
+                Array.from(row.cells).forEach((cell, i) => {
                     if (i === 0) return
                     cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
                 })
-                Array.from(tBodyElement.rows).forEach(row => {
-                    Array.from(row.cells).forEach((cell, i) => {
-                        if (i === 0) return
-                        cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
-                    })
-                })
             })
-            variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
-        })(element.appendChild(document.createElement('select')));
-        (element => {
-            element.type = 'button'
-            element.value = 'close'
-            element.addEventListener('click', () => { dialogElement.close() })
-        })(element.appendChild(document.createElement('input')));
-    })(document.body.appendChild(dialogElement));
+        })
+        variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
+    })(dialogElement.appendChild(document.createElement('select')));
+    (element => {
+        element.type = 'button'
+        element.value = 'close'
+        element.addEventListener('click', () => { dialogElement.close() })
+    })(dialogElement.appendChild(document.createElement('input')));
+
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
