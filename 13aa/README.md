@@ -3,13 +3,22 @@
 Client.js:
 ```js
 (element => {
+    const linkElement = document.createElement('a')
+
+    let svgInnerHTML
+    url.pathname = 'histogramSVGInnerHTML'
+    const svgInnerHTMLSocket = new WebSocket(url)
+    svgInnerHTMLSocket.onmessage = event => {
+        svgInnerHTML = event.data
+    }
+
     element.type = 'button'
     element.value = 'download svg'
     element.style.width = '130px'
-    const linkElement = document.createElement('a')
+    
     element.onclick = () => {
         linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
-            `<svg xmlns="http://www.w3.org/2000/svg" >${svgElement.innerHTML}</svg>`
+            `<svg xmlns="http://www.w3.org/2000/svg" >${svgInnerHTML}</svg>`
         ))
         linkElement.setAttribute('download', 'histogram.svg')
         linkElement.click()

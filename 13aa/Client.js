@@ -39,9 +39,6 @@ socket.onclose = () => {
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
-    element.type = 'button'
-    element.value = 'download svg'
-    element.style.width = '130px'
     const linkElement = document.createElement('a')
 
     let svgInnerHTML
@@ -50,6 +47,11 @@ socket.onclose = () => {
     svgInnerHTMLSocket.onmessage = event => {
         svgInnerHTML = event.data
     }
+
+    element.type = 'button'
+    element.value = 'download svg'
+    element.style.width = '130px'
+    
     element.onclick = () => {
         linkElement.setAttribute('href', 'data:image/svg+xml;base64,' + window.btoa(
             `<svg xmlns="http://www.w3.org/2000/svg" >${svgInnerHTML}</svg>`
