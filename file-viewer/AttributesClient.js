@@ -28,7 +28,6 @@ new FilesGetterHDF5(variables)
 })(document.body.appendChild(document.createElement('select')));
 
 (element => {
-    // const dialogElement = document.createElement('dialog');
     const dialogElement = document.body.appendChild(document.createElement('dialog'))
     element.style.marginLeft = '208px'
     element.type = 'button'
