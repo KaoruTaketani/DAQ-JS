@@ -33,6 +33,23 @@ new FilesGetterHDF5(variables)
     element.type = 'button'
     element.value = 'visible'
     element.addEventListener('click', () => { dialogElement.showModal() });
+    /** @type {HTMLTableSectionElement} */
+    let tHeadElement;
+    variables.tHeadElement.addListener(arg => {
+        tHeadElement = arg
+
+        tHeadElement.style.top = '0'
+        tHeadElement.style.position = 'sticky'
+        tHeadElement.style.backgroundColor = 'white'
+
+        const tmp = Array.from(tHeadElement.rows[0].cells)
+            .filter(cell => cell.innerText !== '_name')
+            .map(cell => `<option selected>${cell.innerText}</option>`).join('')
+        variables.visibleInnerHTML.assign(tmp)
+    });
+    /** @type {HTMLTableSectionElement} */
+    let tBodyElement;
+    variables.tBodyElement.addListener(arg => { tBodyElement = arg });
 
     (element => {
         (element => {
@@ -42,11 +59,11 @@ new FilesGetterHDF5(variables)
             element.addEventListener('change', () => {
                 const selectedIndexes = Array.from(element.selectedOptions).map(option => option.index)
                 console.log(selectedIndexes)
-                Array.from(tHead.rows[0].cells).forEach((cell, i) => {
+                Array.from(tHeadElement.rows[0].cells).forEach((cell, i) => {
                     if (i === 0) return
                     cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
                 })
-                Array.from(tBody.rows).forEach(row => {
+                Array.from(tBodyElement.rows).forEach(row => {
                     Array.from(row.cells).forEach((cell, i) => {
                         if (i === 0) return
                         cell.style.display = selectedIndexes.includes(i - 1) ? '' : 'none'
@@ -66,16 +83,21 @@ new FilesGetterHDF5(variables)
 (element => {
     const linkElement = document.createElement('a');
     linkElement.setAttribute('download', `table.csv`)
-
+    /** @type {HTMLTableSectionElement} */
+    let tHeadElement;
+    variables.tHeadElement.addListener(arg => { tHeadElement = arg });
+    /** @type {HTMLTableSectionElement} */
+    let tBodyElement;
+    variables.tBodyElement.addListener(arg => { tBodyElement = arg });
     // element.style.marginLeft = '208px'
     element.type = 'button'
     element.value = 'download'
     element.addEventListener('click', () => {
-        const header = Array.from(tHead.rows[0].cells)
+        const header = Array.from(tHeadElement.rows[0].cells)
             .filter(cell => cell.style.display === '')
             .map(cell => cell.innerText)
             .join(',')
-        const data = Array.from(tBody.rows)
+        const data = Array.from(tBodyElement.rows)
             .map(row => Array.from(row.cells)
                 .filter(cell => cell.style.display === '')
                 // .map(cell => cell.innerText.split(',').join('')).join(',')
@@ -94,30 +116,28 @@ new FilesGetterHDF5(variables)
     variables.path.addListener(arg => { element.innerText = `path: ${arg}` })
 })(document.body.appendChild(document.createElement('p')));
 
-/** @type {HTMLTableSectionElement} */
-let tHead
-/** @type {HTMLTableSectionElement} */
-let tBody
 (element => {
     element.style.marginLeft = '208px'
     variables.tableInnerHTML.addListener(arg => {
         element.innerHTML = arg
 
         if (!element.tHead) return
-        tHead = element.tHead
+        // tHead = element.tHead
+        variables.tHeadElement.assign(element.tHead)
 
-        tHead.style.top = '0'
-        tHead.style.position = 'sticky'
-        tHead.style.backgroundColor = 'white'
+        // tHead.style.top = '0'
+        // tHead.style.position = 'sticky'
+        // tHead.style.backgroundColor = 'white'
 
         if (!element.tBodies) return
-        tBody = element.tBodies[0]
+        // tBody = element.tBodies[0]
+        variables.tBodyElement.assign(element.tBodies[0])
 
         // console.log(tHead.rows[0])
-        const tmp = Array.from(tHead.rows[0].cells)
-            .filter(cell => cell.innerText !== '_name')
-            .map(cell => `<option selected>${cell.innerText}</option>`).join('')
-        variables.visibleInnerHTML.assign(tmp)
+        // const tmp = Array.from(tHead.rows[0].cells)
+        //     .filter(cell => cell.innerText !== '_name')
+        //     .map(cell => `<option selected>${cell.innerText}</option>`).join('')
+        // variables.visibleInnerHTML.assign(tmp)
 
         // const tr = thead.firstElementChild
         // if (!tr) return
