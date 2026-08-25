@@ -11,13 +11,8 @@ export default class extends SVGVariables {
         this.currentPoint = new ListenableObject()
         this.dataset = new ListenableObject()
         this.cursorOffset = new ListenableObject()
-
-        this.pngWidthInPixels = new ListenableNumber()
-        this.pngHeightInPixels = new ListenableNumber()
-        this.pngXMinInData = new ListenableNumber()
-        this.pngYMinInData = new ListenableNumber()
-        this.pngXMaxInData = new ListenableNumber()
-        this.pngYMaxInData = new ListenableNumber()
+        this.datasetXlim = new ListenableObject()
+        this.datasetYlim = new ListenableObject()
 
         this.canvasDataURL = new ListenableString()
         this.cScale = new ListenableString()

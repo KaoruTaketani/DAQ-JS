@@ -3,6 +3,7 @@ import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
 import imcrop from '../lib/imcrop.js'
 import imagesc from '../lib/imagesc.js'
+import diff from '../lib/diff.js'
 
 export default class {
     /**
@@ -18,36 +19,19 @@ export default class {
         /** @type {string} */
         this._ylabel
         variables.ylabel.prependListener(arg => { this._ylabel = arg })
-        /** @type {number} */
-        this._pngXMaxInData
-        variables.pngXMaxInData.prependListener(arg => { this._pngXMaxInData = arg })
-        /** @type {number} */
-        this._pngXMinInData
-        variables.pngXMinInData.prependListener(arg => { this._pngXMinInData = arg })
-        /** @type {number} */
-        this._pngYMaxInData
-        variables.pngYMaxInData.prependListener(arg => { this._pngYMaxInData = arg })
-        /** @type {number} */
-        this._pngYMinInData
-        variables.pngYMinInData.prependListener(arg => { this._pngYMinInData = arg })
+        /** @type {number[]} */
+        this._datasetXlim
+        variables.datasetXlim.prependListener(arg => { this._datasetXlim = arg })
+        /** @type {number[]} */
+        this._datasetYlim
+        variables.datasetYlim.prependListener(arg => { this._datasetYlim = arg })
         this._dataset
         variables.dataset.prependListener(arg => { this._dataset = arg })
+        /** @type {number} */
         /** @type {string} */
         this._cScale
         variables.cScale.addListener(arg => {
             this._cScale = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._pngHeightInPixels
-        variables.pngHeightInPixels.addListener(arg => {
-            this._pngHeightInPixels = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._pngWidthInPixels
-        variables.pngWidthInPixels.addListener(arg => {
-            this._pngWidthInPixels = arg
             this._operation()
         })
         /** @type {string} */
@@ -87,8 +71,6 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (!this._pngHeightInPixels) return
-            if (!this._pngWidthInPixels) return
             if (!this._xminValue) return
             if (!this._xmaxValue) return
             if (!this._yminValue) return
@@ -127,13 +109,13 @@ export default class {
             // bottom y value of axes ges smaller but
             // bottom y value of drawImage gets larger
             // normalized coordinate is useful
-            const dx = this._pngXMaxInData - this._pngXMinInData,
+
+            const dx = diff(this._datasetXlim)[0],
+                dy = diff(this._datasetYlim)[0],
                 xmin = parseFloat(this._xminValue),
                 xmax = parseFloat(this._xmaxValue),
-                dy = this._pngYMaxInData - this._pngYMinInData,
                 ymin = parseFloat(this._yminValue),
                 ymax = parseFloat(this._ymaxValue),
-                ymaxInNormalized = (ymax - this._pngYMinInData) / dy,
                 cmin = parseFloat(this._cminValue),
                 cmax = parseFloat(this._cmaxValue)
 
@@ -145,10 +127,10 @@ export default class {
                 : { shape: this._dataset.shape, data: this._dataset.data }
 
             imcrop(imagesc(dataset, clim), [
-                this._pngWidthInPixels * (xmin - this._pngXMinInData) / dx,
-                this._pngHeightInPixels * (1 - ymaxInNormalized),
-                this._pngWidthInPixels * (xmax - xmin) / dx,
-                this._pngHeightInPixels * (ymax - ymin) / dy
+                dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
+                dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
+                dataset.shape[1] * (xmax - xmin) / dx,
+                dataset.shape[0] * (ymax - ymin) / dy
             ]).then(im => {
                 this._canvasContext.drawImage(
                     im,

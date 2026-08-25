@@ -54,17 +54,15 @@ export default class {
 
                         variables.xlabel.assign(data.xlabel)
                         variables.ylabel.assign(data.ylabel)
-                        variables.pngXMinInData.assign(data.xLimInData[0])
-                        variables.pngXMaxInData.assign(data.xLimInData[1])
-                        variables.pngYMinInData.assign(data.yLimInData[0])
-                        variables.pngYMaxInData.assign(data.yLimInData[1])
-                        variables.xminValue.assign(data.xLimInData[0].toString())
-                        variables.xmaxValue.assign(data.xLimInData[1].toString())
-                        variables.yminValue.assign(data.yLimInData[0].toString())
-                        variables.ymaxValue.assign(data.yLimInData[1].toString())
+                        variables.datasetXlim.assign(data.xlim)
+                        variables.datasetYlim.assign(data.ylim)
+                        variables.xminValue.assign(data.xlim[0].toString())
+                        variables.xmaxValue.assign(data.xlim[1].toString())
+                        variables.yminValue.assign(data.ylim[0].toString())
+                        variables.ymaxValue.assign(data.ylim[1].toString())
                         // variables.imageSrc.assign(data.imageSrc)
                         const dataset = {
-                            shape: /** @type {number[]} */(data.shape),
+                            shape: data.shape,
                             data: new Uint32Array(JSON.parse(data.data))
                         }
                         variables.dataset.assign(dataset)
@@ -72,8 +70,6 @@ export default class {
                         variables.cminValue.assign(clim[0].toString())
                         variables.cmaxValue.assign(clim[1].toString())
                         variables.divInnerText.assign(`width: ${data.shape[1]}, height: ${data.shape[0]}`)
-                        variables.pngWidthInPixels.assign(data.shape[1])
-                        variables.pngHeightInPixels.assign(data.shape[0])
                     })
                 }
             }).catch(() => {

@@ -25,46 +25,46 @@ router.get('/image', (req, res) => {
     let xlabel
     let ylabel
     let groupPath = ''
-    let xKey = ''
-    let yKey = ''
+    let xlimKey = ''
+    let ylimKey = ''
     if (req.query.key === 'rawImage') {
         groupPath = req.query.key + 'BinCounts'
-        xKey = 'xBinLimitsInMillimeters'
-        yKey = 'yBinLimitsInMillimeters'
+        xlimKey = 'xBinLimitsInMillimeters'
+        ylimKey = 'yBinLimitsInMillimeters'
         xlabel = 'coordinate (mm)'
         ylabel = 'coordinate (mm)'
     }
     if (req.query.key === 'filteredImage') {
         groupPath = req.query.key + 'BinCounts'
-        xKey = 'xBinLimitsInMillimeters'
-        yKey = 'yBinLimitsInMillimeters'
+        xlimKey = 'xBinLimitsInMillimeters'
+        ylimKey = 'yBinLimitsInMillimeters'
         xlabel = 'coordinate (mm)'
         ylabel = 'coordinate (mm)'
     }
     if (req.query.key === 'horizontalProjectionHistograms') {
         groupPath = req.query.key + 'BinCounts'
-        xKey = 'xBinLimitsInMillimeters'
-        yKey = 'yBinLimitsInNanoseconds'
+        xlimKey = 'xBinLimitsInMillimeters'
+        ylimKey = 'yBinLimitsInNanoseconds'
         xlabel = 'coordinate (mm)'
         ylabel = 'tof (ns)'
     }
     const group = /** @type {import('h5wasm').Group} */(f.get(groupPath))
-    const xlims = /** @type {number[]} */(group.attrs[xKey].value)
-    if (xlims.length !== 2) {
+    const xlim = Array.from(/** @type {Float64Array} */(group.attrs[xlimKey].value))
+    if (xlim.length !== 2) {
         res.status(404).send()
         f.close()
         return
     }
-    const ylims = /** @type {number[]} */(group.attrs[yKey].value)
-    if (ylims.length !== 2) {
+    const ylim = Array.from(/** @type {Float64Array} */(group.attrs[ylimKey].value))
+    if (ylim.length !== 2) {
         res.status(404).send()
         f.close()
         return
     }
 
     res.json({
-        xLimInData: xlims,
-        yLimInData: ylims,
+        xlim: xlim,
+        ylim: ylim,
         xlabel: xlabel,
         ylabel: ylabel,
         shape: /** @type {number[]} */(dataset.shape),
