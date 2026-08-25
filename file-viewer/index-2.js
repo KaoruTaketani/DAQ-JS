@@ -1,25 +1,15 @@
 import { readFile } from 'fs'
 import { Server } from 'http'
 import { basename } from 'path'
-import AttributesHandler from './AttributesHandler.js'
-import FilesHandler from './FilesHandler.js'
-import NumEventsHandler from './NumEventsHandler.js'
-import RootHandler from './RootHandler.js'
-import Variables from './Variables.js'
-import XYHandler from './XYHandler.js'
-import WaveformHandler from './WaveformHandler.js'
 import ImageHandler from './ImageHandler.js'
-import TableHandler from './TableHandler.js'
+import Variables from './Variables.js'
+import WaveformHandler from './WaveformHandler.js'
+import XYHandler from './XYHandler.js'
 
 const variables = new Variables()
-new FilesHandler(variables)
-new NumEventsHandler(variables)
-new AttributesHandler(variables)
-new RootHandler(variables)
 new XYHandler(variables)
 new WaveformHandler(variables)
 new ImageHandler(variables)
-new TableHandler(variables)
 
 const httpServer = new Server()
 const responses = new Map()
