@@ -23,6 +23,8 @@ export default class {
                 return
             }
             const hdf5FileNames = this._fileNames.filter(fileName => fileName.endsWith('.h5'))
+            if (hdf5FileNames.length === 0) return
+            
             fetch(`/attributes?path=${this._path}&${hdf5FileNames.map(fileName => `fileName=${fileName}`).join('&')}`).then(response => {
                 response.text().then(text => {
                     // variables.tableInnerHTML.assign(text)
