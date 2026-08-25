@@ -65,6 +65,12 @@ router.get('/mtimes.js', (_req, res) => {
 router.get('/eye.js', (_req, res) => {
     res.sendFile(join(import.meta.dirname, '../lib/eye.js'))
 })
+router.get('/stairs.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/stairs.js'))
+})
+router.get('/xlabel.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/xlabel.js'))
+})
 
 
 export default router;

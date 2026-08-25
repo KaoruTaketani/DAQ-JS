@@ -5,6 +5,7 @@ import FilesRouter from './FilesRouter.js'
 import TableRouter from './TableRouter.js'
 import NumEventsRouter from './NumEventsRouter.js'
 import XYRouter from './XYRouter.js'
+import WaveformRouter from './WaveformRouter.js'
 import LibRouter from './LibRouter.js'
 
 const app = express()
@@ -14,6 +15,7 @@ app.use('/', AttributesRouter)
 app.use('/', FilesRouter)
 app.use('/', TableRouter)
 app.use('/', NumEventsRouter)
+app.use('/', WaveformRouter)
 app.use('/', XYRouter)
 app.use('/lib',LibRouter)
 app.use(express.static('./'))
