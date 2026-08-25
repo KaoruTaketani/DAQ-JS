@@ -25,6 +25,7 @@ app.use(express.static('./'))
 
 process.env.hdf5Path = '../../hdf5'
 process.env.edrPath = '../../edr'
+process.env.jsonPath = '../../../Library/CloudStorage/Dropbox/JSON/'
 
 app.listen(80, () => {
   console.log('Server is running on http://localhost')
