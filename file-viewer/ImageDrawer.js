@@ -119,28 +119,37 @@ export default class {
                 cmin = parseFloat(this._cminValue),
                 cmax = parseFloat(this._cmaxValue)
 
-            const clim = this._cScale === 'log'
-                ? [Math.log10(cmin), Math.log10(cmax)]
-                : [cmin, cmax]
-            const dataset = this._cScale === 'log'
-                ? { shape: this._dataset.shape, data: new Uint32Array(this._dataset.data).map(v => Math.log10(v)) }
-                : { shape: this._dataset.shape, data: this._dataset.data }
-
-            imcrop(imagesc(dataset, clim), [
-                dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
-                dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
-                dataset.shape[1] * (xmax - xmin) / dx,
-                dataset.shape[0] * (ymax - ymin) / dy
-            ]).then(im => {
-                this._canvasContext.drawImage(
-                    im,
+            if (this._cScale === 'log') {
+                this._canvasContext.clearRect(
                     (560 * 0.13) * 400 / 560,
                     (420 * (1 - 0.11 - 0.815)) * 300 / 420,
                     (560 * 0.775) * 400 / 560,
                     (420 * 0.815) * 300 / 420
                 )
-                variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
-            })
+                const x = (560 * (0.13 + 0.775) / 2) * 400 / 560
+                const y = (420 * 0.445) * 300 / 420
+
+                this._canvasContext.font = '20px sans-serif'
+                this._canvasContext.textBaseline = 'middle'
+                this._canvasContext.textAlign = 'center'
+                this._canvasContext.fillText('not implemented yet', x, y)
+            } else {
+                imcrop(imagesc(this._dataset, [cmin, cmax]), [
+                    this._dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
+                    this._dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
+                    this._dataset.shape[1] * (xmax - xmin) / dx,
+                    this._dataset.shape[0] * (ymax - ymin) / dy
+                ]).then(im => {
+                    this._canvasContext.drawImage(
+                        im,
+                        (560 * 0.13) * 400 / 560,
+                        (420 * (1 - 0.11 - 0.815)) * 300 / 420,
+                        (560 * 0.775) * 400 / 560,
+                        (420 * 0.815) * 300 / 420
+                    )
+                    variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
+                })
+            }
         }
     }
 }

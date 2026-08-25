@@ -31,13 +31,16 @@ export default class {
                 cmax = parseFloat(this._cmaxValue)
             if (Number.isNaN(cmin)) return
             if (Number.isNaN(cmax)) return
-            // convert 0..255 by clim, assuming c is grayscale
-            const clim = this._cScale === 'log'
-                ? [Math.log10(cmin), Math.log10(cmax)]
-                : [cmin, cmax]
-            const c = clim[0] + pixelValue / 255 * (clim[1] - clim[0])
 
-            variables.divInnerText.assign(`cursor: {x: ${this._currentPoint[0]}, y: ${this._currentPoint[1]}, c: ${c}}`)
+            if (this._cScale === 'log') {
+                const c = cmin + 10 ** (pixelValue / 255)
+
+                variables.divInnerText.assign(`cursor: {x: ${this._currentPoint[0]}, y: ${this._currentPoint[1]}, c: ${c}}`)
+            } else {
+                const c = cmin + pixelValue / 255 * (cmax - cmin)
+
+                variables.divInnerText.assign(`cursor: {x: ${this._currentPoint[0]}, y: ${this._currentPoint[1]}, c: ${c}}`)
+            }
         }
     }
 }
