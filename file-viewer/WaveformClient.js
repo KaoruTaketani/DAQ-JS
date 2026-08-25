@@ -2,7 +2,7 @@ import getCurrentPoint from "../lib/getCurrentPoint.js";
 import getXLim from "../lib/getXLim.js";
 import getYLim from "../lib/getYLim.js";
 import isbetween from "../lib/isbetween.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import FilesGetter from "./FilesGetter.js";
 import PathMaker from "./PathMaker.js";
 import WaveformDrawer from "./WaveformDrawer.js";
 import WaveformGetter from "./WaveformGetter.js";
@@ -10,7 +10,7 @@ import WaveformVariables from "./WaveformVariables.js";
 
 const variables = new WaveformVariables()
 new PathMaker(variables)
-new FilesGetterHDF5(variables)
+new FilesGetter(variables)
 new WaveformDrawer(variables)
 new WaveformGetter(variables)
     ;
@@ -174,4 +174,5 @@ new WaveformGetter(variables)
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
+variables.extname.assign('h5')
 variables.path.assign('/')

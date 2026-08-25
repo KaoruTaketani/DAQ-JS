@@ -3,7 +3,7 @@ import getXLim from "../lib/getXLim.js";
 import getYLim from "../lib/getYLim.js";
 import isbetween from "../lib/isbetween.js";
 import ImageDivMaker from "./ImageDivMaker.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import FilesGetter from "./FilesGetter.js";
 import ImageDrawer from "./ImageDrawer.js";
 import ImageGetter from "./ImageGetter.js";
 import ImageVariables from "./ImageVariables.js";
@@ -11,7 +11,7 @@ import PathMaker from "./PathMaker.js";
 
 const variables = new ImageVariables()
 new PathMaker(variables)
-new FilesGetterHDF5(variables)
+new FilesGetter(variables)
 new ImageDrawer(variables)
 new ImageGetter(variables)
 new ImageDivMaker(variables)
@@ -247,5 +247,6 @@ new ImageDivMaker(variables)
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
+variables.extname.assign('h5')
 variables.path.assign('/')
 

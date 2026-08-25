@@ -1,4 +1,4 @@
-import FilesGetterEDR from "./FilesGetterEDR.js";
+import FilesGetter from "./FilesGetter.js";
 import NumEventsGetter from "./NumEventsGetter.js";
 import PathMaker from "./PathMaker.js";
 import TableGetter from "./TableGetter.js";
@@ -8,7 +8,7 @@ const variables = new TableVariables()
 new PathMaker(variables)
 new TableGetter(variables)
 new NumEventsGetter(variables)
-new FilesGetterEDR(variables)
+new FilesGetter(variables)
     ;
 (element => {
     element.size = 20
@@ -76,4 +76,5 @@ new FilesGetterEDR(variables)
 
 variables.offset.assign(0)
 variables.offsetValue.assign('0')
+variables.extname.assign('edr')
 variables.path.assign('/')

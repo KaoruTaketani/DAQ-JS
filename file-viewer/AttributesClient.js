@@ -1,12 +1,12 @@
 import AttributesGetter from "./AttributesGetter.js";
 import AttributesVariables from "./AttributesVariables.js";
-import FilesGetterHDF5 from "./FilesGetterHDF5.js";
+import FilesGetter from "./FilesGetter.js";
 import PathMaker from "./PathMaker.js";
 
 const variables = new AttributesVariables()
 new PathMaker(variables)
 new AttributesGetter(variables)
-new FilesGetterHDF5(variables)
+new FilesGetter(variables)
     ;
 (element => {
     element.size = 20
@@ -119,5 +119,6 @@ new FilesGetterHDF5(variables)
     variables.tableElement.assign(element)
 })(document.body.appendChild(document.createElement('table')));
 
+variables.extname.assign('h5')
 variables.path.assign('/')
 

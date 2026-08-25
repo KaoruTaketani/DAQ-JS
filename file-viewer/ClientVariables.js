@@ -7,6 +7,7 @@ export default class {
 
         this.selectInnerHTML = new ListenableString()
         this.path = new ListenableString()
+        this.extname = new ListenableString()
         this.directoryName = new ListenableString()
         this.divInnerText = new ListenableString()
     }
