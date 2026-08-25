@@ -108,6 +108,9 @@ router.get('/gauss1.js', (_req, res) => {
 router.get('/trapz.js', (_req, res) => {
     res.sendFile(join(import.meta.dirname, '../lib/trapz.js'))
 })
+router.get('/deg2rad.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/deg2rad.js'))
+})
 
 
 export default router;
