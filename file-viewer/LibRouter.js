@@ -71,6 +71,21 @@ router.get('/stairs.js', (_req, res) => {
 router.get('/xlabel.js', (_req, res) => {
     res.sendFile(join(import.meta.dirname, '../lib/xlabel.js'))
 })
+router.get('/ylabel.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/ylabel.js'))
+})
+router.get('/imcrop.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/imcrop.js'))
+})
+router.get('/imagesc.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/imagesc.js'))
+})
+router.get('/rescale.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/rescale.js'))
+})
+router.get('/sub2ind.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/sub2ind.js'))
+})
 
 
 export default router;
