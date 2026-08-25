@@ -6,6 +6,13 @@ await h5wasm.ready;
 const router = express.Router();
 
 router.get('/image', (req, res) => {
+    if (!process.env.hdf5Path
+        || typeof req.query.path !== 'string'
+        || typeof req.query.fileName !== 'string') {
+        res.status(404).send()
+        return
+    }
+
     let f = new h5wasm.File(join(process.env.hdf5Path, req.query.path, req.query.fileName), "r");
     /** @type {import('h5wasm').Dataset|null} */
     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(req.query.key + 'BinCounts'))
@@ -17,7 +24,7 @@ router.get('/image', (req, res) => {
 
     let xlabel
     let ylabel
-    let groupPath
+    let groupPath = ''
     let xKey = ''
     let yKey = ''
     if (req.query.key === 'rawImage') {
@@ -41,24 +48,14 @@ router.get('/image', (req, res) => {
         xlabel = 'coordinate (mm)'
         ylabel = 'tof (ns)'
     }
-
-    if (xKey === '') {
-        res.status(404).send()
-        f.close()
-        return
-    }
-    const xlims = /** @type {number[]} */(f.get(groupPath).attrs[xKey].value)
+    const group = /** @type {import('h5wasm').Group} */(f.get(groupPath))
+    const xlims = /** @type {number[]} */(group.attrs[xKey].value)
     if (xlims.length !== 2) {
         res.status(404).send()
         f.close()
         return
     }
-    if (yKey === '') {
-        res.status(404).send()
-        f.close()
-        return
-    }
-    const ylims = /** @type {number[]} */(f.get(groupPath).attrs[yKey].value)
+    const ylims = /** @type {number[]} */(group.attrs[yKey].value)
     if (ylims.length !== 2) {
         res.status(404).send()
         f.close()

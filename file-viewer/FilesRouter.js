@@ -14,6 +14,15 @@ const numDigit = (/** @type {string} */c, /** @type {number} */ i) => {
 
 
 router.get('/files', (req, res) => {
+    if (!process.env.edrPath
+        || !process.env.hdf5Path
+        || typeof req.query.path !== 'string'
+        || typeof req.query.extname !== 'string') {
+        res.status(404).send()
+        return
+    }
+
+
     const files = readdirSync(join(req.query.extname === 'edr' ? process.env.edrPath : process.env.hdf5Path, req.query.path), { withFileTypes: true })
 
     if (req.query.path === '/') {

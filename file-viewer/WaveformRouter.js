@@ -7,6 +7,13 @@ await h5wasm.ready;
 const router = express.Router();
 
 router.get('/waveform', (req, res) => {
+    if (!process.env.hdf5Path
+        || typeof req.query.path !== 'string'
+        || typeof req.query.fileName !== 'string') {
+        res.status(404).send()
+        return
+    }
+
     // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
     let f = new h5wasm.File(join(process.env.hdf5Path, req.query.path, req.query.fileName), "r")
 
@@ -19,7 +26,7 @@ router.get('/waveform', (req, res) => {
     }
     const y = Array.from(/** @type {Float64Array} */(dataset.value))
     let xlabel
-    let groupPath
+    let groupPath = ''
     let attrKey = ''
     if (req.query.key === 'horizontalProjection') {
         groupPath = req.query.key + 'BinCounts'
@@ -51,7 +58,8 @@ router.get('/waveform', (req, res) => {
         f.close()
         return
     }
-    const lims = /** @type {number[]} */(f.get(groupPath).attrs[attrKey].value)
+    const group =/** @type {import('h5wasm').Group} */(f.get(groupPath))
+    const lims = /** @type {number[]} */(group.attrs[attrKey].value)
     if (lims.length !== 2) {
         res.status(404).send()
         f.close()

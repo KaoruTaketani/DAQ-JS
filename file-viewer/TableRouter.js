@@ -6,6 +6,14 @@ import isbetween from '../lib/isbetween.js';
 const router = express.Router();
 
 router.get('/table', (req, res) => {
+    if (!process.env.edrPath
+        || typeof req.query.offset !== 'string'
+        || typeof req.query.path !== 'string'
+        || typeof req.query.fileName !== 'string') {
+        res.status(404).send()
+        return
+    }
+
     const offset = parseInt(req.query.offset)
     const fd = openSync(join(process.env.edrPath, req.query.path, req.query.fileName), 'r')
     const chunk = new Uint8Array(8 * 25)
