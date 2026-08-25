@@ -7,7 +7,7 @@ import NumEventsRouter from './NumEventsRouter.js'
 import XYRouter from './XYRouter.js'
 import WaveformRouter from './WaveformRouter.js'
 import ImageRouter from './ImageRouter.js'
-import HTMLRouter from './HTMLXRouter.js'
+import HTMLXRouter from './HTMLXRouter.js'
 
 const app = express()
 
@@ -19,7 +19,7 @@ app.use('/', NumEventsRouter)
 app.use('/', WaveformRouter)
 app.use('/', XYRouter)
 app.use('/', ImageRouter)
-app.use('/', HTMLRouter)
+app.use('/', HTMLXRouter)
 app.use('/lib', express.static('../lib'))
 app.use(express.static('./'))
 
