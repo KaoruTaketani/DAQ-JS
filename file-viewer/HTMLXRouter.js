@@ -3,17 +3,23 @@ import { basename } from 'path'
 
 const router = express.Router();
 
-const innerHTML = reqPath => [
-    '<html>',
-    '<head>',
-    '    <meta charset="utf-8">',
-    '</head>',
-    '<body>',
-    `    <script type="module" src="./${basename(reqPath, '.html')}Client.js">`,
-    `    </script>`,
-    '</body>',
-    '</html>'
-].join('\n')
+/**
+ * @param {string} reqPath 
+ * @returns {string}
+ */
+function innerHTML(reqPath) {
+    return [
+        '<html>',
+        '<head>',
+        '    <meta charset="utf-8">',
+        '</head>',
+        '<body>',
+        `    <script type="module" src="./${basename(reqPath, '.html')}Client.js">`,
+        `    </script>`,
+        '</body>',
+        '</html>'
+    ].join('\n')
+}
 
 router.get('/Attributes.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Image.html', (req, res) => { res.send(innerHTML(req.path)) })
