@@ -85,12 +85,14 @@ variables.divInnerText = new ListenableString();
                 element.innerHTML = event.data
             }
             element.onmousemove = ev => {
+                if (!element.firstChild) return
+
                 const [x, y] = getCurrentPoint(element.firstChild, ev)
                 const xLim = getXLim(element.firstChild)
                 const yLim = getYLim(element.firstChild)
 
                 if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
-                    variables.divInnerText.assign(`cursor: undefined`) 
+                    variables.divInnerText.assign(`cursor: undefined`)
                 } else {
                     variables.divInnerText.assign(`cursor: {x: ${x}, y: ${y}}`)
                 }

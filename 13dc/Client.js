@@ -77,6 +77,8 @@ variables.divInnerText = new ListenableString();
         element.innerHTML = event.data
     }
     element.onmousemove = ev => {
+        if (!element.firstChild) return
+
         const [x, y] = getCurrentPoint(element.firstChild, ev)
         const xLim = getXLim(element.firstChild)
         const yLim = getYLim(element.firstChild)
