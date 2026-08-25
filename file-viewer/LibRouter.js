@@ -84,6 +84,30 @@ router.get('/rescale.js', (_req, res) => {
 router.get('/sub2ind.js', (_req, res) => {
     res.sendFile(join(import.meta.dirname, '../lib/sub2ind.js'))
 })
+router.get('/colon.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/colon.js'))
+})
+router.get('/min.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/min.js'))
+})
+router.get('/max.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/max.js'))
+})
+router.get('/std.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/std.js'))
+})
+router.get('/mean.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/mean.js'))
+})
+router.get('/linspace.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/linspace.js'))
+})
+router.get('/gauss1.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/gauss1.js'))
+})
+router.get('/trapz.js', (_req, res) => {
+    res.sendFile(join(import.meta.dirname, '../lib/trapz.js'))
+})
 
 
 export default router;

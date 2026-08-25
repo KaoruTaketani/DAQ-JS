@@ -30,6 +30,20 @@ router.get('/Image.html', (_req, res) => {
     ].join('\n'))
 })
 
+router.get('/Slit.html', (_req, res) => {
+    res.send([
+        '<html>',
+        '<head>',
+        '    <meta charset="utf-8">',
+        '</head>',
+        '<body>',
+        `    <script type="module" src="./SlitClient.js">`,
+        `    </script>`,
+        '</body>',
+        '</html>'
+    ].join('\n'))
+})
+
 router.get('/Table.html', (_req, res) => {
     res.send([
         '<html>',
