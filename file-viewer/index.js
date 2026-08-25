@@ -7,7 +7,9 @@ import NumEventsRouter from './NumEventsRouter.js'
 import XYRouter from './XYRouter.js'
 import WaveformRouter from './WaveformRouter.js'
 import ImageRouter from './ImageRouter.js'
+import HTMLRouter from './HTMLRouter.js'
 import LibRouter from './LibRouter.js'
+
 
 const app = express()
 
@@ -19,7 +21,8 @@ app.use('/', NumEventsRouter)
 app.use('/', WaveformRouter)
 app.use('/', XYRouter)
 app.use('/', ImageRouter)
-app.use('/lib',LibRouter)
+app.use('/', HTMLRouter)
+app.use('/lib', LibRouter)
 app.use(express.static('./'))
 
 process.env.hdf5Path = '../../hdf5'

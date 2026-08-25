@@ -5,20 +5,6 @@ await h5wasm.ready;
 
 const router = express.Router();
 
-router.get('/Attributes.html', (_req, res) => {
-    res.send([
-        '<html>',
-        '<head>',
-        '    <meta charset="utf-8">',
-        '</head>',
-        '<body>',
-        `    <script type="module" src="./AttributesClient.js">`,
-        `    </script>`,
-        '</body>',
-        '</html>'
-    ].join('\n'))
-})
-
 router.get('/attributes', (req, res) => {
     if (!Array.isArray(req.query.fileName)) {
         // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES

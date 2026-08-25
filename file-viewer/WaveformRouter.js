@@ -6,20 +6,6 @@ await h5wasm.ready;
 
 const router = express.Router();
 
-router.get('/Waveform.html', (_req, res) => {
-    res.send([
-        '<html>',
-        '<head>',
-        '    <meta charset="utf-8">',
-        '</head>',
-        '<body>',
-        `    <script type="module" src="./WaveformClient.js">`,
-        `    </script>`,
-        '</body>',
-        '</html>'
-    ].join('\n'))
-})
-
 router.get('/waveform', (req, res) => {
     // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
     let f = new h5wasm.File(join(process.env.hdf5Path, req.query.path, req.query.fileName), "r")

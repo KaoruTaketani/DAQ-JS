@@ -5,20 +5,6 @@ import isbetween from '../lib/isbetween.js';
 
 const router = express.Router();
 
-router.get('/Table.html', (_req, res) => {
-    res.send([
-        '<html>',
-        '<head>',
-        '    <meta charset="utf-8">',
-        '</head>',
-        '<body>',
-        `    <script type="module" src="./TableClient.js">`,
-        `    </script>`,
-        '</body>',
-        '</html>'
-    ].join('\n'))
-})
-
 router.get('/table', (req, res) => {
     const offset = parseInt(req.query.offset)
     const fd = openSync(join(process.env.edrPath, req.query.path, req.query.fileName), 'r')

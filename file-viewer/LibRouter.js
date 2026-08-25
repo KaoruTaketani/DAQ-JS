@@ -1,7 +1,5 @@
 import express from 'express';
-import h5wasm from "h5wasm/node";
 import { join } from 'path';
-await h5wasm.ready;
 
 const router = express.Router();
 
