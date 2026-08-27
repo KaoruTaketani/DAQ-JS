@@ -33,7 +33,12 @@ export default class {
             if (Number.isNaN(cmax)) return
 
             if (this._cScale === 'log') {
-                const c = cmin + 10 ** (pixelValue / 255)
+                // as described in ImageDrawer.js
+                // data in 0..255 was converted to c * log2(1+data)
+                // where c is 255/8
+                // so the opposite, solve pixelValue == c * log2(1+data)
+                const data = 2 ** (pixelValue / (255 / 8)) - 1
+                const c = cmin + data / 255 * (cmax - cmin)
 
                 variables.divInnerText.assign(`cursor: {x: ${this._currentPoint[0]}, y: ${this._currentPoint[1]}, c: ${c}}`)
             } else {
