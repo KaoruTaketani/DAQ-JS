@@ -1,11 +1,9 @@
 import axes from '../lib/axes.js'
+import diff from '../lib/diff.js'
+import imagesc from '../lib/imagesc.js'
+import imcrop from '../lib/imcrop.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
-import imcrop from '../lib/imcrop.js'
-import imagesc from '../lib/imagesc.js'
-import diff from '../lib/diff.js'
-import polyfit from '../lib/polyfit.js'
-import polyval from '../lib/polyval.js'
 
 export default class {
     /**
