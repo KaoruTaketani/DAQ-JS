@@ -4,6 +4,8 @@ import ylabel from '../lib/ylabel.js'
 import imcrop from '../lib/imcrop.js'
 import imagesc from '../lib/imagesc.js'
 import diff from '../lib/diff.js'
+import polyfit from '../lib/polyfit.js'
+import polyval from '../lib/polyval.js'
 
 export default class {
     /**
@@ -120,19 +122,34 @@ export default class {
                 cmax = parseFloat(this._cmaxValue)
 
             if (this._cScale === 'log') {
-                this._canvasContext.clearRect(
-                    (560 * 0.13) * 400 / 560,
-                    (420 * (1 - 0.11 - 0.815)) * 300 / 420,
-                    (560 * 0.775) * 400 / 560,
-                    (420 * 0.815) * 300 / 420
-                )
-                const x = (560 * (0.13 + 0.775) / 2) * 400 / 560
-                const y = (420 * 0.445) * 300 / 420
+                // imagesc return { data: a, width: width, height: height }
+                // data range is [0,255]
+                const im = imagesc(this._dataset, [cmin, cmax])
+                for (let j = 0; j < im.height; ++j) {
+                    for (let i = 1; i < im.width + 1; ++i) {
+                        // im.data[j * (width + 1)] is filter type, which is zero
+                        const index = j * (im.width + 1) + i
+                        // convert data in 0..255 to c * log2(1+data)
+                        // where c is 255/8
+                        im.data[index] = Math.floor(255 / 8 * Math.log2(im.data[index] + 1))
+                    }
+                }
 
-                this._canvasContext.font = '20px sans-serif'
-                this._canvasContext.textBaseline = 'middle'
-                this._canvasContext.textAlign = 'center'
-                this._canvasContext.fillText('not implemented yet', x, y)
+                imcrop(im, [
+                    this._dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
+                    this._dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
+                    this._dataset.shape[1] * (xmax - xmin) / dx,
+                    this._dataset.shape[0] * (ymax - ymin) / dy
+                ]).then(im => {
+                    this._canvasContext.drawImage(
+                        im,
+                        (560 * 0.13) * 400 / 560,
+                        (420 * (1 - 0.11 - 0.815)) * 300 / 420,
+                        (560 * 0.775) * 400 / 560,
+                        (420 * 0.815) * 300 / 420
+                    )
+                    variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
+                })
             } else {
                 imcrop(imagesc(this._dataset, [cmin, cmax]), [
                     this._dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
