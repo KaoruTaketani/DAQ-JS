@@ -1,11 +1,9 @@
-import { close, open, read, statSync } from 'fs'
-import { File, ready } from 'h5wasm/node'
-import { join } from 'path'
-import Operator from './Operator.js'
 import colon from '../lib/colon.js'
+import minus from '../lib/minus.js'
 import polyfit from '../lib/polyfit.js'
 import polyval from '../lib/polyval.js'
-import minus from '../lib/minus.js'
+import sum from '../lib/sum.js'
+import Operator from './Operator.js'
 
 export default class extends Operator {
     /**
@@ -53,6 +51,7 @@ export default class extends Operator {
 
             variables.background.assign(background)
             variables.signal.assign(signal)
+            variables.signalSum.assign(sum(signal))
         }
     }
 }

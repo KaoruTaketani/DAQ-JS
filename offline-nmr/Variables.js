@@ -3,6 +3,7 @@ import ListenableString from './ListenableString.js'
 import ParameterArray from './ParameterArray.js'
 import ParameterString from './ParameterString.js'
 import WritableDataset from './WritableDataset.js'
+import WritableNumber from './WritableNumber.js'
 
 export default class {
     constructor() {
@@ -22,6 +23,8 @@ export default class {
         this.background = new WritableDataset('background', this.hdf5File)
 
         this.maskLimits = new ParameterArray('maskLimits', this.hdf5File, this.parameters)
+
+        this.signalSum = new WritableNumber('signalSum', this.hdf5File)
 
         this.projectName = new ListenableString()
         this.hdf5FileName = new ListenableString()
