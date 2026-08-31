@@ -2,10 +2,12 @@ import JSONFileReader from "./JSONFileReader.js"
 import SIGBReader from "./SIGBReader.js"
 import Variables from "./Variables.js"
 import colon from '../lib/colon.js'
+import BackgroundFitter from "./BackgroundFitter.js"
 
 const variables = new Variables()
 
 new SIGBReader(variables)
+new BackgroundFitter(variables)
 new JSONFileReader(variables)
 
 // edit jsonPath.js to set jsonPath

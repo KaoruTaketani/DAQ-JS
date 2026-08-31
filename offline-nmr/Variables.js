@@ -12,12 +12,14 @@ export default class {
         this.jsonFileNames = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<Float64Array>} */
-        this.waveforms = new ListenableObject()
 
         // float64array
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.meanWaveform = new WritableDataset('meanWaveform', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        this.signal = new WritableDataset('signal', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        this.background = new WritableDataset('background', this.hdf5File)
 
         this.maskLimits = new ParameterArray('maskLimits', this.hdf5File, this.parameters)
 
