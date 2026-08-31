@@ -9,6 +9,8 @@ router.get('/', (_req, res) => {
         '    <meta charset="utf-8">',
         '</head>',
         '<body>',
+        `    <h2>SIGB</h2>`,
+        `    <p><a href="./Headers.html">Headers</a></p>`,
         `    <h2>EDR</h2>`,
         `    <p><a href="./Table.html">Table</a></p>`,
         `    <h2>JSON</h2>`,

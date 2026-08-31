@@ -26,6 +26,7 @@ router.get('/files', (req, res) => {
     if (req.query.extname === 'edr') basePath = process.env.edrPath
     if (req.query.extname === 'h5') basePath = process.env.hdf5Path
     if (req.query.extname === 'json') basePath = process.env.jsonPath
+    if (req.query.extname === 'sigb') basePath = process.env.sigbPath
 
     const files = readdirSync(join(basePath, req.query.path), { withFileTypes: true })
 
