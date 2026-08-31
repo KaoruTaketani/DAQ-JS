@@ -10,6 +10,7 @@ import ImageRouter from './ImageRouter.js'
 import ObjectsRouter from './ObjectsRouter.js'
 import HTMLXRouter from './HTMLXRouter.js'
 import HeadersRouter from './HeadersRouter.js'
+import WaveformArrayRouter from './WaveformArrayRouter.js'
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.use('/', FilesRouter)
 app.use('/', TableRouter)
 app.use('/', NumEventsRouter)
 app.use('/', WaveformRouter)
+app.use('/', WaveformArrayRouter)
 app.use('/', XYRouter)
 app.use('/', ImageRouter)
 app.use('/', ObjectsRouter)

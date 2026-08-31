@@ -1,8 +1,6 @@
 import express from 'express';
-import { join } from 'path'
-import h5wasm from "h5wasm/node"
-import { open, read, close } from 'fs';
-await h5wasm.ready;
+import { close, open, read } from 'fs';
+import { join } from 'path';
 
 const router = express.Router();
 
@@ -19,7 +17,7 @@ router.get('/headers', (req, res) => {
         open(filePath, 'r', (err, fd) => {
             if (err) throw err
 
-            read(fd, buffer, { length: buffer.length }, (err, _bytesRead, buffer) => {
+            read(fd, buffer, (err, _bytesRead, buffer) => {
                 if (err) throw err
 
                 close(fd)
@@ -50,7 +48,7 @@ router.get('/headers', (req, res) => {
                 open(filePath, 'r', (err, fd) => {
                     if (err) throw err
 
-                    read(fd, buffer, { length: buffer.length }, (err, _bytesRead, buffer) => {
+                    read(fd, buffer, (err, _bytesRead, buffer) => {
                         if (err) throw err
 
                         close(fd)
