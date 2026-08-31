@@ -24,11 +24,17 @@ export default class {
             }
             const sigbFileNames = this._fileNames.filter(fileName => fileName.endsWith('.sigb'))
             if (sigbFileNames.length === 0) return
-            
+
             fetch(`/headers?path=${this._path}&${sigbFileNames.map(fileName => `fileName=${fileName}`).join('&')}`).then(response => {
                 response.text().then(text => {
                     // variables.tableInnerHTML.assign(text)
-                    this._tableElement.innerHTML = text
+                    let header = {}
+                    text.split('\n').forEach(data => {
+                        const tmp = data.split('=')
+                        header[tmp[0]] = tmp[1]
+                    })
+                    this._tableElement.innerHTML = JSON.stringify(header)
+
 
                     // variables.tHeadElement.assign(this._tableElement.tHead)
                     // variables.tBodyElement.assign(this._tableElement.tBodies[0])
