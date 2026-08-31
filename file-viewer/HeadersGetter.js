@@ -27,13 +27,18 @@ export default class {
 
             fetch(`/headers?path=${this._path}&${sigbFileNames.map(fileName => `fileName=${fileName}`).join('&')}`).then(response => {
                 response.text().then(text => {
-                    // variables.tableInnerHTML.assign(text)
-                    let header = {}
-                    text.split('\n').forEach(data => {
-                        const tmp = data.split('=')
-                        header[tmp[0]] = tmp[1]
-                    })
-                    this._tableElement.innerHTML = JSON.stringify(header)
+                    const headers = JSON.parse(text)
+                    if (!Array.isArray(headers)) {
+                        // variables.tableInnerHTML.assign(text)
+                        // let header = {}
+                        // headers.split('\n').forEach(data => {
+                        //     const tmp = data.split('=')
+                        //     header[tmp[0]] = tmp[1]
+                        // })
+                        this._tableElement.innerHTML = text
+                    } else {
+                        this._tableElement.innerHTML = text
+                    }
 
 
                     // variables.tHeadElement.assign(this._tableElement.tHead)

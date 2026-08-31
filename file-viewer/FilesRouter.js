@@ -17,6 +17,7 @@ router.get('/files', (req, res) => {
     if (!process.env.edrPath
         || !process.env.hdf5Path
         || !process.env.jsonPath
+        || !process.env.sigbPath
         || typeof req.query.path !== 'string'
         || typeof req.query.extname !== 'string') {
         res.status(404).send()
