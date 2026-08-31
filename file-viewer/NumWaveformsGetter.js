@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./TableVariables.js').default} variables 
+     * @param {import('./WaveformArrayVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
@@ -24,7 +24,8 @@ export default class {
                     variables.divInnerText.assign('failed numEvents')
                 } else {
                     response.text().then(text => {
-                        variables.divInnerText.assign(text)
+                        console.log(text)
+                        variables.numWaveformsInnerText.assign(text)
                     })
                 }
             })

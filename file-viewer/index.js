@@ -4,6 +4,7 @@ import AttributesRouter from './AttributesRouter.js'
 import FilesRouter from './FilesRouter.js'
 import TableRouter from './TableRouter.js'
 import NumEventsRouter from './NumEventsRouter.js'
+import NumWaveformsRouter from './NumWaveformsRouter.js'
 import XYRouter from './XYRouter.js'
 import WaveformRouter from './WaveformRouter.js'
 import ImageRouter from './ImageRouter.js'
@@ -19,6 +20,7 @@ app.use('/', AttributesRouter)
 app.use('/', FilesRouter)
 app.use('/', TableRouter)
 app.use('/', NumEventsRouter)
+app.use('/', NumWaveformsRouter)
 app.use('/', WaveformRouter)
 app.use('/', WaveformArrayRouter)
 app.use('/', XYRouter)

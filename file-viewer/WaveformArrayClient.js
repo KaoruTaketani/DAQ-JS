@@ -7,10 +7,12 @@ import PathMaker from "./PathMaker.js";
 import WaveformDrawer from "./WaveformDrawer.js";
 import WaveformArrayGetter from "./WaveformArrayGetter.js";
 import WaveformArrayVariables from "./WaveformArrayVariables.js";
+import NumWaveformsGetter from "./NumWaveformsGetter.js";
 
 const variables = new WaveformArrayVariables()
 new PathMaker(variables)
 new FilesGetter(variables)
+new NumWaveformsGetter(variables)
 new WaveformDrawer(variables)
 new WaveformArrayGetter(variables)
     ;
@@ -57,6 +59,11 @@ new WaveformArrayGetter(variables)
 (element => {
     element.style.marginLeft = '208px'
     variables.divInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
+
+(element => {
+    element.style.marginLeft = '208px'
+    variables.numWaveformsInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
 (element => {

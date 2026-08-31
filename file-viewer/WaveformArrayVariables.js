@@ -6,6 +6,7 @@ export default class extends SVGVariables {
         super()
 
         this.offsetValue = new ListenableString()
+        this.numWaveformsInnerText = new ListenableString()
     }
 }
 
