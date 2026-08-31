@@ -6,9 +6,9 @@ import FilesGetter from "./FilesGetter.js";
 import PathMaker from "./PathMaker.js";
 import WaveformDrawer from "./WaveformDrawer.js";
 import WaveformArrayGetter from "./WaveformArrayGetter.js";
-import WaveformVariables from "./WaveformVariables.js";
+import WaveformArrayVariables from "./WaveformArrayVariables.js";
 
-const variables = new WaveformVariables()
+const variables = new WaveformArrayVariables()
 new PathMaker(variables)
 new FilesGetter(variables)
 new WaveformDrawer(variables)
@@ -64,25 +64,20 @@ new WaveformArrayGetter(variables)
     element.style.marginLeft = '200px';
 
     (element => {
-        element.innerText = 'key';
+        element.innerText = 'offset';
     })(element.appendChild(document.createElement('legend')));
 
     (element => {
+        element.type = 'number'
+        element.value = '0'
+        element.min = '0'
         element.style.display = 'flex'
         element.style.marginTop = '8px'
         element.style.width = '200px'
         element.addEventListener('change', () => {
-            variables.keyText.assign(element.options[element.selectedIndex].text)
+            variables.offsetValue.assign(element.value)
         });
-        [
-            '0',
-            '1',
-            '2',
-            '3',
-            '4'
-        ].forEach(key => { element.add(new Option(key)) })
-        element.value = ''
-    })(element.appendChild(document.createElement('select')));
+    })(element.appendChild(document.createElement('input')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
@@ -142,16 +137,6 @@ new WaveformArrayGetter(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
-    element.innerText = 'ylog';
-    (element => {
-        element.type = 'checkbox'
-        element.addEventListener('change', () => {
-            variables.yScale.assign(element.checked ? 'log' : 'linear')
-        })
-    })(element.appendChild(document.createElement('input')))
-})(document.body.appendChild(document.createElement('label')));
-
-(element => {
     element.style.marginLeft = '208px'
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
@@ -176,3 +161,4 @@ new WaveformArrayGetter(variables)
 
 variables.extname.assign('sigb')
 variables.path.assign('/')
+variables.offsetValue.assign('0')

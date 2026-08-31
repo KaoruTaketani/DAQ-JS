@@ -14,7 +14,8 @@ router.get('/waveformArray', (req, res) => {
         return
     }
     const offset = parseInt(req.query.offset)
-    if (!Number.isFinite(offset)) {
+    if (!Number.isFinite(offset)
+        || offset < 0) {
         res.status(404).send()
         return
     }
@@ -33,7 +34,8 @@ router.get('/waveformArray', (req, res) => {
             if (err) throw err
 
             close(fd)
-            const view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)
+            // const view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)
+            const view = new DataView(buffer.buffer)
             const y = new Array(numSamples)
             for (let j = 0; j < numSamples; ++j) {
                 y[j] = view.getFloat64(j * 8)

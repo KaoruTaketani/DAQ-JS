@@ -4,7 +4,7 @@ import xlabel from '../lib/xlabel.js'
 
 export default class {
     /**
-     * @param {import('./WaveformVariables.js').default} variables 
+     * @param {import('./SVGVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

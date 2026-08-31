@@ -2,7 +2,7 @@ import bounds from '../lib/bounds.js'
 
 export default class {
     /**
-     * @param {import('./WaveformVariables.js').default} variables 
+     * @param {import('./WaveformArrayVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
@@ -21,9 +21,9 @@ export default class {
         this._ymaxValue
         variables.ymaxValue.prependListener(arg => { this._ymaxValue = arg })
         /** @type {string} */
-        this._keyText
-        variables.keyText.addListener(arg => {
-            this._keyText = arg
+        this._offsetValue
+        variables.offsetValue.addListener(arg => {
+            this._offsetValue = arg
             this._operation()
         })
         /** @type {string[]} */
@@ -33,16 +33,16 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (!this._keyText) return
+            if (!this._offsetValue) return
             if (this._fileNames.length !== 1) return
             if (!this._fileNames[0].endsWith('.sigb')) {
                 variables.svgInnerHTML.assign('')
                 return
             }
 
-            fetch(`/waveformArray?offset=${this._keyText}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
+            fetch(`/waveformArray?offset=${this._offsetValue}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
                 if (!response.ok) {
-                    variables.divInnerText.assign(`${this._keyText} was not found in ${this._fileNames[0]}`)
+                    variables.divInnerText.assign(`${this._offsetValue} was not found in ${this._fileNames[0]}`)
                     variables.svgInnerHTML.assign('')
                 } else {
                     response.text().then(text => {
