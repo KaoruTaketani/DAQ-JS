@@ -171,7 +171,8 @@ export default class {
             }
             variables.svgIntensityInnerHTML.assign([
                 axes(axIntensity),
-                stairs(axIntensity, x, y)
+                stairs(axIntensity, x, y),
+                xlabel(axIntensity, 'pixel value')
             ].join(''))
         }
     }
