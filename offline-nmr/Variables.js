@@ -21,10 +21,15 @@ export default class {
         this.signal = new WritableDataset('signal', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.background = new WritableDataset('background', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        this.maskedX = new WritableDataset('maskedX', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        this.maskedY = new WritableDataset('maskedY', this.hdf5File)
 
         this.maskLimits = new ParameterArray('maskLimits', this.hdf5File, this.parameters)
 
         this.signalSum = new WritableNumber('signalSum', this.hdf5File)
+        this.startUnixTime = new WritableNumber('startUnixTime', this.hdf5File)
 
         this.projectName = new ListenableString()
         this.hdf5FileName = new ListenableString()

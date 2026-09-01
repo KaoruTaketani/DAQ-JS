@@ -43,6 +43,8 @@ export default class extends Operator {
             x.forEach((value, index) => {
                 y[index] = this._meanWaveform[value - 1]
             })
+            variables.maskedX.assign(new Float64Array(x))
+            variables.maskedY.assign(new Float64Array(y))
             // console.log(y)
             const p = polyfit(x, y, 3)
             // console.log(p)

@@ -14,7 +14,7 @@ new JSONFileReader(variables)
 variables.projectName.assign('20151203')
 variables.hdf5Path.assign('../../hdf5/')
 variables.sigbPath.assign('../../sigb/')
-// variables.jsonFileNames.assign(['1.json'])
-variables.jsonFileNames.assign(colon(1, 321).map(i => `${i}.json`))
+variables.jsonFileNames.assign(['1.json'])
+// variables.jsonFileNames.assign(colon(1, 321).map(i => `${i}.json`))
 
 
