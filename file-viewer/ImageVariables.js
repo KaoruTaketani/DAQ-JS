@@ -19,6 +19,7 @@ export default class extends SVGVariables {
         this.cminValue = new ListenableString()
         this.cmaxValue = new ListenableString()
         this.keyText = new ListenableString()
+        this.svgIntensityInnerHTML = new ListenableString()
     }
 }
 

@@ -247,6 +247,20 @@ new ImageDivMaker(variables)
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
+(element => {
+    element.style.marginLeft = '600px'
+    element.style.marginTop = '50px'
+    element.style.position = 'absolute'
+    // element.style.top='0'
+    // element.style.left='0'
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300')
+    element.setAttribute('viewBox', '0 0 560 420')
+    variables.svgIntensityInnerHTML.addListener(arg => {
+        element.innerHTML = arg
+    })
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+
 variables.extname.assign('h5')
 variables.path.assign('/')
 

@@ -4,6 +4,9 @@ import imagesc from '../lib/imagesc.js'
 import imcrop from '../lib/imcrop.js'
 import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
+import colon from '../lib/colon.js'
+import stairs from '../lib/stairs.js'
+import max from '../lib/max.js'
 
 export default class {
     /**
@@ -119,10 +122,11 @@ export default class {
                 cmin = parseFloat(this._cminValue),
                 cmax = parseFloat(this._cmaxValue)
 
+            const im = imagesc(this._dataset, [cmin, cmax])
             if (this._cScale === 'log') {
                 // imagesc return { data: a, width: width, height: height }
                 // data range is [0,255]
-                const im = imagesc(this._dataset, [cmin, cmax])
+
                 for (let j = 0; j < im.height; ++j) {
                     for (let i = 1; i < im.width + 1; ++i) {
                         // im.data[j * (width + 1)] is filter type, which is zero
@@ -133,38 +137,42 @@ export default class {
                     }
                 }
 
-                imcrop(im, [
-                    this._dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
-                    this._dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
-                    this._dataset.shape[1] * (xmax - xmin) / dx,
-                    this._dataset.shape[0] * (ymax - ymin) / dy
-                ]).then(im => {
-                    this._canvasContext.drawImage(
-                        im,
-                        (560 * 0.13) * 400 / 560,
-                        (420 * (1 - 0.11 - 0.815)) * 300 / 420,
-                        (560 * 0.775) * 400 / 560,
-                        (420 * 0.815) * 300 / 420
-                    )
-                    variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
-                })
-            } else {
-                imcrop(imagesc(this._dataset, [cmin, cmax]), [
-                    this._dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
-                    this._dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
-                    this._dataset.shape[1] * (xmax - xmin) / dx,
-                    this._dataset.shape[0] * (ymax - ymin) / dy
-                ]).then(im => {
-                    this._canvasContext.drawImage(
-                        im,
-                        (560 * 0.13) * 400 / 560,
-                        (420 * (1 - 0.11 - 0.815)) * 300 / 420,
-                        (560 * 0.775) * 400 / 560,
-                        (420 * 0.815) * 300 / 420
-                    )
-                    variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
-                })
             }
+            imcrop(im, [
+                this._dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
+                this._dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
+                this._dataset.shape[1] * (xmax - xmin) / dx,
+                this._dataset.shape[0] * (ymax - ymin) / dy
+            ]).then(im => {
+                this._canvasContext.drawImage(
+                    im,
+                    (560 * 0.13) * 400 / 560,
+                    (420 * (1 - 0.11 - 0.815)) * 300 / 420,
+                    (560 * 0.775) * 400 / 560,
+                    (420 * 0.815) * 300 / 420
+                )
+                variables.canvasDataURL.assign(this._canvasContext.canvas.toDataURL())
+            })
+            const x = colon(0, 256)
+            const y = new Array(256).fill(0)
+            im.data.forEach(value => { y[value]++ })
+            // const x = colon(0, 2, 256)
+            // const y = new Array(256).fill(0)
+            // im.data.forEach(value => { y[Math.floor(value / 2)]++ })
+
+            const axIntensity = {
+                xLim: [0, 256],
+                yLim: [0.1, max(y)],
+                xTick: [0, 256],
+                yTick: [10, max(y)],
+                xTickLabel: ['0', '256'],
+                yTickLabel: ['10', max(y).toString()],
+                yScale: 'log'
+            }
+            variables.svgIntensityInnerHTML.assign([
+                axes(axIntensity),
+                stairs(axIntensity, x, y)
+            ].join(''))
         }
     }
 }
