@@ -92,7 +92,7 @@ new XYGetter(variables)
         });
         [
             'centers',
-            'contrast',
+            'tofHistogramContrast',
             'heights',
             'tofImageVProjectionMeans',
             'tofImageVProjectionStandardDeviations',
@@ -100,7 +100,7 @@ new XYGetter(variables)
             'phase',
             'widths',
             'reflectivity',
-            'contrastRatio',
+            'tofHistogramContrastRatio',
             'phaseShift'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''

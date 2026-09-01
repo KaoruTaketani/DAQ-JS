@@ -69,7 +69,7 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.tofInMilliseconds = new WritableDataset('tofInMilliseconds', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
-        this.contrast = new WritableDataset('contrast', this.hdf5File)
+        this.tofHistogramContrast = new WritableDataset('tofHistogramContrast', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.phase = new WritableDataset('phase', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
@@ -99,7 +99,7 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.reflectivity = new WritableDataset('reflectivity', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
-        this.contrastRatio = new WritableDataset('contrastRatio', this.hdf5File)
+        this.tofHistogramContrastRatio = new WritableDataset('tofHistogramContrastRatio', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.phaseShift = new WritableDataset('phaseShift', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
@@ -109,7 +109,7 @@ export default class {
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
         this.directBeamNeutronRate = new ReadableDataset('neutronRate', this.directBeamHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
-        this.directBeamContrast = new ReadableDataset('contrast', this.directBeamHDF5File)
+        this.directBeamTOFHistogramContrast = new ReadableDataset('directBeamTOFHistogramContrast', this.directBeamHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
         this.directBeamPhase = new ReadableDataset('phase', this.directBeamHDF5File)
 

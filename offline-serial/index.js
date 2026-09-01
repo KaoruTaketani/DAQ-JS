@@ -1,6 +1,6 @@
 import colon from "../lib/colon.js"
-import ContrastMaker from "./ContrastMaker.js"
-import ContrastRatioMaker from "./ContrastRatioMaker.js"
+import TOFHistogramContrastMaker from "./TOFHistogramContrastMaker.js"
+import TOFHistogramContrastRatioMaker from "./TOFHistogramContrastRatioMaker.js"
 import EDRReader from "./EDRReader.js"
 import EnergyMaker from "./EnergyMaker.js"
 import EventBufferParser from "./EventBufferParser.js"
@@ -62,7 +62,7 @@ new FilteredImageInitializer(variables)
 new FilteredImageMaker(variables)
 new TOFHistogramInitializer(variables)
 new TOFHistogramMaker(variables)
-new ContrastMaker(variables)
+new TOFHistogramContrastMaker(variables)
 new PhaseMaker(variables)
 new NeutronRateMaker(variables)
 // new NeutronPerPulseMaker(variables)
@@ -73,7 +73,7 @@ new TOFImageVProjectionMaker(variables)
 new TOFImageVProjectionMeansMaker(variables)
 new TOFImageVProjectionStandardDeviationsMaker(variables)
 new FitFinder(variables)
-new ContrastRatioMaker(variables)
+new TOFHistogramContrastRatioMaker(variables)
 new PhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
 new TOFMaker(variables)
