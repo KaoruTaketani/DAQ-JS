@@ -1,5 +1,7 @@
 import colon from '../lib/colon.js'
 import mean from '../lib/mean.js'
+import sum from '../lib/sum.js'
+import column from '../lib/column.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -9,19 +11,18 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {import('../lib/index.js').Uint32NDArray} */
-        this._tofImageVProjection
-        variables.tofImageVProjectionBinCounts.addListener(arg => {
-            this._tofImageVProjection = arg
+        this._tofImageVProjectionSums
+        variables.tofImageVProjectionSums.addListener(arg => {
+            this._tofImageVProjectionSums = arg
             this._operation()
         })
         this._operation = () => {
-            const numBins = this._tofImageVProjection.shape,
-                means = new Float64Array(numBins[0])
+            const shape = this._tofImageVProjectionSums.shape,
+                means = new Float64Array(shape[1])
 
-            for (let i = 0; i < numBins[0]; ++i) {
-                const weights = this._tofImageVProjection.data.slice(i * numBins[1], (i + 1) * numBins[1])
-
-                means[i] = mean(colon(1, numBins[1]), weights)
+            for (let i = 0; i < shape[1]; ++i) {
+                // column index starts from 1
+                means[i] = mean(colon(1, shape[0]), column(this._tofImageVProjectionSums, i + 1))
             }
             variables.tofImageVProjectionMeans.assign(means)
         }

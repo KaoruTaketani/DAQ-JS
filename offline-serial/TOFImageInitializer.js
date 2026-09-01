@@ -36,7 +36,7 @@ export default class extends Operator {
             console.log(`t: ${size[0]}, h: ${size[1]}, w: ${size[2]} memory: ${(8 * length).toLocaleString()} bytes, heap_limit: ${getHeapStatistics().heap_size_limit.toLocaleString()} bytes`)
 
                 ,
-                variables.tofImageXBinLimitsInPixels.assign([0, w])
+            variables.tofImageXBinLimitsInPixels.assign([0, w])
             variables.tofImageYBinLimitsInPixels.assign([0, h])
             variables.tofImageZBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
             variables.tofImageBinCounts.assign({

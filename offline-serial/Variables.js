@@ -44,6 +44,8 @@ export default class {
         this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.tofImageVProjectionBinCounts = new WritableDataset('tofImageVProjectionBinCounts', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
+        this.tofImageVProjectionSums = new WritableDataset('tofImageVProjectionSums', this.hdf5File)
         // uint32array
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File)
@@ -128,8 +130,8 @@ export default class {
         this.rawImageYBinLimitsInMillimeters = new WritableArray('rawImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
         this.pulseHeightHistogramBinLimits = new WritableArray('pulseHeightHistogramBinCounts', 'binLimits', this.hdf5File)
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('', 'tofDiffrenceLimitsInNanoseconds', this.hdf5File)
-        this.tofImageVProjectionXBinLimitsInMillimeters = new WritableArray('tofImageVProjectionBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
-        this.tofImageVProjectionYBinLimitsInNanoseconds = new WritableArray('tofImageVProjectionBinCounts', 'yBinLimitsInNanoseconds', this.hdf5File)
+        this.tofImageVProjectionYBinLimitsInMillimeters = new WritableArray('tofImageVProjectionBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
+        this.tofImageVProjectionXBinLimitsInNanoseconds = new WritableArray('tofImageVProjectionBinCounts', 'xBinLimitsInNanoseconds', this.hdf5File)
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
         // followings are the attributes in the root folder

@@ -67,6 +67,7 @@ export default class extends Operator {
                     variables.measurementTimeRealInMinutes.assign(Math.floor((this._measurementEndTime - this._measurementStartTime) / 60))
                     variables.tofHistogramBinCounts.assign(this._tofHistogramBinCounts)
                     variables.tofImageVProjectionBinCounts.assign(this._tofImageVProjectionBinCounts)
+                    console.log(`calc elapsedTime: ${Date.now() - startTime} ms`)
 
                     ready.then(() => {
                         const hdf5File = new File(join(this._hdf5Path, this._projectName, this._hdf5FileName), 'w')

@@ -43,8 +43,8 @@ router.get('/image', (req, res) => {
     }
     if (req.query.key === 'tofImageVProjection') {
         groupPath = req.query.key + 'BinCounts'
-        xlimKey = 'xBinLimitsInMillimeters'
-        ylimKey = 'yBinLimitsInNanoseconds'
+        xlimKey = 'xBinLimitsInNanoseconds'
+        ylimKey = 'yBinLimitsInMillimeters'
         xlabel = 'coordinate (mm)'
         ylabel = 'tof (ns)'
     }
