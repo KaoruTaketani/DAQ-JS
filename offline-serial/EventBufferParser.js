@@ -7,6 +7,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
+        this._measurementStartTime
+        variables.measurementStartTime.prependListener(arg => { this._measurementStartTime = arg })
+        /** @type {number} */
         this._neutronPositionBitLength
         variables.neutronPositionBitLength.prependListener(arg => { this._neutronPositionBitLength = arg })
         /** @type {number} */
@@ -59,6 +62,15 @@ export default class extends Operator {
                     variables.kickerPulseCount.assign(this._kickerPulseCount + 1)
                 } else if (this._eventBuffer[8 * i] === 0x5c) {
                     // timeEvent
+                    const
+                        byte1 = this._eventBuffer[8 * i + 1],
+                        byte2 = this._eventBuffer[8 * i + 2],
+                        byte3 = this._eventBuffer[8 * i + 3],
+                        byte4 = this._eventBuffer[8 * i + 4],
+                        mlfTime = (byte1 << 22) + (byte2 << 14) + (byte3 << 6) + (byte4 >> 2)
+                    variables.measurementEndTime.assign(mlfTime)
+                    if (!this._measurementStartTime)
+                        variables.measurementStartTime.assign(mlfTime)
                 } else {
                     // unexpected
                 }

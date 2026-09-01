@@ -135,6 +135,8 @@ export default class {
         this.cameraPixelSizeInMillimeters = new WritableArray('', 'cameraPixelSizeInMillimeters', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
+        this.measurementStartTime = new ListenableNumber()
+        this.measurementEndTime = new ListenableNumber()
 
         this.kickerPulseCount = new WritableInt32('kickerPulseCount', this.hdf5File)
         this.channel0Count = new WritableInt32('channel0Count', this.hdf5File)
@@ -150,7 +152,8 @@ export default class {
         this.downstreamSlitToSampleDistanceInMeters = new WritableNumber('downstreamSlitToSampleDistanceInMeters', this.hdf5File)
         this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
-        this.idealMeasurementTimeInMinutes = new WritableNumber('idealMeasurementTimeInMinutes', this.hdf5File)
+        this.measurementTimeIdealInMinutes = new WritableNumber('measurementTimeIdealInMinutes', this.hdf5File)
+        this.measurementTimeRealInMinutes = new WritableNumber('measurementTimeRealInMinutes', this.hdf5File)
 
         this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
 
