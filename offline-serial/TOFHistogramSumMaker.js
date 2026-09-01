@@ -23,7 +23,7 @@ export default class extends Operator {
                 length = this._tofHistogramBinCounts.length / numBins
 
             variables.tofHistogramSum.assign(
-                new Float64Array(length).map((_, i) => {
+                new Uint32Array(length).map((_, i) => {
                     const s = this._tofHistogramBinCounts.slice(i * numBins, (i + 1) * numBins)
                     
                     return sum(s)

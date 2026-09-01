@@ -48,6 +48,8 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
+        this.tofHistogramSum = new WritableDataset('tofHistogramSum', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File)
@@ -70,8 +72,6 @@ export default class {
         this.tofInMilliseconds = new WritableDataset('tofInMilliseconds', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.tofHistogramContrast = new WritableDataset('tofHistogramContrast', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<Float64Array>} */
-        this.tofHistogramSum = new WritableDataset('tofHistogramSum', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.tofHistogramPhase = new WritableDataset('tofHistogramPhase', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
