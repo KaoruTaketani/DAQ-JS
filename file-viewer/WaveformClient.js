@@ -75,11 +75,11 @@ new WaveformGetter(variables)
             variables.keyText.assign(element.options[element.selectedIndex].text)
         });
         [
-            'horizontalProjection',
+            'imageVProjection',
             'pulseHeightHistogram',
             'tofDifferenceHistogram',
             'tofHistogram',
-            'verticalProjection'
+            'imageHProjection'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));

@@ -43,7 +43,7 @@ export default class {
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
-        this.horizontalProjectionHistogramsBinCounts = new WritableDataset('horizontalProjectionHistogramsBinCounts', this.hdf5File)
+        this.tofImageVProjectionBinCounts = new WritableDataset('tofImageVProjectionBinCounts', this.hdf5File)
         // uint32array
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File)
@@ -52,9 +52,9 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.verticalProjectionBinCounts = new WritableDataset('verticalProjectionBinCounts', this.hdf5File)
+        this.imageHProjectionBinCounts = new WritableDataset('imageHProjectionBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.horizontalProjectionBinCounts = new WritableDataset('horizontalProjectionBinCounts', this.hdf5File)
+        this.imageVProjectionBinCounts = new WritableDataset('imageVProjectionBinCounts', this.hdf5File)
 
         // uint16ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16NDArray>} */
@@ -91,9 +91,9 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.widths = new WritableDataset('widths', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
-        this.horizontalProjectionMeans = new WritableDataset('horizontalProjectionMeans', this.hdf5File)
+        this.tofImageVProjectionMeans = new WritableDataset('tofImageVProjectionMeans', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
-        this.horizontalProjectionStandardDeviations = new WritableDataset('horizontalProjectionStandardDeviations', this.hdf5File)
+        this.tofImageVProjectionStandardDeviations = new WritableDataset('tofImageVProjectionStandardDeviations', this.hdf5File)
 
         // float64array|undefined
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
@@ -115,8 +115,8 @@ export default class {
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units
-        this.horizontalProjectionBinLimitsInMillimeters = new WritableArray('horizontalProjectionBinCounts', 'binLimitsInMillimeters', this.hdf5File)
-        this.verticalProjectionBinLimitsInMillimeters = new WritableArray('verticalProjectionBinCounts', 'binLimitsInMillimeters', this.hdf5File)
+        this.imageVProjectionBinLimitsInMillimeters = new WritableArray('imageVProjectionBinCounts', 'binLimitsInMillimeters', this.hdf5File)
+        this.imageHProjectionBinLimitsInMillimeters = new WritableArray('imageHProjectionBinCounts', 'binLimitsInMillimeters', this.hdf5File)
         this.tofHistogramBinLimitsInNanoseconds = new WritableArray('tofHistogramBinCounts', 'binLimitsInNanoseconds', this.hdf5File)
         this.tofImageZBinLimitsInNanoseconds = new WritableArray('tofImageBinCounts', 'zBinLimitsInNanoseconds', this.hdf5File)
         this.tofImageXBinLimitsInPixels = new WritableArray('tofImageBinCounts', 'xBinLimitsInPixels', this.hdf5File)
@@ -126,8 +126,8 @@ export default class {
         this.rawImageYBinLimitsInMillimeters = new WritableArray('rawImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
         this.pulseHeightHistogramBinLimits = new WritableArray('pulseHeightHistogramBinCounts', 'binLimits', this.hdf5File)
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('', 'tofDiffrenceLimitsInNanoseconds', this.hdf5File)
-        this.horizontalProjectionHistogramsXBinLimitsInMillimeters = new WritableArray('horizontalProjectionHistogramsBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
-        this.horizontalProjectionHistogramsYBinLimitsInNanoseconds = new WritableArray('horizontalProjectionHistogramsBinCounts', 'yBinLimitsInNanoseconds', this.hdf5File)
+        this.tofImageVProjectionXBinLimitsInMillimeters = new WritableArray('tofImageVProjectionBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
+        this.tofImageVProjectionYBinLimitsInNanoseconds = new WritableArray('tofImageVProjectionBinCounts', 'yBinLimitsInNanoseconds', this.hdf5File)
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
         // followings are the attributes in the root folder

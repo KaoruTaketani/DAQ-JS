@@ -9,22 +9,22 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {import('../lib/index.js').Uint32NDArray} */
-        this._horizontalProjectionHistograms
-        variables.horizontalProjectionHistogramsBinCounts.addListener(arg => {
-            this._horizontalProjectionHistograms = arg
+        this._tofImageVProjection
+        variables.tofImageVProjectionBinCounts.addListener(arg => {
+            this._tofImageVProjection = arg
             this._operation()
         })
         this._operation = () => {
-            const numBins = this._horizontalProjectionHistograms.shape,
+            const numBins = this._tofImageVProjection.shape,
                 // stds = new Array(numBins[0]).fill(0)
                 stds = new Float64Array(numBins[0])
 
             for (let i = 0; i < numBins[0]; ++i) {
-                const weights = this._horizontalProjectionHistograms.data.slice(i * numBins[1], (i + 1) * numBins[1])
+                const weights = this._tofImageVProjection.data.slice(i * numBins[1], (i + 1) * numBins[1])
 
                 stds[i] = std(colon(1, numBins[1]), weights)
             }
-            variables.horizontalProjectionStandardDeviations.assign(stds)
+            variables.tofImageVProjectionStandardDeviations.assign(stds)
         }
     }
 }

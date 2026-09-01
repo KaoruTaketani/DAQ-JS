@@ -91,7 +91,7 @@ new ImageDivMaker(variables)
         [
             'rawImage',
             'filteredImage',
-            'horizontalProjectionHistograms'
+            'tofImageVProjection'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));

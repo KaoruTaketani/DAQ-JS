@@ -10,12 +10,12 @@ import FilteredNeutronEventMaker from "./FilteredNeutronEventMaker.js"
 import FitFinder from "./FitFinder.js"
 import FourierEnergyMaker from "./FourierEnergyMaker.js"
 import FourierTimeMaker from "./FourierTimeMaker.js"
-import HorizontalProjectionHistogramsInitializer from "./HorizontalProjectionHistogramsInitializer.js"
-import HorizontalProjectionHistogramsMaker from "./HorizontalProjectionHistogramsMaker.js"
-import HorizontalProjectionInitializer from "./HorizontalProjectionInitializer.js"
-import HorizontalProjectionMaker from "./HorizontalProjectionMaker.js"
-import HorizontalProjectionMeansMaker from "./HorizontalProjectionMeansMaker.js"
-import HorizontalProjectionStandardDeviationsMaker from "./HorizontalProjectionStandardDeviationsMaker.js"
+import TOFImageVProjectionInitializer from "./TOFImageVProjectionInitializer.js"
+import TOFImageVProjectionMaker from "./TOFImageVProjectionMaker.js"
+import ImageVProjectionInitializer from "./ImageVProjectionInitializer.js"
+import ImageVProjectionMaker from "./ImageVProjectionMaker.js"
+import TOFImageVProjectionMeansMaker from "./TOFImageVProjectionMeansMaker.js"
+import TOFImageVProjectionStandardDeviationsMaker from "./TOFImageVProjectionStandardDeviationsMaker.js"
 import CameraPixelSizeCalculator from "./CameraPixelSizeCalculator.js"
 import JSONFileReader from "./JSONFileReader.js"
 import MomentumTransferMaker from "./MomentumTransferMaker.js"
@@ -40,8 +40,8 @@ import TOFImageMaker from "./TOFImageMaker.js"
 import TOFMaker from "./TOFMaker.js"
 import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
-import VerticalProjectionInitializer from "./VerticalProjectionInitializer.js"
-import VerticalProjectionMaker from "./VerticalProjectionMaker.js"
+import ImageHProjectionInitializer from "./ImageHProjectionInitializer.js"
+import ImageHProjectionMaker from "./ImageHProjectionMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 import WavenumberMaker from "./WavenumberMaker.js"
 
@@ -53,10 +53,10 @@ new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
 new RawImageInitializer(variables)
 new RawImageMaker(variables)
-new VerticalProjectionInitializer(variables)
-new VerticalProjectionMaker(variables)
-new HorizontalProjectionInitializer(variables)
-new HorizontalProjectionMaker(variables)
+new ImageHProjectionInitializer(variables)
+new ImageHProjectionMaker(variables)
+new ImageVProjectionInitializer(variables)
+new ImageVProjectionMaker(variables)
 new FilteredNeutronEventMaker(variables)
 new FilteredImageInitializer(variables)
 new FilteredImageMaker(variables)
@@ -68,10 +68,10 @@ new NeutronRateMaker(variables)
 // new NeutronPerPulseMaker(variables)
 // new TOFImageInitializer(variables)
 // new TOFImageMaker(variables)
-new HorizontalProjectionHistogramsInitializer(variables)
-new HorizontalProjectionHistogramsMaker(variables)
-new HorizontalProjectionMeansMaker(variables)
-new HorizontalProjectionStandardDeviationsMaker(variables)
+new TOFImageVProjectionInitializer(variables)
+new TOFImageVProjectionMaker(variables)
+new TOFImageVProjectionMeansMaker(variables)
+new TOFImageVProjectionStandardDeviationsMaker(variables)
 new FitFinder(variables)
 new ContrastRatioMaker(variables)
 new PhaseShiftMaker(variables)
@@ -114,8 +114,8 @@ variables.edrPath.assign('../../edr/')
 // ])
 // variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
 // variables.jsonFileNames.assign(['104.json'])
-variables.jsonFileNames.assign(['0.json'])
+// variables.jsonFileNames.assign(['0.json'])
 // console.log(colon(0, 60))
-// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 

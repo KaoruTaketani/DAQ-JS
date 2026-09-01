@@ -41,7 +41,7 @@ router.get('/image', (req, res) => {
         xlabel = 'coordinate (mm)'
         ylabel = 'coordinate (mm)'
     }
-    if (req.query.key === 'horizontalProjectionHistograms') {
+    if (req.query.key === 'tofImageVProjection') {
         groupPath = req.query.key + 'BinCounts'
         xlimKey = 'xBinLimitsInMillimeters'
         ylimKey = 'yBinLimitsInNanoseconds'

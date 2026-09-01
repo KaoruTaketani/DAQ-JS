@@ -28,12 +28,12 @@ router.get('/waveform', (req, res) => {
     let xlabel
     let groupPath = ''
     let attrKey = ''
-    if (req.query.key === 'horizontalProjection') {
+    if (req.query.key === 'imageVProjection') {
         groupPath = req.query.key + 'BinCounts'
         attrKey = 'binLimitsInMillimeters'
         xlabel = 'coordinate (mm)'
     }
-    if (req.query.key === 'verticalProjection') {
+    if (req.query.key === 'imageHProjection') {
         groupPath = req.query.key + 'BinCounts'
         attrKey = 'binLimitsInMillimeters'
         xlabel = 'coordinate (mm)'

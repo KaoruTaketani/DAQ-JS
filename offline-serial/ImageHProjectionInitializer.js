@@ -16,8 +16,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.horizontalProjectionBinLimitsInMillimeters.assign([0, this._cameraImageSizeInMillimeters[0]])
-            variables.horizontalProjectionBinCounts.assign(
+            variables.imageHProjectionBinLimitsInMillimeters.assign([0, this._cameraImageSizeInMillimeters[1]])
+            variables.imageHProjectionBinCounts.assign(
                 new Uint32Array(2 ** this._neutronPositionBitLength)
             )
         }

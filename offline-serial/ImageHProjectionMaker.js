@@ -7,8 +7,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {Uint32Array} */
-        this._horizontalProjectionBinCounts
-        variables.horizontalProjectionBinCounts.prependListener(arg => { this._horizontalProjectionBinCounts = arg })
+        this._verticalProjectionBinCounts
+        variables.imageHProjectionBinCounts.prependListener(arg => { this._verticalProjectionBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
         this._neutronEvent
         variables.neutronEvent.addListener(arg => {
@@ -16,8 +16,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            this._horizontalProjectionBinCounts[
-                this._neutronEvent.xCoordinateInPixels 
+            this._verticalProjectionBinCounts[
+                this._neutronEvent.yCoordinateInPixels 
             ]++
         }
     }

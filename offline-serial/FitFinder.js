@@ -12,19 +12,19 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {import('../lib/index.js').Uint32NDArray} */
-        this._tofImageHorizontalProjectionsBinCounts
-        variables.horizontalProjectionHistogramsBinCounts.addListener(arg => {
-            this._tofImageHorizontalProjectionsBinCounts = arg
+        this._tofImageVProjectionBinCounts
+        variables.tofImageVProjectionBinCounts.addListener(arg => {
+            this._tofImageVProjectionBinCounts = arg
             this._operation()
         })
         this._operation = () => {
-            const numBins = this._tofImageHorizontalProjectionsBinCounts.shape,
+            const numBins = this._tofImageVProjectionBinCounts.shape,
                 heights = new Float64Array(numBins[0]),
                 centers = new Float64Array(numBins[0]),
                 widths = new Float64Array(numBins[0])
 
             for (let i = 0; i < numBins[0]; ++i) {
-                const s = this._tofImageHorizontalProjectionsBinCounts.data.slice(i * numBins[1], (i + 1) * numBins[1]),
+                const s = this._tofImageVProjectionBinCounts.data.slice(i * numBins[1], (i + 1) * numBins[1]),
                     _mean = sum(s.map((s, i) => s * i)) / sum(s),
                     _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1))
                 if (sum(s) < 300) {

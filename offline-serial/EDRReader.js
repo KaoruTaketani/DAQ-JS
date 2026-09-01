@@ -25,8 +25,8 @@ export default class extends Operator {
         this._tofHistogramBinCounts
         variables.tofHistogramBinCounts.prependListener(arg => { this._tofHistogramBinCounts = arg })
         /** @type {import('../lib/index.js').Uint32NDArray} */
-        this._horizontalProjectionHistogramsBinCounts
-        variables.horizontalProjectionHistogramsBinCounts.prependListener(arg => { this._horizontalProjectionHistogramsBinCounts = arg })
+        this._tofImageVProjectionBinCounts
+        variables.tofImageVProjectionBinCounts.prependListener(arg => { this._tofImageVProjectionBinCounts = arg })
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFileNames.prependListener(arg => { this._jsonFilePaths = arg })
@@ -52,7 +52,7 @@ export default class extends Operator {
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
                     variables.tofHistogramBinCounts.assign(this._tofHistogramBinCounts)
-                    variables.horizontalProjectionHistogramsBinCounts.assign(this._horizontalProjectionHistogramsBinCounts)
+                    variables.tofImageVProjectionBinCounts.assign(this._tofImageVProjectionBinCounts)
 
                     ready.then(() => {
                         const hdf5File = new File(join(this._hdf5Path, this._projectName, this._hdf5FileName), 'w')

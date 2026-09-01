@@ -38,9 +38,9 @@ export default class extends Operator {
                     this._tofMaxInMilliseconds * this._miezeFrequencyInKilohertz,
                     w]
 
-            variables.horizontalProjectionHistogramsXBinLimitsInMillimeters.assign([x, x + w].map(v => v * this._cameraPixelSizeInMillimeters[0]))
-            variables.horizontalProjectionHistogramsYBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
-            variables.horizontalProjectionHistogramsBinCounts.assign({
+            variables.tofImageVProjectionXBinLimitsInMillimeters.assign([x, x + w].map(v => v * this._cameraPixelSizeInMillimeters[0]))
+            variables.tofImageVProjectionYBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
+            variables.tofImageVProjectionBinCounts.assign({
                 shape: size,
                 data: new Uint32Array(prod(size))
             })
