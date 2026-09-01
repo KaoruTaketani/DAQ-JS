@@ -44,6 +44,7 @@ import ImageHProjectionInitializer from "./ImageHProjectionInitializer.js"
 import ImageHProjectionMaker from "./ImageHProjectionMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 import WavenumberMaker from "./WavenumberMaker.js"
+import TOFHistogramSumMaker from "./TOFHistogramSumMaker.js"
 
 const variables = new Variables()
 
@@ -64,6 +65,7 @@ new TOFHistogramInitializer(variables)
 new TOFHistogramMaker(variables)
 new TOFHistogramContrastMaker(variables)
 new TOFHistogramPhaseMaker(variables)
+new TOFHistogramSumMaker(variables)
 new NeutronRateMaker(variables)
 // new NeutronPerPulseMaker(variables)
 // new TOFImageInitializer(variables)

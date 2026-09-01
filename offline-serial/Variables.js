@@ -71,6 +71,8 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.tofHistogramContrast = new WritableDataset('tofHistogramContrast', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        this.tofHistogramSum = new WritableDataset('tofHistogramSum', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.tofHistogramPhase = new WritableDataset('tofHistogramPhase', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.velocityInMetersPerSeconds = new WritableDataset('velocityInMetersPerSeconds', this.hdf5File)
