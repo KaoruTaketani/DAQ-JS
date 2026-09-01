@@ -97,11 +97,11 @@ new XYGetter(variables)
             'tofImageVProjectionMeans',
             'tofImageVProjectionStandardDeviations',
             'neutronRate',
-            'phase',
+            'tofHistogramPhase',
             'widths',
             'reflectivity',
             'tofHistogramContrastRatio',
-            'phaseShift'
+            'tofHistogramPhaseShift'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''
     })(element.appendChild(document.createElement('select')));

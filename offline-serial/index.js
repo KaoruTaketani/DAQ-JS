@@ -23,8 +23,8 @@ import NeutronEventMaker from "./NeutronEventMaker.js"
 import NeutronPerPulseMaker from "./NeutronPerPulseMaker.js"
 import NeutronRateMaker from "./NeutronRateMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
-import PhaseMaker from "./PhaseMaker.js"
-import PhaseShiftMaker from "./PhaseShiftMaker.js"
+import TOFHistogramPhaseMaker from "./TOFHistogramPhaseMaker.js"
+import TOFHistogramPhaseShiftMaker from "./TOFHistogramPhaseShiftMaker.js"
 import PulseHeightHistogramInitializer from "./PulseHeightHistogramInitializer.js"
 import PulseHeightHistogramMaker from "./PulseHeightHistogramMaker.js"
 import RawImageInitializer from "./RawImageInitializer.js"
@@ -63,7 +63,7 @@ new FilteredImageMaker(variables)
 new TOFHistogramInitializer(variables)
 new TOFHistogramMaker(variables)
 new TOFHistogramContrastMaker(variables)
-new PhaseMaker(variables)
+new TOFHistogramPhaseMaker(variables)
 new NeutronRateMaker(variables)
 // new NeutronPerPulseMaker(variables)
 // new TOFImageInitializer(variables)
@@ -74,7 +74,7 @@ new TOFImageVProjectionMeansMaker(variables)
 new TOFImageVProjectionStandardDeviationsMaker(variables)
 new FitFinder(variables)
 new TOFHistogramContrastRatioMaker(variables)
-new PhaseShiftMaker(variables)
+new TOFHistogramPhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
 new TOFMaker(variables)
 new VelocityMaker(variables)

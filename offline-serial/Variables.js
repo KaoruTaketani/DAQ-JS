@@ -71,7 +71,7 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.tofHistogramContrast = new WritableDataset('tofHistogramContrast', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
-        this.phase = new WritableDataset('phase', this.hdf5File)
+        this.tofHistogramPhase = new WritableDataset('tofHistogramPhase', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.velocityInMetersPerSeconds = new WritableDataset('velocityInMetersPerSeconds', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
@@ -101,7 +101,7 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.tofHistogramContrastRatio = new WritableDataset('tofHistogramContrastRatio', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
-        this.phaseShift = new WritableDataset('phaseShift', this.hdf5File)
+        this.tofHistogramPhaseShift = new WritableDataset('tofHistogramPhaseShift', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.momentumTransferInInverseAngstroms = new WritableDataset('momentumTransferInInverseAngstroms', this.hdf5File)
 
@@ -111,7 +111,7 @@ export default class {
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
         this.directBeamTOFHistogramContrast = new ReadableDataset('directBeamTOFHistogramContrast', this.directBeamHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
-        this.directBeamPhase = new ReadableDataset('phase', this.directBeamHDF5File)
+        this.directBeamTOFHistogramPhase = new ReadableDataset('directBeamTOFHistogramPhase', this.directBeamHDF5File)
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units

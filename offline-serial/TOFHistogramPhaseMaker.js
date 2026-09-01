@@ -22,7 +22,7 @@ export default class extends Operator {
             const numBins = this._frequencyVectorLength,
                 length = this._tofHistogramBinCounts.length / numBins
 
-            variables.phase.assign(
+            variables.tofHistogramPhase.assign(
                 new Float64Array(length).map((_, i) => {
                     /** see @MIEZEPhase */
                     const s = this._tofHistogramBinCounts.slice(i * numBins, (i + 1) * numBins)
