@@ -31,7 +31,16 @@ export default class extends Operator {
 
                     const parameters = JSON.parse(data)
                     console.log(parameters)
-                    variables.hdf5FileName.assign(basename(name, '.json') + '.h5')
+                    const tmp = basename(name, '.json')
+                    variables.hdf5FileName.assign(`${tmp}.h5`)
+                    if (tmp.length === 6) {
+                        const HH = tmp.substring(0, 2)
+                        const mm = tmp.substring(2, 4)
+                        const ss = tmp.substring(4, 6)
+                        // const t1 = Date.parse('2015-12-03T00:00:00') / 1000
+                        const t1 = Date.parse(`2015-12-03T${HH}:${mm}:${ss}`) / 1000
+                        variables.startUnixTime.assign(t1)
+                    }
 
                     variables.parameters.assign(parameters)
                 })
