@@ -21,6 +21,12 @@ export default class extends Operator {
         /** @type {string} */
         this._hdf5FileName
         variables.hdf5FileName.prependListener(arg => { this._hdf5FileName = arg })
+        /** @type {number} */
+        this._kickerPulseCount
+        variables.kickerPulseCount.prependListener(arg => { this._kickerPulseCount = arg })
+        /** @type {number} */
+        this._tofMaxInMilliseconds
+        variables.tofMaxInMilliseconds.prependListener(arg => { this._tofMaxInMilliseconds = arg })
         /** @type {Uint32Array} */
         this._tofHistogramBinCounts
         variables.tofHistogramBinCounts.prependListener(arg => { this._tofHistogramBinCounts = arg })
@@ -51,6 +57,7 @@ export default class extends Operator {
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
+                    variables.idealMeasurementTimeInMinutes.assign(Math.floor(this._kickerPulseCount * this._tofMaxInMilliseconds / 60_000))
                     variables.tofHistogramBinCounts.assign(this._tofHistogramBinCounts)
                     variables.tofImageVProjectionBinCounts.assign(this._tofImageVProjectionBinCounts)
 

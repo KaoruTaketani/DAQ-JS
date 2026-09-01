@@ -150,6 +150,7 @@ export default class {
         this.downstreamSlitToSampleDistanceInMeters = new WritableNumber('downstreamSlitToSampleDistanceInMeters', this.hdf5File)
         this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
+        this.idealMeasurementTimeInMinutes = new WritableNumber('idealMeasurementTimeInMinutes', this.hdf5File)
 
         this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
 
