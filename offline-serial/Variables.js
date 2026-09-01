@@ -35,8 +35,6 @@ export default class {
         /** @type {import('./ListenableObject.js').default<number[]>} */
         this.roiInPixels = new ListenableObject()
 
-
-
         // uint32ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.rawImageBinCounts = new WritableDataset('rawImageBinCounts', this.hdf5File)
@@ -67,6 +65,9 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Uint16Array>} */
         this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
 
+        // float64ndarray
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
+        this.tofImageVProjectionContrasts = new WritableDataset('tofImageVProjectionContrasts', this.hdf5File)
         // float64array
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.neutronRate = new WritableDataset('neutronRate', this.hdf5File)

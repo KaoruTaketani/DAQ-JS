@@ -46,6 +46,7 @@ import WavelengthMaker from "./WavelengthMaker.js"
 import WavenumberMaker from "./WavenumberMaker.js"
 import TOFHistogramSumMaker from "./TOFHistogramSumMaker.js"
 import TOFImageVProjectionSumsMaker from "./TOFImageVProjectionSumsMaker.js"
+import TOFImageVProjectionContrastsMaker from "./TOFImageVProjectionContrastsMaker.js"
 
 const variables = new Variables()
 
@@ -73,6 +74,7 @@ new NeutronRateMaker(variables)
 // new TOFImageMaker(variables)
 new TOFImageVProjectionInitializer(variables)
 new TOFImageVProjectionMaker(variables)
+new TOFImageVProjectionContrastsMaker(variables)
 new TOFImageVProjectionSumsMaker(variables)
 new TOFImageVProjectionMeansMaker(variables)
 new TOFImageVProjectionStandardDeviationsMaker(variables)
