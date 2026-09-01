@@ -68,6 +68,8 @@ export default class {
         // float64ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.tofImageVProjectionContrasts = new WritableDataset('tofImageVProjectionContrasts', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
+        this.tofImageVProjectionPhases = new WritableDataset('tofImageVProjectionPhases', this.hdf5File)
         // float64array
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.neutronRate = new WritableDataset('neutronRate', this.hdf5File)
