@@ -9,8 +9,12 @@ export default class extends ClientVariables {
         this.tBodyElement = new ListenableObject()
         this.tHeadElement = new ListenableObject()
         this.tableElement = new ListenableObject()
+        this.attributes = new ListenableObject()
+        this.visibleKeys = new ListenableObject()
 
         this.visibleInnerHTML = new ListenableString()
+        this.theadInnerHTML = new ListenableString()
+        this.tbodyInnerHTML = new ListenableString()            
     }
 }
 
