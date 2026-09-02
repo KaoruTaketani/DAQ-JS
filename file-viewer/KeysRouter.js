@@ -35,7 +35,14 @@ router.get('/keys', (req, res) => {
                     if (dataset && Object.keys(dataset.attrs).length === 1) {
                         keys.add(key)
                     }
-                }                
+                }
+                if (req.query.dataType === 'xy') {
+                    /** @type {import('h5wasm').Dataset|null} */
+                    const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
+                    if (dataset && Object.keys(dataset.attrs).length === 0) {
+                        keys.add(key)
+                    }
+                }
             })
             f.close()
         })

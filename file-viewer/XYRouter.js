@@ -17,9 +17,18 @@ router.get('/xy', (req, res) => {
 
     // use mode "r" for reading.  All modes can be found in h5wasm.ACCESS_MODES
     let f = new h5wasm.File(join(process.env.hdf5Path, req.query.path, req.query.fileName), "r")
-
+    // not all datasets for the given keys exist
+    // because all keys from all files are stored
     const datasetY =/** @type {import('h5wasm').Dataset} */ (f.get(req.query.ykey))
+    if(!datasetY){
+        res.status(404).send()
+        return
+    }
     const datasetX =/** @type {import('h5wasm').Dataset} */ (f.get(req.query.xkey))
+    if(!datasetY){
+        res.status(404).send()
+        return
+    }
     const y = Array.from(/** @type {Float64Array} */(datasetY.value))
     const x = Array.from(/** @type {Float64Array} */(datasetX.value))
 

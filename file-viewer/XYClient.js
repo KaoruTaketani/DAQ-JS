@@ -3,6 +3,7 @@ import getXLim from "../lib/getXLim.js";
 import getYLim from "../lib/getYLim.js";
 import isbetween from "../lib/isbetween.js";
 import FilesGetter from "./FilesGetter.js";
+import KeysGetter from "./KeysGetter.js";
 import PathMaker from "./PathMaker.js";
 import XYDrawer from "./XYDrawer.js";
 import XYGetter from "./XYGetter.js";
@@ -11,6 +12,7 @@ import XYVariables from "./XYVariables.js";
 const variables = new XYVariables()
 new PathMaker(variables)
 new FilesGetter(variables)
+new KeysGetter(variables)
 new XYDrawer(variables)
 new XYGetter(variables)
     ;
@@ -71,16 +73,16 @@ new XYGetter(variables)
         element.style.width = '200px'
         element.addEventListener('change', () => {
             variables.xkeyText.assign(element.options[element.selectedIndex].text)
-        });
-        [
-            'tofInMilliseconds',
-            'velocityInMetersPerSeconds',
-            'wavenumberInInverseAngstroms',
-            'energyInMillielectronvolts',
-            'wavelengthInAngstroms',
-            'momentumTransferInInverseAngstroms'
-        ].forEach(key => { element.add(new Option(key)) })
-        element.value = ''
+        })
+        variables.keysInnerHTML.addListener(arg => { element.innerHTML = arg })
+        // [
+        //     'tofInMilliseconds',
+        //     'velocityInMetersPerSeconds',
+        //     'wavenumberInInverseAngstroms',
+        //     'energyInMillielectronvolts',
+        //     'wavelengthInAngstroms',
+        //     'momentumTransferInInverseAngstroms'
+        // ].forEach(key => { element.add(new Option(key)) })
     })(element.appendChild(document.createElement('select')));
 
     (element => {
@@ -89,21 +91,21 @@ new XYGetter(variables)
         element.style.width = '200px'
         element.addEventListener('change', () => {
             variables.ykeyText.assign(element.options[element.selectedIndex].text)
-        });
-        [
-            'centers',
-            'tofHistogramContrast',
-            'heights',
-            'tofImageVProjectionMeans',
-            'tofImageVProjectionStandardDeviations',
-            'neutronRate',
-            'tofHistogramPhase',
-            'widths',
-            'reflectivity',
-            'tofHistogramContrastRatio',
-            'tofHistogramPhaseShift'
-        ].forEach(key => { element.add(new Option(key)) })
-        element.value = ''
+        })
+        variables.keysInnerHTML.addListener(arg => { element.innerHTML = arg })
+        // [
+        //     'centers',
+        //     'tofHistogramContrast',
+        //     'heights',
+        //     'tofImageVProjectionMeans',
+        //     'tofImageVProjectionStandardDeviations',
+        //     'neutronRate',
+        //     'tofHistogramPhase',
+        //     'widths',
+        //     'reflectivity',
+        //     'tofHistogramContrastRatio',
+        //     'tofHistogramPhaseShift'
+        // ].forEach(key => { element.add(new Option(key)) })
     })(element.appendChild(document.createElement('select')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
@@ -210,4 +212,5 @@ new XYGetter(variables)
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 variables.extname.assign('h5')
+variables.dataType.assign('xy')
 variables.path.assign('/')
