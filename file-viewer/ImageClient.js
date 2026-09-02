@@ -8,10 +8,12 @@ import ImageDrawer from "./ImageDrawer.js";
 import ImageGetter from "./ImageGetter.js";
 import ImageVariables from "./ImageVariables.js";
 import PathMaker from "./PathMaker.js";
+import KeysGetter from "./KeysGetter.js";
 
 const variables = new ImageVariables()
 new PathMaker(variables)
 new FilesGetter(variables)
+new KeysGetter(variables)
 new ImageDrawer(variables)
 new ImageGetter(variables)
 new ImageDivMaker(variables)
@@ -91,6 +93,9 @@ new ImageDivMaker(variables)
         [
             'rawImage',
             'filteredImage',
+            'tofImageVProjection',
+            'tofImageVProjectionSums',
+            'tofImageVProjection',
             'tofImageVProjection'
         ].forEach(key => { element.add(new Option(key)) })
         element.value = ''

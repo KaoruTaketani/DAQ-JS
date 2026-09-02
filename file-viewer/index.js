@@ -12,12 +12,14 @@ import ObjectsRouter from './ObjectsRouter.js'
 import HTMLXRouter from './HTMLXRouter.js'
 import HeadersRouter from './HeadersRouter.js'
 import WaveformArrayRouter from './WaveformArrayRouter.js'
+import KeysRouter from './KeysRouter.js'
 
 const app = express()
 
 app.use('/', RootRouter)
 app.use('/', AttributesRouter)
 app.use('/', FilesRouter)
+app.use('/', KeysRouter)
 app.use('/', TableRouter)
 app.use('/', NumEventsRouter)
 app.use('/', NumWaveformsRouter)
