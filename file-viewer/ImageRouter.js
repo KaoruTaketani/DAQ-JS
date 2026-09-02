@@ -41,6 +41,7 @@ router.get('/image', (req, res) => {
     // attrKeys.length is 2 and first is xBinLimit... and the second is yBinLimit...
     const xlim = Array.from(/** @type {Float64Array} */(dataset.attrs[attrKeys[0]].value))
     const ylim = Array.from(/** @type {Float64Array} */(dataset.attrs[attrKeys[1]].value))
+    const data = Array.from(/** @type {Uint32Array} */(dataset.value))
 
     res.json({
         xlim: xlim,
@@ -48,7 +49,7 @@ router.get('/image', (req, res) => {
         xlabel: xlabel,
         ylabel: ylabel,
         shape: /** @type {number[]} */(dataset.shape),
-        data: JSON.stringify(Array.from(/** @type {Uint32Array} */(dataset.value)))
+        data: data
     })
     // must be closed after response.end
     f.close()
