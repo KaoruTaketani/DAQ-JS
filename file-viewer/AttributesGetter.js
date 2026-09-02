@@ -16,15 +16,12 @@ export default class {
             fetch(`/attributes?path=${this._path}`).then(response => {
                 response.json().then(data => {
                     const attributes = new Map(Object.entries(data))
-                    console.log(attributes)
                     variables.attributes.assign(attributes)
 
-                    const keys = new Set()
-                    attributes.forEach((/** @type {object}*/obj) => { Object.keys(obj).forEach(key => { keys.add(key) }) })
-                    const visibleKeys = Array.from(keys)//.filter(key => key !== '_name')
-                    console.log(visibleKeys)
-                    variables.visibleKeys.assign(visibleKeys)
-                    variables.visibleInnerHTML.assign(visibleKeys.map(key => `<option selected>${key}</option>`).join(''))
+                    const allKeys = new Set()
+                    attributes.forEach((/** @type {object}*/obj) => { Object.keys(obj).forEach(key => { allKeys.add(key) }) })
+                    variables.visibleKeys.assign(Array.from(allKeys))
+                    variables.visibleInnerHTML.assign(Array.from(allKeys).map(key => `<option selected>${key}</option>`).join(''))
                 })
             })
         }

@@ -19,58 +19,43 @@ router.get('/attributes', (req, res) => {
     const files = readdirSync(basePath, { withFileTypes: true })
         .filter(file => file.name.endsWith('.h5'))
     const startTime = Date.now()
-    const keys = new Set()
-    keys.add('_name')
-    files.forEach(file => {
-        let f = new h5wasm.File(join(basePath, file.name), "r")
-        Object.keys(f.attrs).forEach(key => { keys.add(key) })
-        f.close()
-    })
-    // /** @type {any[]} */
-    // const attributes = []
     /** @type {Map<string,object>} */
     const attributes = new Map()
     files.forEach(file => {
         let f = new h5wasm.File(join(basePath, file.name), "r")
         const tmp = new Map()
-        keys.forEach(key => {
-            if (key === '_name') {
-                // tmp.set('_name', file.name)
-            } else {
-                const value = f.attrs[key]?.value,
-                    shape = f.attrs[key]?.shape,
-                    dtype = f.attrs[key]?.dtype
+        Object.keys(f.attrs).forEach(key => {
+            const value = f.attrs[key]?.value,
+                shape = f.attrs[key]?.shape,
+                dtype = f.attrs[key]?.dtype
 
-                if (!value) {
+            if (!value) {
+                tmp.set(key, value)
+            } else {
+                // string
+                if (dtype === 'S') {
                     tmp.set(key, value)
-                } else {
-                    // string
-                    if (dtype === 'S') {
-                        tmp.set(key, value)
-                        return
-                    }
-                    if (shape) {
-                        if (shape.length === 1) {
-                            tmp.set(key, '"' +/** @type {number[]} */ (value).map((/** @type {number} */v) => v.toString()).join(' ') + '"')
-                        } else {
-                            // Int32
-                            if (dtype === '<i') tmp.set(key, `"${value.toLocaleString()}"`)
-                            // Uint32
-                            if (dtype === '<I') tmp.set(key, `"${value.toLocaleString()}"`)
-                            // Float32
-                            if (dtype === '<f') tmp.set(key, value.toString())
-                            // Float64
-                            if (dtype === '<d') tmp.set(key, value.toString())
-                        }
+                    return
+                }
+                if (shape) {
+                    if (shape.length === 1) {
+                        tmp.set(key, '"' +/** @type {number[]} */ (value).map((/** @type {number} */v) => v.toString()).join(' ') + '"')
+                    } else {
+                        // Int32
+                        if (dtype === '<i') tmp.set(key, `"${value.toLocaleString()}"`)
+                        // Uint32
+                        if (dtype === '<I') tmp.set(key, `"${value.toLocaleString()}"`)
+                        // Float32
+                        if (dtype === '<f') tmp.set(key, value.toString())
+                        // Float64
+                        if (dtype === '<d') tmp.set(key, value.toString())
                     }
                 }
             }
         })
-        // attributes.push(Object.fromEntries(tmp))
-        attributes.set(file.name,Object.fromEntries(tmp))
+        attributes.set(file.name, Object.fromEntries(tmp))
         f.close()
     })
-    // res.json(attributes)
     res.json(Object.fromEntries(attributes))
     console.log(`${basename(import.meta.url)} elapsedTime: ${Date.now() - startTime}ms`)
 })

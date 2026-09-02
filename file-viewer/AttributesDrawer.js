@@ -22,26 +22,22 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            const keys = ['_name'].concat(this._visibleKeys)
-            variables.theadInnerHTML.assign(keys.map(key => `<th>${key}</th>`).join(''))
+            if (!this._fileNames) return
+
+            variables.theadInnerHTML.assign(['_name'].concat(this._visibleKeys).map(key => `<th>${key}</th>`).join(''))
+
             const tmp = this._fileNames.filter(fileName => fileName.endsWith('.h5'))
                 .map(fileName => {
                     const data = this._attributes.get(fileName)
                     return [
                         '<tr>',
                         `<td>${fileName}</td>`,
+                        // @ts-ignore undefined is acceptable in the following code
                         this._visibleKeys.map(key => `<td>${data[key]}</td>`).join(''),
                         '</tr>'
                     ].join('')
                 }).join('')
-            // const tmp = this._attributes.filter(attr => this._fileNames.includes(attr['_name']))
-            //     .map(obj => [
-            //         '<tr>',
-            //         Object.keys(obj)
-            //             .filter(key => keys.includes(key))
-            //             .map(key => `<td>${obj[key]}</td>`).join(''),
-            //         '</tr>'
-            //     ].join('')).join('')
+
             variables.tbodyInnerHTML.assign(tmp)
         }
     }
