@@ -15,11 +15,14 @@ export default class {
         this._operation = () => {
             fetch(`/attributes?path=${this._path}`).then(response => {
                 response.json().then(data => {
-                    variables.attributes.assign(data)
+                    const attributes = new Map(Object.entries(data))
+                    console.log(attributes)
+                    variables.attributes.assign(attributes)
 
                     const keys = new Set()
-                    data.forEach((/** @type {object}*/obj) => { Object.keys(obj).forEach(key => { keys.add(key) }) })
-                    const visibleKeys = Array.from(keys).filter(key => key !== '_name')
+                    attributes.forEach((/** @type {object}*/obj) => { Object.keys(obj).forEach(key => { keys.add(key) }) })
+                    const visibleKeys = Array.from(keys)//.filter(key => key !== '_name')
+                    console.log(visibleKeys)
                     variables.visibleKeys.assign(visibleKeys)
                     variables.visibleInnerHTML.assign(visibleKeys.map(key => `<option selected>${key}</option>`).join(''))
                 })

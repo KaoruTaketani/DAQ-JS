@@ -26,14 +26,16 @@ router.get('/attributes', (req, res) => {
         Object.keys(f.attrs).forEach(key => { keys.add(key) })
         f.close()
     })
-    /** @type {any[]} */
-    const attributes = []
+    // /** @type {any[]} */
+    // const attributes = []
+    /** @type {Map<string,object>} */
+    const attributes = new Map()
     files.forEach(file => {
         let f = new h5wasm.File(join(basePath, file.name), "r")
         const tmp = new Map()
         keys.forEach(key => {
             if (key === '_name') {
-                tmp.set('_name', file.name)
+                // tmp.set('_name', file.name)
             } else {
                 const value = f.attrs[key]?.value,
                     shape = f.attrs[key]?.shape,
@@ -64,10 +66,12 @@ router.get('/attributes', (req, res) => {
                 }
             }
         })
-        attributes.push(Object.fromEntries(tmp))
+        // attributes.push(Object.fromEntries(tmp))
+        attributes.set(file.name,Object.fromEntries(tmp))
         f.close()
     })
-    res.json(attributes)
+    // res.json(attributes)
+    res.json(Object.fromEntries(attributes))
     console.log(`${basename(import.meta.url)} elapsedTime: ${Date.now() - startTime}ms`)
 })
 
