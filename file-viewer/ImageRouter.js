@@ -51,9 +51,7 @@ router.get('/image', (req, res) => {
         shape: /** @type {number[]} */(dataset.shape),
         data: data
     })
-    // must be closed after response.end
     f.close()
-    // console.log(JSON.stringify(dataset.value))
 })
 
 export default router;

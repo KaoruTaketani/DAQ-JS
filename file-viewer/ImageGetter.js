@@ -39,19 +39,8 @@ export default class {
                     variables.divInnerText.assign('raw image was not found')
                     variables.svgInnerHTML.assign('')
                 } else {
-                    response.text().then(text => {
+                    response.json().then(data => {
                         variables.divInnerText.assign('')
-                        // data contains 
-                        // xLimInMillimeters: [0, 50],
-                        // yLimInMillimeters: [0, 50],
-                        // and
-                        // imageSrc: /** @type {string} */
-                        // or
-                        // shape: /** @type {number[]} */
-                        // data: /** @type {Uint32Array} */
-
-                        const data = JSON.parse(text)
-
                         variables.xlabel.assign(data.xlabel)
                         variables.ylabel.assign(data.ylabel)
                         variables.datasetXlim.assign(data.xlim)
