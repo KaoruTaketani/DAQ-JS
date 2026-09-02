@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./ClientVariables.js').default} variables 
+     * @param {import('./ImageVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
@@ -17,9 +17,10 @@ export default class {
                 if (!response.ok) {
                     document.body.innerHTML = response.statusText
                 } else {
-                    response.text().then(text => { 
-                        console.log(text)
-                     })
+                    response.text().then(text => {
+                        const keys = JSON.parse(text)
+                        variables.keysInnerHTML.assign(keys.map((/** @type {string} */key) => `<option>${key}</option>`))
+                    })
                 }
             })
         }

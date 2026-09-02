@@ -22,15 +22,17 @@ router.get('/keys', (req, res) => {
         .forEach(file => {
             let f = new h5wasm.File(join(basePath, file.name), "r");
             f.keys().forEach(key => {
-                /** @type {import('h5wasm').Dataset|null} */
-                const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
-                if (dataset && Object.keys(dataset.attrs).length === 2) {
-                    keys.add(key)
+                if (req.query.type === 'image') {
+                    /** @type {import('h5wasm').Dataset|null} */
+                    const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
+                    if (dataset && Object.keys(dataset.attrs).length === 2) {
+                        keys.add(key)
+                    }
                 }
             })
             f.close()
         })
-    console.log(`${basename(import.meta.url)} elapsedTime: ${ Date.now() - startTime }ms`)
+    console.log(`${basename(import.meta.url)} elapsedTime: ${Date.now() - startTime}ms`)
     res.json(Array.from(keys))
 })
 

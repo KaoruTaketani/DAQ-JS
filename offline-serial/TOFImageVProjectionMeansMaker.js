@@ -1,7 +1,6 @@
 import colon from '../lib/colon.js'
-import mean from '../lib/mean.js'
-import sum from '../lib/sum.js'
 import column from '../lib/column.js'
+import mean from '../lib/mean.js'
 import Operator from './Operator.js'
 
 export default class extends Operator {

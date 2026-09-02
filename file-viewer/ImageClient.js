@@ -90,15 +90,7 @@ new ImageDivMaker(variables)
         element.addEventListener('change', () => {
             variables.keyText.assign(element.options[element.selectedIndex].text)
         });
-        [
-            'rawImage',
-            'filteredImage',
-            'tofImageVProjection',
-            'tofImageVProjectionSums',
-            'tofImageVProjection',
-            'tofImageVProjection'
-        ].forEach(key => { element.add(new Option(key)) })
-        element.value = ''
+        variables.keysInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(element.appendChild(document.createElement('select')));
 })(document.body.appendChild(document.createElement('fieldset')));
 
