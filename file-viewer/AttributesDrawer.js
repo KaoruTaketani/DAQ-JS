@@ -39,6 +39,20 @@ export default class {
                 }).join('')
 
             variables.tbodyInnerHTML.assign(tmp)
+
+            const csvHeader = ['_name'].concat(this._visibleKeys).join(',')
+            const csvBody = this._fileNames.filter(fileName => fileName.endsWith('.h5'))
+                .map(fileName => {
+                    const data = this._attributes.get(fileName)
+                    return [
+                        `${fileName},`,
+                        // @ts-ignore undefined is acceptable in the following code
+                        this._visibleKeys.map(key => data[key]).join(',')
+                    ].join('')
+                }).join('\n')
+
+            variables.linkHref.assign(`data:text/csv;base64,${btoa([csvHeader, csvBody].join('\n'))}`)
+
         }
     }
 }

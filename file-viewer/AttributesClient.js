@@ -63,27 +63,13 @@ new FilesGetter(variables)
 (element => {
     const linkElement = document.createElement('a');
     linkElement.setAttribute('download', `table.csv`)
+    variables.linkHref.addListener(arg => { linkElement.href = arg })
 
     element.type = 'button'
     element.value = 'download'
-    let tbodyInnerHTML
-    variables.tbodyInnerHTML.addListener(arg => { tbodyInnerHTML = arg })
-    let theadInnerHTML
-    variables.theadInnerHTML.addListener(arg => { theadInnerHTML = arg })
-    element.addEventListener('click', () => {
-        // const csvHeader = Array.from(tHeadElement.rows[0].cells)
-        //     .filter(cell => cell.style.display === '')
-        //     .map(cell => cell.innerText)
-        //     .join(',')
-        // const csvBody = Array.from(tBodyElement.rows)
-        //     .map(row => Array.from(row.cells)
-        //         .filter(cell => cell.style.display === '')
-        //         .map(cell => cell.innerText)
-        //         .join(',')
-        //     ).join('\n')
 
-        // linkElement.href = `data:text/csv;base64,${btoa([csvHeader, csvBody].join('\n'))}`
-        // linkElement.click()
+    element.addEventListener('click', () => {
+        linkElement.click()
     })
 })(document.body.appendChild(document.createElement('input')));
 
