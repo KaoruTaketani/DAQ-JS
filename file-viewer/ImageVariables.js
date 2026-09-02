@@ -1,7 +1,6 @@
-import SVGVariables from './SVGVariables.js'
-import ListenableNumber from './ListenableNumber.js'
 import ListenableObject from './ListenableObject.js'
 import ListenableString from './ListenableString.js'
+import SVGVariables from './SVGVariables.js'
 
 export default class extends SVGVariables {
     constructor() {
@@ -14,7 +13,6 @@ export default class extends SVGVariables {
         this.datasetXlim = new ListenableObject()
         this.datasetYlim = new ListenableObject()
 
-        this.keysInnerHTML = new ListenableString()
         this.canvasDataURL = new ListenableString()
         this.cScale = new ListenableString()
         this.cminValue = new ListenableString()

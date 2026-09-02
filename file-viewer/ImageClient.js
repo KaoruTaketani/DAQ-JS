@@ -259,5 +259,6 @@ new ImageDivMaker(variables)
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 variables.extname.assign('h5')
+variables.dataType.assign('image')
 variables.path.assign('/')
 

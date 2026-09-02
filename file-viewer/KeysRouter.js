@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/keys', (req, res) => {
     if (!process.env.hdf5Path
         || typeof req.query.path !== 'string'
-        || typeof req.query.type !== 'string') {
+        || typeof req.query.dataType !== 'string') {
         res.status(404).send()
         return
     }
@@ -22,13 +22,20 @@ router.get('/keys', (req, res) => {
         .forEach(file => {
             let f = new h5wasm.File(join(basePath, file.name), "r");
             f.keys().forEach(key => {
-                if (req.query.type === 'image') {
+                if (req.query.dataType === 'image') {
                     /** @type {import('h5wasm').Dataset|null} */
                     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
                     if (dataset && Object.keys(dataset.attrs).length === 2) {
                         keys.add(key)
                     }
                 }
+                if (req.query.dataType === 'waveform') {
+                    /** @type {import('h5wasm').Dataset|null} */
+                    const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
+                    if (dataset && Object.keys(dataset.attrs).length === 1) {
+                        keys.add(key)
+                    }
+                }                
             })
             f.close()
         })

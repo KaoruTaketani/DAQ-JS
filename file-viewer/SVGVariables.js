@@ -8,6 +8,8 @@ export default class extends ClientVariables {
         this.yDataset = new ListenableObject()
         this.xDataset = new ListenableObject()
 
+        this.dataType = new ListenableString()
+        this.keysInnerHTML = new ListenableString()
         this.xminValue = new ListenableString()
         this.xmaxValue = new ListenableString()
         this.yminValue = new ListenableString()

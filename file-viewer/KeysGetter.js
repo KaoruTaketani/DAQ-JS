@@ -1,11 +1,14 @@
 export default class {
     /**
-     * @param {import('./ImageVariables.js').default} variables 
+     * @param {import('./SVGVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
         this._path
         variables.path.prependListener(arg => { this._path = arg })
+        /** @type {string} */
+        this._dataType
+        variables.dataType.prependListener(arg => { this._dataType = arg })
         /** @type {string} */
         this._selectInnerHTML
         variables.selectInnerHTML.addListener(arg => {
@@ -13,7 +16,7 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            fetch(`/keys?path=${this._path}&type=image`).then(response => {
+            fetch(`/keys?path=${this._path}&dataType=${this._dataType}`).then(response => {
                 if (!response.ok) {
                     document.body.innerHTML = response.statusText
                 } else {

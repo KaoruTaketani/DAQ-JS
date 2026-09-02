@@ -9,6 +9,7 @@ const router = express.Router();
 router.get('/waveform', (req, res) => {
     if (!process.env.hdf5Path
         || typeof req.query.path !== 'string'
+        || typeof req.query.key !== 'string'
         || typeof req.query.fileName !== 'string') {
         res.status(404).send()
         return
@@ -18,7 +19,7 @@ router.get('/waveform', (req, res) => {
     let f = new h5wasm.File(join(process.env.hdf5Path, req.query.path, req.query.fileName), "r")
 
     /** @type {import('h5wasm').Dataset|null} */
-    const dataset =/** @type {import('h5wasm').Dataset|null} */ (f.get(`${req.query.key}BinCounts`))
+    const dataset =/** @type {import('h5wasm').Dataset|null} */ (f.get(req.query.key))
     if (!dataset) {
         res.status(404).send()
         f.close()
@@ -26,45 +27,24 @@ router.get('/waveform', (req, res) => {
     }
     const y = Array.from(/** @type {Float64Array} */(dataset.value))
     let xlabel
-    let groupPath = ''
-    let attrKey = ''
-    if (req.query.key === 'imageVProjection') {
-        groupPath = req.query.key + 'BinCounts'
-        attrKey = 'binLimitsInMillimeters'
+    if (req.query.key === 'imageVProjectionBinCounts') {
         xlabel = 'coordinate (mm)'
     }
-    if (req.query.key === 'imageHProjection') {
-        groupPath = req.query.key + 'BinCounts'
-        attrKey = 'binLimitsInMillimeters'
+    if (req.query.key === 'imageHProjectionBinCounts') {
         xlabel = 'coordinate (mm)'
     }
-    if (req.query.key === 'pulseHeightHistogram') {
-        groupPath = req.query.key + 'BinCounts'
-        attrKey = 'binLimits'
+    if (req.query.key === 'pulseHeightHistogramBinCounts') {
         xlabel = 'pulse height'
     }
-    if (req.query.key === 'tofHistogram') {
-        groupPath = req.query.key + 'BinCounts'
-        attrKey = 'binLimitsInNanoseconds'
+    if (req.query.key === 'tofHistogramBinCounts') {
         xlabel = 'tof (ns)'
     }
-    if (req.query.key === 'tofDifferenceHistogram') {
-        groupPath = req.query.key + 'BinCounts'
-        attrKey = 'binLimitsInNanoseconds'
+    if (req.query.key === 'tofDifferenceHistogramBinCounts') {
         xlabel = 'tof (ns)'
     }
-    if (attrKey === '') {
-        res.status(404).send()
-        f.close()
-        return
-    }
-    const group =/** @type {import('h5wasm').Group} */(f.get(groupPath))
-    const lims = /** @type {number[]} */(group.attrs[attrKey].value)
-    if (lims.length !== 2) {
-        res.status(404).send()
-        f.close()
-        return
-    }
+    const attrKeys = Object.keys(dataset.attrs)
+    // attrKeys.length is 1
+    const lims = /** @type {number[]} */(dataset.attrs[attrKeys[0]].value)
     const x = linspace(lims[0], lims[1], y.length + 1)
 
     res.json({
