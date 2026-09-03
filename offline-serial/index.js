@@ -48,6 +48,7 @@ import TOFHistogramSumMaker from "./TOFHistogramSumMaker.js"
 import TOFImageVProjectionSumsMaker from "./TOFImageVProjectionSumsMaker.js"
 import TOFImageVProjectionContrastsMaker from "./TOFImageVProjectionContrastsMaker.js"
 import TOFImageVProjectionPhasesMaker from "./TOFImageVProjectionPhasesMaker.js"
+import ImageVProjectionMeanCalculator from "./ImageVProjectionMeanCalculator.js"
 
 const variables = new Variables()
 
@@ -61,6 +62,7 @@ new ImageHProjectionInitializer(variables)
 new ImageHProjectionMaker(variables)
 new ImageVProjectionInitializer(variables)
 new ImageVProjectionMaker(variables)
+new ImageVProjectionMeanCalculator(variables)
 new FilteredNeutronEventMaker(variables)
 new FilteredImageInitializer(variables)
 new FilteredImageMaker(variables)

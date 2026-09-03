@@ -161,6 +161,7 @@ export default class {
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
         this.measurementTimeIdealInMinutes = new WritableNumber('measurementTimeIdealInMinutes', this.hdf5File)
         this.measurementTimeRealInMinutes = new WritableNumber('measurementTimeRealInMinutes', this.hdf5File)
+        this.imageVProjectionMeanInMillimeters = new WritableNumber('imageVProjectionMeanInMillimeters', this.hdf5File)
 
         this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
 
