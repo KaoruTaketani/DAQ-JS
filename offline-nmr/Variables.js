@@ -1,29 +1,29 @@
-import ListenableObject from './ListenableObject.js'
-import ListenableString from './ListenableString.js'
-import ParameterArray from './ParameterArray.js'
-import ParameterString from './ParameterString.js'
-import WritableDataset from './WritableDataset.js'
-import WritableNumber from './WritableNumber.js'
+import ListenableObject from '../lib/ListenableObject.js'
+import ListenableString from '../lib/ListenableString.js'
+import ParameterArray from '../lib/ParameterArray.js'
+import ParameterString from '../lib/ParameterString.js'
+import WritableDataset from '../lib/WritableDataset.js'
+import WritableNumber from '../lib/WritableNumber.js'
 
 export default class {
     constructor() {
-        /** @type {import('./ListenableObject.js').default<import('h5wasm').File>} */
+        /** @type {import('../lib/ListenableObject.js').default<import('h5wasm').File>} */
         this.hdf5File = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<string[]>} */
+        /** @type {import('../lib/ListenableObject.js').default<string[]>} */
         this.jsonFileNames = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Parameters>} */
+        /** @type {import('../lib/ListenableObject.js').default<import('../lib/index.js').Parameters>} */
         this.parameters = new ListenableObject()
 
         // float64array
-        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
         this.meanWaveform = new WritableDataset('meanWaveform', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
         this.signal = new WritableDataset('signal', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
         this.background = new WritableDataset('background', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
         this.maskedX = new WritableDataset('maskedX', this.hdf5File)
-        /** @type {import('./WritableDataset.js').default<Float64Array>} */
+        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
         this.maskedY = new WritableDataset('maskedY', this.hdf5File)
 
         this.maskLimits = new ParameterArray('maskLimits', this.hdf5File, this.parameters)
