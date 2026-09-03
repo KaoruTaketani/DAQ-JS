@@ -27,7 +27,8 @@ export default class extends Operator {
                     /** see @MIEZEPhase */
                     const s = this._tofHistogramBinCounts.slice(i * numBins, (i + 1) * numBins)
                     const [x, y] = fft0(s)
-                    return Math.atan2(y, x)
+                    // offset Pi to set the result from [-Pi,Pi] to [0,2*Pi]
+                    return Math.atan2(y, x) + Math.PI
                 })
             )
         }
