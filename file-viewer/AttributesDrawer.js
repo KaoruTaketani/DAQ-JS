@@ -35,8 +35,18 @@ export default class {
                     return [
                         '<tr>',
                         `<td>${fileName}</td>`,
-                        // @ts-ignore undefined is acceptable in the following code
-                        this._visibleKeys.map(key => `<td>${data[key]}</td>`).join(''),
+                        this._visibleKeys.map(key => {
+                            // @ts-ignore undefined is acceptable in the following code
+                            const value = data[key]
+
+                            if (typeof value === 'object') {
+                                return '<td>"' + Object.values(value).map(v => v.toString()).join(' ') + '"</td>'
+                            } else if (Number.isInteger(value)) {
+                                return `<td>${value.toLocaleString()}</td>`
+                            } else {
+                                return `<td>${value}</td>`
+                            }
+                        }).join(''),
                         '</tr>'
                     ].join('')
                 }).join('')
@@ -49,8 +59,16 @@ export default class {
                     const data = this._attributes.get(fileName)
                     return [
                         `${fileName},`,
-                        // @ts-ignore undefined is acceptable in the following code
-                        this._visibleKeys.map(key => data[key]).join(',')
+                        this._visibleKeys.map(key => {
+                            // @ts-ignore undefined is acceptable in the following code
+                            const value = data[key]
+
+                            if (typeof value === 'object') {
+                                return '"' + Object.values(value).map(v => v.toString()).join(' ') + '"'
+                            } else {
+                                return value
+                            }
+                        }).join(',')
                     ].join('')
                 }).join('\n')
 

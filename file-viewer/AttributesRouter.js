@@ -32,33 +32,7 @@ router.get('/attributes', (req, res) => {
                 let f = new h5wasm.File(join(basePath.get(req.query.extname), file.name), "r")
                 const tmp = new Map()
                 Object.keys(f.attrs).forEach(key => {
-                    const value = f.attrs[key]?.value,
-                        shape = f.attrs[key]?.shape,
-                        dtype = f.attrs[key]?.dtype
-
-                    if (!value) {
-                        tmp.set(key, value)
-                    } else {
-                        // string
-                        if (dtype === 'S') {
-                            tmp.set(key, value)
-                            return
-                        }
-                        if (shape) {
-                            if (shape.length === 1) {
-                                tmp.set(key, '"' +/** @type {number[]} */ (value).map((/** @type {number} */v) => v.toString()).join(' ') + '"')
-                            } else {
-                                // Int32
-                                if (dtype === '<i') tmp.set(key, `"${value.toLocaleString()}"`)
-                                // Uint32
-                                if (dtype === '<I') tmp.set(key, `"${value.toLocaleString()}"`)
-                                // Float32
-                                if (dtype === '<f') tmp.set(key, value.toString())
-                                // Float64
-                                if (dtype === '<d') tmp.set(key, value.toString())
-                            }
-                        }
-                    }
+                    tmp.set(key,f.attrs[key]?.value)
                 })
                 attributes.set(file.name, Object.fromEntries(tmp))
                 f.close()
