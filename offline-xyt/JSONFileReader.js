@@ -31,6 +31,7 @@ export default class extends Operator {
                     if (err) throw err
 
                     ready.then(() => {
+                        variables.startTime.assign(Date.now())
                         // initializers
                         variables.kickerPulseCount.assign(0)
                         variables.channel0Count.assign(0)

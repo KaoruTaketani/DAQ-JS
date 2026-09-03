@@ -150,6 +150,7 @@ export default class {
         this.pulseHeightHistogramNumBins = new ListenableNumber()
         this.firstLickerTime = new ListenableNumber()
         this.lastKickerTime = new ListenableNumber()
+        this.startTime = new ListenableNumber()
 
         this.kickerPulseCount = new WritableInt32('kickerPulseCount', this.hdf5File)
         this.channel0Count = new WritableInt32('channel0Count', this.hdf5File)

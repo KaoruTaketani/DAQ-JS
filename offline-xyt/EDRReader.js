@@ -45,6 +45,9 @@ export default class extends Operator {
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFileNames.prependListener(arg => { this._jsonFilePaths = arg })
+        /** @type {number} */
+        this._startTime
+        variables.startTime.prependListener(arg => { this._startTime = arg })
         /** @type {string} */
         this._edrFileName
         variables.edrFileName.addListener(arg => {
@@ -55,8 +58,8 @@ export default class extends Operator {
             if (!this._edrFileName) return
 
             const edrFilePath = join(this._edrPath, this._projectName, this._edrFileName),
-                totalSize = statSync(edrFilePath).size,
-                startTime = Date.now()
+                totalSize = statSync(edrFilePath).size
+            console.log(`ini elapsedTime: ${Date.now() - this._startTime} ms`)
 
             let processedSize = 0
             createReadStream(edrFilePath, { highWaterMark: 32 * 1024 * 1024 })
@@ -65,19 +68,19 @@ export default class extends Operator {
                     processedSize += chunk.length
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
-                    console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
+                    console.log(`edr elapsedTime: ${Date.now() - this._startTime} ms`)
                     variables.measurementTimeIdealInMinutes.assign(Math.floor(this._kickerPulseCount * this._tofMaxInMilliseconds / 60_000))
                     variables.measurementTimeRealInMinutes.assign(Math.floor((this._lastKickerTime - this._firstKickerTime) / 60))
                     variables.tofHistogramBinCounts.assign(this._tofHistogramBinCounts)
                     variables.tofImageVProjectionBinCounts.assign(this._tofImageVProjectionBinCounts)
                     variables.imageVProjectionBinCounts.assign(this._imageVProjectionBinCounts)
-                    console.log(`calc elapsedTime: ${Date.now() - startTime} ms`)
+                    console.log(`calc elapsedTime: ${Date.now() - this._startTime} ms`)
 
                     ready.then(() => {
                         const hdf5File = new File(join(this._hdf5Path, this._projectName, this._hdf5FileName), 'w')
                         variables.hdf5File.assign(hdf5File)
                         hdf5File.close()
-                        console.log(`hdf5 elapsedTime: ${Date.now() - startTime} ms`)
+                        console.log(`hdf5 elapsedTime: ${Date.now() - this._startTime} ms`)
 
                         variables.jsonFileNames.assign(this._jsonFilePaths)
                     })
