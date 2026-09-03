@@ -49,6 +49,7 @@ export default class {
                         variables.xmaxValue.assign(data.xlim[1].toString())
                         variables.yminValue.assign(data.ylim[0].toString())
                         variables.ymaxValue.assign(data.ylim[1].toString())
+                        variables.shapeInnerText.assign(`shape: [${data.shape}]`)
                         // variables.imageSrc.assign(data.imageSrc)
                         const dataset = {
                             shape: data.shape,
@@ -58,7 +59,7 @@ export default class {
                         const clim = bounds(dataset.data)
                         variables.cminValue.assign(clim[0].toString())
                         variables.cmaxValue.assign(clim[1].toString())
-                        variables.divInnerText.assign(`width: ${data.shape[1]}, height: ${data.shape[0]}`)
+                        // variables.divInnerText.assign(`width: ${data.shape[1]}, height: ${data.shape[0]}`)
                     })
                 }
             }).catch(() => {
