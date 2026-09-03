@@ -4,6 +4,7 @@ import Operator from './Operator.js'
 import sum from '../lib/sum.js'
 import max from '../lib/max.js'
 import gauss1 from '../lib/gauss1.js'
+import column from '../lib/column.js'
 
 export default class extends Operator {
     /**
@@ -12,19 +13,19 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {import('../lib/index.js').Uint32NDArray} */
-        this._tofImageVProjectionBinCounts
-        variables.tofImageVProjectionBinCounts.addListener(arg => {
-            this._tofImageVProjectionBinCounts = arg
+        this._tofImageVProjectionSums
+        variables.tofImageVProjectionSums.addListener(arg => {
+            this._tofImageVProjectionSums = arg
             this._operation()
         })
         this._operation = () => {
-            const numBins = this._tofImageVProjectionBinCounts.shape,
-                heights = new Float64Array(numBins[0]),
-                centers = new Float64Array(numBins[0]),
-                widths = new Float64Array(numBins[0])
+            const [_width, numBins] = this._tofImageVProjectionSums.shape,
+                heights = new Float64Array(numBins),
+                centers = new Float64Array(numBins),
+                widths = new Float64Array(numBins)
 
-            for (let i = 0; i < numBins[0]; ++i) {
-                const s = this._tofImageVProjectionBinCounts.data.slice(i * numBins[1], (i + 1) * numBins[1]),
+            for (let i = 0; i < numBins; ++i) {
+                const s = column(this._tofImageVProjectionSums, i + 1),
                     _mean = sum(s.map((s, i) => s * i)) / sum(s),
                     _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1))
                 if (sum(s) < 300) {
