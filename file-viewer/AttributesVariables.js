@@ -6,9 +6,6 @@ export default class extends ClientVariables {
     constructor() {
         super()
 
-        this.tBodyElement = new ListenableObject()
-        this.tHeadElement = new ListenableObject()
-        this.tableElement = new ListenableObject()
         this.attributes = new ListenableObject()
         this.visibleKeys = new ListenableObject()
 

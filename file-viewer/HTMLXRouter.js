@@ -23,8 +23,8 @@ function innerHTML(reqPath) {
 
 router.get('/AttributesHDF5.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/AttributesJSON.html', (req, res) => { res.send(innerHTML(req.path)) })
+router.get('/AttributesSIGB.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Image.html', (req, res) => { res.send(innerHTML(req.path)) })
-router.get('/Headers.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/QRange.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Slit.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Table.html', (req, res) => { res.send(innerHTML(req.path)) })
