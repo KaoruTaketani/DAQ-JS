@@ -68,7 +68,7 @@ export default class extends Operator {
                         byte3 = this._eventBuffer[8 * i + 3],
                         byte4 = this._eventBuffer[8 * i + 4],
                         mlfTime = (byte1 << 22) + (byte2 << 14) + (byte3 << 6) + (byte4 >> 2)
-                    variables.measurementEndTime.assign(mlfTime)
+                    variables.lastKickerTime.assign(mlfTime)
                     if (!this._firstKickerTime)
                         variables.firstLickerTime.assign(mlfTime)
                 } else {
