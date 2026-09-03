@@ -41,6 +41,11 @@ export default class extends Operator {
 
                     // offset Pi to set the result from [-Pi,Pi] to [0,2*Pi]
                     phases[sub2ind(shape, i, j)] = Math.atan2(y, x) + Math.PI
+                    // /** see @MIEZEPhase */
+                    // const s = this._tofHistogramBinCounts.slice(i * numBins, (i + 1) * numBins)
+                    // const [x, y] = fft0(s)
+                    // return Math.atan2(y, x)
+
                 }
             }
             variables.tofImageVProjectionPhases.assign({

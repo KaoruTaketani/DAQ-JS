@@ -127,8 +127,8 @@ variables.edrPath.assign('../../edr/')
 // json file without direct beam
 // variables.jsonFileNames.assign(['0.json'])
 // json file with direct beam
-variables.jsonFileNames.assign(['2.json'])
+// variables.jsonFileNames.assign(['2.json'])
 // console.log(colon(0, 60))
-// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 
