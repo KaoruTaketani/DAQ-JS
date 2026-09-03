@@ -6,6 +6,7 @@ export default class extends SVGVariables {
         super()
 
         this.keyText = new ListenableString()
+        this.shapeInnerText = new ListenableString()
     }
 }
 

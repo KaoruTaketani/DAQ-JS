@@ -47,6 +47,7 @@ export default class {
                 } else {
                     response.json().then(data => {
                         variables.divInnerText.assign('')
+                        variables.shapeInnerText.assign(`shape: [${data.y.length}]`)
                         variables.xlabel.assign(data.xlabel)
                         variables.xDataset.assign(data.x)
                         variables.yDataset.assign(data.y)

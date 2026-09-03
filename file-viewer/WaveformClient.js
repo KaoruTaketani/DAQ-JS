@@ -58,6 +58,11 @@ new WaveformGetter(variables)
 
 (element => {
     element.style.marginLeft = '208px'
+    variables.shapeInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
+
+(element => {
+    element.style.marginLeft = '208px'
     variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
