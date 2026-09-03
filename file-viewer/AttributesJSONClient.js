@@ -87,6 +87,8 @@ new FilesGetter(variables)
         variables.theadInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(element.appendChild(document.createElement('thead')));
     (element => {
+        element.style.textAlign = 'right'
+
         variables.tbodyInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(element.appendChild(document.createElement('tbody')))
 })(document.body.appendChild(document.createElement('table')));
