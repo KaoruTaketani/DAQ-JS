@@ -162,10 +162,10 @@ export default class {
 
             const axIntensity = {
                 xLim: [0, 256],
-                yLim: [0.1, max(y)],
+                yLim: [1, max(y)],
                 xTick: [0, 256],
                 yTick: [10, max(y)],
-                xTickLabel: ['0', '256'],
+                xTickLabel: [this._cminValue, this._cmaxValue],
                 yTickLabel: ['10', max(y).toString()],
                 yScale: 'log'
             }
