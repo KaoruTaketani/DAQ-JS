@@ -52,7 +52,7 @@ export default class {
                         // variables.imageSrc.assign(data.imageSrc)
                         const dataset = {
                             shape: data.shape,
-                            data: new Uint32Array(data.data)
+                            data: data.data
                         }
                         variables.dataset.assign(dataset)
                         const clim = bounds(dataset.data)
