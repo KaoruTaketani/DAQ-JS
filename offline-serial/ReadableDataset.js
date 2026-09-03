@@ -17,15 +17,20 @@ export default class extends ListenableObject {
             if (!arg) {
                 super.assign(undefined)
             } else {
-                const dataset = /** @type {import('h5wasm').Dataset} */(arg.get(this._name))
+                const dataset = /** @type {import('h5wasm').Dataset|null} */(arg.get(this._name))
 
-                if (dataset.shape.length > 1) {
-                    super.assign({
-                        shape: dataset.shape,
-                        data: dataset.value
-                    })
+                if (dataset === null) {
+                    console.log(`${this._name} was not found in ${arg.path}`)
+                    throw new Error()
                 } else {
-                    super.assign(dataset.value)
+                    if (dataset.shape.length > 1) {
+                        super.assign({
+                            shape: dataset.shape,
+                            data: dataset.value
+                        })
+                    } else {
+                        super.assign(dataset.value)
+                    }
                 }
             }
         })

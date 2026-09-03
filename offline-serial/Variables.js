@@ -116,9 +116,9 @@ export default class {
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
         this.directBeamNeutronRate = new ReadableDataset('neutronRate', this.directBeamHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
-        this.directBeamTOFHistogramContrast = new ReadableDataset('directBeamTOFHistogramContrast', this.directBeamHDF5File)
+        this.directBeamTOFHistogramContrast = new ReadableDataset('tofHistogramContrast', this.directBeamHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
-        this.directBeamTOFHistogramPhase = new ReadableDataset('directBeamTOFHistogramPhase', this.directBeamHDF5File)
+        this.directBeamTOFHistogramPhase = new ReadableDataset('tofHistogramPhase', this.directBeamHDF5File)
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units
