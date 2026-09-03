@@ -6,43 +6,16 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {number} */
-        this._tofMaxInMilliseconds
-        variables.tofMaxInMilliseconds.addListener(arg => {
-            this._tofMaxInMilliseconds = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._frequencyVectorLength
-        variables.frequencyVectorLength.addListener(arg => {
-            this._frequencyVectorLength = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._miezeFrequencyInKilohertz
-        variables.miezeFrequencyInKilohertz.addListener(arg => {
-            this._miezeFrequencyInKilohertz = arg
+        variables.workers.addListener(_ => {
             this._operation()
         })
         this._operation = () => {
-            if (!this._tofMaxInMilliseconds) return
-            if (!this._frequencyVectorLength) return
-            if (!this._miezeFrequencyInKilohertz) return
-
-            const cycleInMilliseconds = 1 / this._miezeFrequencyInKilohertz
-            const binWidthInMillisecond = cycleInMilliseconds / this._frequencyVectorLength
-            const numBins = Math.ceil(this._tofMaxInMilliseconds / binWidthInMillisecond)//,
-            // unit must be nanoseconds as used in maker
-            // dt = this._tofMaxInMilliseconds * 1_000_000 / numBins
-
-            // variables.tofHistogram.assign({
-            //     binCounts: new Array(numBins).fill(0),
-            //     binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
-            // })
+            const numBins = 80
             variables.tofHistogramWorker.broadcast({
                 binCounts: new Array(numBins).fill(0),
-                binLimits: [0, this._tofMaxInMilliseconds * 1_000_000]
+                binLimits: [0, numBins * 1_000_000]
             })
+            variables.edrFilePath.assign('../../edr20250424/rpmt_run0.edr')
         }
     }
 }

@@ -11,9 +11,6 @@ export default class extends Operator {
         /** @type {import('worker_threads').Worker[]} */
         this._workers
         variables.workers.prependListener(arg => { this._workers = arg })
-        /** @type {string[]} */
-        this._jsonFilePaths
-        variables.jsonFilePaths.prependListener(arg => { this._jsonFilePaths = arg })
         /** @type {string} */
         this._edrFilePath
         variables.edrFilePath.addListener(arg => {
@@ -21,8 +18,6 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            if (!this._edrFilePath) return
-
             const totalSize = statSync(this._edrFilePath).size,
                 startTime = Date.now()
             let processedSize = 0

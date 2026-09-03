@@ -1,5 +1,6 @@
 import BroadcastObject from './BroadcastObject.js'
 import ListenableObject from './ListenableObject.js'
+import ListenableString from '../lib/ListenableString.js'
 
 export default class {
     constructor() {
@@ -12,5 +13,8 @@ export default class {
         this.hdf5File = new ListenableObject()
 
         this.tofHistogramWorker = new BroadcastObject('tofHistogramPort', this.workers)
+
+        this.hdf5Path = new ListenableString()
+        this.edrFilePath = new ListenableString()
     }
 }
