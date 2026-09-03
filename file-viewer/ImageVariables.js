@@ -1,11 +1,11 @@
-import ListenableObject from './ListenableObject.js'
-import ListenableString from './ListenableString.js'
+import ListenableObject from '../lib/ListenableObject.js'
+import ListenableString from '../lib/ListenableString.js'
 import SVGVariables from './SVGVariables.js'
 
 export default class extends SVGVariables {
     constructor() {
         super()
-        /** @type {import('./ListenableObject.js').default<CanvasRenderingContext2D>} */
+        /** @type {import('../lib/ListenableObject.js').default<CanvasRenderingContext2D>} */
         this.canvasContext = new ListenableObject()
         this.currentPoint = new ListenableObject()
         this.dataset = new ListenableObject()
@@ -18,6 +18,7 @@ export default class extends SVGVariables {
         this.cminValue = new ListenableString()
         this.cmaxValue = new ListenableString()
         this.keyText = new ListenableString()
+        this.shapeInnerText = new ListenableString()
         this.svgIntensityInnerHTML = new ListenableString()
     }
 }

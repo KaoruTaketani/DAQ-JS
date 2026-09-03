@@ -1,5 +1,5 @@
-import ListenableObject from './ListenableObject.js'
-import ListenableString from './ListenableString.js'
+import ListenableObject from '../lib/ListenableObject.js'
+import ListenableString from '../lib/ListenableString.js'
 
 export default class {
     constructor() {
