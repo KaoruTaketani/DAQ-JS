@@ -27,8 +27,8 @@ import TOFHistogramPhaseMaker from "./TOFHistogramPhaseMaker.js"
 import TOFHistogramPhaseShiftMaker from "./TOFHistogramPhaseShiftMaker.js"
 import PulseHeightHistogramInitializer from "./PulseHeightHistogramInitializer.js"
 import PulseHeightHistogramMaker from "./PulseHeightHistogramMaker.js"
-import RawImageInitializer from "./RawImageInitializer.js"
-import RawImageMaker from "./RawImageMaker.js"
+import ImageInitializer from "./ImageInitializer.js"
+import ImageMaker from "./ImageMaker.js"
 import ReflectivityMaker from "./ReflectivityMaker.js"
 import ROIInPixelsMaker from "./ROIInPixelsMaker.js"
 import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializer.js"
@@ -56,8 +56,8 @@ new EDRReader(variables)
 new EventBufferParser(variables)
 new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
-new RawImageInitializer(variables)
-new RawImageMaker(variables)
+new ImageInitializer(variables)
+new ImageMaker(variables)
 new ImageHProjectionInitializer(variables)
 new ImageHProjectionMaker(variables)
 new ImageVProjectionInitializer(variables)

@@ -37,7 +37,7 @@ export default class {
 
         // uint32ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
-        this.rawImageBinCounts = new WritableDataset('rawImageBinCounts', this.hdf5File)
+        this.imageBinCounts = new WritableDataset('imageBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
@@ -129,8 +129,8 @@ export default class {
         this.tofImageXBinLimitsInPixels = new WritableArray('tofImageBinCounts', 'xBinLimitsInPixels', this.hdf5File)
         this.tofImageYBinLimitsInPixels = new WritableArray('tofImageBinCounts', 'yBinLimitsInPixels', this.hdf5File)
         this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('tofDifferenceHistogramBinCounts', 'binLimitsInNanoseconds', this.hdf5File)
-        this.rawImageXBinLimitsInMillimeters = new WritableArray('rawImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
-        this.rawImageYBinLimitsInMillimeters = new WritableArray('rawImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
+        this.imageXBinLimitsInMillimeters = new WritableArray('imageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
+        this.imageYBinLimitsInMillimeters = new WritableArray('imageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
         this.pulseHeightHistogramBinLimits = new WritableArray('pulseHeightHistogramBinCounts', 'binLimits', this.hdf5File)
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('', 'tofDiffrenceLimitsInNanoseconds', this.hdf5File)
         this.tofImageVProjectionYBinLimitsInMillimeters = new WritableArray('tofImageVProjectionBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)

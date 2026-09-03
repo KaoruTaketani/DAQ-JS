@@ -8,8 +8,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {import('../lib/index.js').Uint32NDArray} */
-        this._rawImageBinCounts
-        variables.rawImageBinCounts.prependListener(arg => { this._rawImageBinCounts = arg })
+        this._imageBinCounts
+        variables.imageBinCounts.prependListener(arg => { this._imageBinCounts = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
         this._neutronEvent
         variables.neutronEvent.addListener(arg => {
@@ -17,8 +17,8 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            this._rawImageBinCounts.data[sub2ind(
-                this._rawImageBinCounts.shape,
+            this._imageBinCounts.data[sub2ind(
+                this._imageBinCounts.shape,
                 this._neutronEvent.yCoordinateInPixels,
                 this._neutronEvent.xCoordinateInPixels
             )]++

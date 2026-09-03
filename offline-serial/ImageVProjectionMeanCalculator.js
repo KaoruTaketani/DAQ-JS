@@ -26,12 +26,6 @@ export default class extends Operator {
                 dx,
                 this._imageVProjectionBinLimitsInMillimeters[1] - dx / 2
             )
-            console.log(
-                this._imageVProjectionBinLimitsInMillimeters[0] + dx / 2,
-                dx,
-                this._imageVProjectionBinLimitsInMillimeters[1] - dx / 2
-            )
-            console.log(binCenters.length, this._imageVProjectionBinCounts.length)
             variables.imageVProjectionMeanInMillimeters.assign(mean(binCenters, this._imageVProjectionBinCounts))
         }
     }

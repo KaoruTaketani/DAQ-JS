@@ -17,7 +17,6 @@ router.get('/image', (req, res) => {
     let f = new h5wasm.File(join(process.env.hdf5Path, req.query.path, req.query.fileName), "r");
     /** @type {import('h5wasm').Dataset|null} */
     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(req.query.key))
-    // const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get('rawImageBinCounts'))
     if (!dataset) {
         res.status(404).send()
         return
@@ -25,7 +24,7 @@ router.get('/image', (req, res) => {
 
     let xlabel
     let ylabel
-    if (req.query.key === 'rawImageBinCounts') {
+    if (req.query.key === 'imageBinCounts') {
         xlabel = 'coordinate (mm)'
         ylabel = 'coordinate (mm)'
     }

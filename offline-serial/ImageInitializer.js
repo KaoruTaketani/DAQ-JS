@@ -21,10 +21,10 @@ export default class extends Operator {
                 2 ** this._neutronPositionBitLength,
                 2 ** this._neutronPositionBitLength]
 
-            variables.rawImageXBinLimitsInMillimeters.assign([0, this._cameraImageSizeInMillimeters[0]])
-            variables.rawImageYBinLimitsInMillimeters.assign([0, this._cameraImageSizeInMillimeters[1]])
+            variables.imageXBinLimitsInMillimeters.assign([0, this._cameraImageSizeInMillimeters[0]])
+            variables.imageYBinLimitsInMillimeters.assign([0, this._cameraImageSizeInMillimeters[1]])
 
-            variables.rawImageBinCounts.assign({
+            variables.imageBinCounts.assign({
                 shape: size,
                 data: new Uint32Array(prod(size))
             })
