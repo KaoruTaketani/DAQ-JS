@@ -6,6 +6,9 @@ export default class {
         /** @type {string} */
         this._path
         variables.path.prependListener(arg => { this._path = arg })
+        /** @type {string} */
+        this._extname
+        variables.extname.prependListener(arg => { this._extname = arg })
         /** @type {Map<string,object>} */
         this._attributes
         variables.attributes.prependListener(arg => { this._attributes = arg })
@@ -26,7 +29,7 @@ export default class {
 
             variables.theadInnerHTML.assign(['_name'].concat(this._visibleKeys).map(key => `<th>${key}</th>`).join(''))
 
-            const tmp = this._fileNames.filter(fileName => fileName.endsWith('.h5'))
+            const tmp = this._fileNames.filter(fileName => fileName.endsWith(`.${this._extname}`))
                 .map(fileName => {
                     const data = this._attributes.get(fileName)
                     return [

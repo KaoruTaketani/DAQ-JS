@@ -15,7 +15,7 @@ router.get('/', (_req, res) => {
         `    <h2>EDR</h2>`,
         `    <p><a href="./Table.html">Table</a></p>`,
         `    <h2>JSON</h2>`,
-        `    <p><a href="./Objects.html">Objects</a></p>`,
+        `    <p><a href="./AttributesJSON.html">Attributes</a></p>`,
         `    <h2>HDF5</h2>`,
         `    <p><a href="./AttributesHDF5.html">Attributes</a></p>`,
         `    <p><a href="./XY.html">XY</a></p>`,

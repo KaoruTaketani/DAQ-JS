@@ -1,19 +1,22 @@
 import express from 'express';
-import { basename, join } from 'path'
-import { readdirSync } from 'fs';
-import h5wasm from "h5wasm/node"
+import { readFile, readdirSync } from 'fs';
+import h5wasm from "h5wasm/node";
+import { basename, join } from 'path';
 await h5wasm.ready;
 
 const router = express.Router();
 
 router.get('/attributes', (req, res) => {
     if (!process.env.hdf5Path
+        || !process.env.jsonPath
         || typeof req.query.extname !== 'string'
         || typeof req.query.path !== 'string') {
         res.status(404).send()
         return
     }
 
+    /** @type {Map<string,object>} */
+    const attributes = new Map()
     if (req.query.extname === 'h5') {
         const hdf5Path = process.env.hdf5Path
         const path = req.query.path
@@ -21,8 +24,6 @@ router.get('/attributes', (req, res) => {
         const files = readdirSync(basePath, { withFileTypes: true })
             .filter(file => file.name.endsWith('.h5'))
         const startTime = Date.now()
-        /** @type {Map<string,object>} */
-        const attributes = new Map()
         files.forEach(file => {
             let f = new h5wasm.File(join(basePath, file.name), "r")
             const tmp = new Map()
@@ -60,6 +61,33 @@ router.get('/attributes', (req, res) => {
         })
         res.json(Object.fromEntries(attributes))
         console.log(`${basename(import.meta.url)} extname:${req.query.extname}, elapsedTime: ${Date.now() - startTime}ms`)
+    } else if (req.query.extname === 'json') {
+        const startTime = Date.now()
+        const jsonPath = process.env.jsonPath
+        const path = req.query.path
+        const basePath = join(jsonPath, path)
+        const files = readdirSync(basePath, { withFileTypes: true })
+            .filter(file => file.name.endsWith('.json'))
+
+        Promise.all(files.map(file => new Promise(resolve => {
+            if (typeof file.name !== 'string') {
+                resolve({})
+            } else {
+                readFile(join(jsonPath, path, file.name), 'utf8', (err, data) => {
+                    if (err) throw err
+
+                    const tmp = JSON.parse(data)
+                    attributes.set(file.name, tmp)
+                    resolve(tmp)
+                })
+            }
+        }))).then(objects => {
+            files.forEach((file,i) => { attributes.set(file.name, objects[i]) })
+            res.json(Object.fromEntries(attributes))
+            console.log(`elapsedTime: ${Date.now() - startTime}ms`)
+        })
+    } else {
+        res.status(404).send()
     }
 })
 
