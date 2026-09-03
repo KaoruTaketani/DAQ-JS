@@ -9,6 +9,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {number[]} */
+        this._tofImageVProjectionYBinLimitsInMillimeters
+        variables.tofImageVProjectionYBinLimitsInMillimeters.prependListener(arg => { this._tofImageVProjectionYBinLimitsInMillimeters = arg })
+        /** @type {number[]} */
+        this._tofImageVProjectionXBinLimitsInNanoseconds
+        variables.tofImageVProjectionXBinLimitsInNanoseconds.prependListener(arg => { this._tofImageVProjectionXBinLimitsInNanoseconds = arg })
         /** @type {number} */
         this._frequencyVectorLength
         variables.frequencyVectorLength.prependListener(arg => { this._frequencyVectorLength = arg })
@@ -20,7 +26,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             if (sum(this._tofImageVProjectionBinCounts.data) === 0) return
-            
+
             const originalShape = this._tofImageVProjectionBinCounts.shape,
                 shape = [originalShape[0], originalShape[1] / this._frequencyVectorLength],
                 sums = new Uint32Array(prod(shape))
@@ -37,6 +43,8 @@ export default class extends Operator {
                 shape: shape,
                 data: sums
             })
+            variables.tofImageVProjectionSumsXLimitsInNanoseconds.assign(this._tofImageVProjectionXBinLimitsInNanoseconds)
+            variables.tofImageVProjectionSumsYLimitsInMillimeters.assign(this._tofImageVProjectionYBinLimitsInMillimeters)
         }
     }
 }

@@ -137,6 +137,12 @@ export default class {
         this.tofImageVProjectionXBinLimitsInNanoseconds = new WritableArray('tofImageVProjectionBinCounts', 'xBinLimitsInNanoseconds', this.hdf5File)
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'xBinLimitsInMillimeters', this.hdf5File)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('filteredImageBinCounts', 'yBinLimitsInMillimeters', this.hdf5File)
+        this.tofImageVProjectionSumsXLimitsInNanoseconds = new WritableArray('tofImageVProjectionSums', 'xLimitsInNanoseconds', this.hdf5File)
+        this.tofImageVProjectionSumsYLimitsInMillimeters = new WritableArray('tofImageVProjectionSums', 'yLimitsInMillimeters', this.hdf5File)
+        this.tofImageVProjectionContrastsXLimitsInNanoseconds = new WritableArray('tofImageVProjectionContrasts', 'xLimitsInNanoseconds', this.hdf5File)
+        this.tofImageVProjectionContrastsYLimitsInMillimeters = new WritableArray('tofImageVProjectionContrasts', 'yLimitsInMillimeters', this.hdf5File)
+        this.tofImageVProjectionPhasesXLimitsInNanoseconds = new WritableArray('tofImageVProjectionPhases', 'xLimitsInNanoseconds', this.hdf5File)
+        this.tofImageVProjectionPhasesYLimitsInMillimeters = new WritableArray('tofImageVProjectionPhases', 'yLimitsInMillimeters', this.hdf5File)
         // followings are the attributes in the root folder
         this.cameraImageSizeInMillimeters = new WritableArray('', 'cameraImageSizeInMillimeters', this.hdf5File)
         this.cameraPixelSizeInMillimeters = new WritableArray('', 'cameraPixelSizeInMillimeters', this.hdf5File)

@@ -10,6 +10,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {number[]} */
+        this._tofImageVProjectionYBinLimitsInMillimeters
+        variables.tofImageVProjectionYBinLimitsInMillimeters.prependListener(arg => { this._tofImageVProjectionYBinLimitsInMillimeters = arg })
+        /** @type {number[]} */
+        this._tofImageVProjectionXBinLimitsInNanoseconds
+        variables.tofImageVProjectionXBinLimitsInNanoseconds.prependListener(arg => { this._tofImageVProjectionXBinLimitsInNanoseconds = arg })
         /** @type {number} */
         this._frequencyVectorLength
         variables.frequencyVectorLength.prependListener(arg => { this._frequencyVectorLength = arg })
@@ -43,6 +49,8 @@ export default class extends Operator {
                 shape: shape,
                 data: contrasts
             })
+            variables.tofImageVProjectionContrastsXLimitsInNanoseconds.assign(this._tofImageVProjectionXBinLimitsInNanoseconds)
+            variables.tofImageVProjectionContrastsYLimitsInMillimeters.assign(this._tofImageVProjectionYBinLimitsInMillimeters)
         }
     }
 }
