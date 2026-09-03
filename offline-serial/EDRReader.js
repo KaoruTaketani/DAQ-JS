@@ -13,8 +13,8 @@ export default class extends Operator {
         this._imageVProjectionBinCounts
         variables.imageVProjectionBinCounts.prependListener(arg => { this._imageVProjectionBinCounts = arg })
         /** @type {number} */
-        this._measurementStartTime
-        variables.measurementStartTime.prependListener(arg => { this._measurementStartTime = arg })
+        this._firstKickerTime
+        variables.firstLickerTime.prependListener(arg => { this._firstKickerTime = arg })
         /** @type {number} */
         this._measurementEndTime
         variables.measurementEndTime.prependListener(arg => { this._measurementEndTime = arg })
@@ -67,7 +67,7 @@ export default class extends Operator {
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - startTime} ms`)
                     variables.measurementTimeIdealInMinutes.assign(Math.floor(this._kickerPulseCount * this._tofMaxInMilliseconds / 60_000))
-                    variables.measurementTimeRealInMinutes.assign(Math.floor((this._measurementEndTime - this._measurementStartTime) / 60))
+                    variables.measurementTimeRealInMinutes.assign(Math.floor((this._measurementEndTime - this._firstKickerTime) / 60))
                     variables.tofHistogramBinCounts.assign(this._tofHistogramBinCounts)
                     variables.tofImageVProjectionBinCounts.assign(this._tofImageVProjectionBinCounts)
                     variables.imageVProjectionBinCounts.assign(this._imageVProjectionBinCounts)

@@ -148,7 +148,7 @@ export default class {
         this.cameraPixelSizeInMillimeters = new WritableArray('', 'cameraPixelSizeInMillimeters', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
-        this.measurementStartTime = new ListenableNumber()
+        this.firstLickerTime = new ListenableNumber()
         this.measurementEndTime = new ListenableNumber()
 
         this.kickerPulseCount = new WritableInt32('kickerPulseCount', this.hdf5File)

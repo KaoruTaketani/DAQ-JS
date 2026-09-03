@@ -37,7 +37,7 @@ export default class extends Operator {
                         variables.channel1Count.assign(0)
                         variables.neutronCount.assign(0)
                         variables.filteredNeutronCount.assign(0)
-                        variables.measurementStartTime.assign(0)
+                        variables.firstLickerTime.assign(0)
                         // parameters not defined in json
                         variables.tofDifferenceLimitsInNanoseconds.assign([-250, 250])
                         variables.moderatorToSampleDistanceInMeters.assign(23.76)

@@ -7,8 +7,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
-        this._measurementStartTime
-        variables.measurementStartTime.prependListener(arg => { this._measurementStartTime = arg })
+        this._firstKickerTime
+        variables.firstLickerTime.prependListener(arg => { this._firstKickerTime = arg })
         /** @type {number} */
         this._neutronPositionBitLength
         variables.neutronPositionBitLength.prependListener(arg => { this._neutronPositionBitLength = arg })
@@ -69,8 +69,8 @@ export default class extends Operator {
                         byte4 = this._eventBuffer[8 * i + 4],
                         mlfTime = (byte1 << 22) + (byte2 << 14) + (byte3 << 6) + (byte4 >> 2)
                     variables.measurementEndTime.assign(mlfTime)
-                    if (!this._measurementStartTime)
-                        variables.measurementStartTime.assign(mlfTime)
+                    if (!this._firstKickerTime)
+                        variables.firstLickerTime.assign(mlfTime)
                 } else {
                     // unexpected
                 }
