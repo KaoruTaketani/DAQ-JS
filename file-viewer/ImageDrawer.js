@@ -7,6 +7,7 @@ import ylabel from '../lib/ylabel.js'
 import colon from '../lib/colon.js'
 import stairs from '../lib/stairs.js'
 import max from '../lib/max.js'
+import isbetween from '../lib/isbetween.js'
 
 export default class {
     /**
@@ -138,12 +139,13 @@ export default class {
                 }
 
             }
-            imcrop(im, [
+            const rect = [
                 this._dataset.shape[1] * (xmin - this._datasetXlim[0]) / dx,
                 this._dataset.shape[0] * (1 - (ymax - this._datasetYlim[0]) / dy),
                 this._dataset.shape[1] * (xmax - xmin) / dx,
                 this._dataset.shape[0] * (ymax - ymin) / dy
-            ]).then(im => {
+            ]
+            imcrop(im, rect).then(im => {
                 this._canvasContext.drawImage(
                     im,
                     (560 * 0.13) * 400 / 560,
@@ -155,7 +157,19 @@ export default class {
             })
             const x = colon(0, 256)
             const y = new Array(256).fill(0)
-            im.data.forEach(value => { y[value]++ })
+            console.log(rect)
+            // im.data.forEach(value => {
+            //         y[value]++
+            // })
+            for (let i = 0; i < im.width; ++i) {
+                for (let j = 0; j < im.height; ++j) {
+                    if (isbetween(i, [rect[0], rect[0] + rect[2]])
+                        && isbetween(j, [rect[1], rect[1] + rect[3]])) {
+                        const rgb = im.data[j * (im.width + 1) + i + 1]
+                        y[rgb]++
+                    }
+                }
+            }
             // const x = colon(0, 2, 256)
             // const y = new Array(256).fill(0)
             // im.data.forEach(value => { y[Math.floor(value / 2)]++ })
