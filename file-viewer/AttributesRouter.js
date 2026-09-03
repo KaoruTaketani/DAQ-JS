@@ -16,18 +16,20 @@ router.get('/attributes', (req, res) => {
         return
     }
 
+    const basePath = new Map()
+    basePath.set('h5', join(process.env.hdf5Path, req.query.path))
+    basePath.set('json', join(process.env.jsonPath, req.query.path))
+    basePath.set('sigb', join(process.env.sigbPath, req.query.path))
+    const files = readdirSync(basePath.get(req.query.extname), { withFileTypes: true })
+        .filter(file => file.name.endsWith(`.${req.query.extname}`))
+
     /** @type {Map<string,object>} */
     const attributes = new Map()
     if (req.query.extname === 'h5') {
         h5wasm.ready.then(() => {
-            const hdf5Path = process.env.hdf5Path
-            const path = req.query.path
-            const basePath = join(hdf5Path, path)
-            const files = readdirSync(basePath, { withFileTypes: true })
-                .filter(file => file.name.endsWith(`.${req.query.extname}`))
             const startTime = Date.now()
             files.forEach(file => {
-                let f = new h5wasm.File(join(basePath, file.name), "r")
+                let f = new h5wasm.File(join(basePath.get(req.query.extname), file.name), "r")
                 const tmp = new Map()
                 Object.keys(f.attrs).forEach(key => {
                     const value = f.attrs[key]?.value,
@@ -66,17 +68,12 @@ router.get('/attributes', (req, res) => {
         })
     } else if (req.query.extname === 'json') {
         const startTime = Date.now()
-        const jsonPath = process.env.jsonPath
-        const path = req.query.path
-        const basePath = join(jsonPath, path)
-        const files = readdirSync(basePath, { withFileTypes: true })
-            .filter(file => file.name.endsWith(`.${req.query.extname}`))
 
         Promise.all(files.map(file => new Promise(resolve => {
             if (typeof file.name !== 'string') {
                 resolve({})
             } else {
-                readFile(join(jsonPath, path, file.name), 'utf8', (err, data) => {
+                readFile(join(basePath.get(req.query.extname), file.name), 'utf8', (err, data) => {
                     if (err) throw err
 
                     const tmp = JSON.parse(data)
@@ -91,17 +88,12 @@ router.get('/attributes', (req, res) => {
         })
     } else if (req.query.extname === 'sigb') {
         const startTime = Date.now()
-        const sigbPath = process.env.sigbPath
-        const path = req.query.path
-        const basePath = join(sigbPath, path)
-        const files = readdirSync(basePath, { withFileTypes: true })
-            .filter(file => file.name.endsWith(`.${req.query.extname}`))
 
         Promise.all(files.map(file => new Promise(resolve => {
             if (typeof file.name !== 'string') {
                 resolve({})
             } else {
-                const filePath = join(basePath, file.name)
+                const filePath = join(basePath.get(req.query.extname), file.name)
                 const buffer = Buffer.alloc(1024)
                 open(filePath, 'r', (err, fd) => {
                     if (err) throw err
