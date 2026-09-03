@@ -11,7 +11,7 @@ export default class {
         variables.path.prependListener(arg => { this._path = arg })
         /** @type {string} */
         this._selectInnerHTML
-        variables.selectInnerHTML.addListener(arg => {
+        variables.filesInnerHTML.addListener(arg => {
             this._selectInnerHTML = arg
             this._operation()
         })

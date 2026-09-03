@@ -5,7 +5,7 @@ export default class {
     constructor() {
         this.fileNames = new ListenableObject()
 
-        this.selectInnerHTML = new ListenableString()
+        this.filesInnerHTML = new ListenableString()
         this.path = new ListenableString()
         this.extname = new ListenableString()
         this.directoryName = new ListenableString()

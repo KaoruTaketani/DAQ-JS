@@ -34,7 +34,7 @@ new ImageDivMaker(variables)
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
     })
-    variables.selectInnerHTML.addListener(arg => { element.innerHTML = arg })
+    variables.filesInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 
 
