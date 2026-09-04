@@ -24,6 +24,7 @@ export default class {
                     const allKeys = new Set()
                     attributes.forEach((/** @type {object}*/obj) => { Object.keys(obj).forEach(key => { allKeys.add(key) }) })
                     variables.visibleKeys.assign(Array.from(allKeys))
+                    variables.filterKeysInnerHTML.assign(Array.from(allKeys).map(key => `<option>${key}</option>`).join(''))
                     variables.visibleInnerHTML.assign(Array.from(allKeys).map(key => `<option selected>${key}</option>`).join(''))
                 })
             })

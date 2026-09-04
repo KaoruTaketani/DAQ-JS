@@ -1,4 +1,5 @@
 import AttributesDrawer from "./AttributesDrawer.js";
+import AttributesFilterValuesMaker from "./AttributesFilterValuesMaker.js";
 import AttributesGetter from "./AttributesGetter.js";
 import AttributesVariables from "./AttributesVariables.js";
 import FilesGetter from "./FilesGetter.js";
@@ -8,6 +9,7 @@ const variables = new AttributesVariables()
 new PathMaker(variables)
 new AttributesGetter(variables)
 new AttributesDrawer(variables)
+new AttributesFilterValuesMaker(variables)
 new FilesGetter(variables)
     ;
 (element => {
@@ -47,6 +49,52 @@ new FilesGetter(variables)
             variables.visibleKeys.assign(Array.from(element.selectedOptions).map(option => option.innerText))
         })
         variables.visibleInnerHTML.addListener(arg => { element.innerHTML = arg })
+    })(dialogElement.appendChild(document.createElement('select')));
+    (element => {
+        element.type = 'button'
+        element.value = 'close'
+        element.style.display = 'flex'
+        element.style.width = '200px'
+        element.style.marginTop = '10px'
+
+        element.addEventListener('click', () => { dialogElement.close() })
+    })(dialogElement.appendChild(document.createElement('input')));
+
+})(document.body.appendChild(document.createElement('input')));
+
+
+(element => {
+    const dialogElement = document.body.appendChild(document.createElement('dialog'))
+    // element.style.marginLeft = '208px'
+    element.type = 'button'
+    element.value = 'filter'
+    element.addEventListener('click', () => { dialogElement.showModal() });
+
+    (element => {
+        // element.size = 20
+        element.style.width = '200px'
+        element.style.display = 'flex'
+        element.style.justifyContent = 'center'
+        // element.multiple = true
+
+        element.addEventListener('change', () => {
+            // variables.visibleKeys.assign(Array.from(element.selectedOptions).map(option => option.innerText))
+            variables.filterKey.assign(element.options[element.selectedIndex].innerText)
+        })
+        variables.filterKeysInnerHTML.addListener(arg => { element.innerHTML = arg })
+    })(dialogElement.appendChild(document.createElement('select')));
+    (element => {
+        element.size = 20
+        element.style.width = '200px'
+        element.style.display = 'flex'
+        element.style.justifyContent = 'center'
+        element.multiple = true
+        element.style.marginTop = '10px'
+
+        element.addEventListener('change', () => {
+            // variables.visibleKeys.assign(Array.from(element.selectedOptions).map(option => option.innerText))
+        })
+        variables.filterValuesInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(dialogElement.appendChild(document.createElement('select')));
     (element => {
         element.type = 'button'

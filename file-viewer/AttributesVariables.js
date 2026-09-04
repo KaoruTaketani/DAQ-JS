@@ -13,6 +13,9 @@ export default class extends ClientVariables {
         this.theadInnerHTML = new ListenableString()
         this.tbodyInnerHTML = new ListenableString()
         this.linkHref = new ListenableString()
+        this.filterKeysInnerHTML = new ListenableString()
+        this.filterKey = new ListenableString()
+        this.filterValuesInnerHTML = new ListenableString()
     }
 }
 
