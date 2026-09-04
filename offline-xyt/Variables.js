@@ -28,6 +28,8 @@ export default class {
         this.hdf5File = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<import('h5wasm').File|undefined>} */
         this.directBeamHDF5File = new ListenableObject()
+        /** @type {import('../lib/ListenableObject.js').default<import('h5wasm').File|undefined>} */
+        this.lowIncidentAngleHDF5File = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<string[]>} */
         this.jsonFileNames = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<import('../lib/index.js').Parameters>} */
@@ -106,6 +108,10 @@ export default class {
         /** @type {import('../lib/WritableDataset.js').default<Float64Array|undefined>} */
         this.reflectivity = new WritableDataset('reflectivity', this.hdf5File)
         /** @type {import('../lib/WritableDataset.js').default<Float64Array|undefined>} */
+        this.concatenatedReflectivity = new WritableDataset('concatenatedReflectivity', this.hdf5File)
+        /** @type {import('../lib/WritableDataset.js').default<Float64Array|undefined>} */
+        this.concatenatedMomentumTransferInReciprocalAngstroms = new WritableDataset('concatenatedMomentumTransferInReciprocalAngstroms', this.hdf5File)
+        /** @type {import('../lib/WritableDataset.js').default<Float64Array|undefined>} */
         this.tofHistogramContrastRatio = new WritableDataset('tofHistogramContrastRatio', this.hdf5File)
         /** @type {import('../lib/WritableDataset.js').default<Float64Array|undefined>} */
         this.tofHistogramPhaseShift = new WritableDataset('tofHistogramPhaseShift', this.hdf5File)
@@ -119,6 +125,10 @@ export default class {
         this.directBeamTOFHistogramContrast = new ReadableDataset('tofHistogramContrast', this.directBeamHDF5File)
         /** @type {import('../lib/ReadableDataset.js').default<Float64Array|undefined>} */
         this.directBeamTOFHistogramPhase = new ReadableDataset('tofHistogramPhase', this.directBeamHDF5File)
+        /** @type {import('../lib/ReadableDataset.js').default<Float64Array|undefined>} */
+        this.lowIncidentAngleReflectivity = new ReadableDataset('reflectivity', this.lowIncidentAngleHDF5File)
+        /** @type {import('../lib/ReadableDataset.js').default<Float64Array|undefined>} */
+        this.lowIncidentAngleMomentumTransferInInverseAngstroms = new ReadableDataset('momentumTransferInInverseAngstroms', this.lowIncidentAngleHDF5File)
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units

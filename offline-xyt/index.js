@@ -49,6 +49,8 @@ import TOFImageVProjectionSumsMaker from "./TOFImageVProjectionSumsMaker.js"
 import TOFImageVProjectionContrastsMaker from "./TOFImageVProjectionContrastsMaker.js"
 import TOFImageVProjectionPhasesMaker from "./TOFImageVProjectionPhasesMaker.js"
 import ImageVProjectionMeanCalculator from "./ImageVProjectionMeanCalculator.js"
+import ConcatenatedReflectivityMaker from "./ConcatenatedReflectivityMaker.js"
+import ConcatenatedMomentumTransferMaker from "./ConcatenatedMomentumTransferMaker.js"
 
 const variables = new Variables()
 
@@ -86,6 +88,7 @@ new FitFinder(variables)
 new TOFHistogramContrastRatioMaker(variables)
 new TOFHistogramPhaseShiftMaker(variables)
 new ReflectivityMaker(variables)
+new ConcatenatedReflectivityMaker(variables)
 new TOFMaker(variables)
 new VelocityMaker(variables)
 new WavenumberMaker(variables)
@@ -94,6 +97,7 @@ new WavelengthMaker(variables)
 new FourierTimeMaker(variables)
 new FourierEnergyMaker(variables)
 new MomentumTransferMaker(variables)
+new ConcatenatedMomentumTransferMaker(variables)
 new PulseHeightHistogramInitializer(variables)
 new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)
@@ -125,9 +129,11 @@ variables.edrPath.assign('../../edr/')
 // variables.jsonFileNames.assign(['51.json','52.json','53.json','54.json','55.json','56.json','57.json','58.json','59.json','60.json'])
 // variables.jsonFileNames.assign(['104.json'])
 // json file without direct beam
-variables.jsonFileNames.assign(['0.json'])
+// variables.jsonFileNames.assign(['0.json'])
 // json file with direct beam
 // variables.jsonFileNames.assign(['2.json'])
+// json file with direct beam and low incident angle reflectivity
+variables.jsonFileNames.assign(['4.json'])
 // console.log(colon(0, 60))
 // variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])

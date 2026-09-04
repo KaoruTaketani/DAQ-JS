@@ -3,9 +3,6 @@ export default class {
      * @param {import('./AttributesVariables.js').default} variables 
      */
     constructor(variables) {
-        /** @type {string[]} */
-        this._fileNames
-        variables.fileNames.prependListener(arg => { this._fileNames = arg })
         /** @type {Map<string,object>} */
         this._attributes
         variables.attributes.prependListener(arg => { this._attributes = arg })

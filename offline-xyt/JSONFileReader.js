@@ -59,12 +59,20 @@ export default class extends Operator {
                         variables.hdf5FileName.assign(basename(name, '.json') + '.h5')
 
                         if (parameters.directBeamFileName) {
-                            const directBeamHDF5File = new File(join(this._hdf5Path, this._projectName, parameters.directBeamFileName), 'r')
-                            variables.directBeamHDF5File.assign(directBeamHDF5File)
-                            directBeamHDF5File.close()
+                            const f = new File(join(this._hdf5Path, this._projectName, parameters.directBeamFileName), 'r')
+                            variables.directBeamHDF5File.assign(f)
+                            f.close()
                         } else {
                             variables.directBeamHDF5File.assign(undefined)
                         }
+                        if (parameters.lowIncidentAngleFileName) {
+                            const f = new File(join(this._hdf5Path, this._projectName, parameters.lowIncidentAngleFileName), 'r')
+                            variables.lowIncidentAngleHDF5File.assign(f)
+                            f.close()
+                        } else {
+                            variables.lowIncidentAngleHDF5File.assign(undefined)
+                        }
+                        
                         variables.parameters.assign(parameters)
                     })
                 })
