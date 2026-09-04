@@ -1,4 +1,5 @@
 import AttributesDrawer from "./AttributesDrawer.js";
+import AttributesFilesSelector from "./AttributesFilesSelector.js";
 import AttributesFilterValuesMaker from "./AttributesFilterValuesMaker.js";
 import AttributesGetter from "./AttributesGetter.js";
 import AttributesVariables from "./AttributesVariables.js";
@@ -10,6 +11,7 @@ new PathMaker(variables)
 new AttributesGetter(variables)
 new AttributesDrawer(variables)
 new AttributesFilterValuesMaker(variables)
+new AttributesFilesSelector(variables)
 new FilesGetter(variables)
     ;
 (element => {
@@ -92,7 +94,7 @@ new FilesGetter(variables)
         element.style.marginTop = '10px'
 
         element.addEventListener('change', () => {
-            // variables.visibleKeys.assign(Array.from(element.selectedOptions).map(option => option.innerText))
+            variables.filterValues.assign(Array.from(element.selectedOptions).map(option => option.innerText))
         })
         variables.filterValuesInnerHTML.addListener(arg => { element.innerHTML = arg })
     })(dialogElement.appendChild(document.createElement('select')));

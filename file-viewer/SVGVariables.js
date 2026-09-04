@@ -5,7 +5,9 @@ import ListenableString from '../lib/ListenableString.js'
 export default class extends ClientVariables {
     constructor() {
         super()
+        /** @type {import('../lib/ListenableObject.js').default<number[]>} */
         this.yDataset = new ListenableObject()
+        /** @type {import('../lib/ListenableObject.js').default<number[]>} */
         this.xDataset = new ListenableObject()
 
         this.dataType = new ListenableString()

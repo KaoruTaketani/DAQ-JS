@@ -7,11 +7,15 @@ export default class extends SVGVariables {
         super()
         /** @type {import('../lib/ListenableObject.js').default<CanvasRenderingContext2D>} */
         this.canvasContext = new ListenableObject()
+        /** @type {import('../lib/ListenableObject.js').default<number[]>} */
         this.currentPoint = new ListenableObject()
-        this.dataset = new ListenableObject()
+        /** @type {import('../lib/ListenableObject.js').default<number[]>} */
         this.cursorOffset = new ListenableObject()
+        /** @type {import('../lib/ListenableObject.js').default<number[]>} */
         this.datasetXlim = new ListenableObject()
+        /** @type {import('../lib/ListenableObject.js').default<number[]>} */
         this.datasetYlim = new ListenableObject()
+        this.dataset = new ListenableObject()
 
         this.canvasDataURL = new ListenableString()
         this.cScale = new ListenableString()

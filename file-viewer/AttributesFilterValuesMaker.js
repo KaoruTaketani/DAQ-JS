@@ -3,7 +3,7 @@ export default class {
      * @param {import('./AttributesVariables.js').default} variables 
      */
     constructor(variables) {
-        /** @type {object[]} */
+        /** @type {Map<string,object>} */
         this._attributes
         variables.attributes.prependListener(arg => { this._attributes = arg })
         /** @type {string} */

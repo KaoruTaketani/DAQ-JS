@@ -3,6 +3,7 @@ import ListenableString from '../lib/ListenableString.js'
 
 export default class {
     constructor() {
+        /** @type {import('../lib/ListenableObject.js').default<string[]>} */
         this.fileNames = new ListenableObject()
 
         this.filesInnerHTML = new ListenableString()
