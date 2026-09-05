@@ -28,7 +28,9 @@ export default class extends Operator {
                         const rate = this._neutronRate[i]
                         const directRate = this._directBeamNeutronRate[i]
 
-                        return directRate === 0 ? NaN : rate / directRate
+                        // return directRate === 0 ? NaN : rate / directRate
+                        // may be useful not to include NaN into hdf5 files for later use
+                        return directRate === 0 ? 1 : rate / directRate
                     })
                 )
             }

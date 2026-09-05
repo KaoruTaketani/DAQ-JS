@@ -37,12 +37,12 @@ export default class extends Operator {
                     const startIndex = sub2ind(originalShape, i, j * this._frequencyVectorLength)
                     const data = this._tofImageVProjectionBinCounts.data.slice(startIndex, startIndex + this._frequencyVectorLength)
 
-                    const 
+                    const
                         [x, y] = fft0(data),
                         b = sum(data)
 
                     // may be useful not to include NaN into hdf5 files for later use
-                    contrasts[sub2ind(shape, i, j)]= b === 0 ? 1 : 2 * Math.hypot(x, y) / b                    
+                    contrasts[sub2ind(shape, i, j)] = b === 0 ? 1 : 2 * Math.hypot(x, y) / b
                 }
             }
             variables.tofImageVProjectionContrasts.assign({

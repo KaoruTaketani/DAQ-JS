@@ -25,11 +25,13 @@ export default class extends Operator {
                 variables.tofHistogramContrastRatio.assign(
                     new Float64Array(this._tofHistogramContrast.length).map((_, i) => {
                         ok(this._directBeamTOFHistogramContrast)
-                        return Number.isNaN(this._tofHistogramContrast[i])
-                            || Number.isNaN(this._directBeamTOFHistogramContrast[i])
-                            || this._directBeamTOFHistogramContrast[i] === 0
-                            ? NaN
-                            : this._tofHistogramContrast[i] / this._directBeamTOFHistogramContrast[i]
+                        // return Number.isNaN(this._tofHistogramContrast[i])
+                        //     || Number.isNaN(this._directBeamTOFHistogramContrast[i])
+                        //     || this._directBeamTOFHistogramContrast[i] === 0
+                        //     ? NaN
+                        //     : this._tofHistogramContrast[i] / this._directBeamTOFHistogramContrast[i]
+                        // may be useful not to include NaN into hdf5 files for later use
+                        return this._tofHistogramContrast[i] / this._directBeamTOFHistogramContrast[i]
                     })
                 )
             }
