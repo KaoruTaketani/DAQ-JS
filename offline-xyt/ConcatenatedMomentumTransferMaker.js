@@ -1,4 +1,3 @@
-import { ok } from 'assert'
 import Operator from './Operator.js'
 
 export default class extends Operator {

@@ -197,6 +197,7 @@ export default class {
         this.upstreamFlipperOutput = new ParameterString('upstreamFlipperOutput', this.hdf5File, this.parameters)
         this.downstreamFlipperOutput = new ParameterString('downstreamFlipperOutput', this.hdf5File, this.parameters)
         this.directBeamFileName = new ParameterString('directBeamFileName', this.hdf5File, this.parameters)
+        this.lowIncidentAngleFileName = new ParameterString('lowIncidentAngleFileName',this.hdf5File,this.parameters)
         /// edrFilePath must be the final listener
         this.edrFileName = new ParameterString('edrFileName', this.hdf5File, this.parameters)
     }
