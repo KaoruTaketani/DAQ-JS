@@ -17,7 +17,9 @@ export default class {
                 if (!response.ok) {
                     document.body.innerHTML = response.statusText
                 } else {
-                    response.text().then(text => { variables.filesInnerHTML.assign(text) })
+                    response.json().then(files => {
+                        variables.filesInnerHTML.assign(files.map((/** @type {string}*/file) => `<option>${file}</option>`).join(''))
+                    })
                 }
             })
         }

@@ -30,38 +30,31 @@ router.get('/files', (req, res) => {
     if (req.query.extname === 'sigb') basePath = process.env.sigbPath
 
     const files = readdirSync(join(basePath, req.query.path), { withFileTypes: true })
-
+        .map(file => file.isDirectory() ? file.name + '/' : file.name)
     if (req.query.path === '/') {
-        res.send(
-            files.map(file => file.isDirectory() ? file.name + '/' : file.name)
-                .map(text => `<option>${text}</option>`).join('')
-        )
+        res.json(files)
     } else {
-        res.send(
-            '<option>../</option>' + files.map(file => file.isDirectory() ? file.name + '/' : file.name)
-                .sort((a, b) => {
-                    // 1. As long as both characters at a given position are not digits, the alphabetical order is followed.
-                    // 2. When there are two numbers and the amount of digits is not equal, the number with the least digits is the smallest.
-                    // 3. If the numbers have the same amount of digits, the alphabetical order is followed.            
-                    let i
-                    for (i = 0; i < a.length; i++) {
-                        // 'b' can be a prefix of 'a'
-                        if (!b[i]) return 1
-                        if (isDigit(a[i]) && isDigit(b[i])) {
-                            const nda = numDigit(a, i)
-                            const ndb = numDigit(b, i)
-                            if (nda === ndb) continue
-                            return nda > ndb ? 1 : -1
-                        } else {
-                            // Compare alphabetic chars.
-                            if (a[i] === b[i]) continue
-                            return a[i] > b[i] ? 1 : -1
-                        }
-                    }
-                    return b[i] ? -1 : 0
-                })
-                .map(text => `<option>${text}</option>`).join('')
-        )
+        res.json(['../'].concat(files.sort((a, b) => {
+            // 1. As long as both characters at a given position are not digits, the alphabetical order is followed.
+            // 2. When there are two numbers and the amount of digits is not equal, the number with the least digits is the smallest.
+            // 3. If the numbers have the same amount of digits, the alphabetical order is followed.            
+            let i
+            for (i = 0; i < a.length; i++) {
+                // 'b' can be a prefix of 'a'
+                if (!b[i]) return 1
+                if (isDigit(a[i]) && isDigit(b[i])) {
+                    const nda = numDigit(a, i)
+                    const ndb = numDigit(b, i)
+                    if (nda === ndb) continue
+                    return nda > ndb ? 1 : -1
+                } else {
+                    // Compare alphabetic chars.
+                    if (a[i] === b[i]) continue
+                    return a[i] > b[i] ? 1 : -1
+                }
+            }
+            return b[i] ? -1 : 0
+        })))
     }
 })
 
