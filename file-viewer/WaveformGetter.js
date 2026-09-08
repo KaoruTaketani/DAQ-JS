@@ -27,22 +27,22 @@ export default class {
             this._operation()
         })
         /** @type {string[]} */
-        this._fileNames
+        this._selectedFileNames
         variables.selectedFileNames.addListener(arg => {
-            this._fileNames = arg
+            this._selectedFileNames = arg
             this._operation()
         })
         this._operation = () => {
             if (!this._keyText) return
-            if (this._fileNames.length !== 1) return
-            if (!this._fileNames[0].endsWith('.h5')) {
+            if (this._selectedFileNames.length !== 1) return
+            if (!this._selectedFileNames[0].endsWith('.h5')) {
                 variables.svgInnerHTML.assign('')
                 return
             }
 
-            fetch(`/waveform?key=${this._keyText}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
+            fetch(`/waveform?key=${this._keyText}&path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
                 if (!response.ok) {
-                    variables.divInnerText.assign(`${this._keyText} was not found in ${this._fileNames[0]}`)
+                    variables.divInnerText.assign(`${this._keyText} was not found in ${this._selectedFileNames[0]}`)
                     variables.svgInnerHTML.assign('')
                 } else {
                     response.json().then(data => {

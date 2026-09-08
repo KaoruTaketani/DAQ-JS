@@ -30,6 +30,12 @@ new FilesGetter(variables)
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)
     })
+    variables.selectorFileNames.addListener(arg => {
+        Array.from(element.options).forEach(option => {
+            option.selected = arg.includes(option.innerText)
+        })
+        element.dispatchEvent(new Event('change'))
+    })
     variables.filesInnerHTML.addListener(arg => { element.innerHTML = arg })
 })(document.body.appendChild(document.createElement('select')));
 

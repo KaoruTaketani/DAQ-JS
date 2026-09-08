@@ -19,22 +19,22 @@ export default class {
             this._operation()
         })
         /** @type {string[]} */
-        this._fileNames
+        this._selectedFileNames
         variables.selectedFileNames.addListener(arg => {
-            this._fileNames = arg
+            this._selectedFileNames = arg
             this._operation()
         })
         this._operation = () => {
             if (!this._headerText) return
-            if (!this._fileNames) return
-            if (this._fileNames.length !== 1) return
-            if (!this._fileNames[0].endsWith('.edr')) {
+            if (!this._selectedFileNames) return
+            if (this._selectedFileNames.length !== 1) return
+            if (!this._selectedFileNames[0].endsWith('.edr')) {
                 variables.tableInnerHTML.assign('')
                 variables.offsetValue.assign('0')
                 return
             }
 
-            fetch(`/table?path=${this._path}&fileName=${this._fileNames[0]}&offset=${this._offset}&header=${this._headerText}`).then(response => {
+            fetch(`/table?path=${this._path}&fileName=${this._selectedFileNames[0]}&offset=${this._offset}&header=${this._headerText}`).then(response => {
                 response.text().then(text => {
                     variables.tableInnerHTML.assign(text)
                 })

@@ -18,15 +18,15 @@ export default class {
             this._operation()
         })
         /** @type {string[]} */
-        this._fileNames
+        this._selectedFileNames
         variables.selectedFileNames.addListener(arg => {
-            this._fileNames = arg
+            this._selectedFileNames = arg
             this._operation()
         })
         this._operation = () => {
             if (!this._keyText) return
-            if (this._fileNames.length !== 1) return
-            if (!this._fileNames[0].endsWith('.h5')) {
+            if (this._selectedFileNames.length !== 1) return
+            if (!this._selectedFileNames[0].endsWith('.h5')) {
                 variables.svgInnerHTML.assign('')
                 // see canvas size in  ImageClient.js
                 this._canvasContext.clearRect(0, 0, 400, 300)
@@ -34,7 +34,7 @@ export default class {
                 return
             }
 
-            fetch(`/image?path=${this._path}&fileName=${this._fileNames[0]}&key=${this._keyText}`).then(response => {
+            fetch(`/image?path=${this._path}&fileName=${this._selectedFileNames[0]}&key=${this._keyText}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign('raw image was not found')
                     variables.svgInnerHTML.assign('')

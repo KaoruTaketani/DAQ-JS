@@ -13,9 +13,9 @@ export default class {
         this._attributes
         variables.attributes.prependListener(arg => { this._attributes = arg })
         /** @type {string[]} */
-        this._fileNames
+        this._selectedFileNames
         variables.selectedFileNames.addListener(arg => {
-            this._fileNames = arg
+            this._selectedFileNames = arg
             this._operation()
         })
         /** @type {string[]} */
@@ -25,11 +25,11 @@ export default class {
             this._operation()
         })
         this._operation = () => {
-            if (!this._fileNames) return
+            if (!this._selectedFileNames) return
 
             variables.theadInnerHTML.assign(['_name'].concat(this._visibleKeys).map(key => `<th>${key}</th>`).join(''))
 
-            const tmp = this._fileNames.filter(fileName => fileName.endsWith(`.${this._extname}`))
+            const tmp = this._selectedFileNames.filter(fileName => fileName.endsWith(`.${this._extname}`))
                 .map(fileName => {
                     const data = this._attributes.get(fileName)
                     return [
@@ -54,7 +54,7 @@ export default class {
             variables.tbodyInnerHTML.assign(tmp)
 
             const csvHeader = ['_name'].concat(this._visibleKeys).join(',')
-            const csvBody = this._fileNames.filter(fileName => fileName.endsWith('.h5'))
+            const csvBody = this._selectedFileNames.filter(fileName => fileName.endsWith('.h5'))
                 .map(fileName => {
                     const data = this._attributes.get(fileName)
                     return [

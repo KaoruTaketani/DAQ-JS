@@ -12,6 +12,8 @@ export default class extends ClientVariables {
         this.visibleKeys = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<string[]>} */
         this.filterValues = new ListenableObject()
+        /** @type {import('../lib/ListenableObject.js').default<string[]>} */
+        this.selectorFileNames = new ListenableObject()
 
         this.visibleInnerHTML = new ListenableString()
         this.theadInnerHTML = new ListenableString()

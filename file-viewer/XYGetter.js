@@ -33,23 +33,23 @@ export default class {
             this._operation()
         })
         /** @type {string[]} */
-        this._fileNames
+        this._selectedFileNames
         variables.selectedFileNames.addListener(arg => {
-            this._fileNames = arg
+            this._selectedFileNames = arg
             this._operation()
         })
         this._operation = () => {
             if (!this._xkeyText) return
             if (!this._ykeyText) return
-            if (this._fileNames.length !== 1) return
-            if (!this._fileNames[0].endsWith('.h5')) {
+            if (this._selectedFileNames.length !== 1) return
+            if (!this._selectedFileNames[0].endsWith('.h5')) {
                 variables.svgInnerHTML.assign('')
                 return
             }
 
-            fetch(`/xy?xkey=${this._xkeyText}&ykey=${this._ykeyText}&path=${this._path}&fileName=${this._fileNames[0]}`).then(response => {
+            fetch(`/xy?xkey=${this._xkeyText}&ykey=${this._ykeyText}&path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
                 if (!response.ok) {
-                    variables.divInnerText.assign(`${this._xkeyText} or ${this._ykeyText} was not found in ${this._fileNames[0]}`)
+                    variables.divInnerText.assign(`${this._xkeyText} or ${this._ykeyText} was not found in ${this._selectedFileNames[0]}`)
                     variables.svgInnerHTML.assign('')
                 } else {
                     response.text().then(text => {
