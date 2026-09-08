@@ -7,8 +7,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {Float64Array|undefined} */
-        this._lowIncidentAngleMomentumTransferInInverseAngstroms
-        variables.lowIncidentAngleMomentumTransferInInverseAngstroms.prependListener(arg => { this._lowIncidentAngleMomentumTransferInInverseAngstroms = arg })
+        this._smallAngleMomentumTransferInInverseAngstroms
+        variables.smallAngleMomentumTransferInInverseAngstroms.prependListener(arg => { this._smallAngleMomentumTransferInInverseAngstroms = arg })
         /** @type {Float64Array|undefined} */
         this._momentumTransferInInverseAngstroms
         variables.momentumTransferInInverseAngstroms.addListener(arg => {
@@ -18,13 +18,13 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._momentumTransferInInverseAngstroms) return
 
-            if (!this._lowIncidentAngleMomentumTransferInInverseAngstroms) {
+            if (!this._smallAngleMomentumTransferInInverseAngstroms) {
                 variables.concatenatedMomentumTransferInReciprocalAngstroms.assign(undefined)
             } else {
-                const n1 = this._lowIncidentAngleMomentumTransferInInverseAngstroms.length
+                const n1 = this._smallAngleMomentumTransferInInverseAngstroms.length
                 const n2 = this._momentumTransferInInverseAngstroms.length
                 const c = new Float64Array(n1 + n2)
-                c.set(this._lowIncidentAngleMomentumTransferInInverseAngstroms)
+                c.set(this._smallAngleMomentumTransferInInverseAngstroms)
                 c.set(this._momentumTransferInInverseAngstroms, n1)
                 variables.concatenatedMomentumTransferInReciprocalAngstroms.assign(c)
             }

@@ -29,7 +29,7 @@ export default class {
         /** @type {import('../lib/ListenableObject.js').default<import('h5wasm').File|undefined>} */
         this.directBeamHDF5File = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<import('h5wasm').File|undefined>} */
-        this.lowIncidentAngleHDF5File = new ListenableObject()
+        this.smallAngleHDF5File = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<string[]>} */
         this.jsonFileNames = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<import('../lib/index.js').Parameters>} */
@@ -126,9 +126,9 @@ export default class {
         /** @type {import('../lib/ReadableDataset.js').default<Float64Array|undefined>} */
         this.directBeamTOFHistogramPhase = new ReadableDataset('tofHistogramPhase', this.directBeamHDF5File)
         /** @type {import('../lib/ReadableDataset.js').default<Float64Array|undefined>} */
-        this.lowIncidentAngleReflectivity = new ReadableDataset('reflectivity', this.lowIncidentAngleHDF5File)
+        this.smallAngleReflectivity = new ReadableDataset('reflectivity', this.smallAngleHDF5File)
         /** @type {import('../lib/ReadableDataset.js').default<Float64Array|undefined>} */
-        this.lowIncidentAngleMomentumTransferInInverseAngstroms = new ReadableDataset('momentumTransferInInverseAngstroms', this.lowIncidentAngleHDF5File)
+        this.smallAngleMomentumTransferInInverseAngstroms = new ReadableDataset('momentumTransferInInverseAngstroms', this.smallAngleHDF5File)
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units
@@ -197,7 +197,7 @@ export default class {
         this.upstreamFlipperOutput = new ParameterString('upstreamFlipperOutput', this.hdf5File, this.parameters)
         this.downstreamFlipperOutput = new ParameterString('downstreamFlipperOutput', this.hdf5File, this.parameters)
         this.directBeamFileName = new ParameterString('directBeamFileName', this.hdf5File, this.parameters)
-        this.lowIncidentAngleFileName = new ParameterString('lowIncidentAngleFileName',this.hdf5File,this.parameters)
+        this.smallAngleFileName = new ParameterString('smallAngleFileName',this.hdf5File,this.parameters)
         /// edrFilePath must be the final listener
         this.edrFileName = new ParameterString('edrFileName', this.hdf5File, this.parameters)
     }
