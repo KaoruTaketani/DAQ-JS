@@ -32,7 +32,7 @@ export default class {
                     }
                 }
             })
-            variables.fileNames.assign(files)
+            variables.selectedFileNames.assign(files)
         }
     }
 }

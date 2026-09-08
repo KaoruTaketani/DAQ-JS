@@ -27,7 +27,7 @@ new WaveformArrayGetter(variables)
         element.style.top = `${window.scrollY + 8}px`
     }
     element.addEventListener('change', () => {
-        variables.fileNames.assign(Array.from(element.selectedOptions).map(option => option.innerText))
+        variables.selectedFileNames.assign(Array.from(element.selectedOptions).map(option => option.innerText))
     })
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)

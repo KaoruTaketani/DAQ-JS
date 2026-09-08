@@ -16,7 +16,7 @@ new FilesGetter(variables)
     element.style.width = '200px'
     element.style.height = `${window.innerHeight - 8 * 2}px`
     element.addEventListener('change', () => {
-        variables.fileNames.assign([element.options[element.selectedIndex].innerText])
+        variables.selectedFileNames.assign([element.options[element.selectedIndex].innerText])
     })
     element.addEventListener('dblclick', () => {
         variables.directoryName.assign(element.options[element.selectedIndex].innerText)

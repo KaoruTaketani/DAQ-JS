@@ -8,7 +8,7 @@ export default class {
         variables.path.prependListener(arg => { this._path = arg })
         /** @type {string[]} */
         this._fileNames
-        variables.fileNames.addListener(arg => {
+        variables.selectedFileNames.addListener(arg => {
             this._fileNames = arg
             this._operation()
         })

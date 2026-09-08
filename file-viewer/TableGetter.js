@@ -20,7 +20,7 @@ export default class {
         })
         /** @type {string[]} */
         this._fileNames
-        variables.fileNames.addListener(arg => {
+        variables.selectedFileNames.addListener(arg => {
             this._fileNames = arg
             this._operation()
         })

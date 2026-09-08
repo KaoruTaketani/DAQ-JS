@@ -31,10 +31,7 @@ router.get('/files', (req, res) => {
 
     const files = readdirSync(join(basePath, req.query.path), { withFileTypes: true })
         .map(file => file.isDirectory() ? file.name + '/' : file.name)
-    if (req.query.path === '/') {
-        res.json(files)
-    } else {
-        res.json(['../'].concat(files.sort((a, b) => {
+        .sort((a, b) => {
             // 1. As long as both characters at a given position are not digits, the alphabetical order is followed.
             // 2. When there are two numbers and the amount of digits is not equal, the number with the least digits is the smallest.
             // 3. If the numbers have the same amount of digits, the alphabetical order is followed.            
@@ -54,7 +51,12 @@ router.get('/files', (req, res) => {
                 }
             }
             return b[i] ? -1 : 0
-        })))
+        })
+
+    if (req.query.path === '/') {
+        res.json(files)
+    } else {
+        res.json(['../'].concat(files))
     }
 })
 
