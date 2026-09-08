@@ -1,4 +1,5 @@
 import express from 'express';
+import { BlockList } from 'net'
 import AttributesRouter from './AttributesRouter.js';
 import FilesRouter from './FilesRouter.js';
 import HTMLXRouter from './HTMLXRouter.js';
@@ -14,6 +15,22 @@ import WaveformRouter from './WaveformRouter.js';
 import XYRouter from './XYRouter.js';
 
 const app = express()
+const blockList = new BlockList()
+blockList.addRange('0.0.0.0', '255.255.255.255')
+
+app.use('/', (req, res, next) => {
+  const clientIp = req.ip
+
+  if (!clientIp) {
+    res.sendStatus(403)
+  } else {
+    if (blockList.check(clientIp) || blockList.check(clientIp, 'ipv6')) {
+      res.sendStatus(403)
+    } else {
+      next()
+    }
+  }
+})
 
 app.use('/', RootRouter)
 app.use('/', AttributesRouter)
