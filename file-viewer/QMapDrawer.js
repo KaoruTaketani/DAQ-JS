@@ -9,7 +9,7 @@ import linspace from '../lib/linspace.js'
 
 export default class {
     /**
-     * @param {import('./QRangeVariables.js').default} variables 
+     * @param {import('./QMapVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

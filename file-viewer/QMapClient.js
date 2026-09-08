@@ -1,8 +1,8 @@
-import QRangeDrawer from "./QRangeDrawer.js";
-import QrangeVariables from "./QRangeVariables.js";
+import QMapDrawer from "./QMapDrawer.js";
+import QMapVariables from "./QMapVariables.js";
 
-const variables = new QrangeVariables()
-new QRangeDrawer(variables);
+const variables = new QMapVariables()
+new QMapDrawer(variables);
 
 (element => {
     (element => {
