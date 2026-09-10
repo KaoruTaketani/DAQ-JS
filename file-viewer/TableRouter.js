@@ -1,6 +1,6 @@
 import express from 'express';
 import { closeSync, openSync, readSync } from 'fs';
-import { join } from 'path';
+import { resolve, join } from 'path';
 import isbetween from '../lib/isbetween.js';
 
 const router = express.Router();
@@ -20,7 +20,13 @@ router.get('/table', (req, res) => {
         return
     }
 
-    const fd = openSync(join(process.env.edrPath, req.query.path, req.query.fileName), 'r')
+    const filePath = resolve(join(process.env.edrPath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.edrPath))) {
+        res.sendStatus(500)
+        return
+    }
+    
+    const fd = openSync(filePath, 'r')
     const chunk = new Uint8Array(8 * 25)
     readSync(fd, chunk, 0, 8 * 25, 8 * offset)
     closeSync(fd)
