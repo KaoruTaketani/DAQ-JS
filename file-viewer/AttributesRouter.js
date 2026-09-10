@@ -1,7 +1,7 @@
 import express from 'express';
 import { close, open, read, readFile, readdirSync } from 'fs';
 import h5wasm from "h5wasm/node";
-import { basename, join } from 'path';
+import { resolve, basename, join } from 'path';
 
 const router = express.Router();
 
@@ -16,11 +16,18 @@ router.get('/attributes', (req, res) => {
         return
     }
 
-    const basePath = new Map()
-    basePath.set('h5', join(process.env.hdf5Path, req.query.path))
-    basePath.set('json', join(process.env.jsonPath, req.query.path))
-    basePath.set('sigb', join(process.env.sigbPath, req.query.path))
-    const files = readdirSync(basePath.get(req.query.extname), { withFileTypes: true })
+    const basePaths = new Map()
+    basePaths.set('h5', process.env.hdf5Path)
+    basePaths.set('json', process.env.jsonPath)
+    basePaths.set('sigb', process.env.sigbPath)
+
+    const folderPath = resolve(join(basePaths.get(req.query.extname), req.query.path))
+    if (!folderPath.startsWith(resolve(basePaths.get(req.query.extname)))) {
+        res.sendStatus(500)
+        return
+    }
+
+    const files = readdirSync(folderPath, { withFileTypes: true })
         .filter(file => file.name.endsWith(`.${req.query.extname}`))
 
     /** @type {Map<string,object>} */
@@ -29,7 +36,7 @@ router.get('/attributes', (req, res) => {
         h5wasm.ready.then(() => {
             const startTime = Date.now()
             files.forEach(file => {
-                let f = new h5wasm.File(join(basePath.get(req.query.extname), file.name), "r")
+                let f = new h5wasm.File(join(folderPath, file.name), "r")
                 const tmp = new Map()
                 Object.keys(f.attrs).forEach(key => {
                     tmp.set(key, f.attrs[key]?.value)
@@ -47,7 +54,7 @@ router.get('/attributes', (req, res) => {
             if (typeof file.name !== 'string') {
                 resolve({})
             } else {
-                readFile(join(basePath.get(req.query.extname), file.name), 'utf8', (err, data) => {
+                readFile(join(folderPath, file.name), 'utf8', (err, data) => {
                     if (err) {
                         res.sendStatus(500)
                         return
@@ -70,7 +77,7 @@ router.get('/attributes', (req, res) => {
             if (typeof file.name !== 'string') {
                 resolve({})
             } else {
-                const filePath = join(basePath.get(req.query.extname), file.name)
+                const filePath = join(folderPath, file.name)
                 const buffer = Buffer.alloc(1024)
                 open(filePath, 'r', (err, fd) => {
                     if (err) {
