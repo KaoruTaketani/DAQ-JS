@@ -1,9 +1,9 @@
 import express from 'express';
-import { BlockList } from 'net'
+import { BlockList } from 'net';
 import AttributesRouter from './AttributesRouter.js';
 import FilesRouter from './FilesRouter.js';
+import HistogramRouter from './HistogramRouter.js';
 import HtmlRouter from './HtmlRouter.js';
-import HeadersRouter from './HeadersRouter.js';
 import ImageRouter from './ImageRouter.js';
 import KeysRouter from './KeysRouter.js';
 import NumEventsRouter from './NumEventsRouter.js';
@@ -11,7 +11,6 @@ import NumWaveformsRouter from './NumWaveformsRouter.js';
 import RootRouter from './RootRouter.js';
 import TableRouter from './TableRouter.js';
 import WaveformRouter from './WaveformRouter.js';
-import HistogramRouter from './HistogramRouter.js';
 import XYRouter from './XYRouter.js';
 
 const app = express()
@@ -43,7 +42,6 @@ app.use('/', HistogramRouter)
 app.use('/', WaveformRouter)
 app.use('/', XYRouter)
 app.use('/', ImageRouter)
-app.use('/', HeadersRouter)
 app.use('/', HtmlRouter)
 app.use('/lib', express.static('../lib'))
 app.use(express.static('./'))
