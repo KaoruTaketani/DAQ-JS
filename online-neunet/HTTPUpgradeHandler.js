@@ -1,5 +1,6 @@
 import { WebSocketServer } from 'ws'
 import Operator from './Operator.js'
+import { BlockList } from 'net'
 
 export default class extends Operator {
     /**
@@ -22,8 +23,17 @@ export default class extends Operator {
             this._webSocketServer = new WebSocketServer({ noServer: true })
             variables.webSocketPathnames.assign(new Map())
             variables.elementValues.assign(new Map())
+            this._blockList = new BlockList()
+            this._blockList.addRange('0.0.0.0', '255.255.255.255')
 
             this._httpServer.on('upgrade', (request, socket, head) => {
+                const clientIp = request.socket.remoteAddress
+                if (!clientIp
+                    || this._blockList.check(clientIp)
+                    || this._blockList.check(clientIp, 'ipv6')) {
+                    request.socket.destroy()
+                    return
+                }
                 this._webSocketServer.handleUpgrade(request, socket, head, ws => {
                     const url = new URL(`ws://localhost${request.url}`)
                     this._webSocketPathnames.set(ws, url.pathname)
