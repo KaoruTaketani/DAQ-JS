@@ -1,7 +1,7 @@
 import express from 'express';
 import h5wasm from "h5wasm/node";
 import { readdirSync } from 'fs';
-import { basename, join } from 'path';
+import { resolve, basename, join } from 'path';
 await h5wasm.ready;
 
 const router = express.Router();
@@ -13,7 +13,13 @@ router.get('/keys', (req, res) => {
         res.sendStatus(404)
         return
     }
-    const basePath = join(process.env.hdf5Path, req.query.path)
+
+    const basePath = resolve(join(process.env.hdf5Path, req.query.path))
+    if (!basePath.startsWith(resolve(process.env.hdf5Path))) {
+        res.sendStatus(500)
+        return
+    }
+
     const files = readdirSync(basePath, { withFileTypes: true })
     const keys = new Set()
     const startTime = Date.now()
