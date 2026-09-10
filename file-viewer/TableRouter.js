@@ -15,6 +15,11 @@ router.get('/table', (req, res) => {
     }
 
     const offset = parseInt(req.query.offset)
+    if (Number.isNaN(offset) || offset < 0) {
+        res.sendStatus(500)
+        return
+    }
+    
     const fd = openSync(join(process.env.edrPath, req.query.path, req.query.fileName), 'r')
     const chunk = new Uint8Array(8 * 25)
     readSync(fd, chunk, 0, 8 * 25, 8 * offset)

@@ -13,10 +13,10 @@ router.get('/waveform', (req, res) => {
         res.status(404).send()
         return
     }
+    
     const offset = parseInt(req.query.offset)
-    if (!Number.isFinite(offset)
-        || offset < 0) {
-        res.status(404).send()
+    if (Number.isNaN(offset) || offset < 0) {
+        res.sendStatus(500)
         return
     }
 
