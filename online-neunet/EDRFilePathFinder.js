@@ -1,4 +1,5 @@
 import { readdir } from 'fs'
+import { join } from 'path'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -7,6 +8,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {string} */
+        this._edrPath
+        variables.edrPath.prependListener(arg => { this._edrPath = arg })
         /** @type {boolean} */
         this._neunetReaderIsBusy
         variables.neunetReaderIsBusy.addListener(arg => {
@@ -15,11 +19,11 @@ export default class extends Operator {
         })
         this._operation = () => {
             if (this._neunetReaderIsBusy) return
-            
-            readdir('./edr', (err, files) => {
+
+            readdir(this._edrPath, (err, files) => {
                 if (err) throw err
 
-                variables.edrFilePath.assign(`./edr/rpmt_run${files.length + 1}.edr`)
+                variables.edrFilePath.assign(join(this._edrPath, `rpmt_run${files.length + 1}.edr`))
             })
         }
     }

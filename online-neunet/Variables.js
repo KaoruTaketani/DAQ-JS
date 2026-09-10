@@ -58,6 +58,7 @@ export default class {
 
         this.preset = new ControllableNumber('preset', this.message)
 
+        this.edrPath = new ListenableString()
         this.edrFilePath = new ListenableString()
 
         this.presetValue = new ElementString('/presetValue', this.elementValues, this.webSocketPathnames)

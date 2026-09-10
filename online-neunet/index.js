@@ -59,4 +59,5 @@ new EDRFilePathFinder(variables)
 new EDRFilePathInnerTextMaker(variables)
 new EDRFileWriter(variables)
 
+variables.edrPath.assign('../../edr/online')
 variables.httpServer.assign(new Server()) 
