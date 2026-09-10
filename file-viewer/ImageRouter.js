@@ -1,6 +1,6 @@
 import express from 'express';
 import h5wasm from "h5wasm/node";
-import { join } from 'path';
+import { resolve, join } from 'path';
 await h5wasm.ready;
 
 const router = express.Router();
@@ -14,7 +14,13 @@ router.get('/image', (req, res) => {
         return
     }
 
-    let f = new h5wasm.File(join(process.env.hdf5Path, req.query.path, req.query.fileName), "r");
+    const filePath = resolve(join(join(process.env.hdf5Path, req.query.path, req.query.fileName)))
+    if (!filePath.startsWith(resolve(process.env.hdf5Path))) {
+        res.sendStatus(500)
+        return
+    }
+
+    let f = new h5wasm.File(filePath, "r");
     /** @type {import('h5wasm').Dataset|null} */
     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(req.query.key))
     if (!dataset) {
