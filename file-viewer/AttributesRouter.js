@@ -12,7 +12,7 @@ router.get('/attributes', (req, res) => {
         || typeof req.query.extname !== 'string'
         || typeof req.query.path !== 'string'
         || !['h5', 'json', 'sigb'].includes(req.query.extname)) {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
 

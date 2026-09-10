@@ -20,7 +20,7 @@ router.get('/files', (req, res) => {
         || !process.env.sigbPath
         || typeof req.query.path !== 'string'
         || typeof req.query.extname !== 'string') {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
     let basePath = ''

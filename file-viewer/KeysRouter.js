@@ -10,7 +10,7 @@ router.get('/keys', (req, res) => {
     if (!process.env.hdf5Path
         || typeof req.query.path !== 'string'
         || typeof req.query.dataType !== 'string') {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
     const basePath = join(process.env.hdf5Path, req.query.path)

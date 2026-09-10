@@ -10,10 +10,10 @@ router.get('/waveform', (req, res) => {
         || typeof req.query.offset !== 'string'
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
-    
+
     const offset = parseInt(req.query.offset)
     if (Number.isNaN(offset) || offset < 0) {
         res.sendStatus(500)

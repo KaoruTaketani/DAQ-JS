@@ -10,7 +10,7 @@ router.get('/image', (req, res) => {
         || typeof req.query.path !== 'string'
         || typeof req.query.key !== 'string'
         || typeof req.query.fileName !== 'string') {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
 
@@ -18,7 +18,7 @@ router.get('/image', (req, res) => {
     /** @type {import('h5wasm').Dataset|null} */
     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(req.query.key))
     if (!dataset) {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
 

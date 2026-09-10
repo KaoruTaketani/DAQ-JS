@@ -8,7 +8,7 @@ router.get('/numEvents', (req, res) => {
     if (!process.env.edrPath
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
 

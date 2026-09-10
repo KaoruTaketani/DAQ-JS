@@ -10,7 +10,7 @@ router.get('/table', (req, res) => {
         || typeof req.query.offset !== 'string'
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
 
@@ -19,7 +19,7 @@ router.get('/table', (req, res) => {
         res.sendStatus(500)
         return
     }
-    
+
     const fd = openSync(join(process.env.edrPath, req.query.path, req.query.fileName), 'r')
     const chunk = new Uint8Array(8 * 25)
     readSync(fd, chunk, 0, 8 * 25, 8 * offset)

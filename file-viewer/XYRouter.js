@@ -11,7 +11,7 @@ router.get('/xy', (req, res) => {
         || typeof req.query.ykey !== 'string'
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
 
@@ -21,12 +21,12 @@ router.get('/xy', (req, res) => {
     // because all keys from all files are stored
     const datasetY =/** @type {import('h5wasm').Dataset} */ (f.get(req.query.ykey))
     if(!datasetY){
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
     const datasetX =/** @type {import('h5wasm').Dataset} */ (f.get(req.query.xkey))
     if(!datasetY){
-        res.status(404).send()
+        res.sendStatus(404)
         return
     }
     const y = Array.from(/** @type {Float64Array} */(datasetY.value))

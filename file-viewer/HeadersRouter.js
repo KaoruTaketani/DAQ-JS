@@ -9,7 +9,7 @@ router.get('/headers', (req, res) => {
         if (!process.env.sigbPath
             || typeof req.query.path !== 'string'
             || typeof req.query.fileName !== 'string') {
-            res.status(404).send()
+            res.sendStatus(404)
             return
         }
         const filePath = join(process.env.sigbPath, req.query.path, req.query.fileName)
@@ -27,7 +27,7 @@ router.get('/headers', (req, res) => {
     } else {
         if (!process.env.sigbPath
             || typeof req.query.path !== 'string') {
-            res.status(404).send()
+            res.sendStatus(404)
             return
         }
 
