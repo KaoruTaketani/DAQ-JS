@@ -4,7 +4,7 @@ import getYLim from "../lib/getYLim.js";
 import isbetween from "../lib/isbetween.js";
 import FilesGetter from "./FilesGetter.js";
 import PathMaker from "./PathMaker.js";
-import WaveformDrawer from "./WaveformDrawer.js";
+import WaveformDrawer from "./HistogramDrawer.js";
 import WaveformArrayGetter from "./WaveformArrayGetter.js";
 import WaveformArrayVariables from "./WaveformArrayVariables.js";
 import NumWaveformsGetter from "./NumWaveformsGetter.js";

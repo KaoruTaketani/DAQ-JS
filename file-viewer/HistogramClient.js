@@ -5,16 +5,16 @@ import isbetween from "../lib/isbetween.js";
 import FilesGetter from "./FilesGetter.js";
 import KeysGetter from "./KeysGetter.js";
 import PathMaker from "./PathMaker.js";
-import WaveformDrawer from "./WaveformDrawer.js";
-import WaveformGetter from "./WaveformGetter.js";
-import WaveformVariables from "./WaveformVariables.js";
+import HistogramDrawer from "./HistogramDrawer.js";
+import HistogramGetter from "./HistogramGetter.js";
+import HistogramVariables from "./HistogramVariables.js";
 
-const variables = new WaveformVariables()
+const variables = new HistogramVariables()
 new PathMaker(variables)
 new FilesGetter(variables)
 new KeysGetter(variables)
-new WaveformDrawer(variables)
-new WaveformGetter(variables)
+new HistogramDrawer(variables)
+new HistogramGetter(variables)
     ;
 (element => {
     element.size = 20

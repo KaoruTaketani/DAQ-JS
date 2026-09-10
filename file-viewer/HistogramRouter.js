@@ -6,7 +6,7 @@ await h5wasm.ready;
 
 const router = express.Router();
 
-router.get('/waveform', (req, res) => {
+router.get('/histogram', (req, res) => {
     if (!process.env.hdf5Path
         || typeof req.query.path !== 'string'
         || typeof req.query.key !== 'string'

@@ -19,7 +19,7 @@ router.get('/', (_req, res) => {
         `    <h2>HDF5</h2>`,
         `    <p><a href="./AttributesHDF5.html">Attributes</a></p>`,
         `    <p><a href="./XY.html">XY</a></p>`,
-        `    <p><a href="./Waveform.html">Waveform</a></p>`,
+        `    <p><a href="./Histogram.html">Histogram</a></p>`,
         `    <p><a href="./Image.html">Image</a></p>`,
         `    <h2>Calculator</h2>`,
         `    <p><a href="./Slit.html">Slit</a></p>`,

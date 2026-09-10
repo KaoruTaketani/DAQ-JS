@@ -2,7 +2,7 @@ import bounds from '../lib/bounds.js'
 
 export default class {
     /**
-     * @param {import('./WaveformVariables.js').default} variables 
+     * @param {import('./HistogramVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
@@ -40,7 +40,7 @@ export default class {
                 return
             }
 
-            fetch(`/waveform?key=${this._keyText}&path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
+            fetch(`/histogram?key=${this._keyText}&path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign(`${this._keyText} was not found in ${this._selectedFileNames[0]}`)
                     variables.svgInnerHTML.assign('')
