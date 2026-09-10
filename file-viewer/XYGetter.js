@@ -52,9 +52,7 @@ export default class {
                     variables.divInnerText.assign(`${this._xkeyText} or ${this._ykeyText} was not found in ${this._selectedFileNames[0]}`)
                     variables.svgInnerHTML.assign('')
                 } else {
-                    response.text().then(text => {
-                        const data = JSON.parse(text)
-
+                    response.json().then(data => {
                         variables.divInnerText.assign('')
                         variables.xDataset.assign(data.x)
                         variables.yDataset.assign(data.y)

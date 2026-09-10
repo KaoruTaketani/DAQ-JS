@@ -20,8 +20,7 @@ export default class {
                 if (!response.ok) {
                     document.body.innerHTML = response.statusText
                 } else {
-                    response.text().then(text => {
-                        const keys = JSON.parse(text)
+                    response.json().then(keys => {
                         variables.keysInnerHTML.assign(keys.map((/** @type {string} */key) => `<option>${key}</option>`))
                     })
                 }

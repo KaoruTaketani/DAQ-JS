@@ -45,9 +45,7 @@ export default class {
                     variables.divInnerText.assign(`${this._offsetValue} was not found in ${this._selectedFileNames[0]}`)
                     variables.svgInnerHTML.assign('')
                 } else {
-                    response.text().then(text => {
-                        const data = JSON.parse(text)
-
+                    response.json().then(data => {
                         variables.divInnerText.assign('')
                         variables.xlabel.assign(data.xlabel)
                         variables.xDataset.assign(data.x)
