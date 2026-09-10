@@ -14,8 +14,8 @@ router.get('/histogram', (req, res) => {
         res.sendStatus(404)
         return
     }
-    
-    const filePath = resolve(join(join(process.env.hdf5Path, req.query.path, req.query.fileName)))
+
+    const filePath = resolve(join(process.env.hdf5Path, req.query.path, req.query.fileName))
     if (!filePath.startsWith(resolve(process.env.hdf5Path))) {
         res.sendStatus(500)
         return
