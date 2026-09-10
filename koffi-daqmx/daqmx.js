@@ -52,7 +52,7 @@ const DAQmxGetExtendedErrorInfo = lib.func('DAQmxGetExtendedErrorInfo', 'int32',
 ])
 
 function DAQmxFailed(status){
-    return state < 0
+    return status < 0
 }
 
 function DAQmxErrChk(status) {
