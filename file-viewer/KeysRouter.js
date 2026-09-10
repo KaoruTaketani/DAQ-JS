@@ -53,7 +53,7 @@ router.get('/keys', (req, res) => {
             f.close()
         })
     console.log(`${basename(import.meta.url)} elapsedTime: ${Date.now() - startTime}ms`)
-    res.json(Array.from(keys))
+    res.json(Array.from(keys).sort())
 })
 
 export default router;

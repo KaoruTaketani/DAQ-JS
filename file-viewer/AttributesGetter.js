@@ -21,11 +21,12 @@ export default class {
                     const attributes = new Map(Object.entries(data))
                     variables.attributes.assign(attributes)
 
-                    const allKeys = new Set()
-                    attributes.forEach((/** @type {object}*/obj) => { Object.keys(obj).forEach(key => { allKeys.add(key) }) })
-                    variables.visibleKeys.assign(Array.from(allKeys))
-                    variables.filterKeysInnerHTML.assign(Array.from(allKeys).map(key => `<option>${key}</option>`).join(''))
-                    variables.visibleInnerHTML.assign(Array.from(allKeys).map(key => `<option selected>${key}</option>`).join(''))
+                    const keySet = new Set()
+                    attributes.forEach((/** @type {object}*/obj) => { Object.keys(obj).forEach(key => { keySet.add(key) }) })
+                    const keys = Array.from(keySet).sort()
+                    variables.visibleKeys.assign(keys)
+                    variables.filterKeysInnerHTML.assign(keys.map(key => `<option>${key}</option>`).join(''))
+                    variables.visibleInnerHTML.assign(keys.map(key => `<option selected>${key}</option>`).join(''))
                 })
             })
         }
