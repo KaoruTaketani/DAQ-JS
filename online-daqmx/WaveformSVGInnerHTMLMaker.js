@@ -33,7 +33,7 @@ export default class extends Operator {
                 axes(ax),
                 xlabel(ax, 'time (msec)'),
                 ylabel(ax, 'voltage (volts)'),
-                line(ax, colon(0, this._waveform.dt, this._waveform.dt * this._waveform.Y.length), this._waveform.Y)
+                line(ax, colon(0, this._waveform.dt, this._waveform.dt * (this._waveform.Y.length - 1)), this._waveform.Y)
             ].join(''))
         }
     }
