@@ -29,13 +29,13 @@ export default class extends Operator {
                     this._webSocketPathnames.set(ws, url.pathname)
 
                     ws.on('close', () => {
-                        ws.removeAllListeners('message')
+                        // ws.removeAllListeners('message')
                         this._webSocketPathnames.delete(ws)
                     })
-                    ws.on('message', data => {
-                        const arg = JSON.parse(data.toString())
-                        variables.message.assign(arg)
-                    })
+                    // ws.on('message', data => {
+                    //     const arg = JSON.parse(data.toString())
+                    //     variables.requestParams.assign(arg)
+                    // })
 
                     this._elementValues.forEach((value, key) => {
                         if (request.url !== key) return

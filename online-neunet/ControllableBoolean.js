@@ -3,15 +3,14 @@ import ListenableBoolean from './ListenableBoolean.js'
 export default class extends ListenableBoolean {
     /**
      * @param {string} key
-     * @param {import('./ListenableObject.js').default<object>} message
+     * @param {import('./ListenableObject.js').default<URLSearchParams>} requestParams
      */
-    constructor(key, message) {
+    constructor(key, requestParams) {
         super()
-        message.addListener(arg => {
-            const i = Object.keys(arg).indexOf(key)
-            if (i < 0) return
-
-            super.assign(Object.values(arg)[i])
+        requestParams.addListener(arg => {
+            if (!arg.has(key)) return
+            console.log(key, arg.get(key))
+            super.assign(arg.get(key) === 'true')
         })
     }
 }

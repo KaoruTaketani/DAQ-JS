@@ -27,11 +27,13 @@ import StopButtonDisabledChanger from './StopButtonDisabledChanger.js'
 import UsePresetCheckedChanger from './UsePresetCheckedChanger.js'
 import UsePresetDisabledChanger from './UsePresetDisabledChanger.js'
 import Variables from './Variables.js'
+import HTTPPutHandler from './HTTPPutHandler.js'
 
 const variables = new Variables()
 
 new HTTPServerRequestHandler(variables)
 new HTTPServerSetupper(variables)
+new HTTPPutHandler(variables)
 new HTTPServerUpgradeHandler(variables)
 new NEUNETReaderInitializer(variables)
 // new NEUNETReaderDataHandler(variables)

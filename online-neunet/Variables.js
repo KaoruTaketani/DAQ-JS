@@ -10,8 +10,8 @@ export default class {
     constructor() {
         /** @type {import('./ListenableObject.js').default<import('http').Server>} */
         this.httpServer = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<object>} */
-        this.message = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<URLSearchParams>} */
+        this.requestParams = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Map<import('ws').WebSocket,string>>} */
         this.webSocketPathnames = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Map<string,boolean|string>>} */
@@ -37,9 +37,9 @@ export default class {
         /** @type {import('./ListenableObject.js').default<import('worker_threads').Worker>} */
         this.neunetReaderWorker = new ListenableObject()
 
-        this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.message)
-        this.usePreset = new ControllableBoolean('usePreset', this.message)
-        this.saveToEDR = new ControllableBoolean('saveToEDR', this.message)
+        this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.requestParams)
+        this.usePreset = new ControllableBoolean('usePreset', this.requestParams)
+        this.saveToEDR = new ControllableBoolean('saveToEDR', this.requestParams)
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
@@ -56,7 +56,7 @@ export default class {
         this.tofDifferenceMin = new ListenableNumber()
         this.tofDifferenceMax = new ListenableNumber()
 
-        this.preset = new ControllableNumber('preset', this.message)
+        this.preset = new ControllableNumber('preset', this.requestParams)
 
         this.edrPath = new ListenableString()
         this.edrFilePath = new ListenableString()

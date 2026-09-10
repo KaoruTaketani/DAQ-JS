@@ -3,15 +3,16 @@ import ListenableNumber from './ListenableNumber.js'
 export default class extends ListenableNumber {
     /**
      * @param {string} key
-     * @param {import('./ListenableObject.js').default<object>} message
+     * @param {import('./ListenableObject.js').default<URLSearchParams>} requestParams
      */
-    constructor(key, message) {
+    constructor(key, requestParams) {
         super()
-        message.addListener(arg => {
-            const i = Object.keys(arg).indexOf(key)
-            if (i < 0) return
+        requestParams.addListener(arg => {
+            const value = arg.get(key)
+            if (value === null) return
+            console.log(key, value)
 
-            super.assign(Object.values(arg)[i])
+            super.assign(parseFloat(value))
         })
     }
 }
