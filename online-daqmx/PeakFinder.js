@@ -8,15 +8,17 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => {
-            this._histogram = arg
+        /** @type {import('../lib/index.js').Waveform} */
+        this._waveform
+        variables.waveform.addListener(arg => {
+            this._waveform = arg
             this._operation()
         })
         this._operation = () => {
-            const [y, pos] = findpeaks(this._histogram.binCounts)
+            const [y, pos] = findpeaks(this._waveform.Y)
             // console.log(y)
             // console.log(pos)
+            /** @type {number[]} */
             const ids = []
             y.forEach((value, index) => {
                 if (value > 0.03) ids.push(index)
@@ -25,7 +27,7 @@ export default class extends Operator {
             const peakIds=pos.filter((_, i) => ids.includes(i))
             // console.log(peakIds)
             // console.log(mean(peakIds))
-            variables.randomNumberInnerText.assign(`peak: ${mean(peakIds)}`)
+            variables.peakInnerText.assign(`peak: ${mean(peakIds)}`)
         }
     }
 }

@@ -67,6 +67,12 @@ export interface Float64NDArray {
     data: Float64Array
 }
 
+export interface Waveform {
+    t0: number // in ms 
+    dt: number // in ms
+    Y: Float64Array
+}
+
 export interface Histogram {
     binLimits: number[]
     binCounts: Uint32Array

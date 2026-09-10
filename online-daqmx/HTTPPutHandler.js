@@ -1,4 +1,3 @@
-import { readFile } from 'fs'
 import Operator from './Operator.js'
 
 export default class extends Operator {
@@ -7,6 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {import('http').Server} */
         this._httpServer
         variables.httpServer.addListener(arg => {
             this._httpServer = arg

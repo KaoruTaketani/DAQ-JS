@@ -6,17 +6,19 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {string} */
         this._randomNumberGeneratorDestinationState
-        variables.randomNumberGeneratorDestinationState.addListener(arg => {
+        variables.daqmxDestinationState.addListener(arg => {
             this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })
         this._operation = () => {
             if (this._randomNumberGeneratorDestinationState !== 'busy') return
 
-            variables.histogram.assign({
-                binLimits: [0, 300],
-                binCounts: new Uint32Array(300)
+            variables.waveform.assign({
+                t0: 0,
+                dt: 1,
+                Y: new Float64Array(300)
             })
         }
     }

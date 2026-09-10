@@ -8,10 +8,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._histogram
-        variables.histogram.addListener(arg => { this._histogram = arg })
+        /** @type {import('../lib/index.js').Waveform} */
+        this._waveform
+        variables.waveform.addListener(arg => { this._waveform = arg })
+        /** @type {string} */
         this._randomNumberGeneratorDestinationState
-        variables.randomNumberGeneratorDestinationState.addListener(arg => {
+        variables.daqmxDestinationState.addListener(arg => {
             this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })
@@ -20,13 +22,13 @@ export default class extends Operator {
         this._operation = () => {
             if (this._randomNumberGeneratorDestinationState === 'busy') {
                 this._ws = createWriteStream('Acq-IntClk-DigRef-Loop.bin')
-                this._worker = new Worker('./Acq-IntClk-DigRef-Worker.js')
+                this._worker = new Worker('./DAQmxWorker.js')
 
                 this._worker.on('message', data => {
                     console.log(`worker message`)
                     this._ws.write(data)
-                    this._histogram.binCounts = Array.from(data)
-                    variables.histogram.assign(this._histogram)
+                    this._waveform.Y.set(data)
+                    variables.waveform.assign(this._waveform)
                 }).on('online', () => {
                     console.log('worker online')
                 }).on('exit', exitCode => {

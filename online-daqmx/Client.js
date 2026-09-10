@@ -12,7 +12,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=busy')
+        xhr.open('PUT','/?daqmxDestinationState=busy')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -28,7 +28,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=idle')
+        xhr.open('PUT','/?daqmxDestinationState=idle')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
@@ -47,7 +47,7 @@ socket.onclose = () => {
 })(document.body.appendChild(document.createElement('p')));
 
 (element => {
-    url.pathname = 'randomNumberInnerText'
+    url.pathname = 'peakInnerText'
     const innerTextSocket = new WebSocket(url)
     innerTextSocket.onmessage = event => {
         element.innerText = event.data
@@ -58,7 +58,7 @@ socket.onclose = () => {
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
-    url.pathname = 'histogramSVGInnerHTML'
+    url.pathname = 'waveformSVGInnerHTML'
     const innerHTMLSocket = new WebSocket(url)
     innerHTMLSocket.onmessage = event => {
         element.innerHTML = event.data

@@ -6,6 +6,7 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {number} */
         this._startTime
         variables.startTime.addListener(arg => {
             this._startTime = arg

@@ -6,8 +6,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {string} */
         this._randomNumberGeneratorDestinationState
-        variables.randomNumberGeneratorDestinationState.addListener(arg => {
+        variables.daqmxDestinationState.addListener(arg => {
             this._randomNumberGeneratorDestinationState = arg
             this._operation()
         })

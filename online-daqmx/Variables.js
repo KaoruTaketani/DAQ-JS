@@ -6,23 +6,28 @@ import ListenableObject from './ListenableObject.js'
 
 export default class {
     constructor() {
+        /** @type {import('./ListenableObject.js').default<import('http').Server} */
         this.httpServer = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<URLSearchParams} */
         this.requestParams = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<Map<import('ws').WebSocket,string>>} */
         this.webSocketPathnames = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<Map<string,boolean|string>>} */
         this.elementValues = new ListenableObject()
-        this.histogram = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('../lib/index.js').Waveform>} */
+        this.waveform = new ListenableObject()
 
         this.randomNumber = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
-        this.randomNumberGeneratorDestinationState = new ControllableString('randomNumberGeneratorDestinationState', this.requestParams)
+        this.daqmxDestinationState = new ControllableString('daqmxDestinationState', this.requestParams)
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
         this.startButtonDisabled = new ElementBoolean('/startButtonDisabled', this.elementValues, this.webSocketPathnames)
 
-        this.randomNumberInnerText = new ElementString('/randomNumberInnerText', this.elementValues, this.webSocketPathnames)
+        this.peakInnerText = new ElementString('/peakInnerText', this.elementValues, this.webSocketPathnames)
         this.startTimeInnerText = new ElementString('/startTimeInnerText', this.elementValues, this.webSocketPathnames)
-        this.histogramSVGInnerHTML = new ElementString('/histogramSVGInnerHTML', this.elementValues, this.webSocketPathnames)
+        this.waveformSVGInnerHTML = new ElementString('/waveformSVGInnerHTML', this.elementValues, this.webSocketPathnames)
     }
 }
 
