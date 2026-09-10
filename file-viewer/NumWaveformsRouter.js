@@ -1,6 +1,6 @@
 import express from 'express';
 import { statSync } from 'fs';
-import { join } from 'path';
+import { join,resolve } from 'path';
 
 const router = express.Router();
 
@@ -12,7 +12,12 @@ router.get('/numWaveforms', (req, res) => {
         return
     }
 
-    const filePath = join(process.env.sigbPath, req.query.path, req.query.fileName)
+    const filePath = resolve(join(process.env.sigbPath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.sigbPath))) {
+        res.sendStatus(500)
+        return
+    }
+
     const stat = statSync(filePath)
     // header length 1024 is fixed
     const headerBytes = 1024

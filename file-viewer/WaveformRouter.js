@@ -1,6 +1,6 @@
 import express from 'express';
 import { close, open, read } from 'fs';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import colon from '../lib/colon.js';
 
 const router = express.Router();
@@ -20,7 +20,12 @@ router.get('/waveform', (req, res) => {
         return
     }
 
-    const filePath = join(process.env.sigbPath, req.query.path, req.query.fileName)
+    const filePath = resolve(join(process.env.sigbPath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.sigbPath))) {
+        res.sendStatus(500)
+        return
+    }
+
     const numSamples = 501
     const headerBytes = 1024
     const waveformBytes = 8 * numSamples
