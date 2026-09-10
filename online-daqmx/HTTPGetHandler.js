@@ -34,7 +34,11 @@ export default class extends Operator {
                 }
                 if (request.url === '/Client.js') {
                     readFile(`./Client.js`, 'utf8', (err, data) => {
-                        if (err) throw err
+                        if (err) {
+                            response.writeHead(404)
+                            response.end(`${request.url} was not found on this server`)
+                            return
+                        }
 
                         response.writeHead(200, { 'Content-Type': 'text/javascript' })
                         response.end(data)
