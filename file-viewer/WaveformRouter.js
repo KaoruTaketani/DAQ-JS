@@ -42,7 +42,7 @@ router.get('/waveform', (req, res) => {
             }
 
             res.json({
-                x: colon(1, numSamples),
+                x: colon(0, numSamples - 1),
                 y: y,
                 xlabel: 'rf frequency'
             })

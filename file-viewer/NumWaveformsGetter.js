@@ -21,7 +21,7 @@ export default class {
 
             fetch(`/numWaveforms?path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
                 if (!response.ok) {
-                    variables.divInnerText.assign('failed numEvents')
+                    variables.divInnerText.assign('failed numWaveforms')
                 } else {
                     response.text().then(text => {
                         console.log(text)
