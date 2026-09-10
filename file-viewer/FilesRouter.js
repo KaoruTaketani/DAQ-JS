@@ -1,6 +1,6 @@
 import express from 'express';
-import { join } from 'path'
-import { readdirSync } from 'fs'
+import { readdirSync } from 'fs';
+import { join, resolve } from 'path';
 
 const router = express.Router();
 const isDigit = (/** @type {string} */c) => c >= '0' && c <= '9'
@@ -29,7 +29,12 @@ router.get('/files', (req, res) => {
     if (req.query.extname === 'json') basePath = process.env.jsonPath
     if (req.query.extname === 'sigb') basePath = process.env.sigbPath
 
-    const files = readdirSync(join(basePath, req.query.path), { withFileTypes: true })
+    const folderPath = resolve(join(basePath, req.query.path))
+    if (!folderPath.startsWith(resolve(basePath))) {
+        res.sendStatus(500)
+        return
+    }
+    const files = readdirSync(folderPath, { withFileTypes: true })
         .map(file => file.isDirectory() ? file.name + '/' : file.name)
         .sort((a, b) => {
             // 1. As long as both characters at a given position are not digits, the alphabetical order is followed.
