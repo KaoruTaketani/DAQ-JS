@@ -28,10 +28,16 @@ router.get('/waveform', (req, res) => {
     const poistionBytes = headerBytes + waveformBytes * offset
 
     open(filePath, 'r', (err, fd) => {
-        if (err) throw err
+        if (err) {
+            res.sendStatus(500)
+            return
+        }
 
         read(fd, buffer, { position: poistionBytes }, (err, _bytesRead, buffer) => {
-            if (err) throw err
+            if (err) {
+                res.sendStatus(500)
+                return
+            }
 
             close(fd)
             // const view = new DataView(buffer.buffer, buffer.byteOffset, buffer.byteLength)

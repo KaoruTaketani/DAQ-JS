@@ -15,10 +15,16 @@ router.get('/headers', (req, res) => {
         const filePath = join(process.env.sigbPath, req.query.path, req.query.fileName)
         const buffer = Buffer.alloc(1024)
         open(filePath, 'r', (err, fd) => {
-            if (err) throw err
+            if (err) {
+                res.sendStatus(500)
+                return
+            }
 
             read(fd, buffer, (err, _bytesRead, buffer) => {
-                if (err) throw err
+                if (err) {
+                    res.sendStatus(500)
+                    return
+                }
 
                 close(fd)
                 res.send(JSON.stringify({ fileName: req.query.fileName, header: buffer.toString() }))
@@ -46,10 +52,16 @@ router.get('/headers', (req, res) => {
                 const filePath = join(sigbPath, path, fileName)
                 const buffer = Buffer.alloc(1024)
                 open(filePath, 'r', (err, fd) => {
-                    if (err) throw err
+                    if (err) {
+                        res.sendStatus(500)
+                        return
+                    }
 
                     read(fd, buffer, (err, _bytesRead, buffer) => {
-                        if (err) throw err
+                        if (err) {
+                            res.sendStatus(500)
+                            return
+                        }
 
                         close(fd)
                         resolve({ fileName: fileName, header: buffer.toString() })

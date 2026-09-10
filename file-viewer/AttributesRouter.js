@@ -32,7 +32,7 @@ router.get('/attributes', (req, res) => {
                 let f = new h5wasm.File(join(basePath.get(req.query.extname), file.name), "r")
                 const tmp = new Map()
                 Object.keys(f.attrs).forEach(key => {
-                    tmp.set(key,f.attrs[key]?.value)
+                    tmp.set(key, f.attrs[key]?.value)
                 })
                 attributes.set(file.name, Object.fromEntries(tmp))
                 f.close()
@@ -48,7 +48,10 @@ router.get('/attributes', (req, res) => {
                 resolve({})
             } else {
                 readFile(join(basePath.get(req.query.extname), file.name), 'utf8', (err, data) => {
-                    if (err) throw err
+                    if (err) {
+                        res.sendStatus(500)
+                        return
+                    }
 
                     const tmp = JSON.parse(data)
                     attributes.set(file.name, tmp)
@@ -70,10 +73,16 @@ router.get('/attributes', (req, res) => {
                 const filePath = join(basePath.get(req.query.extname), file.name)
                 const buffer = Buffer.alloc(1024)
                 open(filePath, 'r', (err, fd) => {
-                    if (err) throw err
+                    if (err) {
+                        res.sendStatus(500)
+                        return
+                    }
 
                     read(fd, buffer, (err, _bytesRead, buffer) => {
-                        if (err) throw err
+                        if (err) {
+                            res.sendStatus(500)
+                            return
+                        }
 
                         close(fd)
                         const matrix = buffer.toString().trim().split('\n').map(line => line.split('='))
