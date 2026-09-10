@@ -29,7 +29,7 @@ router.get('/QMap.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Slit.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Table.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Histogram.html', (req, res) => { res.send(innerHTML(req.path)) })
-router.get('/WaveformArray.html', (req, res) => { res.send(innerHTML(req.path)) })
+router.get('/Waveform.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/XY.html', (req, res) => { res.send(innerHTML(req.path)) })
 
 export default router;

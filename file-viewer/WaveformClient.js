@@ -4,17 +4,17 @@ import getYLim from "../lib/getYLim.js";
 import isbetween from "../lib/isbetween.js";
 import FilesGetter from "./FilesGetter.js";
 import PathMaker from "./PathMaker.js";
-import WaveformDrawer from "./HistogramDrawer.js";
-import WaveformArrayGetter from "./WaveformArrayGetter.js";
-import WaveformArrayVariables from "./WaveformArrayVariables.js";
+import WaveformDrawer from "./WaveformDrawer.js";
+import WaveformGetter from "./WaveformGetter.js";
+import WaveformVariables from "./WaveformVariables.js";
 import NumWaveformsGetter from "./NumWaveformsGetter.js";
 
-const variables = new WaveformArrayVariables()
+const variables = new WaveformVariables()
 new PathMaker(variables)
 new FilesGetter(variables)
 new NumWaveformsGetter(variables)
 new WaveformDrawer(variables)
-new WaveformArrayGetter(variables)
+new WaveformGetter(variables)
     ;
 (element => {
     element.size = 20

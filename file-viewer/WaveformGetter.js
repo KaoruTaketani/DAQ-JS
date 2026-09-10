@@ -2,7 +2,7 @@ import bounds from '../lib/bounds.js'
 
 export default class {
     /**
-     * @param {import('./WaveformArrayVariables.js').default} variables 
+     * @param {import('./WaveformVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */
@@ -40,7 +40,7 @@ export default class {
                 return
             }
 
-            fetch(`/waveformArray?offset=${this._offsetValue}&path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
+            fetch(`/waveform?offset=${this._offsetValue}&path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign(`${this._offsetValue} was not found in ${this._selectedFileNames[0]}`)
                     variables.svgInnerHTML.assign('')

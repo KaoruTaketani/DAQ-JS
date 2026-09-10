@@ -5,7 +5,7 @@ import colon from '../lib/colon.js';
 
 const router = express.Router();
 
-router.get('/waveformArray', (req, res) => {
+router.get('/waveform', (req, res) => {
     if (!process.env.sigbPath
         || typeof req.query.offset !== 'string'
         || typeof req.query.path !== 'string'
@@ -42,7 +42,7 @@ router.get('/waveformArray', (req, res) => {
             }
 
             res.json({
-                x: colon(0, numSamples),
+                x: colon(1, numSamples),
                 y: y,
                 xlabel: 'rf frequency'
             })

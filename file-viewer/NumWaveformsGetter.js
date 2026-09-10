@@ -1,6 +1,6 @@
 export default class {
     /**
-     * @param {import('./WaveformArrayVariables.js').default} variables 
+     * @param {import('./WaveformVariables.js').default} variables 
      */
     constructor(variables) {
         /** @type {string} */

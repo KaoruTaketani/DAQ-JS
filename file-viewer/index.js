@@ -10,7 +10,7 @@ import NumEventsRouter from './NumEventsRouter.js';
 import NumWaveformsRouter from './NumWaveformsRouter.js';
 import RootRouter from './RootRouter.js';
 import TableRouter from './TableRouter.js';
-import WaveformArrayRouter from './WaveformArrayRouter.js';
+import WaveformRouter from './WaveformRouter.js';
 import HistogramRouter from './HistogramRouter.js';
 import XYRouter from './XYRouter.js';
 
@@ -40,7 +40,7 @@ app.use('/', TableRouter)
 app.use('/', NumEventsRouter)
 app.use('/', NumWaveformsRouter)
 app.use('/', HistogramRouter)
-app.use('/', WaveformArrayRouter)
+app.use('/', WaveformRouter)
 app.use('/', XYRouter)
 app.use('/', ImageRouter)
 app.use('/', HeadersRouter)
