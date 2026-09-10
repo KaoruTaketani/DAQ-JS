@@ -5,7 +5,7 @@ import EDRFilePathFinder from './EDRFilePathFinder.js'
 import EDRFilePathInnerTextMaker from './EDRFilePathInnerTextMaker.js'
 import EDRFileWriter from './EDRFileWriter.js'
 import EventBufferParser from './EventBufferParser.js'
-import HTTPServerRequestHandler from './HTTPServerRequestHandler.js'
+import HTTPGetHandler from './HTTPGetHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
 import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
 import ImageMaker from './ImageMaker.js'
@@ -31,8 +31,8 @@ import HTTPPutHandler from './HTTPPutHandler.js'
 
 const variables = new Variables()
 
-new HTTPServerRequestHandler(variables)
 new HTTPServerSetupper(variables)
+new HTTPGetHandler(variables)
 new HTTPPutHandler(variables)
 new HTTPServerUpgradeHandler(variables)
 new NEUNETReaderInitializer(variables)

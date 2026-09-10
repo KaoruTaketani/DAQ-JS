@@ -8,9 +8,10 @@ export default class extends ListenableBoolean {
     constructor(key, requestParams) {
         super()
         requestParams.addListener(arg => {
-            if (!arg.has(key)) return
-            console.log(key, arg.get(key))
-            super.assign(arg.get(key) === 'true')
+            const value = arg.get(key)
+
+            if (value !== null)
+                super.assign(value === 'true')
         })
     }
 }

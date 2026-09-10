@@ -16,9 +16,8 @@ export default class extends Operator {
                 if (request.method !== 'PUT') return
 
                 const url = new URL(`http://localhost${request.url}`)
-                console.log(url.searchParams)
                 variables.requestParams.assign(url.searchParams)
-                console.log('put done')
+    
                 response.writeHead(200)
                 response.end('')
             })

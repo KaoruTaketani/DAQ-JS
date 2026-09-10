@@ -13,7 +13,6 @@ const startButtonElement = document.createElement('input');
     element.style.width = '130px'
     element.style.display = 'block'
     element.onclick = () => {
-        // socket.send(JSON.stringify({ neunetReaderIsBusy: true }))
         const xhr = new XMLHttpRequest()
         xhr.open('PUT', '/?neunetReaderIsBusy=true')
         xhr.send()
@@ -32,7 +31,6 @@ const startButtonElement = document.createElement('input');
     element.style.width = '130px'
     element.style.display = 'block'
     element.onclick = () => {
-        // socket.send(JSON.stringify({ neunetReaderIsBusy: false }))
         const xhr = new XMLHttpRequest()
         xhr.open('PUT', '/?neunetReaderIsBusy=false')
         xhr.send()
@@ -49,7 +47,6 @@ const startButtonElement = document.createElement('input');
     (element => {
         element.type = 'checkbox'
         element.onclick = () => {
-            // socket.send(JSON.stringify({ usePreset: element.checked }))
             const xhr = new XMLHttpRequest()
             xhr.open('PUT', `/?usePreset=${element.checked}`)
             xhr.send()
@@ -82,7 +79,6 @@ const startButtonElement = document.createElement('input');
             startButtonElement.disabled = true
         } else {
             startButtonElement.disabled = false
-            // socket.send(JSON.stringify({ preset: preset }))
             const xhr = new XMLHttpRequest()
             xhr.open('PUT', `/?preset=${preset}`)
             xhr.send()
@@ -104,7 +100,6 @@ const startButtonElement = document.createElement('input');
     (element => {
         element.type = 'checkbox'
         element.onclick = () => {
-            // socket.send(JSON.stringify({ saveToEDR: element.checked }))
             const xhr = new XMLHttpRequest()
             xhr.open('PUT', `/?saveToEDR=${element.checked}`)
             xhr.send()

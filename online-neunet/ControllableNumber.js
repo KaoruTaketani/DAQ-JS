@@ -9,10 +9,9 @@ export default class extends ListenableNumber {
         super()
         requestParams.addListener(arg => {
             const value = arg.get(key)
-            if (value === null) return
-            console.log(key, value)
 
-            super.assign(parseFloat(value))
+            if (value !== null)
+                super.assign(parseFloat(value))
         })
     }
 }
