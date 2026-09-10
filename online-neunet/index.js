@@ -7,7 +7,7 @@ import EDRFileWriter from './EDRFileWriter.js'
 import EventBufferParser from './EventBufferParser.js'
 import HTTPGetHandler from './HTTPGetHandler.js'
 import HTTPServerSetupper from './HTTPServerSetupper.js'
-import HTTPServerUpgradeHandler from './HTTPServerUpgradeHandler.js'
+import HTTPUpgradeHandler from './HTTPUpgradeHandler.js'
 import ImageMaker from './ImageMaker.js'
 import ImageSrcMaker from './ImageSrcMaker.js'
 import KickerPulseCountInnerTextMaker from './KickerPulseCountInnerTextMaker.js'
@@ -34,7 +34,7 @@ const variables = new Variables()
 new HTTPServerSetupper(variables)
 new HTTPGetHandler(variables)
 new HTTPPutHandler(variables)
-new HTTPServerUpgradeHandler(variables)
+new HTTPUpgradeHandler(variables)
 new NEUNETReaderInitializer(variables)
 // new NEUNETReaderDataHandler(variables)
 new NEUNETReaderStarter(variables)
