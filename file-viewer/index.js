@@ -20,14 +20,12 @@ blockList.addRange('0.0.0.0', '255.255.255.255')
 app.use('/', (req, res, next) => {
   const clientIp = req.ip
 
-  if (!clientIp) {
+  if (clientIp === undefined
+    || blockList.check(clientIp)
+    || blockList.check(clientIp, 'ipv6')) {
     res.sendStatus(403)
   } else {
-    if (blockList.check(clientIp) || blockList.check(clientIp, 'ipv6')) {
-      res.sendStatus(403)
-    } else {
-      next()
-    }
+    next()
   }
 })
 

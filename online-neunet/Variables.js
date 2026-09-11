@@ -10,6 +10,8 @@ export default class {
     constructor() {
         /** @type {import('./ListenableObject.js').default<import('http').Server>} */
         this.httpServer = new ListenableObject()
+        /** @type {import('./ListenableObject.js').default<import('net').BlockList>} */
+        this.blockList = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<URLSearchParams>} */
         this.requestParams = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Map<import('ws').WebSocket,string>>} */
