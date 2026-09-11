@@ -24,7 +24,8 @@ export default class extends Operator {
                 if (clientIp === undefined
                     || this._blockList.check(clientIp)
                     || this._blockList.check(clientIp, 'ipv6')) {
-                    request.socket.destroy()
+                    response.writeHead(403)
+                    response.end()
                     return
                 }
 

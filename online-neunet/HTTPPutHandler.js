@@ -18,12 +18,13 @@ export default class extends Operator {
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
                 if (request.method !== 'PUT') return
-                
+
                 const clientIp = request.socket.remoteAddress
                 if (clientIp === undefined
                     || this._blockList.check(clientIp)
                     || this._blockList.check(clientIp, 'ipv6')) {
-                    request.socket.destroy()
+                    response.writeHead(403)
+                    response.end()
                     return
                 }
 
