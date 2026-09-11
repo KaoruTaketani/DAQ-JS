@@ -1,6 +1,5 @@
 import imagesc from '../lib/imagesc.js'
 import imwrite from '../lib/imwrite.js'
-import max from '../lib/max.js'
 import throttle from '../lib/throttle.js'
 import Operator from './Operator.js'
 
