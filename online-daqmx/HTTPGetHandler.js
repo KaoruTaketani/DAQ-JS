@@ -7,6 +7,9 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {import('net').BlockList} */
+        this._blockList
+        variables.blockList.prependListener(arg => { this._blockList = arg })
         /** @type {import('http').Server} */
         this._httpServer
         variables.httpServer.addListener(arg => {
@@ -16,6 +19,15 @@ export default class extends Operator {
         this._operation = () => {
             this._httpServer.on('request', (request, response) => {
                 if (request.method !== 'GET') return
+
+                const clientIp = request.socket.remoteAddress
+                if (clientIp === undefined
+                    || this._blockList.check(clientIp)
+                    || this._blockList.check(clientIp, 'ipv6')) {
+                    response.writeHead(403)
+                    response.end()
+                    return
+                }
 
                 if (request.url === '/') {
                     response.writeHead(200, { 'Content-Type': 'text/html' })
@@ -33,7 +45,7 @@ export default class extends Operator {
                     return
                 }
                 if (request.url === '/Client.js') {
-                    readFile(`./Client.js`, 'utf8', (err, data) => {
+                    readFile('./Client.js', 'utf8', (err, data) => {
                         if (err) {
                             response.writeHead(404)
                             response.end(`${request.url} was not found on this server`)

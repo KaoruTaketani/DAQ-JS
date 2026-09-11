@@ -1,6 +1,5 @@
 import { WebSocketServer } from 'ws'
 import Operator from './Operator.js'
-import { BlockList } from 'net'
 
 export default class extends Operator {
     /**
@@ -8,13 +7,15 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {import('net').BlockList} */
+        this._blockList
+        variables.blockList.prependListener(arg => { this._blockList = arg })
         /** @type {Map<import('ws').WebSocket,string>} */
         this._webSocketPathnames
         variables.webSocketPathnames.addListener(arg => { this._webSocketPathnames = arg })
         /** @type {Map<string,boolean|string>} */
         this._elementValues
         variables.elementValues.addListener(arg => { this._elementValues = arg })
-        /** @type {import('http').Server} */
         this._httpServer
         variables.httpServer.addListener(arg => {
             this._httpServer = arg
@@ -22,10 +23,6 @@ export default class extends Operator {
         })
         this._operation = () => {
             this._webSocketServer = new WebSocketServer({ noServer: true })
-            variables.webSocketPathnames.assign(new Map())
-            variables.elementValues.assign(new Map())
-            this._blockList = new BlockList()
-            this._blockList.addRange('0.0.0.0', '255.255.255.255')
 
             this._httpServer.on('upgrade', (request, socket, head) => {
                 const clientIp = request.socket.remoteAddress
@@ -42,12 +39,12 @@ export default class extends Operator {
                     ws.on('close', () => { this._webSocketPathnames.delete(ws) })
 
                     this._elementValues.forEach((value, key) => {
-                        if (url.pathname !== key) return
+                        if (request.url !== key) return
 
                         if (typeof value === 'string')
                             ws.send(value)
                         if (typeof value === 'boolean')
-                            ws.send(value.toString())
+                            ws.send(value ? 'true' : '')
                     })
                 })
             })
