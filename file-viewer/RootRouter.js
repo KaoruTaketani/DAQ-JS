@@ -24,6 +24,7 @@ router.get('/', (_req, res) => {
         `    <h2>Calculator</h2>`,
         `    <p><a href="./Slit.html">Slit</a></p>`,
         `    <p><a href="./QMap.html">Q Map</a></p>`,
+        `    <p><a href="./QLim.html">Q Lim</a></p>`,
         '</body>',
         '</html>'
     ].join('\n'))
