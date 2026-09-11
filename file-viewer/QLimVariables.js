@@ -10,13 +10,16 @@ export default class {
 
         this.substrateScatteringLengthDensityInSquaredReciprocalAngstroms = new ListenableString()
         this.filmScatteringLengthDensityInSquaredReciprocalAngstroms = new ListenableString()
+        this.filmThicknessInAngstroms = new ListenableString()
+
         this.cameraLengthInMeters = new ListenableString()
         this.moderatorToSampleDistanceInMeters = new ListenableString()
 
         this.qminInReciprocalAngstroms = new ListenableString()
         this.qmaxInReciprocalAngstroms = new ListenableString()
-        
-        this.svgInnerHTML = new ListenableString()
+
+        this.reflectivitySVGInnerHTML = new ListenableString()
+        this.potentialSVGInnerHTML = new ListenableString()
     }
 }
 

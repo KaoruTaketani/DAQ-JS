@@ -133,6 +133,24 @@ new QLimDrawer(variables);
             })(element.appendChild(document.createElement('td')));
         })(element.appendChild(document.createElement('tr')));
 
+        (element => {
+            (element => {
+                element.innerText = 'film thickness (Å)'
+            })(element.appendChild(document.createElement('th')));
+            (element => {
+                (element => {
+                    element.type = 'number'
+                    element.style.width = '100px'
+                    element.addEventListener('change', () => {
+                        variables.filmThicknessInAngstroms.assign(element.value)
+                    })
+                    variables.filmThicknessInAngstroms.addListener(arg => {
+                        element.value = arg
+                    })
+                })(element.appendChild(document.createElement('input')))
+            })(element.appendChild(document.createElement('td')));
+        })(element.appendChild(document.createElement('tr')));
+
     })(element.appendChild(document.createElement('tbody')));
 })(document.body.appendChild(document.createElement('table')));
 
@@ -144,7 +162,7 @@ new QLimDrawer(variables);
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
-    variables.svgInnerHTML.addListener(arg => {
+    variables.reflectivitySVGInnerHTML.addListener(arg => {
         element.innerHTML = arg
     })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
@@ -155,9 +173,9 @@ new QLimDrawer(variables);
     element.setAttribute('width', '400')
     element.setAttribute('height', '300')
     element.setAttribute('viewBox', '0 0 560 420')
-    // variables.beamSVGInnerHTML.addListener(arg => {
-    //     element.innerHTML = arg
-    // })
+    variables.potentialSVGInnerHTML.addListener(arg => {
+        element.innerHTML = arg
+    })
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 variables.incidentAngleInDegrees.assign('1.5')
@@ -170,6 +188,7 @@ variables.moderatorToSampleDistanceInMeters.assign('23.76')
 variables.substrateScatteringLengthDensityInSquaredReciprocalAngstroms.assign('2.03e-6')
 // nickel
 variables.filmScatteringLengthDensityInSquaredReciprocalAngstroms.assign('9.78e-6')
+variables.filmThicknessInAngstroms.assign('700')
 
 variables.qminInReciprocalAngstroms.assign('0.005')
 variables.qmaxInReciprocalAngstroms.assign('0.165')
