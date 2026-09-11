@@ -15,7 +15,11 @@ import XYRouter from './XYRouter.js';
 
 const app = express()
 const blockList = new BlockList()
-blockList.addRange('0.0.0.0', '255.255.255.255')
+// blockList.addRange('0.0.0.0', '255.255.255.255')
+blockList.addRange('0.0.0.0', '126.255.255.255', 'ipv4');
+blockList.addRange('128.0.0.0', '255.255.255.255', 'ipv4');
+blockList.addRange('::', '::0', 'ipv6');
+blockList.addRange('::2', 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', 'ipv6');
 
 app.use('/', (req, res, next) => {
   const clientIp = req.ip

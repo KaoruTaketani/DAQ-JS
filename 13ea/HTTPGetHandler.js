@@ -16,7 +16,11 @@ export default class extends Operator {
         this._blockList
         this._operation = () => {
             this._blockList = new BlockList()
-            this._blockList.addRange('0.0.0.0', '255.255.255.255')
+            // this._blockList.addRange('0.0.0.0', '255.255.255.255')
+            this._blockList.addRange('0.0.0.0', '126.255.255.255', 'ipv4');
+            this._blockList.addRange('128.0.0.0', '255.255.255.255', 'ipv4');
+            this._blockList.addRange('::', '::0', 'ipv6');
+            this._blockList.addRange('::2', 'ffff:ffff:ffff:ffff:ffff:ffff:ffff:ffff', 'ipv6');
 
             this._httpServer.on('request', (request, response) => {
                 if (request.method !== 'GET') return
