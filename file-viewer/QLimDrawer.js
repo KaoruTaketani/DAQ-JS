@@ -3,6 +3,7 @@ import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
 import deg2rad from '../lib/deg2rad.js'
 import line from '../lib/line.js'
+import xline from '../lib/xline.js'
 import linspace from '../lib/linspace.js'
 
 export default class {
@@ -124,8 +125,8 @@ export default class {
             const r = q.map(q => this.reflectivity(q, beta1, beta2, thickness))
             variables.reflectivitySVGInnerHTML.assign([
                 axes(ax1),
-                line(ax1, [q1, q1], [1e-5, 1.1]),
-                line(ax1, [q2, q2], [1e-5, 1.1]),
+                xline(ax1, q1),
+                xline(ax1, q2),
                 line(ax1, q, r),
                 xlabel(ax1, 'scattering vector (1/Å)')
             ].join(''))
