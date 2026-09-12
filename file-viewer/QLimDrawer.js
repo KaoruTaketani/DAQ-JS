@@ -115,9 +115,9 @@ export default class {
                 xLim: [qmin, qmax],
                 yLim: [1e-5, 1.1],
                 xTick: [qmin, qmax],
-                yTick: [1e-5, 1],
+                yTick: [1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1],
                 xTickLabel: [qmin, qmax].map(q => q.toFixed(2)),
-                yTickLabel: ['1e-5', '1'],
+                yTickLabel: ['1e-5', '1e-4', '1e-3', '1e-2', '1e-1', '1'],
                 yScale: 'log'
             }
             const q = linspace(qmin, qmax, 100)
@@ -126,6 +126,7 @@ export default class {
                 axes(ax1),
                 line(ax1, [q1, q1], [1e-5, 1.1]),
                 line(ax1, [q2, q2], [1e-5, 1.1]),
+                line(ax1, q, r),
                 xlabel(ax1, 'scattering vector (1/Å)')
             ].join(''))
 
