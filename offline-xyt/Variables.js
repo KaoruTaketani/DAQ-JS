@@ -63,9 +63,6 @@ export default class {
         // uint16ndarray
         /** @type {import('../lib/WritableDataset.js').default<import('../lib/index.js').Uint16NDArray>} */
         this.tofImageBinCounts = new WritableDataset('tofImageBinCounts', this.hdf5File)
-        // uint16array
-        /** @type {import('../lib/WritableDataset.js').default<Uint16Array>} */
-        this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
 
         // float64ndarray
         /** @type {import('../lib/WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */

@@ -31,6 +31,10 @@ export interface Parameters {
     frequencyVectorLength?: number
 }
 
+export interface ParametersQXQZ {
+    xytFileName: string
+}
+
 export interface XY {
     x: number[]
     y: number[]
