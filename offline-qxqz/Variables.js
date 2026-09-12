@@ -35,7 +35,7 @@ export default class {
         /** @type {import('../lib/WritableDataset.js').default<Uint16Array>} */
         this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
 
-        this.tofDifferenceLimitsInNanoseconds = new ReadableArray('', 'tofDiffrenceLimitsInNanoseconds', this.xytHDF5File)
+        this.tofDifferenceLimitsInNanoseconds = new ReadableArray('tofDiffrenceLimitsInNanoseconds', this.xytHDF5File)
 
         this.startTime = new ListenableNumber()
         this.neutronCount = new ListenableNumber()
