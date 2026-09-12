@@ -3,6 +3,7 @@ import xlabel from '../lib/xlabel.js'
 import ylabel from '../lib/ylabel.js'
 import deg2rad from '../lib/deg2rad.js'
 import line from '../lib/line.js'
+import linspace from '../lib/linspace.js'
 
 export default class {
     /**
@@ -119,7 +120,8 @@ export default class {
                 yTickLabel: ['1e-5', '1'],
                 yScale: 'log'
             }
-
+            const q = linspace(qmin, qmax, 100)
+            const r = q.map(q => this.reflectivity(q, beta1, beta2, thickness))
             variables.reflectivitySVGInnerHTML.assign([
                 axes(ax1),
                 line(ax1, [q1, q1], [1e-5, 1.1]),
@@ -167,5 +169,44 @@ export default class {
         // unit is neV
         // see @NeutronWavenumberByVelocity
         return 2.604e7 * betaInSquaredReciprocalAngstroms
+    }
+    /**
+     * @param {number} qInReciprocalAngstroms 
+     * @param {number} scatteringLengthDensityInSquaredReciprocalAngstroms 
+     * @return {number}
+     */
+    qi(qInReciprocalAngstroms, scatteringLengthDensityInSquaredReciprocalAngstroms) {
+        // uint is 1/Å
+        // see @NeutronNormalWavenumber
+        const q0 = qInReciprocalAngstroms
+        const beta = scatteringLengthDensityInSquaredReciprocalAngstroms
+        return Math.sqrt(q0 ** 2 - 4 * Math.PI * beta)
+    }
+    /**
+     * @param {number} qInReciprocalAngstroms 
+     * @param {number} filmScatteringLengthDensityInSquaredReciprocalAngstroms
+     * @param {number} substrateScatteringLengthDensityInSquaredReciprocalAngstroms
+     * @param {number} filmThicknessInAngstroms
+     * @returns {number}
+     */
+    reflectivity(qInReciprocalAngstroms, filmScatteringLengthDensityInSquaredReciprocalAngstroms, substrateScatteringLengthDensityInSquaredReciprocalAngstroms, filmThicknessInAngstroms) {
+        // see @FilmOnSubstrateNeutronReflectivity
+        const beta1 = filmScatteringLengthDensityInSquaredReciprocalAngstroms
+        const beta2 = substrateScatteringLengthDensityInSquaredReciprocalAngstroms
+        const d = filmThicknessInAngstroms
+        const q = qInReciprocalAngstroms
+        const q1 = this.qi(q, beta1)
+        const q2 = this.qi(q, beta2)
+        const c = Math.cos(d * q)
+        const s = Math.sin(d * q)
+        const den = c ** 2 * q ** 2 * (q1 + q2) ** 2 + s ** 2 * (q ** 2 + q1 * q2) ** 2
+        const num1 = s ** 2 * q ** 4
+        const num2 = c ** 2 * q ** 2 * q1 ** 2
+        const num3 = 2 * c ** 2 * q ** 2 * q1 * q2
+        const num4 = 2 * s ** 2 * q ** 2 * q1 * q2
+        const num5 = c ** 2 * q ** 2 * q2 ** 2
+        const num6 = s ** 2 * q1 ** 2 * q2 ** 2
+
+        return (num1 + num2 + num3 - num4 + num5 + num6) / den
     }
 }
