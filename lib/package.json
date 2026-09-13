@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "h5wasm": "^0.10.3"
+  }
+}
