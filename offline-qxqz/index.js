@@ -1,7 +1,9 @@
 import colon from "../lib/colon.js"
+import { join } from 'path'
 import EDRReader from "./EDRReader.js"
 import EventBufferParser from "./EventBufferParser.js"
 import JSONFileReader from "./JSONFileReader.js"
+import jsonPath from "./jsonPath.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
 import NeutronPerPulseInitializer from "./NeutronPerPulseInitializer.js"
 import NeutronPerPulseMaker from "./NeutronPerPulseMaker.js"
@@ -19,9 +21,9 @@ new NeutronPerPulseMaker(variables)
 new JSONFileReader(variables)
 
 // edit jsonPath.js to set jsonPath
-variables.projectName.assign('20250424')
-variables.hdf5Path.assign('../../hdf5/')
-variables.edrPath.assign('../../edr/')
+variables.jsonPath.assign(join(jsonPath(), '20250424'))
+variables.hdf5Path.assign('../../hdf5/20250424')
+variables.edrPath.assign('../../edr/20250424')
 // variables.jsonFilePaths.assign([
 //     './104.json',
 //     './104_16.json',
@@ -45,7 +47,8 @@ variables.edrPath.assign('../../edr/')
 // json file with direct beam
 // variables.jsonFileNames.assign(['2.json'])
 // json file with direct beam and low incident angle reflectivity
-variables.jsonFileNames.assign(['2q.json'])
+variables.jsonFileNames.assign(['0q.json', '2q.json'])
+// variables.jsonFileNames.assign(['2q.json'])
 // console.log(colon(0, 60))
 // variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])

@@ -46,7 +46,7 @@ export default class {
         this.neutronPositionBitLength = new ReadableNumber('neutronPositionBitLength', this.xytHDF5File)
         this.tofMaxInMilliseconds = new ReadableNumber('tofMaxInMillioseconds', this.xytHDF5File)
 
-        this.projectName = new ListenableString()
+        this.jsonPath = new ListenableString()
         this.hdf5FileName = new ListenableString()
         this.hdf5Path = new ListenableString()
         this.edrPath = new ListenableString()
