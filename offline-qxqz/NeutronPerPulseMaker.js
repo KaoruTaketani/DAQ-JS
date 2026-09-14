@@ -22,9 +22,14 @@ export default class extends Operator {
             this._operation()
         })
         /** @type {number} */
-        this._previousCount
+        this._previousCount = 0
         this._operation = () => {
-            this._neutronPerPulses[this._kickerIndex] = this._neutronCount - this._previousCount
+            if (this._neutronCount < this._previousCount) {
+                // initialized
+                this._neutronPerPulses[this._kickerIndex] = this._neutronCount
+            } else {
+                this._neutronPerPulses[this._kickerIndex] = this._neutronCount - this._previousCount
+            }
             this._previousCount = this._neutronCount
         }
     }
