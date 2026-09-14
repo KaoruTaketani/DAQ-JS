@@ -92,7 +92,7 @@ socket.onclose = () => {
 
                     (element => {
                         element.href = '#'
-                        const dialogElement = document.createElement('dialog');
+                        const dialogElement = document.body.appendChild(document.createElement('dialog'));
                         (element => {
                             const inputElement = document.createElement('input');
                             (element => {
