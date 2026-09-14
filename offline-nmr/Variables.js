@@ -1,9 +1,9 @@
 import ListenableObject from '../lib/ListenableObject.js'
 import ListenableString from '../lib/ListenableString.js'
-import ParameterArray from '../lib/ParameterArray.js'
-import ParameterString from '../lib/ParameterString.js'
-import WritableDataset from '../lib/WritableDataset.js'
-import WritableNumber from '../lib/WritableNumber.js'
+import ParameterArray from './ParameterArray.js'
+import ParameterString from './ParameterString.js'
+import WritableDataset from './WritableDataset.js'
+import WritableNumber from './WritableNumber.js'
 
 export default class {
     constructor() {

@@ -10,7 +10,7 @@ export default class {
         this.httpServer = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<import('net').BlockList>} */
         this.blockList = new ListenableObject()
-        /** @type {import('./ListenableObject.js').default<URLSearchParams} */
+        /** @type {import('./ListenableObject.js').default<URLSearchParams>} */
         this.requestParams = new ListenableObject()
         /** @type {import('./ListenableObject.js').default<Map<import('ws').WebSocket,string>>} */
         this.webSocketPathnames = new ListenableObject()
