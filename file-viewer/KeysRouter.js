@@ -7,15 +7,15 @@ await h5wasm.ready;
 const router = express.Router();
 
 router.get('/keys', (req, res) => {
-    if (!process.env.hdf5Path
+    if (!process.env.hdf5BasePath
         || typeof req.query.path !== 'string'
         || typeof req.query.dataType !== 'string') {
         res.sendStatus(404)
         return
     }
 
-    const basePath = resolve(join(process.env.hdf5Path, req.query.path))
-    if (!basePath.startsWith(resolve(process.env.hdf5Path))) {
+    const basePath = resolve(join(process.env.hdf5BasePath, req.query.path))
+    if (!basePath.startsWith(resolve(process.env.hdf5BasePath))) {
         res.sendStatus(500)
         return
     }

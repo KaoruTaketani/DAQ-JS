@@ -14,24 +14,24 @@ const numDigit = (/** @type {string} */c, /** @type {number} */ i) => {
 
 
 router.get('/files', (req, res) => {
-    if (!process.env.edrPath
-        || !process.env.hdf5Path
-        || !process.env.jsonPath
-        || !process.env.sigbPath
-        || !process.env.fcPath
-        || !process.env.xsfPath
+    if (!process.env.edrBasePath
+        || !process.env.hdf5BasePath
+        || !process.env.jsonBasePath
+        || !process.env.sigbBasePath
+        || !process.env.fcBasePath
+        || !process.env.xsfBasePath
         || typeof req.query.path !== 'string'
         || typeof req.query.extname !== 'string') {
         res.sendStatus(404)
         return
     }
     let basePath = ''
-    if (req.query.extname === 'edr') basePath = process.env.edrPath
-    if (req.query.extname === 'h5') basePath = process.env.hdf5Path
-    if (req.query.extname === 'json') basePath = process.env.jsonPath
-    if (req.query.extname === 'sigb') basePath = process.env.sigbPath
-    if (req.query.extname === 'fc') basePath = process.env.fcPath
-    if (req.query.extname === 'xsf') basePath = process.env.xsfPath
+    if (req.query.extname === 'edr') basePath = process.env.edrBasePath
+    if (req.query.extname === 'h5') basePath = process.env.hdf5BasePath
+    if (req.query.extname === 'json') basePath = process.env.jsonBasePath
+    if (req.query.extname === 'sigb') basePath = process.env.sigbBasePath
+    if (req.query.extname === 'fc') basePath = process.env.fcBasePath
+    if (req.query.extname === 'xsf') basePath = process.env.xsfBasePath
 
     const folderPath = resolve(join(basePath, req.query.path))
     if (!folderPath.startsWith(resolve(basePath))) {

@@ -53,12 +53,12 @@ app.use('/', HtmlRouter)
 app.use('/lib', express.static('../lib'))
 app.use(express.static('./'))
 
-process.env.hdf5Path = '../../hdf5'
-process.env.edrPath = '../../edr'
-process.env.jsonPath = jsonBasePath()
-process.env.sigbPath = '../../sigb'
-process.env.fcPath = '../../fc'
-process.env.xsfPath = '../../xsf'
+process.env.hdf5BasePath = '../../hdf5'
+process.env.edrBasePath = '../../edr'
+process.env.jsonBasePath = jsonBasePath()
+process.env.sigbBasePath = '../../sigb'
+process.env.fcBasePath = '../../fc'
+process.env.xsfBasePath = '../../xsf'
 
 app.listen(80, () => {
   console.log('Server is running on http://localhost')

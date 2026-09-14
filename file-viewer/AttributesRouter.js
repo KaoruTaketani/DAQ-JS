@@ -6,9 +6,9 @@ import { resolve, basename, join } from 'path';
 const router = express.Router();
 
 router.get('/attributes', (req, res) => {
-    if (!process.env.hdf5Path
-        || !process.env.jsonPath
-        || !process.env.sigbPath
+    if (!process.env.hdf5BasePath
+        || !process.env.jsonBasePath
+        || !process.env.sigbBasePath
         || typeof req.query.extname !== 'string'
         || typeof req.query.path !== 'string'
         || !['h5', 'json', 'sigb'].includes(req.query.extname)) {
@@ -17,9 +17,9 @@ router.get('/attributes', (req, res) => {
     }
 
     const basePaths = new Map()
-    basePaths.set('h5', process.env.hdf5Path)
-    basePaths.set('json', process.env.jsonPath)
-    basePaths.set('sigb', process.env.sigbPath)
+    basePaths.set('h5', process.env.hdf5BasePath)
+    basePaths.set('json', process.env.jsonBasePath)
+    basePaths.set('sigb', process.env.sigbBasePath)
 
     const folderPath = resolve(join(basePaths.get(req.query.extname), req.query.path))
     if (!folderPath.startsWith(resolve(basePaths.get(req.query.extname)))) {

@@ -5,15 +5,15 @@ import { resolve, join } from 'path';
 const router = express.Router();
 
 router.get('/numEvents', (req, res) => {
-    if (!process.env.edrPath
+    if (!process.env.edrBasePath
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
         res.sendStatus(404)
         return
     }
 
-    const filePath = resolve(join(process.env.edrPath, req.query.path, req.query.fileName))
-    if (!filePath.startsWith(resolve(process.env.edrPath))) {
+    const filePath = resolve(join(process.env.edrBasePath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.edrBasePath))) {
         res.sendStatus(500)
         return
     }

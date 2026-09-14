@@ -6,7 +6,7 @@ import colon from '../lib/colon.js';
 const router = express.Router();
 
 router.get('/waveform', (req, res) => {
-    if (!process.env.sigbPath
+    if (!process.env.sigbBasePath
         || typeof req.query.offset !== 'string'
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
@@ -20,8 +20,8 @@ router.get('/waveform', (req, res) => {
         return
     }
 
-    const filePath = resolve(join(process.env.sigbPath, req.query.path, req.query.fileName))
-    if (!filePath.startsWith(resolve(process.env.sigbPath))) {
+    const filePath = resolve(join(process.env.sigbBasePath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.sigbBasePath))) {
         res.sendStatus(500)
         return
     }

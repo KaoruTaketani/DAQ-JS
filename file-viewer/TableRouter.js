@@ -6,7 +6,7 @@ import isbetween from '../lib/isbetween.js';
 const router = express.Router();
 
 router.get('/table', (req, res) => {
-    if (!process.env.edrPath
+    if (!process.env.edrBasePath
         || typeof req.query.offset !== 'string'
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
@@ -20,8 +20,8 @@ router.get('/table', (req, res) => {
         return
     }
 
-    const filePath = resolve(join(process.env.edrPath, req.query.path, req.query.fileName))
-    if (!filePath.startsWith(resolve(process.env.edrPath))) {
+    const filePath = resolve(join(process.env.edrBasePath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.edrBasePath))) {
         res.sendStatus(500)
         return
     }

@@ -6,7 +6,7 @@ await h5wasm.ready;
 const router = express.Router();
 
 router.get('/image', (req, res) => {
-    if (!process.env.hdf5Path
+    if (!process.env.hdf5BasePath
         || typeof req.query.path !== 'string'
         || typeof req.query.key !== 'string'
         || typeof req.query.fileName !== 'string') {
@@ -14,8 +14,8 @@ router.get('/image', (req, res) => {
         return
     }
 
-    const filePath = resolve(join(process.env.hdf5Path, req.query.path, req.query.fileName))
-    if (!filePath.startsWith(resolve(process.env.hdf5Path))) {
+    const filePath = resolve(join(process.env.hdf5BasePath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.hdf5BasePath))) {
         res.sendStatus(500)
         return
     }

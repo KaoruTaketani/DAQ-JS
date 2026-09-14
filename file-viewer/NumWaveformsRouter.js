@@ -5,15 +5,15 @@ import { join,resolve } from 'path';
 const router = express.Router();
 
 router.get('/numWaveforms', (req, res) => {
-    if (!process.env.sigbPath
+    if (!process.env.sigbBasePath
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
         res.sendStatus(404)
         return
     }
 
-    const filePath = resolve(join(process.env.sigbPath, req.query.path, req.query.fileName))
-    if (!filePath.startsWith(resolve(process.env.sigbPath))) {
+    const filePath = resolve(join(process.env.sigbBasePath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.sigbBasePath))) {
         res.sendStatus(500)
         return
     }

@@ -10,15 +10,15 @@ import colon from '../lib/colon.js';
 const router = express.Router();
 
 router.get('/force', (req, res) => {
-    if (!process.env.fcPath
+    if (!process.env.fcBasePath
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
         res.sendStatus(404)
         return
     }
 
-    const filePath = resolve(join(process.env.fcPath, req.query.path, req.query.fileName))
-    if (!filePath.startsWith(resolve(process.env.fcPath))) {
+    const filePath = resolve(join(process.env.fcBasePath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.fcBasePath))) {
         res.sendStatus(500)
         return
     }

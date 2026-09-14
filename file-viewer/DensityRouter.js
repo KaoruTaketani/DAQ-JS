@@ -9,15 +9,15 @@ import { createInterface } from 'readline';
 const router = express.Router();
 
 router.get('/density', (req, res) => {
-    if (!process.env.xsfPath
+    if (!process.env.xsfBasePath
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {
         res.sendStatus(404)
         return
     }
 
-    const filePath = resolve(join(process.env.xsfPath, req.query.path, req.query.fileName))
-    if (!filePath.startsWith(resolve(process.env.xsfPath))) {
+    const filePath = resolve(join(process.env.xsfBasePath, req.query.path, req.query.fileName))
+    if (!filePath.startsWith(resolve(process.env.xsfBasePath))) {
         res.sendStatus(500)
         return
     }
