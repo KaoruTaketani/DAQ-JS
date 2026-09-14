@@ -44,8 +44,7 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('input')));
 
     (element => {
-        element.innerText = 'preset';
-
+        element.appendChild(document.createTextNode('preset'));
         (element => {
             let value
 
@@ -87,7 +86,7 @@ socket.onclose = () => {
         element.style.width = '130px'
         element.onclick = () => {
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT','/?batchProcessorDestinationState=busy')
+            xhr.open('PUT', '/?batchProcessorDestinationState=busy')
             xhr.send()
         }
         url.pathname = 'batchStartButtonDisabled'

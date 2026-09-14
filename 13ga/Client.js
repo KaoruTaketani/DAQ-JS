@@ -12,7 +12,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=busy')
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=busy')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -28,7 +28,7 @@ socket.onclose = () => {
     element.style.width = '130px'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT','/?randomNumberGeneratorDestinationState=idle')
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=idle')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'
@@ -39,8 +39,7 @@ socket.onclose = () => {
 })(document.body.appendChild(document.createElement('input')));
 
 (element => {
-    element.innerText = 'preset';
-
+    element.appendChild(document.createTextNode('preset'));
     (element => {
         let value
         element.type = 'number'
@@ -52,7 +51,7 @@ socket.onclose = () => {
             }
 
             const xhr = new XMLHttpRequest()
-            xhr.open('PUT',`/?preset=${element.value}`)
+            xhr.open('PUT', `/?preset=${element.value}`)
             xhr.send()
         })
         url.pathname = 'presetValue'

@@ -142,13 +142,14 @@ new HistogramGetter(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
-    element.innerText = 'ylog';
     (element => {
         element.type = 'checkbox'
         element.addEventListener('change', () => {
             variables.yScale.assign(element.checked ? 'log' : 'linear')
         })
     })(element.appendChild(document.createElement('input')))
+    // appendding after input element is necessary to show the label after the input
+    element.appendChild(document.createTextNode('ylog'));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {

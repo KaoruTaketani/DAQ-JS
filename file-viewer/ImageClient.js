@@ -186,14 +186,14 @@ new ImageDivMaker(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
-    // element.style.display = 'flex'
-    element.innerText = 'clog';
     (element => {
         element.type = 'checkbox'
         element.addEventListener('change', () => {
             variables.cScale.assign(element.checked ? 'log' : 'linear')
         })
     })(element.appendChild(document.createElement('input')))
+    // appendding after input element is necessary to show the label after the input
+    element.appendChild(document.createTextNode('clog'));
 })(document.body.appendChild(document.createElement('label')));
 
 

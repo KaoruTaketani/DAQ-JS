@@ -9,7 +9,7 @@ socket.onclose = () => {
 (element => {
     element.style.display = 'flex'
     element.style.marginBottom = '8px'
-    element.innerText = 'zscale';
+    element.appendChild(document.createTextNode('zscale'));
     (element => {
         element.onchange = () => {
             const arg = element.options[element.selectedIndex].innerText

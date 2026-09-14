@@ -62,10 +62,8 @@ const startButtonElement = document.createElement('input');
             element.disabled = event.data
         }
     })(element.appendChild(document.createElement('input')));
-    element.style.display = 'block'
-
+    // appendding after input element is necessary to show the label after the input
     element.appendChild(document.createTextNode('use preset'))
-
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {
@@ -110,7 +108,7 @@ const startButtonElement = document.createElement('input');
             element.disabled = event.data
         }
     })(element.appendChild(document.createElement('input')));
-    element.style.display = 'block'
+    // appendding after input element is necessary to show the label after the input
     element.appendChild(document.createTextNode('save to edr'))
 })(document.body.appendChild(document.createElement('label')));
 

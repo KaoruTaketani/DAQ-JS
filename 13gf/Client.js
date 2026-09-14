@@ -44,8 +44,7 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('input')));
 
     (element => {
-        element.innerText = 'preset';
-
+        element.appendChild(document.createTextNode('preset'));
         (element => {
             let value
 
@@ -122,7 +121,7 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('input')));
 
     (element => {
-        element.innerText = 'start';
+        element.appendChild(document.createTextNode('start'));
         (element => {
             element.type = 'number'
             element.disabled = true
@@ -136,7 +135,7 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('label')));
 
     (element => {
-        element.innerText = 'stop';
+        element.appendChild(document.createTextNode('stop'));
         (element => {
             element.type = 'number'
             element.disabled = true
@@ -150,7 +149,7 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('label')));
 
     (element => {
-        element.innerText = 'step';
+        element.appendChild(document.createTextNode('step'));
         (element => {
             element.type = 'number'
             element.disabled = true

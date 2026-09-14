@@ -167,25 +167,25 @@ new XYGetter(variables)
 })(document.body.appendChild(document.createElement('fieldset')));
 
 (element => {
-    // element.style.display='block'
-    element.innerText = 'xlog';
     (element => {
         element.type = 'checkbox'
         element.addEventListener('change', () => {
             variables.xScale.assign(element.checked ? 'log' : 'linear')
         })
     })(element.appendChild(document.createElement('input')))
+    // appendding after input element is necessary to show the label after the input
+    element.appendChild(document.createTextNode('xlog'));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {
-    // element.style.display = 'flex'
-    element.innerText = 'ylog';
     (element => {
         element.type = 'checkbox'
         element.addEventListener('change', () => {
             variables.yScale.assign(element.checked ? 'log' : 'linear')
         })
     })(element.appendChild(document.createElement('input')))
+    // appendding after input element is necessary to show the label after the input
+    element.appendChild(document.createTextNode('ylog'));
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {

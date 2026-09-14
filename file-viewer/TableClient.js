@@ -26,7 +26,7 @@ new FilesGetter(variables)
 
 (element => {
     element.style.marginLeft = '208px'
-    element.appendChild(document.createTextNode('offset: '));
+    element.appendChild(document.createTextNode('offset'));
     (element => {
         element.type = 'number'
         element.style.marginLeft = '8px'
@@ -41,7 +41,7 @@ new FilesGetter(variables)
 })(document.body.appendChild(document.createElement('label')));
 
 (element => {
-    element.innerText = 'header';
+    element.appendChild(document.createTextNode('header'));
     (element => {
         element.style.marginTop = '8px'
         element.style.width = '200px'

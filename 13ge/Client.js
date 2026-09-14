@@ -44,8 +44,7 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('input')));
 
     (element => {
-        element.innerText = 'preset';
-
+        element.appendChild(document.createTextNode('preset'));
         (element => {
             let value
 
