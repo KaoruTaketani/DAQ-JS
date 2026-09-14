@@ -24,6 +24,7 @@ function innerHTML(reqPath) {
 router.get('/AttributesHDF5.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/AttributesJSON.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/AttributesSIGB.html', (req, res) => { res.send(innerHTML(req.path)) })
+router.get('/Density.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Force.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/Image.html', (req, res) => { res.send(innerHTML(req.path)) })
 router.get('/QMap.html', (req, res) => { res.send(innerHTML(req.path)) })

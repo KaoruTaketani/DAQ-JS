@@ -23,6 +23,8 @@ router.get('/', (_req, res) => {
         `    <p><a href="./Image.html">Image</a></p>`,
         `    <h2>FC</h2>`,
         `    <p><a href="./Force.html">Force</a></p>`,
+        `    <h2>XSF</h2>`,
+        `    <p><a href="./Density.html">Density</a></p>`,
         `    <h2>Calculator</h2>`,
         `    <p><a href="./Slit.html">Slit</a></p>`,
         `    <p><a href="./QMap.html">Q Map</a></p>`,

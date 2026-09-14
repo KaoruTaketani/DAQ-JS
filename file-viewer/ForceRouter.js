@@ -9,7 +9,7 @@ import colon from '../lib/colon.js';
 
 const router = express.Router();
 
-router.get('/fc', (req, res) => {
+router.get('/force', (req, res) => {
     if (!process.env.fcPath
         || typeof req.query.path !== 'string'
         || typeof req.query.fileName !== 'string') {

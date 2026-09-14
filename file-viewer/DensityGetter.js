@@ -18,7 +18,7 @@ export default class {
         })
         this._operation = () => {
             if (this._selectedFileNames.length !== 1) return
-            if (!this._selectedFileNames[0].endsWith('.fc')) {
+            if (!this._selectedFileNames[0].endsWith('.xsf')) {
                 variables.svgInnerHTML.assign('')
                 // see canvas size in  ImageClient.js
                 this._canvasContext.clearRect(0, 0, 400, 300)
@@ -26,7 +26,7 @@ export default class {
                 return
             }
 
-            fetch(`/force?path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
+            fetch(`/density?path=${this._path}&fileName=${this._selectedFileNames[0]}`).then(response => {
                 if (!response.ok) {
                     variables.divInnerText.assign('raw image was not found')
                     variables.svgInnerHTML.assign('')
