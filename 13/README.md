@@ -1,4 +1,3 @@
-[home](../README.md)
 
 HistogramSVGInnerHTMLMaker.js:
 ```js

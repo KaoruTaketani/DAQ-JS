@@ -1,4 +1,3 @@
-[home](../README.md)
 
 ### before
 RandomNumberInnerTextChanger.js:

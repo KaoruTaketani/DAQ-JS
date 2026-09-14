@@ -1,4 +1,3 @@
-[home](../README.md)
 
 "Node.js runs the V8 JavaScript engine, the core of Google Chrome, outside the browser."
 

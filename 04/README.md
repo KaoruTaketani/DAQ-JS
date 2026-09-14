@@ -1,4 +1,3 @@
-[home](../README.md)
 
 "setInterval() method ... repeatedly calls a function... with a fixed time delay between each call"
 

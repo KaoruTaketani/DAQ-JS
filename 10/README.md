@@ -1,4 +1,3 @@
-[home](../README.md)
 
 enable the server to send multiple variables
 

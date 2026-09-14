@@ -1,4 +1,3 @@
-[home](../README.md)
 
 "Node.js provides a set of asynchronous I/O primitives in its standard library."
 
