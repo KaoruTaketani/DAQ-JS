@@ -11,7 +11,7 @@ let totalLength = 0
 
 const neunetReaderSocket = new Socket({ keepAlive: true })
 
-neunetReaderSocket.on('data', chunk => {
+neunetReaderSocket.on('data', (/** @type {Buffer} */chunk) => {
     if (chunkArray.length === 0) {
         eventLength = (chunk[2] << 8) + chunk[3]
         chunkArray.push(chunk.subarray(4))
