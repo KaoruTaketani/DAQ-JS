@@ -28,24 +28,10 @@ router.get('/image', (req, res) => {
         return
     }
 
-    let xlabel
-    let ylabel
-    if (req.query.key === 'imageBinCounts') {
-        xlabel = 'coordinate (mm)'
-        ylabel = 'coordinate (mm)'
-    }
-    if (req.query.key === 'filteredImageBinCounts') {
-        xlabel = 'coordinate (mm)'
-        ylabel = 'coordinate (mm)'
-    }
-    if (req.query.key === 'tofImageVProjectionBinCounts') {
-        ylabel = 'coordinate (mm)'
-        xlabel = 'tof (ns)'
-    }
-    const attrKeys = Object.keys(dataset.attrs)
-    // attrKeys.length is 2 and first is xBinLimit... and the second is yBinLimit...
-    const xlim = Array.from(/** @type {Float64Array} */(dataset.attrs[attrKeys[0]].value))
-    const ylim = Array.from(/** @type {Float64Array} */(dataset.attrs[attrKeys[1]].value))
+    const xlabel = /** @type {string[]} */(dataset.attrs['_labels'].to_array())[0]
+    const ylabel = /** @type {string[]} */(dataset.attrs['_labels'].to_array())[1]
+    const xlim = /** @type {number[]} */(dataset.attrs['_xlim'].to_array())
+    const ylim = /** @type {number[]} */(dataset.attrs['_ylim'].to_array())
     const data = Array.from(/** @type {Uint32Array} */(dataset.value))
 
     res.json({

@@ -31,26 +31,10 @@ router.get('/histogram', (req, res) => {
         f.close()
         return
     }
+
     const y = Array.from(/** @type {Float64Array} */(dataset.value))
-    let xlabel
-    if (req.query.key === 'imageVProjectionBinCounts') {
-        xlabel = 'coordinate (mm)'
-    }
-    if (req.query.key === 'imageHProjectionBinCounts') {
-        xlabel = 'coordinate (mm)'
-    }
-    if (req.query.key === 'pulseHeightHistogramBinCounts') {
-        xlabel = 'pulse height'
-    }
-    if (req.query.key === 'tofHistogramBinCounts') {
-        xlabel = 'tof (ns)'
-    }
-    if (req.query.key === 'tofDifferenceHistogramBinCounts') {
-        xlabel = 'tof (ns)'
-    }
-    const attrKeys = Object.keys(dataset.attrs)
-    // attrKeys.length is 1
-    const lims = /** @type {number[]} */(dataset.attrs[attrKeys[0]].value)
+    const xlabel = /** @type {string[]} */(dataset.attrs['_labels'].to_array())[0]
+    const lims = /** @type {number[]} */(dataset.attrs['_xlim'].to_array())
     const x = linspace(lims[0], lims[1], y.length + 1)
 
     res.json({
