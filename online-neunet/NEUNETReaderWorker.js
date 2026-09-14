@@ -9,7 +9,8 @@ let chunkArray = []
 /** @type {number} */
 let totalLength = 0
 
-const neunetReaderSocket = new Socket()
+const neunetReaderSocket = new Socket({ keepAlive: true })
+
 neunetReaderSocket.on('data', chunk => {
     if (chunkArray.length === 0) {
         eventLength = (chunk[2] << 8) + chunk[3]
