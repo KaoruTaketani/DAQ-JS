@@ -39,26 +39,26 @@ export default class {
 
         // uint32ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
-        this.imageBinCounts = new WritableDataset('imageBinCounts', this.hdf5File)
+        this.imageBinCounts = new WritableDataset('imageBinCounts', this.hdf5File, ['x (mm)', 'y (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
-        this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File)
+        this.filteredImageBinCounts = new WritableDataset('filteredImageBinCounts', this.hdf5File, ['x (mm)', 'y (mm'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
-        this.tofImageVProjectionBinCounts = new WritableDataset('tofImageVProjectionBinCounts', this.hdf5File)
+        this.tofImageVProjectionBinCounts = new WritableDataset('tofImageVProjectionBinCounts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
-        this.tofImageVProjectionSums = new WritableDataset('tofImageVProjectionSums', this.hdf5File)
+        this.tofImageVProjectionSums = new WritableDataset('tofImageVProjectionSums', this.hdf5File, ['tof (ns)', 'x (mm)'])
         // uint32array
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File)
+        this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File, ['tof (ns)'])
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.tofHistogramSum = new WritableDataset('tofHistogramSum', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File)
+        this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File, ['adc value'])
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File)
+        this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File, ['tof (ns)'])
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.imageHProjectionBinCounts = new WritableDataset('imageHProjectionBinCounts', this.hdf5File)
+        this.imageHProjectionBinCounts = new WritableDataset('imageHProjectionBinCounts', this.hdf5File, ['y (mm)'])
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.imageVProjectionBinCounts = new WritableDataset('imageVProjectionBinCounts', this.hdf5File)
+        this.imageVProjectionBinCounts = new WritableDataset('imageVProjectionBinCounts', this.hdf5File, ['x (mm)'])
 
         // uint16ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint16NDArray>} */
@@ -66,9 +66,9 @@ export default class {
 
         // float64ndarray
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
-        this.tofImageVProjectionContrasts = new WritableDataset('tofImageVProjectionContrasts', this.hdf5File)
+        this.tofImageVProjectionContrasts = new WritableDataset('tofImageVProjectionContrasts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
-        this.tofImageVProjectionPhases = new WritableDataset('tofImageVProjectionPhases', this.hdf5File)
+        this.tofImageVProjectionPhases = new WritableDataset('tofImageVProjectionPhases', this.hdf5File, ['tof (ns)', 'x (mm)'])
         // float64array
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.neutronRate = new WritableDataset('neutronRate', this.hdf5File)

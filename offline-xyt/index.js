@@ -131,8 +131,8 @@ variables.edrPath.assign('../../edr/20250424')
 // json file with direct beam
 // variables.jsonFileNames.assign(['2.json'])
 // json file with direct beam and low incident angle reflectivity
-variables.jsonFileNames.assign(['4.json'])
+// variables.jsonFileNames.assign(['4.json'])
 // console.log(colon(0, 60))
-// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 

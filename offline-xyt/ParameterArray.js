@@ -1,5 +1,9 @@
 import WritableArray from './WritableArray.js'
 
+/**
+ * @template T
+ * @extends WritableArray<T>
+ */
 export default class extends WritableArray {
     /**
      * @param {string} name

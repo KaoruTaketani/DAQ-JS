@@ -8,8 +8,9 @@ export default class extends ListenableObject {
     /**
      * @param {string} name
      * @param {import('../lib/ListenableObject.js').default<import('h5wasm').File>} hdf5File 
+     * @param {string[]} [labels]
      */
-    constructor(name, hdf5File) {
+    constructor(name, hdf5File, labels) {
         super()
         /** @type {string} */
         this._name = name
@@ -18,18 +19,24 @@ export default class extends ListenableObject {
         hdf5File.addListener(arg => {
             if (this._value) {
                 if (ArrayBuffer.isView(this._value)) {
-                    arg.create_dataset({
+                    const group = arg.create_dataset({
                         name: this._name,
                         data: this._value
                     })
+                    if (labels) {
+                        group.create_attribute('_labels', labels)
+                    }
                 } else {
-                    arg.create_dataset({
+                    const group = arg.create_dataset({
                         name: this._name,
                         data: this._value.data,
                         shape: this._value.shape,
                         chunks: this._value.shape,
                         compression: 'gzip'
                     })
+                    if (labels) {
+                        group.create_attribute('_labels', labels)
+                    }
                 }
             }
         })

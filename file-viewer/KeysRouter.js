@@ -28,24 +28,45 @@ router.get('/keys', (req, res) => {
         .forEach(file => {
             let f = new h5wasm.File(join(basePath, file.name), "r");
             f.keys().forEach(key => {
+
                 if (req.query.dataType === 'image') {
                     /** @type {import('h5wasm').Dataset|null} */
                     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
-                    if (dataset && Object.keys(dataset.attrs).length === 2) {
-                        keys.add(key)
+                    // if (file.name === '4.h5' &&
+                    //     key, dataset?.attrs['_labels'])
+                    //     console.log(key, dataset?.attrs['_labels'].shape)
+                    // if (dataset && Object.keys(dataset.attrs).length === 2) {
+
+                    if (dataset) {
+                        const labels = dataset.attrs['_labels']
+                        if (labels && labels.shape && labels.shape[0] === 2) {
+                            keys.add(key)
+                        }
                     }
                 }
                 if (req.query.dataType === 'waveform') {
                     /** @type {import('h5wasm').Dataset|null} */
                     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
-                    if (dataset && Object.keys(dataset.attrs).length === 1) {
-                        keys.add(key)
+                    // if (file.name === '4.h5' &&
+                    //     key, dataset?.attrs['_labels'])
+                    //     console.log(key, dataset?.attrs['_labels'].shape)
+                    // if (dataset && Object.keys(dataset.attrs).length === 1) {
+
+                    if (dataset) {
+                        const labels = dataset.attrs['_labels']
+                        if (labels && labels.shape && labels.shape[0] === 1) {
+                            keys.add(key)
+                        }
                     }
                 }
                 if (req.query.dataType === 'xy') {
                     /** @type {import('h5wasm').Dataset|null} */
                     const dataset = /** @type {import('h5wasm').Dataset|null} */(f.get(key))
-                    if (dataset && Object.keys(dataset.attrs).length === 0) {
+                    // if (file.name === '4.h5' &&
+                    //     key, dataset?.attrs['_labels'])
+                    //     console.log(key, dataset?.attrs['_labels'].shape)
+                    // if (dataset && Object.keys(dataset.attrs).length === 0) {
+                    if (dataset && !dataset.attrs['_labels']) {
                         keys.add(key)
                     }
                 }
