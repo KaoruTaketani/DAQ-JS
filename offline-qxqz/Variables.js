@@ -1,10 +1,10 @@
 import ListenableNumber from '../lib/ListenableNumber.js'
 import ListenableObject from '../lib/ListenableObject.js'
 import ListenableString from '../lib/ListenableString.js'
-import WritableDataset from '../lib/WritableDataset.js'
-import ReadableArray from '../lib/ReadableArray.js'
-import ReadableNumber from '../lib/ReadableNumber.js'
-import ReadableString from '../lib/ReadableString.js'
+import WritableDataset from './WritableDataset.js'
+import ReadableArray from './ReadableArray.js'
+import ReadableNumber from './ReadableNumber.js'
+import ReadableString from './ReadableString.js'
 
 export default class {
     constructor() {
