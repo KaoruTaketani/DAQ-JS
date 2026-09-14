@@ -13,8 +13,8 @@ export default class extends Operator {
         this._kickerIndex
         variables.kickerIndex.prependListener(arg => { this._kickerIndex = arg })
         /** @type {Uint32Array} */
-        this._neutronPerPulses
-        variables.neutronPerPulses.prependListener(arg => { this._neutronPerPulses = arg })
+        this._neutronCountPerPulses
+        variables.neutronCountPerPulses.prependListener(arg => { this._neutronCountPerPulses = arg })
         /** @type {number} */
         this._kickerTime
         variables.kickerTime.addListener(arg => {
@@ -26,9 +26,9 @@ export default class extends Operator {
         this._operation = () => {
             if (this._neutronCount < this._previousCount) {
                 // initialized
-                this._neutronPerPulses[this._kickerIndex] = this._neutronCount
+                this._neutronCountPerPulses[this._kickerIndex] = this._neutronCount
             } else {
-                this._neutronPerPulses[this._kickerIndex] = this._neutronCount - this._previousCount
+                this._neutronCountPerPulses[this._kickerIndex] = this._neutronCount - this._previousCount
             }
             this._previousCount = this._neutronCount
         }

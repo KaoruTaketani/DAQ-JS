@@ -5,13 +5,13 @@ import EventBufferParser from "./EventBufferParser.js"
 import JSONFileReader from "./JSONFileReader.js"
 import jsonBasePath from "../file-viewer/jsonBasePath.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
-import NeutronPerPulsesInitializer from "./NeutronPerPulsesInitializer.js"
-import NeutronPerPulsesMaker from "./NeutronPerPulsesMaker.js"
+import NeutronCountPerPulsesInitializer from "./NeutronCountPerPulsesInitializer.js"
+import NeutronCountPerPulsesMaker from "./NeutronCountPerPulsesMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
 import Variables from "./Variables.js"
 import KickerTimesInitializer from "./KickerTimesInitializer.js"
 import KickerTimesMaker from "./KickerTimesMaker.js"
-import NeutronPerPulseHistogramMaker from "./NeutronPerPulseHistogramMaker.js"
+import NeutronCountPerPulseHistogramMaker from "./NeutronCountPerPulseHistogramMaker.js"
 
 const variables = new Variables()
 
@@ -21,9 +21,9 @@ new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
 new KickerTimesInitializer(variables)
 new KickerTimesMaker(variables)
-new NeutronPerPulsesInitializer(variables)
-new NeutronPerPulsesMaker(variables)
-new NeutronPerPulseHistogramMaker(variables)
+new NeutronCountPerPulsesInitializer(variables)
+new NeutronCountPerPulsesMaker(variables)
+new NeutronCountPerPulseHistogramMaker(variables)
 new JSONFileReader(variables)
 
 variables.jsonPath.assign(join(jsonBasePath(), '@BL06', '20250424'))

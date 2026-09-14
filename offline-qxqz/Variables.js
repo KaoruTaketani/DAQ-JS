@@ -34,11 +34,11 @@ export default class {
 
         // uint32array
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
+        this.neutronCountPerPulses = new WritableDataset('neutronCountPerPulses', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
-        this.neutronPerPulseHistogramBinCounts = new WritableDataset('neutronPerPulseHistogramBinCounts', this.hdf5File, ['neutron per pulse'])
+        this.neutronCountPerPulseHistogramBinCounts = new WritableDataset('neutronCountPerPulseHistogramBinCounts', this.hdf5File, ['neutron per pulse'])
 
-        this.neutronPerPulseHistogramBinLimits = new WritableArray('_xlim', this.hdf5File, this.neutronPerPulseHistogramBinCounts)
+        this.neutronCountPerPulseHistogramBinLimits = new WritableArray('_xlim', this.hdf5File, this.neutronCountPerPulseHistogramBinCounts)
 
         this.tofDifferenceLimitsInNanoseconds = new ReadableArray('tofDiffrenceLimitsInNanoseconds', this.xytHDF5File)
 

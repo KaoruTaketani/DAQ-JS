@@ -15,9 +15,9 @@ export default class extends Operator {
         this._kickerIndex
         variables.kickerIndex.prependListener(arg => { this._kickerIndex = arg })
         /** @type {Uint32Array} */
-        this._neutronPerPulses
-        variables.neutronPerPulses.addListener(arg => {
-            this._neutronPerPulses = arg
+        this._neutronCountPerPulses
+        variables.neutronCountPerPulses.addListener(arg => {
+            this._neutronCountPerPulses = arg
             this._operation()
         })
         this._operation = () => {
@@ -26,9 +26,9 @@ export default class extends Operator {
             //
             // https://jp.mathworks.com/help/matlab/ref/matlab.graphics.chart.primitive.histogram.html
             //
-            const mean_ = mean(this._neutronPerPulses)
-            const std_ = std(this._neutronPerPulses)
-            const scottWidth = 3.5 * std_ * Math.pow(this._neutronPerPulses.length, -1 / 3)
+            const mean_ = mean(this._neutronCountPerPulses)
+            const std_ = std(this._neutronCountPerPulses)
+            const scottWidth = 3.5 * std_ * Math.pow(this._neutronCountPerPulses.length, -1 / 3)
             const width = scottWidth < 1 ? 1 : scottWidth
             const nbins = Math.ceil(6 * std_ / width)
             // console.log(`mean: ${mean_}, std: ${std_}, width: ${width}, nbins: ${nbins}`)
@@ -36,7 +36,7 @@ export default class extends Operator {
             let underflowValue = 0
             let overflowValue = 0
 
-            this._neutronPerPulses.forEach(pulse => {
+            this._neutronCountPerPulses.forEach(pulse => {
                 const id = Math.floor((pulse - (mean_ - 3 * std_)) / width)
                 if (id < 0) {
                     underflowValue++
@@ -47,8 +47,8 @@ export default class extends Operator {
                 }
                 // if (id === 2) { console.log(`pulse: ${pulse}, id: ${id}`) }
             })
-            variables.neutronPerPulseHistogramBinCounts.assign(value)
-            variables.neutronPerPulseHistogramBinLimits.assign([mean_ - 3 * std_, mean_ + 3 * std_])            
+            variables.neutronCountPerPulseHistogramBinCounts.assign(value)
+            variables.neutronCountPerPulseHistogramBinLimits.assign([mean_ - 3 * std_, mean_ + 3 * std_])            
         }
     }
 }
