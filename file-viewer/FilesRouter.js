@@ -18,6 +18,7 @@ router.get('/files', (req, res) => {
         || !process.env.hdf5Path
         || !process.env.jsonPath
         || !process.env.sigbPath
+        || !process.env.fcPath
         || typeof req.query.path !== 'string'
         || typeof req.query.extname !== 'string') {
         res.sendStatus(404)
@@ -28,6 +29,7 @@ router.get('/files', (req, res) => {
     if (req.query.extname === 'h5') basePath = process.env.hdf5Path
     if (req.query.extname === 'json') basePath = process.env.jsonPath
     if (req.query.extname === 'sigb') basePath = process.env.sigbPath
+    if (req.query.extname === 'fc') basePath = process.env.fcPath
 
     const folderPath = resolve(join(basePath, req.query.path))
     if (!folderPath.startsWith(resolve(basePath))) {

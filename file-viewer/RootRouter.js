@@ -21,6 +21,8 @@ router.get('/', (_req, res) => {
         `    <p><a href="./XY.html">XY</a></p>`,
         `    <p><a href="./Histogram.html">Histogram</a></p>`,
         `    <p><a href="./Image.html">Image</a></p>`,
+        `    <h2>FC</h2>`,
+        `    <p><a href="./Force.html">Force</a></p>`,
         `    <h2>Calculator</h2>`,
         `    <p><a href="./Slit.html">Slit</a></p>`,
         `    <p><a href="./QMap.html">Q Map</a></p>`,

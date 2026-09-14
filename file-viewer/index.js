@@ -3,6 +3,7 @@ import jsonBasePath from './jsonBasePath.js';
 import { BlockList } from 'net';
 import AttributesRouter from './AttributesRouter.js';
 import FilesRouter from './FilesRouter.js';
+import ForceRouter from './ForceRouter.js'
 import HistogramRouter from './HistogramRouter.js';
 import HtmlRouter from './HtmlRouter.js';
 import ImageRouter from './ImageRouter.js';
@@ -37,6 +38,7 @@ app.use('/', (req, res, next) => {
 app.use('/', RootRouter)
 app.use('/', AttributesRouter)
 app.use('/', FilesRouter)
+app.use('/', ForceRouter)
 app.use('/', KeysRouter)
 app.use('/', TableRouter)
 app.use('/', NumEventsRouter)
@@ -53,6 +55,7 @@ process.env.hdf5Path = '../../hdf5'
 process.env.edrPath = '../../edr'
 process.env.jsonPath = jsonBasePath()
 process.env.sigbPath = '../../sigb'
+process.env.fcPath = '../../fc'
 
 app.listen(80, () => {
   console.log('Server is running on http://localhost')
