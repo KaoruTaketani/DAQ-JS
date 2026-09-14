@@ -12,9 +12,6 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {string} */
-        this._projectName
-        variables.projectName.prependListener(arg => { this._projectName = arg })
-        /** @type {string} */
         this._sigbPath
         variables.sigbPath.prependListener(arg => { this._sigbPath = arg })
         /** @type {string} */

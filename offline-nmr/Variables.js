@@ -31,7 +31,7 @@ export default class {
         this.signalSum = new WritableNumber('signalSum', this.hdf5File)
         this.startUnixTime = new WritableNumber('startUnixTime', this.hdf5File)
 
-        this.projectName = new ListenableString()
+        this.jsonPath = new ListenableString()
         this.hdf5FileName = new ListenableString()
         this.hdf5Path = new ListenableString()
         this.sigbPath = new ListenableString()

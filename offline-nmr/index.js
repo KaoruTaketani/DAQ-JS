@@ -3,6 +3,8 @@ import SIGBReader from "./SIGBReader.js"
 import Variables from "./Variables.js"
 import colon from '../lib/colon.js'
 import BackgroundFitter from "./BackgroundFitter.js"
+import jsonPath from "./jsonPath.js"
+import { join } from 'path'
 
 const variables = new Variables()
 
@@ -11,9 +13,9 @@ new BackgroundFitter(variables)
 new JSONFileReader(variables)
 
 // edit jsonPath.js to set jsonPath
-variables.projectName.assign('20151203')
-variables.hdf5Path.assign('../../hdf5/')
-variables.sigbPath.assign('../../sigb/')
+variables.jsonPath.assign(join(jsonPath(), '20151203'))
+variables.hdf5Path.assign('../../hdf5/20151203')
+variables.sigbPath.assign('../../sigb/20151203')
 // variables.jsonFileNames.assign(['1.json'])
 variables.jsonFileNames.assign(colon(1, 321).map(i => `${i}.json`))
 
