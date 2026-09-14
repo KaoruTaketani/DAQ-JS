@@ -2,6 +2,7 @@ import ListenableNumber from '../lib/ListenableNumber.js'
 import ListenableObject from '../lib/ListenableObject.js'
 import ListenableString from '../lib/ListenableString.js'
 import WritableDataset from './WritableDataset.js'
+import WritableArray from './WritableArray.js'
 import ReadableArray from './ReadableArray.js'
 import ReadableNumber from './ReadableNumber.js'
 import ReadableString from './ReadableString.js'
@@ -31,9 +32,13 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.kickerTiems = new WritableDataset('kickerTimes', this.hdf5File)
 
-        // uint16array
-        /** @type {import('./WritableDataset.js').default<Uint16Array>} */
+        // uint32array
+        /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
+        /** @type {import('./WritableDataset.js').default<Uint32Array>} */
+        this.neutronPerPulseHistogramBinCounts = new WritableDataset('neutronPerPulseHistogramBinCounts', this.hdf5File, ['neutron per pulse'])
+
+        this.neutronPerPulseHistogramBinLimits = new WritableArray('_xlim', this.hdf5File, this.neutronPerPulseHistogramBinCounts)
 
         this.tofDifferenceLimitsInNanoseconds = new ReadableArray('tofDiffrenceLimitsInNanoseconds', this.xytHDF5File)
 

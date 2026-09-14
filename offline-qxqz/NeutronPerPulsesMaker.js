@@ -12,7 +12,7 @@ export default class extends Operator {
         /** @type {number} */
         this._kickerIndex
         variables.kickerIndex.prependListener(arg => { this._kickerIndex = arg })
-        /** @type {Uint16Array} */
+        /** @type {Uint32Array} */
         this._neutronPerPulses
         variables.neutronPerPulses.prependListener(arg => { this._neutronPerPulses = arg })
         /** @type {number} */

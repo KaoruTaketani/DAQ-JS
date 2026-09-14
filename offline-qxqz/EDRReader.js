@@ -18,6 +18,9 @@ export default class extends Operator {
         /** @type {string} */
         this._hdf5FileName
         variables.hdf5FileName.prependListener(arg => { this._hdf5FileName = arg })
+        /** @type {Uint32Array} */
+        this._neutronPerPulses
+        variables.neutronPerPulses.prependListener(arg => { this._neutronPerPulses = arg })
         /** @type {number} */
         this._kickerPulseCount
         variables.kickerPulseCount.prependListener(arg => { this._kickerPulseCount = arg })
@@ -48,6 +51,8 @@ export default class extends Operator {
                     console.log(`processed ${processedSize.toLocaleString()} / ${totalSize.toLocaleString()} bytes`)
                 }).on('end', () => {
                     console.log(`edr elapsedTime: ${Date.now() - this._startTime} ms`)
+                    // calculate histogram
+                    variables.neutronPerPulses.assign(this._neutronPerPulses)
                     console.log(`calc elapsedTime: ${Date.now() - this._startTime} ms`)
 
                     ready.then(() => {

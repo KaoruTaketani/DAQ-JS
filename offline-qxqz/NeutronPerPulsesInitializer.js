@@ -13,7 +13,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {            
-            variables.neutronPerPulses.assign(new Uint16Array(this._kickerPulseCount))
+            variables.neutronPerPulses.assign(new Uint32Array(this._kickerPulseCount))
         }
     }
 }
