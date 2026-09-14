@@ -42,4 +42,10 @@ export default class extends ListenableObject {
         super.assign(arg)
         this._value = arg
     }
+    /**
+     * @return {string}
+     */
+    name() {
+        return this._name
+    }
 }

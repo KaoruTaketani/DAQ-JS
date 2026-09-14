@@ -7,7 +7,7 @@ export default class extends WritableArray {
      * @param {import('../lib/ListenableObject.js').default<import('../lib/index.js').Parameters>} parameters
      */
     constructor(name, hdf5File, parameters) {
-        super('', name, hdf5File)
+        super(name, hdf5File)
         parameters.addListener(arg => {
             super.assign(undefined)
 
