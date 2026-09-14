@@ -56,9 +56,9 @@
 
 [13.d.b Log Scale](./13db/README.md)
 
-[13.d.c Cursor Coordinate](./13ac/README.md)
+[13.d.c Cursor Coordinate](./13dc/README.md)
 
-[13.d.d Overlay](./13ad/README.md)
+[13.d.d Overlay](./13dd/README.md)
 
 13.e API
 
@@ -70,7 +70,7 @@
 
 13.f Image
 
-[13.f.a Img Element](./1fha/README.md)
+[13.f.a Img Element](./13fa/README.md)
 
 [13.f.b Canvas Element](./13fb/README.md)
 
