@@ -19,9 +19,6 @@ export default class extends Operator {
         this._lastKickerTime
         variables.lastKickerTime.prependListener(arg => { this._lastKickerTime = arg })
         /** @type {string} */
-        this._projectName
-        variables.projectName.prependListener(arg => { this._projectName = arg })
-        /** @type {string} */
         this._edrPath
         variables.edrPath.prependListener(arg => { this._edrPath = arg })
         /** @type {string} */
@@ -57,7 +54,7 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._edrFileName) return
 
-            const edrFilePath = join(this._edrPath, this._projectName, this._edrFileName),
+            const edrFilePath = join(this._edrPath, this._edrFileName),
                 totalSize = statSync(edrFilePath).size
             console.log(`ini elapsedTime: ${Date.now() - this._startTime} ms`)
 
@@ -77,7 +74,7 @@ export default class extends Operator {
                     console.log(`calc elapsedTime: ${Date.now() - this._startTime} ms`)
 
                     ready.then(() => {
-                        const hdf5File = new File(join(this._hdf5Path, this._projectName, this._hdf5FileName), 'w')
+                        const hdf5File = new File(join(this._hdf5Path, this._hdf5FileName), 'w')
                         variables.hdf5File.assign(hdf5File)
                         hdf5File.close()
                         console.log(`hdf5 elapsedTime: ${Date.now() - this._startTime} ms`)

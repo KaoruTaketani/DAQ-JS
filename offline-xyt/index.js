@@ -1,4 +1,5 @@
 import colon from "../lib/colon.js"
+import { join } from 'path'
 import TOFHistogramContrastMaker from "./TOFHistogramContrastMaker.js"
 import TOFHistogramContrastRatioMaker from "./TOFHistogramContrastRatioMaker.js"
 import EDRReader from "./EDRReader.js"
@@ -20,7 +21,6 @@ import CameraPixelSizeCalculator from "./CameraPixelSizeCalculator.js"
 import JSONFileReader from "./JSONFileReader.js"
 import MomentumTransferMaker from "./MomentumTransferMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
-import NeutronPerPulseMaker from "./NeutronPerPulseMaker.js"
 import NeutronRateMaker from "./NeutronRateMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
 import TOFHistogramPhaseMaker from "./TOFHistogramPhaseMaker.js"
@@ -51,6 +51,7 @@ import TOFImageVProjectionPhasesMaker from "./TOFImageVProjectionPhasesMaker.js"
 import ImageVProjectionMeanCalculator from "./ImageVProjectionMeanCalculator.js"
 import ConcatenatedReflectivityMaker from "./ConcatenatedReflectivityMaker.js"
 import ConcatenatedMomentumTransferMaker from "./ConcatenatedMomentumTransferMaker.js"
+import jsonPath from "./jsonPath.js"
 
 const variables = new Variables()
 
@@ -107,9 +108,9 @@ new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
 // edit jsonPath.js to set jsonPath
-variables.projectName.assign('20250424')
-variables.hdf5Path.assign('../../hdf5/')
-variables.edrPath.assign('../../edr/')
+variables.jsonPath.assign(join(jsonPath(), '20250424'))
+variables.hdf5Path.assign('../../hdf5/20250424')
+variables.edrPath.assign('../../edr/20250424')
 // variables.jsonFilePaths.assign([
 //     './104.json',
 //     './104_16.json',
@@ -133,8 +134,8 @@ variables.edrPath.assign('../../edr/')
 // json file with direct beam
 // variables.jsonFileNames.assign(['2.json'])
 // json file with direct beam and low incident angle reflectivity
-variables.jsonFileNames.assign(['4.json'])
+// variables.jsonFileNames.assign(['4.json'])
 // console.log(colon(0, 60))
-// variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
+variables.jsonFileNames.assign(colon(0, 60).map(i => `${i}.json`))
 // variables.jsonFilePaths.assign(['./106.json'])
 
