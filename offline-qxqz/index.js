@@ -9,6 +9,8 @@ import NeutronPerPulseInitializer from "./NeutronPerPulseInitializer.js"
 import NeutronPerPulseMaker from "./NeutronPerPulseMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
 import Variables from "./Variables.js"
+import KickerTimesInitializer from "./KickerTimesInitializer.js"
+import KickerTimesMaker from "./KickerTimesMaker.js"
 
 const variables = new Variables()
 
@@ -16,6 +18,8 @@ new EDRReader(variables)
 new EventBufferParser(variables)
 new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
+new KickerTimesInitializer(variables)
+new KickerTimesMaker(variables)
 new NeutronPerPulseInitializer(variables)
 new NeutronPerPulseMaker(variables)
 new JSONFileReader(variables)

@@ -7,14 +7,11 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
-        this._neutronCount
-        variables.neutronCount.prependListener(arg => { this._neutronCount = arg })
-        /** @type {number} */
         this._kickerIndex
         variables.kickerIndex.prependListener(arg => { this._kickerIndex = arg })
-        /** @type {Uint16Array} */
-        this._neutronPerPulses
-        variables.neutronPerPulses.prependListener(arg => { this._neutronPerPulses = arg })
+        /** @type {Float64Array} */
+        this._kickerTimes
+        variables.kickerTiems.prependListener(arg => { this._kickerTimes = arg })
         /** @type {number} */
         this._kickerTime
         variables.kickerTime.addListener(arg => {
@@ -24,8 +21,7 @@ export default class extends Operator {
         /** @type {number} */
         this._previousCount
         this._operation = () => {
-            this._neutronPerPulses[this._kickerIndex] = this._neutronCount - this._previousCount
-            this._previousCount = this._neutronCount
+            this._kickerTimes[this._kickerIndex] = this._kickerTime
         }
     }
 }

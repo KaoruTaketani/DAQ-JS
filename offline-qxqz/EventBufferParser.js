@@ -7,6 +7,9 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {number} */
+        this._kickerIndex
+        variables.kickerIndex.prependListener(arg => { this._kickerIndex = arg })
+        /** @type {number} */
         this._neutronPositionBitLength
         variables.neutronPositionBitLength.prependListener(arg => { this._neutronPositionBitLength = arg })
         /** @type {Buffer} */
@@ -52,7 +55,9 @@ export default class extends Operator {
                         byte3 = this._eventBuffer[8 * i + 3],
                         byte4 = this._eventBuffer[8 * i + 4],
                         mlfTime = (byte1 << 22) + (byte2 << 14) + (byte3 << 6) + (byte4 >> 2)
+                    // to convert from mlf time to unix time see @MLFTime
                     variables.kickerTime.assign(mlfTime)
+                    variables.kickerIndex.assign(this._kickerIndex + 1)
                 } else {
                     // unexpected
                 }
