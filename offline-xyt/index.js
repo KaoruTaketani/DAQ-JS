@@ -51,7 +51,7 @@ import TOFImageVProjectionPhasesMaker from "./TOFImageVProjectionPhasesMaker.js"
 import ImageVProjectionMeanCalculator from "./ImageVProjectionMeanCalculator.js"
 import ConcatenatedReflectivityMaker from "./ConcatenatedReflectivityMaker.js"
 import ConcatenatedMomentumTransferMaker from "./ConcatenatedMomentumTransferMaker.js"
-import jsonPath from "./jsonPath.js"
+import jsonBasePath from "./jsonBasePath.js"
 
 const variables = new Variables()
 
@@ -107,8 +107,7 @@ new CameraPixelSizeCalculator(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
-// edit jsonPath.js to set jsonPath
-variables.jsonPath.assign(join(jsonPath(), '20250424'))
+variables.jsonPath.assign(join(jsonBasePath(), '20250424'))
 variables.hdf5Path.assign('../../hdf5/20250424')
 variables.edrPath.assign('../../edr/20250424')
 // variables.jsonFilePaths.assign([

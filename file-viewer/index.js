@@ -1,5 +1,5 @@
 import express from 'express';
-import jsonPath from './jsonPath.js';
+import jsonBasePath from './jsonBasePath.js';
 import { BlockList } from 'net';
 import AttributesRouter from './AttributesRouter.js';
 import FilesRouter from './FilesRouter.js';
@@ -51,7 +51,7 @@ app.use(express.static('./'))
 
 process.env.hdf5Path = '../../hdf5'
 process.env.edrPath = '../../edr'
-process.env.jsonPath = jsonPath()
+process.env.jsonPath = jsonBasePath()
 process.env.sigbPath = '../../sigb'
 
 app.listen(80, () => {

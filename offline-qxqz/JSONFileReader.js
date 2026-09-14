@@ -1,8 +1,7 @@
 import { readFile } from "fs"
-import { ready, File } from 'h5wasm/node'
+import { File, ready } from 'h5wasm/node'
 import { basename, join } from 'path'
 import Operator from './Operator.js'
-import jsonPath from './jsonPath.js'
 
 export default class extends Operator {
     /**
