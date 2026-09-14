@@ -3,7 +3,7 @@ import { join } from 'path'
 import EDRReader from "./EDRReader.js"
 import EventBufferParser from "./EventBufferParser.js"
 import JSONFileReader from "./JSONFileReader.js"
-import jsonBasePath from "./jsonBasePath.js"
+import jsonBasePath from "../file-viewer/jsonBasePath.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
 import NeutronPerPulseInitializer from "./NeutronPerPulseInitializer.js"
 import NeutronPerPulseMaker from "./NeutronPerPulseMaker.js"
@@ -20,7 +20,7 @@ new NeutronPerPulseInitializer(variables)
 new NeutronPerPulseMaker(variables)
 new JSONFileReader(variables)
 
-variables.jsonPath.assign(join(jsonBasePath(), '20250424'))
+variables.jsonPath.assign(join(jsonBasePath(), '@BL06', '20250424'))
 variables.hdf5Path.assign('../../hdf5/20250424')
 variables.edrPath.assign('../../edr/20250424')
 // variables.jsonFilePaths.assign([

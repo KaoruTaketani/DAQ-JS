@@ -28,11 +28,11 @@ export default class {
         this.parameters = new ListenableObject()
 
         // float64array
-        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.kickerTiems = new WritableDataset('kickerTimes', this.hdf5File)
 
         // uint16array
-        /** @type {import('../lib/WritableDataset.js').default<Uint16Array>} */
+        /** @type {import('./WritableDataset.js').default<Uint16Array>} */
         this.neutronPerPulses = new WritableDataset('neutronPerPulses', this.hdf5File)
 
         this.tofDifferenceLimitsInNanoseconds = new ReadableArray('tofDiffrenceLimitsInNanoseconds', this.xytHDF5File)

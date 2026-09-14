@@ -1,11 +1,11 @@
 import { ok } from 'assert';
 import express from 'express';
 import { createReadStream } from 'fs';
-import h5wasm from "h5wasm/node";
+// import h5wasm from "h5wasm/node";
 import { join, resolve } from 'path';
 import { createInterface } from 'readline';
 import colon from '../lib/colon.js';
-await h5wasm.ready;
+// await h5wasm.ready;
 
 const router = express.Router();
 
