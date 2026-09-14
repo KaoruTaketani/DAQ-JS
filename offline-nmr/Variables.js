@@ -15,15 +15,15 @@ export default class {
         this.parameters = new ListenableObject()
 
         // float64array
-        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.meanWaveform = new WritableDataset('meanWaveform', this.hdf5File)
-        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.signal = new WritableDataset('signal', this.hdf5File)
-        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.background = new WritableDataset('background', this.hdf5File)
-        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.maskedX = new WritableDataset('maskedX', this.hdf5File)
-        /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
+        /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.maskedY = new WritableDataset('maskedY', this.hdf5File)
 
         this.maskLimits = new ParameterArray('maskLimits', this.hdf5File, this.parameters)
