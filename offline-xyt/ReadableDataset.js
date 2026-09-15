@@ -35,4 +35,7 @@ export default class extends ListenableObject {
             }
         })
     }
+    name() {
+        return this._name
+    }
 }

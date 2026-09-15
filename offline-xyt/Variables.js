@@ -4,7 +4,9 @@ import ListenableString from '../lib/ListenableString.js'
 import ParameterArray from './ParameterArray.js'
 import ParameterNumber from './ParameterNumber.js'
 import ParameterString from './ParameterString.js'
+import ReadableArray from './ReadableArray.js'
 import ReadableDataset from './ReadableDataset.js'
+import ReadableNumber from './ReadableNumber.js'
 import WritableArray from './WritableArray.js'
 import WritableDataset from './WritableDataset.js'
 import WritableInt32 from './WritableInt32.js'
@@ -126,7 +128,8 @@ export default class {
         this.smallAngleReflectivity = new ReadableDataset('reflectivity', this.smallAngleHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
         this.smallAngleMomentumTransferInInverseAngstroms = new ReadableDataset('momentumTransferInInverseAngstroms', this.smallAngleHDF5File)
-
+        /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').NDArray|undefined>} */
+        this.directBeamTOFImageVProjectionBinCounts = new ReadableDataset('tofImageVProjectionBinCounts', this.directBeamHDF5File)
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units
         this.imageVProjectionBinLimitsInMillimeters = new WritableArray('_xlim', this.hdf5File, this.imageVProjectionBinCounts)
@@ -154,6 +157,8 @@ export default class {
         this.cameraImageSizeInMillimeters = new WritableArray('cameraImageSizeInMillimeters', this.hdf5File)
         this.cameraPixelSizeInMillimeters = new WritableArray('cameraPixelSizeInMillimeters', this.hdf5File)
 
+        this.directBeamTOFImageVProjectionYLimitsInMillimeters = new ReadableArray('_ylim', this.directBeamHDF5File, this.directBeamTOFImageVProjectionBinCounts)
+
         this.pulseHeightHistogramNumBins = new ListenableNumber()
         this.firstLickerTime = new ListenableNumber()
         this.lastKickerTime = new ListenableNumber()
@@ -178,6 +183,8 @@ export default class {
         this.imageVProjectionMeanInMillimeters = new WritableNumber('imageVProjectionMeanInMillimeters', this.hdf5File)
 
         this.roiInMillimeters = new ParameterArray('roiInMillimeters', this.hdf5File, this.parameters)
+
+        this.directBeamImageVProjectionMeanInMillimeters = new ReadableNumber('imageVProjectionMeanInMillimeters', this.directBeamHDF5File)
 
         this.incidentAngleInDegrees = new ParameterNumber('incidentAngleInDegrees', this.hdf5File, this.parameters)
         this.frequencyVectorLength = new ParameterNumber('frequencyVectorLength', this.hdf5File, this.parameters)
