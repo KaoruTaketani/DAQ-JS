@@ -52,13 +52,16 @@ export default class extends Operator {
                 shape: overlappedShape,
                 data: new Uint32Array(prod(overlappedShape))
             }
-            console.log(Math.ceil(imin), imax, (Math.ceil(imin)) * this._directBeamTOFImageVProjectionBinCounts.shape[1], overlappedShape, sub2ind(this._directBeamTOFImageVProjectionBinCounts.shape, Math.ceil(imin)+1, 1))
-            console.log(prod(overlappedShape),this._directBeamTOFImageVProjectionBinCounts.data.length)
+            console.log(Math.ceil(imin), imax, (Math.ceil(imin)) * this._directBeamTOFImageVProjectionBinCounts.shape[1], overlappedShape, sub2ind(this._directBeamTOFImageVProjectionBinCounts.shape, Math.ceil(imin) + 1, 1))
+            console.log(prod(overlappedShape), this._directBeamTOFImageVProjectionBinCounts.data.length)
             overlappedBinCounts.data.set(
                 this._directBeamTOFImageVProjectionBinCounts.data.slice(
-                    sub2ind(this._directBeamTOFImageVProjectionBinCounts.shape, Math.ceil(imin)+1, 1)
+                    sub2ind(this._directBeamTOFImageVProjectionBinCounts.shape, Math.ceil(imin) + 1, 1)
                 )
             )
+            const n = this._directBeamImageVProjectionMeanShiftInMillimeters / this._cameraPixelSizeInMillimeters[0]
+            const frac = n - Math.floor(n)
+            console.log(this._directBeamImageVProjectionMeanShiftInMillimeters, this._cameraPixelSizeInMillimeters[0], n, frac)
             // const dx = this._cameraPixelSizeInMillimeters[0]
             // const oldLim = this._tofImageVProjectionYBinLimitsInMillimeters
             // const dx2 = (oldLim[1] - oldLim[0]) / this._directBeamTOFImageVProjectionBinCounts.shape[0]
