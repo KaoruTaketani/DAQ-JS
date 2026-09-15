@@ -1,5 +1,6 @@
 import ControllableBoolean from './ControllableBoolean.js'
 import ControllableNumber from './ControllableNumber.js'
+import ControllableString from './ControllableString.js'
 import ElementBoolean from './ElementBoolean.js'
 import ElementString from './ElementString.js'
 import ListenableNumber from './ListenableNumber.js'
@@ -39,7 +40,6 @@ export default class {
         /** @type {import('./ListenableObject.js').default<import('worker_threads').Worker>} */
         this.neunetReaderWorker = new ListenableObject()
 
-        this.neunetReaderIsBusy = new ControllableBoolean('neunetReaderIsBusy', this.requestParams)
         this.usePreset = new ControllableBoolean('usePreset', this.requestParams)
         this.saveToEDR = new ControllableBoolean('saveToEDR', this.requestParams)
 
@@ -51,6 +51,8 @@ export default class {
         this.saveToEDRChecked = new ElementBoolean('/saveToEDRChecked', this.elementValues, this.webSocketPathnames)
         this.saveToEDRDisabled = new ElementBoolean('/saveToEDRDisabled', this.elementValues, this.webSocketPathnames)
 
+        this.preset = new ControllableNumber('preset', this.requestParams)
+
         this.kickerPulseCount = new ListenableNumber()
         this.channel0Count = new ListenableNumber()
         this.channel1Count = new ListenableNumber()
@@ -58,10 +60,7 @@ export default class {
         this.tofDifferenceMin = new ListenableNumber()
         this.tofDifferenceMax = new ListenableNumber()
 
-        this.preset = new ControllableNumber('preset', this.requestParams)
-
-        this.edrPath = new ListenableString()
-        this.edrFilePath = new ListenableString()
+        this.neunetReaderDestinationState = new ControllableString('neunetReaderDestinationState', this.requestParams)
 
         this.presetValue = new ElementString('/presetValue', this.elementValues, this.webSocketPathnames)
         this.kickerPulseCountInnerText = new ElementString('/kickerPulseCountInnerText', this.elementValues, this.webSocketPathnames)
@@ -70,6 +69,10 @@ export default class {
         this.neutronCountInnerText = new ElementString('/neutronCountInnerText', this.elementValues, this.webSocketPathnames)
         this.imageSrc = new ElementString('/imageSrc', this.elementValues, this.webSocketPathnames)
         this.edrFilePathInnerText = new ElementString('/edrFilePathInnerText', this.elementValues, this.webSocketPathnames)
+
+        this.neunetReaderState = new ListenableString()
+        this.edrPath = new ListenableString()
+        this.edrFilePath = new ListenableString()
     }
 }
 

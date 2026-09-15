@@ -22,7 +22,7 @@ export default class extends Operator {
             if (!this._usePreset) return
             if (this._kickerPulseCount < this._preset) return
 
-            variables.neunetReaderIsBusy.assign(false)
+            variables.neunetReaderDestinationState.assign('idle')
         }
     }
 }

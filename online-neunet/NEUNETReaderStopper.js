@@ -12,15 +12,20 @@ export default class extends Operator {
         /** @type {import('net').Socket} */
         this._neunertReaderSocket
         variables.neunetReaderSocket.prependListener(arg => { this._neunertReaderSocket = arg })
-        /** @type {boolean} */
-        this._neunetReaderIsBusy
-        variables.neunetReaderIsBusy.addListener(arg => {
-            this._neunetReaderIsBusy = arg
+        /** @type {string} */
+        this._neunetReaderState
+        variables.neunetReaderState.prependListener(arg => { this._neunetReaderState = arg })
+        /** @type {string} */
+        this._neunetReaderDestinationState
+        variables.neunetReaderDestinationState.addListener(arg => {
+            this._neunetReaderDestinationState = arg
             this._operation()
         })
         this._operation = () => {
-            
-            if (this._neunetReaderIsBusy) return
+            if (this._neunetReaderState === 'idle') return
+            if (this._neunetReaderDestinationState === 'busy') return
+
+            variables.neunetReaderState.assign('idle')
 
             if (this._neunetReaderWorker)
                 this._neunetReaderWorker.postMessage(false)

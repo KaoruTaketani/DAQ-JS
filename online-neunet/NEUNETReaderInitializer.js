@@ -11,7 +11,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.neunetReaderIsBusy.assign(false)
+            variables.neunetReaderState.assign('idle')
             variables.usePreset.assign(true)
             variables.preset.assign(10)
             variables.saveToEDR.assign(false)

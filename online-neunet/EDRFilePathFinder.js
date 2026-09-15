@@ -11,14 +11,14 @@ export default class extends Operator {
         /** @type {string} */
         this._edrPath
         variables.edrPath.prependListener(arg => { this._edrPath = arg })
-        /** @type {boolean} */
-        this._neunetReaderIsBusy
-        variables.neunetReaderIsBusy.addListener(arg => {
-            this._neunetReaderIsBusy = arg
+        /** @type {string} */
+        this._neunetReaderState
+        variables.neunetReaderState.addListener(arg => {
+            this._neunetReaderState = arg
             this._operation()
         })
         this._operation = () => {
-            if (this._neunetReaderIsBusy) return
+            if (this._neunetReaderState !== 'idle') return
 
             readdir(this._edrPath, (err, files) => {
                 if (err) throw err

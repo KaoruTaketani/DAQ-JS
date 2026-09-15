@@ -13,7 +13,7 @@ socket.onclose = () => {
     element.style.display = 'block'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT', '/?neunetReaderIsBusy=true')
+        xhr.open('PUT', '/?neunetReaderDestinationState=busy')
         xhr.send()
     }
     url.pathname = 'startButtonDisabled'
@@ -31,7 +31,7 @@ socket.onclose = () => {
     element.style.display = 'block'
     element.onclick = () => {
         const xhr = new XMLHttpRequest()
-        xhr.open('PUT', '/?neunetReaderIsBusy=false')
+        xhr.open('PUT', '/?neunetReaderDestinationState=idle')
         xhr.send()
     }
     url.pathname = 'stopButtonDisabled'

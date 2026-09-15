@@ -12,14 +12,15 @@ export default class extends Operator {
             this._preset = arg
             this._operation()
         })
-        /** @type {boolean} */
-        this._neunetReaderIsBusy
-        variables.neunetReaderIsBusy.addListener(arg => {
-            this._neunetReaderIsBusy = arg
+        /** @type {string} */
+        this._neunetReaderState
+        variables.neunetReaderState.addListener(arg => {
+            this._neunetReaderState = arg
             this._operation()
         })
         this._operation = () => {
-            variables.startButtonDisabled.assign(this._neunetReaderIsBusy || this._preset < 0)
+            variables.startButtonDisabled.assign(this._neunetReaderState === 'busy'
+                || this._preset < 0)
         }
     }
 }

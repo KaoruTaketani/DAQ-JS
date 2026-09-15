@@ -6,14 +6,14 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {boolean} */
-        this._neunetReaderIsBusy
-        variables.neunetReaderIsBusy.addListener(arg => {
-            this._neunetReaderIsBusy = arg
+        /** @type {string} */
+        this._neunetReaderState
+        variables.neunetReaderState.addListener(arg => {
+            this._neunetReaderState = arg
             this._operation()
         })
         this._operation = () => {
-            variables.usePresetDisabled.assign(this._neunetReaderIsBusy)
+            variables.usePresetDisabled.assign(this._neunetReaderState === 'busy')
         }
     }
 }

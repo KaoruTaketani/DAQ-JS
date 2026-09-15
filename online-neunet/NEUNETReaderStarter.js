@@ -19,14 +19,20 @@ export default class extends Operator {
         /** @type {boolean} */
         this._saveToEDR
         variables.saveToEDR.prependListener(arg => { this._saveToEDR = arg })
-        /** @type {boolean} */
-        this._neunetReaderIsBusy
-        variables.neunetReaderIsBusy.addListener(arg => {
-            this._neunetReaderIsBusy = arg
+        /** @type {string} */
+        this._neunetReaderState
+        variables.neunetReaderState.prependListener(arg => { this._neunetReaderState = arg })
+        /** @type {string} */
+        this._neunetReaderDestinationState
+        variables.neunetReaderDestinationState.addListener(arg => {
+            this._neunetReaderDestinationState = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._neunetReaderIsBusy) return
+            if (this._neunetReaderState === 'busy') return
+            if (this._neunetReaderDestinationState == 'idle') return
+
+            variables.neunetReaderState.assign('busy')
 
             if (this._saveToEDR) {
                 variables.edrStream.assign(createWriteStream(this._edrFilePath))
