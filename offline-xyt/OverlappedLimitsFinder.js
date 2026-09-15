@@ -15,6 +15,9 @@ export default class extends Operator {
         /** @type {number} */
         this._directBeamImageVProjectionMeanInMillimeters
         variables.directBeamImageVProjectionMeanInMillimeters.prependListener(arg => { this._directBeamImageVProjectionMeanInMillimeters = arg })
+        /** @type {number[]} */
+        this._cameraPixelSizeInMillimeters
+        variables.cameraPixelSizeInMillimeters.prependListener(arg => { this._cameraPixelSizeInMillimeters = arg })
         /** @type {number} */
         this._imageVProjectionMeanInMillimeters
         variables.imageVProjectionMeanInMillimeters.addListener(arg => {
@@ -32,14 +35,23 @@ export default class extends Operator {
             const x0d = this._directBeamImageVProjectionMeanInMillimeters
             const xlim = this._tofImageVProjectionYBinLimitsInMillimeters
             const xlimd = this._directBeamTOFImageVProjectionYLimitsInMillimeters
-            console.log(x0, x0d, xlim, xlimd)
-            const dx = x0d - x0
+            const dx = this._cameraPixelSizeInMillimeters[0]
+            // console.log(x0, x0d, xlim, xlimd)
+            const shift = x0d - x0
+            const newMin = Math.max(xlimd[0] - shift, xlim[0])
+            const newMax = Math.min(xlimd[1] - shift, xlim[1])
+            const minIndex = (xlim[0] - newMin) / dx
+            const maxIndex = (xlim[1] - newMax) / dx
+
             const newXlim = [
-                Math.max(xlimd[0] - dx, xlim[0]),
-                Math.min(xlimd[1] - dx, xlim[1])
+                newMin,
+                // max must be num dx*(bins+1)
+                // newMin + dx * (Math.floor(maxIndex) + 1)
+                newMax
             ]
-            console.log(dx, newXlim)
-            variables.overlapLimitsInMillimeters.assign(newXlim)
+            // console.log(dx, shift, minIndex, Math.ceil(minIndex), maxIndex, Math.floor(maxIndex), newXlim)
+            console.log(shift, xlim, xlimd, newXlim)
+            variables.overlappedLimitsInMillimeters.assign(newXlim)
         }
     }
 }

@@ -48,6 +48,8 @@ export default class {
         this.tofImageVProjectionBinCounts = new WritableDataset('tofImageVProjectionBinCounts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.tofImageVProjectionSums = new WritableDataset('tofImageVProjectionSums', this.hdf5File, ['tof (ns)', 'x (mm)'])
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
+        this.overlappedTOFImageVProjectionBinCounts = new WritableDataset('overlappedTOFImageVProjectionBinCounts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         // uint32array
         /** @type {import('./WritableDataset.js').default<Uint32Array>} */
         this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File, ['tof (ns)'])
@@ -144,6 +146,8 @@ export default class {
         this.pulseHeightHistogramBinLimits = new WritableArray('_xlim', this.hdf5File, this.pulseHeightHistogramBinCounts)
         this.tofImageVProjectionYBinLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.tofImageVProjectionBinCounts)
         this.tofImageVProjectionXBinLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionBinCounts)
+        this.overlappedTOFImageVProjectionYBinLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.overlappedTOFImageVProjectionBinCounts)
+        this.overlappedTOFImageVProjectionXBinLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.overlappedTOFImageVProjectionBinCounts)
         this.filteredImageXBinLimitsInMillimeters = new WritableArray('_xlim', this.hdf5File, this.filteredImageBinCounts)
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.filteredImageBinCounts)
         this.tofImageVProjectionSumsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionSums)
@@ -156,7 +160,7 @@ export default class {
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
         this.cameraImageSizeInMillimeters = new WritableArray('cameraImageSizeInMillimeters', this.hdf5File)
         this.cameraPixelSizeInMillimeters = new WritableArray('cameraPixelSizeInMillimeters', this.hdf5File)
-        this.overlapLimitsInMillimeters = new WritableArray('overlapLimitsInMillimeters', this.hdf5File)
+        this.overlappedLimitsInMillimeters = new WritableArray('overlappedLimitsInMillimeters', this.hdf5File)
 
         this.directBeamTOFImageVProjectionYLimitsInMillimeters = new ReadableArray('_ylim', this.directBeamHDF5File, this.directBeamTOFImageVProjectionBinCounts)
 
