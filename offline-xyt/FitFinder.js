@@ -4,7 +4,7 @@ import Operator from './Operator.js'
 import sum from '../lib/sum.js'
 import max from '../lib/max.js'
 import gauss1 from '../lib/gauss1.js'
-import column from '../lib/column.js'
+import getColumn from '../lib/getColumn.js'
 
 export default class extends Operator {
     /**
@@ -25,7 +25,7 @@ export default class extends Operator {
                 widths = new Float64Array(numBins)
 
             for (let i = 0; i < numBins; ++i) {
-                const s = column(this._tofImageVProjectionSums, i + 1),
+                const s = getColumn(this._tofImageVProjectionSums, i + 1),
                     _mean = sum(s.map((s, i) => s * i)) / sum(s),
                     _std = Math.sqrt(sum(s.map((s, i) => s * (i - _mean) ** 2)) / (sum(s) - 1))
                 if (sum(s) < 300) {

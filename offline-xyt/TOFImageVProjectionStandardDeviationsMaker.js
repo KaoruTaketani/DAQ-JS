@@ -1,7 +1,7 @@
 import colon from '../lib/colon.js'
 import Operator from './Operator.js'
 import std from '../lib/std.js'
-import column from '../lib/column.js'
+import getColumn from '../lib/getColumn.js'
 
 export default class extends Operator {
     /**
@@ -21,7 +21,7 @@ export default class extends Operator {
 
             for (let i = 0; i < shape[1]; ++i) {
                 // column index starts from 1
-                stds[i] = std(colon(1, shape[0]), column(this._tofImageVProjectionSums, i + 1))
+                stds[i] = std(colon(1, shape[0]), getColumn(this._tofImageVProjectionSums, i + 1))
             }
 
             variables.tofImageVProjectionStandardDeviations.assign(stds)

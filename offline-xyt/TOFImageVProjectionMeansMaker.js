@@ -1,5 +1,5 @@
 import colon from '../lib/colon.js'
-import column from '../lib/column.js'
+import getColumn from '../lib/getColumn.js'
 import mean from '../lib/mean.js'
 import Operator from './Operator.js'
 
@@ -21,7 +21,7 @@ export default class extends Operator {
 
             for (let i = 0; i < shape[1]; ++i) {
                 // column index starts from 1
-                means[i] = mean(colon(1, shape[0]), column(this._tofImageVProjectionSums, i + 1))
+                means[i] = mean(colon(1, shape[0]), getColumn(this._tofImageVProjectionSums, i + 1))
             }
             variables.tofImageVProjectionMeans.assign(means)
         }
