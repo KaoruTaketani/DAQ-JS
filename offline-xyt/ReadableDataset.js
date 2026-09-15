@@ -23,7 +23,7 @@ export default class extends ListenableObject {
                     console.log(`${this._name} was not found in ${arg.path}`)
                     throw new Error()
                 } else {
-                    if (dataset.shape.length > 1) {
+                    if (dataset.shape && dataset.shape.length > 1) {
                         super.assign({
                             shape: dataset.shape,
                             data: dataset.value

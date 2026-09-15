@@ -50,7 +50,7 @@ import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 import WavenumberMaker from "./WavenumberMaker.js"
-import OverlapXlimFinder from './OverlapXlimFinder.js'
+import OverlapLimitsFinder from './OverlapLimitsFinder.js'
 
 const variables = new Variables()
 
@@ -102,7 +102,7 @@ new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)
 new TOFDifferenceHistogramMaker(variables)
 new CameraPixelSizeCalculator(variables)
-new OverlapXlimFinder(variables)
+new OverlapLimitsFinder(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 

@@ -156,6 +156,7 @@ export default class {
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
         this.cameraImageSizeInMillimeters = new WritableArray('cameraImageSizeInMillimeters', this.hdf5File)
         this.cameraPixelSizeInMillimeters = new WritableArray('cameraPixelSizeInMillimeters', this.hdf5File)
+        this.overlapLimitsInMillimeters = new WritableArray('overlapLimitsInMillimeters', this.hdf5File)
 
         this.directBeamTOFImageVProjectionYLimitsInMillimeters = new ReadableArray('_ylim', this.directBeamHDF5File, this.directBeamTOFImageVProjectionBinCounts)
 

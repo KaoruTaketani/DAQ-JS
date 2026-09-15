@@ -2,6 +2,7 @@ import Operator from './Operator.js'
 import mean from '../lib/mean.js'
 import diff from '../lib/diff.js'
 import colon from '../lib/colon.js'
+import sum from '../lib/sum.js'
 
 export default class extends Operator {
     /**
@@ -19,6 +20,9 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
+            // skip calc in initialized image v projection
+            if (sum(this._imageVProjectionBinCounts) === 0) return
+
             const dx = diff(this._imageVProjectionBinLimitsInMillimeters)[0]
                 / this._imageVProjectionBinCounts.length
             const binCenters = colon(
