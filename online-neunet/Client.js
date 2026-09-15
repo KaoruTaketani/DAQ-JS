@@ -6,7 +6,6 @@ socket.onclose = () => {
     document.body.innerHTML = "the connection was closed by the server."
 }
 
-const startButtonElement = document.createElement('input');
 (element => {
     element.type = 'button'
     element.value = 'start'
@@ -23,7 +22,7 @@ const startButtonElement = document.createElement('input');
         element.disabled = event.data
     }
 
-})(document.body.appendChild(startButtonElement));
+})(document.body.appendChild(document.createElement('input')));
 
 (element => {
     element.type = 'button'
@@ -71,16 +70,9 @@ const startButtonElement = document.createElement('input');
     element.style.width = '130px'
     element.style.display = 'block'
     element.onchange = () => {
-        const preset = parseInt(element.value)
-
-        if (Number.isNaN(preset) || preset < 0) {
-            startButtonElement.disabled = true
-        } else {
-            startButtonElement.disabled = false
-            const xhr = new XMLHttpRequest()
-            xhr.open('PUT', `/?preset=${preset}`)
-            xhr.send()
-        }
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', `/?preset=${element.value}`)
+        xhr.send()
     }
     url.pathname = 'presetDisabled'
     const dsiabledSocket = new WebSocket(url)

@@ -6,6 +6,12 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        /** @type {number} */
+        this._preset
+        variables.preset.addListener(arg => {
+            this._preset = arg
+            this._operation()
+        })
         /** @type {boolean} */
         this._neunetReaderIsBusy
         variables.neunetReaderIsBusy.addListener(arg => {
@@ -13,7 +19,7 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            variables.startButtonDisabled.assign(this._neunetReaderIsBusy)
+            variables.startButtonDisabled.assign(this._neunetReaderIsBusy || this._preset < 0)
         }
     }
 }
