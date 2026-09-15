@@ -49,6 +49,8 @@ export default class extends Operator {
             }
             console.log(overlappedShape)
             // assuming indexMin is zero
+            // if needs offset index, give slice's first index
+            // by using sub2ind(data,innd,1)
             overlappedBinCounts.data.set(this._tofImageVProjectionBinCounts.data.slice(0,prod(overlappedShape)))
             // for (let j = 0; j < indexMax; ++j) {
             //     const original = getColumn(this._tofImageVProjectionBinCounts, j)

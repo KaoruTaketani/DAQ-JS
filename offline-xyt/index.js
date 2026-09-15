@@ -52,6 +52,7 @@ import WavelengthMaker from "./WavelengthMaker.js"
 import WavenumberMaker from "./WavenumberMaker.js"
 import OverlappedLimitsFinder from './OverlappedLimitsFinder.js'
 import OverlappedTOFImageVProjectionMaker from './OverlappedTOFImageVProjectionMaker.js'
+import OverlappedDirectTOFImageVProjectionMaker from './OverlappedDirectTOFImageVProjectionMaker.js'
 
 const variables = new Variables()
 
@@ -105,6 +106,7 @@ new TOFDifferenceHistogramMaker(variables)
 new CameraPixelSizeCalculator(variables)
 new OverlappedLimitsFinder(variables)
 new OverlappedTOFImageVProjectionMaker(variables)
+new OverlappedDirectTOFImageVProjectionMaker(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
