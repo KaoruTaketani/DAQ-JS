@@ -88,7 +88,8 @@ export default class {
                 xTick: [parseFloat(this._xminValue), parseFloat(this._xmaxValue)],
                 yTick: [parseFloat(this._yminValue), parseFloat(this._ymaxValue)],
                 xTickLabel: [this._xminValue, this._xmaxValue],
-                yTickLabel: [this._yminValue, this._ymaxValue]
+                yTickLabel: [this._yminValue, this._ymaxValue],
+                yDir: 'reverse'
             }
             variables.svgInnerHTML.assign([
                 axes(ax),
