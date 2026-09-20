@@ -7,7 +7,7 @@ export default class extends ListenableObject {
     /**
      * @param {string} name
      * @param {import('../lib/ListenableObject.js').default<import('h5wasm').File|undefined>} hdf5File 
-     * @param {import('./ReadableDataset.js')} [readable]
+     * @param {import('./ReadableDataset.js').default<import('../lib/index.js').NDArray|undefined>} [readable]
      */
     constructor(name, hdf5File, readable) {
         super()
