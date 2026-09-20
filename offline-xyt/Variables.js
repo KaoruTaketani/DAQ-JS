@@ -111,13 +111,13 @@ export default class {
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.concatenatedReflectivity = new WritableDataset('concatenatedReflectivity', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
-        this.concatenatedMomentumTransferInReciprocalAngstroms = new WritableDataset('concatenatedMomentumTransferInReciprocalAngstroms', this.hdf5File)
+        this.concatenatedScatteringVectorMagnitudeInReciprocalAngstroms = new WritableDataset('concatenatedScatteringVectorMagnitudeInReciprocalAngstroms', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.tofHistogramContrastRatio = new WritableDataset('tofHistogramContrastRatio', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
         this.tofHistogramPhaseShift = new WritableDataset('tofHistogramPhaseShift', this.hdf5File)
         /** @type {import('./WritableDataset.js').default<Float64Array|undefined>} */
-        this.momentumTransferInInverseAngstroms = new WritableDataset('momentumTransferInInverseAngstroms', this.hdf5File)
+        this.scatteringVectorMagnitudeTransferInInverseAngstroms = new WritableDataset('ScatteringVectorMagnitudeInInverseAngstroms', this.hdf5File)
 
         // read float64array|undefined
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
@@ -129,7 +129,7 @@ export default class {
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
         this.smallAngleReflectivity = new ReadableDataset('reflectivity', this.smallAngleHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
-        this.smallAngleMomentumTransferInInverseAngstroms = new ReadableDataset('momentumTransferInInverseAngstroms', this.smallAngleHDF5File)
+        this.smallAngleScatteringVectorMagnitudeInInverseAngstroms = new ReadableDataset('smallAngleScatteringVectorMagnitudeInInverseAngstroms', this.smallAngleHDF5File)
         /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').NDArray|undefined>} */
         this.directBeamTOFImageVProjectionBinCounts = new ReadableDataset('tofImageVProjectionBinCounts', this.directBeamHDF5File)
         // WritableArray

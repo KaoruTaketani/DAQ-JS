@@ -75,14 +75,6 @@ new XYGetter(variables)
             variables.xkeyText.assign(element.options[element.selectedIndex].text)
         })
         variables.keysInnerHTML.addListener(arg => { element.innerHTML = arg })
-        // [
-        //     'tofInMilliseconds',
-        //     'velocityInMetersPerSeconds',
-        //     'wavenumberInInverseAngstroms',
-        //     'energyInMillielectronvolts',
-        //     'wavelengthInAngstroms',
-        //     'momentumTransferInInverseAngstroms'
-        // ].forEach(key => { element.add(new Option(key)) })
     })(element.appendChild(document.createElement('select')));
 
     (element => {

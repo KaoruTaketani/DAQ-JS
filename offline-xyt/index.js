@@ -1,7 +1,7 @@
 import { join } from 'path'
 import colon from "../lib/colon.js"
 import CameraPixelSizeCalculator from "./CameraPixelSizeCalculator.js"
-import ConcatenatedMomentumTransferMaker from "./ConcatenatedMomentumTransferMaker.js"
+import ConcatenatedScatteringVectorMagnitudeMaker from "./ConcatenatedScatteringVectorMagnitudeMaker.js"
 import ConcatenatedReflectivityMaker from "./ConcatenatedReflectivityMaker.js"
 import EDRReader from "./EDRReader.js"
 import EnergyMaker from "./EnergyMaker.js"
@@ -21,7 +21,7 @@ import ImageVProjectionMaker from "./ImageVProjectionMaker.js"
 import ImageVProjectionMeanCalculator from "./ImageVProjectionMeanCalculator.js"
 import jsonBasePath from "../file-viewer/jsonBasePath.js"
 import JSONFileReader from "./JSONFileReader.js"
-import MomentumTransferMaker from "./MomentumTransferMaker.js"
+import ScatteringVectorMagnitudeMaker from "./ScatteringVectorMagnitudeMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
 import NeutronRateMaker from "./NeutronRateMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
@@ -97,8 +97,8 @@ new EnergyMaker(variables)
 new WavelengthMaker(variables)
 new FourierTimeMaker(variables)
 new FourierEnergyMaker(variables)
-new MomentumTransferMaker(variables)
-new ConcatenatedMomentumTransferMaker(variables)
+new ScatteringVectorMagnitudeMaker(variables)
+new ConcatenatedScatteringVectorMagnitudeMaker(variables)
 new PulseHeightHistogramInitializer(variables)
 new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)

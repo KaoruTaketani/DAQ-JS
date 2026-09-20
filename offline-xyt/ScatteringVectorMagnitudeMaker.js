@@ -23,16 +23,16 @@ export default class extends Operator {
             ok(this._wavelengthInAngstroms)
 
             if (this._incidentAngleInDegrees) {
-                variables.momentumTransferInInverseAngstroms.assign(
+                variables.scatteringVectorMagnitudeTransferInInverseAngstroms.assign(
                     this._wavelengthInAngstroms.map(lambda => {
-                        /** see @MomentumTransferAmplitude */
+                        /** see @ScatteringVectorMagnitude */
                         const theta = deg2rad(this._incidentAngleInDegrees)
 
                         return 4 * Math.PI * Math.sin(theta) / lambda
                     })
                 )
             } else {
-                variables.momentumTransferInInverseAngstroms.assign(undefined)
+                variables.scatteringVectorMagnitudeTransferInInverseAngstroms.assign(undefined)
             }
         }
     }
