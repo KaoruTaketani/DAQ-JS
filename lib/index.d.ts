@@ -114,5 +114,6 @@ export interface Axes {
     xScale?: string
     yScale?: string
     zScale?: string
+    yDir?: string
 }
 
