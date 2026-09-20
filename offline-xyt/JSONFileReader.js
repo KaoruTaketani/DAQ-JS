@@ -64,12 +64,12 @@ export default class extends Operator {
                         } else {
                             variables.directBeamHDF5File.assign(undefined)
                         }
-                        if (parameters.smallAngleFileName) {
-                            const f = new File(join(this._hdf5Path, parameters.smallAngleFileName), 'r')
-                            variables.smallAngleHDF5File.assign(f)
+                        if (parameters.smallIncidenceAngleFileName) {
+                            const f = new File(join(this._hdf5Path, parameters.smallIncidenceAngleFileName), 'r')
+                            variables.smallIncidenceAngleHDF5File.assign(f)
                             f.close()
                         } else {
-                            variables.smallAngleHDF5File.assign(undefined)
+                            variables.smallIncidenceAngleHDF5File.assign(undefined)
                         }
 
                         variables.parameters.assign(parameters)

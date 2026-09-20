@@ -31,7 +31,7 @@ export default class {
         /** @type {import('../lib/ListenableObject.js').default<import('h5wasm').File|undefined>} */
         this.directBeamHDF5File = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<import('h5wasm').File|undefined>} */
-        this.smallAngleHDF5File = new ListenableObject()
+        this.smallIncidenceAngleHDF5File = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<string[]>} */
         this.jsonFileNames = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<import('../lib/index.js').Parameters>} */
@@ -127,9 +127,9 @@ export default class {
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
         this.directBeamTOFHistogramPhase = new ReadableDataset('tofHistogramPhase', this.directBeamHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
-        this.smallAngleReflectivity = new ReadableDataset('reflectivity', this.smallAngleHDF5File)
+        this.smallIncidenceAngleReflectivity = new ReadableDataset('reflectivity', this.smallIncidenceAngleHDF5File)
         /** @type {import('./ReadableDataset.js').default<Float64Array|undefined>} */
-        this.smallAngleScatteringVectorMagnitudeInInverseAngstroms = new ReadableDataset('smallAngleScatteringVectorMagnitudeInInverseAngstroms', this.smallAngleHDF5File)
+        this.smallIncidenceAngleScatteringVectorMagnitudeInInverseAngstroms = new ReadableDataset('smallIncidenceAngleScatteringVectorMagnitudeInInverseAngstroms', this.smallIncidenceAngleHDF5File)
         /** @type {import('./ReadableDataset.js').default<import('../lib/index.js').NDArray|undefined>} */
         this.directBeamTOFImageVProjectionBinCounts = new ReadableDataset('tofImageVProjectionBinCounts', this.directBeamHDF5File)
         // WritableArray
@@ -207,7 +207,7 @@ export default class {
         this.upstreamFlipperOutput = new ParameterString('upstreamFlipperOutput', this.hdf5File, this.parameters)
         this.downstreamFlipperOutput = new ParameterString('downstreamFlipperOutput', this.hdf5File, this.parameters)
         this.directBeamFileName = new ParameterString('directBeamFileName', this.hdf5File, this.parameters)
-        this.smallAngleFileName = new ParameterString('smallAngleFileName', this.hdf5File, this.parameters)
+        this.smallIncidenceAngleFileName = new ParameterString('smallIncidenceAngleFileName', this.hdf5File, this.parameters)
         /// edrFilePath must be the final listener
         this.edrFileName = new ParameterString('edrFileName', this.hdf5File, this.parameters)
     }

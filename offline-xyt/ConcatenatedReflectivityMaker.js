@@ -7,8 +7,8 @@ export default class extends Operator {
     constructor(variables) {
         super()
         /** @type {Float64Array|undefined} */
-        this._smallAngleReflectivity
-        variables.smallAngleReflectivity.prependListener(arg => { this._smallAngleReflectivity = arg })
+        this._smallIncidenceAngleReflectivity
+        variables.smallIncidenceAngleReflectivity.prependListener(arg => { this._smallIncidenceAngleReflectivity = arg })
         /** @type {Float64Array|undefined} */
         this._reflectivity
         variables.reflectivity.addListener(arg => {
@@ -18,13 +18,13 @@ export default class extends Operator {
         this._operation = () => {
             if (!this._reflectivity) return
 
-            if (!this._smallAngleReflectivity) {
+            if (!this._smallIncidenceAngleReflectivity) {
                 variables.concatenatedReflectivity.assign(undefined)
             } else {
-                const n1 = this._smallAngleReflectivity.length
+                const n1 = this._smallIncidenceAngleReflectivity.length
                 const n2 = this._reflectivity.length
                 const c = new Float64Array(n1 + n2)
-                c.set(this._smallAngleReflectivity)
+                c.set(this._smallIncidenceAngleReflectivity)
                 c.set(this._reflectivity, n1)
                 variables.concatenatedReflectivity.assign(c)
             }
