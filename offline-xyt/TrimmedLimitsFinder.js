@@ -41,18 +41,25 @@ export default class extends Operator {
             variables.directBeamImageVProjectionMeanShiftInMillimeters.assign(shift)
             const newMin = Math.max(xlimd[0] - shift, xlim[0])
             const newMax = Math.min(xlimd[1] - shift, xlim[1])
-            const minIndex = (xlim[0] - newMin) / dx
-            const maxIndex = (xlim[1] - newMax) / dx
-
+            const _Lim = [
+                newMin, newMax
+            ]
+            const minIndex = (newMin - xlim[0]) / dx
+            const maxIndex = Math.floor((newMax - xlim[0]) / dx)
+            // new limit will keep the pixel size
             const newXlim = [
-                newMin,
+                minIndex * dx + xlim[0],// newMin,
+
                 // max must be num dx*(bins+1)
                 // newMin + dx * (Math.floor(maxIndex) + 1)
-                newMax
+                maxIndex * dx + xlim[0]//newMax
             ]
             // console.log(dx, shift, minIndex, Math.ceil(minIndex), maxIndex, Math.floor(maxIndex), newXlim)
-            console.log(shift, xlim, xlimd, newXlim)
-            variables.overlappedLimitsInMillimeters.assign(newXlim)
+            // console.log(shift, xlim, xlimd, newXlim)
+            console.log(`lim: ${xlim}, directLim: ${xlimd}`)
+            console.log(`mean: ${x0}, directMean: ${x0d}, shift: ${shift}`)
+            console.log(`_Lim: ${_Lim}, newLim: ${newXlim}, iLim: ${[minIndex, maxIndex]}`)
+            variables.trimmedLimitsInMillimeters.assign(newXlim)
         }
     }
 }

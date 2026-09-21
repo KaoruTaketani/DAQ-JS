@@ -1,7 +1,6 @@
 import Operator from './Operator.js'
 import prod from '../lib/prod.js'
-import setColumn from '../lib/setColumn.js'
-import getColumn from '../lib/getColumn.js'
+import sub2ind from '../lib/sub2ind.js'
 
 export default class extends Operator {
     /**
@@ -21,44 +20,63 @@ export default class extends Operator {
         /** @type {number[]} */
         this._tofImageVProjectionXBinLimitsInNanoseconds
         variables.tofImageVProjectionXBinLimitsInNanoseconds.prependListener(arg => { this._tofImageVProjectionXBinLimitsInNanoseconds = arg })
+        /** @type {import('../lib/index.js').Uint32NDArray|undefined} */
+        this._directBeamTOFImageVProjectionBinCounts
+        variables.directBeamTOFImageVProjectionBinCounts.prependListener(arg => { this._directBeamTOFImageVProjectionBinCounts = arg })
         /** @type {number[]} */
-        this._overlappedLimitsInMillimeters
-        variables.overlappedLimitsInMillimeters.addListener(arg => {
-            this._overlappedLimitsInMillimeters = arg
+        this._trimmedLimitsInMillimeters
+        variables.trimmedLimitsInMillimeters.prependListener(arg => { this._trimmedLimitsInMillimeters = arg })
+        /** @type {number} */
+        this._directBeamImageVProjectionMeanShiftInMillimeters
+        variables.directBeamImageVProjectionMeanShiftInMillimeters.prependListener(arg => { this._directBeamImageVProjectionMeanShiftInMillimeters = arg })
+        /** @type {number[]} */
+        this._directBeamTOFImageVProjectionYLimitsInMillimeters
+        variables.directBeamTOFImageVProjectionYLimitsInMillimeters.prependListener(arg => { this._directBeamTOFImageVProjectionYLimitsInMillimeters = arg })
+        /** @type {import('../lib/index.js').Uint32NDArray|undefined} */
+        this._trimmedTOFImageVProjectionBinCounts
+        variables.trimmedTOFImageVProjectionBinCounts.addListener(arg => {
+            this._trimmedTOFImageVProjectionBinCounts = arg
             this._operation()
         })
         this._operation = () => {
+            if (!this._directBeamTOFImageVProjectionBinCounts) return
+            if (!this._trimmedTOFImageVProjectionBinCounts) return
+
+            // move direct tof image vproj to overlap trimmed tof image vproj     
+            // first, find the trimmed limits in direct tof image vproj's coordinate
+            const shift = this._directBeamImageVProjectionMeanShiftInMillimeters
+            const xmin = this._trimmedLimitsInMillimeters[0] + shift
+            const xmax = this._trimmedLimitsInMillimeters[1] + shift
+            console.log(`shiftedTrimmedLim: ${[xmin, xmax]}`)
+            // then find corresponding index of direct tof image vproj
             const dx = this._cameraPixelSizeInMillimeters[0]
-            const oldLim = this._tofImageVProjectionYBinLimitsInMillimeters
-            const dx2 = (oldLim[1] - oldLim[0]) / this._tofImageVProjectionBinCounts.shape[0]
-            const newLim = this._overlappedLimitsInMillimeters
-            // be careful that smaller index is shown above in the image
-            // so skip first 
-            const offsetMin = (newLim[0] - oldLim[0])
-            // const indexMin = offsetMin / dx
-            const offsetMax = (newLim[1] - oldLim[0])
-            // max must be num dx*(bins+1)
-            const indexMax = Math.floor(offsetMax / dx)
-            console.log(dx,dx2,oldLim,newLim,offsetMax,indexMax)
-            console.log(`this must be an integer: ${indexMax}`)
-            const overlappedShape = [indexMax, this._tofImageVProjectionBinCounts.shape[1]]
+            const imin = Math.floor((xmin - this._directBeamTOFImageVProjectionYLimitsInMillimeters[0]) / dx)
+            const imax = Math.ceil((xmax - this._directBeamTOFImageVProjectionYLimitsInMillimeters[0]) / dx)
+            console.log(`iLim: ${[imin, imax]}, iLen: ${imax - imin}, shape: ${this._directBeamTOFImageVProjectionBinCounts.shape}, trimmedShape: ${this._trimmedTOFImageVProjectionBinCounts.shape}`)
+            if (imax - imin - 1 !== this._trimmedTOFImageVProjectionBinCounts.shape[0]) {
+                throw new Error('unexpected')
+            }
+            const overlappedShape = [imax - imin, this._directBeamTOFImageVProjectionBinCounts.shape[1]]
+            // use index to evaluate xlim
+            const overlappedLimit = [
+                imin * dx + this._directBeamTOFImageVProjectionYLimitsInMillimeters[0], 
+                imax * dx + this._directBeamTOFImageVProjectionYLimitsInMillimeters[0]
+            ]
+            console.log(`indexLim: ${[imin, imax]}, overlappedShape: ${overlappedShape}, overllapedLimit: ${overlappedLimit}`)
+
             /** @type {import('../lib/index.js').Uint32NDArray} */
             const overlappedBinCounts = {
                 shape: overlappedShape,
                 data: new Uint32Array(prod(overlappedShape))
             }
-            console.log(overlappedShape)
-            // assuming indexMin is zero
-            // if needs offset index, give slice's first index
-            // by using sub2ind(data,innd,1)
-            overlappedBinCounts.data.set(this._tofImageVProjectionBinCounts.data.slice(0,prod(overlappedShape)))
-            // for (let j = 0; j < indexMax; ++j) {
-            //     const original = getColumn(this._tofImageVProjectionBinCounts, j)
-            //     setColumn(overlappedBinCounts, j, original.splice(0, indexMax))
-            // }
-            // console.log(offsetMin, indexMin, offsetMax, indexMax, this._tofImageVProjectionBinCounts.shape)
+            overlappedBinCounts.data.set(
+                this._directBeamTOFImageVProjectionBinCounts.data.slice(
+                    // sub2ind expects index start from 1
+                    sub2ind(this._directBeamTOFImageVProjectionBinCounts.shape, imin + 1, 1)
+                )
+            )
             variables.overlappedTOFImageVProjectionXBinLimitsInNanoseconds.assign(this._tofImageVProjectionXBinLimitsInNanoseconds)
-            variables.overlappedTOFImageVProjectionYBinLimitsInMillimeters.assign(this._overlappedLimitsInMillimeters)
+            variables.overlappedTOFImageVProjectionYBinLimitsInMillimeters.assign(overlappedLimit)
             variables.overlappedTOFImageVProjectionBinCounts.assign(overlappedBinCounts)
         }
     }

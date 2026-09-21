@@ -50,9 +50,10 @@ import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 import WavenumberMaker from "./WavenumberMaker.js"
-import OverlappedLimitsFinder from './OverlappedLimitsFinder.js'
+import TrimmedLimitsFinder from './TrimmedLimitsFinder.js'
 import OverlappedTOFImageVProjectionMaker from './OverlappedTOFImageVProjectionMaker.js'
-import OverlappedDirectTOFImageVProjectionMaker from './OverlappedDirectTOFImageVProjectionMaker.js'
+import TrimmedTOFImageVProjectionMaker from './TrimmedTOFImageVProjectionMaker.js'
+import InterpolatedTOFImageVProjectionMaker from './InterpolatedTOFImageVProjectionMaker.js'
 
 const variables = new Variables()
 
@@ -104,9 +105,10 @@ new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)
 new TOFDifferenceHistogramMaker(variables)
 new CameraPixelSizeCalculator(variables)
-new OverlappedLimitsFinder(variables)
+new TrimmedLimitsFinder(variables)
+new TrimmedTOFImageVProjectionMaker(variables)
 new OverlappedTOFImageVProjectionMaker(variables)
-new OverlappedDirectTOFImageVProjectionMaker(variables)
+new InterpolatedTOFImageVProjectionMaker(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
