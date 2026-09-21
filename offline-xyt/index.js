@@ -55,6 +55,7 @@ import OverlappedTOFImageVProjectionMaker from './OverlappedTOFImageVProjectionM
 import TrimmedTOFImageVProjectionMaker from './TrimmedTOFImageVProjectionMaker.js'
 import InterpolatedTOFImageVProjectionMaker from './InterpolatedTOFImageVProjectionMaker.js'
 import InterpolatedTOFImageVProjectionContrastMaker from './InterpolatedTOFImageVProjectionContrastMaker.js'
+import InterpolatedTOFImageVProjectionPhaseMaker from './InterpolatedTOFImageVProjectionPhaseMaker.js'
 
 const variables = new Variables()
 
@@ -111,6 +112,7 @@ new TrimmedTOFImageVProjectionMaker(variables)
 new OverlappedTOFImageVProjectionMaker(variables)
 new InterpolatedTOFImageVProjectionMaker(variables)
 new InterpolatedTOFImageVProjectionContrastMaker(variables)
+new InterpolatedTOFImageVProjectionPhaseMaker(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 

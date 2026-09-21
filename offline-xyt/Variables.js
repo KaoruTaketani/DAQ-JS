@@ -79,6 +79,8 @@ export default class {
         this.interpolatedTOFImageVProjectionContrasts = new WritableDataset('interpolatedTOFImageVProjectionContrasts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.tofImageVProjectionPhases = new WritableDataset('tofImageVProjectionPhases', this.hdf5File, ['tof (ns)', 'x (mm)'])
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
+        this.interpolatedTOFImageVProjectionPhases = new WritableDataset('interpolatedTOFImageVProjectionPhases', this.hdf5File, ['tof (ns)', 'x (mm)'])
         // float64array
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
         this.neutronRate = new WritableDataset('neutronRate', this.hdf5File)
@@ -168,6 +170,8 @@ export default class {
         this.tofImageVProjectionContrastsYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.tofImageVProjectionContrasts)
         this.tofImageVProjectionPhasesXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionPhases)
         this.tofImageVProjectionPhasesYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.tofImageVProjectionPhases)
+        this.interpolatedTOFImageVProjectionPhasesXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.interpolatedTOFImageVProjectionPhases)
+        this.interpolatedTOFImageVProjectionPhasesYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.interpolatedTOFImageVProjectionPhases)
         // followings are the attributes in the root folder
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
         this.cameraImageSizeInMillimeters = new WritableArray('cameraImageSizeInMillimeters', this.hdf5File)
