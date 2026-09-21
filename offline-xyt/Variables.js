@@ -76,6 +76,8 @@ export default class {
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.tofImageVProjectionContrasts = new WritableDataset('tofImageVProjectionContrasts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
+        this.interpolatedTOFImageVProjectionContrasts = new WritableDataset('interpolatedTOFImageVProjectionContrasts', this.hdf5File, ['tof (ns)', 'x (mm)'])
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Float64NDArray>} */
         this.tofImageVProjectionPhases = new WritableDataset('tofImageVProjectionPhases', this.hdf5File, ['tof (ns)', 'x (mm)'])
         // float64array
         /** @type {import('./WritableDataset.js').default<Float64Array>} */
@@ -160,6 +162,8 @@ export default class {
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.filteredImageBinCounts)
         this.tofImageVProjectionSumsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionSums)
         this.tofImageVProjectionSumsYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.tofImageVProjectionSums)
+        this.interpolatedTOFImageVProjectionContrastsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.interpolatedTOFImageVProjectionContrasts)
+        this.interpolatedTOFImageVProjectionContrastsYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.interpolatedTOFImageVProjectionContrasts)
         this.tofImageVProjectionContrastsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionContrasts)
         this.tofImageVProjectionContrastsYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.tofImageVProjectionContrasts)
         this.tofImageVProjectionPhasesXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionPhases)

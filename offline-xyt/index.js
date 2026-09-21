@@ -54,6 +54,7 @@ import TrimmedLimitsFinder from './TrimmedLimitsFinder.js'
 import OverlappedTOFImageVProjectionMaker from './OverlappedTOFImageVProjectionMaker.js'
 import TrimmedTOFImageVProjectionMaker from './TrimmedTOFImageVProjectionMaker.js'
 import InterpolatedTOFImageVProjectionMaker from './InterpolatedTOFImageVProjectionMaker.js'
+import InterpolatedTOFImageVProjectionContrastMaker from './InterpolatedTOFImageVProjectionContrastMaker.js'
 
 const variables = new Variables()
 
@@ -109,6 +110,7 @@ new TrimmedLimitsFinder(variables)
 new TrimmedTOFImageVProjectionMaker(variables)
 new OverlappedTOFImageVProjectionMaker(variables)
 new InterpolatedTOFImageVProjectionMaker(variables)
+new InterpolatedTOFImageVProjectionContrastMaker(variables)
 new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
