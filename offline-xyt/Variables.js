@@ -48,6 +48,8 @@ export default class {
         this.tofImageVProjectionBinCounts = new WritableDataset('tofImageVProjectionBinCounts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
         this.tofImageVProjectionSums = new WritableDataset('tofImageVProjectionSums', this.hdf5File, ['tof (ns)', 'x (mm)'])
+        /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
+        this.interpolatedTOFImageVProjectionSums = new WritableDataset('interpolatedTOFImageProjectionSums', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray|undefined>} */
         this.overlappedTOFImageVProjectionBinCounts = new WritableDataset('overlappedTOFImageVProjectionBinCounts', this.hdf5File, ['tof (ns)', 'x (mm)'])
         /** @type {import('./WritableDataset.js').default<import('../lib/index.js').Uint32NDArray|undefined>} */
@@ -164,6 +166,8 @@ export default class {
         this.filteredImageYBinLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.filteredImageBinCounts)
         this.tofImageVProjectionSumsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionSums)
         this.tofImageVProjectionSumsYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.tofImageVProjectionSums)
+        this.interpolatedTOFImageVProjectionSumsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.interpolatedTOFImageVProjectionSums)
+        this.interpolatedTOFImageVProjectionSumsYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.interpolatedTOFImageVProjectionSums)
         this.interpolatedTOFImageVProjectionContrastsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.interpolatedTOFImageVProjectionContrasts)
         this.interpolatedTOFImageVProjectionContrastsYLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.interpolatedTOFImageVProjectionContrasts)
         this.tofImageVProjectionContrastsXLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofImageVProjectionContrasts)
