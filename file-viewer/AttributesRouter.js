@@ -50,7 +50,7 @@ router.get('/attributes', (req, res) => {
     } else if (req.query.extname === 'json') {
         const startTime = Date.now()
 
-        Promise.all(files.map(file => new Promise(resolve => {
+        Promise.all(files.map(file => new Promise((resolve, reject) => {
             if (typeof file.name !== 'string') {
                 resolve({})
             } else {
@@ -60,7 +60,13 @@ router.get('/attributes', (req, res) => {
                         return
                     }
 
-                    const tmp = JSON.parse(data)
+                    let tmp
+                    try {
+                        tmp = JSON.parse(data)
+                    } catch {
+                        res.sendStatus(500)
+                        reject()
+                    }
                     attributes.set(file.name, tmp)
                     resolve(tmp)
                 })
