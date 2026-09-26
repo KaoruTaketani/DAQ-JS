@@ -16,7 +16,9 @@ if (taskHandle !== 0) {
   clearTask(taskHandle)
 }
 writeFile('Acq-IntClk.bin', Buffer.from(data.buffer), err => {
-  if (err) throw err
+  if (err) {
+    console.log(err)
+  }
 
   console.log('done')
 })

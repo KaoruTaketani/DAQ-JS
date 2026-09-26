@@ -21,9 +21,11 @@ export default class extends Operator {
             if (this._neunetReaderState !== 'idle') return
 
             readdir(this._edrPath, (err, files) => {
-                if (err) throw err
-
-                variables.edrFilePath.assign(join(this._edrPath, `rpmt_run${files.length + 1}.edr`))
+                if (err) {
+                    variables.edrFilePath.assign('')
+                } else {
+                    variables.edrFilePath.assign(join(this._edrPath, `rpmt_run${files.length + 1}.edr`))
+                }
             })
         }
     }

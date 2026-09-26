@@ -21,7 +21,7 @@ export default class extends Operator {
             file.close()
 
             readFile('./histogram.h5', (err, data) => {
-                if (err) throw err
+                if (err) return
 
                 variables.hdf5LinkHref.assign(`data:application/x-hdf5;base64,${data.toString('base64')}`)                
                 console.log(`elapsedTime: ${Date.now() - startTime}ms`)

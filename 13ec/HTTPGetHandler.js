@@ -35,10 +35,13 @@ export default class extends Operator {
                 }
                 if (request.url === '/Client.js') {
                     readFile(`../13/Client.js`, 'utf8', (err, data) => {
-                        if (err) throw err
-
-                        response.writeHead(200, { 'Content-Type': 'text/javascript' })
-                        response.end(data)
+                        if (err) {
+                            response.writeHead(500)
+                            response.end()
+                        } else {
+                            response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                            response.end(data)
+                        }
                     })
                     return
                 }

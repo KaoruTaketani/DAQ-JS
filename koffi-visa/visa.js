@@ -156,7 +156,10 @@ export function read(vi, buf) {
 export function read_async(vi, buf, callback, count = 256) {
     const retCount = [null]
     viRead.async(vi, buf, buf.length, retCount, (err, status) => {
-        if (err) throw err
+        if (err) {
+            console.log(err)
+            return
+        }
 
         if (status < VI_SUCCESS) {
             throw new Error(`failed read_async. status: ${status}`)

@@ -49,11 +49,10 @@ export default class extends Operator {
                         if (err) {
                             response.writeHead(404, { 'Content-Type': 'text/plain' })
                             response.end(`${request.url} was not found on this server`)
-                            return
+                        } else {
+                            response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                            response.end(data)
                         }
-
-                        response.writeHead(200, { 'Content-Type': 'text/javascript' })
-                        response.end(data)
                     })
                     return
                 }
