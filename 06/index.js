@@ -31,7 +31,7 @@ httpServer.on('request', (request, response) => {
         })
         return
     }
-    response.writeHead(404)
+    response.writeHead(404, { 'Content-Type': 'text/plain' })
     response.end(`${request.url} was not found on this server`)
 })
 httpServer.on('upgrade', (request, socket, head) => {

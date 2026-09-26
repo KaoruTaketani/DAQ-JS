@@ -43,12 +43,12 @@ export default class extends Operator {
                     return
                 }
                 if (this._elementValues.has(request.url)) {
-                    response.writeHead(200)
+                    response.writeHead(200, { 'Content-Type': 'text/plain' })
                     response.end(`${this._elementValues.get(request.url)}`)
 
                     return
                 }
-                response.writeHead(404)
+                response.writeHead(404, { 'Content-Type': 'text/plain' })
                 response.end(`${request.url} was not found on this server`)
             })
         }

@@ -47,7 +47,7 @@ export default class extends Operator {
                 if (request.url === '/Client.js') {
                     readFile('./Client.js', 'utf8', (err, data) => {
                         if (err) {
-                            response.writeHead(404)
+                            response.writeHead(404, { 'Content-Type': 'text/plain' })
                             response.end(`${request.url} was not found on this server`)
                             return
                         }
@@ -57,7 +57,7 @@ export default class extends Operator {
                     })
                     return
                 }
-                response.writeHead(404)
+                response.writeHead(404, { 'Content-Type': 'text/plain' })
                 response.end(`${request.url} was not found on this server`)
             })
         }

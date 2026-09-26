@@ -50,7 +50,7 @@ export default class extends Operator {
                     })
                     return
                 }
-                response.writeHead(404)
+                response.writeHead(404, { 'Content-Type': 'text/plain' })
                 response.end(`${request.url} was not found on this server`)
             })
         }

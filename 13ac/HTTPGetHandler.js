@@ -48,7 +48,7 @@ export default class extends Operator {
                             '</html>'
                         ].join('\n'))
                     } else {
-                        response.writeHead(404)
+                        response.writeHead(404, { 'Content-Type': 'text/plain' })
                         response.end(`${request.url} was not found on this server`)
                     }
                     return
@@ -62,12 +62,12 @@ export default class extends Operator {
                             response.end(data)
                         })
                     } else {
-                        response.writeHead(404)
+                        response.writeHead(404, { 'Content-Type': 'text/plain' })
                         response.end(`${request.url} was not found on this server`)
                     }
                     return
                 }
-                response.writeHead(404)
+                response.writeHead(404, { 'Content-Type': 'text/plain' })
                 response.end(`${request.url} was not found on this server`)
             })
         }
