@@ -1,5 +1,5 @@
 import { readFile } from 'fs'
-import { basename } from 'path'
+import { resolve } from 'path'
 import Operator from '../13/Operator.js'
 
 export default class extends Operator {
@@ -45,11 +45,20 @@ export default class extends Operator {
                     return
                 }
                 if (request.url.endsWith('.js')) {
-                    readFile(`../lib` + request.url, 'utf8', (err, data) => {
-                        if (err) throw err
-
-                        response.writeHead(200, { 'Content-Type': 'text/javascript' })
-                        response.end(data)
+                    const libFilePath = resolve('../lib', '.' + request.url)
+                    if (!libFilePath.startsWith(resolve('../lib'))) {
+                        response.writeHead(403)
+                        response.end()
+                        return
+                    }
+                    readFile(libFilePath, 'utf8', (err, data) => {
+                        if (err) {
+                            response.writeHead(404, { 'Content-Type': 'text/plain' })
+                            response.end(`${request.url} was not found on this server`)
+                        } else {
+                            response.writeHead(200, { 'Content-Type': 'text/javascript' })
+                            response.end(data)
+                        }
                     })
                     return
                 }
