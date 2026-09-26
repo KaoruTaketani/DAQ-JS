@@ -34,7 +34,7 @@ export default class extends Operator {
                 }
                 return
             }
-            if (this._state = 'busy') {
+            if (this._state === 'busy') {
                 if (this._randomNumberGetterDestinationState === 'idle') {
                     this._socket?.end()
                     this._state = this._randomNumberGetterDestinationState
