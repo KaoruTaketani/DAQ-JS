@@ -5,22 +5,25 @@ const server = new Server({})
 
 server.maxConnections = 1
 server.on('connection', socket => {
+    socket.setEncoding('utf8')
     const buffer = Array(16)
     let tail = 0
     let head = 0
+    console.log('connect')
     const interval = setInterval(() => {
+        console.log(`head: ${head}, tail: ${tail}`)
         buffer[head] = head
-        head = (head + 1) % buffer.size
+        head = (head + 1) % buffer.length
         if (head === tail) socket.end()
-    }, 1000)
+    }, 100)
 
     socket.on('data', (/** @type {string} */data) => {
-        console.log(`data: ${data}`)
         if (data === 'get') {
+            console.log(`data: ${data}, head: ${head}, tail: ${tail}`)
             if (tail < head) {
-                socket.write(buffer.slice(tail, head))
+                socket.write(JSON.stringify(buffer.slice(tail, head)))
             } else {
-                socket.write(buffer.slice(head).concat(buffer.slice(0, tail)))
+                socket.write(JSON.stringify(buffer.slice(tail).concat(buffer.slice(0, head))))
             }
             tail = head
         }
