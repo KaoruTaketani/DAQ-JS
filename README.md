@@ -98,17 +98,19 @@
 
 13.h Device
 
-[13.h.a TCP Communication](./13ha/README.md)
+[13.h.a TCP](./13ha/README.md)
 
-[13.h.b TCP Queue](./13hb/README.md)
+[13.h.b Ring Buffer](./13hb/README.md)
 
-[13.h.c VISA Queue](./13hc/README.md)
+[13.h.c Heavy Work](./13hc/README.md)
 
-[13.h.d Ring Buffer](./13hd/README.md)
+[13.h.d Worker](./13hd/README.md)
 
-[13.h.e Heavy Work](./13he/README.md)
+13.i Motor
 
-[13.h.f Worker](./13hf/README.md)
+[13.i.a TCP Queue](./13ia/README.md)
+
+[13.i.b Remote Number](./13ib/README.md)
 
 ## Graph
 ```mermaid
