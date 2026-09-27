@@ -1,31 +1,32 @@
-const buffer = Uint8Array(16),
-    readIndex = 0,
-    writeIndex = 0
+import { Server } from 'net'
+import { clearInterval } from 'timers'
 
-function write(value) {
-    buffer[writeIndex % buffer.size] = value
-    writeIndex++
-    if (writeIndex === buffer.size) {
-        writeIndex = 0
-    }
-}
-function read() {
-    if (readIndex < writeIndex) {
-        const modified = buffer.subarray(readIndex, writeIndex)
-        readIndex = writeIndex
-        return modified
-    } else {
-        const modified = new Uint8Array((buffer.size - readIndex) + writeIndex)
-        for (let i = 0; i < modified.size; ++i) {
-            if (i < buffer.size - readIndex) {
-                modified[i] = buffer[readIndex + i]
+const server = new Server({})
+
+server.maxConnections = 1
+server.on('connection', socket => {
+    const buffer = Array(16)
+    let tail = 0
+    let head = 0
+    const interval = setInterval(() => {
+        buffer[head] = head
+        head = (head + 1) % buffer.size
+        if (head === tail) socket.end()
+    }, 1000)
+
+    socket.on('data', (/** @type {string} */data) => {
+        console.log(`data: ${data}`)
+        if (data === 'get') {
+            if (tail < head) {
+                socket.write(buffer.slice(tail, head))
             } else {
-                modified[i] = buffer[i - (buffer.size - readIndex)]
+                socket.write(buffer.slice(head).concat(buffer.slice(0, tail)))
             }
+            tail = head
         }
-        readIndex = writeIndex
-        return modified
-    }
-}
-
+    }).on('close', () => {
+        console.log('close')
+        clearInterval(interval)
+    })
+}).listen(23)
 
