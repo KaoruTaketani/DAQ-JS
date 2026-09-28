@@ -68,6 +68,8 @@
 
 [13.e.c GET](./13ec/README.md)
 
+[13.e.c Test](./13ed/README.md)
+
 13.f Image
 
 [13.f.a Img Element](./13fa/README.md)
