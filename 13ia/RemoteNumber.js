@@ -1,11 +1,11 @@
 export default class {
-    constructor(key, parser, tcpResponseHandlers, tcpQueue) {
+    constructor(requestMessage, parser, tcpResponseHandlers, tcpQueue) {
         this._listeners = []
-        this._key = key
+        this._requestMessage = requestMessage
         this._tcpQueue
         tcpQueue.addListener(arg => { this._tcpQueue = arg })
         tcpResponseHandlers.addListener(arg => {
-            arg.set(key, data => {
+            arg.set(requestMessage, data => {
                 const value = parser(data)
                 // console.log(`data: ${data}, key: ${key}, value: ${value}`)
                 this._listeners.forEach(listener => { listener(value) })
@@ -16,6 +16,6 @@ export default class {
         this._listeners.push(listener)
     }
     sync() {
-        this._tcpQueue.push(this._key)
+        this._tcpQueue.push(this._requestMessage)
     }
 }
