@@ -7,13 +7,13 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._tcpParsers
-        variables.tcpParsers.addListener(arg => {
-            this._tcpParsers = arg
+        this._tcpResponseHandlers
+        variables.tcpResponseHandlers.addListener(arg => {
+            this._tcpResponseHandlers = arg
             this._operation()
         })
         this._operation = () => {
-            variables.tcpQueue.assign(new TCPQueue(23, 'localhost', this._tcpParsers))
+            variables.tcpQueue.assign(new TCPQueue(23, 'localhost', this._tcpResponseHandlers))
         }
     }
 }

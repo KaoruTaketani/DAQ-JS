@@ -1,10 +1,10 @@
 import { Socket } from 'net'
 
 export default class {
-    constructor(port, host, parsers) {
+    constructor(port, host, handlers) {
         this._port = port
         this._host = host
-        this._parsers = parsers
+        this._handlers = handlers
         /** @type {boolean} */
         this._isBusy = false
         /** @type {string[]} */
@@ -14,10 +14,10 @@ export default class {
         this._socket = new Socket()
         this._socket.setEncoding('utf8')
         this._socket.on('data', data => {
-            const parser = this._parsers.get(this._message)
+            const handler = this._handlers.get(this._message)
 
-            if (parser) {
-                parser(data)
+            if (handler) {
+                handler(data)
             }
 
             this._isBusy = false

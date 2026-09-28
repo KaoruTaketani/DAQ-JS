@@ -68,7 +68,7 @@
 
 [13.e.c GET](./13ec/README.md)
 
-[13.e.c Test](./13ed/README.md)
+[13.e.d Test](./13ed/README.md)
 
 13.f Image
 
