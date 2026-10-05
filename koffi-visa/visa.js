@@ -200,7 +200,7 @@ const viInstallHandler = lib.func('viInstallHandler', ViStatus, [
 
 /**
  * @param {number} vi
- * @param {number} handle
+ * @param {koffi.IKoffiRegisteredCallback} handle
  */
 export function installHandler(vi, handle) {
     const status = viInstallHandler(vi, VI_EVENT_IO_COMPLETION, handle, 0)
@@ -307,7 +307,7 @@ const viUninstallHandler = lib.func('viUninstallHandler', ViStatus, [
 
 /**
  * @param {number} vi
- * @param {number} handle
+ * @param {koffi.IKoffiRegisteredCallback} handle
  */
 export function uninstallHandler(vi, handle) {
     const status = viUninstallHandler(vi, VI_EVENT_IO_COMPLETION, handle, 0)
@@ -318,15 +318,15 @@ export function uninstallHandler(vi, handle) {
 }
 
 /**
- * @param {*} handler 
- * @returns 
+ * @param {function} handler 
+ * @returns {koffi.IKoffiRegisteredCallback}
  */
 export function register(handler) {
     return koffi.register(handler, ViHndlr)
 }
 
 /**
- * @param {*} handle 
+ * @param {koffi.IKoffiRegisteredCallback} handle 
  */
 export function unregister(handle) {
     koffi.unregister(handle)

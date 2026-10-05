@@ -8,7 +8,8 @@ const defaultRM = openDefaultRM()
 // const inst = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
 const  inst = open(defaultRM, 'TCPIP0::127.0.0.1::23::SOCKET')
 const data = new Uint8Array(4096)
-const handle = register((vi,etype,event,userHandle) => {
+// ViStatus _VI_FUNCH AsyncHandler(ViSession vi, ViEventType etype, ViEvent event, ViAddr userHandle)
+const handle = register((/** @type {number} */vi,/** @type {number} */etype,/** @type {number} */event,/** @type {function} */userHandle) => {
     console.log(`called vi: ${vi}, etype: ${etype}, event: ${event}, userHandle:${userHandle}`)
     RdCount=getAttribute(event,VI_ATTR_RET_COUNT)
     stopflag = VI_TRUE
