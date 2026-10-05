@@ -5,8 +5,9 @@ let stopflag=VI_FALSE
 let RdCount=-1
 
 const defaultRM = openDefaultRM()
-const inst = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
-const data = Buffer.alloc(4096)
+// const inst = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+const  inst = open(defaultRM, 'TCPIP0::127.0.0.1::23::SOCKET')
+const data = new Uint8Array(4096)
 const handle = register((vi,etype,event,userHandle) => {
     console.log(`called vi: ${vi}, etype: ${etype}, event: ${event}, userHandle:${userHandle}`)
     RdCount=getAttribute(event,VI_ATTR_RET_COUNT)
@@ -15,22 +16,21 @@ const handle = register((vi,etype,event,userHandle) => {
 })
 installHandler(inst,handle)
 enableEvent(inst)
-write(inst,'*IDN?\n')
+// write(inst,'*IDN?\n')
+write(inst,'get')
 const job=readAsync(inst,data)
 console.log(`inst: ${inst}`)
 
-console.log('Hit enter to continue.')
+console.log('wait until the handler is called. then hit enter to continue.')
 
 process.stdin.on('readable',()=>{
-    const chunk=process.stdin.read()
-    // console.log(chunk)
+    process.stdin.read()
 
     if (stopflag == VI_TRUE){
-    
-    console.log(`RdCount: ${RdCount}`)
-      console.log(`Here is the data:  ${data.subarray(0,RdCount).toString()}`)
+      console.log(`RdCount: ${RdCount}`)
+      console.log(`Here is the data:  ${new TextDecoder().decode(data.subarray(0,RdCount))}`)
     } else {
-      const status = terminate (inst, job)
+      terminate (inst, job)
       console.log('The asynchronous read did not complete.')
     }
     uninstallHandler(inst,handle)

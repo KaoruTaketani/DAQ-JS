@@ -3,16 +3,18 @@ import { openDefaultRM, open, setAttribute, VI_ATTR_TMO_VALUE, write, read, clos
 const defaultRM = openDefaultRM()
 let instr 
 try {
-    instr = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+    // instr = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
+    instr = open(defaultRM, 'TCPIP0::127.0.0.1::23::SOCKET')
     setAttribute(instr, VI_ATTR_TMO_VALUE, 5000)
-    write(instr, '*IDN?\n')
-    const data = read(instr)
-    console.log('Read result:', data)
+    // write(instr, '*IDN?\n')
+    write(instr, 'get')
+    const buf = new Uint8Array(100)
+    const retCount = read(instr,buf)
+    console.log('Read result:', new TextDecoder().decode(buf.subarray(0,retCount)))
 } catch(e) {
-    
+    console.log(e)    
 }
-
-close(instr)
+if(instr) close(instr)
 close(defaultRM)
 
 // /********************************************************************/

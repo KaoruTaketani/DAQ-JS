@@ -1,4 +1,5 @@
 import koffi from 'koffi'
+import { platform } from 'process'
 
 const VI_SUCCESS = 0
 export const VI_TRUE = 1
@@ -39,7 +40,7 @@ const AsyncHandler = koffi.proto('__fastcall', 'AsyncHandler', ViStatus, [
 ])
 const ViHndlr = koffi.pointer(AsyncHandler)
 
-const lib = koffi.load('visa64.dll')
+const lib = platform === 'darwin' ? koffi.load('visa.framework/visa') : koffi.load('visa64.dll')
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viopendefaultrm.html
 const viOpenDefaultRM = lib.func('viOpenDefaultRM', ViStatus, [
@@ -95,7 +96,7 @@ const viSetAttribute = lib.func('viSetAttribute', ViStatus, [
 /**
  * @param {number} vi
  * @param {number} attribute
- * @param {string} attrState
+ * @param {number} attrState
  */
 export function setAttribute(vi, attribute, attrState) {
     const status = viSetAttribute(vi, attribute, attrState)
@@ -139,7 +140,7 @@ const viRead = lib.func('viRead', ViStatus, [
 
 /**
  * @param {number} vi
- * @param {number} buf
+ * @param {Uint8Array} buf
  * @returns {number}
  */
 export function read(vi, buf) {
@@ -153,21 +154,21 @@ export function read(vi, buf) {
     return retCount[0]
 }
 
-export function read_async(vi, buf, callback, count = 256) {
-    const retCount = [null]
-    viRead.async(vi, buf, buf.length, retCount, (err, status) => {
-        if (err) {
-            console.log(err)
-            return
-        }
+// export function read_async(vi, buf, callback, count = 256) {
+//     const retCount = [null]
+//     viRead.async(vi, buf, buf.length, retCount, (err, status) => {
+//         if (err) {
+//             console.log(err)
+//             return
+//         }
 
-        if (status < VI_SUCCESS) {
-            throw new Error(`failed read_async. status: ${status}`)
-        }
+//         if (status < VI_SUCCESS) {
+//             throw new Error(`failed read_async. status: ${status}`)
+//         }
 
-        callback(retCount[0])
-    })
-}
+//         callback(retCount[0])
+//     })
+// }
 
 // https://www.ni.com/docs/ja-JP/bundle/ni-visa-api-ref/page/ni-visa-api-ref/viclose.html
 const viClose = lib.func('viClose', ViStatus, [
@@ -234,7 +235,7 @@ const viReadAsync = lib.func('viReadAsync', ViStatus, [
 
 /**
  * @param {number} vi
- * @param {Buffer} buf
+ * @param {Uint8Array} buf
  * @returns {number}
  */
 export function readAsync(vi, buf) {
@@ -310,10 +311,10 @@ export function uninstallHandler(vi, handle) {
     }
 }
 
-export function register(handler){
+export function register(handler) {
     return koffi.register(handler, ViHndlr)
 }
 
-export function unregister(handle){
+export function unregister(handle) {
     koffi.unregister(handle)
 }
