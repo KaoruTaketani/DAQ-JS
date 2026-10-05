@@ -9,7 +9,7 @@ const VI_HNDLR = 2
 const VI_EVENT_IO_COMPLETION = 0x3FFF2009
 export const VI_ATTR_RET_COUNT = 0x3FFF4028
 export const VI_ATTR_TMO_VALUE = 0x3FFF001A
-const VI_ANY_HNDLR = 0
+// const VI_ANY_HNDLR = 0
 
 const ViUInt16 = 'uint16'
 const ViUInt32 = 'uint32'
@@ -58,6 +58,7 @@ export function openDefaultRM() {
         throw new Error(`failed openDefaultRM. status: ${status}`)
     }
 
+    // @ts-ignore
     return sesn[0]
 }
 
@@ -83,6 +84,7 @@ export function open(sesn, rsrcName) {
         throw new Error(`failed open. status: ${status}`)
     }
 
+    // @ts-ignore
     return vi[0]
 }
 
@@ -127,6 +129,7 @@ export function write(vi, buf) {
         throw new Error(`failed writec. status: ${status}`)
     }
 
+    // @ts-ignore
     return retCount[0]
 }
 
@@ -151,6 +154,7 @@ export function read(vi, buf) {
         throw new Error(`failed read. status: ${status}`)
     }
 
+    // @ts-ignore
     return retCount[0]
 }
 
@@ -246,6 +250,7 @@ export function readAsync(vi, buf) {
         throw new Error(`failed readAsync. status: ${status}`)
     }
 
+    // @ts-ignore
     return jobId[0]
 }
 
@@ -288,6 +293,7 @@ export function getAttribute(vi, attribute) {
         throw new Error(`failed in getAttribute. status: ${status}`)
     }
 
+    // @ts-ignore
     return attrState[0]
 }
 
@@ -311,10 +317,17 @@ export function uninstallHandler(vi, handle) {
     }
 }
 
+/**
+ * @param {*} handler 
+ * @returns 
+ */
 export function register(handler) {
     return koffi.register(handler, ViHndlr)
 }
 
+/**
+ * @param {*} handle 
+ */
 export function unregister(handle) {
     koffi.unregister(handle)
 }

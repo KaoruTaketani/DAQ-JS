@@ -18,10 +18,10 @@ installHandler(inst,handle)
 enableEvent(inst)
 // write(inst,'*IDN?\n')
 write(inst,'get')
-const job=readAsync(inst,data)
-console.log(`inst: ${inst}`)
-
 console.log('wait until the handler is called. then hit enter to continue.')
+const job=readAsync(inst,data)
+// console.log(`inst: ${inst}`)
+
 
 process.stdin.on('readable',()=>{
     process.stdin.read()
