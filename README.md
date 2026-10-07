@@ -68,8 +68,6 @@
 
 [13.e.c GET](./13ec/README.md)
 
-[13.e.d Test](./13ed/README.md)
-
 13.f Image
 
 [13.f.a Img Element](./13fa/README.md)
@@ -113,6 +111,10 @@
 [13.i.a TCP Queue](./13ia/README.md)
 
 [13.i.b Remote Number](./13ib/README.md)
+
+13.j Test
+
+[13.j.a Operator](./13ja/README.md)
 
 ## Graph
 ```mermaid
