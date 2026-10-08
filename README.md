@@ -96,7 +96,7 @@
 
 [13.g.g Scan Editor](./13gg/README.md)
 
-13.h Device
+13.h Worker
 
 [13.h.a TCP](./13ha/README.md)
 
