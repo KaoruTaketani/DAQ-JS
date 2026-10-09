@@ -15,15 +15,15 @@ export default class extends Operator {
         this._tofHistogramBinLimitsInNanoseconds
         variables.tofHistogramBinLimitsInNanoseconds.prependListener(arg => { this._tofHistogramBinLimitsInNanoseconds = arg })
         /** @type {import('../lib/index.js').NeutronEvent} */
-        this._filteredNeutronEvent
-        variables.filteredNeutronEvent.addListener(arg => {
-            this._filteredNeutronEvent = arg
+        this._neutronEvent
+        variables.neutronEvent.addListener(arg => {
+            this._neutronEvent = arg
             this._operation()
         })
         this._operation = () => {
-            if (!isbetween(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogramBinLimitsInNanoseconds)) return
+            if (!isbetween(this._neutronEvent.tofInNanoseconds, this._tofHistogramBinLimitsInNanoseconds)) return
 
-            const r = rescale(this._filteredNeutronEvent.tofInNanoseconds, this._tofHistogramBinLimitsInNanoseconds),
+            const r = rescale(this._neutronEvent.tofInNanoseconds, this._tofHistogramBinLimitsInNanoseconds),
                 i = Math.floor(r * this._tofHistogramBinCounts.length)
             this._tofHistogramBinCounts[i]++
         }

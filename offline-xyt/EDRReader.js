@@ -9,9 +9,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        /** @type {Uint32Array} */
-        this._imageVProjectionBinCounts
-        variables.imageVProjectionBinCounts.prependListener(arg => { this._imageVProjectionBinCounts = arg })
         /** @type {number} */
         this._firstKickerTime
         variables.firstLickerTime.prependListener(arg => { this._firstKickerTime = arg })
@@ -36,9 +33,6 @@ export default class extends Operator {
         /** @type {Uint32Array} */
         this._tofHistogramBinCounts
         variables.tofHistogramBinCounts.prependListener(arg => { this._tofHistogramBinCounts = arg })
-        /** @type {import('../lib/index.js').Uint32NDArray} */
-        this._tofImageVProjectionBinCounts
-        variables.tofImageVProjectionBinCounts.prependListener(arg => { this._tofImageVProjectionBinCounts = arg })
         /** @type {string[]} */
         this._jsonFilePaths
         variables.jsonFileNames.prependListener(arg => { this._jsonFilePaths = arg })
@@ -69,8 +63,6 @@ export default class extends Operator {
                     variables.measurementTimeIdealInMinutes.assign(Math.floor(this._kickerPulseCount * this._tofMaxInMilliseconds / 60_000))
                     variables.measurementTimeRealInMinutes.assign(Math.floor((this._lastKickerTime - this._firstKickerTime) / 60))
                     variables.tofHistogramBinCounts.assign(this._tofHistogramBinCounts)
-                    variables.tofImageVProjectionBinCounts.assign(this._tofImageVProjectionBinCounts)
-                    variables.imageVProjectionBinCounts.assign(this._imageVProjectionBinCounts)
                     console.log(`calc elapsedTime: ${Date.now() - this._startTime} ms`)
 
                     ready.then(() => {

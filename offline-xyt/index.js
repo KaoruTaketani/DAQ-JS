@@ -1,62 +1,25 @@
 import { join } from 'path'
-import colon from "../lib/colon.js"
+import jsonBasePath from "../file-viewer/jsonBasePath.js"
 import CameraPixelSizeCalculator from "./CameraPixelSizeCalculator.js"
-import ConcatenatedScatteringVectorMagnitudeMaker from "./ConcatenatedScatteringVectorMagnitudeMaker.js"
-import ConcatenatedReflectivityMaker from "./ConcatenatedReflectivityMaker.js"
 import EDRReader from "./EDRReader.js"
 import EnergyMaker from "./EnergyMaker.js"
 import EventBufferParser from "./EventBufferParser.js"
-import FilteredImageInitializer from "./FilteredImageInitializer.js"
-import FilteredImageMaker from "./FilteredImageMaker.js"
-import FilteredNeutronEventMaker from "./FilteredNeutronEventMaker.js"
-import FitFinder from "./FitFinder.js"
-import FourierEnergyMaker from "./FourierEnergyMaker.js"
-import FourierTimeMaker from "./FourierTimeMaker.js"
-import ImageHProjectionInitializer from "./ImageHProjectionInitializer.js"
-import ImageHProjectionMaker from "./ImageHProjectionMaker.js"
 import ImageInitializer from "./ImageInitializer.js"
 import ImageMaker from "./ImageMaker.js"
-import ImageVProjectionInitializer from "./ImageVProjectionInitializer.js"
-import ImageVProjectionMaker from "./ImageVProjectionMaker.js"
-import ImageVProjectionMeanCalculator from "./ImageVProjectionMeanCalculator.js"
-import jsonBasePath from "../file-viewer/jsonBasePath.js"
 import JSONFileReader from "./JSONFileReader.js"
-import ScatteringVectorMagnitudeMaker from "./ScatteringVectorMagnitudeMaker.js"
 import NeutronEventMaker from "./NeutronEventMaker.js"
-import NeutronRateMaker from "./NeutronRateMaker.js"
 import PairedEventMaker from "./PairedEventMaker.js"
 import PulseHeightHistogramInitializer from "./PulseHeightHistogramInitializer.js"
 import PulseHeightHistogramMaker from "./PulseHeightHistogramMaker.js"
-import ReflectivityMaker from "./ReflectivityMaker.js"
-import ROIInPixelsMaker from "./ROIInPixelsMaker.js"
 import TOFDifferenceHistogramInitializer from "./TOFDifferenceHistogramInitializer.js"
 import TOFDifferenceHistogramMaker from "./TOFDifferenceHistogramMaker.js"
-import TOFHistogramContrastMaker from "./TOFHistogramContrastMaker.js"
-import TOFHistogramContrastRatioMaker from "./TOFHistogramContrastRatioMaker.js"
 import TOFHistogramInitializer from "./TOFHistogramInitializer.js"
 import TOFHistogramMaker from "./TOFHistogramMaker.js"
-import TOFHistogramPhaseMaker from "./TOFHistogramPhaseMaker.js"
-import TOFHistogramPhaseShiftMaker from "./TOFHistogramPhaseShiftMaker.js"
-import TOFHistogramSumMaker from "./TOFHistogramSumMaker.js"
-import TOFImageVProjectionContrastsMaker from "./TOFImageVProjectionContrastsMaker.js"
-import TOFImageVProjectionInitializer from "./TOFImageVProjectionInitializer.js"
-import TOFImageVProjectionMaker from "./TOFImageVProjectionMaker.js"
-import TOFImageVProjectionMeansMaker from "./TOFImageVProjectionMeansMaker.js"
-import TOFImageVProjectionPhasesMaker from "./TOFImageVProjectionPhasesMaker.js"
-import TOFImageVProjectionStandardDeviationsMaker from "./TOFImageVProjectionStandardDeviationsMaker.js"
-import TOFImageVProjectionSumsMaker from "./TOFImageVProjectionSumsMaker.js"
 import TOFMaker from "./TOFMaker.js"
 import Variables from "./Variables.js"
 import VelocityMaker from "./VelocityMaker.js"
 import WavelengthMaker from "./WavelengthMaker.js"
 import WavenumberMaker from "./WavenumberMaker.js"
-import TrimmedLimitsFinder from './TrimmedLimitsFinder.js'
-import OverlappedTOFImageVProjectionMaker from './OverlappedTOFImageVProjectionMaker.js'
-import TrimmedTOFImageVProjectionMaker from './TrimmedTOFImageVProjectionMaker.js'
-import InterpolatedTOFImageVProjectionMaker from './InterpolatedTOFImageVProjectionMaker.js'
-import InterpolatedTOFImageVProjectionContrastMaker from './InterpolatedTOFImageVProjectionContrastMaker.js'
-import InterpolatedTOFImageVProjectionPhaseMaker from './InterpolatedTOFImageVProjectionPhaseMaker.js'
-import InterpolatedTOFImageVProjectionSumsMaker from './InterpolatedTOFImageVProjectionSumsMaker.js'
 
 const variables = new Variables()
 
@@ -66,56 +29,18 @@ new PairedEventMaker(variables)
 new NeutronEventMaker(variables)
 new ImageInitializer(variables)
 new ImageMaker(variables)
-new ImageHProjectionInitializer(variables)
-new ImageHProjectionMaker(variables)
-new ImageVProjectionInitializer(variables)
-new ImageVProjectionMaker(variables)
-new ImageVProjectionMeanCalculator(variables)
-new FilteredNeutronEventMaker(variables)
-new FilteredImageInitializer(variables)
-new FilteredImageMaker(variables)
 new TOFHistogramInitializer(variables)
 new TOFHistogramMaker(variables)
-new TOFHistogramContrastMaker(variables)
-new TOFHistogramPhaseMaker(variables)
-new TOFHistogramSumMaker(variables)
-new NeutronRateMaker(variables)
-// new TOFImageInitializer(variables)
-// new TOFImageMaker(variables)
-new TOFImageVProjectionInitializer(variables)
-new TOFImageVProjectionMaker(variables)
-new TOFImageVProjectionContrastsMaker(variables)
-new TOFImageVProjectionPhasesMaker(variables)
-new TOFImageVProjectionSumsMaker(variables)
-new TOFImageVProjectionMeansMaker(variables)
-new TOFImageVProjectionStandardDeviationsMaker(variables)
-new FitFinder(variables)
-new TOFHistogramContrastRatioMaker(variables)
-new TOFHistogramPhaseShiftMaker(variables)
-new ReflectivityMaker(variables)
-new ConcatenatedReflectivityMaker(variables)
 new TOFMaker(variables)
 new VelocityMaker(variables)
 new WavenumberMaker(variables)
 new EnergyMaker(variables)
 new WavelengthMaker(variables)
-new FourierTimeMaker(variables)
-new FourierEnergyMaker(variables)
-new ScatteringVectorMagnitudeMaker(variables)
-new ConcatenatedScatteringVectorMagnitudeMaker(variables)
 new PulseHeightHistogramInitializer(variables)
 new PulseHeightHistogramMaker(variables)
 new TOFDifferenceHistogramInitializer(variables)
 new TOFDifferenceHistogramMaker(variables)
 new CameraPixelSizeCalculator(variables)
-new TrimmedLimitsFinder(variables)
-new TrimmedTOFImageVProjectionMaker(variables)
-new OverlappedTOFImageVProjectionMaker(variables)
-new InterpolatedTOFImageVProjectionMaker(variables)
-new InterpolatedTOFImageVProjectionContrastMaker(variables)
-new InterpolatedTOFImageVProjectionPhaseMaker(variables)
-new InterpolatedTOFImageVProjectionSumsMaker(variables)
-new ROIInPixelsMaker(variables)
 new JSONFileReader(variables)
 
 variables.jsonPath.assign(join(jsonBasePath(), '@BL06', '20250424'))

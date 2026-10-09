@@ -36,15 +36,12 @@ export default class extends Operator {
                         variables.channel0Count.assign(0)
                         variables.channel1Count.assign(0)
                         variables.neutronCount.assign(0)
-                        variables.filteredNeutronCount.assign(0)
                         variables.firstLickerTime.assign(0)
                         // parameters not defined in json
                         variables.tofDifferenceLimitsInNanoseconds.assign([-250, 250])
                         variables.moderatorToSampleDistanceInMeters.assign(23.76)
                         variables.cameraLengthInMeters.assign(1.755)
                         variables.cameraImageSizeInMillimeters.assign([50, 50])
-                        variables.upstreamSlitToDownstreamSlitDistanceInMeters.assign(3.5)
-                        variables.downstreamSlitToSampleDistanceInMeters.assign(0.3)
                         // followings are the triggers for some operators
                         variables.pulseHeightHistogramNumBins.assign(2 ** 10)
                         variables.tofMaxInMilliseconds.assign(80)
@@ -56,21 +53,6 @@ export default class extends Operator {
                         const parameters = JSON.parse(data)
                         console.log(parameters)
                         variables.hdf5FileName.assign(basename(jsonFileName, '.json') + '.h5')
-
-                        if (parameters.directBeamFileName) {
-                            const f = new File(join(this._hdf5Path, parameters.directBeamFileName), 'r')
-                            variables.directBeamHDF5File.assign(f)
-                            f.close()
-                        } else {
-                            variables.directBeamHDF5File.assign(undefined)
-                        }
-                        if (parameters.smallIncidenceAngleFileName) {
-                            const f = new File(join(this._hdf5Path, parameters.smallIncidenceAngleFileName), 'r')
-                            variables.smallIncidenceAngleHDF5File.assign(f)
-                            f.close()
-                        } else {
-                            variables.smallIncidenceAngleHDF5File.assign(undefined)
-                        }
 
                         variables.parameters.assign(parameters)
                     })
