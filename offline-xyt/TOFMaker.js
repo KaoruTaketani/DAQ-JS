@@ -11,14 +11,14 @@ export default class extends Operator {
         this._tofMaxInMilliseconds
         variables.tofMaxInMilliseconds.prependListener(arg => { this._tofMaxInMilliseconds = arg })
         /** @type {number} */
-        this._miezeFrequencyInKilohertz
-        variables.miezeFrequencyInKilohertz.addListener(arg => {
-            this._miezeFrequencyInKilohertz = arg
+        this._tofHistogramBinWidthInMilliseconds
+        variables.tofHistogramBinWidthInMilliseconds.addListener(arg => {
+            this._tofHistogramBinWidthInMilliseconds = arg
             this._operation()
         })
         this._operation = () => {
-            const stepInMilliseconds = 1 / this._miezeFrequencyInKilohertz,
-                tofInMilliseconds = colon(stepInMilliseconds / 2, stepInMilliseconds, this._tofMaxInMilliseconds - stepInMilliseconds / 2)
+            const dt = this._tofHistogramBinWidthInMilliseconds,
+                tofInMilliseconds = colon(dt / 2, dt, this._tofMaxInMilliseconds - dt / 2)
 
             variables.tofInMilliseconds.assign(new Float64Array(tofInMilliseconds))
         }

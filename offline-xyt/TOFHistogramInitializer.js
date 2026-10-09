@@ -8,32 +8,15 @@ export default class extends Operator {
         super()
         /** @type {number} */
         this._tofMaxInMilliseconds
-        variables.tofMaxInMilliseconds.addListener(arg => {
-            this._tofMaxInMilliseconds = arg
-            this._operation()
-        })
+        variables.tofMaxInMilliseconds.prependListener(arg => { this._tofMaxInMilliseconds = arg })
         /** @type {number} */
-        this._frequencyVectorLength
-        variables.frequencyVectorLength.addListener(arg => {
-            this._frequencyVectorLength = arg
-            this._operation()
-        })
-        /** @type {number} */
-        this._miezeFrequencyInKilohertz
-        variables.miezeFrequencyInKilohertz.addListener(arg => {
-            this._miezeFrequencyInKilohertz = arg
+        this._tofHistogramBinWidthInMilliseconds
+        variables.tofHistogramBinWidthInMilliseconds.addListener(arg => {
+            this._tofHistogramBinWidthInMilliseconds = arg
             this._operation()
         })
         this._operation = () => {
-            if (!this._tofMaxInMilliseconds) return
-            if (!this._frequencyVectorLength) return
-            if (!this._miezeFrequencyInKilohertz) return
-
-            const cycleInMilliseconds = 1 / this._miezeFrequencyInKilohertz
-            const binWidthInMillisecond = cycleInMilliseconds / this._frequencyVectorLength
-            const numBins = Math.ceil(this._tofMaxInMilliseconds / binWidthInMillisecond)//,
-            // unit must be nanoseconds as used in maker
-            // dt = this._tofMaxInMilliseconds * 1_000_000 / numBins
+            const numBins = Math.ceil(this._tofMaxInMilliseconds / this._tofHistogramBinWidthInMilliseconds)
 
             variables.tofHistogramBinLimitsInNanoseconds.assign([0, this._tofMaxInMilliseconds * 1_000_000])
             variables.tofHistogramBinCounts.assign(new Uint32Array(numBins))

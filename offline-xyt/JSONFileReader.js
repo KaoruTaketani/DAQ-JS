@@ -48,7 +48,8 @@ export default class extends Operator {
                         // must be 25ns, which is equal to the bin width of NEUNET output
                         variables.tofResolutionInNanoseconds.assign(25)
                         variables.neutronPositionBitLength.assign(10)
-                        variables.miezeFrequencyInKilohertz.assign(10)
+                        // must be assigned after toxMaxInMilliseconds
+                        variables.tofHistogramBinWidthInMilliseconds.assign(0.0125)
 
                         const parameters = JSON.parse(data)
                         console.log(parameters)

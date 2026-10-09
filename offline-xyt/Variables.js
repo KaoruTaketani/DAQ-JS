@@ -1,7 +1,6 @@
 import ListenableNumber from '../lib/ListenableNumber.js'
 import ListenableObject from '../lib/ListenableObject.js'
 import ListenableString from '../lib/ListenableString.js'
-import ParameterNumber from './ParameterNumber.js'
 import ParameterString from './ParameterString.js'
 import WritableArray from './WritableArray.js'
 import WritableDataset from './WritableDataset.js'
@@ -74,14 +73,12 @@ export default class {
         // followings are parameters but fixed
         this.tofResolutionInNanoseconds = new WritableNumber('tofResolutionInNanoseconds', this.hdf5File)
         this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', this.hdf5File)
-        this.miezeFrequencyInKilohertz = new WritableNumber('miezeFrequencyInKilohertz', this.hdf5File)
+        this.tofHistogramBinWidthInMilliseconds = new WritableNumber('miezeFrequencyInKilohertz', this.hdf5File)
         this.moderatorToSampleDistanceInMeters = new WritableNumber('moderatorToSampleDistanceInMeters', this.hdf5File)
         this.cameraLengthInMeters = new WritableNumber('cameraLengthInMeters', this.hdf5File)
         this.neutronPositionBitLength = new WritableNumber('neutronPositionBitLength', this.hdf5File)
         this.measurementTimeIdealInMinutes = new WritableNumber('measurementTimeIdealInMinutes', this.hdf5File)
         this.measurementTimeRealInMinutes = new WritableNumber('measurementTimeRealInMinutes', this.hdf5File)
-
-        this.frequencyVectorLength = new ParameterNumber('frequencyVectorLength', this.hdf5File, this.parameters)
 
         this.jsonPath = new ListenableString()
         this.hdf5FileName = new ListenableString()
