@@ -117,3 +117,10 @@ export interface Axes {
     yDir?: string
 }
 
+export interface MotorSetting {
+    device: string
+    channel: string
+    origin: number
+    pulsePerUnit: number
+    unit: string
+}
