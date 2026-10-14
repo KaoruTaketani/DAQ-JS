@@ -6,24 +6,30 @@ const server = new Server({})
 let interval
 /** @type {boolean} */
 let isBusy = false
-/** @type {Map<number,number>} */
+/** @type {Map<string,number>} */
 const pulses = new Map()
-pulses.set(1, 30)
-pulses.set(2, -50)
+pulses.set('A:5', 30)
+pulses.set('A:6', -50)
 
 server.maxConnections = 1
 server.on('connection', socket => {
     socket.setEncoding('utf8')
     socket.on('data', (/** @type {string} */data) => {
         console.log(`data: ${data}`)
-        if (data === 'remote?:') {
+        if (data.startsWith('remote?:')) {
             socket.write('ok 0')
             return
         }
         if (data.toString().startsWith('move_to:')) {
-            const channel = parseInt(data.split(':')[1]),
-                destination = parseInt(data.split(' ')[1])
+            const channel = data.split(' ')[0].substring(data.indexOf(':') + 1)
+            const relativeFlag = data.split(' ')[1]
+            let destination = parseInt(data.split(' ')[2])
             if (!pulses.has(channel)) {
+                socket.write('ng')
+                return
+            }
+
+            if (relativeFlag !== '1' && relativeFlag !== '2') {
                 socket.write('ng')
                 return
             }
@@ -35,6 +41,9 @@ server.on('connection', socket => {
 
             socket.write('ok')
             isBusy = true
+            if (relativeFlag === '1') {
+                destination = pulses.get(channel) + destination
+            }
             interval = setInterval(() => {
                 const pulse = pulses.get(channel)
                 // console.log(`channel: ${channel}, pulse: ${pulse}`)
@@ -57,13 +66,13 @@ server.on('connection', socket => {
             clearInterval(interval)
         }
         if (data.startsWith('pulse?:')) {
-            const channel = parseInt(data.split(':')[1])
-            
+            const channel = data.substring(data.indexOf(':') + 1)
+
             if (!pulses.has(channel)) {
                 socket.write('ng')
                 return
             }
-            const msg =`ok ${pulses.get(channel)} ${isBusy ? 1 : 0}`
+            const msg = `ok ${pulses.get(channel)} ${isBusy ? 1 : 0}`
             console.log(msg)
             socket.write(msg)
             return
