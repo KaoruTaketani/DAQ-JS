@@ -112,9 +112,9 @@
 
 13.j Test
 
-[13.j.a Operator](./13ja/README.md)
+[13.j.a BlockList](./13ja/README.md)
 
-[13.j.b BlockList](./13jb/README.md)
+[13.j.b Operator](./13jb/README.md)
 
 
 ## Graph
