@@ -1,7 +1,7 @@
 import ListenableNumber from '../13/ListenableNumber.js'
 
 export default class extends ListenableNumber {
-    constructor(key, requestParams) {
+    constructor(key, requestParams, batchResolve) {
         super()
         requestParams.addListener(arg => {
             if (!arg.has(key)) return
@@ -10,6 +10,9 @@ export default class extends ListenableNumber {
             if (Number.isFinite(value)) {
                 super.assign(value)
             }
+        })
+        batchResolve.addListener(arg => {
+            arg.set(key, null)
         })
     }
 }

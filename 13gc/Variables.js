@@ -3,8 +3,7 @@ import ElementBoolean from '../13/ElementBoolean.js'
 import ElementString from '../13/ElementString.js'
 import ListenableObject from '../13/ListenableObject.js'
 import Variables from '../13ga/Variables.js'
-import BatchNumber from './BatchNumber.js'
-import BatchString from './BatchString.js'
+import ControllableNumber from './ControllableNumber.js'
 import DestinationString from './DestinationString.js'
 
 export default class extends Variables {
@@ -18,7 +17,7 @@ export default class extends Variables {
         this.batchProcessorDestinationState = new ControllableString('batchProcessorDestinationState', this.requestParams)
 
         // overwrite defined in ../13/Variables.js
-        this.preset = new BatchNumber('preset', this.requestParams, this.batchResolve)
+        this.preset = new ControllableNumber('preset', this.requestParams, this.batchResolve)
 
         this.batchStartButtonDisabled = new ElementBoolean('/batchStartButtonDisabled', this.elementValues, this.webSocketPathnames)
 

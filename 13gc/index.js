@@ -38,6 +38,7 @@ new Comparator(variables)
 new BatchTableInnerHTMLMaker(variables)
 new BatchProcessor(variables)
 
+variables.batchResolve.assign(new Map())
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorDestinationState.assign('idle')
@@ -54,4 +55,4 @@ variables.batchParams.assign(new URLSearchParams([
     'preset=50',
     'randomNumberGeneratorDestinationState=busy'
 ].join('&')))
-variables.batchResolve.assign(new Map())
+
