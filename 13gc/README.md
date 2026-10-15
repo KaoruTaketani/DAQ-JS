@@ -1,3 +1,19 @@
+index.js:
+```js
+variables.batchParams.assign(new URLSearchParams([
+    'preset=10',
+    'randomNumberGeneratorDestinationState=busy',
+    'preset=20',
+    'randomNumberGeneratorDestinationState=busy',
+    'preset=30',
+    'randomNumberGeneratorDestinationState=busy',
+    'preset=40',
+    'randomNumberGeneratorDestinationState=busy',
+    'preset=50',
+    'randomNumberGeneratorDestinationState=busy'
+].join('&')))
+```
+
 BatchProcessor.js:
 ```js
 const ng = Array.from(this._batchParams.keys())
