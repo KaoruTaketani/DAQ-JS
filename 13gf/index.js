@@ -54,7 +54,7 @@ new PresetStepValueChanger(variables)
 new MeansInitializer(variables)
 new MeansSVGInnerHTMLMaker(variables)
 
-
+variables.batchResolve.assign(new Map())
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorDestinationState.assign('idle')
@@ -63,4 +63,3 @@ variables.batchProcessorDestinationState.assign(false)
 variables.presetStart.assign(10)
 variables.presetStop.assign(50)
 variables.presetStep.assign(10)
-variables.batchResolve.assign(new Map())
