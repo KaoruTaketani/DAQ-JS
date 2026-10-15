@@ -47,14 +47,15 @@ variables.randomNumberGeneratorDestinationState.assign('idle')
 variables.preset.assign(50)
 variables.batchProcessorDestinationState.assign(false)
 variables.batchParams.assign(new URLSearchParams([
-    'preset=10',
-    'randomNumberGeneratorDestinationState=busy',
-    'preset=20',
-    'randomNumberGeneratorDestinationState=busy',
-    'preset=30',
-    'randomNumberGeneratorDestinationState=busy',
-    'preset=40',
-    'randomNumberGeneratorDestinationState=busy',
-    'preset=50',
-    'randomNumberGeneratorDestinationState=busy'
-].join('&')))
+    ['preset', '10'],
+    ['randomNumberGeneratorDestinationState', 'busy'],
+    ['preset', '20'],
+    ['randomNumberGeneratorDestinationState', 'busy'],
+    ['preset', '30'],
+    ['randomNumberGeneratorDestinationState', 'busy'],
+    ['preset', '40'],
+    ['randomNumberGeneratorDestinationState', 'busy'],
+    ['preset', '50'],
+    ['randomNumberGeneratorDestinationState', 'busy']
+]))
+

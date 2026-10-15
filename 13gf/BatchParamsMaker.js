@@ -27,17 +27,17 @@ export default class extends Operator {
 
             variables.presets.assign([10, 20, 30, 40, 50])
             variables.batchParams.assign(new URLSearchParams([
-                'preset=10',
-                'randomNumberGeneratorDestinationState=busy',
-                'preset=20',
-                'randomNumberGeneratorDestinationState=busy',
-                'preset=30',
-                'randomNumberGeneratorDestinationState=busy',
-                'preset=40',
-                'randomNumberGeneratorDestinationState=busy',
-                'preset=50',
-                'randomNumberGeneratorDestinationState=busy'
-            ].join('&')))
+                ['preset', '10'],
+                ['randomNumberGeneratorDestinationState', 'busy'],
+                ['preset', '20'],
+                ['randomNumberGeneratorDestinationState', 'busy'],
+                ['preset', '30'],
+                ['randomNumberGeneratorDestinationState', 'busy'],
+                ['preset', '40'],
+                ['randomNumberGeneratorDestinationState', 'busy'],
+                ['preset', '50'],
+                ['randomNumberGeneratorDestinationState', 'busy']
+            ]))
         }
     }
 }
