@@ -22,16 +22,17 @@ export default class extends Operator {
         })
         this._operation = () => {
             const yMax = max(this._histogramBinCounts) === 0
-                ? 1 : max(this._histogramBinCounts),
-                edges = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1),
-                ax = {
-                    xLim: [0.4, 0.8],
-                    yLim: [0, yMax],
-                    xTick: colon(0.4, 0.1, 0.8),
-                    yTick: [0, yMax],
-                    xTickLabel: colon(0.4, 0.1, 0.8).map(x => x.toFixed(1)),
-                    yTickLabel: ['0', `${yMax}`]
-                }
+                ? 1
+                : max(this._histogramBinCounts)
+            const edges = linspace(this._histogramBinLimits[0], this._histogramBinLimits[1], this._histogramBinCounts.length + 1)
+            const ax = {
+                xLim: [0.4, 0.8],
+                yLim: [0, yMax],
+                xTick: colon(0.4, 0.1, 0.8),
+                yTick: [0, yMax],
+                xTickLabel: colon(0.4, 0.1, 0.8).map(x => x.toFixed(1)),
+                yTickLabel: ['0', `${yMax}`]
+            }
             variables.histogramSVGInnerHTML.assign([
                 axes(ax),
                 xlabel(ax, 'random number'),
