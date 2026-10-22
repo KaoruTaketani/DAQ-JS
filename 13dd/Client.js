@@ -102,8 +102,6 @@ variables.divInnerText = new ListenableString();
             }
         })(element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
     })(element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')));
-
-
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 

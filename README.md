@@ -60,6 +60,8 @@
 
 [13.d.d Overlay](./13dd/README.md)
 
+[13.d.e Nearest Stairs](./13de/README.md)
+
 13.e API
 
 [13.e.a BlockList](./13ea/README.md)

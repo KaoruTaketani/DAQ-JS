@@ -1,0 +1,120 @@
+import ListenableString from './ListenableString.js'
+import getCurrentPoint from './getCurrentPoint.js'
+import getXLim from './getXLim.js'
+import getYLim from './getYLim.js'
+import getXData from './getXData.js'
+import getYData from './getYData.js'
+import min from './min.js'
+import max from './max.js'
+import isbetween from './isbetween.js'
+
+const url = new URL(import.meta.url)
+url.protocol = 'ws:'
+url.pathname = ''
+const socket = new WebSocket(url)
+socket.onclose = () => {
+    document.body.innerHTML = "the connection was closed by the server."
+}
+const variables = {}
+variables.divInnerText = new ListenableString();
+
+(element => {
+    element.type = 'button'
+    element.value = 'start'
+    element.style.width = '130px'
+    element.onclick = () => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=busy')
+        xhr.send()
+    }
+    url.pathname = 'startButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data
+    }
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    element.type = 'button'
+    element.value = 'stop'
+    element.style.width = '130px'
+    element.onclick = () => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('PUT', '/?randomNumberGeneratorDestinationState=idle')
+        xhr.send()
+    }
+    url.pathname = 'stopButtonDisabled'
+    const disabledSocket = new WebSocket(url)
+    disabledSocket.onmessage = event => {
+        element.disabled = event.data
+    }
+})(document.body.appendChild(document.createElement('input')));
+
+(element => {
+    url.pathname = 'startTimeInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    url.pathname = 'randomNumberInnerText'
+    const innerTextSocket = new WebSocket(url)
+    innerTextSocket.onmessage = event => {
+        element.innerText = event.data
+    }
+})(document.body.appendChild(document.createElement('p')));
+
+(element => {
+    element.innerText = 'cursor: undefined'
+    variables.divInnerText.addListener(arg => { element.innerText = arg })
+})(document.body.appendChild(document.createElement('div')));
+
+(element => {
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300');
+
+    const overlayElement = element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
+
+    (element => {
+        element.setAttribute('width', '400')
+        element.setAttribute('height', '300');
+
+        (element => {
+            element.setAttribute('width', '400')
+            element.setAttribute('height', '300')
+            element.setAttribute('viewBox', '0 0 560 420')
+            url.pathname = 'histogramSVGInnerHTML'
+            const innerHTMLSocket = new WebSocket(url)
+            innerHTMLSocket.onmessage = event => {
+                element.innerHTML = event.data
+            }
+            element.onmousemove = ev => {
+                if (!element.firstChild) return
+
+                const [x, y] = getCurrentPoint(element.firstChild, ev)
+                const xLim = getXLim(element.firstChild)
+                const yLim = getYLim(element.firstChild)
+                const xData = getXData(element.lastChild)
+                const yData = getYData(element.lastChild)
+                const yDataMin = min(yData)
+                const yDataMax = max(yData)
+                const scaleX = 560 / 400
+                const smallerX = xData.filter(x => x < scaleX * ev.offsetX)
+                const maxX = smallerX.length === 0 ? xData[0] : smallerX[smallerX.length - 1]
+                const _x = xLim[0] + (xLim[1] - xLim[0]) * (maxX - xData[0]) / (xData[xData.length - 1] - xData[0])
+                const _y = yLim[0] + (yLim[1] - yLim[0]) * (yData[smallerX.length - 1] - yDataMax) / (yDataMin - yDataMax)
+
+                if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
+                    variables.divInnerText.assign(`cursor: undefined`)
+                } else {
+                    variables.divInnerText.assign(`cursor: {x: ${_x}, y: ${_y}}`)
+                }
+                overlayElement.innerHTML = `<polyline points="${(maxX / scaleX).toFixed()},0 ${(maxX / scaleX).toFixed()},420" stroke="red" fill="none"></polyline>`
+            }
+        })(element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+    })(element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')));
+})(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+
+
