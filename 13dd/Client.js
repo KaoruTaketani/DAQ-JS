@@ -67,13 +67,15 @@ variables.divInnerText = new ListenableString();
     variables.divInnerText.addListener(arg => { element.innerText = arg })
 })(document.body.appendChild(document.createElement('div')));
 
-(overlayElement => {
-    overlayElement.setAttribute('width', '400')
-    overlayElement.setAttribute('height', '300');
+(element => {
+    element.setAttribute('width', '400')
+    element.setAttribute('height', '300');
 
-    (foreignElement => {
-        foreignElement.setAttribute('width', '400')
-        foreignElement.setAttribute('height', '300');
+    const overlayElement = element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg'));
+
+    (element => {
+        element.setAttribute('width', '400')
+        element.setAttribute('height', '300');
 
         (element => {
             element.setAttribute('width', '400')
@@ -96,16 +98,12 @@ variables.divInnerText = new ListenableString();
                 } else {
                     variables.divInnerText.assign(`cursor: {x: ${x}, y: ${y}}`)
                 }
-
-                lineElement.setAttribute('points', `${ev.offsetX},0 ${ev.offsetX},420`)
+                overlayElement.innerHTML = `<polyline points="${ev.offsetX},0 ${ev.offsetX},420" stroke="red" fill="none"></polyline>`
             }
-        })(foreignElement.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
-    })(overlayElement.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')));
+        })(element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
+    })(element.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'foreignObject')));
 
 
-    const lineElement = document.createElementNS('http://www.w3.org/2000/svg', 'polyline')
-    lineElement.setAttribute('stroke', 'red')
-    overlayElement.appendChild(lineElement)
 })(document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')));
 
 
