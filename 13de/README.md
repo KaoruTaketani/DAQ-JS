@@ -6,15 +6,17 @@ element.onmousemove = ev => {
     const [x, y] = getCurrentPoint(element.firstChild, ev)
     const xLim = getXLim(element.firstChild)
     const yLim = getYLim(element.firstChild)
-    const xData = getXData(element.lastChild)
-    const yData = getYData(element.lastChild)
-    const yDataMin = min(yData)
-    const yDataMax = max(yData)
+    const xDataInPixels = getXData(element.lastChild)
+    const yDataInPixels = getYData(element.lastChild)
     const scaleX = 560 / 400
-    const smallerX = xData.filter(x => x < scaleX * ev.offsetX)
-    const maxX = smallerX.length === 0 ? xData[0] : smallerX[smallerX.length - 1]
-    const _x = xLim[0] + (xLim[1] - xLim[0]) * (maxX - xData[0]) / (xData[xData.length - 1] - xData[0])
-    const _y = yLim[0] + (yLim[1] - yLim[0]) * (yData[smallerX.length - 1] - yDataMax) / (yDataMin - yDataMax)
+    const smallerXInPixels = xDataInPixels.filter(x => x < scaleX * ev.offsetX)
+    const nearestXInPixels = smallerXInPixels.length === 0
+        ? xDataInPixels[0]
+        : smallerXInPixels[smallerXInPixels.length - 1]
+    const px = polyfit([xDataInPixels[0], xDataInPixels[xDataInPixels.length - 1]], xLim, 1)
+    const _x = polyval(px, [nearestXInPixels])[0]
+    const py = polyfit([max(yDataInPixels), min(yDataInPixels)], yLim, 1)
+    const _y = polyval(py, [yDataInPixels[smallerXInPixels.length - 1]])[0]
 
     if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
         variables.divInnerText.assign(`cursor: undefined`)
