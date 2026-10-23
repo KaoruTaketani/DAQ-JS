@@ -8,15 +8,12 @@ element.onmousemove = ev => {
     const yLim = getYLim(element.firstChild)
     const xDataInPixels = getXData(element.lastChild)
     const yDataInPixels = getYData(element.lastChild)
-    const smallerXInPixels = xDataInPixels.filter(x => x < 560 / 400 * ev.offsetX)
-    const nearestLowerEdgeIndex = smallerXInPixels.length === 0
-        ? 0
-        : smallerXInPixels.length - 1
+    const nearestLowerEdgeIndex = xDataInPixels.findLastIndex(x => x < 560 / 400 * ev.offsetX)
     const px = polyfit([xDataInPixels[0], xDataInPixels[xDataInPixels.length - 1]], xLim, 1)
     const [_x0] = polyval(px, [xDataInPixels[nearestLowerEdgeIndex]])
     const [_x1] = polyval(px, [xDataInPixels[nearestLowerEdgeIndex + 1]])
     const py = polyfit([max(yDataInPixels), min(yDataInPixels)], yLim, 1)
-    const _y = polyval(py, [yDataInPixels[smallerXInPixels.length - 1]])[0]
+    const [_y] = polyval(py, [yDataInPixels[nearestLowerEdgeIndex]])
 
     if (!isbetween(x, xLim) || !isbetween(y, yLim)) {
         variables.divInnerText.assign(`cursor: undefined`)
