@@ -21,25 +21,6 @@ export interface NeutronEvent {
     pulseheight: number
 }
 
-export interface Parameters {
-    edrFilePath: string
-    comment?: string
-    roiXInPixels?: number
-    roiYInPixels?: number
-    roiWidthInPixels?: number
-    roiHeightInPixels?: number
-    frequencyVectorLength?: number
-}
-
-export interface ParametersQXQZ {
-    xytFileName: string
-}
-
-export interface XY {
-    x: number[]
-    y: number[]
-}
-
 export interface LineOptions {
     color?: string
     lineStyle?: string
@@ -75,26 +56,6 @@ export interface Waveform {
     t0: number // in ms 
     dt: number // in ms
     Y: Float64Array
-}
-
-export interface Histogram {
-    binLimits: number[]
-    binCounts: Uint32Array
-}
-
-export interface Histogram2D {
-    xBinLimits: number[]
-    yBinLimits: number[]
-    binCounts: Uint32Array
-    numBins: number[]
-}
-
-export interface Histogram3D {
-    binCounts: Uint16Array
-    numBins: number[]
-    xBinLimits: number[]
-    yBinLimits: number[]
-    zBinLimits: number[]
 }
 
 export interface Axes {

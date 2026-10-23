@@ -23,7 +23,7 @@ export default class {
         this.hdf5File = new ListenableObject()
         /** @type {import('../lib/ListenableObject.js').default<string[]>} */
         this.jsonFileNames = new ListenableObject()
-        /** @type {import('../lib/ListenableObject.js').default<import('../lib/index.js').Parameters>} */
+        /** @type {import('../lib/ListenableObject.js').default<object>} */
         this.parameters = new ListenableObject()
 
         // uint32ndarray
