@@ -1,13 +1,11 @@
 import express from 'express';
-import jsonBasePath from './jsonBasePath.js';
 import { BlockList } from 'net';
 import AttributesRouter from './AttributesRouter.js';
 import FilesRouter from './FilesRouter.js';
-import ForceRouter from './ForceRouter.js'
-import DensityRouter from './DensityRouter.js'
 import HistogramRouter from './HistogramRouter.js';
 import HtmlRouter from './HtmlRouter.js';
 import ImageRouter from './ImageRouter.js';
+import jsonBasePath from './jsonBasePath.js';
 import KeysRouter from './KeysRouter.js';
 import NumEventsRouter from './NumEventsRouter.js';
 import NumWaveformsRouter from './NumWaveformsRouter.js';
@@ -39,8 +37,6 @@ app.use('/', (req, res, next) => {
 app.use('/', RootRouter)
 app.use('/', AttributesRouter)
 app.use('/', FilesRouter)
-app.use('/', DensityRouter)
-app.use('/', ForceRouter)
 app.use('/', KeysRouter)
 app.use('/', TableRouter)
 app.use('/', NumEventsRouter)
