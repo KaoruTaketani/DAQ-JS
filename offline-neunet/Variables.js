@@ -4,7 +4,6 @@ import ListenableString from '../lib/ListenableString.js'
 import ParameterString from '../lib/ParameterString.js'
 import WritableArray from '../lib/WritableArray.js'
 import WritableDataset from '../lib/WritableDataset.js'
-import WritableInt32 from '../lib/WritableInt32.js'
 import WritableNumber from '../lib/WritableNumber.js'
 
 export default class {
@@ -66,10 +65,10 @@ export default class {
         this.lastKickerTime = new ListenableNumber()
         this.startTime = new ListenableNumber()
 
-        this.kickerPulseCount = new WritableInt32('kickerPulseCount', this.hdf5File)
-        this.channel0Count = new WritableInt32('channel0Count', this.hdf5File)
-        this.channel1Count = new WritableInt32('channel1Count', this.hdf5File)
-        this.neutronCount = new WritableInt32('neutronCount', this.hdf5File)
+        this.kickerPulseCount = new WritableNumber('kickerPulseCount', this.hdf5File,'<i')
+        this.channel0Count = new WritableNumber('channel0Count', this.hdf5File,'<i')
+        this.channel1Count = new WritableNumber('channel1Count', this.hdf5File,'<i')
+        this.neutronCount = new WritableNumber('neutronCount', this.hdf5File,'<i')
         // followings are parameters but fixed
         this.tofResolutionInNanoseconds = new WritableNumber('tofResolutionInNanoseconds', this.hdf5File)
         this.tofMaxInMilliseconds = new WritableNumber('tofMaxInMillioseconds', this.hdf5File)
