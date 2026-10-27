@@ -25,16 +25,28 @@ export default class {
         
         this.hdf5File = new ListenableObject()
 
+        // WritableArray
+        // mainly necessary to draw dataset by using proper axis units
+        this.tofHistogramBinLimitsInNanoseconds = new WritableArray('_tof (ns)', this.hdf5File)
+        this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('_tof (ns)', this.hdf5File)
+        this.imageXBinLimitsInMillimeters = new WritableArray('_x (mm)', this.hdf5File)
+        this.imageYBinLimitsInMillimeters = new WritableArray('_y (mm)', this.hdf5File)
+        this.pulseHeightHistogramBinLimits = new WritableArray('_adc', this.hdf5File)
+        // followings are the attributes in the root folder
+        this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
+        this.cameraImageSizeInMillimeters = new WritableArray('cameraImageSizeInMillimeters', this.hdf5File)
+        this.cameraPixelSizeInMillimeters = new WritableArray('cameraPixelSizeInMillimeters', this.hdf5File)
+
         // uint32ndarray
         /** @type {import('../lib/WritableDataset.js').default<import('../lib/index.js').Uint32NDArray>} */
-        this.imageBinCounts = new WritableDataset('imageBinCounts', this.hdf5File, ['x (mm)', 'y (mm)'])
+        this.imageBinCounts = new WritableDataset('imageBinCounts', this.hdf5File, this.imageXBinLimitsInMillimeters, this.imageYBinLimitsInMillimeters)
         // uint32array
         /** @type {import('../lib/WritableDataset.js').default<Uint32Array>} */
-        this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File, ['tof (ns)'])
+        this.tofHistogramBinCounts = new WritableDataset('tofHistogramBinCounts', this.hdf5File, this.tofHistogramBinLimitsInNanoseconds)
         /** @type {import('../lib/WritableDataset.js').default<Uint32Array>} */
-        this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File, ['adc value'])
+        this.pulseHeightHistogramBinCounts = new WritableDataset('pulseHeightHistogramBinCounts', this.hdf5File, this.pulseHeightHistogramBinLimits)
         /** @type {import('../lib/WritableDataset.js').default<Uint32Array>} */
-        this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File, ['tof (ns)'])
+        this.tofDifferenceHistogramBinCounts = new WritableDataset('tofDifferenceHistogramBinCounts', this.hdf5File, this.tofDifferenceHistogramBinLimitsInNanoseconds)
 
         // float64array
         /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
@@ -47,18 +59,6 @@ export default class {
         this.wavenumberInInverseAngstroms = new WritableDataset('wavenumberInInverseAngstroms', this.hdf5File)
         /** @type {import('../lib/WritableDataset.js').default<Float64Array>} */
         this.wavelengthInAngstroms = new WritableDataset('wavelengthInAngstroms', this.hdf5File)
-
-        // WritableArray
-        // mainly necessary to draw dataset by using proper axis units
-        this.tofHistogramBinLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofHistogramBinCounts)
-        this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('_xlim', this.hdf5File, this.tofDifferenceHistogramBinCounts)
-        this.imageXBinLimitsInMillimeters = new WritableArray('_xlim', this.hdf5File, this.imageBinCounts)
-        this.imageYBinLimitsInMillimeters = new WritableArray('_ylim', this.hdf5File, this.imageBinCounts)
-        this.pulseHeightHistogramBinLimits = new WritableArray('_xlim', this.hdf5File, this.pulseHeightHistogramBinCounts)
-        // followings are the attributes in the root folder
-        this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
-        this.cameraImageSizeInMillimeters = new WritableArray('cameraImageSizeInMillimeters', this.hdf5File)
-        this.cameraPixelSizeInMillimeters = new WritableArray('cameraPixelSizeInMillimeters', this.hdf5File)
 
         this.pulseHeightHistogramNumBins = new ListenableNumber()
         this.firstLickerTime = new ListenableNumber()
