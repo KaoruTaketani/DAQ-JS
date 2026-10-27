@@ -28,8 +28,8 @@ router.get('/image', (req, res) => {
         return
     }
 
-    const xlabel = /** @type {string[]} */(dataset.attrs['_labels'].to_array())[0]
-    const ylabel = /** @type {string[]} */(dataset.attrs['_labels'].to_array())[1]
+    const xlabel = /** @type {string[]} */(dataset.attrs['_xlabel'].to_array())
+    const ylabel = /** @type {string[]} */(dataset.attrs['_ylabel'].to_array())
     const xlim = /** @type {number[]} */(dataset.attrs['_xlim'].to_array())
     const ylim = /** @type {number[]} */(dataset.attrs['_ylim'].to_array())
     const data = Array.from(/** @type {Uint32Array} */(dataset.value))

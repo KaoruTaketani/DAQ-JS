@@ -33,7 +33,7 @@ router.get('/histogram', (req, res) => {
     }
 
     const y = Array.from(/** @type {Float64Array} */(dataset.value))
-    const xlabel = /** @type {string[]} */(dataset.attrs['_labels'].to_array())[0]
+    const xlabel = /** @type {string[]} */(dataset.attrs['_xlabel'].to_array())
     const lims = /** @type {number[]} */(dataset.attrs['_xlim'].to_array())
     const x = linspace(lims[0], lims[1], y.length + 1)
 
