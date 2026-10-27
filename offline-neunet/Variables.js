@@ -27,11 +27,11 @@ export default class {
 
         // WritableArray
         // mainly necessary to draw dataset by using proper axis units
-        this.tofHistogramBinLimitsInNanoseconds = new WritableArray('_tof (ns)', this.hdf5File)
-        this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('_tof (ns)', this.hdf5File)
-        this.imageXBinLimitsInMillimeters = new WritableArray('_x (mm)', this.hdf5File)
-        this.imageYBinLimitsInMillimeters = new WritableArray('_y (mm)', this.hdf5File)
-        this.pulseHeightHistogramBinLimits = new WritableArray('_adc', this.hdf5File)
+        this.tofHistogramBinLimitsInNanoseconds = new WritableArray('tof (ns)')
+        this.tofDifferenceHistogramBinLimitsInNanoseconds = new WritableArray('tof (ns)')
+        this.imageXBinLimitsInMillimeters = new WritableArray('x (mm)')
+        this.imageYBinLimitsInMillimeters = new WritableArray('y (mm)')
+        this.pulseHeightHistogramBinLimits = new WritableArray('adc')
         // followings are the attributes in the root folder
         this.tofDifferenceLimitsInNanoseconds = new WritableArray('tofDiffrenceLimitsInNanoseconds', this.hdf5File)
         this.cameraImageSizeInMillimeters = new WritableArray('cameraImageSizeInMillimeters', this.hdf5File)
