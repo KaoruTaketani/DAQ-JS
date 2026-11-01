@@ -13,9 +13,9 @@ export default class extends Operator {
         })
         this._operation = () => {
             let tbody = ''
-            Array.from(this._batchParams.entries()).forEach(params => {
-                tbody += `<tr><td>${params[0]}</td><td>${params[1]}</td></tr>\n`
-            })
+            for (const [key, value] of this._batchParams.entries()) {
+                tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
+            }
 
             variables.batchTableInnerHTML.assign([
                 '<thead>',

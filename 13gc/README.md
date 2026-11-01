@@ -1,5 +1,6 @@
 index.js:
 ```js
+variables.batchProcessorState.assign('idle')
 variables.batchParams.assign(new URLSearchParams([
     ['preset', '10'],
     ['randomNumberGeneratorDestinationState', 'busy'],
@@ -16,10 +17,7 @@ variables.batchParams.assign(new URLSearchParams([
 
 BatchProcessor.js:
 ```js
-const ng = Array.from(this._batchParams.keys())
-    .filter(key => !this._batchResolve.has(key))
-if (ng.length > 0) return
-
+variables.batchProcessorState.assign('busy')
 Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
     new Promise(resolve => {
         const [key, value] = params
