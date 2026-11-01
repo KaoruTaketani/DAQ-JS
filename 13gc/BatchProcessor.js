@@ -37,13 +37,11 @@ export default class extends Operator {
                         variables.batchProcessorDestinationState.assign('idle')
                     })
                 }
-                return
             }
             if (this._batchProcessorState === 'busy') {
                 if (this._batchProcessorDestinationState === 'idle') {
                     variables.batchProcessorState.assign('idle')
                 }
-                return
             }
         }
     }
