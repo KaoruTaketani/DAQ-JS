@@ -6,6 +6,8 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
+        this._batchResolve
+        variables.batchResolve.addListener(arg => { this._batchResolve = arg })
         this._batchParams
         variables.batchParams.addListener(arg => {
             this._batchParams = arg
@@ -14,7 +16,11 @@ export default class extends Operator {
         this._operation = () => {
             let tbody = ''
             for (const [key, value] of this._batchParams.entries()) {
-                tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
+                if (this._batchResolve.has(key)) {
+                    tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
+                } else {
+                    tbody += `<tr><td style="background-color:red">${key}</td><td>${value}</td></tr>\n`
+                }
             }
 
             variables.batchTableInnerHTML.assign([

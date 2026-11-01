@@ -46,7 +46,7 @@ variables.preset.assign(50)
 variables.batchProcessorState.assign('idle')
 variables.batchParams.assign(new URLSearchParams([
     ['preset', '10'],
-    ['randomNumberGeneratorDestinationStat', 'busy'],
+    ['randomNumberGeneratorDestinationState', 'busy'],
     ['preset', '20'],
     ['randomNumberGeneratorDestinationState', 'busy'],
     ['preset', '30'],
