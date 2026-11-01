@@ -2,6 +2,7 @@ import ControllableString from '../13/ControllableString.js'
 import ElementBoolean from '../13/ElementBoolean.js'
 import ElementString from '../13/ElementString.js'
 import ListenableObject from '../13/ListenableObject.js'
+import ListenableString from '../13/ListenableString.js'
 import Variables from '../13ga/Variables.js'
 import ControllableNumber from './ControllableNumber.js'
 import DestinationString from './DestinationString.js'
@@ -22,6 +23,8 @@ export default class extends Variables {
         this.batchStartButtonDisabled = new ElementBoolean('/batchStartButtonDisabled', this.elementValues, this.webSocketPathnames)
 
         this.batchTableInnerHTML = new ElementString('/batchTableInnerHTML', this.elementValues, this.webSocketPathnames)
+        
+        this.batchProcessorState = new ListenableString()
     }
 }
 

@@ -43,6 +43,7 @@ variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorDestinationState.assign('idle')
 variables.preset.assign(50)
+variables.batchProcessorState.assign('idle')
 variables.batchParams.assign(new URLSearchParams([
     ['preset', '10'],
     ['randomNumberGeneratorDestinationState', 'busy'],

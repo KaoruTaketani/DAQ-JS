@@ -11,19 +11,21 @@ export default class extends Operator {
         variables.batchResolve.addListener(arg => { this._batchResolve = arg })
         this._batchParams
         variables.batchParams.addListener(arg => { this._batchParams = arg })
+        this._batchProcessorState
+        variables.batchProcessorState.addListener(arg => { this._batchProcessorState = arg })
         this._batchProcessorDestinationState
         variables.batchProcessorDestinationState.addListener(arg => {
             this._batchProcessorDestinationState = arg
             this._operation()
         })
-        this._state = 'idle'
         this._operation = () => {
-            if (this._state === 'idle') {
+            if (this._batchProcessorState === 'idle') {
                 if (this._batchProcessorDestinationState === 'busy') {
                     const ng = Array.from(this._batchParams.keys())
                         .filter(key => !this._batchResolve.has(key))
                     if (ng.length > 0) return
 
+                    variables.batchProcessorState.assign('busy')
                     Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
                         new Promise(resolve => {
                             const [key, value] = params
@@ -38,13 +40,12 @@ export default class extends Operator {
                     ), Promise.resolve()).then(() => {
                         variables.batchProcessorDestinationState.assign('idle')
                     })
-                    this._state = this._batchProcessorDestinationState
                 }
                 return
             }
-            if (this._state === 'busy') {
+            if (this._batchProcessorState === 'busy') {
                 if (this._batchProcessorDestinationState === 'idle') {
-                    this._state = this._batchProcessorDestinationState
+                    variables.batchProcessorState.assign('idle')
                 }
                 return
             }

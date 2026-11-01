@@ -6,15 +6,15 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._batchProcessorDestinationState
-        variables.batchProcessorDestinationState.addListener(arg => {
-            this._batchProcessorDestinationState = arg
+        this._batchProcessorState
+        variables.batchProcessorState.addListener(arg => {
+            this._batchProcessorState = arg
             this._operation()
         })
         this._operation = () => {
-            if (this._batchProcessorDestinationState === 'busy')
+            if (this._batchProcessorState === 'busy')
                 variables.batchStartButtonDisabled.assign(true)
-            if (this._batchProcessorDestinationState === 'idle')
+            if (this._batchProcessorState === 'idle')
                 variables.batchStartButtonDisabled.assign(false)
         }
     }
