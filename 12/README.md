@@ -1,6 +1,19 @@
 
 enable the clients to assign
 
+PutHandler.js:
+```js
+this._httpServer.on('request', (request, response) => {
+    if (request.method !== 'PUT') return
+
+    const url = new URL(`http://localhost${request.url}`)
+    variables.requestParams.assign(url.searchParams)
+
+    response.writeHead(200)
+    response.end('')
+})
+```
+
 ControllableString.js:
 ```js
 import ListenableString from './ListenableString.js'
