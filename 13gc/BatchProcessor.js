@@ -7,8 +7,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._batchResolve
-        variables.batchResolve.addListener(arg => { this._batchResolve = arg })
         this._batchParams
         variables.batchParams.addListener(arg => { this._batchParams = arg })
         this._batchProcessorState
@@ -29,13 +27,8 @@ export default class extends Operator {
                         })
                     ), Promise.resolve()).then(() => {
                         variables.batchResolve.assign(undefined)
-                        variables.batchProcessorDestinationState.assign('idle')
+                        variables.batchProcessorState.assign('idle')
                     })
-                }
-            }
-            if (this._batchProcessorState === 'busy') {
-                if (this._batchProcessorDestinationState === 'idle') {
-                    variables.batchProcessorState.assign('idle')
                 }
             }
         }

@@ -1,29 +1,27 @@
 
 BatchProcessor.js part 1:
 ```js
-Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
-    new Promise((resolve, reject) => {
-        const [key, value] = params
-        this._batchReject = reject
-        if (this._batchResolve.get(key) === null) {
-            variables.requestParams.assign(new URLSearchParams([params]))
-            resolve()
-        } else {
-            this._batchResolve.set(key, resolve)
-            variables.requestParams.assign(new URLSearchParams([params]))
-        }
-    })
-), Promise.resolve()).then(() => {
-    console.log('finished')
-    variables.batchProcessorDestinationState.assign('idle')
-}).catch(() => {
-    console.log('stopped')
-    variables.batchProcessorDestinationState.assign('idle')
-})
-```
-BatchProcessor.js part 2:
-```js
-if (this._state === 'busy') {
+if (this._batchProcessorState === 'idle') {
+    if (this._batchProcessorDestinationState === 'busy') {
+        variables.batchProcessorState.assign('busy')
+        Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
+            new Promise((resolve, reject) => {
+                this._batchReject = reject
+                variables.batchResolve.assign(resolve)
+                variables.requestParams.assign(new URLSearchParams([params]))
+            })
+        ), Promise.resolve()).then(() => {
+             console.log('finished')
+            variables.batchResolve.assign(undefined)
+            variables.batchProcessorState.assign('idle')
+        }).catch(() => {
+            console.log('stopped')
+            variables.batchResolve.assign(undefined)
+            variables.batchProcessorState.assign('idle')
+        })
+    }
+}
+if(this._batchProcessorState === 'busy') {
     if (this._batchProcessorDestinationState === 'idle') {
         this._batchReject()
     }

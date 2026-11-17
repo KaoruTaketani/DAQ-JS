@@ -25,7 +25,7 @@ Array.from(this._batchParams.entries()).reduce((previous, params) => previous.th
     })
 ), Promise.resolve()).then(() => {
     variables.batchResolve.assign(undefined)
-    variables.batchProcessorDestinationState.assign('idle')
+    variables.batchProcessorState.assign('idle')
 })
 ```
 ControllableNumber.js:
