@@ -6,8 +6,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._batchResolve
-        variables.batchResolve.addListener(arg => { this._batchResolve = arg })
         this._batchParams
         variables.batchParams.addListener(arg => {
             this._batchParams = arg
@@ -20,12 +18,6 @@ export default class extends Operator {
         })
         this._operation = () => {
             if (!this._batchParams) return
-
-            if (Array.from(this._batchParams.keys())
-                .filter(key => !this._batchResolve.has(key)).length > 0) {
-                variables.batchStartButtonDisabled.assign(true)
-                return
-            }
 
             if (this._batchProcessorState === 'busy')
                 variables.batchStartButtonDisabled.assign(true)

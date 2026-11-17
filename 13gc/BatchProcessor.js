@@ -24,16 +24,11 @@ export default class extends Operator {
                     variables.batchProcessorState.assign('busy')
                     Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
                         new Promise(resolve => {
-                            const [key, value] = params
-                            if (this._batchResolve.get(key) === null) {
-                                variables.requestParams.assign(new URLSearchParams([params]))
-                                resolve()
-                            } else {
-                                this._batchResolve.set(key, resolve)
-                                variables.requestParams.assign(new URLSearchParams([params]))
-                            }
+                            variables.batchResolve.assign(resolve)
+                            variables.requestParams.assign(new URLSearchParams([params]))
                         })
                     ), Promise.resolve()).then(() => {
+                        variables.batchResolve.assign(undefined)
                         variables.batchProcessorDestinationState.assign('idle')
                     })
                 }

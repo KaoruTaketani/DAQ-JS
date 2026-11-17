@@ -16,11 +16,7 @@ export default class extends Operator {
         this._operation = () => {
             let tbody = ''
             for (const [key, value] of this._batchParams.entries()) {
-                if (this._batchResolve.has(key)) {
-                    tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
-                } else {
-                    tbody += `<tr><td style="background-color:red">${key}</td><td>${value}</td></tr>\n`
-                }
+                tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
             }
 
             variables.batchTableInnerHTML.assign([

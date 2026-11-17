@@ -9,10 +9,12 @@ export default class extends ListenableNumber {
             const value = parseFloat(arg.get(key))
             if (Number.isFinite(value)) {
                 super.assign(value)
+                if (this._batchResolve) {
+                    this._batchResolve()
+                }
             }
         })
-        batchResolve.addListener(arg => {
-            arg.set(key, null)
-        })
+        this._batchResolve
+        batchResolve.addListener(arg => { this._batchResolve = arg })
     }
 }

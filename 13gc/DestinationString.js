@@ -10,16 +10,12 @@ export default class extends ListenableString {
             super.assign(arg.get(key))
         })
         this._batchResolve
-        batchResolve.addListener(arg => {
-            this._batchResolve = arg
-            this._batchResolve.set(this._key, undefined)
-        })
+        batchResolve.addListener(arg => { this._batchResolve = arg })
     }
     assign(arg) {
         super.assign(arg)
-        if (this._batchResolve.get(this._key) !== undefined) {
-            this._batchResolve.get(this._key)()
-            this._batchResolve.set(this._key, undefined)
+        if (this._batchResolve) {
+            this._batchResolve()
         }
     }
 }

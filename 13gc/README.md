@@ -20,16 +20,11 @@ BatchProcessor.js:
 variables.batchProcessorState.assign('busy')
 Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
     new Promise(resolve => {
-        const [key, value] = params
-        if (this._batchResolve.get(key) === null) {
-            variables.requestParams.assign(new URLSearchParams([params]))
-            resolve()
-        } else {
-            this._batchResolve.set(key, resolve)
-            variables.requestParams.assign(new URLSearchParams([params]))
-        }
+        variables.batchResolve.assign(resolve)
+        variables.requestParams.assign(new URLSearchParams([params]))
     })
 ), Promise.resolve()).then(() => {
+    variables.batchResolve.assign(undefined)
     variables.batchProcessorDestinationState.assign('idle')
 })
 ```
@@ -44,10 +39,14 @@ export default class extends ListenableNumber {
             const value = parseFloat(arg.get(key))
             if (Number.isFinite(value)) {
                 super.assign(value)
+                if (this._batchResolve) {
+                    this._batchResolve()
+                }
             }
         })
+        this._batchResolve
         batchResolve.addListener(arg => {
-            arg.set(key, null)
+            this._batchResolve = arg
         })
     }
 }
@@ -65,16 +64,12 @@ export default class extends ListenableString {
             super.assign(arg.get(key))
         })
         this._batchResolve
-        batchResolve.addListener(arg => {
-            this._batchResolve = arg
-            this._batchResolve.set(this._key, undefined)
-        })
+        batchResolve.addListener(arg => { this._batchResolve = arg })
     }
     assign(arg) {
         super.assign(arg)
-        if (this._batchResolve.get(this._key) !== undefined) {
-            this._batchResolve.get(this._key)()
-            this._batchResolve.set(this._key, undefined)
+        if (this._batchResolve) {
+            this._batchResolve()
         }
     }
 }
