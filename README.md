@@ -82,7 +82,7 @@
 
 [13.f.e Color Limits](./13fe/README.md)
 
-13.g Scanner
+13.g Batch
 
 [13.g.a Preset](./13ga/README.md)
 
@@ -92,9 +92,9 @@
 
 [13.g.d Batch Stopper](./13gd/README.md)
 
-[13.g.e Batch Editor](./13ge/README.md)
+[13.g.e Batch Limits](./13ge/README.md)
 
-[13.g.f Scanner](./13gf/README.md)
+[13.g.f Batch Editor](./13gf/README.md)
 
 [13.g.g Scanner](./13gg/README.md)
 

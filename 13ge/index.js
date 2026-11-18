@@ -14,11 +14,9 @@ import HistogramSVGInnerHTMLMaker from '../13gb/HistogramSVGInnerHTMLMaker.js'
 import RandomNumberGenerator from '../13gb/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13gb/RandomNumberInnerTextChanger.js'
 import BatchProcessor from '../13gd/BatchProcessor.js'
-import BatchEditButtonDisabledChanger from './BatchEditButtonDisabledChanger.js'
 import BatchStartButtonDisabledChanger from './BatchStartButtonDisabledChanger.js'
 import BatchStopButtonDisabledChanger from './BatchStopButtonDisabledChanger.js'
 import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
-import TextAreaValueChanger from './TextAreaValueChanger.js'
 import Variables from './Variables.js'
 
 const variables = new Variables()
@@ -34,7 +32,6 @@ new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new BatchStartButtonDisabledChanger(variables)
 new BatchStopButtonDisabledChanger(variables)
-new BatchEditButtonDisabledChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new PresetValueChanger(variables)
@@ -42,7 +39,6 @@ new PresetDisabledChanger(variables)
 new Comparator(variables)
 new BatchTableInnerHTMLMaker(variables)
 new BatchProcessor(variables)
-new TextAreaValueChanger(variables)
 
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])

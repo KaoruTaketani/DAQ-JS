@@ -113,56 +113,6 @@ socket.onclose = () => {
     })(element.appendChild(document.createElement('input')));
 
     (element => {
-        const dialogElement = document.body.appendChild(document.createElement('dialog'));
-        element.type = 'button'
-        element.value = 'edit'
-        element.style.width = '130px'
-        element.onclick = () => {
-            dialogElement.showModal()
-        }
-        url.pathname = 'batchEditButtonDisabled'
-        const disabledSocket = new WebSocket(url)
-        disabledSocket.onmessage = event => {
-            element.disabled = event.data
-        }
-
-        (element => {
-            (element => {
-                element.autocorrect = 'off'
-                element.rows = 20
-                element.style.width = '360px'
-                element.style.resize = 'none'
-                element.style.margin = '10px'
-
-                url.pathname = 'textAreaValue'
-                const valueSocket = new WebSocket(url)
-                valueSocket.onmessage = event => {
-                    element.value = event.data
-                }
-            })(element.appendChild(document.createElement('textarea')));
-        })(dialogElement.appendChild(document.createElement('div')));
-
-        (element => {
-            element.type = 'button'
-            element.value = 'ok'
-            element.style.width = '130px'
-            element.onclick = () => {
-                dialogElement.close()
-            }
-        })(dialogElement.appendChild(document.createElement('input')));
-
-        (element => {
-            element.type = 'button'
-            element.value = 'cancel'
-            element.style.marginLeft = '120px'
-            element.style.width = '130px'
-            element.onclick = () => {
-                dialogElement.close()
-            }
-        })(dialogElement.appendChild(document.createElement('input')));
-    })(element.appendChild(document.createElement('input')));
-
-    (element => {
         url.pathname = 'batchTableInnerHTML'
         const innerHTMLSocket = new WebSocket(url)
         innerHTMLSocket.onmessage = event => {
