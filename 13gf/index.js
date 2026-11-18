@@ -20,6 +20,7 @@ import BatchTableInnerHTMLMaker from '../13ge/BatchTableInnerHTMLMaker.js'
 import BatchEditButtonDisabledChanger from './BatchEditButtonDisabledChanger.js'
 import TextAreaValueChanger from './TextAreaValueChanger.js'
 import Variables from './Variables.js'
+import BatchParamsMaker from './BatchParamsMaker.js'
 
 const variables = new Variables()
 
@@ -43,6 +44,7 @@ new Comparator(variables)
 new BatchTableInnerHTMLMaker(variables)
 new BatchProcessor(variables)
 new TextAreaValueChanger(variables)
+new BatchParamsMaker(variables)
 
 variables.httpServer.assign(new Server())
 variables.histogramBinLimits.assign([0, 1])

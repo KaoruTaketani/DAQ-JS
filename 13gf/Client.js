@@ -126,6 +126,7 @@ socket.onclose = () => {
             element.disabled = event.data
         }
 
+        let textAreaValue
         (element => {
             (element => {
                 element.autocorrect = 'off'
@@ -138,7 +139,11 @@ socket.onclose = () => {
                 const valueSocket = new WebSocket(url)
                 valueSocket.onmessage = event => {
                     element.value = event.data
+                    element.dispatchEvent(new Event('input'))
                 }
+                element.addEventListener('input', () => {
+                    textAreaValue = element.value
+                })
             })(element.appendChild(document.createElement('textarea')));
         })(dialogElement.appendChild(document.createElement('div')));
 
@@ -147,6 +152,10 @@ socket.onclose = () => {
             element.value = 'ok'
             element.style.width = '130px'
             element.onclick = () => {
+                const xhr = new XMLHttpRequest()
+                xhr.open('PUT', `/?batchParamsMakerInput=${encodeURIComponent(textAreaValue)}`)
+                xhr.send()
+
                 dialogElement.close()
             }
         })(dialogElement.appendChild(document.createElement('input')));

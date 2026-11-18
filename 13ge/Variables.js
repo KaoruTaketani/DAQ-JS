@@ -1,9 +1,7 @@
-import ElementString from '../13/ElementString.js'
-import ElementBoolean from '../13/ElementBoolean.js'
 import ListenableObject from '../13/ListenableObject.js'
+import Variables from '../13gd/Variables.js'
 import ControllableNumber from './ControllableNumber.js'
 import DestinationString from './DestinationString.js'
-import Variables from '../13gd/Variables.js'
 
 export default class extends Variables {
     constructor() {
