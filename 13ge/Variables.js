@@ -1,4 +1,5 @@
 import ElementString from '../13/ElementString.js'
+import ElementBoolean from '../13/ElementBoolean.js'
 import ListenableObject from '../13/ListenableObject.js'
 import ControllableNumber from './ControllableNumber.js'
 import DestinationString from './DestinationString.js'
@@ -17,6 +18,8 @@ export default class extends Variables {
 
         // overwrite defined in ../13gc/Variables.js
         this.preset = new ControllableNumber('preset', this.requestParams, this.batchResolve, this.batchLimits, this.presetLimits)
+
+        this.batchEditButtonDisabled = new ElementBoolean('/batchEditButtonDisabled', this.elementValues, this.webSocketPathnames)
 
         this.textAreaValue = new ElementString('/textAreaValue', this.elementValues, this.webSocketPathnames)
     }

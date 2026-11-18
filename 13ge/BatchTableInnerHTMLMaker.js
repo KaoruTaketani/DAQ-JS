@@ -30,7 +30,7 @@ export default class extends Operator {
                                     tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
                                 } else {
                                     tbody += `<tr><td>${key}</td><td style="background-color:red">${value}</td></tr>\n`
-                                    variables.batchProcessorState.assign('busy')
+                                    variables.batchProcessorState.assign('error')
                                 }
                             }
                             if (typeof limits[0] === 'number') {
@@ -43,7 +43,7 @@ export default class extends Operator {
                                         tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
                                     } else {
                                         tbody += `<tr><td>${key}</td><td style="background-color:red">${value}</td></tr>\n`
-                                        variables.batchProcessorState.assign('busy')
+                                        variables.batchProcessorState.assign('error')
                                     }
                                 }
                             }
@@ -53,7 +53,7 @@ export default class extends Operator {
                     }
                 } else {
                     tbody += `<tr><td style="background-color:red">${key}</td><td>${value}</td></tr>\n`
-                    variables.batchProcessorState.assign('busy')
+                    variables.batchProcessorState.assign('error')
                 }
             }
 

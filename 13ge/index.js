@@ -13,10 +13,11 @@ import PresetValueChanger from '../13ga/PresetValueChanger.js'
 import HistogramSVGInnerHTMLMaker from '../13gb/HistogramSVGInnerHTMLMaker.js'
 import RandomNumberGenerator from '../13gb/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13gb/RandomNumberInnerTextChanger.js'
-import BatchStartButtonDisabledChanger from '../13gc/BatchStartButtonDisabledChanger.js'
-import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
 import BatchProcessor from '../13gd/BatchProcessor.js'
-import BatchStopButtonDisabledChanger from '../13gd/BatchStopButtonDisabledChanger.js'
+import BatchEditButtonDisabledChanger from './BatchEditButtonDisabledChanger.js'
+import BatchStartButtonDisabledChanger from './BatchStartButtonDisabledChanger.js'
+import BatchStopButtonDisabledChanger from './BatchStopButtonDisabledChanger.js'
+import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
 import TextAreaValueChanger from './TextAreaValueChanger.js'
 import Variables from './Variables.js'
 
@@ -33,6 +34,7 @@ new RandomNumberGenerator(variables)
 new RandomNumberInnerTextChanger(variables)
 new BatchStartButtonDisabledChanger(variables)
 new BatchStopButtonDisabledChanger(variables)
+new BatchEditButtonDisabledChanger(variables)
 new StartButtonDisabledChanger(variables)
 new StopButtonDisabledChanger(variables)
 new PresetValueChanger(variables)

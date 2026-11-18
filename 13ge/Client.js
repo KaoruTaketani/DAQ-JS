@@ -120,7 +120,7 @@ socket.onclose = () => {
         element.onclick = () => {
             dialogElement.showModal()
         }
-        url.pathname = 'batchStartButtonDisabled'
+        url.pathname = 'batchEditButtonDisabled'
         const disabledSocket = new WebSocket(url)
         disabledSocket.onmessage = event => {
             element.disabled = event.data
