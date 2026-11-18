@@ -15,6 +15,7 @@ export default class extends Operator {
         })
         this._operation = () => {
             let tbody = ''
+            let failed = false
             for (const [key, value] of this._batchParams.entries()) {
                 if (this._batchLimits.has(key)) {
                     const limits = this._batchLimits.get(key)
@@ -30,7 +31,7 @@ export default class extends Operator {
                                     tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
                                 } else {
                                     tbody += `<tr><td>${key}</td><td style="background-color:red">${value}</td></tr>\n`
-                                    variables.batchProcessorState.assign('error')
+                                    failed = true
                                 }
                             }
                             if (typeof limits[0] === 'number') {
@@ -43,7 +44,7 @@ export default class extends Operator {
                                         tbody += `<tr><td>${key}</td><td>${value}</td></tr>\n`
                                     } else {
                                         tbody += `<tr><td>${key}</td><td style="background-color:red">${value}</td></tr>\n`
-                                        variables.batchProcessorState.assign('error')
+                                        failed = true
                                     }
                                 }
                             }
@@ -53,10 +54,11 @@ export default class extends Operator {
                     }
                 } else {
                     tbody += `<tr><td style="background-color:red">${key}</td><td>${value}</td></tr>\n`
-                    variables.batchProcessorState.assign('error')
+                    failed = true
                 }
             }
 
+            variables.batchProcessorState.assign(failed ? 'error' : 'idle')
             variables.batchTableInnerHTML.assign([
                 '<thead>',
                 '<tr><th>key</th><th>value</th></tr>',
