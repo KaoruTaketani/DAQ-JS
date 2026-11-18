@@ -12,9 +12,9 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            let tmp=''
-            this._batchParams.forEach((value,key)=>{
-                tmp+=`${key}: ${value}\n`
+            let tmp = ''
+            this._batchParams.forEach((value, key) => {
+                tmp += `${key}: ${value}\n`
             })
             variables.textAreaValue.assign(tmp)
         }

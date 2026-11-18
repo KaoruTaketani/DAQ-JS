@@ -1,3 +1,12 @@
+both ControllableNumber.js and DestinationString.js add batchLimits, limits in their constructors:
+```js
+this._batchLimits
+batchLimits.addListener(arg => { this._batchLimits = arg })
+limits.addListener(arg => {
+    this._batchLimits.set(key, arg)
+})
+```
+
 
 ## How to run the sample code in this folder
 1. open a terminal

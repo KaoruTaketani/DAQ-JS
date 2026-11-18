@@ -1,5 +1,5 @@
 
-BatchProcessor.js part 1:
+BatchProcessor.js:
 ```js
 if (this._batchProcessorState === 'idle') {
     if (this._batchProcessorDestinationState === 'busy') {
