@@ -52,9 +52,9 @@
 
 13.d Axes
 
-[13.d.a Axes Limits](./13da/README.md)
+[13.d.a Limits](./13da/README.md)
 
-[13.d.b Log Scale](./13db/README.md)
+[13.d.b Scale](./13db/README.md)
 
 [13.d.c Cursor Coordinate](./13dc/README.md)
 
@@ -78,9 +78,9 @@
 
 [13.f.c Cursor Value](./13fc/README.md)
 
-[13.f.d Log Scale](./13fd/README.md)
+[13.f.d Scale](./13fd/README.md)
 
-[13.f.e Color Limits](./13fe/README.md)
+[13.f.e Limits](./13fe/README.md)
 
 13.g Batch
 
