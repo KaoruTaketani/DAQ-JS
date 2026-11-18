@@ -14,7 +14,7 @@ import HistogramSVGInnerHTMLMaker from '../13gb/HistogramSVGInnerHTMLMaker.js'
 import RandomNumberGenerator from '../13gb/RandomNumberGenerator.js'
 import RandomNumberInnerTextChanger from '../13gb/RandomNumberInnerTextChanger.js'
 import BatchStartButtonDisabledChanger from '../13gc/BatchStartButtonDisabledChanger.js'
-import BatchTableInnerHTMLMaker from '../13gc/BatchTableInnerHTMLMaker.js'
+import BatchTableInnerHTMLMaker from './BatchTableInnerHTMLMaker.js'
 import BatchProcessor from '../13gd/BatchProcessor.js'
 import BatchStopButtonDisabledChanger from '../13gd/BatchStopButtonDisabledChanger.js'
 import TextAreaValueChanger from './TextAreaValueChanger.js'
@@ -47,13 +47,17 @@ variables.histogramBinLimits.assign([0, 1])
 variables.randomNumberGeneratorDestinationState.assign('idle')
 variables.preset.assign(50)
 variables.batchProcessorState.assign('idle')
+variables.batchLimits.assign(new Map())
+// limits must be assigned after batchLiimts is assigned
+variables.randomNumberGeneratorDestinationStateLimits.assign(['busy'])
+variables.presetLimits.assign([0, 35])
 variables.batchParams.assign(new URLSearchParams([
     ['preset', '10'],
     ['randomNumberGeneratorDestinationState', 'busy'],
     ['preset', '20'],
     ['randomNumberGeneratorDestinationState', 'busy'],
     ['preset', '30'],
-    ['randomNumberGeneratorDestinationState', 'busy'],
+    ['randomNumberGeneratorDestinationState', 'buy'],
     ['preset', '40'],
     ['randomNumberGeneratorDestinationState', 'busy'],
     ['preset', '50'],

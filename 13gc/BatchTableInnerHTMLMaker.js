@@ -6,8 +6,6 @@ export default class extends Operator {
      */
     constructor(variables) {
         super()
-        this._batchResolve
-        variables.batchResolve.addListener(arg => { this._batchResolve = arg })
         this._batchParams
         variables.batchParams.addListener(arg => {
             this._batchParams = arg
