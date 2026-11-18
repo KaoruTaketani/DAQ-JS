@@ -130,7 +130,7 @@ socket.onclose = () => {
             (element => {
                 element.autocorrect = 'off'
                 element.rows = 20
-                element.style.width = '240px'
+                element.style.width = '360px'
                 element.style.resize = 'none'
                 element.style.margin = '10px'
 
@@ -154,6 +154,7 @@ socket.onclose = () => {
         (element => {
             element.type = 'button'
             element.value = 'cancel'
+            element.style.marginLeft = '120px'
             element.style.width = '130px'
             element.onclick = () => {
                 dialogElement.close()

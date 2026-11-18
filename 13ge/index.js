@@ -57,7 +57,7 @@ variables.batchParams.assign(new URLSearchParams([
     ['preset', '10'],
     ['randomNumberGeneratorDestinationState', 'busy'],
     ['preset', '20'],
-    ['randomNumberGeneratorDestinationState', 'busy'],
+    ['radomNumberGeneratorDestinationState', 'busy'],
     ['preset', '30'],
     ['randomNumberGeneratorDestinationState', 'buy'],
     ['preset', '40'],
