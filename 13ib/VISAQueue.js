@@ -20,7 +20,9 @@ export default class {
             console.log(`called vi: ${vi}, etype: ${etype}, event: ${event}, userHandle:${userHandle}`)
             this._RdCount = getAttribute(event, VI_ATTR_RET_COUNT)
             const tmp = new TextDecoder().decode(this._buffer.subarray(0, this._RdCount))
-            console.log(tmp)
+            // console.log(tmp)
+            response.assign(new URLSearchParams([[this._request, tmp]]))
+
             this._isBusy = false
             this._next()
             return 0
@@ -51,7 +53,7 @@ export default class {
         // }
         this._isBusy = true
 
-        write(this._inst, 'pulse?:A:5')
+        write(this._inst, this._request)
         const job = readAsync(this._inst, this._buffer)
 
     }
