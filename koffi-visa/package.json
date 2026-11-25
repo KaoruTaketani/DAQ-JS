@@ -1,6 +1,6 @@
 {
   "type": "module",
   "dependencies": {
-    "koffi": "^3.3.3"
+    "koffi": "^2.16.4"
   }
 }

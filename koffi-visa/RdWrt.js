@@ -4,10 +4,11 @@ const defaultRM = openDefaultRM()
 let instr 
 try {
     // instr = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
-    instr = open(defaultRM, 'TCPIP0::127.0.0.1::23::SOCKET')
+    instr = open(defaultRM, 'TCPIP0::127.0.0.1::3004::SOCKET')
     setAttribute(instr, VI_ATTR_TMO_VALUE, 5000)
     // write(instr, '*IDN?\n')
-    write(instr, 'get')
+    // write(instr, 'get')
+    write(instr, 'pulse?:A:5')
     const buf = new Uint8Array(100)
     const retCount = read(instr,buf)
     console.log('Read result:', new TextDecoder().decode(buf.subarray(0,retCount)))

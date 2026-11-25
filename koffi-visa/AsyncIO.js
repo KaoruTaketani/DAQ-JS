@@ -6,7 +6,7 @@ let RdCount=-1
 
 const defaultRM = openDefaultRM()
 // const inst = open(defaultRM, 'USB0::0x0D4A::0x000E::9139964::INSTR')
-const  inst = open(defaultRM, 'TCPIP0::127.0.0.1::23::SOCKET')
+const  inst = open(defaultRM, 'TCPIP0::127.0.0.1::3004::SOCKET')
 const data = new Uint8Array(4096)
 // ViStatus _VI_FUNCH AsyncHandler(ViSession vi, ViEventType etype, ViEvent event, ViAddr userHandle)
 const handle = register((/** @type {number} */vi,/** @type {number} */etype,/** @type {number} */event,/** @type {function} */userHandle) => {
@@ -18,7 +18,7 @@ const handle = register((/** @type {number} */vi,/** @type {number} */etype,/** 
 installHandler(inst,handle)
 enableEvent(inst)
 // write(inst,'*IDN?\n')
-write(inst,'get')
+write(inst,'pulse?:A:5')
 console.log('wait until the handler is called. then hit enter to continue.')
 const job=readAsync(inst,data)
 // console.log(`inst: ${inst}`)

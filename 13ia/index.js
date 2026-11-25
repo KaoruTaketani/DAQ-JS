@@ -8,7 +8,7 @@ const variables = new Variables()
 new Channel1PulseListener(variables)
 new Channel2PulseListener(variables)
 
-const queue = new TCPQueue(3004, 'localhost', variables.tcpResponse)
+const queue = new TCPQueue(3004, 'localhost', variables.response)
 
 queue.push('pulse?:A:5')
 queue.push('pulse?:A:6')
