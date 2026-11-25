@@ -108,11 +108,15 @@
 
 [13.h.d Worker](./13hd/README.md)
 
-13.i Motor
+13.i Pulse Motor
 
 [13.i.a TCP Queue](./13ia/README.md)
 
-[13.i.b Remote Number](./13ib/README.md)
+[13.i.b VISA Queue](./13ib/README.md)
+
+[13.i.c Pulse Destination](./13ic/README.md)
+
+[13.i.d Position Destination](./13id/README.md)
 
 13.j Test
 

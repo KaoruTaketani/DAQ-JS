@@ -1,10 +1,9 @@
 import { Socket } from 'net'
 
 export default class {
-    constructor(port, host, handlers) {
+    constructor(port, host, response) {
         this._port = port
         this._host = host
-        this._handlers = handlers
         /** @type {boolean} */
         this._isBusy = false
         /** @type {string[]} */
@@ -14,12 +13,7 @@ export default class {
         this._socket = new Socket()
         this._socket.setEncoding('utf8')
         this._socket.on('data', data => {
-            const handler = this._handlers.get(this._requestMessage)
-
-            if (handler) {
-                handler(data)
-            }
-
+            response.assign(new URLSearchParams([[this._requestMessage, data]]))
             this._isBusy = false
             this._next()
         })
