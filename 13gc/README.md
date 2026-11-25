@@ -18,12 +18,14 @@ variables.batchParams.assign(new URLSearchParams([
 BatchProcessor.js:
 ```js
 variables.batchProcessorState.assign('busy')
-Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
+Array.from(this._batchParams.entries()).reduce((previous, params, index) => previous.then(() =>
     new Promise(resolve => {
+        variables.batchIndex.assign(index)
         variables.batchResolve.assign(resolve)
         variables.requestParams.assign(new URLSearchParams([params]))
     })
 ), Promise.resolve()).then(() => {
+    variables.batchIndex.assign(-1)
     variables.batchResolve.assign(undefined)
     variables.batchProcessorState.assign('idle')
 })

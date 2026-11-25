@@ -20,12 +20,14 @@ export default class extends Operator {
             if (this._batchProcessorState === 'idle') {
                 if (this._batchProcessorDestinationState === 'busy') {
                     variables.batchProcessorState.assign('busy')
-                    Array.from(this._batchParams.entries()).reduce((previous, params) => previous.then(() =>
+                    Array.from(this._batchParams.entries()).reduce((previous, params, index) => previous.then(() =>
                         new Promise(resolve => {
+                            variables.batchIndex.assign(index)
                             variables.batchResolve.assign(resolve)
                             variables.requestParams.assign(new URLSearchParams([params]))
                         })
                     ), Promise.resolve()).then(() => {
+                        variables.batchIndex.assign(-1)
                         variables.batchResolve.assign(undefined)
                         variables.batchProcessorState.assign('idle')
                     })
