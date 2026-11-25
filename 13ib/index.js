@@ -8,6 +8,11 @@ const variables = new Variables()
 new Channel1PulseListener(variables)
 new Channel2PulseListener(variables)
 
+// const queue = new VISASync('TCPIP0::127.0.0.1::3004::SOCKET', variables.response)
+// queue.write('pulse?:A:5')
+// queue.write('pulse?:A:6')
+// queue.write('pulse?:B:5')
+
 const queue = new VISAQueue('TCPIP0::127.0.0.1::3004::SOCKET', variables.response)
 
 queue.push('pulse?:A:5')

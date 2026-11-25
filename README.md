@@ -112,7 +112,7 @@
 
 [13.i.a TCP Queue](./13ia/README.md)
 
-[13.i.b VISA Sync](./13ib/README.md)
+[13.i.b VISA Queue](./13ib/README.md)
 
 [13.i.c Pulse Destination](./13ic/README.md)
 
