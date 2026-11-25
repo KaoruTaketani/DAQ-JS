@@ -1,12 +1,12 @@
 import ListenableNumber from "../13/ListenableNumber.js"
 
 export default class extends ListenableNumber {
-    constructor(requestMessage, parser, response) {
+    constructor(request, parser, response) {
         super()
         response.addListener(arg => {
-            if (!arg.has(requestMessage)) return
+            if (!arg.has(request)) return
 
-            super.assign(parser(arg.get(requestMessage)))
+            super.assign(parser(arg.get(request)))
         })
     }
 }
