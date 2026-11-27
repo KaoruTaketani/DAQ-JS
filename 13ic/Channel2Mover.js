@@ -16,9 +16,11 @@ export default class extends Operator {
             this._operation()
         })
         this._operation = () => {
-            console.log(this._channel2Destination)
+            console.log(`channel2Destination: ${this._channel2Destination}`)
             if (Number.isNaN(this._channel2Destination)) return
 
+            this._tcpQueue.push(`move_to:A:6 2 ${this._channel2Destination}`)
+            this._tcpQueue.push(`pulse?:A:6`)
             // this._tcpQueue.push((socket, done) => {
             //     socket.once('data', data => {
             //         console.log(`1st data: ${data}`)

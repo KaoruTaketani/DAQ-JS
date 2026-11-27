@@ -22,6 +22,7 @@ export default class {
 
         this.stopButtonDisabled = new ElementBoolean('/stopButtonDisabled', this.elementValues, this.webSocketPathnames)
 
+        this.pulseMotorTableInnerHTML = new ElementString('/pulseMotorTableInnerHTML', this.elementValues, this.webSocketPathnames)
         this.channel1PulseInnerText = new ElementString('/channel1PulseInnerText', this.elementValues, this.webSocketPathnames)
         this.channel2PulseInnerText = new ElementString('/channel2PulseInnerText', this.elementValues, this.webSocketPathnames)
         this.channel1DestinationInnerText = new ElementString('/channel1DestinationInnerText', this.elementValues, this.webSocketPathnames)

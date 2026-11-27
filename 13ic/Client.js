@@ -27,117 +27,53 @@ socket.onclose = () => {
         }
     })(element.appendChild(document.createElement('input')));
 
+    let clickedHref = '';
+    const dialogElement = document.createElement('dialog');
     (element => {
         (element => {
-            (element => {
-                (element => {
-                    element.innerText = 'channel'
-                })(element.appendChild(document.createElement('th')));
-                (element => {
-                    element.innerText = 'pulse'
-                })(element.appendChild(document.createElement('th')));
-                (element => {
-                    element.innerText = 'destination'
-                })(element.appendChild(document.createElement('th')));
-            })(element.appendChild(document.createElement('tr')));
-
-        })(element.appendChild(document.createElement('thead')));
-
+            element.type = 'button'
+            element.value = 'close'
+            element.addEventListener('click', () => { element.parentElement.close() })
+        })(element.appendChild(document.createElement('input')));
+        const inputElement = document.createElement('input');
         (element => {
-            (element => {
-                (element => {
-                    element.style.textAlign = 'right'
-                    element.innerText = '1'
-                })(element.appendChild(document.createElement('td')));
-                (element => {
-                    element.style.textAlign = 'right'
-                    url.pathname = 'channel1PulseInnerText'
-                    const innerTextSocket = new WebSocket(url)
-                    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-                        element.innerText = event.data
-                    }
-                })(element.appendChild(document.createElement('td')));
+            element.style.marginLeft = '10px'
+            element.style.width = '100px'
+            element.style.marginRight = '10px'
+            element.focu
+        })(element.appendChild(inputElement));
+        (element => {
+            element.type = 'button'
+            element.value = 'set'
+            element.addEventListener('click', () => {
+                const xhr = new XMLHttpRequest()
+                const url=clickedHref.replace('#', '/?') + 'Destination=' + inputElement.value
+                xhr.open('PUT', url)
+                xhr.send()
+                console.log(url)
+                element.parentElement.close()
+                inputElement.value = ''
+            })
+        })(element.appendChild(document.createElement('input')));
+    })(element.appendChild(dialogElement));
 
-                (element => {
-                    element.style.textAlign = 'right';
+    (element => {
+        url.pathname = 'pulseMotorTableInnerHTML'
+        const innerHTMLSocket = new WebSocket(url)
+        innerHTMLSocket.onmessage = (/** @type {MessageEvent} */event) => {
+            element.innerHTML = event.data
 
-                    (element => {
-                        element.href = '#'
-                        url.pathname = 'channel1DestinationInnerText'
-                        const innerTextSocket = new WebSocket(url)
-                        innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-                            element.innerText = event.data
-                        }
-                    })(element.appendChild(document.createElement('a')));
-                })(element.appendChild(document.createElement('td')));
-            })(element.appendChild(document.createElement('tr')));
-
-            (element => {
-                (element => {
-                    element.style.textAlign = 'right'
-                    element.innerText = '2'
-                })(element.appendChild(document.createElement('td')));
-                (element => {
-                    element.style.textAlign = 'right'
-
-                    url.pathname = 'channel2PulseInnerText'
-                    const innerTextSocket = new WebSocket(url)
-                    innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-                        element.innerText = event.data
-                    }
-                })(element.appendChild(document.createElement('td')));
-
-                (element => {
-                    element.style.textAlign = 'right';
-
-                    (element => {
-                        element.href = '#'
-                        const dialogElement = document.body.appendChild(document.createElement('dialog'));
-                        (element => {
-                            const inputElement = document.createElement('input');
-                            (element => {
-                                (element => {
-                                    element.type = 'input'
-                                    element.style.width = '240px'
-                                    element.style.margin = '10px'
-
-                                })(element.appendChild(inputElement));
-                            })(element.appendChild(document.createElement('div')));
-                            (element => {
-                                element.value = 'ok'
-                                element.style.width = '130px'
-                                element.type = 'button'
-                                element.onclick = () => {
-                                    const xhr = new XMLHttpRequest()
-                                    xhr.open('PUT', `/?channel2Destination=${inputElement.value}`)
-                                    xhr.send()
-
-                                    dialogElement.close()
-                                }
-                            })(element.appendChild(document.createElement('input')));
-                            (element => {
-                                element.value = 'cancel'
-                                element.style.width = '130px'
-                                element.type = 'button'
-                                element.onclick = () => {
-                                    dialogElement.close()
-                                }
-                            })(element.appendChild(document.createElement('input')));
-                        })(document.body.appendChild(dialogElement))
-
-                        element.onclick = () => {
-                            dialogElement.showModal()
-                        }
-                        url.pathname = 'channel2DestinationInnerText'
-                        const innerTextSocket = new WebSocket(url)
-                        innerTextSocket.onmessage = (/** @type {MessageEvent} */event) => {
-                            element.innerText = event.data
-                        }
-                    })(element.appendChild(document.createElement('a')));
-                })(element.appendChild(document.createElement('td')));
-            })(element.appendChild(document.createElement('tr')));
-        })(element.appendChild(document.createElement('tbody')));
+            const modalLinks = element.querySelectorAll('a[href^="#"]');
+            modalLinks.forEach(modalLink => {
+                modalLink.addEventListener('click', () => {
+                    clickedHref = modalLink.getAttribute('href')
+                    dialogElement.showModal()
+                })
+            })
+        }
     })(element.appendChild(document.createElement('table')));
+
+
 })(document.body.appendChild(document.createElement('fieldset')));
 
 
